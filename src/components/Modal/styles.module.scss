@@ -1,0 +1,42 @@
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+
+  .modal-inner {
+    width: 80%;
+    max-width: 700px;
+    min-height: 300px;
+    margin: 50px auto 0;
+    background: white;
+    position: relative;
+    border-radius: 4px;
+    padding: 0 26px 25px 26px;
+    overflow: auto;
+  }
+
+  .modal-back {
+    background: #00000055;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+  .modal-close-btn {
+    position: absolute;
+    top: 23px;
+    right: 20px;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+  }
+  .modal-close-btn * {
+    stroke-width: 1px !important;
+  }
+}

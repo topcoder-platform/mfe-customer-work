@@ -1,0 +1,40 @@
+@import "styles/include";
+
+.bold {
+  font-weight: 800;
+}
+
+.description {
+  margin-top: 0;
+}
+
+.backButton {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+  width: fit-content;
+
+  span {
+    @include font-barlow;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 20px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.footer {
+  margin-top: 66px;
+}
+
+.tabSeletorWrapper {
+  margin-bottom: 104px;
+}
+
+.backButtonWrapper {
+  min-width: 40px;
+  margin-top: 3px;
+}

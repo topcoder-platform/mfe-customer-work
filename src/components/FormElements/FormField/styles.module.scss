@@ -1,0 +1,27 @@
+@import "styles/include";
+
+.form-field-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 18px;
+  .form-field {
+    border: 1px solid #b7b7b7;
+    border-radius: 4px;
+    background: white;
+    padding-top: 24px;
+    margin-bottom: 10px;
+
+    .label {
+      position: absolute;
+      top: 5px;
+      left: 15px;
+      color: $green1;
+      font-size: 13px;
+    }
+  }
+  .error {
+    color: #ec2710;
+  }
+}

@@ -1,0 +1,35 @@
+/**
+ * ProgressPopup
+ *
+ * Tab Selector
+ */
+import PT from "prop-types";
+import React from "react";
+import "./styles.module.scss";
+import Tab from "./Tab";
+
+const TabSelector = ({ items, handleClick = (e) => e }) => {
+  return (
+    <div styleName="tabSelector">
+      {items.map((item) => (
+        <Tab
+          title={item.title}
+          subTitle={item.subTitle}
+          price={item.price}
+          onClick={() => handleClick(item)}
+        />
+      ))}
+    </div>
+  );
+};
+
+TabSelector.defaultProps = {
+  items: [],
+};
+
+TabSelector.propTypes = {
+  items: PT.arrayOf(PT.shape()),
+  handleClick: PT.func,
+};
+
+export default TabSelector;

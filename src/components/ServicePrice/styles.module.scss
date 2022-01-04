@@ -1,0 +1,22 @@
+@import "styles/include";
+
+.serviceTitle {
+  margin-top: 16px;
+  @include font-barlow;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.servicePrice {
+  @include font-barlow;
+  margin-top: 8px;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 600;
+  color: $black;
+
+  svg {
+    margin-left: 9px;
+  }
+}
