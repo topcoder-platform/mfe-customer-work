@@ -10,6 +10,7 @@ import Review from "./routes/Review";
 import SelectWorkType from "./routes/SelectWorkType";
 import ThankYou from "./routes/ThankYou";
 import WebsitePurpose from "./routes/WebsitePurpose";
+import WorkItems from "./routes/WorkItems";
 import store from "./store";
 import styles from "./styles/main.module.scss";
 
@@ -23,13 +24,13 @@ export default function Root() {
     disableSidebarForRoute("/self-service/review");
     disableSidebarForRoute("/self-service/payment");
     disableSidebarForRoute("/self-service/thank-you");
+    disableSidebarForRoute("/self-service/work-items");
   }, []);
 
   return (
     <div className={styles["topcoder-micro-frontends-self-service-app"]}>
       <Provider store={store}>
         <Router>
-          <SelectWorkType path="/self-service" />
           <BasicInfo path="/self-service/basic-info" />
           <WebsitePurpose path="/self-service/website-purpose" />
           <PageDetails path="/self-service/page-details" />
@@ -37,6 +38,8 @@ export default function Root() {
           <Review path="/self-service/review" />
           <Payment path="/self-service/payment" />
           <ThankYou path="/self-service/thank-you" />
+          <WorkItems path="/self-service/work-items/:workItemId" />
+          <SelectWorkType default noThrow path="/self-service" />
         </Router>
       </Provider>
     </div>
