@@ -1,7 +1,10 @@
 import { Router } from "@reach/router";
 import { disableSidebarForRoute } from "@topcoder/micro-frontends-navbar-app";
+import Sidebar from "components/Sidebar";
+import useMatchSomeRoute from "hooks/useMatchSomeRoute";
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
+import { disabledSidebarRoutes, menuItems } from "./constants";
 import BasicInfo from "./routes/BasicInfo";
 import Branding from "./routes/Branding";
 import PageDetails from "./routes/PageDetails";
@@ -27,6 +30,18 @@ export default function Root() {
     disableSidebarForRoute("/self-service/work-items");
   }, []);
 
+  const isSideBarDisabled = useMatchSomeRoute(disabledSidebarRoutes);
+
+  useEffect(() => {
+    if (isSideBarDisabled) {
+      document.documentElement.style.setProperty("--sideBarWidth", 0);
+      document.documentElement.style.setProperty("--mainContentMargin", 0);
+    } else {
+      document.documentElement.style.setProperty("--sideBarWidth", "104px");
+      document.documentElement.style.setProperty("--mainContentMargin", "21px");
+    }
+  }, [isSideBarDisabled]);
+
   return (
     <div className={styles["topcoder-micro-frontends-self-service-app"]}>
       <Provider store={store}>
@@ -41,6 +56,11 @@ export default function Root() {
           <WorkItems path="/self-service/work-items/:workItemId" />
           <SelectWorkType default noThrow path="/self-service" />
         </Router>
+        {!isSideBarDisabled && (
+          <div className={styles["sidebar-wrapper"]}>
+            <Sidebar menus={menuItems} />
+          </div>
+        )}
       </Provider>
     </div>
   );

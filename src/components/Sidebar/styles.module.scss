@@ -1,0 +1,38 @@
+@import "styles/include";
+
+.sidebar {
+  width: var(--sideBarWidth);
+  padding-top: 32px;
+
+  .menu {
+    cursor: pointer;
+  }
+
+  .icon {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .item {
+    @include font-roboto;
+    position: relative;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 32px;
+
+    &.active {
+      color: $gui-kit-level-2;
+    }
+
+    .activeIndicator {
+      position: absolute;
+      right: 0px;
+      top: -40px;
+    }
+  }
+}

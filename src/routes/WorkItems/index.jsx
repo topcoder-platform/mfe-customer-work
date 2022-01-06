@@ -30,7 +30,7 @@ const WorkItems = ({ workItemId }) => {
         setChallenge(res);
       })
       .catch(() => {
-        navigate("/self-service");
+        navigate("/self-service/");
       })
       .finally(() => {
         setLoading(false);

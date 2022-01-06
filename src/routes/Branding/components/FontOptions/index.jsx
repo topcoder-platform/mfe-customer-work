@@ -4,7 +4,7 @@
 import classNames from "classnames";
 import PT from "prop-types";
 import React from "react";
-import { uuid as uuidV4 } from "uuid";
+import { v4 as uuidV4 } from "uuid";
 import SansSerifIcon from "../../../../assets/images/icon-sans-serif-font.png";
 import SerifIcon from "../../../../assets/images/icon-serif-font.png";
 import "./styles.module.scss";

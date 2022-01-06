@@ -56,8 +56,6 @@ const Payment = ({ setProgressItem }) => {
           <PageH2>PAYMENT</PageH2>
           <PageDivider />
 
-          <PageDivider />
-
           <div styleName="container">
             <div styleName="paymentWrapper">
               <div styleName="title">

@@ -4,7 +4,7 @@
 import classNames from "classnames";
 import PT from "prop-types";
 import React from "react";
-import { uuid as uuidV4 } from "uuid";
+import { v4 as uuidV4 } from "uuid";
 import CheckIcon from "../../../../assets/images/check.svg";
 import "./styles.module.scss";
 

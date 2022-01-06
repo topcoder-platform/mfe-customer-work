@@ -7,6 +7,19 @@
   color: #555;
 }
 
+@media (min-width: 1024px) {
+  .sidebar-wrapper {
+    left: 0;
+    height: calc(100vh - var(--navbarHeight));
+    position: absolute;
+    top: var(--navbarHeight);
+  }
+}
+
+.sidebar-wrapper {
+  background-color: $tc-white;
+}
+
 :global {
   #single-spa-main {
     max-width: 1920px;

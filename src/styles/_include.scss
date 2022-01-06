@@ -3,3 +3,9 @@
 @import "mixins";
 @import "variables";
 @import "reset";
+
+:root {
+  --navbarHeight: 60px;
+  --sideBarWidth: 104px;
+  --mainContentMargin: 21px;
+}
