@@ -160,6 +160,17 @@ export const ColorOptionsItems = [
   { name: "Any Colors", className: "angularGradient" },
 ];
 
+/**
+ * Color Options
+ */
+export const tabNames = [
+  "Summary",
+  "Details",
+  "Messaging",
+  "Solutions",
+  "History",
+];
+
 export const ACTIONS = {
   FORM: {
     UPDATE_PRICE: "UPDATE_PRICE",

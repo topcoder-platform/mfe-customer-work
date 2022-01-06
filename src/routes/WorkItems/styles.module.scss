@@ -1,0 +1,48 @@
+@import "styles/include";
+
+.backButton {
+  display: flex;
+  gap: 15px;
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.details {
+  display: flex;
+
+  .reviewTable {
+    flex-grow: 2;
+  }
+
+  .invoiceWrapper {
+    width: 264px;
+    background-color: $tc-white;
+    border-radius: 8px;
+    border: 2px solid $gray-10;
+    margin-left: 24px;
+    margin-top: 32px;
+
+    button {
+      margin-left: 16px;
+      margin-top: 18px;
+    }
+
+    .link {
+      @include font-roboto;
+      display: block;
+      font-weight: 600;
+      padding: 0 16px;
+      font-size: 14px;
+      color: $grey-text;
+      line-height: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+
+      svg {
+        margin-left: 4px;
+      }
+    }
+  }
+}
