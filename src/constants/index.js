@@ -1,3 +1,6 @@
+import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
+import MyWorkIcon from "../assets/images/icon-my-work.svg";
+
 /**
  * All action types
  */
@@ -169,6 +172,26 @@ export const tabNames = [
   "Messaging",
   "Solutions",
   "History",
+];
+
+export const disabledSidebarRoutes = [
+  "/self-service",
+  "/self-service/basic-info",
+  "/self-service/website-purpose",
+  "/self-service/page-details",
+  "/self-service/branding",
+  "/self-service/review",
+  "/self-service/payment",
+  "/self-service/thank-you",
+];
+
+export const menuItems = [
+  {
+    item: "My Work",
+    url: "/self-service/work-items",
+    icon: <MyWorkIcon />,
+    activeIcon: <MyWorkActiveIcon />,
+  },
 ];
 
 export const ACTIONS = {

@@ -4,4 +4,6 @@
   @include mobile {
     padding: 0 15px 32px;
   }
+
+  margin-left: var(--sideBarWidth);
 }
