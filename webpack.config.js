@@ -85,12 +85,15 @@ module.exports = (webpackConfigEnv) => {
     resolve: {
       alias: {
         styles: path.resolve(__dirname, "src/styles"),
+        actions: path.resolve(__dirname, "src/actions"),
         assets: path.resolve(__dirname, "src/assets"),
         components: path.resolve(__dirname, "src/components"),
         hooks: path.resolve(__dirname, "src/hooks"),
         utils: path.resolve(__dirname, "src/utils"),
         constants: path.resolve(__dirname, "src/constants"),
+        selectors: path.resolve(__dirname, "src/selectors"),
         services: path.resolve(__dirname, "src/services"),
+        thunks: path.resolve(__dirname, "src/thunks"),
         hoc: path.resolve(__dirname, "src/hoc"),
       },
     },

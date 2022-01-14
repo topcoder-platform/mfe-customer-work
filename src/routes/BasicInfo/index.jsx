@@ -71,7 +71,7 @@ const BasicInfo = ({
     if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
       setFormData(basicInfo);
     }
-  }, []);
+  }, [currentStep, basicInfo]);
 
   useEffect(() => {
     if (formData) {

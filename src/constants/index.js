@@ -1,6 +1,10 @@
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
 import MyWorkIcon from "../assets/images/icon-my-work.svg";
 
+export const ROUTES = {
+  INTAKE_FORM: "/self-service/wizard",
+};
+
 /**
  * All action types
  */
@@ -16,6 +20,7 @@ export const ACTION_TYPE = {
  * Supported Button Sizes
  */
 export const BUTTON_SIZE = {
+  TINY: "tiny",
   SMALL: "small",
   MEDIUM: "medium",
 };
@@ -175,7 +180,6 @@ export const tabNames = [
 ];
 
 export const disabledSidebarRoutes = [
-  "/self-service",
   "/self-service/basic-info",
   "/self-service/website-purpose",
   "/self-service/page-details",
@@ -183,12 +187,13 @@ export const disabledSidebarRoutes = [
   "/self-service/review",
   "/self-service/payment",
   "/self-service/thank-you",
+  "/self-service/wizard",
 ];
 
 export const menuItems = [
   {
     item: "My Work",
-    url: "/self-service/work-items",
+    url: "/self-service",
     icon: <MyWorkIcon />,
     activeIcon: <MyWorkActiveIcon />,
   },
@@ -206,7 +211,37 @@ export const ACTIONS = {
     ADD_DEVICE_PRICE: "ADD_DEVICE_PRICE",
     UPDATE_PAGE_PRICE: "UPDATE_PAGE_PRICE",
   },
+  MY_WORK: {
+    LOAD_WORKS_ERROR: "LOAD_WORKS_ERROR",
+    LOAD_WORKS_PENDING: "LOAD_WORKS_PENDING",
+    LOAD_WORKS_SUCCESS: "LOAD_WORKS_SUCCESS",
+  },
   PROGRESS: {
     SET_ITEM: "SET_ITEM",
   },
+};
+
+export const CHALLENGE_STATUS = {
+  ACTIVE: "Active",
+  CANCELLED: "Cancelled",
+  COMPLETED: "Completed",
+  DRAFT: "Draft",
+  NEW: "New",
+};
+
+export const WORK_STATUS_MAP = {
+  [CHALLENGE_STATUS.ACTIVE]: "In progress",
+  [CHALLENGE_STATUS.CANCELLED]: "Directed to sales",
+  [CHALLENGE_STATUS.COMPLETED]: "Completed",
+  [CHALLENGE_STATUS.DRAFT]: "Submitted",
+  [CHALLENGE_STATUS.NEW]: "Draft",
+};
+
+export const WORK_STATUS_ORDER = {
+  [CHALLENGE_STATUS.NEW]: 0, // Draft
+  [CHALLENGE_STATUS.DRAFT]: 1, // Submitted
+  [CHALLENGE_STATUS.ACTIVE]: 2, // In progress
+  [CHALLENGE_STATUS.COMPLETED]: 3,
+  [CHALLENGE_STATUS.CANCELLED]: 4, // Directed to sales
+  Unknown: 999,
 };

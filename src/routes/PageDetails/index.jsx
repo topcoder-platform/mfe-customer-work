@@ -50,7 +50,7 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
     if (pageDetails) {
       setListInputs(pageDetails);
     }
-  }, []);
+  }, [currentStep, pageDetails]);
 
   const onNext = () => {
     navigate("/self-service/branding");

@@ -28,7 +28,7 @@ const FormField = ({
       styleName={cn("form-field-wrapper", styleName || "")}
     >
       <div className={cn("form-field")} styleName={cn("form-field")} {...props}>
-        <div styleName="label" onClick={handleClick}>
+        <div styleName="label" onClick={handleClick} role="button" tabIndex={0}>
           {label}
         </div>
         {children}

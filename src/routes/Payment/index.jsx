@@ -46,7 +46,7 @@ const Payment = ({ setProgressItem }) => {
     if (currentStep === 0) {
       redirectTo("/self-service");
     }
-  }, []);
+  }, [currentStep]);
 
   return (
     <>

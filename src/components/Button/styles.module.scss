@@ -41,6 +41,17 @@
   text-transform: uppercase;
 }
 
+.size-tiny {
+  border-radius: 12px;
+  padding: 6px 15px;
+  height: 24px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
 .type-primary {
   border: 1px solid $green1;
   background-color: $green1;

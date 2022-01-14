@@ -29,13 +29,13 @@ const Review = ({ setProgressItem }) => {
     if (currentStep === 0) {
       redirectTo("/self-service");
     }
-  }, []);
+  }, [currentStep]);
 
   useEffect(() => {
     if (currentStep === 0) {
       redirectTo("/self-service");
     }
-  }, []);
+  }, [currentStep]);
 
   const onBack = () => {
     navigate("/self-service/branding");

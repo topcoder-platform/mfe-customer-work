@@ -54,7 +54,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
     if (branding) {
       setFormData(branding);
     }
-  }, []);
+  }, [currentStep, branding]);
 
   const isFormValid =
     formData?.theme?.value &&
