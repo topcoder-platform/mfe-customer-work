@@ -12,6 +12,7 @@
 
   .tab {
     position: relative;
+    display: flex;
     text-transform: uppercase;
     margin-right: 24px;
     margin-top: 8px;
@@ -30,6 +31,27 @@
         background: $green2;
         margin-top: 26px;
         left: 30%;
+      }
+    }
+
+    .notification {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: $red;
+      margin-left: 4px;
+
+      span {
+        @include font-roboto;
+        color: $tc-white;
+        font-size: 10px;
+        line-height: 12px;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        align-items: center;
       }
     }
   }

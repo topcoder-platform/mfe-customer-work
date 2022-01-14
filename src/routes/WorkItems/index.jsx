@@ -11,6 +11,7 @@ import { getChallengeDetails } from "services/challenge";
 import config from "../../../config";
 import ArrowRightIcon from "../../assets/images/arrow-right.svg";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
+import Forum from "../Forum";
 import ReviewTable from "../Review/components/ReviewTable";
 import Tabs from "./components/Tabs";
 import "./styles.module.scss";
@@ -78,6 +79,7 @@ const WorkItems = ({ workItemId }) => {
               </div>
 
               <Tabs
+                challengeId={challenge.id}
                 tabs={tabNames}
                 selectedTab={selectedTab}
                 onSelect={setSelectedTab}
@@ -126,6 +128,9 @@ const WorkItems = ({ workItemId }) => {
                 </a>
               </div>
             </div>
+          )}
+          {challenge && selectedTab === "Messaging" && (
+            <Forum challengeId={challenge.id} />
           )}
         </PageContent>
       </Page>
