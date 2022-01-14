@@ -1,4 +1,4 @@
-import { matchPath } from "@reach/router";
+import { matchPath, useLocation } from "@reach/router";
 import _ from "lodash";
 
 /**
@@ -9,8 +9,7 @@ import _ from "lodash";
  * @returns {{ uri: string, path: string, params: {} }} matched route params
  */
 const useMatchSomeRoute = (paths) => {
-  const location = window.location;
-
+  const location = useLocation();
   return _.find(paths, (path) => {
     const result = matchPath(path, location.pathname);
 

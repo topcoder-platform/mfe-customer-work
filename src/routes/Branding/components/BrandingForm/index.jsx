@@ -54,7 +54,7 @@ const BrandingForm = ({ price, serviceType, setFormData, formData }) => {
         formData?.selectedDeliverableOption?.value
       ].value = true;
     }
-  }, [formData]);
+  }, [formData, deliverableOptions]);
 
   return (
     <div styleName="brandingForm">

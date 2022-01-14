@@ -45,6 +45,7 @@ const ReactSelect = (props) => {
     indicatorsContainer: (provided) => ({
       ...provided,
       height: "auto",
+      marginTop: "-5px",
     }),
     option: (provided) => ({
       ...provided,
@@ -77,9 +78,6 @@ const ReactSelect = (props) => {
       lineHeight: "22px",
       textAlign: "left",
       borderRadius: "5px",
-    }),
-    indicatorsContainer: () => ({
-      marginTop: "-5px",
     }),
   };
 

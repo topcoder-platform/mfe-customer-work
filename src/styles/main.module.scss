@@ -3,16 +3,19 @@
 @import "styles/include";
 
 .topcoder-micro-frontends-self-service-app {
+  position: relative;
   @include font-barlow;
   color: #555;
 }
 
 @media (min-width: 1024px) {
   .sidebar-wrapper {
-    left: 0;
-    height: calc(100vh - var(--navbarHeight));
+    z-index: 2;
     position: absolute;
-    top: var(--navbarHeight);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    min-height: calc(100vh - var(--navbarHeight));
   }
 }
 

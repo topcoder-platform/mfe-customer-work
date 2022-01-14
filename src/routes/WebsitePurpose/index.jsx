@@ -64,7 +64,7 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
     if (websitePurpose) {
       setFormData(websitePurpose);
     }
-  }, []);
+  }, [currentStep, websitePurpose]);
 
   return (
     <>

@@ -35,7 +35,7 @@ const WorkItems = ({ workItemId }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [workItemId]);
 
   const { name, metadata } = challenge || {};
 

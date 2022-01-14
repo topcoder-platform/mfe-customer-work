@@ -27,7 +27,7 @@ const SelectWorkType = ({ saveWorkType, updatePrice, setProgressItem }) => {
 
   useEffect(() => {
     setProgressItem(1);
-  }, []);
+  }, [setProgressItem]);
 
   const handleClick = (selectedItem) => {
     if (!currentStep) {
