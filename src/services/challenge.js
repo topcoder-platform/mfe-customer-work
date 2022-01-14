@@ -12,3 +12,21 @@ export async function getChallengeDetails(challengeId) {
 
   return response?.data;
 }
+
+/**
+ * Get Forum notifications
+ * @param {String} challengeId challenge id
+ * @param {String} handle member handle
+ */
+export async function getForumNotifications(challengeId, handle) {
+  const response = await fetch(
+    `${config.VANILLA_FORUM_API}/groups/${challengeId}/member/${handle}?access_token=${config.VANILLA_ACCESS_TOKEN}`,
+    {
+      header: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return response.json();
+}
