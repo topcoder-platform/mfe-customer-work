@@ -12,6 +12,7 @@ import config from "../../../config";
 import ArrowRightIcon from "../../assets/images/arrow-right.svg";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import ReviewTable from "../Review/components/ReviewTable";
+import Forum from "./components/Forum";
 import Tabs from "./components/Tabs";
 import "./styles.module.scss";
 
@@ -35,6 +36,7 @@ const WorkItems = ({ workItemId }) => {
       .finally(() => {
         setLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { name, metadata } = challenge || {};
@@ -78,6 +80,7 @@ const WorkItems = ({ workItemId }) => {
               </div>
 
               <Tabs
+                challengeId={challenge.id}
                 tabs={tabNames}
                 selectedTab={selectedTab}
                 onSelect={setSelectedTab}
@@ -126,6 +129,9 @@ const WorkItems = ({ workItemId }) => {
                 </a>
               </div>
             </div>
+          )}
+          {challenge && selectedTab === "Messaging" && (
+            <Forum challengeId={challenge.id} />
           )}
         </PageContent>
       </Page>

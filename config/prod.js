@@ -11,6 +11,10 @@ module.exports = {
    * URL of Topcoder Connect Website
    */
   CONNECT_WEBSITE_URL: "https://connect.topcoder.com",
+  VANILLA_EMBED_JS: "https://discussions.topcoder.com/js/embed.js",
+  VANILLA_EMBED_TYPE: "standard",
+  VANILLA_FORUM_API: "https://vanilla.topcoder.com/api/v2",
+  VANILLA_ACCESS_TOKEN: "va.6g0yULXtPWHBXHSdhuROa9uvchMiZrb-.3CWwdA.f6kfLmo",
 
   API: {
     V5: "https://api.topcoder.com/v5",
