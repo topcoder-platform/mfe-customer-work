@@ -8,14 +8,14 @@ import PageFoot from "components/PageElements/PageFoot";
 import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
-import React, { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { saveBranding } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import BrandingForm from "./components/BrandingForm";
 import "./styles.module.scss";
-
+import { triggerAutoSave } from "../../actions/autoSave";
 /**
  * Branding Page
  */
@@ -37,6 +37,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
     },
     customDeliverable: { title: "Custom Delivrable", option: "", value: "" },
   });
+  const dispatch = useDispatch();
   const price = useSelector((state) => state.form.price);
   const additionalPrice = useSelector((state) => state.form.additionalPrice);
   const devicePrice = useSelector((state) => state.form.devicePrice);
@@ -47,14 +48,21 @@ const Branding = ({ saveBranding, setProgressItem }) => {
   const currentStep = useSelector((state) => state.progress.currentStep);
 
   useEffect(() => {
+    setProgressItem(5);
+
     if (currentStep === 0) {
-      redirectTo("/self-service");
+      redirectTo("/self-service/wizard");
     }
 
     if (branding) {
       setFormData(branding);
     }
-  }, [currentStep, branding]);
+
+    return () => {
+      dispatch(triggerAutoSave(true));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isFormValid =
     formData?.theme?.value &&
@@ -67,7 +75,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
   const onNext = () => {
     navigate("/self-service/review");
     saveBranding(formData);
-    setProgressItem(5);
+    setProgressItem(6);
   };
 
   return (
@@ -83,6 +91,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
             serviceType={workType?.selectedWorkTypeDetail}
             formData={formData}
             setFormData={setFormData}
+            saveBranding={saveBranding}
           />
 
           <PageFoot>

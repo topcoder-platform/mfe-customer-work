@@ -6,10 +6,10 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./styles.module.scss";
 
-const Tab = ({ title, subTitle, price, onClick }) => {
+const Tab = ({ title, subTitle, price, onClick, selected }) => {
   return (
     <div
-      styleName="tab"
+      styleName={`tab ${selected ? "tab-selected" : ""}`}
       key={uuidv4()}
       role="button"
       tabIndex={0}

@@ -42,3 +42,8 @@
     font-weight: 700;
   }
 }
+
+.tab-selected {
+  outline: 3px $green1 solid;
+  border: 0;
+}

@@ -14,6 +14,7 @@ import React from "react";
 import "./styles.module.scss";
 
 const PageDetailsForm = ({
+  savePageDetails,
   listInputs,
   setListInputs,
   price,
@@ -35,7 +36,9 @@ const PageDetailsForm = ({
         if (i !== index) return item;
         else return { ...item, [inputName]: value };
       });
-      return { ...listInputs, [listInputName]: newListInput };
+      const listInputUpdated = { ...listInputs, [listInputName]: newListInput };
+      savePageDetails(listInputUpdated);
+      return listInputUpdated;
     });
   };
 
@@ -44,7 +47,9 @@ const PageDetailsForm = ({
     setListInputs((listInputs) => {
       let listInput = listInputs[listInputName];
       let newListInput = [...listInput, emptyPage()];
-      return { ...listInputs, [listInputName]: newListInput };
+      const listInputUpdated = { ...listInputs, [listInputName]: newListInput };
+      savePageDetails(listInputUpdated);
+      return listInputUpdated;
     });
     onAdd();
   };
@@ -57,7 +62,9 @@ const PageDetailsForm = ({
       let newListInput = listInput.filter((item, i) => {
         return i !== index;
       });
-      return { ...listInputs, [listInputName]: newListInput };
+      const listInputUpdated = { ...listInputs, [listInputName]: newListInput };
+      savePageDetails(listInputUpdated);
+      return listInputUpdated;
     });
     onRemove();
   };

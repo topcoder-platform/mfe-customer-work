@@ -3,25 +3,27 @@
  *
  * Onboard Progress (level) Indicator
  */
-import cn from "classnames";
-import ProgressDonutChart from "components/ProgressDonutChart";
-import ProgressPopup from "components/ProgressPopup";
-import { MAX_COMPLETED_STEP, ProgressLevels as levels } from "constants";
 import _ from "lodash";
 import PT from "prop-types";
 import React, { useState } from "react";
+import cn from "classnames";
+import ProgressDonutChart from "components/ProgressDonutChart";
+import ProgressPopup from "components/ProgressPopup";
+import config from "../../../config";
+import { MAX_COMPLETED_STEP, ProgressLevels as levels } from "constants";
+import { setCookie, getCookie } from "../../autoSaveBeforeLogin";
 import IconThreeDots from "../../assets/images/icon-three-dots-vertical.svg";
 import "./styles.module.scss";
 
 const Progress = ({ level, styleName, ...props }) => {
   const [progressPopupOpen, setProgressPopupOpen] = useState(false);
-  const maxCompletedStep = localStorage.getItem(MAX_COMPLETED_STEP) || 0;
+  const maxCompletedStep = getCookie(MAX_COMPLETED_STEP) || 0;
   if (
     _.isUndefined(maxCompletedStep) ||
     _.isNull(maxCompletedStep) ||
     parseInt(maxCompletedStep) < level
   ) {
-    localStorage.setItem(MAX_COMPLETED_STEP, level);
+    setCookie(MAX_COMPLETED_STEP, level, config.AUTO_SAVED_COOKIE_EXPIRED_IN);
   }
 
   return (

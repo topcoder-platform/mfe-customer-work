@@ -8,8 +8,9 @@ import PageFoot from "components/PageElements/PageFoot";
 import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
-import React, { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { connect, useSelector, useDispatch } from "react-redux";
+import { triggerAutoSave } from "../../actions/autoSave";
 import { saveWebsitePurpose } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
@@ -32,6 +33,7 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
       value: "",
     },
   });
+  const dispatch = useDispatch();
   const price = useSelector((state) => state.form.price);
   const additionalPrice = useSelector((state) => state.form.additionalPrice);
   const devicePrice = useSelector((state) => state.form.devicePrice);
@@ -53,10 +55,12 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
   const onNext = () => {
     saveWebsitePurpose(formData);
     navigate("/self-service/page-details");
-    setProgressItem(3);
+    setProgressItem(4);
   };
 
   useEffect(() => {
+    setProgressItem(3);
+
     if (currentStep === 0) {
       redirectTo("/self-service");
     }
@@ -64,7 +68,12 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
     if (websitePurpose) {
       setFormData(websitePurpose);
     }
-  }, [currentStep, websitePurpose]);
+
+    return () => {
+      dispatch(triggerAutoSave(true));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -79,6 +88,7 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
             serviceType={workType?.selectedWorkTypeDetail}
             formData={formData}
             setFormData={setFormData}
+            saveWebsitePurpose={saveWebsitePurpose}
           />
 
           <PageDivider />
