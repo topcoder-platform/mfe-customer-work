@@ -24,15 +24,27 @@ import ColorOptions from "../ColorOptions";
 import FontOptions from "../FontOptions";
 import "./styles.module.scss";
 
-const BrandingForm = ({ price, serviceType, setFormData, formData }) => {
+const BrandingForm = ({
+  price,
+  serviceType,
+  setFormData,
+  formData,
+  saveBranding,
+}) => {
   const [selectedColor, setSelectedColor] = useState(0);
   const [selectedFont, setSelectedFont] = useState(0);
+  const [deliverableOptions, setDeliverableOptions] =
+    useState(DeliverablesOptions);
 
   const handleInputChange = (name, value, option = null) => {
-    setFormData((formData) => ({
-      ...formData,
-      [name]: { ...formData[name], option: option ? option : value, value },
-    }));
+    setFormData((formData) => {
+      const newFormData = {
+        ...formData,
+        [name]: { ...formData[name], option: option ? option : value, value },
+      };
+      saveBranding(newFormData);
+      return newFormData;
+    });
   };
 
   useEffect(() => {
@@ -47,14 +59,16 @@ const BrandingForm = ({ price, serviceType, setFormData, formData }) => {
     }
   }, [formData.fontOption]);
 
-  const deliverableOptions = DeliverablesOptions;
   useEffect(() => {
-    if (formData?.selectedDeliverableOption?.value) {
-      deliverableOptions[
-        formData?.selectedDeliverableOption?.value
-      ].value = true;
+    const itemSelected = formData?.selectedDeliverableOption;
+    if (itemSelected?.option && deliverableOptions[0]) {
+      const newDeliverableOptions = deliverableOptions.map((o) => {
+        o.value = o.label === itemSelected.option;
+      });
+      setDeliverableOptions(newDeliverableOptions);
     }
-  }, [formData, deliverableOptions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData.selectedDeliverableOption]);
 
   return (
     <div styleName="brandingForm">
@@ -283,7 +297,7 @@ const BrandingForm = ({ price, serviceType, setFormData, formData }) => {
             options={deliverableOptions}
           />
 
-          {formData.selectedDeliverableOption === 4 && (
+          {formData.selectedDeliverableOption?.value === 4 && (
             <div styleName="customDeliverable">
               <FormField label={"Custom Deliverable Source"}>
                 <FormInputText

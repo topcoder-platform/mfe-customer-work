@@ -8,12 +8,17 @@ import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { MAX_COMPLETED_STEP, BUTTON_SIZE, webWorkTypes } from "constants/";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import "./styles.module.scss";
+import { setCookie } from "../../autoSaveBeforeLogin";
+import { createNewChallenge } from "../../actions/challenge";
+import { resetIntakeForm } from "../../actions/form";
 
 /**
  * Thank You Page
  */
 const ThankYou = () => {
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const [selectedWorkType, setSelectedWorkType] = useState("");
 
@@ -21,8 +26,14 @@ const ThankYou = () => {
     setSelectedWorkType(webWorkTypes[0]);
   }, []);
 
-  const onDone = () => {
-    localStorage.removeItem(MAX_COMPLETED_STEP);
+  const clearPreviousForm = () => {
+    dispatch(resetIntakeForm(true));
+    setCookie(MAX_COMPLETED_STEP, "", -1);
+  };
+
+  const onDone = async () => {
+    await dispatch(createNewChallenge());
+    clearPreviousForm();
     navigate("/self-service");
   };
 

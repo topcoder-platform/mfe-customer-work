@@ -25,13 +25,20 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
   };
 
   const listOptions = PageOptions;
+  useEffect(() => {
+    return () => {
+      listOptions.forEach((option) => {
+        option.value = false;
+      });
+    };
+  }, []);
 
   useEffect(() => {
     if (
       formData?.selectedPageOption &&
-      listOptions[formData?.selectedPageOption]
+      listOptions[formData?.selectedPageOption?.value]
     ) {
-      listOptions[formData?.selectedPageOption].value = true;
+      listOptions[formData?.selectedPageOption?.value].value = true;
     }
   }, [formData]);
 

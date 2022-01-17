@@ -8,7 +8,7 @@ import React from "react";
 import "./styles.module.scss";
 import Tab from "./Tab";
 
-const TabSelector = ({ items, handleClick = (e) => e }) => {
+const TabSelector = ({ items, selectedState, handleClick = (e) => e }) => {
   return (
     <div styleName="tabSelector">
       {items.map((item) => (
@@ -17,6 +17,7 @@ const TabSelector = ({ items, handleClick = (e) => e }) => {
           subTitle={item.subTitle}
           price={item.price}
           onClick={() => handleClick(item)}
+          selected={selectedState === item.title}
         />
       ))}
     </div>

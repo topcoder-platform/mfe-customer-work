@@ -14,6 +14,7 @@ import Review from "./routes/Review";
 import SelectWorkType from "./routes/SelectWorkType";
 import ThankYou from "./routes/ThankYou";
 import WebsitePurpose from "./routes/WebsitePurpose";
+import IntakeForm from "./IntakeForm";
 import WorkItems from "./routes/WorkItems";
 import { getIsLoggedIn } from "./hoc/withAuthentication/selectors";
 import styles from "./styles/main.module.scss";
@@ -57,15 +58,8 @@ const App = () => {
   return (
     <>
       <Router>
-        <BasicInfo path="/self-service/basic-info" />
-        <WebsitePurpose path="/self-service/website-purpose" />
-        <PageDetails path="/self-service/page-details" />
-        <Branding path="/self-service/branding" />
-        <Review path="/self-service/review" />
-        <Payment path="/self-service/payment" />
-        <ThankYou path="/self-service/thank-you" />
+        <IntakeForm path="/self-service/*" />
         <WorkItems path="/self-service/work-items/:workItemId" />
-        <SelectWorkType path="/self-service/wizard" />
         <MyWork path="/self-service" />
         <Redirect
           default

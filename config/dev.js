@@ -20,4 +20,10 @@ module.exports = {
     V5: "https://api.topcoder-dev.com/v5",
     V3: "https://api.topcoder-dev.com/v3",
   },
+
+  /**
+   * Expire time period of auto saved intake form: 24 hours
+   */
+  AUTO_SAVED_COOKIE_EXPIRED_IN: 24 * 60,
+  TIME_ZONE: "Europe/London",
 };

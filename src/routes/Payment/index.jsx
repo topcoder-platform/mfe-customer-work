@@ -10,20 +10,21 @@ import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import React, { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { submitWork } from "services/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import withAuthentication from "../../hoc/withAuthentication";
 import "./styles.module.scss";
+import { triggerAutoSave } from "../../actions/autoSave";
 
 /**
  * Payment Page
  */
 const Payment = ({ setProgressItem }) => {
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
-  const authUser = useSelector((state) => state.authUser);
   const form = useSelector((state) => state.form);
   const price = useSelector((state) => state.form.price);
   const additionalPrice = useSelector((state) => state.form.additionalPrice);
@@ -38,15 +39,21 @@ const Payment = ({ setProgressItem }) => {
 
   const onNext = () => {
     submitWork(form);
+    setProgressItem(8);
     navigate("/self-service/thank-you");
-    setProgressItem(7);
   };
 
   useEffect(() => {
+    setProgressItem(7);
     if (currentStep === 0) {
-      redirectTo("/self-service");
+      redirectTo("/self-service/wizard");
     }
-  }, [currentStep]);
+
+    return () => {
+      dispatch(triggerAutoSave(true));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

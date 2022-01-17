@@ -66,7 +66,7 @@ export const DesignOptions = [
  * ProgressLevels
  */
 export const ProgressLevels = [
-  { label: "Select Work Type", url: "/self-service" },
+  { label: "Select Work Type", url: "/self-service/wizard" },
   { label: "Basic Info", url: "/self-service/basic-info" },
   { label: "Website Purpose", url: "/self-service/website-purpose" },
   { label: "Page Details", url: "/self-service/page-details" },
@@ -210,14 +210,25 @@ export const ACTIONS = {
     SAVE_BRANDING: "SAVE_BRANDING",
     ADD_DEVICE_PRICE: "ADD_DEVICE_PRICE",
     UPDATE_PAGE_PRICE: "UPDATE_PAGE_PRICE",
+    REVIEW_CONFIRMED: "REVIEW_CONFIRMED",
+    SAVE_FORM: "SAVE_FORM",
+    RESET_INTAKE_FORM: "RESET_INTAKE_FORM",
+  },
+  PROGRESS: {
+    SET_ITEM: "SET_ITEM",
+  },
+  AUTO_SAVE: {
+    COOKIE_CLEARED: "COOKIE_CLEARED",
+    TRIGGER_AUTO_SAVE: "TRIGGER_AUTO_SAVE",
+    INIT_ERRORED: "INIT_ERRORED",
+  },
+  CHALLENGE: {
+    GET_CHALLENGE: "GET_CHALLENGE",
   },
   MY_WORK: {
     LOAD_WORKS_ERROR: "LOAD_WORKS_ERROR",
     LOAD_WORKS_PENDING: "LOAD_WORKS_PENDING",
     LOAD_WORKS_SUCCESS: "LOAD_WORKS_SUCCESS",
-  },
-  PROGRESS: {
-    SET_ITEM: "SET_ITEM",
   },
 };
 
@@ -245,3 +256,24 @@ export const WORK_STATUS_ORDER = {
   [CHALLENGE_STATUS.CANCELLED]: 4, // Directed to sales
   Unknown: 999,
 };
+
+export const AUTO_SAVE_FORM = "AUTO_SAVE_FORM";
+
+export const CACHED_CHALLENGE_ID = "CACHED_CHALLENGE_ID";
+
+export const CHALLENGE_FIELD_VALUES = {
+  trackId: "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+  typeId: "927abff4-7af9-4145-8ba1-577c16e64e2e",
+  timelineTemplateId: "7ebf1c69-f62f-4d3a-bdfb-fe9ddb56861c",
+};
+
+export const INTAKE_FORM_ROUTES = [
+  "/self-service/wizard",
+  "/self-service/basic-info",
+  "/self-service/website-purpose",
+  "/self-service/page-details",
+  "/self-service/branding",
+  "/self-service/review",
+  "/self-service/payment",
+  "/self-service/thank-you",
+];
