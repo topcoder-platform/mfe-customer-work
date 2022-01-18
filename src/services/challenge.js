@@ -4,9 +4,21 @@ import { axiosInstance as axios } from "./requestInterceptor";
 
 /**
  * Get Challenge challenge details
+ * @param {String} challengeId challenge id
+ */
+export async function getChallengeDetails(challengeId) {
+  const response = await axios.get(
+    `${config.API.V5}/challenges/${challengeId}`
+  );
+
+  return response?.data;
+}
+
+/**
+ * Get Intake Form challenge details
  * @param {String} userHandle
  */
-export async function getChallengeDetails(userHandle, challengeId) {
+export async function getIntakeFormChallenges(userHandle, challengeId) {
   let url = `${config.API.V5}/challenges?createdBy=${userHandle}&selfService=true`;
   url += challengeId ? `&id=${challengeId}` : "";
   const response = await axios.get(url);
