@@ -10,12 +10,12 @@ import Progress from "components/Progress";
 import TabSelector from "components/TabSelector";
 import { BUTTON_SIZE, BUTTON_TYPE, webWorkTypes, workTypes } from "constants/";
 import React, { useEffect, useState } from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { triggerAutoSave } from "../../actions/autoSave";
 import { saveWorkType, updatePrice } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import "./styles.module.scss";
-import { triggerAutoSave } from "../../actions/autoSave";
 
 /**
  * Select Work Type Page

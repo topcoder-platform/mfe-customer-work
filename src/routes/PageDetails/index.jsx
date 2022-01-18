@@ -10,12 +10,12 @@ import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
+import { triggerAutoSave } from "../../actions/autoSave";
 import { savePageDetails, updatePagePrice } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import PageDetailsForm from "./components/PageDetailsForm";
 import "./styles.module.scss";
-import { triggerAutoSave } from "../../actions/autoSave";
 
 /**
  * Page Details Page

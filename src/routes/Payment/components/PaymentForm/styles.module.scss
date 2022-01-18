@@ -1,6 +1,10 @@
 @import "styles/include";
 
-.form-input-text {
+.paymentForm {
+  padding: 10px 25px;
+}
+
+.cardElement {
   background-color: #ffffff !important;
   box-sizing: border-box !important;
   color: #444 !important;
@@ -22,4 +26,13 @@
   &:disabled {
     background-color: $grey-bg !important;
   }
+}
+
+.error {
+  display: flex;
+  color: #ec2710;
+  margin-left: 14px;
+  font-size: 11px;
+  margin-top: -15px;
+  padding-bottom: 5px;
 }

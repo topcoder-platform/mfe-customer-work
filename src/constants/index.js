@@ -3,6 +3,8 @@ import MyWorkIcon from "../assets/images/icon-my-work.svg";
 
 export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
+  HOME_PAGE: "/self-service/home",
+  DASHBOARD_PAGE: "/self-service",
 };
 
 /**
@@ -188,6 +190,7 @@ export const disabledSidebarRoutes = [
   "/self-service/payment",
   "/self-service/thank-you",
   "/self-service/wizard",
+  "/self-service/profile",
 ];
 
 export const menuItems = [
@@ -230,7 +233,34 @@ export const ACTIONS = {
     LOAD_WORKS_PENDING: "LOAD_WORKS_PENDING",
     LOAD_WORKS_SUCCESS: "LOAD_WORKS_SUCCESS",
   },
+  PROFILE: {
+    GET_PROFILE: "GET_PROFILE",
+    UPDATE_BASIC_INFO_PENDING: "UPDATE_BASIC_INFO_PENDING",
+    UPDATE_BASIC_INFO_SUCCESS: "UPDATE_BASIC_INFO_SUCCESS",
+    UPDATE_BASIC_INFO_ERROR: "UPDATE_BASIC_INFO_ERROR",
+  },
 };
+
+export const AUTO_SAVE_FORM = "AUTO_SAVE_FORM";
+
+export const CACHED_CHALLENGE_ID = "CACHED_CHALLENGE_ID";
+
+export const CHALLENGE_FIELD_VALUES = {
+  trackId: "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+  typeId: "927abff4-7af9-4145-8ba1-577c16e64e2e",
+  timelineTemplateId: "7ebf1c69-f62f-4d3a-bdfb-fe9ddb56861c",
+};
+
+export const INTAKE_FORM_ROUTES = [
+  "/self-service/wizard",
+  "/self-service/basic-info",
+  "/self-service/website-purpose",
+  "/self-service/page-details",
+  "/self-service/branding",
+  "/self-service/review",
+  "/self-service/payment",
+  "/self-service/thank-you",
+];
 
 export const CHALLENGE_STATUS = {
   ACTIVE: "Active",
@@ -256,24 +286,3 @@ export const WORK_STATUS_ORDER = {
   [CHALLENGE_STATUS.CANCELLED]: 4, // Directed to sales
   Unknown: 999,
 };
-
-export const AUTO_SAVE_FORM = "AUTO_SAVE_FORM";
-
-export const CACHED_CHALLENGE_ID = "CACHED_CHALLENGE_ID";
-
-export const CHALLENGE_FIELD_VALUES = {
-  trackId: "9b6fc876-f4d9-4ccb-9dfd-419247628825",
-  typeId: "927abff4-7af9-4145-8ba1-577c16e64e2e",
-  timelineTemplateId: "7ebf1c69-f62f-4d3a-bdfb-fe9ddb56861c",
-};
-
-export const INTAKE_FORM_ROUTES = [
-  "/self-service/wizard",
-  "/self-service/basic-info",
-  "/self-service/website-purpose",
-  "/self-service/page-details",
-  "/self-service/branding",
-  "/self-service/review",
-  "/self-service/payment",
-  "/self-service/thank-you",
-];

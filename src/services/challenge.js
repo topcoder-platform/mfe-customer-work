@@ -1,5 +1,5 @@
-import config from "../../config";
 import { CHALLENGE_FIELD_VALUES } from "constants/index";
+import config from "../../config";
 import { axiosInstance as axios } from "./requestInterceptor";
 
 /**

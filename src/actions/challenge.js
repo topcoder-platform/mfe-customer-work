@@ -1,7 +1,6 @@
 import { ACTIONS } from "../constants";
 import { createChallenge } from "services/challenge";
 import { cacheChallengeId } from "../autoSaveBeforeLogin";
-import { autoSaveInitErrored } from "./autoSave";
 
 export const getChallenge = (challenge) => ({
   type: ACTIONS.CHALLENGE.GET_CHALLENGE,
