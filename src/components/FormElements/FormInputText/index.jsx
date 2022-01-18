@@ -3,9 +3,8 @@
  *
  * Form Input Type=text
  */
-import React from "react";
-import PT from "prop-types";
 import cn from "classnames";
+import React from "react";
 import "./styles.module.scss";
 
 const FormInputText = ({ styleName, ...props }) => {

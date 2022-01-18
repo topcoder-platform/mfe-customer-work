@@ -10,18 +10,20 @@ import { MAX_COMPLETED_STEP, ProgressLevels as levels } from "constants";
 import _ from "lodash";
 import PT from "prop-types";
 import React, { useState } from "react";
+import config from "../../../config";
 import IconThreeDots from "../../assets/images/icon-three-dots-vertical.svg";
+import { getCookie, setCookie } from "../../autoSaveBeforeLogin";
 import "./styles.module.scss";
 
 const Progress = ({ level, styleName, ...props }) => {
   const [progressPopupOpen, setProgressPopupOpen] = useState(false);
-  const maxCompletedStep = localStorage.getItem(MAX_COMPLETED_STEP) || 0;
+  const maxCompletedStep = getCookie(MAX_COMPLETED_STEP) || 0;
   if (
     _.isUndefined(maxCompletedStep) ||
     _.isNull(maxCompletedStep) ||
     parseInt(maxCompletedStep) < level
   ) {
-    localStorage.setItem(MAX_COMPLETED_STEP, level);
+    setCookie(MAX_COMPLETED_STEP, level, config.AUTO_SAVED_COOKIE_EXPIRED_IN);
   }
 
   return (

@@ -14,7 +14,8 @@ import {
   PageOptions,
 } from "constants/";
 import React, { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { triggerAutoSave } from "../../actions/autoSave";
 import {
   addDevicePrice,
   saveBasicInfo,
@@ -42,7 +43,7 @@ const BasicInfo = ({
   const isFormValid =
     formData?.projectTitle?.value.length &&
     formData?.selectedPageOption?.value !== null;
-
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const price = useSelector((state) => state.form.price);
   const additionalPrice = useSelector((state) => state.form.additionalPrice);
@@ -54,31 +55,40 @@ const BasicInfo = ({
   const currentStep = useSelector((state) => state.progress.currentStep);
 
   const onBack = () => {
-    navigate("/self-service");
+    navigate("/self-service/wizard");
   };
 
   const onNext = () => {
-    setProgressItem(2);
+    setProgressItem(3);
     saveBasicInfo(formData);
     navigate("/self-service/website-purpose");
   };
 
   useEffect(() => {
+    setProgressItem(2);
+
     if (currentStep === 0) {
-      redirectTo("/self-service");
+      redirectTo("/self-service/wizard");
     }
 
     if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
       setFormData(basicInfo);
     }
-  }, [currentStep, basicInfo]);
+
+    return () => {
+      dispatch(triggerAutoSave(true));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (formData) {
       updateAdditionalPrice(
         PageOptions[formData?.selectedPageOption?.value]?.price || 0
       );
+      saveBasicInfo(formData);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData, updateAdditionalPrice]);
 
   useEffect(() => {
@@ -86,7 +96,9 @@ const BasicInfo = ({
       addDevicePrice(
         DeviceOptions[formData?.selectedDevice?.value]?.price || 0
       );
+      saveBasicInfo(formData);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addDevicePrice, formData, formData.selectedDevice]);
 
   return (

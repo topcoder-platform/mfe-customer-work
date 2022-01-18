@@ -2,10 +2,11 @@
 /**
  * Configure Redux Store
  */
-import { createStore, applyMiddleware } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { createLogger } from "redux-logger";
-import thunk from "redux-thunk";
 import { createPromise } from "redux-promise-middleware";
+import thunk from "redux-thunk";
+import { saveUpdatesMiddleware } from "./autoSaveBeforeLogin";
 import rootReducer from "./reducers";
 
 const middlewares = [
@@ -14,6 +15,7 @@ const middlewares = [
     promiseTypeSuffixes: ["PENDING", "SUCCESS", "ERROR"],
   }),
   thunk,
+  saveUpdatesMiddleware,
 ];
 
 // enable Redux Logger in in DEV environment
@@ -22,6 +24,8 @@ if (process.env.NODE_ENV === "development") {
   const logger = createLogger();
   middlewares.push(logger);
 }
+
+// const persistedState = loadSavedFormCookie();
 
 const store = createStore(rootReducer, applyMiddleware(...middlewares));
 

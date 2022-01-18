@@ -1,0 +1,31 @@
+@import "styles/include";
+
+.profilePage {
+  margin: 0 120px;
+  padding: 0;
+}
+
+.profilePageContent {
+  margin: 26px var(--mainContentMargin);
+  padding: 40px 26px 40px 22px;
+}
+
+.profileTitle {
+  @include font-barlow-condensed;
+  font-size: 34px;
+  line-height: 32px;
+  font-weight: 500;
+  color: $grey-text;
+}
+
+.footerContent {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  .footer-right {
+    display: flex;
+    gap: 16px;
+  }
+}

@@ -18,4 +18,8 @@
   &:focus {
     box-shadow: none !important;
   }
+
+  &:disabled {
+    background-color: $grey-bg !important;
+  }
 }

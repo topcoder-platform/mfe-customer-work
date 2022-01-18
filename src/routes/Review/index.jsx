@@ -10,7 +10,9 @@ import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import React, { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { triggerAutoSave } from "../../actions/autoSave";
+import { reviewConfirmed } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import ReviewTable from "./components/ReviewTable";
@@ -20,22 +22,35 @@ import "./styles.module.scss";
  * Review Page
  */
 const Review = ({ setProgressItem }) => {
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
-  const formData = useSelector((state) => state.form);
+  const formData = useSelector((state) => state?.form);
   const [checked, setChecked] = useState(false);
-  const currentStep = useSelector((state) => state.progress.currentStep);
+  const currentStep = useSelector((state) => state?.progress.currentStep);
 
   useEffect(() => {
+    setProgressItem(6);
+
     if (currentStep === 0) {
       redirectTo("/self-service");
     }
-  }, [currentStep]);
+
+    if (formData?.reviewConfirmed) {
+      setChecked(true);
+    }
+
+    return () => {
+      dispatch(triggerAutoSave(true));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (currentStep === 0) {
-      redirectTo("/self-service");
+      redirectTo("/self-service/wizard");
     }
-  }, [currentStep]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onBack = () => {
     navigate("/self-service/branding");
@@ -43,7 +58,7 @@ const Review = ({ setProgressItem }) => {
 
   const onNext = () => {
     navigate("/self-service/payment");
-    setProgressItem(6);
+    setProgressItem(7);
   };
 
   return (
@@ -60,7 +75,11 @@ const Review = ({ setProgressItem }) => {
             <FormInputCheckbox
               label={"Yes, I confirm the above details are correct"}
               checked={checked}
-              onChange={(e) => setChecked(e.target.checked)}
+              onChange={(e) => {
+                const isChecked = e.target.checked;
+                setChecked(isChecked);
+                dispatch(reviewConfirmed(isChecked));
+              }}
             />
           </div>
 

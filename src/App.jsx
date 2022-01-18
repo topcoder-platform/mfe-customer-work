@@ -1,21 +1,19 @@
-import React, { useEffect, useLayoutEffect } from "react";
 import { Redirect, Router } from "@reach/router";
-import { useSelector } from "react-redux";
-import { disableSidebarForRoute } from "@topcoder/micro-frontends-navbar-app";
+import {
+  disableNavigationForRoute,
+  disableSidebarForRoute,
+} from "@topcoder/micro-frontends-navbar-app";
 import Sidebar from "components/Sidebar";
 import useMatchSomeRoute from "hooks/useMatchSomeRoute";
+import React, { useEffect, useLayoutEffect } from "react";
+import { useSelector } from "react-redux";
 import { disabledSidebarRoutes, menuItems } from "./constants";
-import BasicInfo from "./routes/BasicInfo";
-import Branding from "./routes/Branding";
-import MyWork from "./routes/MyWork";
-import PageDetails from "./routes/PageDetails";
-import Payment from "./routes/Payment";
-import Review from "./routes/Review";
-import SelectWorkType from "./routes/SelectWorkType";
-import ThankYou from "./routes/ThankYou";
-import WebsitePurpose from "./routes/WebsitePurpose";
-import WorkItems from "./routes/WorkItems";
 import { getIsLoggedIn } from "./hoc/withAuthentication/selectors";
+import IntakeForm from "./IntakeForm";
+import Home from "./routes/Home";
+import MyWork from "./routes/MyWork";
+import Profile from "./routes/Profile";
+import WorkItems from "./routes/WorkItems";
 import styles from "./styles/main.module.scss";
 
 const App = () => {
@@ -33,6 +31,9 @@ const App = () => {
     disableSidebarForRoute("/self-service/thank-you");
     disableSidebarForRoute("/self-service/wizard");
     disableSidebarForRoute("/self-service/work-items");
+    disableSidebarForRoute("/self-service/home");
+    disableSidebarForRoute("/self-service/profile");
+    disableNavigationForRoute("/self-service/*");
   }, []);
 
   useLayoutEffect(() => {
@@ -57,16 +58,11 @@ const App = () => {
   return (
     <>
       <Router>
-        <BasicInfo path="/self-service/basic-info" />
-        <WebsitePurpose path="/self-service/website-purpose" />
-        <PageDetails path="/self-service/page-details" />
-        <Branding path="/self-service/branding" />
-        <Review path="/self-service/review" />
-        <Payment path="/self-service/payment" />
-        <ThankYou path="/self-service/thank-you" />
+        <IntakeForm path="/self-service/*" />
         <WorkItems path="/self-service/work-items/:workItemId" />
-        <SelectWorkType path="/self-service/wizard" />
         <MyWork path="/self-service" />
+        <Home path="/self-service/home" />
+        <Profile path="/self-service/profile" />
         <Redirect
           default
           noThrow

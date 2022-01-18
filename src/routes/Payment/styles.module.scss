@@ -1,4 +1,3 @@
-
 @import "styles/include";
 
 .footerContent {
@@ -17,7 +16,6 @@
   min-width: 40px;
   margin-top: 3px;
 }
-
 
 .container {
   position: relative;
@@ -39,28 +37,14 @@
     }
 
     .paymentBox {
-      background-color: $gray-10;
+      border: 1px solid $gray-10;
       border-radius: 8px;
-      height: 388px;
+      height: 450px;
       margin-top: 18px;
-      cursor: pointer;
-
-      p {
-        @include font-roboto;
-        font-size: 14px;
-        text-align: center;
-        align-self: center;
-        display: flex;
-        flex-direction: column;
-        align-self: center;
-        height: 100%;
-        justify-content: center;
-      }
     }
 
     .confirmationBox {
       margin-top: 18px;
     }
   }
-
 }

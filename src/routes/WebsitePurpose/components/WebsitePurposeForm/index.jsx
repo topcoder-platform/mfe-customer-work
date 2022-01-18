@@ -14,12 +14,22 @@ import PT from "prop-types";
 import React from "react";
 import "./styles.module.scss";
 
-const WebsitePurposeForm = ({ formData, setFormData, price, serviceType }) => {
+const WebsitePurposeForm = ({
+  formData,
+  setFormData,
+  price,
+  serviceType,
+  saveWebsitePurpose,
+}) => {
   const handleInputChange = (name, value, option = null) => {
-    setFormData((formData) => ({
-      ...formData,
-      [name]: { ...formData[name], option: option ? option : value, value },
-    }));
+    setFormData((formData) => {
+      const newFormData = {
+        ...formData,
+        [name]: { ...formData[name], option: option ? option : value, value },
+      };
+      saveWebsitePurpose(newFormData);
+      return newFormData;
+    });
   };
 
   return (

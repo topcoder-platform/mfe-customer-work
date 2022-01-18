@@ -1,5 +1,20 @@
 import { ACTIONS } from "../constants";
 
+export const saveForm = (form) => ({
+  type: ACTIONS.FORM.SAVE_FORM,
+  payload: form,
+});
+
+export const resetIntakeForm = (isReset) => ({
+  type: ACTIONS.FORM.RESET_INTAKE_FORM,
+  payload: isReset,
+});
+
+export const reviewConfirmed = (confirmed) => ({
+  type: ACTIONS.FORM.REVIEW_CONFIRMED,
+  payload: confirmed,
+});
+
 export const saveWorkType = (workType) => ({
   type: ACTIONS.FORM.SAVE_WORK_TYPE,
   payload: workType,
