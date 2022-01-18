@@ -9,6 +9,7 @@ import Select from "components/ReactSelect";
 import PT from "prop-types";
 import React, { useState } from "react";
 import "./styles.module.scss";
+
 /**
  * Payment Form Page
  */

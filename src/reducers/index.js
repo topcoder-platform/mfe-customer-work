@@ -10,8 +10,6 @@ import formReducer from "./form";
 import myWorkReducer from "./myWork";
 import profileReducer from "./profile";
 import progressReducer from "./progress";
-import autoSaveReducer from "./autoSave";
-import challengeReducer from "./challenge";
 
 // redux root reducer
 const rootReducer = combineReducers({

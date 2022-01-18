@@ -1,6 +1,5 @@
 import { CHALLENGE_FIELD_VALUES } from "constants/index";
 import config from "../../config";
-import { CHALLENGE_FIELD_VALUES } from "constants/index";
 import { axiosInstance as axios } from "./requestInterceptor";
 
 /**
@@ -84,40 +83,4 @@ export async function getForumNotifications(challengeId, handle) {
   );
 
   return response.json();
-}
-
-export async function createChallenge() {
-  const body = {
-    typeId: CHALLENGE_FIELD_VALUES.typeId,
-    trackId: CHALLENGE_FIELD_VALUES.trackId,
-    timelineTemplateId: CHALLENGE_FIELD_VALUES.timelineTemplateId,
-    name: "new-self-service-project",
-    legacy: {
-      selfService: true,
-    },
-  };
-  const response = await axios.post(
-    `${config.API.V5}/challenges`,
-    JSON.stringify(body)
-  );
-
-  return response?.data;
-}
-
-/**
- * Patch a New Challenge
- */
-export async function patchChallenge(intakeForm, challengeId) {
-  const body = {
-    metadata: [
-      {
-        name: "intake-form",
-        value: intakeForm,
-      },
-    ],
-  };
-  const response = await axios.patch(
-    `${config.API.V5}/challenges/${challengeId}`,
-    JSON.stringify(body)
-  );
 }
