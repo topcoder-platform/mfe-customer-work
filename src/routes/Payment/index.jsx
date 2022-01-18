@@ -42,11 +42,16 @@ const Payment = ({ setProgressItem }) => {
     setProgressItem(7);
   };
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
-    if (currentStep === 0) {
-      redirectTo("/self-service");
+    if (firstMounted) {
+      if (currentStep === 0) {
+        redirectTo("/self-service");
+      }
+
+      setFirstMounted(false);
     }
-  }, []);
+  }, [currentStep, firstMounted]);
 
   return (
     <>

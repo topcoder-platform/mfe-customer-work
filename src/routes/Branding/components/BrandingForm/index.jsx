@@ -19,9 +19,10 @@ import {
   DesignOptions,
 } from "constants/";
 import PT from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ColorOptions from "../ColorOptions";
 import FontOptions from "../FontOptions";
+import _ from "lodash";
 import "./styles.module.scss";
 
 const BrandingForm = ({ price, serviceType, setFormData, formData }) => {
@@ -47,14 +48,17 @@ const BrandingForm = ({ price, serviceType, setFormData, formData }) => {
     }
   }, [formData.fontOption]);
 
-  const deliverableOptions = DeliverablesOptions;
+  const deliverableOptions = useMemo(
+    () => _.cloneDeep(DeliverablesOptions),
+    []
+  );
   useEffect(() => {
     if (formData?.selectedDeliverableOption?.value) {
       deliverableOptions[
         formData?.selectedDeliverableOption?.value
       ].value = true;
     }
-  }, [formData]);
+  }, [formData, deliverableOptions]);
 
   return (
     <div styleName="brandingForm">

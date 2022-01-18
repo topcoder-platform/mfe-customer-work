@@ -63,15 +63,19 @@ const BasicInfo = ({
     navigate("/self-service/website-purpose");
   };
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
-    if (currentStep === 0) {
-      redirectTo("/self-service");
-    }
+    if (firstMounted) {
+      if (currentStep === 0) {
+        redirectTo("/self-service");
+      }
 
-    if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
-      setFormData(basicInfo);
+      if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
+        setFormData(basicInfo);
+      }
+      setFirstMounted(false);
     }
-  }, []);
+  }, [basicInfo, currentStep, firstMounted]);
 
   useEffect(() => {
     if (formData) {

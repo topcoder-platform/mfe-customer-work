@@ -1,8 +1,7 @@
 @import "styles/include";
 
 .sidebar {
-  width: var(--sideBarWidth);
-  padding-top: 32px;
+  width: 104px;
 
   .menu {
     cursor: pointer;
@@ -33,6 +32,10 @@
       position: absolute;
       right: 0px;
       top: -40px;
+
+      svg {
+        display: block;
+      }
     }
   }
 }

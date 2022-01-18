@@ -27,7 +27,7 @@ const SelectWorkType = ({ saveWorkType, updatePrice, setProgressItem }) => {
 
   useEffect(() => {
     setProgressItem(1);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClick = (selectedItem) => {
     if (!currentStep) {

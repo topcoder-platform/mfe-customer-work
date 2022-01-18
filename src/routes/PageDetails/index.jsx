@@ -42,15 +42,20 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
     navigate("/self-service/website-purpose");
   };
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
-    if (currentStep === 0) {
-      redirectTo("/self-service");
-    }
+    if (firstMounted) {
+      if (currentStep === 0) {
+        redirectTo("/self-service");
+      }
 
-    if (pageDetails) {
-      setListInputs(pageDetails);
+      if (pageDetails) {
+        setListInputs(pageDetails);
+      }
+
+      setFirstMounted(false);
     }
-  }, []);
+  }, [currentStep, pageDetails, firstMounted]);
 
   const onNext = () => {
     navigate("/self-service/branding");

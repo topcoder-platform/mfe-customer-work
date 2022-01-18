@@ -16,7 +16,6 @@ const FormInputCheckbox = ({
   styleName,
   ...props
 }) => {
-  console.log(styles);
   return (
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label styleName={cn("styles.form-input-checkbox", styleName || "")}>

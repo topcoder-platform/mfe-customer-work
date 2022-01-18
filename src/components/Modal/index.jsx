@@ -13,7 +13,12 @@ const Modal = ({ children, show = false, handleClose = (f) => f }) => {
   return (
     show && (
       <div styleName={"modal"}>
-        <div styleName="modal-back" onClick={(e) => handleClose(e)}></div>
+        <div
+          styleName="modal-back"
+          onClick={(e) => handleClose(e)}
+          role="button"
+          tabIndex={0}
+        />
         <div styleName="modal-inner">
           {children}
           <IconCross

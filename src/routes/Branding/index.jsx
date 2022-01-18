@@ -46,15 +46,20 @@ const Branding = ({ saveBranding, setProgressItem }) => {
   const branding = useSelector((state) => state.form.branding);
   const currentStep = useSelector((state) => state.progress.currentStep);
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
-    if (currentStep === 0) {
-      redirectTo("/self-service");
-    }
+    if (firstMounted) {
+      if (currentStep === 0) {
+        redirectTo("/self-service");
+      }
 
-    if (branding) {
-      setFormData(branding);
+      if (branding) {
+        setFormData(branding);
+      }
+
+      setFirstMounted(false);
     }
-  }, []);
+  }, [currentStep, branding, firstMounted]);
 
   const isFormValid =
     formData?.theme?.value &&

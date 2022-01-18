@@ -25,17 +25,16 @@ const Review = ({ setProgressItem }) => {
   const [checked, setChecked] = useState(false);
   const currentStep = useSelector((state) => state.progress.currentStep);
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
-    if (currentStep === 0) {
-      redirectTo("/self-service");
-    }
-  }, []);
+    if (firstMounted) {
+      if (currentStep === 0) {
+        redirectTo("/self-service");
+      }
 
-  useEffect(() => {
-    if (currentStep === 0) {
-      redirectTo("/self-service");
+      setFirstMounted(false);
     }
-  }, []);
+  }, [currentStep, firstMounted]);
 
   const onBack = () => {
     navigate("/self-service/branding");

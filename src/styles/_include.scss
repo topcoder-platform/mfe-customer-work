@@ -2,10 +2,3 @@
 // It should NOT contain any CSS class-names as would be duplicated in the resulting file.
 @import "mixins";
 @import "variables";
-@import "reset";
-
-:root {
-  --navbarHeight: 60px;
-  --sideBarWidth: 104px;
-  --mainContentMargin: 21px;
-}

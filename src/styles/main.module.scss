@@ -1,24 +1,25 @@
 // This file should contain global styles for the microapp
 
 @import "styles/include";
+@import "reset";
 
 .topcoder-micro-frontends-self-service-app {
   @include font-barlow;
   color: #555;
 }
 
-@media (min-width: 1024px) {
-  .sidebar-wrapper {
-    left: 0;
-    height: calc(100vh - var(--navbarHeight));
-    position: absolute;
-    top: var(--navbarHeight);
-  }
-}
+// @media (min-width: 1024px) {
+//   .sidebar-wrapper {
+//     left: 0;
+//     height: calc(100vh - var(--navbarHeight));
+//     position: absolute;
+//     top: var(--navbarHeight);
+//   }
+// }
 
-.sidebar-wrapper {
-  background-color: $tc-white;
-}
+// .sidebar-wrapper {
+//   background-color: $tc-white;
+// }
 
 :global {
   #single-spa-main {
@@ -26,3 +27,9 @@
     margin: 0 auto !important;
   }
 }
+
+// :root {
+//   // --navbarHeight: 60px;
+//   // --sideBarWidth: 104px;
+//   // --mainContentMargin: 21px;
+// }

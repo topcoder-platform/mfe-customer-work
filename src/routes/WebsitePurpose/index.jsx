@@ -56,15 +56,20 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
     setProgressItem(3);
   };
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
-    if (currentStep === 0) {
-      redirectTo("/self-service");
-    }
+    if (firstMounted) {
+      if (currentStep === 0) {
+        redirectTo("/self-service");
+      }
 
-    if (websitePurpose) {
-      setFormData(websitePurpose);
+      if (websitePurpose) {
+        setFormData(websitePurpose);
+      }
+
+      setFirstMounted(true);
     }
-  }, []);
+  }, [currentStep, websitePurpose, firstMounted]);
 
   return (
     <>
