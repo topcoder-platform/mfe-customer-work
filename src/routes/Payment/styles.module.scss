@@ -9,6 +9,16 @@
   .footer-right {
     display: flex;
     gap: 16px;
+
+    span {
+      @include font-roboto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: $black;
+      font-size: 14px;
+      line-height: 12px;
+    }
   }
 }
 

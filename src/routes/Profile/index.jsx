@@ -1,9 +1,11 @@
+import { navigate } from "@reach/router";
 import Button from "components/Button";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
+import { BUTTON_TYPE } from "constants/";
 import { BUTTON_SIZE } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -27,6 +29,7 @@ const Profile = () => {
   const [hasSymbolNumber, setHasSymbolNumber] = useState(false);
   const [differentOldPassword, setDifferentOldPassword] = useState(false);
   const [rePasswordValid, setRePasswordValid] = useState(false);
+  const [isPristine, setIsPristine] = useState(true);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -55,6 +58,7 @@ const Profile = () => {
   }, [isLoading]);
 
   const isFormValid = () => {
+    if (isPristine) return false;
     if (
       formData.currentPassword ||
       formData.newPassword ||
@@ -147,7 +151,10 @@ const Profile = () => {
             <h3 styleName="profileTitle">MY PROFILE</h3>
             <ProfileForm
               formData={formData}
-              setFormData={setFormData}
+              setFormData={(e) => {
+                setIsPristine(false);
+                setFormData(e);
+              }}
               hasLength={hasLength}
               hasLetter={hasLetter}
               hasSymbolNumber={hasSymbolNumber}
@@ -158,6 +165,13 @@ const Profile = () => {
             <PageDivider />
 
             <PageFoot>
+              <Button
+                type={BUTTON_TYPE.SECONDARY}
+                size={BUTTON_SIZE.MEDIUM}
+                onClick={() => navigate("/self-service")}
+              >
+                BACK
+              </Button>
               <div styleName="footerContent">
                 <div styleName="footer-right">
                   <Button

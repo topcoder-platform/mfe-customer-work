@@ -64,13 +64,18 @@ const PaymentForm = ({ minAmount, formData, setFormData }) => {
       <FormField label={"Card Number"}>
         <div styleName="cardElement">
           <CardNumberElement
+            required
             onChange={(data) => {
               if (data?.error?.message) {
                 setCardNumberError(data?.error?.message);
                 handleInputChange("cardNumber", false);
               } else {
                 setCardNumberError("");
-                handleInputChange("cardNumber", true);
+                if (data.complete) {
+                  handleInputChange("cardNumber", true);
+                } else {
+                  handleInputChange("cardNumber", false);
+                }
               }
             }}
           />
@@ -87,10 +92,14 @@ const PaymentForm = ({ minAmount, formData, setFormData }) => {
             onChange={(data) => {
               if (data?.error?.message) {
                 setCardExpiryError(data?.error?.message);
-                handleInputChange("expiryDate", false);
               } else {
                 setCardExpiryError("");
-                handleInputChange("expiryDate", true);
+
+                if (data.complete) {
+                  handleInputChange("expiryDate", true);
+                } else {
+                  handleInputChange("expiryDate", false);
+                }
               }
             }}
           />
@@ -109,7 +118,11 @@ const PaymentForm = ({ minAmount, formData, setFormData }) => {
                 handleInputChange("cvc", false);
               } else {
                 setCvcError("");
-                handleInputChange("cvc", true);
+                if (data.complete) {
+                  handleInputChange("cvc", true);
+                } else {
+                  handleInputChange("cvc", false);
+                }
               }
             }}
           />

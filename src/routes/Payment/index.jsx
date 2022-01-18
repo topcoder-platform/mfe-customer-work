@@ -10,7 +10,7 @@ import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
 import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
-import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
+import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
@@ -19,10 +19,12 @@ import config from "../../../config";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import { loadChallengeId } from "../../autoSaveBeforeLogin";
+import { loadChallengeId, setCookie } from "../../autoSaveBeforeLogin";
 import withAuthentication from "../../hoc/withAuthentication";
 import * as services from "../../services/payment";
 import PaymentForm from "./components/PaymentForm";
+import { createNewChallenge } from "../../actions/challenge";
+import { resetIntakeForm } from "../../actions/form";
 import "./styles.module.scss";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
@@ -59,8 +61,13 @@ const Payment = ({ setProgressItem }) => {
     navigate("/self-service/review");
   };
 
+  const clearPreviousForm = () => {
+    dispatch(resetIntakeForm(true));
+    setCookie(MAX_COMPLETED_STEP, "", -1);
+  };
+
   const challengeId = loadChallengeId();
-  const onNext = () => {
+  const onNext = async () => {
     if (!stripe || !elements) {
       return;
     }
@@ -76,6 +83,8 @@ const Payment = ({ setProgressItem }) => {
         challengeId
       )
       .then((res) => {
+        dispatch(createNewChallenge());
+        clearPreviousForm();
         submitWork(form);
         navigate("/self-service/thank-you");
         setProgressItem(8);
@@ -134,7 +143,9 @@ const Payment = ({ setProgressItem }) => {
 
               <div styleName="confirmationBox">
                 <FormInputCheckbox
-                  label={"Yes, I confirm the above details are correct"}
+                  label={
+                    "Yes, I understand and agree to the <span>Work Contract</span> of Topcoder"
+                  }
                   checked={checked}
                   onChange={(e) => setChecked(e.target.checked)}
                 />
@@ -156,6 +167,7 @@ const Payment = ({ setProgressItem }) => {
                 </Button>
               </div>
               <div styleName="footer-right">
+                <span>Confirm checkbox before proceeding</span>
                 <Button
                   disabled={!isFormValid || isLoading}
                   size={BUTTON_SIZE.MEDIUM}
@@ -167,7 +179,7 @@ const Payment = ({ setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={6} />
+          <Progress level={7} />
         </PageContent>
       </Page>
     </>

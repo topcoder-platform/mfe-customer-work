@@ -32,8 +32,6 @@ const ThankYou = () => {
   };
 
   const onDone = async () => {
-    await dispatch(createNewChallenge());
-    clearPreviousForm();
     navigate("/self-service");
   };
 
@@ -56,7 +54,7 @@ const ThankYou = () => {
 
               <div styleName="btn">
                 <Button size={BUTTON_SIZE.MEDIUM} onClick={onDone}>
-                  SUBMIT WORK
+                  Go to My Work
                 </Button>
               </div>
             </div>
