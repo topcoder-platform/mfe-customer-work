@@ -26,7 +26,7 @@ import {
 } from "./hoc/withAuthentication/actions";
 import { saveForm } from "./actions/form";
 import { setProgressItem } from "./actions/progress";
-import { getChallengeDetails } from "services/challenge";
+import { getIntakeFormChallenges } from "services/challenge";
 import { getChallenge, createNewChallenge } from "./actions/challenge";
 import LoadingSpinner from "components/LoadingSpinner";
 
@@ -90,7 +90,7 @@ export default function IntakeForm() {
   const receiveChallengeDetail = async (handle) => {
     const challengeId = loadChallengeId();
     if (!challengeId) return undefined;
-    return getChallengeDetails(handle, challengeId)
+    return getIntakeFormChallenges(handle, challengeId)
       .then((challengeDetail) => {
         const savedChallenge = challengeDetail ? challengeDetail[0] : undefined;
         if (savedChallenge) {
