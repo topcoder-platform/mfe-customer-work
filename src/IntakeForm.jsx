@@ -1,9 +1,26 @@
-import { Router, navigate } from "@reach/router";
+import { navigate, Router } from "@reach/router";
 import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
+import LoadingSpinner from "components/LoadingSpinner";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import _ from "lodash";
+import { decodeToken } from "tc-auth-lib";
+import { autoSaveInitErrored, triggerAutoSave } from "./actions/autoSave";
+import { createNewChallenge, getChallenge } from "./actions/challenge";
+import { saveForm } from "./actions/form";
+import { setProgressItem } from "./actions/progress";
+import {
+  cacheChallengeId,
+  loadChallengeId,
+  loadSavedFormCookie,
+  setCookie,
+} from "./autoSaveBeforeLogin";
 import { INTAKE_FORM_ROUTES, MAX_COMPLETED_STEP } from "./constants";
+import {
+  authUserError,
+  authUserSuccess,
+} from "./hoc/withAuthentication/actions";
+import { getIntakeFormChallenges } from "services/challenge";
 import BasicInfo from "./routes/BasicInfo";
 import Branding from "./routes/Branding";
 import PageDetails from "./routes/PageDetails";
@@ -12,23 +29,6 @@ import Review from "./routes/Review";
 import SelectWorkType from "./routes/SelectWorkType";
 import ThankYou from "./routes/ThankYou";
 import WebsitePurpose from "./routes/WebsitePurpose";
-import { autoSaveInitErrored, triggerAutoSave } from "./actions/autoSave";
-import {
-  loadSavedFormCookie,
-  loadChallengeId,
-  cacheChallengeId,
-  setCookie,
-} from "./autoSaveBeforeLogin";
-import { decodeToken } from "tc-auth-lib";
-import {
-  authUserError,
-  authUserSuccess,
-} from "./hoc/withAuthentication/actions";
-import { saveForm } from "./actions/form";
-import { setProgressItem } from "./actions/progress";
-import { getIntakeFormChallenges } from "services/challenge";
-import { getChallenge, createNewChallenge } from "./actions/challenge";
-import LoadingSpinner from "components/LoadingSpinner";
 
 export default function IntakeForm() {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
-import { MAX_COMPLETED_STEP, BUTTON_SIZE, webWorkTypes } from "constants/";
+import { BUTTON_SIZE, MAX_COMPLETED_STEP, webWorkTypes } from "constants/";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./styles.module.scss";

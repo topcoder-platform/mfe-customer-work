@@ -10,13 +10,13 @@ import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import React, { useEffect, useState } from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { triggerAutoSave } from "../../actions/autoSave";
+import { reviewConfirmed } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import ReviewTable from "./components/ReviewTable";
 import "./styles.module.scss";
-import { reviewConfirmed } from "../../actions/form";
-import { triggerAutoSave } from "../../actions/autoSave";
 
 /**
  * Review Page
@@ -47,7 +47,7 @@ const Review = ({ setProgressItem }) => {
 
   useEffect(() => {
     if (currentStep === 0) {
-      redirectTo("/self-service");
+      redirectTo("/self-service/wizard");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

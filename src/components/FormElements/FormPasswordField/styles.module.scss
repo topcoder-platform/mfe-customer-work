@@ -1,6 +1,6 @@
 @import "styles/include";
 
-.form-input-text {
+.form-password-field {
   background-color: #ffffff !important;
   box-sizing: border-box !important;
   color: #444 !important;
@@ -22,4 +22,11 @@
   &:disabled {
     background-color: $grey-bg !important;
   }
+}
+
+.eye-icon {
+  position: absolute;
+  right: 9px;
+  top: 37px;
+  cursor: pointer;
 }

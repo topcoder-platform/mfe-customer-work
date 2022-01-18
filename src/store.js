@@ -2,11 +2,11 @@
 /**
  * Configure Redux Store
  */
-import { createStore, applyMiddleware } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { createLogger } from "redux-logger";
+import { createPromise } from "redux-promise-middleware";
 import thunk from "redux-thunk";
 import { saveUpdatesMiddleware } from "./autoSaveBeforeLogin";
-import { createPromise } from "redux-promise-middleware";
 import rootReducer from "./reducers";
 
 const middlewares = [

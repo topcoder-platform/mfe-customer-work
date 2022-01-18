@@ -1,7 +1,7 @@
-import { ACTIONS } from "../constants";
-import { autoSaveCookie } from "../autoSaveBeforeLogin";
-import { getChallenge } from "../actions/challenge";
 import { patchChallenge } from "services/challenge";
+import { getChallenge } from "../actions/challenge";
+import { autoSaveCookie } from "../autoSaveBeforeLogin";
+import { ACTIONS } from "../constants";
 
 export const autoSaveInitErrored = (error) => ({
   type: ACTIONS.AUTO_SAVE.INIT_ERRORED,

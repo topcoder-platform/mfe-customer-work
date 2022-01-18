@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { navigate } from "@reach/router";
 import LoadingSpinner from "components/LoadingSpinner";
-import Dashboard from "./components/Dashboard";
+import { ROUTES } from "constants/index.js";
 import {
   getIsLoggedIn,
   getIsLoggingIn,
 } from "hoc/withAuthentication/selectors";
 import { checkIfLoggedIn } from "hoc/withAuthentication/thunks";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getWorksIsLoading } from "selectors/myWork";
 import { loadWorks } from "thunks/myWork";
-import { ROUTES } from "constants/index.js";
+import Dashboard from "./components/Dashboard";
 import "./styles.module.scss";
 
 /**
@@ -36,7 +36,7 @@ const MyWork = () => {
 
   useEffect(() => {
     if (!isLoggingIn && !isLoggedIn) {
-      navigate(ROUTES.INTAKE_FORM);
+      navigate(ROUTES.HOME_PAGE);
     }
   }, [isLoggedIn, isLoggingIn]);
 

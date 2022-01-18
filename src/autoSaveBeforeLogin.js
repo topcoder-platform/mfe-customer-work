@@ -1,13 +1,13 @@
+import { ACTIONS, AUTO_SAVE_FORM, CACHED_CHALLENGE_ID } from "constants/index";
+import CryptoJS from "crypto-js";
 import _ from "lodash";
 import moment from "moment";
 import "moment-timezone";
-import CryptoJS from "crypto-js";
-import { ACTIONS, AUTO_SAVE_FORM, CACHED_CHALLENGE_ID } from "constants/index";
 import config from "../config";
 import {
+  autoSaveCookieCleared,
   sendAutoSavedPatch,
   storeAutoSavedCookie,
-  autoSaveCookieCleared,
 } from "./actions/autoSave";
 
 export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
