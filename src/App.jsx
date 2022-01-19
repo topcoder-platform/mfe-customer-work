@@ -1,5 +1,5 @@
 import { Redirect, Router } from "@reach/router";
-import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserTokens, disableNavigationForRoute } from "@topcoder/micro-frontends-navbar-app";
 import Sidebar from "components/Sidebar";
 import React, { useLayoutEffect, useState } from "react";
 import { menuItems } from "./constants";
@@ -29,6 +29,7 @@ const App = () => {
       const { tokenV3 } = await getAuthUserTokens();
       setIsLoggedIn(!!tokenV3);
     };
+    disableNavigationForRoute('/self-service/*');
     checkIsLoggedIn();
     document.documentElement.style.setProperty("--navbarHeight", "80px");
     return () => {
