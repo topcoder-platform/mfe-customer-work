@@ -1,0 +1,18 @@
+@import "styles/include";
+
+.timeline {
+  min-height: 251px;
+  padding: 16px;
+  background-color: $gray-10;
+  border-radius: 0 0 8px 8px;
+}
+
+.title {
+  @include font-barlow;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: $black;
+
+  margin-bottom: 79px;
+}

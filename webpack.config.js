@@ -20,6 +20,12 @@ module.exports = (webpackConfigEnv) => {
   });
 
   return webpackMerge.smart(defaultConfig, {
+    // to reduce size of bundle
+    externals: {
+      "@topcoder/micro-frontends-navbar-app": "@topcoder/micro-frontends-navbar-app",
+      "react": "react",
+      "react-dom": "react-dom",
+    },
     output: {
       // path: path.resolve(__dirname, 'dist'),
       publicPath: "self-service-app",

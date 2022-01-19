@@ -5,6 +5,8 @@ import moment from "moment";
 import Rating from "components/Rating";
 import { formatWorkType } from "utils/formatters";
 import { CHALLENGE_STATUS } from "constants/index.js";
+import { Link } from "@reach/router";
+
 import styles from "./styles.module.scss";
 
 /**
@@ -29,7 +31,7 @@ const WorkItem = ({ work }) => {
   } = work;
   const subTrack = legacy?.subTrack;
   return (
-    <div styleName="container">
+    <Link styleName="container" to={`/self-service/work-items/${id}`}>
       <div styleName="header">
         <div
           styleName="status"
@@ -71,7 +73,7 @@ const WorkItem = ({ work }) => {
             </div>
           )}
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -1,4 +1,4 @@
-import { navigate, Router } from "@reach/router";
+import { navigate, Router, Redirect } from "@reach/router";
 import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
 import LoadingSpinner from "components/LoadingSpinner";
 import _ from "lodash";
@@ -159,7 +159,8 @@ export default function IntakeForm() {
         <Review path="/review" />
         <Payment path="/payment" />
         <ThankYou path="/thank-you" />
-        <SelectWorkType default noThrow path="/wizard" />
+        <SelectWorkType path="/wizard" />
+        <Redirect noThrow from="/*" to="/self-service/wizard" />
       </Router>
     </div>
   );

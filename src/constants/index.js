@@ -1,5 +1,7 @@
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
 import MyWorkIcon from "../assets/images/icon-my-work.svg";
+import workUtil from "../utils/work";
+import moment from "moment";
 
 export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
@@ -25,6 +27,7 @@ export const BUTTON_SIZE = {
   TINY: "tiny",
   SMALL: "small",
   MEDIUM: "medium",
+  LARGE: "large",
 };
 
 /**
@@ -174,11 +177,11 @@ export const ColorOptionsItems = [
  * Color Options
  */
 export const tabNames = [
-  "Summary",
-  "Details",
-  "Messaging",
-  "Solutions",
-  "History",
+  "summary",
+  "details",
+  "messaging",
+  "solutions",
+  "history",
 ];
 
 export const disabledSidebarRoutes = [
@@ -240,6 +243,31 @@ export const ACTIONS = {
     UPDATE_BASIC_INFO_SUCCESS: "UPDATE_BASIC_INFO_SUCCESS",
     UPDATE_BASIC_INFO_ERROR: "UPDATE_BASIC_INFO_ERROR",
   },
+  WORK: {
+    GET_WORK: "GET_WORK",
+    GET_WORK_PENDING: "GET_WORK_PENDING",
+    GET_WORK_SUCCESS: "GET_WORK_SUCCESS",
+    GET_WORK_ERROR: "GET_WORK_ERROR",
+    GET_SUMMARY: "GET_SUMMARY",
+    GET_DETAILS: "GET_DETAILS",
+    GET_SOLUTIONS: "GET_SOLUTIONS",
+    GET_SOLUTIONS_PENDING: "GET_SOLUTIONS_PENDING",
+    GET_SOLUTIONS_SUCCESS: "GET_SOLUTIONS_SUCCESS",
+    GET_SOLUTIONS_ERROR: "GET_SOLUTIONS_ERROR",
+    DOWNLOAD_SOLUTION: "DOWNLOAD_SOLUTION",
+    DOWNLOAD_SOLUTION_PENDING: "DOWNLOAD_SOLUTION_PENDING",
+    DOWNLOAD_SOLUTION_SUCCESS: "DOWNLOAD_SOLUTION_SUCCESS",
+    DOWNLOAD_SOLUTION_ERROR: "DOWNLOAD_SOLUTION_ERROR",
+    SAVE_SURVEY: "SAVE_SURVEY",
+    SAVE_SURVEY_PENDING: "SAVE_SURVEY_PENDING",
+    SAVE_SURVEY_SUCCESS: "SAVE_SURVEY_SUCCESS",
+    SAVE_SURVEY_ERROR: "SAVE_SURVEY_ERROR",
+    SET_IS_SAVING_SURVEY_DONE: "SET_IS_SAVING_SURVEY_DONE",
+    GET_FORUM_NOTIFICATIONS: "GET_FORUM_NOTIFICATIONS",
+    GET_FORUM_NOTIFICATIONS_PENDING: "GET_FORUM_NOTIFICATIONS_PENDING",
+    GET_FORUM_NOTIFICATIONS_SUCCESS: "GET_FORUM_NOTIFICATIONS_SUCCESS",
+    GET_FORUM_NOTIFICATIONS_ERROR: "GET_FORUM_NOTIFICATIONS_ERROR",
+  },
 };
 
 export const AUTO_SAVE_FORM = "AUTO_SAVE_FORM";
@@ -287,3 +315,191 @@ export const WORK_STATUS_ORDER = {
   [CHALLENGE_STATUS.CANCELLED]: 4, // Directed to sales
   Unknown: 999,
 };
+export const WORK_STATUSES = {
+  Draft: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.NEW],
+    value: CHALLENGE_STATUS.NEW,
+    color: "#555555",
+  },
+  Submitted: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.DRAFT],
+    value: CHALLENGE_STATUS.DRAFT,
+    color: "#e90c5a",
+  },
+  InProgress: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.ACTIVE],
+    value: CHALLENGE_STATUS.ACTIVE,
+    color: "#12c188",
+  },
+  Completed: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.COMPLETED],
+    value: CHALLENGE_STATUS.COMPLETED,
+    color: "#2c95d7",
+  },
+  DirectedToSales: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.CANCELLED],
+    value: CHALLENGE_STATUS.CANCELLED,
+    color: "#6569ff",
+  },
+};
+
+export const WORK_TIMELINE = [
+  {
+    title: "WORK SUBMITTED",
+    date: "created",
+    completed: (work) => {
+      const submitted =
+        WORK_STATUS_ORDER[work.status] >
+        WORK_STATUS_ORDER[WORK_STATUSES.Draft.value];
+      return submitted;
+    },
+  },
+  {
+    title: "WORK STARTED",
+    date: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Registration");
+      return phase && workUtil.phaseStartDate(phase);
+    },
+    active: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Registration");
+      const isRegistrationPhaseOpen =
+        phase && phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
+      return (
+        work.status === WORK_STATUSES.InProgress.value &&
+        isRegistrationPhaseOpen
+      );
+    },
+    completed: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Registration");
+      const isRegistrationPhaseClosed =
+        phase && moment(workUtil.phaseEndDate(phase)).isBefore();
+      const didStart =
+        WORK_STATUS_ORDER[work.status] >=
+        WORK_STATUS_ORDER[WORK_STATUSES.InProgress.value];
+      return isRegistrationPhaseClosed && didStart;
+    },
+  },
+  {
+    title: "WORK FINISHED",
+    date: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Submission");
+      return workUtil.phaseEndDate(phase);
+    },
+    active: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Submission");
+      const isSubmissionPhaseOpen =
+        phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
+      return (
+        work.status === WORK_STATUSES.InProgress.value && isSubmissionPhaseOpen
+      );
+    },
+    completed: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Submission");
+      const isSubmissionPhaseClosed = moment(
+        workUtil.phaseEndDate(phase)
+      ).isBefore();
+      const didStart =
+        WORK_STATUS_ORDER[work.status] >=
+        WORK_STATUS_ORDER[WORK_STATUSES.InProgress.value];
+      return isSubmissionPhaseClosed && didStart;
+    },
+  },
+  {
+    name: "downloads-ready",
+    title: "DOWNLOADS READY",
+    date: (work) => {
+      let phase = work.phases.find((phase) => phase.name === "Review");
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Iterative Review");
+      }
+
+      return phase && workUtil.phaseEndDate(phase);
+    },
+    active: (work) => {
+      let phase = work.phases.find((phase) => phase.name === "Review");
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Iterative Review");
+      }
+
+      const isReviewPhaseOpen =
+        phase && phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
+      return isReviewPhaseOpen;
+    },
+    completed: (work) => {
+      let phase = work.phases.find((phase) => phase.name === "Review");
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Iterative Review");
+      }
+
+      const isReviewPhaseEnded =
+        phase && moment(workUtil.phaseEndDate(phase)).isBefore();
+
+      const didStart =
+        work.status !== WORK_STATUSES.DirectedToSales.value &&
+        WORK_STATUS_ORDER[work.status] >=
+          WORK_STATUS_ORDER[WORK_STATUSES.InProgress.value];
+
+      return isReviewPhaseEnded && didStart;
+    },
+  },
+  {
+    title: "MARK AS DONE",
+    date: (work) => {
+      if (work.status === WORK_STATUSES.Completed.value) {
+        return work.updated;
+      }
+    },
+    active: (work) => work.status === WORK_STATUSES.Completed.value,
+    completed: (work) => {
+      const customerFeedbacked =
+        work.metadata &&
+        work.metadata.find((item) => item.name === "customerFeedback");
+      return (
+        work.status === WORK_STATUSES.Completed.value && customerFeedbacked
+      );
+    },
+    hidden: (work) => {
+      const customerFeedbacked =
+        work.metadata &&
+        work.metadata.find((item) => item.name === "customerFeedback");
+      return (
+        work.status === WORK_STATUSES.Completed.value && customerFeedbacked
+      );
+    },
+  },
+  {
+    name: "send-to-solutions-expert",
+    title: "SEND TO SOLUTIONS EXPERT",
+    date: (work) => {
+      if (work.status === WORK_STATUSES.DirectedToSales.value) {
+        return work.updated;
+      }
+    },
+    completed: true,
+    hidden: (work) => {
+      return work.status !== WORK_STATUSES.DirectedToSales.value;
+    },
+  },
+];
+
+export const SURVEY_QUESTIONS = [
+  {
+    name: "How happy are you with the quality of work?",
+    value: 0,
+  },
+  {
+    name: "How easy was it to get the results you wanted?",
+    value: 0,
+  },
+  {
+    name: "How likely are you to recommend Topcoder?",
+    value: 0,
+  },
+  {
+    name: "What can we do to make your experience better?",
+    value: "",
+  },
+];

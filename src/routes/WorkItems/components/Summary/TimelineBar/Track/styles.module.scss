@@ -1,0 +1,32 @@
+@import "styles/include";
+
+.track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 8px;
+
+  border-radius: 4px;
+
+  &.isFirst {
+    max-width: 0;
+  }
+
+  &.completed,
+  &.active {
+    background-color: $purple-100;
+  }
+
+  &.send-to-solutions-expert {}
+  &.downloads-ready {}
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(-50%, -15px);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -64,7 +64,12 @@ const BasicInfo = ({
     navigate("/self-service/website-purpose");
   };
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
+    if (!firstMounted) {
+      return;
+    }
+
     setProgressItem(2);
 
     if (currentStep === 0) {
@@ -75,11 +80,12 @@ const BasicInfo = ({
       setFormData(basicInfo);
     }
 
+    setFirstMounted(true);
+
     return () => {
       dispatch(triggerAutoSave(true));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [basicInfo, currentStep, dispatch, setProgressItem, firstMounted]);
 
   useEffect(() => {
     if (formData) {
@@ -88,8 +94,7 @@ const BasicInfo = ({
       );
       saveBasicInfo(formData);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData, updateAdditionalPrice]);
+  }, [formData, updateAdditionalPrice, saveBasicInfo]);
 
   useEffect(() => {
     if (formData) {

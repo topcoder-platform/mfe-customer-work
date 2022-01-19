@@ -1,24 +1,23 @@
 import { Redirect, Router } from "@reach/router";
-import {
-  disableNavigationForRoute,
-  disableSidebarForRoute,
-} from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
 import Sidebar from "components/Sidebar";
-import useMatchSomeRoute from "hooks/useMatchSomeRoute";
-import React, { useEffect, useLayoutEffect } from "react";
-import { useSelector } from "react-redux";
-import { disabledSidebarRoutes, menuItems } from "./constants";
-import { getIsLoggedIn } from "./hoc/withAuthentication/selectors";
+import React, { useLayoutEffect, useState } from "react";
+import { menuItems } from "./constants";
 import IntakeForm from "./IntakeForm";
 import Home from "./routes/Home";
 import MyWork from "./routes/MyWork";
 import Profile from "./routes/Profile";
 import WorkItems from "./routes/WorkItems";
+import Layout from "components/Layout";
+
+import "react-responsive-modal/styles.css";
+
 import styles from "./styles/main.module.scss";
 
+const sidebar = <Sidebar menus={menuItems} />;
+
 const App = () => {
-  const isLoggedIn = useSelector(getIsLoggedIn);
-  const isSideBarDisabled = useMatchSomeRoute(disabledSidebarRoutes);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   useEffect(() => {
     disableSidebarForRoute("/self-service/*");
@@ -26,6 +25,11 @@ const App = () => {
   }, []);
 
   useLayoutEffect(() => {
+    const checkIsLoggedIn = async () => {
+      const { tokenV3 } = await getAuthUserTokens();
+      setIsLoggedIn(!!tokenV3);
+    };
+    checkIsLoggedIn();
     document.documentElement.style.setProperty("--navbarHeight", "80px");
     return () => {
       // --navbarHeight must be set to its default value,
@@ -34,37 +38,33 @@ const App = () => {
     };
   }, []);
 
-  useLayoutEffect(() => {
-    if (isSideBarDisabled) {
-      document.documentElement.style.setProperty("--sideBarWidth", 0);
-      document.documentElement.style.setProperty("--mainContentMargin", 0);
-    } else {
-      document.documentElement.style.setProperty("--sideBarWidth", "104px");
-      document.documentElement.style.setProperty("--mainContentMargin", "21px");
-    }
-  }, [isSideBarDisabled]);
+  if (isLoggedIn == null) {
+    return null;
+  }
 
   return (
-    <>
+    <div className={styles["topcoder-micro-frontends-self-service-app"]}>
       <Router>
-        <IntakeForm path="/self-service/*" />
-        <WorkItems path="/self-service/work-items/:workItemId" />
-        <MyWork path="/self-service" />
+        {!isLoggedIn && <IntakeForm path="/self-service/*" />}
+        {isLoggedIn && (
+          <>
+            <Layout
+              path="/self-service"
+              sidebar={sidebar}
+              PageComponent={MyWork}
+            />
+            <Layout
+              path="/self-service/work-items/:workItemId"
+              sidebar={sidebar}
+              PageComponent={WorkItems}
+            />
+            <Redirect noThrow from="/self-service/*" to="/self-service" />
+          </>
+        )}
         <Home path="/self-service/home" />
         <Profile path="/self-service/profile" />
-        <Redirect
-          default
-          noThrow
-          from="/self-service/work-items"
-          to="/self-service"
-        />
       </Router>
-      {!isSideBarDisabled && isLoggedIn && (
-        <div className={styles["sidebar-wrapper"]}>
-          <Sidebar menus={menuItems} />
-        </div>
-      )}
-    </>
+    </div>
   );
 };
 
