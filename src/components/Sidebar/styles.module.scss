@@ -35,6 +35,9 @@
 
       svg {
         display: block;
+        path {
+          fill: $gray-10;
+        }
       }
     }
   }
