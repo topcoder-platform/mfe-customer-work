@@ -1,5 +1,8 @@
 import { Redirect, Router } from "@reach/router";
-import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
+import {
+  getAuthUserTokens,
+  disableNavigationForRoute,
+} from "@topcoder/micro-frontends-navbar-app";
 import Sidebar from "components/Sidebar";
 import React, { useLayoutEffect, useState } from "react";
 import { menuItems } from "./constants";
@@ -19,16 +22,12 @@ const sidebar = <Sidebar menus={menuItems} />;
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
-  useEffect(() => {
-    disableSidebarForRoute("/self-service/*");
-    disableNavigationForRoute("/self-service/*");
-  }, []);
-
   useLayoutEffect(() => {
     const checkIsLoggedIn = async () => {
       const { tokenV3 } = await getAuthUserTokens();
       setIsLoggedIn(!!tokenV3);
     };
+    disableNavigationForRoute("/self-service/*");
     checkIsLoggedIn();
     document.documentElement.style.setProperty("--navbarHeight", "80px");
     return () => {
@@ -45,7 +44,7 @@ const App = () => {
   return (
     <div className={styles["topcoder-micro-frontends-self-service-app"]}>
       <Router>
-        {!isLoggedIn && <IntakeForm path="/self-service/*" />}
+        <IntakeForm path="/self-service/*" />
         {isLoggedIn && (
           <>
             <Layout
@@ -61,8 +60,8 @@ const App = () => {
             <Redirect noThrow from="/self-service/*" to="/self-service" />
           </>
         )}
-        <Home path="/self-service/home" />
         <Profile path="/self-service/profile" />
+        <Home path="/self-service/home" />
       </Router>
     </div>
   );

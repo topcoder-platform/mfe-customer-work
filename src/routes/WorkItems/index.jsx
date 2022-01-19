@@ -222,14 +222,6 @@ const WorkItem = ({
             >
               SOLUTIONS
             </Tab>
-            <Tab
-              active={selectedTab === "history"}
-              onClick={() => {
-                setSelectedTab("history");
-              }}
-            >
-              HISTORY
-            </Tab>
           </Tabs>
 
           <div>

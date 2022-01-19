@@ -8,13 +8,14 @@ import config from "../../../../../config";
 import ArrowRightIcon from "../../../../assets/images/arrow-right.svg";
 
 import "./styles.module.scss";
+import _ from "lodash";
 
 const Details = ({ challenge, formData }) => {
   return (
     <div styleName="details">
       <div styleName="reviewTable">
         <PageDivider />
-        <ReviewTable formData={formData} enableEdit={false} />
+        <ReviewTable formData={_.get(formData, 'intake-form.form', {})} enableEdit={false} />
       </div>
 
       <div styleName="invoiceWrapper">
