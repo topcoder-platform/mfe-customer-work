@@ -1,4 +1,4 @@
-import { navigate, Router } from "@reach/router";
+import { navigate, Router, Redirect } from "@reach/router";
 import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
 import LoadingSpinner from "components/LoadingSpinner";
 import _ from "lodash";
@@ -151,7 +151,7 @@ export default function IntakeForm() {
   return (
     <div>
       <LoadingSpinner show={isLoading} />
-      <Router basepath="/self-service">
+      <Router>
         <BasicInfo path="/basic-info" />
         <WebsitePurpose path="/website-purpose" />
         <PageDetails path="/page-details" />
@@ -160,7 +160,7 @@ export default function IntakeForm() {
         <Payment path="/payment" />
         <ThankYou path="/thank-you" />
         <SelectWorkType path="/wizard" />
-        <Redirect from="*" to="/self-service/wizard" noThrow />
+        <Redirect noThrow from="/*" to="/self-service/wizard" />
       </Router>
     </div>
   );
