@@ -8,7 +8,7 @@ import "./styles.module.scss";
 
 export const TimelineContext = React.createContext();
 
-const Summary = ({ summary, onTabChange }) => {
+const Summary = ({ summary, setSelectedTab, setShowSurvey }) => {
   const {
     participants,
     solutions,
@@ -29,7 +29,7 @@ const Summary = ({ summary, onTabChange }) => {
           <li styleName="work-summaryItem">SOLUTIONS: {solutions}</li>
           <li styleName="divider" />
           <li styleName="work-summaryItem">
-            SUBMIT DATE: {moment(submitDate).format("MM/DD/YY")}
+            SUBMIT DATE: {moment(submitDate).format("MM/DD/YYYY")}
           </li>
           <li styleName="divider" />
           <li styleName="work-summaryItem work-id">WORK ID: {workId}</li>
@@ -41,7 +41,9 @@ const Summary = ({ summary, onTabChange }) => {
           nextAction={nextAction}
           daysToBegin={daysToBegin}
         />
-        <TimelineContext.Provider value={{ workId, onTabChange }}>
+        <TimelineContext.Provider
+          value={{ workId, setSelectedTab, setShowSurvey }}
+        >
           <Timeline timeline={timeline} />
         </TimelineContext.Provider>
       </div>
@@ -62,7 +64,8 @@ Summary.propTypes = {
     daysToBegin: PT.number,
     timeline: PT.arrayOf(PT.shape()),
   }),
-  onTabChange: PT.func,
+  setSelectedTab: PT.func,
+  setShowSurvey: PT.func,
 };
 
 export default Summary;

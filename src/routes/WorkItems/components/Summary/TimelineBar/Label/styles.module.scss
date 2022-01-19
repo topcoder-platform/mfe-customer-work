@@ -11,20 +11,29 @@
   width: 60px;
   text-align: center;
 
-  strong { font-weight: 600; }
+  strong {
+    font-weight: 600;
+    min-width: 8ch;
+  }
 
-  &.left { text-align: left; padding-left: 20px; }
-  &.right { text-align: right; padding-right: 20px; }
+  &.left {
+    text-align: left;
+    padding-left: 16px;
+    width: 30px;
+  }
+  &.right {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    text-align: right;
+    padding-right: 16px;
+    width: 30px;
+
+    br { display: none; }
+  }
 
   &.highlight strong {
     color: $link-blue-dark;
-  }
-
-  .link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 10px;
   }
 }

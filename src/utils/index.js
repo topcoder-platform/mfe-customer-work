@@ -27,3 +27,14 @@ export function triggerDownload(fileName, blob) {
   link.click();
   link.parentNode.removeChild(link);
 }
+
+/**
+ * Pad a number with leading zeros.
+ */
+export function padStart(target, targetLength = 2) {
+  if (target === 0) {
+    return target;
+  }
+
+  return String.prototype.padStart.call(target, targetLength, "0");
+}

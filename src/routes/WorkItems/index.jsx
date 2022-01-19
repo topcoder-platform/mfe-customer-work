@@ -18,6 +18,7 @@ import Details from "./components/Details";
 import Solutions from "./components/Solutions";
 import FinalSurvey from "./components/Solutions/FinalSurvey";
 import workUtil from "utils/work";
+import { padStart } from "utils";
 import { Modal } from "react-responsive-modal";
 import Forum from "../Forum";
 
@@ -126,19 +127,19 @@ const WorkItem = ({
     }
   }, [work, isSavingSurveyDone, setIsSavingSurveyDone, getSummary]);
 
-  const isReviewPhaseEnded = React.useMemo(() => {
+  const isReviewPhaseEnded = useMemo(() => {
     if (work) {
       return workUtil.isReviewPhaseEnded(work);
     }
   }, [work]);
 
-  const reviewPhaseEndedDate = React.useMemo(() => {
+  const reviewPhaseEndedDate = useMemo(() => {
     if (work) {
       return workUtil.getReviewPhaseEndedDate(work);
     }
   }, [work]);
 
-  const markAsDoneButton = React.useMemo(() => {
+  const markAsDoneButton = useMemo(() => {
     if (work) {
       if (
         work.status === WORK_STATUSES.Completed.value &&
@@ -157,10 +158,11 @@ const WorkItem = ({
     }
   }, [work]);
 
-  const customerFeedback = React.useMemo(() => {
+  const [customerFeedback, setCustomerFeedback] = useState();
+  useEffect(() => {
     if (work && work.metadata) {
       const item = work.metadata.find((i) => i.name === "customerFeedback");
-      return item && JSON.parse(item.value);
+      setCustomerFeedback(item && JSON.parse(item.value));
     }
   }, [work]);
 
@@ -208,11 +210,7 @@ const WorkItem = ({
               MESSAGES
               {forumNotifications && forumNotifications.unreadNotifications && (
                 <span styleName="message-count">
-                  {String.prototype.padStart.call(
-                    forumNotifications.unreadNotifications,
-                    2,
-                    "0"
-                  )}
+                  {padStart(forumNotifications.unreadNotifications)}
                 </span>
               )}
             </Tab>
@@ -231,7 +229,8 @@ const WorkItem = ({
               {summary && (
                 <Summary
                   summary={summary}
-                  onTabChange={(tab) => setSelectedTab(tab)}
+                  setSelectedTab={setSelectedTab}
+                  setShowSurvey={setShowSurvey}
                 />
               )}
               {markAsDoneButton}
@@ -252,7 +251,7 @@ const WorkItem = ({
               />
               <div styleName="solution-tab-footer">
                 {markAsDoneButton}
-                <a href="#void()" styleName="need-help-link">
+                <a href="#void" styleName="need-help-link">
                   Need Help?
                 </a>
               </div>
@@ -298,7 +297,10 @@ const WorkItem = ({
             saveSurvey(work.id, metadata);
             setShowSurvey(false);
           }}
-          onCancel={() => setShowSurvey(false)}
+          onCancel={(tempData) => {
+            setShowSurvey(false);
+            setCustomerFeedback(tempData);
+          }}
           customerFeedback={customerFeedback}
         />
       </Modal>
