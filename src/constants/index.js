@@ -184,6 +184,19 @@ export const tabNames = [
   "history",
 ];
 
+export const disabledSidebarRoutes = [
+  "/self-service/basic-info",
+  "/self-service/website-purpose",
+  "/self-service/page-details",
+  "/self-service/branding",
+  "/self-service/review",
+  "/self-service/payment",
+  "/self-service/thank-you",
+  "/self-service/wizard",
+  "/self-service/profile",
+  "/self-service/work-items/*",
+];
+
 export const menuItems = [
   {
     item: "My Work",

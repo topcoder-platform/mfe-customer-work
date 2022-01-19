@@ -19,15 +19,17 @@ const sidebar = <Sidebar menus={menuItems} />;
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
+  useEffect(() => {
+    disableSidebarForRoute("/self-service/*");
+    disableNavigationForRoute("/self-service/*");
+  }, []);
+
   useLayoutEffect(() => {
     const checkIsLoggedIn = async () => {
       const { tokenV3 } = await getAuthUserTokens();
       setIsLoggedIn(!!tokenV3);
     };
     checkIsLoggedIn();
-  }, []);
-
-  useLayoutEffect(() => {
     document.documentElement.style.setProperty("--navbarHeight", "80px");
     return () => {
       // --navbarHeight must be set to its default value,
