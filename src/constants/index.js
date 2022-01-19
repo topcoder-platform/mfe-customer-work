@@ -191,6 +191,7 @@ export const disabledSidebarRoutes = [
   "/self-service/thank-you",
   "/self-service/wizard",
   "/self-service/profile",
+  "/self-service/work-items/*",
 ];
 
 export const menuItems = [

@@ -21,18 +21,7 @@ const App = () => {
   const isSideBarDisabled = useMatchSomeRoute(disabledSidebarRoutes);
 
   useEffect(() => {
-    disableSidebarForRoute("/self-service");
-    disableSidebarForRoute("/self-service/basic-info");
-    disableSidebarForRoute("/self-service/website-purpose");
-    disableSidebarForRoute("/self-service/page-details");
-    disableSidebarForRoute("/self-service/branding");
-    disableSidebarForRoute("/self-service/review");
-    disableSidebarForRoute("/self-service/payment");
-    disableSidebarForRoute("/self-service/thank-you");
-    disableSidebarForRoute("/self-service/wizard");
-    disableSidebarForRoute("/self-service/work-items");
-    disableSidebarForRoute("/self-service/home");
-    disableSidebarForRoute("/self-service/profile");
+    disableSidebarForRoute("/self-service/*");
     disableNavigationForRoute("/self-service/*");
   }, []);
 
