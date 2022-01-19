@@ -31,8 +31,8 @@ const TimelineHeader = ({ status, nextAction, daysToBegin }) => {
       {nextAction && (
         <span styleName="next-action">
           NEXT ACTION - {nextAction}
-          {daysToBegin && ": "}
-          {daysToBegin && <strong>{daysStr}</strong>}
+          {daysToBegin != null && ": "}
+          {daysToBegin != null && <strong>{daysStr}</strong>}
         </span>
       )}
     </div>
