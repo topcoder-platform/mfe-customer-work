@@ -9,15 +9,22 @@
 
   &.isFirst {
     max-width: 0;
+
+    :global(.point) {
+      margin-left: calc(50% - 1px);
+    }
+  }
+
+  &.isLast {
+    :global(.point) {
+      margin-right: calc(50% - 1px);
+    }
   }
 
   &.completed,
   &.active {
     background-color: $purple-100;
   }
-
-  &.send-to-solutions-expert {}
-  &.downloads-ready {}
 }
 
 .container {

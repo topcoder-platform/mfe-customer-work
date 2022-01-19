@@ -1,10 +1,10 @@
 import React from "react";
 import PT from "prop-types";
 import { WORK_TIMELINE } from "constants";
-import "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 const Track = ({ children, step }) => {
-  const { active, completed, index, name, isFirst } = step;
+  const { active, completed, index, name, isFirst, isLast } = step;
   const color = completed ? "completed" : active ? "active" : "";
   const width =
     name === "send-to-solutions-expert"
@@ -14,7 +14,10 @@ const Track = ({ children, step }) => {
 
   return (
     <div
-      styleName={`track ${isFirst ? "isFirst" : ""} ${color} ${name || ""}`}
+      styleName={`track ${isFirst ? "isFirst" : ""} ${
+        isLast ? "isLast" : ""
+      } ${color}`}
+      className={styles["name"]}
       hidden={step.hidden}
       style={{ width, position }}
     >

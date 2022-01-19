@@ -33,6 +33,10 @@ const getCurrentPhase = (work) => {
 };
 
 export const getNextActionDaysToBegin = (work) => {
+  if (work.status === "New" || work.status === "Draft") {
+    return moment(work.phases[0].scheduledStartDate).diff(moment(), "days");
+  }
+
   const currentPhase = getCurrentPhase(work);
   if (!currentPhase) {
     return;

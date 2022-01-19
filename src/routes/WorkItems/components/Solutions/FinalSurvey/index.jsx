@@ -14,6 +14,10 @@ const FinalSurvey = ({ saveSurvey, onCancel, customerFeedback }) => {
 
   useEffect(() => {
     if (customerFeedback) {
+      if (!Array.isArray(customerFeedback)) {
+        console.error("ERROR: invalid customerFeedback data");
+      }
+
       updateQuestions(customerFeedback);
     }
   }, [customerFeedback]);
@@ -28,7 +32,7 @@ const FinalSurvey = ({ saveSurvey, onCancel, customerFeedback }) => {
         <Button
           type={BUTTON_TYPE.ROUNDED}
           styleName="close-btn"
-          onClick={onCancel}
+          onClick={() => onCancel(questions)}
         >
           <IconClose />
         </Button>

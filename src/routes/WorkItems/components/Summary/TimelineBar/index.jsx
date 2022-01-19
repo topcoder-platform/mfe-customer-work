@@ -12,8 +12,6 @@ const TimelineBar = ({ timeline }) => {
     () => timeline.filter((i) => !i.hidden).length,
     [timeline]
   );
-  const m = timeline.find((i) => i.name === "downloads-ready");
-  const downloadsReady = m.active || m.completed;
 
   return (
     <div styleName="timeline-bar">
@@ -30,7 +28,6 @@ const TimelineBar = ({ timeline }) => {
                 ? "right"
                 : ""
             }
-            highlight={downloadsReady && step.index >= m.index}
           />
         </Track>
       ))}

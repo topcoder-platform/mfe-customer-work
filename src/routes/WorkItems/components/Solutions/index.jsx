@@ -36,7 +36,7 @@ const Solutions = ({
       <h6 styleName="title">
         THE FOLLOWING SOLUTIONS HAVE MET YOUR DETAILED CRITERIA
         <IconHint styleName="help-icon" />
-        <a href="#void()" styleName="download-all-solutions-btn">
+        <a href="#void" styleName="download-all-solutions-btn">
           Download All Solutions
         </a>
       </h6>

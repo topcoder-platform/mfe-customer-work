@@ -73,7 +73,8 @@ export const getSummary = (work) => {
     ...m,
     index,
     isFirst: index === 0,
-    isLast: index === timeline.length - 1,
+    isLast:
+      index === timeline.length - 1 - timeline.filter((i) => i.hidden).length,
   }));
 
   return {

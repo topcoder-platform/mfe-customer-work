@@ -446,6 +446,7 @@ export const WORK_TIMELINE = [
     },
   },
   {
+    name: "mark-as-done",
     title: "MARK AS DONE",
     date: (work) => {
       if (work.status === WORK_STATUSES.Completed.value) {
