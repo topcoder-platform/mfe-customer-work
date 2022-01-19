@@ -1,20 +1,24 @@
 import { createHistory, LocationProvider } from "@reach/router";
-import React from "react";
+import { disableSidebarForRoute } from "@topcoder/micro-frontends-navbar-app";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import ReduxToastr from "react-redux-toastr";
 import App from "./App";
 import store from "./store";
-import styles from "./styles/main.module.scss";
+
 import "./styles/main.vendor.scss";
 
 const history = createHistory(window);
 
 export default function Root() {
+  useEffect(() => {
+    disableSidebarForRoute("/self-service/*");
+  }, []);
+
   return (
-    <div className={styles["topcoder-micro-frontends-self-service-app"]}>
-      <LocationProvider history={history}>
-        <Provider store={store}>
-          <App />
+    <LocationProvider history={history}>
+      <Provider store={store}>
+        <App />
           <ReduxToastr
             timeOut={5000}
             newestOnTop={false}
@@ -26,8 +30,7 @@ export default function Root() {
             progressBar
             closeOnToastrClick
           />
-        </Provider>
-      </LocationProvider>
-    </div>
+      </Provider>
+    </LocationProvider>
   );
 }

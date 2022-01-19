@@ -1,58 +1,20 @@
 @import "styles/include";
 
 .tabs {
-  display: flex;
-  width: 100%;
-  margin-top: 15px;
-  border-radius: 4px;
-  height: 36px;
+  @include font-barlow;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: $gui-kit-gray-90;
 
+  margin-bottom: 32px;
   background-color: $blue2;
-  padding: 0 9px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
 
-  .tab {
-    position: relative;
-    display: flex;
-    text-transform: uppercase;
-    margin-right: 24px;
-    margin-top: 8px;
-    font-weight: 600;
-    line-height: 20px;
-    font-size: 16px;
-    cursor: pointer;
-
-    &.active {
-      &::before {
-        content: "";
-        position: absolute;
-        height: 2px;
-        width: 24px;
-        border-radius: 2px;
-        background: $green2;
-        margin-top: 26px;
-        left: 30%;
-      }
-    }
-
-    .notification {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background-color: $red;
-      margin-left: 4px;
-
-      span {
-        @include font-roboto;
-        color: $tc-white;
-        font-size: 10px;
-        line-height: 12px;
-        font-weight: 700;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        height: 100%;
-        align-items: center;
-      }
-    }
-  }
+.tab-container {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
 }

@@ -1,5 +1,7 @@
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
 import MyWorkIcon from "../assets/images/icon-my-work.svg";
+import workUtil from "../utils/work";
+import moment from "moment";
 
 export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
@@ -25,6 +27,7 @@ export const BUTTON_SIZE = {
   TINY: "tiny",
   SMALL: "small",
   MEDIUM: "medium",
+  LARGE: "large",
 };
 
 /**
@@ -174,23 +177,11 @@ export const ColorOptionsItems = [
  * Color Options
  */
 export const tabNames = [
-  "Summary",
-  "Details",
-  "Messaging",
-  "Solutions",
-  "History",
-];
-
-export const disabledSidebarRoutes = [
-  "/self-service/basic-info",
-  "/self-service/website-purpose",
-  "/self-service/page-details",
-  "/self-service/branding",
-  "/self-service/review",
-  "/self-service/payment",
-  "/self-service/thank-you",
-  "/self-service/wizard",
-  "/self-service/profile",
+  "summary",
+  "details",
+  "messaging",
+  "solutions",
+  "history",
 ];
 
 export const menuItems = [
@@ -239,6 +230,31 @@ export const ACTIONS = {
     UPDATE_BASIC_INFO_SUCCESS: "UPDATE_BASIC_INFO_SUCCESS",
     UPDATE_BASIC_INFO_ERROR: "UPDATE_BASIC_INFO_ERROR",
   },
+  WORK: {
+    GET_WORK: "GET_WORK",
+    GET_WORK_PENDING: "GET_WORK_PENDING",
+    GET_WORK_SUCCESS: "GET_WORK_SUCCESS",
+    GET_WORK_ERROR: "GET_WORK_ERROR",
+    GET_SUMMARY: "GET_SUMMARY",
+    GET_DETAILS: "GET_DETAILS",
+    GET_SOLUTIONS: "GET_SOLUTIONS",
+    GET_SOLUTIONS_PENDING: "GET_SOLUTIONS_PENDING",
+    GET_SOLUTIONS_SUCCESS: "GET_SOLUTIONS_SUCCESS",
+    GET_SOLUTIONS_ERROR: "GET_SOLUTIONS_ERROR",
+    DOWNLOAD_SOLUTION: "DOWNLOAD_SOLUTION",
+    DOWNLOAD_SOLUTION_PENDING: "DOWNLOAD_SOLUTION_PENDING",
+    DOWNLOAD_SOLUTION_SUCCESS: "DOWNLOAD_SOLUTION_SUCCESS",
+    DOWNLOAD_SOLUTION_ERROR: "DOWNLOAD_SOLUTION_ERROR",
+    SAVE_SURVEY: "SAVE_SURVEY",
+    SAVE_SURVEY_PENDING: "SAVE_SURVEY_PENDING",
+    SAVE_SURVEY_SUCCESS: "SAVE_SURVEY_SUCCESS",
+    SAVE_SURVEY_ERROR: "SAVE_SURVEY_ERROR",
+    SET_IS_SAVING_SURVEY_DONE: "SET_IS_SAVING_SURVEY_DONE",
+    GET_FORUM_NOTIFICATIONS: "GET_FORUM_NOTIFICATIONS",
+    GET_FORUM_NOTIFICATIONS_PENDING: "GET_FORUM_NOTIFICATIONS_PENDING",
+    GET_FORUM_NOTIFICATIONS_SUCCESS: "GET_FORUM_NOTIFICATIONS_SUCCESS",
+    GET_FORUM_NOTIFICATIONS_ERROR: "GET_FORUM_NOTIFICATIONS_ERROR",
+  },
 };
 
 export const AUTO_SAVE_FORM = "AUTO_SAVE_FORM";
@@ -286,3 +302,166 @@ export const WORK_STATUS_ORDER = {
   [CHALLENGE_STATUS.CANCELLED]: 4, // Directed to sales
   Unknown: 999,
 };
+export const WORK_STATUSES = {
+  Draft: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.NEW],
+    value: CHALLENGE_STATUS.NEW,
+    color: "#555555",
+  },
+  Submitted: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.DRAFT],
+    value: CHALLENGE_STATUS.DRAFT,
+    color: "#e90c5a",
+  },
+  InProgress: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.ACTIVE],
+    value: CHALLENGE_STATUS.ACTIVE,
+    color: "#12c188",
+  },
+  Completed: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.COMPLETED],
+    value: CHALLENGE_STATUS.COMPLETED,
+    color: "#2c95d7",
+  },
+  DirectedToSales: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.CANCELLED],
+    value: CHALLENGE_STATUS.CANCELLED,
+    color: "#6569ff",
+  },
+};
+
+export const WORK_TIMELINE = [
+  {
+    title: "WORK SUBMITTED",
+    date: "created",
+    active: (work) => work.status === WORK_STATUSES.Submitted.value,
+    completed: (work) => work.status !== WORK_STATUSES.Submitted.value,
+  },
+  {
+    title: "WORK STARTED",
+    date: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Registration");
+      return workUtil.phaseStartDate(phase);
+    },
+    active: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Registration");
+      const isRegistrationPhaseOpen =
+        phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
+      return (
+        work.status === WORK_STATUSES.InProgress.value &&
+        isRegistrationPhaseOpen
+      );
+    },
+    completed: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Registration");
+      const isRegistrationPhaseClosed = moment(
+        workUtil.phaseEndDate(phase)
+      ).isBefore();
+      return isRegistrationPhaseClosed;
+    },
+  },
+  {
+    title: "WORK FINISHED",
+    date: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Submission");
+      return workUtil.phaseEndDate(phase);
+    },
+    active: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Submission");
+      const isSubmissionPhaseOpen =
+        phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
+      return (
+        work.status === WORK_STATUSES.InProgress.value && isSubmissionPhaseOpen
+      );
+    },
+    completed: (work) => {
+      const phase = work.phases.find((phase) => phase.name === "Submission");
+      const isSubmissionPhaseClosed = moment(
+        workUtil.phaseEndDate(phase)
+      ).isBefore();
+      return isSubmissionPhaseClosed;
+    },
+  },
+  {
+    name: "downloads-ready",
+    title: "DOWNLOADS READY",
+    date: (work) => {
+      let phase = work.phases.find(
+        (phase) => phase.name === "Appeals Response"
+      );
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Review");
+      }
+
+      if (!phase) {
+        return;
+      }
+      return workUtil.phaseEndDate(phase);
+    },
+    active: (work) => {
+      let phase = work.phases.find(
+        (phase) => phase.name === "Appeals Response"
+      );
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Review");
+      }
+
+      if (!phase) {
+        return;
+      }
+      const isAppealResponsePhaseOpen =
+        phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
+      return isAppealResponsePhaseOpen;
+    },
+    completed: (work) => {
+      let phase = work.phases.find(
+        (phase) => phase.name === "Appeals Response"
+      );
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Review");
+      }
+
+      if (!phase) {
+        return;
+      }
+      const allPreviousPhasesClosed = work.phases
+        .slice(0, work.phases.indexOf(phase))
+        .every((p) => !p.isOpen);
+      const isAppealResponsePhaseEnded = moment(
+        workUtil.phaseEndDate(phase)
+      ).isBefore();
+      return isAppealResponsePhaseEnded && allPreviousPhasesClosed;
+    },
+  },
+  {
+    title: "MARK AS DONE",
+    date: (work) => {
+      if (work.status === WORK_STATUSES.Completed.value) {
+        return work.updated;
+      }
+    },
+    active: (work) => work.status === WORK_STATUSES.Completed.value,
+    completed: (work) => {
+      const customerFeedbacked =
+        work.metadata &&
+        work.metadata.find((item) => item.name === "customerFeedback");
+      return (
+        work.status === WORK_STATUSES.Completed.value && customerFeedbacked
+      );
+    },
+  },
+  {
+    name: "send-to-solutions-expert",
+    title: "SEND TO SOLUTIONS EXPERT",
+    date: (work) => {
+      if (work.status === WORK_STATUSES.DirectedToSales.value) {
+        return work.updated;
+      }
+    },
+    completed: true,
+    hidden: (work) => work.status !== WORK_STATUSES.DirectedToSales.value,
+  },
+];

@@ -1,0 +1,53 @@
+@import "styles/include";
+
+.float-right {
+  height: 0;
+
+  .listbox {
+    margin-left: auto;
+  }
+
+  @media screen and (max-width: 767px) {
+    height: auto;
+
+    .listbox {
+      margin: 0 auto 24px;
+    }
+
+    + .work-timeline {
+      max-width: none;
+      margin: 0;
+    }
+  }
+}
+
+.work-summary {
+  @include font-barlow;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  color: $black;
+
+  width: 264px;
+  padding: 0 16px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px $divider-color;
+}
+
+.work-summaryItem {
+  padding: 16px 0;
+
+  &.work-id {
+    word-break: break-all;
+  }
+}
+
+.divider {
+  border: 1px solid $divider-color;
+  border-radius: 1px;
+}
+
+.work-timeline {
+  min-height: 514px;
+  max-width: calc(100% - 264px - 24px);
+}

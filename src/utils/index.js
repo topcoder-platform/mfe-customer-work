@@ -17,3 +17,13 @@ export function scrollToTop() {
 export function sortBySortOrder(objA, objB) {
   return objA.sortOrder - objB.sortOrder;
 }
+
+export function triggerDownload(fileName, blob) {
+  const url = window.URL.createObjectURL(new Blob([blob]));
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("download", fileName);
+  document.body.appendChild(link);
+  link.click();
+  link.parentNode.removeChild(link);
+}

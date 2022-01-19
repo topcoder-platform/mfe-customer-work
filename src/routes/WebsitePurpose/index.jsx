@@ -58,7 +58,12 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
     setProgressItem(4);
   };
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
+    if (!firstMounted) {
+      return;
+    }
+
     setProgressItem(3);
 
     if (currentStep === 0) {
@@ -69,11 +74,12 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
       setFormData(websitePurpose);
     }
 
+    setFirstMounted(false);
+
     return () => {
       dispatch(triggerAutoSave(true));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentStep, websitePurpose, dispatch, setProgressItem, firstMounted]);
 
   return (
     <>

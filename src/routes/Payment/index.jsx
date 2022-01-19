@@ -97,18 +97,24 @@ const Payment = ({ setProgressItem }) => {
       });
   };
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
+    if (!firstMounted) {
+      return;
+    }
+
     setProgressItem(7);
     if (currentStep === 0) {
       redirectTo("/self-service/wizard");
     }
 
+    setFirstMounted(false);
+
     return () => {
       dispatch(triggerAutoSave(true));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  }, [currentStep, dispatch, setProgressItem, firstMounted]);
+  
   const isFormValid =
     formData.amount &&
     Number(formData.amount) >= total &&

@@ -1,6 +1,7 @@
 import { CHALLENGE_FIELD_VALUES } from "constants/index";
 import config from "../../config";
 import { axiosInstance as axios } from "./requestInterceptor";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 /**
  * Get Challenge challenge details
@@ -70,11 +71,11 @@ export async function patchChallenge(intakeForm, challengeId) {
 /**
  * Get Forum notifications
  * @param {String} challengeId challenge id
- * @param {String} handle member handle
  */
-export async function getForumNotifications(challengeId, handle) {
+export async function getForumNotifications(challengeId) {
+  const profile = await getAuthUserProfile();
   const response = await fetch(
-    `${config.VANILLA_FORUM_API}/groups/${challengeId}/member/${handle}?access_token=${config.VANILLA_ACCESS_TOKEN}`,
+    `${config.VANILLA_FORUM_API}/groups/${challengeId}/member/${profile.handle}?access_token=${config.VANILLA_ACCESS_TOKEN}`,
     {
       header: {
         "Content-Type": "application/json",
@@ -84,3 +85,11 @@ export async function getForumNotifications(challengeId, handle) {
 
   return response.json();
 }
+
+export default {
+  getChallengeDetails,
+  getIntakeFormChallenges,
+  createChallenge,
+  patchChallenge,
+  getForumNotifications,
+};

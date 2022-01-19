@@ -1,0 +1,19 @@
+@import "styles/include";
+
+$page-content-margin-y: 32px;
+
+.layout {
+}
+
+.aside {
+  position: absolute;
+  left: 0;
+  top: var(--navbarHeight);
+  min-height: calc(100vh - var(--navbarHeight));
+  padding-top: 32px;
+  background-color: $tc-white;
+}
+
+.main {
+  margin-left: 104px + 21px;
+}

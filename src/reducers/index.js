@@ -10,6 +10,7 @@ import formReducer from "./form";
 import myWorkReducer from "./myWork";
 import profileReducer from "./profile";
 import progressReducer from "./progress";
+import workReducer from "./work";
 
 // redux root reducer
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   challenge: challengeReducer,
   myWork: myWorkReducer,
   profile: profileReducer,
+  work: workReducer,
 });
 
 export default rootReducer;

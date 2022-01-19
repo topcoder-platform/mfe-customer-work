@@ -28,7 +28,12 @@ const Review = ({ setProgressItem }) => {
   const [checked, setChecked] = useState(false);
   const currentStep = useSelector((state) => state?.progress.currentStep);
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
+    if (!firstMounted) {
+      return;
+    }
+
     setProgressItem(6);
 
     if (currentStep === 0) {
@@ -39,18 +44,25 @@ const Review = ({ setProgressItem }) => {
       setChecked(true);
     }
 
+    setFirstMounted(false);
+
     return () => {
       dispatch(triggerAutoSave(true));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentStep, formData, dispatch, setProgressItem, firstMounted]);
 
+  const [anotherFirstMounted, setAnotherFirstMounted] = useState(true);
   useEffect(() => {
-    if (currentStep === 0) {
-      redirectTo("/self-service/wizard");
+    if (!anotherFirstMounted) {
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+    if (currentStep === 0) {
+      redirectTo("/self-service");
+    }
+
+    setAnotherFirstMounted(false);
+  }, [currentStep, anotherFirstMounted]);
 
   const onBack = () => {
     navigate("/self-service/branding");

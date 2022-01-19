@@ -44,7 +44,12 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
     navigate("/self-service/website-purpose");
   };
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
+    if (!firstMounted) {
+      return;
+    }
+
     setProgressItem(4);
 
     if (currentStep === 0) {
@@ -55,11 +60,12 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
       setListInputs(pageDetails);
     }
 
+    setFirstMounted(false);
+
     return () => {
       dispatch(triggerAutoSave(true));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentStep, pageDetails, dispatch, setProgressItem, firstMounted]);
 
   const onNext = () => {
     navigate("/self-service/branding");

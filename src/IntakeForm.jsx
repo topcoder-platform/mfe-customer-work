@@ -151,7 +151,7 @@ export default function IntakeForm() {
   return (
     <div>
       <LoadingSpinner show={isLoading} />
-      <Router>
+      <Router basepath="/self-service">
         <BasicInfo path="/basic-info" />
         <WebsitePurpose path="/website-purpose" />
         <PageDetails path="/page-details" />
@@ -159,7 +159,8 @@ export default function IntakeForm() {
         <Review path="/review" />
         <Payment path="/payment" />
         <ThankYou path="/thank-you" />
-        <SelectWorkType default noThrow path="/wizard" />
+        <SelectWorkType path="/wizard" />
+        <Redirect from="*" to="/self-service/wizard" noThrow />
       </Router>
     </div>
   );

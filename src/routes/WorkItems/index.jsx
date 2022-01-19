@@ -1,141 +1,344 @@
+import React, { useEffect, useMemo, useState, useLayoutEffect } from "react";
+import _ from "lodash";
+import PT from "prop-types";
 import { navigate } from "@reach/router";
+import { connect } from "react-redux";
 import Button from "components/Button";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
-import PageDivider from "components/PageDivider";
 import PageH3 from "components/PageElements/PageH3";
-import { BUTTON_SIZE, BUTTON_TYPE, tabNames } from "constants/";
-import React, { useEffect, useState } from "react";
-import { getChallengeDetails } from "services/challenge";
-import config from "../../../config";
-import ArrowRightIcon from "../../assets/images/arrow-right.svg";
+import { BUTTON_SIZE, BUTTON_TYPE, tabNames, WORK_STATUSES } from "constants/";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import Forum from "../Forum";
-import ReviewTable from "../Review/components/ReviewTable";
 import Tabs from "./components/Tabs";
+import Tab from "./components/Tab";
+import TabPane from "./components/TabPane";
+import Summary from "./components/Summary";
+import Details from "./components/Details";
+import Solutions from "./components/Solutions";
+import FinalSurvey from "./components/Solutions/FinalSurvey";
+import workUtil from "utils/work";
+import { Modal } from "react-responsive-modal";
+import Forum from "../Forum";
+
+import {
+  getWork,
+  getSummary,
+  getDetails,
+  getSolutions,
+  downloadSolution,
+  saveSurvey,
+  setIsSavingSurveyDone,
+  getForumNotifications,
+} from "../../actions/work";
+
 import "./styles.module.scss";
 
 /**
- * Work Items Page
+ * Work Item Page
  */
-const WorkItems = ({ workItemId }) => {
-  const [isLoading, setLoading] = useState(false);
-  const [challenge, setChallenge] = useState(null);
-  const [selectedTab, setSelectedTab] = useState("Details");
+const WorkItem = ({
+  workItemId,
+  work,
+  workItem,
+  isLoadingWork,
+  isLoadingSolutions,
+  isSavingSurveyDone,
+  forumNotifications,
+  getWork,
+  getSummary,
+  getDetails,
+  getSolutions,
+  downloadSolution,
+  saveSurvey,
+  setIsSavingSurveyDone,
+  getForumNotifications,
+}) => {
+  const [selectedTab, setSelectedTab] = useState("summary");
+  const [showSurvey, setShowSurvey] = useState(false);
+
+  useLayoutEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const initialTab = query.get("tab");
+    if (initialTab && tabNames.indexOf(initialTab) !== -1) {
+      setSelectedTab(initialTab);
+    }
+  }, []);
 
   useEffect(() => {
-    setLoading(true);
-    getChallengeDetails(workItemId)
-      .then((res) => {
-        setChallenge(res);
-      })
-      .catch(() => {
-        navigate("/self-service/");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [workItemId]);
+    window.history.replaceState(
+      window.history.state,
+      "",
+      `?tab=${selectedTab}`
+    );
+  }, [selectedTab]);
 
-  const { name, metadata } = challenge || {};
+  useEffect(() => {
+    getWork(workItemId);
+  }, [workItemId, getWork]);
 
-  let formData = {};
+  const { summary, details, solutions } = useMemo(() => workItem, [workItem]);
 
-  (metadata || []).forEach((item) => {
-    if (item.name && item.name.includes(".")) {
-      const data = item.name.split(".");
-      const key = data[1];
-      formData[data[0]] = {
-        ...formData[data[0]],
-        [key]: JSON.parse(item.value),
-      };
-    } else {
-      if (item.name) {
-        formData[item.name] = JSON.parse(item.value);
+  useEffect(() => {
+    if (!work) {
+      return;
+    }
+
+    if (selectedTab === "summary") {
+      if (!summary) {
+        getSummary(work);
+      }
+    } else if (selectedTab === "solutions") {
+      if (!solutions) {
+        getSolutions(work.id);
+      }
+    } else if (selectedTab === "details") {
+      if (!details) {
+        getDetails(work);
       }
     }
-  });
+
+    getForumNotifications(work.id);
+  }, [
+    work,
+    selectedTab,
+    summary,
+    solutions,
+    details,
+    getSummary,
+    getSolutions,
+    getDetails,
+  ]);
+
+  useEffect(() => {
+    if (isSavingSurveyDone) {
+      getSummary(work);
+      setIsSavingSurveyDone(false);
+    }
+  }, [work, isSavingSurveyDone, setIsSavingSurveyDone, getSummary]);
+
+  const isReviewPhaseEnded = React.useMemo(() => {
+    if (work) {
+      return workUtil.isReviewPhaseEnded(work);
+    }
+  }, [work]);
+
+  const reviewPhaseEndedDate = React.useMemo(() => {
+    if (work) {
+      return workUtil.getReviewPhaseEndedDate(work);
+    }
+  }, [work]);
+
+  const markAsDoneButton = React.useMemo(() => {
+    if (work) {
+      if (
+        work.status === WORK_STATUSES.Completed.value &&
+        _.find(work.metadata, { name: "customerFeedback" }) == null
+      ) {
+        return (
+          <Button
+            styleName="markAsDoneBtn"
+            onClick={() => setShowSurvey(true)}
+            size={BUTTON_SIZE.MEDIUM}
+          >
+            MARK AS DONE
+          </Button>
+        );
+      }
+    }
+  }, [work]);
+
+  const customerFeedback = React.useMemo(() => {
+    if (work && work.metadata) {
+      const item = work.metadata.find((i) => i.name === "customerFeedback");
+      return item && JSON.parse(item.value);
+    }
+  }, [work]);
 
   return (
     <>
-      <LoadingSpinner show={isLoading} />
-      <Page>
-        <PageContent>
-          {challenge && (
-            <>
-              <div styleName="backButton">
-                <Button
-                  size={BUTTON_SIZE.SMALL}
-                  type={BUTTON_TYPE.ROUNDED}
-                  onClick={() => {
-                    navigate("/self-service");
-                  }}
-                >
-                  <BackIcon />
-                </Button>
+      <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
+      <Page styleName="page">
+        <PageContent styleName="pageContent">
+          <PageH3 styleName="pageTitle">
+            <Button
+              size={BUTTON_SIZE.MEDIUM}
+              type={BUTTON_TYPE.ROUNDED}
+              onClick={() => {
+                navigate("/self-service");
+              }}
+            >
+              <BackIcon />
+            </Button>
+            {work && work.name}
+          </PageH3>
 
-                <PageH3>{name}</PageH3>
-              </div>
+          <Tabs>
+            <Tab
+              active={selectedTab === "summary"}
+              onClick={() => {
+                setSelectedTab("summary");
+              }}
+            >
+              SUMMARY
+            </Tab>
+            <Tab
+              active={selectedTab === "details"}
+              onClick={() => {
+                setSelectedTab("details");
+              }}
+            >
+              DETAILS
+            </Tab>
+            <Tab
+              active={selectedTab === "messaging"}
+              onClick={() => {
+                setSelectedTab("messaging");
+              }}
+            >
+              MESSAGES
+              {forumNotifications.unreadNotifications && (
+                <span styleName="message-count">
+                  {String.prototype.padStart.call(forumNotifications.unreadNotifications, 2, "0")}
+                </span>
+              )}
+            </Tab>
+            <Tab
+              active={selectedTab === "solutions"}
+              onClick={() => {
+                setSelectedTab("solutions");
+              }}
+            >
+              SOLUTIONS
+            </Tab>
+            <Tab
+              active={selectedTab === "history"}
+              onClick={() => {
+                setSelectedTab("history");
+              }}
+            >
+              HISTORY
+            </Tab>
+          </Tabs>
 
-              <Tabs
-                challengeId={challenge.id}
-                tabs={tabNames}
-                selectedTab={selectedTab}
-                onSelect={setSelectedTab}
-              />
-            </>
-          )}
-          {challenge && selectedTab === "Details" && (
-            <div styleName="details">
-              <div styleName="reviewTable">
-                <PageDivider />
-                <ReviewTable formData={formData} enableEdit={false} />
-              </div>
+          <div>
+            <TabPane value={selectedTab} tab="summary">
+              {summary && <Summary summary={summary} />}
+              {markAsDoneButton}
+            </TabPane>
 
-              <div styleName="invoiceWrapper">
-                <Button size={BUTTON_SIZE.SMALL} type={BUTTON_TYPE.SECONDARY}>
-                  DOWNLOAD INVOICE
-                </Button>
-                <PageDivider />
+            <TabPane value={selectedTab} tab="details">
+              <Details challenge={work} formData={details} />
+              {markAsDoneButton}
+            </TabPane>
 
-                <a
-                  styleName="link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`${config.TOPCODER_COMMUNITY_WEBSITE_URL}/challenges/${challenge?.id}`}
-                >
-                  WORK CONTRACT
-                  <ArrowRightIcon />
-                </a>
-                <a
-                  styleName="link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`${config.TERMS_URL}`}
-                >
-                  PRIVACY POLICY
-                  <ArrowRightIcon />
-                </a>
-                <a
-                  styleName="link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`${config.PRIVACY_POLICY_URL}`}
-                >
-                  TERMS
-                  <ArrowRightIcon />
-                </a>
-              </div>
-            </div>
-          )}
-          {challenge && selectedTab === "Messaging" && (
-            <Forum challengeId={challenge.id} />
-          )}
+            <TabPane value={selectedTab} tab="solutions">
+              {solutions && (
+                <>
+                  <Solutions
+                    solutions={solutions}
+                    onDownload={downloadSolution}
+                    isReviewPhaseEnded={isReviewPhaseEnded}
+                    reviewPhaseEndedDate={reviewPhaseEndedDate}
+                  />
+                  {markAsDoneButton}
+                </>
+              )}
+            </TabPane>
+
+            <TabPane value={selectedTab} tab="messaging">
+              {work && <Forum challengeId={work.id} />}
+              {markAsDoneButton}
+            </TabPane>
+
+            <TabPane value={selectedTab} tab="history">
+              {markAsDoneButton}
+            </TabPane>
+          </div>
         </PageContent>
       </Page>
+
+      <Modal
+        open={showSurvey}
+        center
+        showCloseIcon={false}
+        focusTrapped={false}
+        onClose={() => setShowSurvey(false)}
+        styles={{
+          modal: {
+            maxWidth: "100%",
+            padding: 0,
+            margin: 0,
+            background: "none",
+          },
+        }}
+      >
+        <FinalSurvey
+          saveSurvey={(updatedCustomerFeedback) => {
+            let metadata = work.metadata || [];
+
+            metadata = metadata.filter((i) => i.name !== "customerFeedback");
+            metadata.push({
+              name: "customerFeedback",
+              value: JSON.stringify(updatedCustomerFeedback),
+            });
+
+            saveSurvey(work.id, metadata);
+            setShowSurvey(false);
+          }}
+          onCancel={() => setShowSurvey(false)}
+          customerFeedback={customerFeedback}
+        />
+      </Modal>
     </>
   );
 };
 
-export default WorkItems;
+WorkItem.propTypes = {
+  workItemId: PT.string,
+  work: PT.shape(),
+  workItem: PT.shape(),
+  isLoadingWork: PT.bool,
+  isLoadingSolutions: PT.bool,
+  isSavingSurveyDone: PT.bool,
+  getWork: PT.func,
+  getSummary: PT.func,
+  getDetails: PT.func,
+  getSolutions: PT.func,
+  downloadSolution: PT.func,
+  saveSurvey: PT.func,
+  setIsSavingSurveyDone: PT.func,
+};
+
+const mapStateToProps = (state) => {
+  const {
+    work,
+    workItem,
+    isLoadingWork,
+    isLoadingSolutions,
+    isSavingSurveyDone,
+    forumNotifications,
+  } = state.work;
+
+  return {
+    work,
+    workItem,
+    isLoadingWork,
+    isLoadingSolutions,
+    isSavingSurveyDone,
+    forumNotifications,
+  };
+};
+
+const mapDispatchToProps = {
+  getWork,
+  getSummary,
+  getDetails,
+  getSolutions,
+  downloadSolution,
+  saveSurvey,
+  setIsSavingSurveyDone,
+  getForumNotifications,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkItem);
