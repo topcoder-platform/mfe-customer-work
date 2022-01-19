@@ -10,16 +10,19 @@ import "./styles.module.scss";
 const Layout = ({ sidebar, PageComponent, ...routeProps }) => {
   const [size, mainRef] = useTargetSize();
   const asideRef = useRef();
+  const height = size && size.height;
 
   useEffect(() => {
-    if (size) {
-      asideRef.current.style.height = `${size.height}px`;
+    if (height) {
+      asideRef.current.style.height = `${height}px`;
     }
-  }, [size && size.height]);
+  }, [height]);
 
   return (
     <div styleName="layout">
-      <aside styleName="aside" ref={asideRef}>{sidebar}</aside>
+      <aside styleName="aside" ref={asideRef}>
+        {sidebar}
+      </aside>
       <main styleName="main" ref={mainRef}>
         <PageComponent {...routeProps} />
       </main>

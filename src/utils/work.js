@@ -1,4 +1,4 @@
-import { WORK_STATUSES } from "constants";
+import { WORK_STATUS_ORDER, WORK_STATUSES } from "constants";
 import _ from "lodash";
 import moment from "moment";
 
@@ -46,31 +46,31 @@ export const getNextActionDaysToBegin = (work) => {
 export const isReviewPhaseEnded = (work) => {
   const allPhases = work.phases || [];
 
-  let isReviewPhaseComplete = false;
-  _.forEach(allPhases, (phase) => {
+  for (let i = allPhases.length - 1; i >= 0; i -= 1) {
+    const phase = allPhases[i];
     if (
-      phase.name === "Review" &&
+      (phase.name === "Review" || phase.name === "Iterative Review") &&
       !phase.isOpen &&
-      moment(phase.scheduledStartDate).isBefore()
+      moment(phase.scheduledStartDate).isBefore() &&
+      WORK_STATUS_ORDER[work.status] >=
+        WORK_STATUS_ORDER[WORK_STATUSES.InProgress.value]
     ) {
-      isReviewPhaseComplete = true;
+      return true;
     }
-  });
+  }
 
-  return isReviewPhaseComplete;
+  return false;
 };
 
 export const getReviewPhaseEndedDate = (work) => {
   const allPhases = work.phases || [];
-  let phase = _.find(allPhases, { name: "Review" });
+  let phase = _.findLast(
+    allPhases,
+    (p) => p.name === "Review" || p.name === "Iterative Review"
+  );
 
   if (isReviewPhaseEnded(work)) {
     return phase.actualEndDate;
-  }
-
-  if (!phase) {
-    console.error("ERROR: Work type is First2Finish");
-    phase = _.find(allPhases, { name: "Iterative Review" });
   }
 
   return phase.scheduledEndDate;

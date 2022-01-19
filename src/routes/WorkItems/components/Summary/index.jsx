@@ -6,33 +6,44 @@ import Timeline from "./Timeline";
 
 import "./styles.module.scss";
 
-const Summary = ({ summary }) => {
+export const TimelineContext = React.createContext();
+
+const Summary = ({ summary, onTabChange }) => {
+  const {
+    participants,
+    solutions,
+    submitDate,
+    workId,
+    status,
+    nextAction,
+    daysToBegin,
+    timeline,
+  } = summary;
+
   return (
     <div>
       <div styleName="float-right">
         <ul styleName="work-summary listbox" role="listbox">
-          <li styleName="work-summaryItem">
-            PARTICIPANTS: {summary.participants}
-          </li>
+          <li styleName="work-summaryItem">PARTICIPANTS: {participants}</li>
           <li styleName="divider" />
-          <li styleName="work-summaryItem">SOLUTIONS: {summary.solutions}</li>
+          <li styleName="work-summaryItem">SOLUTIONS: {solutions}</li>
           <li styleName="divider" />
           <li styleName="work-summaryItem">
-            SUBMIT DATE: {moment(summary.submitDate).format("MM/DD/YY")}
+            SUBMIT DATE: {moment(submitDate).format("MM/DD/YY")}
           </li>
           <li styleName="divider" />
-          <li styleName="work-summaryItem work-id">
-            WORK ID: {summary.workId}
-          </li>
+          <li styleName="work-summaryItem work-id">WORK ID: {workId}</li>
         </ul>
       </div>
       <div styleName="work-timeline">
         <TimelineHeader
-          status={summary.status}
-          nextAction={summary.nextAction}
-          daysToBegin={summary.daysToBegin}
+          status={status}
+          nextAction={nextAction}
+          daysToBegin={daysToBegin}
         />
-        <Timeline timeline={summary.timeline} />
+        <TimelineContext.Provider value={{ workId, onTabChange }}>
+          <Timeline timeline={timeline} />
+        </TimelineContext.Provider>
       </div>
     </div>
   );
@@ -51,6 +62,7 @@ Summary.propTypes = {
     daysToBegin: PT.number,
     timeline: PT.arrayOf(PT.shape()),
   }),
+  onTabChange: PT.func,
 };
 
 export default Summary;

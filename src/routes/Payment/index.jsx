@@ -114,7 +114,7 @@ const Payment = ({ setProgressItem }) => {
       dispatch(triggerAutoSave(true));
     };
   }, [currentStep, dispatch, setProgressItem, firstMounted]);
-  
+
   const isFormValid =
     formData.amount &&
     Number(formData.amount) >= total &&

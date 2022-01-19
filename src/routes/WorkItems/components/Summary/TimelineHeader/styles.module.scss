@@ -30,6 +30,10 @@
 
 .next-action {
   @include font-barlow;
-  font-weight: 700;
+  font-weight: 600;
   color: $grey-text;
+
+  strong {
+    font-weight: 700;
+  }
 }

@@ -19,7 +19,7 @@ const middlewares = [
 ];
 
 // enable Redux Logger in in DEV environment
-if (process.env.APPENV !== "prod") {
+if (process.env.APPMODE !== "production") {
   const { createLogger } = require("redux-logger");
   const logger = createLogger();
   middlewares.push(logger);

@@ -2,7 +2,7 @@ import _ from "lodash";
 import moment from "moment";
 import config from "../../config";
 import { axiosInstance as axios } from "./requestInterceptor";
-import { WORK_TIMELINE } from "constants";
+import { WORK_TIMELINE, CHALLENGE_STATUS } from "constants";
 import workUtil from "utils/work";
 import { triggerDownload } from "utils";
 
@@ -13,7 +13,12 @@ export const getWork = async (id) => {
     `${config.API.V5}/challenges/${challengeId}`
   );
 
-  return response.data;
+  const data = response.data;
+  if (data.status.startsWith("Cancelled")) {
+    data.status = CHALLENGE_STATUS.CANCELLED;
+  }
+
+  return data;
 };
 
 export const getSummary = (work) => {
@@ -34,7 +39,8 @@ export const getSummary = (work) => {
   const sendToSolutions = timeline.pop();
 
   if (!sendToSolutions.hidden) {
-    const sorted = [];
+    let sorted = [];
+    let sendToSolutionsInserted = false;
     for (let i = 0; i < timeline.length - 1; i += 1) {
       const m = timeline[i];
       if (!m.date) {
@@ -45,6 +51,7 @@ export const getSummary = (work) => {
       ) {
         sorted.push(m);
       } else {
+        sendToSolutionsInserted = true;
         sorted.push(sendToSolutions);
 
         const after = timeline
@@ -55,11 +62,19 @@ export const getSummary = (work) => {
         break;
       }
     }
+    if (!sendToSolutionsInserted) {
+      sorted.push(sendToSolutions);
+    }
     timeline = sorted;
   }
 
   // set index
-  timeline = timeline.map((i, index) => ({ ...i, index }));
+  timeline = timeline.map((m, index) => ({
+    ...m,
+    index,
+    isFirst: index === 0,
+    isLast: index === timeline.length - 1,
+  }));
 
   return {
     status: workUtil.getStatus(work),

@@ -11,6 +11,8 @@
   line-height: 20px;
   color: $black;
 
+  display: flex;
+  align-items: center;
   margin-bottom: 14px;
 
   .help-icon {
@@ -24,4 +26,19 @@
 
 .markAsDoneBtn {
   margin: 16px 0 0 auto;
+}
+
+.download-all-solutions-btn {
+  @include font-roboto;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 0;
+  color: $link-blue-dark;
+
+  margin-left: auto;
+
+  &:hover,
+  &:visited {
+    color: $link-blue-dark;
+  }
 }

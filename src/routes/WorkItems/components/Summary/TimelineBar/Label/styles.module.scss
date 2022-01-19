@@ -7,6 +7,7 @@
   line-height: 10px;
   color: $gui-kit-gray-90;
 
+  position: relative;
   width: 60px;
   text-align: center;
 
@@ -17,5 +18,13 @@
 
   &.highlight strong {
     color: $link-blue-dark;
+  }
+
+  .link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 10px;
   }
 }

@@ -90,15 +90,13 @@ const WorkItem = ({
       }
     } else if (selectedTab === "solutions") {
       if (!solutions) {
-        getSolutions(work.id);
+        isReviewPhaseEnded && getSolutions(work.id);
       }
     } else if (selectedTab === "details") {
       if (!details) {
         getDetails(work);
       }
     }
-
-    getForumNotifications(work.id);
   }, [
     work,
     selectedTab,
@@ -108,7 +106,18 @@ const WorkItem = ({
     getSummary,
     getSolutions,
     getDetails,
+    isReviewPhaseEnded,
   ]);
+
+  useEffect(() => {
+    if (!work) {
+      return;
+    }
+
+    if (work || selectedTab === "messaging") {
+      getForumNotifications(work.id);
+    }
+  }, [work, selectedTab, getForumNotifications]);
 
   useEffect(() => {
     if (isSavingSurveyDone) {
@@ -197,9 +206,13 @@ const WorkItem = ({
               }}
             >
               MESSAGES
-              {forumNotifications.unreadNotifications && (
+              {forumNotifications && forumNotifications.unreadNotifications && (
                 <span styleName="message-count">
-                  {String.prototype.padStart.call(forumNotifications.unreadNotifications, 2, "0")}
+                  {String.prototype.padStart.call(
+                    forumNotifications.unreadNotifications,
+                    2,
+                    "0"
+                  )}
                 </span>
               )}
             </Tab>
@@ -223,7 +236,12 @@ const WorkItem = ({
 
           <div>
             <TabPane value={selectedTab} tab="summary">
-              {summary && <Summary summary={summary} />}
+              {summary && (
+                <Summary
+                  summary={summary}
+                  onTabChange={(tab) => setSelectedTab(tab)}
+                />
+              )}
               {markAsDoneButton}
             </TabPane>
 
@@ -233,17 +251,19 @@ const WorkItem = ({
             </TabPane>
 
             <TabPane value={selectedTab} tab="solutions">
-              {solutions && (
-                <>
-                  <Solutions
-                    solutions={solutions}
-                    onDownload={downloadSolution}
-                    isReviewPhaseEnded={isReviewPhaseEnded}
-                    reviewPhaseEndedDate={reviewPhaseEndedDate}
-                  />
-                  {markAsDoneButton}
-                </>
-              )}
+              <Solutions
+                solutions={solutions}
+                onDownload={downloadSolution}
+                isReviewPhaseEnded={isReviewPhaseEnded}
+                reviewPhaseEndedDate={reviewPhaseEndedDate}
+                work={work}
+              />
+              <div styleName="solution-tab-footer">
+                {markAsDoneButton}
+                <a href="#void()" styleName="need-help-link">
+                  Need Help?
+                </a>
+              </div>
             </TabPane>
 
             <TabPane value={selectedTab} tab="messaging">

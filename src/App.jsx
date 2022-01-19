@@ -1,7 +1,5 @@
 import { Redirect, Router } from "@reach/router";
-import {
-  getAuthUserTokens,
-} from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
 import Sidebar from "components/Sidebar";
 import React, { useLayoutEffect, useState } from "react";
 import { menuItems } from "./constants";

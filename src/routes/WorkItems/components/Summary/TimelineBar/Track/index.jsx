@@ -4,18 +4,19 @@ import { WORK_TIMELINE } from "constants";
 import "./styles.module.scss";
 
 const Track = ({ children, step }) => {
-  const { active, completed, index, name } = step;
+  const { active, completed, index, name, isFirst } = step;
   const color = completed ? "completed" : active ? "active" : "";
   const width =
     name === "send-to-solutions-expert"
       ? `${(100 / (WORK_TIMELINE.length - 2)) * (index - 1 + 0.5)}%`
       : undefined;
+  const position = name === "send-to-solutions-expert" ? "absolute" : undefined;
 
   return (
     <div
-      styleName={`track ${index === 0 ? "isFirst" : ""} ${color} ${name || ""}`}
+      styleName={`track ${isFirst ? "isFirst" : ""} ${color} ${name || ""}`}
       hidden={step.hidden}
-      style={{ width }}
+      style={{ width, position }}
     >
       <div styleName="container">{children}</div>
     </div>

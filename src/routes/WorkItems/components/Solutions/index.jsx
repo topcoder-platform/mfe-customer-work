@@ -6,13 +6,19 @@ import SolutionNotAvailableYet from "./SolutionsNotAvailableYet";
 import IconHint from "../../../../assets/images/icon-hint.svg";
 
 import "./styles.module.scss";
+import { WORK_STATUSES } from "constants/";
 
 const Solutions = ({
   solutions,
   onDownload,
   isReviewPhaseEnded,
   reviewPhaseEndedDate,
+  work,
 }) => {
+  if (work && work.status === WORK_STATUSES.DirectedToSales.value) {
+    return null;
+  }
+
   if (isReviewPhaseEnded == null) {
     return null;
   } else if (!isReviewPhaseEnded) {
@@ -21,7 +27,7 @@ const Solutions = ({
     );
   }
 
-  if (solutions.length === 0) {
+  if (!solutions || solutions.length === 0) {
     return null;
   }
 
@@ -30,6 +36,9 @@ const Solutions = ({
       <h6 styleName="title">
         THE FOLLOWING SOLUTIONS HAVE MET YOUR DETAILED CRITERIA
         <IconHint styleName="help-icon" />
+        <a href="#void()" styleName="download-all-solutions-btn">
+          Download All Solutions
+        </a>
       </h6>
 
       <SolutionList>
@@ -51,6 +60,7 @@ Solutions.propTypes = {
   onDownload: PT.func,
   isReviewPhaseEnded: PT.bool,
   reviewPhaseEndedDate: PT.string,
+  work: PT.shape(),
 };
 
 export default Solutions;

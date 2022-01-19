@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PT from "prop-types";
+import _ from "lodash";
 import Button from "components/Button";
-import { BUTTON_TYPE, BUTTON_SIZE } from "constants";
+import { BUTTON_TYPE, BUTTON_SIZE, SURVEY_QUESTIONS } from "constants";
 import Textarea from "components/FormElements/FormInputTextArea";
 import Rating from "./Rating";
 import IconClose from "../../../../../assets/images/icon-close.svg";
@@ -9,17 +10,11 @@ import IconClose from "../../../../../assets/images/icon-close.svg";
 import "./styles.module.scss";
 
 const FinalSurvey = ({ saveSurvey, onCancel, customerFeedback }) => {
-  const [qualityOfWork, setQualityOfWork] = useState(10);
-  const [results, setResults] = useState(10);
-  const [recommendTopcoder, setRecommendTopcoder] = useState(10);
-  const [other, setOther] = useState("");
+  const [questions, updateQuestions] = useState(_.cloneDeep(SURVEY_QUESTIONS));
 
   useEffect(() => {
     if (customerFeedback) {
-      setQualityOfWork(customerFeedback.qualityOfWork);
-      setResults(customerFeedback.results);
-      setRecommendTopcoder(customerFeedback.recommendTopcoder);
-      setOther(customerFeedback.other);
+      updateQuestions(customerFeedback);
     }
   }, [customerFeedback]);
 
@@ -42,43 +37,48 @@ const FinalSurvey = ({ saveSurvey, onCancel, customerFeedback }) => {
       <hr styleName="divider" />
 
       <ul styleName="question-list">
-        <li>
-          <span>How happy are you with the quality of work?</span>
-          <Rating value={qualityOfWork} onChange={setQualityOfWork} />
-        </li>
-        <li>
-          <span>How easy was it to get the results you wanted?</span>
-          <Rating value={results} onChange={setResults} />
-        </li>
-        <li>
-          <span>How likely are you to recommend Topcoder?</span>
-          <Rating value={recommendTopcoder} onChange={setRecommendTopcoder} />
-        </li>
+        {questions.map((q) =>
+          typeof q.value === "number" ? (
+            <li>
+              <span>{q.name}</span>
+              <Rating
+                value={q.value}
+                onChange={(value) => {
+                  const index = questions.indexOf(q);
+                  questions.splice(index, 1, { ...q, value });
+                  updateQuestions([...questions]);
+                }}
+              />
+            </li>
+          ) : null
+        )}
       </ul>
 
-      <div styleName="textarea-container">
-        <Textarea
-          placeholder="What can we do to make your experience better?"
-          styleName="textarea"
-          rows={8}
-          value={other}
-          onChange={(event) => setOther(event.target.value)}
-        />
-      </div>
+      {questions.map((q) =>
+        typeof q.value === "string" ? (
+          <div styleName="textarea-container">
+            <Textarea
+              placeholder={q.name}
+              styleName="textarea"
+              rows={8}
+              value={q.value}
+              onChange={(event) => {
+                const index = questions.indexOf(q);
+                questions.splice(index, 1, { ...q, value: event.target.value });
+                updateQuestions([...questions]);
+              }}
+            />
+          </div>
+        ) : null
+      )}
 
       <hr styleName="divider" />
 
       <Button
         styleName="markAsDone-btn"
         size={BUTTON_SIZE.LARGE}
-        onClick={() =>
-          saveSurvey({
-            qualityOfWork,
-            results,
-            recommendTopcoder,
-            other,
-          })
-        }
+        onClick={() => saveSurvey(questions)}
+        disabled={questions.some((q) => !q.value || /^\s+$/.test(q.value))}
       >
         Mark as done
       </Button>

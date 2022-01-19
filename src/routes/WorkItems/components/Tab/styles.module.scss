@@ -1,7 +1,6 @@
 @import "styles/include";
 
 .tab {
-  font: inherit;
   position: relative;
   padding: 8px 12px;
   text-align: center;
@@ -11,6 +10,8 @@
   &:last-child { margin-right: -4px; }
 
   &.active {
+    color: $gui-kit-gray-90;
+
     &::before {
       content: '';
       position: absolute;

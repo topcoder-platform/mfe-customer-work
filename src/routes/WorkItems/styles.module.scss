@@ -9,6 +9,12 @@
 }
 
 .pageTitle {
+  @include font-barlow;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1;
+  color: $gui-kit-gray-90;
+
   display: flex;
   align-items: center;
   gap: 16px;
@@ -34,4 +40,25 @@
 
 .markAsDoneBtn {
   margin: 16px 0 0 auto;
+}
+
+.solution-tab-footer {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  margin-top: 16px;
+
+  .need-help-link {
+    @include font-roboto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1;
+    color: $link-blue-dark;
+
+    margin-right: 15px;
+  }
+
+  .markAsDoneBtn {
+    margin: 0;
+  }
 }

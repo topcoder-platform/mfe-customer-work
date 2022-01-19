@@ -334,19 +334,23 @@ export const WORK_TIMELINE = [
   {
     title: "WORK SUBMITTED",
     date: "created",
-    active: (work) => work.status === WORK_STATUSES.Submitted.value,
-    completed: (work) => work.status !== WORK_STATUSES.Submitted.value,
+    completed: (work) => {
+      const submitted =
+        WORK_STATUS_ORDER[work.status] >
+        WORK_STATUS_ORDER[WORK_STATUSES.Draft.value];
+      return submitted;
+    },
   },
   {
     title: "WORK STARTED",
     date: (work) => {
       const phase = work.phases.find((phase) => phase.name === "Registration");
-      return workUtil.phaseStartDate(phase);
+      return phase && workUtil.phaseStartDate(phase);
     },
     active: (work) => {
       const phase = work.phases.find((phase) => phase.name === "Registration");
       const isRegistrationPhaseOpen =
-        phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
+        phase && phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
       return (
         work.status === WORK_STATUSES.InProgress.value &&
         isRegistrationPhaseOpen
@@ -354,10 +358,12 @@ export const WORK_TIMELINE = [
     },
     completed: (work) => {
       const phase = work.phases.find((phase) => phase.name === "Registration");
-      const isRegistrationPhaseClosed = moment(
-        workUtil.phaseEndDate(phase)
-      ).isBefore();
-      return isRegistrationPhaseClosed;
+      const isRegistrationPhaseClosed =
+        phase && moment(workUtil.phaseEndDate(phase)).isBefore();
+      const didStart =
+        WORK_STATUS_ORDER[work.status] >=
+        WORK_STATUS_ORDER[WORK_STATUSES.InProgress.value];
+      return isRegistrationPhaseClosed && didStart;
     },
   },
   {
@@ -379,61 +385,51 @@ export const WORK_TIMELINE = [
       const isSubmissionPhaseClosed = moment(
         workUtil.phaseEndDate(phase)
       ).isBefore();
-      return isSubmissionPhaseClosed;
+      const didStart =
+        WORK_STATUS_ORDER[work.status] >=
+        WORK_STATUS_ORDER[WORK_STATUSES.InProgress.value];
+      return isSubmissionPhaseClosed && didStart;
     },
   },
   {
     name: "downloads-ready",
     title: "DOWNLOADS READY",
     date: (work) => {
-      let phase = work.phases.find(
-        (phase) => phase.name === "Appeals Response"
-      );
+      let phase = work.phases.find((phase) => phase.name === "Review");
 
       if (!phase) {
-        phase = work.phases.find((phase) => phase.name === "Review");
+        phase = work.phases.find((phase) => phase.name === "Iterative Review");
       }
 
-      if (!phase) {
-        return;
-      }
-      return workUtil.phaseEndDate(phase);
+      return phase && workUtil.phaseEndDate(phase);
     },
     active: (work) => {
-      let phase = work.phases.find(
-        (phase) => phase.name === "Appeals Response"
-      );
+      let phase = work.phases.find((phase) => phase.name === "Review");
 
       if (!phase) {
-        phase = work.phases.find((phase) => phase.name === "Review");
+        phase = work.phases.find((phase) => phase.name === "Iterative Review");
       }
 
-      if (!phase) {
-        return;
-      }
-      const isAppealResponsePhaseOpen =
-        phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
-      return isAppealResponsePhaseOpen;
+      const isReviewPhaseOpen =
+        phase && phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
+      return isReviewPhaseOpen;
     },
     completed: (work) => {
-      let phase = work.phases.find(
-        (phase) => phase.name === "Appeals Response"
-      );
+      let phase = work.phases.find((phase) => phase.name === "Review");
 
       if (!phase) {
-        phase = work.phases.find((phase) => phase.name === "Review");
+        phase = work.phases.find((phase) => phase.name === "Iterative Review");
       }
 
-      if (!phase) {
-        return;
-      }
-      const allPreviousPhasesClosed = work.phases
-        .slice(0, work.phases.indexOf(phase))
-        .every((p) => !p.isOpen);
-      const isAppealResponsePhaseEnded = moment(
-        workUtil.phaseEndDate(phase)
-      ).isBefore();
-      return isAppealResponsePhaseEnded && allPreviousPhasesClosed;
+      const isReviewPhaseEnded =
+        phase && moment(workUtil.phaseEndDate(phase)).isBefore();
+
+      const didStart =
+        work.status !== WORK_STATUSES.DirectedToSales.value &&
+        WORK_STATUS_ORDER[work.status] >=
+          WORK_STATUS_ORDER[WORK_STATUSES.InProgress.value];
+
+      return isReviewPhaseEnded && didStart;
     },
   },
   {
@@ -452,6 +448,14 @@ export const WORK_TIMELINE = [
         work.status === WORK_STATUSES.Completed.value && customerFeedbacked
       );
     },
+    hidden: (work) => {
+      const customerFeedbacked =
+        work.metadata &&
+        work.metadata.find((item) => item.name === "customerFeedback");
+      return (
+        work.status === WORK_STATUSES.Completed.value && customerFeedbacked
+      );
+    },
   },
   {
     name: "send-to-solutions-expert",
@@ -462,6 +466,27 @@ export const WORK_TIMELINE = [
       }
     },
     completed: true,
-    hidden: (work) => work.status !== WORK_STATUSES.DirectedToSales.value,
+    hidden: (work) => {
+      return work.status !== WORK_STATUSES.DirectedToSales.value;
+    },
+  },
+];
+
+export const SURVEY_QUESTIONS = [
+  {
+    name: "How happy are you with the quality of work?",
+    value: 0,
+  },
+  {
+    name: "How easy was it to get the results you wanted?",
+    value: 0,
+  },
+  {
+    name: "How likely are you to recommend Topcoder?",
+    value: 0,
+  },
+  {
+    name: "What can we do to make your experience better?",
+    value: "",
   },
 ];
