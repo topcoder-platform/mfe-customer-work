@@ -46,6 +46,7 @@ const App = () => {
   return (
     <div className={styles["topcoder-micro-frontends-self-service-app"]}>
       <Router>
+        <Home path="/self-service/home" />
         {!isLoggedIn && <IntakeForm path="/self-service/*" />}
         {isLoggedIn && (
           <>
@@ -62,7 +63,6 @@ const App = () => {
             <Redirect noThrow from="/self-service/*" to="/self-service" />
           </>
         )}
-        <Home path="/self-service/home" />
         <Profile path="/self-service/profile" />
       </Router>
     </div>

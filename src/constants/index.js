@@ -181,7 +181,6 @@ export const tabNames = [
   "details",
   "messaging",
   "solutions",
-  "history",
 ];
 
 export const disabledSidebarRoutes = [
