@@ -19,10 +19,10 @@ const sidebar = <Sidebar menus={menuItems} />;
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
-  useEffect(() => {
-    disableSidebarForRoute("/self-service/*");
-    disableNavigationForRoute("/self-service/*");
-  }, []);
+  // useEffect(() => {
+  //   disableSidebarForRoute("/self-service/*");
+  //   disableNavigationForRoute("/self-service/*");
+  // }, []);
 
   useLayoutEffect(() => {
     const checkIsLoggedIn = async () => {
