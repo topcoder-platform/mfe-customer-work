@@ -52,10 +52,6 @@ export const HELP_BANNER = {
  * Industry List
  */
 export const IndustryList = [
-  { label: "Technology", value: "technology" },
-  { label: "Public Sector", value: "public-sector" },
-  { label: "Retail", value: "retail" },
-  { label: "Oil & Gas", value: "oil-gas" },
   { label: "Accounting & Financial", value: "accounting & financial"},
   { label: "Agriculture", value: "agriculture"},
   { label: "Animal & Pet", value: "animal & pet"},
