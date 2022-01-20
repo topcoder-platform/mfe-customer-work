@@ -16,6 +16,7 @@ import { reviewConfirmed } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import ReviewTable from "./components/ReviewTable";
+import ServicePrice from "components/ServicePrice";
 import "./styles.module.scss";
 
 /**
@@ -27,6 +28,12 @@ const Review = ({ setProgressItem }) => {
   const formData = useSelector((state) => state?.form);
   const [checked, setChecked] = useState(false);
   const currentStep = useSelector((state) => state?.progress.currentStep);
+  const price = useSelector((state) => state.form.price);
+  const additionalPrice = useSelector((state) => state.form.additionalPrice);
+  const devicePrice = useSelector((state) => state.form.devicePrice);
+  const pagePrice = useSelector((state) => state.form.pagePrice);
+  const total = price + additionalPrice + devicePrice + pagePrice;
+  const workType = useSelector((state) => state.form.workType);
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -80,8 +87,14 @@ const Review = ({ setProgressItem }) => {
         <PageContent>
           <PageH2>REVIEW</PageH2>
           <PageDivider />
-
-          <ReviewTable formData={formData} />
+          <ServicePrice
+            price={total}
+            serviceType={workType?.selectedWorkTypeDetail}
+          />
+          <PageDivider />
+          <ReviewTable
+            formData={formData} 
+          />
 
           <div styleName="confirmationBox">
             <FormInputCheckbox
