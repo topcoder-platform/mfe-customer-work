@@ -12,6 +12,7 @@ import MyWork from "./routes/MyWork";
 import Profile from "./routes/Profile";
 import WorkItems from "./routes/WorkItems";
 import Layout from "components/Layout";
+import { ScrollToTop } from "./ScrollToTop";
 
 import "react-responsive-modal/styles.css";
 
@@ -43,25 +44,27 @@ const App = () => {
 
   return (
     <div className={styles["topcoder-micro-frontends-self-service-app"]}>
-      <Router>
-        <IntakeForm path="/self-service/*" />
-        {isLoggedIn && (
-          <>
-            <Layout
-              path="/self-service"
-              sidebar={sidebar}
-              PageComponent={MyWork}
-            />
-            <Layout
-              path="/self-service/work-items/:workItemId"
-              sidebar={sidebar}
-              PageComponent={WorkItems}
-            />
-            <Redirect noThrow from="/self-service/*" to="/self-service" />
-          </>
-        )}
-        <Profile path="/self-service/profile" />
-        <Home path="/self-service/home" />
+      <Router primary={false}>
+        <ScrollToTop path="/">
+          <IntakeForm path="/self-service/*" />
+          {isLoggedIn && (
+            <>
+              <Layout
+                path="/self-service"
+                sidebar={sidebar}
+                PageComponent={MyWork}
+              />
+              <Layout
+                path="/self-service/work-items/:workItemId"
+                sidebar={sidebar}
+                PageComponent={WorkItems}
+              />
+              <Redirect noThrow from="/self-service/*" to="/self-service" />
+            </>
+          )}
+          <Profile path="/self-service/profile" />
+          <Home path="/self-service/home" />
+        </ScrollToTop>
       </Router>
     </div>
   );
