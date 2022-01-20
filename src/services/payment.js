@@ -1,5 +1,7 @@
 import { CardNumberElement } from "@stripe/react-stripe-js";
+import _ from "lodash";
 import config from "../../config";
+import challengeService from "./challenge";
 import { axiosInstance as axios } from "./requestInterceptor";
 
 /**
@@ -20,22 +22,29 @@ export async function processPayment(
   currency,
   challengeId
 ) {
-  // Call stripe api the create payment method, so the card info does not pass to our server.
-  const payload = await stripe.createPaymentMethod({
-    type: "card",
-    card: elements.getElement(CardNumberElement),
-  });
+  // get project ID from challenge
+  const challenge = await challengeService.getChallengeDetails(challengeId);
+  try {
+    // Call stripe api the create payment method, so the card info does not pass to our server.
+    const payload = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardNumberElement),
+    });
 
-  const response = await axios.post(
-    `${config.API.V5}/customer-payments`,
-    JSON.stringify({
-      amount,
-      currency,
-      paymentMethodId: payload.paymentMethod.id,
-      reference: "project",
-      referenceId: challengeId,
-    })
-  );
+    const response = await axios.post(
+      `${config.API.V5}/customer-payments`,
+      JSON.stringify({
+        amount,
+        currency,
+        paymentMethodId: payload.paymentMethod.id,
+        reference: "project",
+        referenceId: _.toString(challenge.projectId),
+      })
+    );
 
-  return response?.data;
+    return response?.data;
+  } catch (e) {
+    // TODO: Show error
+    throw e;
+  }
 }

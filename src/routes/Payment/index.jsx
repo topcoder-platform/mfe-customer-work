@@ -14,12 +14,16 @@ import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
-import { submitWork } from "services/form";
+import { activateChallenge } from "services/challenge";
 import config from "../../../config";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import { loadChallengeId, setCookie } from "../../autoSaveBeforeLogin";
+import {
+  loadChallengeId,
+  setCookie,
+  clearCachedChallengeId,
+} from "../../autoSaveBeforeLogin";
 import withAuthentication from "../../hoc/withAuthentication";
 import * as services from "../../services/payment";
 import PaymentForm from "./components/PaymentForm";
@@ -62,8 +66,9 @@ const Payment = ({ setProgressItem }) => {
   };
 
   const clearPreviousForm = () => {
-    dispatch(resetIntakeForm(true));
     setCookie(MAX_COMPLETED_STEP, "", -1);
+    clearCachedChallengeId();
+    dispatch(resetIntakeForm(true));
   };
 
   const challengeId = loadChallengeId();
@@ -83,14 +88,13 @@ const Payment = ({ setProgressItem }) => {
         challengeId
       )
       .then((res) => {
-        dispatch(createNewChallenge());
+        activateChallenge(challengeId);
         clearPreviousForm();
-        submitWork(form);
         navigate("/self-service/thank-you");
         setProgressItem(8);
       })
       .catch(() => {
-        toastr.error("Error", "There was an error on payment");
+        toastr.error("Error", "There was an error processing the payment");
       })
       .finally(() => {
         setLoading(false);

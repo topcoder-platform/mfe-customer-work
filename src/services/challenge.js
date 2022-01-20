@@ -2,6 +2,7 @@ import { CHALLENGE_FIELD_VALUES } from "constants/index";
 import config from "../../config";
 import { axiosInstance as axios } from "./requestInterceptor";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
+import _ from "lodash";
 
 /**
  * Get Challenge challenge details
@@ -52,13 +53,31 @@ export async function createChallenge() {
  * Patch a New Challenge
  */
 export async function patchChallenge(intakeForm, challengeId) {
+  const jsonData = JSON.parse(intakeForm);
+  const name = _.get(jsonData, "form.basicInfo.projectTitle.value");
   const body = {
+    ...(name ? { name } : {}),
     metadata: [
       {
         name: "intake-form",
         value: intakeForm,
       },
     ],
+  };
+  const response = await axios.patch(
+    `${config.API.V5}/challenges/${challengeId}`,
+    JSON.stringify(body)
+  );
+
+  return response?.data;
+}
+
+/**
+ * Patch a New Challenge
+ */
+export async function activateChallenge(challengeId) {
+  const body = {
+    status: "Draft",
   };
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,

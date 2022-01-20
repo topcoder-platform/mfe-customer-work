@@ -3,6 +3,8 @@ import MyWorkIcon from "../assets/images/icon-my-work.svg";
 import workUtil from "../utils/work";
 import moment from "moment";
 
+export const AUTOSAVE_THROTTLE_TIME = 5000;
+
 export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
   HOME_PAGE: "/self-service/home",
@@ -176,12 +178,7 @@ export const ColorOptionsItems = [
 /**
  * Color Options
  */
-export const tabNames = [
-  "summary",
-  "details",
-  "messaging",
-  "solutions",
-];
+export const tabNames = ["summary", "details", "messaging", "solutions"];
 
 export const disabledSidebarRoutes = [
   "/self-service/basic-info",
