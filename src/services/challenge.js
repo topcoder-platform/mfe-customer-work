@@ -1,6 +1,7 @@
 import { CHALLENGE_FIELD_VALUES } from "constants/index";
 import config from "../../config";
 import { axiosInstance as axios } from "./requestInterceptor";
+import templateData from "../assets/data/spec-templates/website-design.json";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import _ from "lodash";
 
@@ -37,6 +38,7 @@ export async function createChallenge() {
     trackId: CHALLENGE_FIELD_VALUES.trackId,
     timelineTemplateId: CHALLENGE_FIELD_VALUES.timelineTemplateId,
     name: "new-self-service-project",
+    ...templateData,
     legacy: {
       selfService: true,
     },
