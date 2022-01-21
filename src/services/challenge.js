@@ -134,7 +134,7 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "branding.stockPhotos",
-    value: _.get(jsonData, "form.branding.design.value"), // TODO: Rename to stockPhotos
+    value: _.get(jsonData, "form.branding.design.option"), // TODO: Rename to stockPhotos
   });
 
   intakeMetadata.push({

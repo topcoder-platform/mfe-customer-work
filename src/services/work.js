@@ -96,7 +96,11 @@ export const getDetails = (work) => {
 
   let formData = {};
 
-  (metadata || []).forEach((item) => {
+  // TODO: Fix this
+  const filtered = _.filter(
+    metadata,
+    (m) => m.name === "intake-form"
+  (filtered || []).forEach((item) => {
     if (item.name && item.name.includes(".")) {
       const data = item.name.split(".");
       const key = data[1];
