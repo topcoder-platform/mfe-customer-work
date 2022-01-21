@@ -307,7 +307,7 @@ export const AUTO_SAVE_FORM = "AUTO_SAVE_FORM";
 export const CACHED_CHALLENGE_ID = "CACHED_CHALLENGE_ID";
 
 export const CHALLENGE_FIELD_VALUES = {
-  trackId: "c0f5d461-8219-4c14-878a-c3a3f356466d",
+  trackId: "5fa04185-041f-49a6-bfd1-fe82533cd6c8",
   typeId: "927abff4-7af9-4145-8ba1-577c16e64e2e",
   timelineTemplateId: "918f6a3e-1a63-4680-8b5e-deb95b1411e7",
 };
