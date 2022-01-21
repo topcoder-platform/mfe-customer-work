@@ -208,11 +208,11 @@ const WorkItem = ({
               }}
             >
               MESSAGES
-              {forumNotifications && forumNotifications.unreadNotifications && (
+              {forumNotifications && forumNotifications.unreadNotifications ? (
                 <span styleName="message-count">
                   {padStart(forumNotifications.unreadNotifications)}
                 </span>
-              )}
+              ) : null}
             </Tab>
             <Tab
               active={selectedTab === "solutions"}
