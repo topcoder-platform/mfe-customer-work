@@ -57,9 +57,95 @@ export async function createChallenge() {
 export async function patchChallenge(intakeForm, challengeId) {
   const jsonData = JSON.parse(intakeForm);
   const name = _.get(jsonData, "form.basicInfo.projectTitle.value");
+  // TODO: Move this into a service/util. Currently hardcoded for website design
+  const intakeMetadata = [];
+
+  intakeMetadata.push({
+    name: "websitePurpose.description",
+    value: _.get(jsonData, "form.websitePurpose.description.value"),
+  });
+
+  intakeMetadata.push({
+    name: "basicInfo.selectedPageOption",
+    value: _.get(
+      jsonData,
+      "form.basicInfo.selectedPageOption.option",
+      ""
+    ).split("(")[0],
+  });
+
+  intakeMetadata.push({
+    name: "basicInfo.numberOfDevices",
+    value: _.get(jsonData, "form.basicInfo.selectedDeviceNumber.value", 1),
+  });
+
+  intakeMetadata.push({
+    name: "basicInfo.supportedDevices",
+    value: _.get(jsonData, "form.basicInfo.selectedDevice.option"),
+  });
+
+  intakeMetadata.push({
+    name: "websitePurpose.industry",
+    value: _.get(jsonData, "form.websitePurpose.industry.value.value"),
+  });
+
+  intakeMetadata.push({
+    name: "websitePurpose.userStory",
+    value: _.get(jsonData, "form.websitePurpose.userStory.value"),
+  });
+
+  intakeMetadata.push({
+    name: "pageDetails",
+    value: _.map(
+      _.get(jsonData, "form.pageDetails.pages", []),
+      (p) => `### ${p.pageName}\n\n${p.pageDetails}`
+    ).join("\n\n"),
+  });
+
+  intakeMetadata.push({
+    name: "branding.theme",
+    value: _.get(jsonData, "form.branding.theme.value"),
+  });
+
+  intakeMetadata.push({
+    name: "branding.websitesForInspiration",
+    value: _.get(jsonData, "form.branding.website.value"), // TODO: This is not correct
+  });
+
+  intakeMetadata.push({
+    name: "branding.colorOption",
+    value: _.get(jsonData, "form.branding.colorOption.option"),
+  });
+
+  intakeMetadata.push({
+    name: "branding.specificColor",
+    value: _.get(jsonData, "form.branding.specificColor.value"),
+  });
+
+  intakeMetadata.push({
+    name: "branding.fontOption",
+    value: _.get(jsonData, "form.branding.fontOption.option"),
+  });
+
+  intakeMetadata.push({
+    name: "branding.fontFiles",
+    value: "N/A", // TODO: This is not correct
+  });
+
+  intakeMetadata.push({
+    name: "branding.stockPhotos",
+    value: _.get(jsonData, "form.branding.design.value"), // TODO: Rename to stockPhotos
+  });
+
+  intakeMetadata.push({
+    name: "branding.selectedDeliverableOption",
+    value: _.get(jsonData, "form.branding.selectedDeliverableOption.option"),
+  });
+
   const body = {
     ...(name ? { name } : {}),
     metadata: [
+      ...intakeMetadata,
       {
         name: "intake-form",
         value: intakeForm,
