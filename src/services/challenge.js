@@ -145,7 +145,10 @@ export async function patchChallenge(intakeForm, challengeId) {
   const body = {
     ...(name ? { name } : {}),
     metadata: [
-      ...intakeMetadata,
+      ..._.map(
+        _.filter(intakeMetadata, (e) => !_.isEmpty(e.value)),
+        (e) => ({ ...e, value: _.toString(e.value) })
+      ),
       {
         name: "intake-form",
         value: intakeForm,
