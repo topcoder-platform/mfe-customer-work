@@ -51,7 +51,9 @@ const Home = () => {
           <div styleName="rightContent">
             <h2 styleName="title">put our great talent to work for you</h2>
             <p styleName="description">
-            Amazing talent. Passionate people. Start something great today.
+            Amazing talent. Passionate people.
+            <br/>
+            Start something great today.
             </p>
 
             <Button
