@@ -50,7 +50,7 @@ const App = () => {
           {isLoggedIn && (
             <>
               <Layout
-                path="/self-service"
+                path="/self-service/dashboard"
                 sidebar={sidebar}
                 PageComponent={MyWork}
               />
@@ -63,7 +63,7 @@ const App = () => {
             </>
           )}
           <Profile path="/self-service/profile" />
-          <Home path="/self-service/home" />
+          <Home path="/self-service" />
         </ScrollToTop>
       </Router>
     </div>
