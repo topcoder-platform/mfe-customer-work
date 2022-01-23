@@ -1,13 +1,19 @@
 import React, { useCallback, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import { navigate } from "@reach/router";
 import Header from "../Header";
 import WorkList from "../WorkList";
 import * as selectors from "selectors/myWork";
 import Button from "components/Button";
 import { ROUTES } from "constants/";
-import { BUTTON_SIZE } from "constants/index.js";
+import { BUTTON_SIZE, MAX_COMPLETED_STEP } from "constants/index.js";
 import styles from "./styles.module.scss";
+import {
+  clearAutoSavedForm,
+  clearCachedChallengeId,
+  setCookie,
+} from "../../../../../src/autoSaveBeforeLogin";
+import { resetIntakeForm } from "../../../../../src/actions/form"
 
 /**
  * Displays My Work Dashboard with work item list.
@@ -15,17 +21,23 @@ import styles from "./styles.module.scss";
  * @returns {JSX.Element}
  */
 const Dashboard = () => {
+  const dispatch = useDispatch();
+
   const worksCount = useSelector(selectors.getWorksCount);
   const worksError = useSelector(selectors.getWorksError);
 
   const onClickBtnStart = useCallback(() => {
+    setCookie(MAX_COMPLETED_STEP, "", -1);
+    clearCachedChallengeId();
+    clearAutoSavedForm();
+    dispatch(resetIntakeForm(true));
     navigate(ROUTES.INTAKE_FORM);
   }, []);
 
   return (
     <div styleName="container">
       <div styleName="content">
-        <Header />
+        <Header onStartWork={onClickBtnStart} />
         {worksError ? (
           <div styleName="error">
             <span>{worksError}</span>
@@ -51,4 +63,7 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+const mapStateToProps = ({ form }) => form;
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

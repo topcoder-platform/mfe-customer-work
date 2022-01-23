@@ -11,18 +11,14 @@ import styles from "./styles.module.scss";
  *
  * @returns {JSX.Element}
  */
-const Header = () => {
+const Header = ({ onStartWork }) => {
   const worksCount = useSelector(getWorksCount);
-
-  const onClickBtn = useCallback(() => {
-    navigate(ROUTES.INTAKE_FORM);
-  }, []);
 
   return (
     <div styleName="container">
       <h2 styleName="heading">My Work</h2>
       {!!worksCount && (
-        <Button className={styles.button} onClick={onClickBtn}>
+        <Button className={styles.button} onClick={onStartWork}>
           START WORK
         </Button>
       )}
