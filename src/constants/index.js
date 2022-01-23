@@ -7,8 +7,8 @@ export const AUTOSAVE_THROTTLE_TIME = 5000;
 
 export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
-  HOME_PAGE: "/self-service/home",
-  DASHBOARD_PAGE: "/self-service",
+  HOME_PAGE: "/self-service",
+  DASHBOARD_PAGE: "/self-service/dashboard",
 };
 
 /**
@@ -232,7 +232,7 @@ export const disabledSidebarRoutes = [
 export const menuItems = [
   {
     item: "My Work",
-    url: "/self-service",
+    url: "/self-service/dashboard",
     icon: <MyWorkIcon />,
     activeIcon: <MyWorkActiveIcon />,
   },

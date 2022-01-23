@@ -7,10 +7,16 @@ import {
   getIsLoggingIn,
 } from "hoc/withAuthentication/selectors";
 import { checkIfLoggedIn } from "hoc/withAuthentication/thunks";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback, useEffect, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import WelcomeImage from "../../assets/images/welcome.png";
 import "./styles.module.scss";
+import {
+  clearAutoSavedForm,
+  clearCachedChallengeId,
+  setCookie,
+} from "../../../src/autoSaveBeforeLogin";
+import { resetIntakeForm } from "../../../src/actions/form";
 
 /**
  * Home Page
@@ -35,9 +41,12 @@ const Home = () => {
     }
   }, [isLoggedIn, isLoggingIn]);
 
-  const handleClick = () => {
-    navigate("/self-service/wizard");
-  };
+  const handleClick = useCallback(() => {
+    clearCachedChallengeId();
+    clearAutoSavedForm();
+    dispatch(resetIntakeForm(true));
+    navigate(ROUTES.INTAKE_FORM);
+  }, []);
 
   return (
     <>
@@ -71,4 +80,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = ({ form }) => form;
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
