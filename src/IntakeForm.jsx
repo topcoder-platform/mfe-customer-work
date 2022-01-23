@@ -111,7 +111,9 @@ export default function IntakeForm() {
 
   const dataSyncWithoutCookie = (challengeDetail) => {
     const metaData = challengeDetail?.metadata;
-    const savedForm = metaData ? metaData[0] : undefined;
+    const savedForm = metaData
+      ? _.find(metaData, (m) => m.name === "intake-form")
+      : undefined;
     return _.isString(savedForm?.value)
       ? JSON.parse(savedForm?.value)
       : undefined;
