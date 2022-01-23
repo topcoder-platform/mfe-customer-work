@@ -45,7 +45,7 @@ const ProgressPopup = ({
     if (level === levels.length) return "done";
     return levelNumber === level
       ? "current"
-      : levelNumber <= maxStep
+      : levelNumber < maxStep
       ? "done"
       : "";
   };
