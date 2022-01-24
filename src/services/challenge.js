@@ -4,7 +4,6 @@ import { axiosInstance as axios } from "./requestInterceptor";
 import templateData from "../assets/data/spec-templates/website-design.json";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import _ from "lodash";
-import moment from "moment";
 
 /**
  * Get Challenge challenge details
@@ -168,9 +167,16 @@ export async function patchChallenge(intakeForm, challengeId) {
  * Patch a New Challenge
  */
 export async function activateChallenge(challengeId) {
+  const challenge = await getChallengeDetails(challengeId)
   const body = {
     status: "Draft",
-    startDate: moment().add(1, "days"),
+    discussions: [
+      {
+        name: challenge.name,
+        type: "challenge",
+        provider: "vanilla"
+      }
+    ]
   };
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
