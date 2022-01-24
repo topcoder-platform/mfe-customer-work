@@ -29,10 +29,12 @@ import Review from "./routes/Review";
 import SelectWorkType from "./routes/SelectWorkType";
 import ThankYou from "./routes/ThankYou";
 import WebsitePurpose from "./routes/WebsitePurpose";
+import LoginPrompt from "./routes/LoginPrompt";
 
 export default function IntakeForm() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const onReload = (event) => {
     getAuthUserTokens()
@@ -74,6 +76,7 @@ export default function IntakeForm() {
     const { handle } = await getAuth();
     if (handle) {
       await handleAutoSaveLoggedIn(handle);
+      setIsLoggedIn(true);
     } else {
       handleAutoSavedLoggedOut();
     }
@@ -157,6 +160,7 @@ export default function IntakeForm() {
         <BasicInfo path="/basic-info" />
         <WebsitePurpose path="/website-purpose" />
         <PageDetails path="/page-details" />
+        <LoginPrompt path="/login-prompt" isLoggedIn={isLoggedIn} />
         <Branding path="/branding" />
         <Review path="/review" />
         <Payment path="/payment" />

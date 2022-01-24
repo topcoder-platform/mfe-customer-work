@@ -10,6 +10,7 @@ import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
+import withAuthentication from "hoc/withAuthentication";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { saveBranding } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
@@ -140,4 +141,4 @@ const mapDispatchToProps = {
   setProgressItem,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Branding);
+export default connect(mapStateToProps, mapDispatchToProps)(withAuthentication(Branding));

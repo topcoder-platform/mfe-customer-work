@@ -30,10 +30,10 @@ const Progress = ({ level, styleName, ...props }) => {
     <div styleName={cn("onboard-progress", styleName || "")} {...props}>
       <div styleName="level-container">
         <div styleName="level">
-          <span styleName="level-num">STEP {level} </span>
+          <span styleName="level-num">STEP {level - 1} </span>
           <span styleName="muted">/ {levels.length}</span>
         </div>
-        <div>{levels[level - 1].label}</div>
+        <div>{levels[level - 2].label}</div>
       </div>
       <ProgressDonutChart
         styleName="progress-donut-chart"

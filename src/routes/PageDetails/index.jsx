@@ -68,7 +68,7 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
   }, [currentStep, pageDetails, dispatch, setProgressItem, firstMounted]);
 
   const onNext = () => {
-    navigate("/self-service/branding");
+    navigate("/self-service/login-prompt");
     savePageDetails(listInputs);
     setProgressItem(5);
   };
