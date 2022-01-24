@@ -26,6 +26,18 @@
     line-height: 20px;
     text-transform: uppercase;
     margin-top: 14px;
+
+    .link {
+      color: $link-blue;
+      cursor: pointer;
+      margin-left: 10px;
+      margin-top: 4px;
+      text-transform: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
 
@@ -47,17 +59,6 @@
       font-weight: 700;
       font-size: 16px;
       line-height: 26px;
-    }
-
-    .link {
-      color: $link-blue;
-      cursor: pointer;
-      margin-left: 5px;
-      margin-top: 4px;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 

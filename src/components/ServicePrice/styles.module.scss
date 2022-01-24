@@ -1,5 +1,12 @@
 @import "styles/include";
 
+.container {
+
+  svg {
+    margin-right: 16px;
+  }
+}
+
 .serviceTitle {
   margin-top: 16px;
   @include font-barlow;
@@ -8,13 +15,22 @@
   text-transform: uppercase;
 }
 
-.servicePrice {
+.priceAndDuradion {
   @include font-barlow;
   margin-top: 8px;
   font-size: 20px;
   line-height: 20px;
   font-weight: 600;
   color: $black;
+  display: flex;
+
+  .separator {
+    width: 2px;
+    height: 20px;
+    background: #D4D4D4;
+    border-radius: 1px;
+    margin: 0px 16px;
+  }
 
   svg {
     margin-left: 9px;

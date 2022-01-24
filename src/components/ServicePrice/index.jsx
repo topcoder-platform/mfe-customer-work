@@ -6,15 +6,19 @@ import PT from "prop-types";
 import React from "react";
 import HintIcon from "../../assets/images/icon-hint.svg";
 import "./styles.module.scss";
+import WebsiteDesignIcon from "../../assets/images/website-design.svg";
 
 const ServicePrice = ({ serviceType, price }) => {
   return (
-    <div>
+    <div styleName="container">
       <PageRow>
+        <WebsiteDesignIcon />
         <div>
           <p styleName="serviceTitle">{serviceType}</p>
-          <div styleName="servicePrice">
+          <div styleName="priceAndDuradion">
             PRICE: ${price}
+            <span styleName="separator" />
+            4 Days
             <HintIcon />
           </div>
         </div>
