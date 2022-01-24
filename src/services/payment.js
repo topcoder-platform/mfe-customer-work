@@ -46,7 +46,7 @@ export async function processPayment(
       await stripe.handleCardAction(customerPayment.clientSecret);
       response = await axios.patch(
         `${config.API.v5}/customer-payments/${customerPayment.id}/confirm`,
-        Json.stringify({})
+        JSON.stringify({})
       );
     }
 
