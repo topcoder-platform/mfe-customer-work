@@ -11,10 +11,10 @@ import "./styles.module.scss";
  */
 const ReviewTable = ({ formData, enableEdit = true }) => {
   const [steps, setSteps] = useState([
-    { id: 0, label: "Basic Info", value: "basicInfo", isOpen: false },
-    { id: 1, label: "Website Purpose", value: "websitePurpose", isOpen: false },
-    { id: 2, label: "Page Details", value: "pageDetails", isOpen: false },
-    { id: 3, label: "Branding", value: "branding", isOpen: false },
+    { id: 0, label: "Basic Info", value: "basicInfo", isOpen: true },
+    { id: 1, label: "Website Purpose", value: "websitePurpose", isOpen: true },
+    { id: 2, label: "Page Details", value: "pageDetails", isOpen: true },
+    { id: 3, label: "Branding", value: "branding", isOpen: true },
   ]);
 
   const setStepToggler = (id) => {
@@ -26,9 +26,6 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
   };
 
   const renderDetails = (step) => {
-    const redirectPage = ProgressLevels.find(
-      (item) => item.label === step.label
-    );
     const items = formData[step.value] || {};
     return Object.keys(items).map((key) => (
       <div>
@@ -36,11 +33,6 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
           <div styleName="detail">
             <div styleName="itemWrapper">
               <p styleName="item">{items[key]?.title}</p>
-              {enableEdit && (
-                <Link styleName="link" to={redirectPage?.url}>
-                  edit
-                </Link>
-              )}
             </div>
             <p styleName="key">{items[key]?.option}</p>
           </div>
@@ -52,9 +44,6 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
   const renderPageDetails = (step) => {
     const items = formData[step.value] || {};
     const pages = items?.pages || [];
-    const redirectPage = ProgressLevels.find(
-      (item) => item.label === step.label
-    );
 
     return pages.map((page, index) => {
       return (
@@ -63,11 +52,6 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
             <div styleName="detail">
               <div styleName="itemWrapper">
                 <p styleName="item">Page {index + 1} Name</p>
-                {enableEdit && (
-                  <Link styleName="link" to={redirectPage?.url}>
-                    edit
-                  </Link>
-                )}
               </div>
               <p styleName="key">{page?.pageName}</p>
             </div>
@@ -76,11 +60,6 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
             <div styleName="detail">
               <div styleName="itemWrapper">
                 <p styleName="item">Page {index + 1} Requirements</p>
-                {enableEdit && (
-                  <Link styleName="link" to={redirectPage?.url}>
-                    edit
-                  </Link>
-                )}
               </div>
               <p styleName="key">{page?.pageDetails}</p>
             </div>
@@ -90,9 +69,13 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
     });
   };
 
+
   return (
     <>
       {steps.map((step, index) => {
+      const redirectPage = ProgressLevels.find(
+        (item) => item.label === step.label
+      );
         return (
           <>
             <div
@@ -101,7 +84,13 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
               tabIndex={0}
               onClick={() => setStepToggler(index)}
             >
-              <p styleName="stepLabel">{step.label}</p>
+              <p styleName="stepLabel">{step.label}
+              {enableEdit && (
+                <Link styleName="link" to={redirectPage?.url}>
+                  edit
+                </Link>
+              )}
+              </p>
               <div styleName={classNames("icon", step.isOpen ? "open" : null)}>
                 <ArrowIcon />
               </div>
