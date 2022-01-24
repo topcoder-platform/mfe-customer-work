@@ -41,8 +41,8 @@ export async function processPayment(
         referenceId: _.toString(challenge.projectId),
       })
     );
-    const customerPayment = response.data
-    if(customerPayment.status === "requires_action") {
+    const customerPayment = response.data;
+    if (customerPayment.status === "requires_action") {
       await stripe.handleCardAction(customerPayment.clientSecret);
       response = await axios.patch(
         `${config.API.v5}/customer-payments/${customerPayment.id}/confirm`,
