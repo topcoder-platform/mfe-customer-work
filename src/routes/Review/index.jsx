@@ -92,15 +92,23 @@ const Review = ({ setProgressItem }) => {
             serviceType={workType?.selectedWorkTypeDetail}
           />
           <div styleName="infoAlert">
-            Your Website Design project includes up to 5 unique Visual Design solutions. Each solution will match your specified scope and device types. You will receive industry-standard source files to take forward to further design and/or development. Design deliverables will NOT include functional code.
+            Your Website Design project includes up to 5 unique Visual Design
+            solutions. Each solution will match your specified scope and device
+            types. You will receive industry-standard source files to take
+            forward to further design and/or development. Design deliverables
+            will NOT include functional code.
           </div>
           <PageDivider />
-          <ReviewTable
-            formData={formData} 
-          />
+          <ReviewTable formData={formData} />
 
           <div styleName="confirmationBox">
-            Details above accurately describe the work I’m engaging in. I understand that this information is what Topcoder members will see, and it is accurate to the best of my ability. From this point forward, I understand that I cannot edit these requirements or change the scope of the project.
+            Details above accurately describe the work I’m engaging in. I
+            understand that this information is what Topcoder members will see,
+            and it is accurate to the best of my ability. From this point
+            forward, I understand that I cannot edit these requirements or
+            change the scope of the project.
+            <br />
+            <br />
             <FormInputCheckbox
               label={"Yes, I confirm the above details are correct"}
               checked={checked}
