@@ -109,7 +109,6 @@ export const DesignOptions = [
  * ProgressLevels
  */
 export const ProgressLevels = [
-  { label: "Select Work Type", url: "/self-service/wizard" },
   { label: "Basic Info", url: "/self-service/basic-info" },
   { label: "Website Purpose", url: "/self-service/website-purpose" },
   { label: "Page Details", url: "/self-service/page-details" },
@@ -226,6 +225,7 @@ export const disabledSidebarRoutes = [
   "/self-service/thank-you",
   "/self-service/wizard",
   "/self-service/profile",
+  "/self-service/login-prompt",
   "/self-service/work-items/*",
 ];
 
@@ -317,6 +317,7 @@ export const INTAKE_FORM_ROUTES = [
   "/self-service/basic-info",
   "/self-service/website-purpose",
   "/self-service/page-details",
+  "/self-service/login-prompt",
   "/self-service/branding",
   "/self-service/review",
   "/self-service/payment",

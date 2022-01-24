@@ -6,7 +6,6 @@ import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageH2 from "components/PageElements/PageH2";
 import PageP from "components/PageElements/PageP";
-import Progress from "components/Progress";
 import TabSelector from "components/TabSelector";
 import { BUTTON_SIZE, BUTTON_TYPE, webWorkTypes, workTypes } from "constants/";
 import React, { useEffect, useState } from "react";
@@ -128,8 +127,6 @@ const SelectWorkType = ({ saveWorkType, updatePrice, setProgressItem }) => {
             areas of UI/UX Design, Data Science, Quality Assurance, and more.
             We'd love to talk with you about all of our services.
           </PageP>
-
-          <Progress level={1} />
 
           {currentStep === 0 && (
             <div styleName="footer">
