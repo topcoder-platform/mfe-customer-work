@@ -19,12 +19,14 @@ import {
   addDevicePrice,
   saveBasicInfo,
   updateAdditionalPrice,
+  toggleSupportModal
 } from "../../actions/form";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import BasicInfoForm from "./components/BasicInfoForm";
 import "./styles.module.scss";
+import SupportModal from "../../components/Modal/SupportModal"
 
 /**
  * Basic Info Page
@@ -34,11 +36,12 @@ const BasicInfo = ({
   updateAdditionalPrice,
   addDevicePrice,
   setProgressItem,
+  toggleSupportModal
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
     selectedPageOption: { title: "How Many Pages?", option: "", value: null },
-    selectedDevice: { title: "Device Types", option: "Computer", value: 0 },
+    selectedDevice: { title: "Device Types", option: "Computer", value: 0 }
   });
   const isFormValid =
     formData?.projectTitle?.value.length &&
@@ -53,6 +56,7 @@ const BasicInfo = ({
   const workType = useSelector((state) => state.form.workType);
   const basicInfo = useSelector((state) => state.form.basicInfo);
   const currentStep = useSelector((state) => state.progress.currentStep);
+  const showSupportModal = useSelector(state => state.form.showSupportModal)
 
   const onBack = () => {
     navigate("/self-service/wizard");
@@ -106,12 +110,20 @@ const BasicInfo = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addDevicePrice, formData, formData.selectedDevice]);
 
+  const onShowSupportModal = () => {
+    toggleSupportModal(true)
+  }
+  const onHideSupportModal = () => {
+    toggleSupportModal(false)
+  }
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
+      {showSupportModal && (<SupportModal handleClose={onHideSupportModal}></SupportModal>)}
       <Page>
         <PageContent>
-          <PageH2>BASIC INFO</PageH2>
+          <PageH2>BASIC INFO: {showSupportModal}</PageH2>
           <PageDivider />
 
           <BasicInfoForm
@@ -119,6 +131,7 @@ const BasicInfo = ({
             price={total}
             serviceType={workType?.selectedWorkTypeDetail}
             onFormUpdate={setFormData}
+            onShowSupportModal={onShowSupportModal}
           />
 
           <PageDivider />
@@ -161,6 +174,7 @@ const mapDispatchToProps = {
   saveBasicInfo,
   addDevicePrice,
   setProgressItem,
+  toggleSupportModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);

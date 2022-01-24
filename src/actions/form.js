@@ -59,3 +59,8 @@ export const updatePagePrice = (price) => ({
   type: ACTIONS.FORM.UPDATE_PAGE_PRICE,
   payload: price,
 });
+
+export const toggleSupportModal = (show = null) => ({
+  type: ACTIONS.FORM.TOGGLE_SUPPORT_MODAL,
+  payload: show,
+});

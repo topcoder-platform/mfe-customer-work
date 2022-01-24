@@ -5,8 +5,9 @@ import classNames from "classnames";
 import React, { useState } from "react";
 import ArrowIcon from "../../assets/images/icon-arrow.svg";
 import "./styles.module.scss";
+import Button from "../Button"
 
-const HelpBanner = ({ title, description }) => {
+const HelpBanner = ({ title, description, contactSupport }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -24,7 +25,8 @@ const HelpBanner = ({ title, description }) => {
         </div>
       </div>
 
-      {open && <p styleName="description">{description}</p>}
+      {open && title !== description && (<p styleName="description">{description}</p>)}
+      {open && (<p styleName="supportButton"><Button onClick={contactSupport}>Contact support</Button></p>)}
     </div>
   );
 };
