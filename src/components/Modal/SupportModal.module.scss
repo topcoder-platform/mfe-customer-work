@@ -1,7 +1,7 @@
 @import 'styles/include';
 
 div {
-    @include font-roboto;
+    @include font-barlow;
 }
 
 .titleContainer {
@@ -9,4 +9,11 @@ div {
     justify-content: center;
     color: $blue1;
     text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.contentContainer {
+    font-size: 14px;
+    line-height: 1.3em;
 }
