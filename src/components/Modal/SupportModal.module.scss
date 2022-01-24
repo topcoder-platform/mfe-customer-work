@@ -1,0 +1,12 @@
+@import 'styles/include';
+
+div {
+    @include font-roboto;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: center;
+    color: $blue1;
+    text-transform: uppercase;
+}

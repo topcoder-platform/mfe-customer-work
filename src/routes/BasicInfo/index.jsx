@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { navigate, redirectTo } from "@reach/router";
 import Button from "components/Button";
@@ -57,6 +57,8 @@ const BasicInfo = ({
   const basicInfo = useSelector((state) => state.form.basicInfo);
   const currentStep = useSelector((state) => state.progress.currentStep);
   const showSupportModal = useSelector(state => state.form.showSupportModal)
+  const email = useSelector(state => state.authUser.email)
+  const handle = useSelector(state => state.authUser.handle)
 
   const onBack = () => {
     navigate("/self-service/wizard");
@@ -120,7 +122,12 @@ const BasicInfo = ({
   return (
     <>
       <LoadingSpinner show={isLoading} />
-      {showSupportModal && (<SupportModal handleClose={onHideSupportModal}></SupportModal>)}
+      {showSupportModal && (
+        <SupportModal handleClose={onHideSupportModal}
+          email={email}
+          handle={handle}>
+        </SupportModal>
+      )}
       <Page>
         <PageContent>
           <PageH2>BASIC INFO: {showSupportModal}</PageH2>
