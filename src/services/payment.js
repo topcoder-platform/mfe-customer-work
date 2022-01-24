@@ -31,7 +31,7 @@ export async function processPayment(
       card: elements.getElement(CardNumberElement),
     });
 
-    const response = await axios.post(
+    let response = await axios.post(
       `${config.API.V5}/customer-payments`,
       JSON.stringify({
         amount,
@@ -41,6 +41,14 @@ export async function processPayment(
         referenceId: _.toString(challenge.projectId),
       })
     );
+    const customerPayment = response.data
+    if(customerPayment.status === "requires_action") {
+      await stripe.handleCardAction(customerPayment.clientSecret);
+      response = await axios.patch(
+        `${config.API.v5}/customer-payments/${customerPayment.id}/confirm`,
+        JSON.stringify({})
+      );
+    }
 
     return response?.data;
   } catch (e) {
