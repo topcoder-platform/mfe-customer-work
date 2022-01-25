@@ -24,9 +24,12 @@ import {
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
+import SupportModal from "../../components/Modal/SupportModal"
+import { getProfile } from '../../selectors/profile'
+import { getUserProfile } from "../../thunks/profile"
+
 import BasicInfoForm from "./components/BasicInfoForm";
 import "./styles.module.scss";
-import SupportModal from "../../components/Modal/SupportModal"
 
 /**
  * Basic Info Page
@@ -48,7 +51,6 @@ const BasicInfo = ({
     formData?.selectedPageOption?.value !== null;
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
-  const [submittedSupportRequest] = useState(null)
   const price = useSelector((state) => state.form.price);
   const additionalPrice = useSelector((state) => state.form.additionalPrice);
   const devicePrice = useSelector((state) => state.form.devicePrice);
@@ -57,9 +59,8 @@ const BasicInfo = ({
   const workType = useSelector((state) => state.form.workType);
   const basicInfo = useSelector((state) => state.form.basicInfo);
   const currentStep = useSelector((state) => state.progress.currentStep);
-  const showSupportModal = useSelector(state => state.form.showSupportModal)
-  const email = useSelector(state => state.authUser.email)
-  const handle = useSelector(state => state.authUser.handle)
+  const showSupportModal = useSelector(state => state.form.showSupportModal);
+  const profileData = useSelector(getProfile);
 
   const onBack = () => {
     navigate("/self-service/wizard");
@@ -120,17 +121,20 @@ const BasicInfo = ({
     toggleSupportModal(false)
   }
 
-  const onSubmitSupportRequest = () => {
-      console.debug('new support question', submittedSupportRequest)
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+
+  const onSubmitSupportRequest = (submittedSupportRequest) => {
+    console.debug('new support question', submittedSupportRequest)
   }
 
   return (
     <>
       <LoadingSpinner show={isLoading} />
       {showSupportModal && (
-        <SupportModal 
-          email={email}
-          handle={handle}
+        <SupportModal
+          profileData={profileData}
           handleClose={onHideSupportModal}
           onSubmit={onSubmitSupportRequest}
         ></SupportModal>

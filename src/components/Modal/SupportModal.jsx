@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import PropType from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState } from "react"
 
 import { Button } from '../Button'
 import { FormField } from '../FormElements/FormField'
@@ -10,12 +10,15 @@ import { FormInputTextArea } from '../FormElements/FormInputTextArea'
 import { Modal } from '.'
 import styles from './styles.module.scss'
 
-const SupportModal = ({ email, handle, handleClose, onSubmit }) => {
+const SupportModal = ({ profileData, handleClose, onSubmit }) => {
+    const { email, firstName, lastName } = profileData
+
     // use the state to handle form values
     const [formIsValid, setFormIsValid] = useState(false)
     const [request, setRequest] = useState({
         email,
-        handle,
+        firstName,
+        lastName,
         question: ''
     })
     const [submittedSupportRequest, setSubmittedSupportRequest] = useState(null)
@@ -31,7 +34,7 @@ const SupportModal = ({ email, handle, handleClose, onSubmit }) => {
 
     const handleSubmission = () => {
         setSubmittedSupportRequest(request)
-        onSubmit()
+        onSubmit(request)
     }
 
     // the request is valid if there are values for all of its properties
@@ -81,10 +84,10 @@ const SupportModal = ({ email, handle, handleClose, onSubmit }) => {
 
             {(!submittedSupportRequest &&
                 <form>
-                    {(handle &&
+                    {(!firstName &&
                         <FormField label='First Name'>
                             <FormInputText
-                                name='handle'
+                                name='firstName'
                                 onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                                 required
                                 value={request.handle}
@@ -92,7 +95,18 @@ const SupportModal = ({ email, handle, handleClose, onSubmit }) => {
                         </FormField>
                     )}
 
-                    {(email &&
+                    {(!lastName &&
+                        <FormField label='Last Name'>
+                            <FormInputText
+                                name='lastName'
+                                onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                                required
+                                value={request.handle}
+                            />
+                        </FormField>
+                    )}
+
+                    {(!email &&
                         <FormField label='Email'>
                             <FormInputText
                                 name='email'
@@ -128,8 +142,7 @@ const SupportModal = ({ email, handle, handleClose, onSubmit }) => {
 }
 
 SupportModal.propTypes = {
-    email: PropType.string,
-    handle: PropType.string,
+    profileData: PropType.object.isRequired,
     handleClose: PropType.func.isRequired,
     supportRequest: PropType.string,
     onSubmit: PropType.func.isRequired
