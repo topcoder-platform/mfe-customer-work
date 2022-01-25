@@ -38,7 +38,7 @@ const BasicInfo = ({
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
     selectedPageOption: { title: "How Many Pages?", option: "", value: null },
-    selectedDevice: { title: "Device Types", option: "Computer", value: 0 },
+    selectedDevice: { title: "Device Types", option: ["Computer"], value: [0] },
   });
   const isFormValid =
     formData?.projectTitle?.value.length &&
@@ -65,6 +65,7 @@ const BasicInfo = ({
   };
 
   const [firstMounted, setFirstMounted] = useState(true);
+
   useEffect(() => {
     if (!firstMounted) {
       return;
@@ -98,9 +99,9 @@ const BasicInfo = ({
 
   useEffect(() => {
     if (formData) {
-      addDevicePrice(
-        DeviceOptions[formData?.selectedDevice?.value]?.price || 0
-      );
+      formData?.selectedDevice?.value.forEach((device) => {
+        addDevicePrice(DeviceOptions[device]?.price || 0);
+      });
       saveBasicInfo(formData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
