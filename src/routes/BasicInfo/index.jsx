@@ -19,7 +19,8 @@ import {
   addDevicePrice,
   saveBasicInfo,
   updateAdditionalPrice,
-  toggleSupportModal
+  toggleSupportModal,
+  createNewSupportTicket
 } from "../../actions/form";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
@@ -39,7 +40,8 @@ const BasicInfo = ({
   updateAdditionalPrice,
   addDevicePrice,
   setProgressItem,
-  toggleSupportModal
+  toggleSupportModal,
+  createNewSupportTicket
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
@@ -126,16 +128,8 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const onSubmitSupportRequest = (submittedSupportRequest) => {
-
-    const supportRequest = {
-      ...submittedSupportRequest,
-      challengeId: challenge?.id,
-      isSelfService: challenge?.legacy?.selfService
-    }
-
-    console.debug('new support question', supportRequest)
-  }
+  const onSubmitSupportRequest = (submittedSupportRequest) => 
+    createNewSupportTicket(submittedSupportRequest, challenge?.id, challenge?.legacy?.selfService)
 
   return (
     <>
@@ -200,7 +194,8 @@ const mapDispatchToProps = {
   saveBasicInfo,
   addDevicePrice,
   setProgressItem,
-  toggleSupportModal
+  toggleSupportModal,
+  createNewSupportTicket
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);
