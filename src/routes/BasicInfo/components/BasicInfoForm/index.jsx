@@ -18,10 +18,7 @@ import "./styles.module.scss";
 
 const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
   const handleInputChange = (name, value, option = "") => {
-    onFormUpdate((formData) => ({
-      ...formData,
-      [name]: { ...formData[name], option, value },
-    }));
+    onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
   };
 
   const listOptions = PageOptions;
@@ -109,7 +106,7 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
 
         <div styleName="formFieldWrapper">
           <DeviceTypes
-            selectedOption={formData?.selectedDevice?.value}
+            selectedOptions={formData?.selectedDevice?.value}
             onSelect={(selectedOption, option) => {
               handleInputChange("selectedDevice", selectedOption, option);
             }}
