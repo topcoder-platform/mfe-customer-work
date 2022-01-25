@@ -63,7 +63,7 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
             title="We're Here to Help"
         >
             <div style={{ 'text-align': 'center' }}>
-                Hi {(handle || 'there')}, we're here to help. Please
+                Hi {(firstName || 'there')}, we're here to help. Please
                 describe what you'd like to discuss, and a Topcoder
                 Solutions Expert will email you back
                 {(email ? ` at ${email}` : '')}
