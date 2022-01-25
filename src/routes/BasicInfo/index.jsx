@@ -131,7 +131,7 @@ const BasicInfo = ({
       )}
       <Page>
         <PageContent>
-          <PageH2>BASIC INFO: {showSupportModal}</PageH2>
+          <PageH2>BASIC INFO</PageH2>
           <PageDivider />
 
           <BasicInfoForm
