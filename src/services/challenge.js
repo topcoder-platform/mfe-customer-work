@@ -42,6 +42,13 @@ export async function createChallenge() {
     legacy: {
       selfService: true,
     },
+    discussions: [
+      {
+        name: "new-self-service-project",
+        type: "challenge",
+        provider: "vanilla"
+      }
+    ]
   };
   const response = await axios.post(
     `${config.API.V5}/challenges`,
@@ -170,13 +177,6 @@ export async function activateChallenge(challengeId) {
   const challenge = await getChallengeDetails(challengeId)
   const body = {
     status: "Draft",
-    discussions: [
-      {
-        name: challenge.name,
-        type: "challenge",
-        provider: "vanilla"
-      }
-    ]
   };
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
