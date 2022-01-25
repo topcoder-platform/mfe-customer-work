@@ -143,7 +143,7 @@ export default function IntakeForm() {
       const { tokenV3 } = await getAuthUserTokens();
       if (!!tokenV3) {
         const tokenData = decodeToken(tokenV3);
-        const authProps = ["userId", "handle", "roles", "email"];
+        const authProps = ["userId", "handle", "roles"];
         dispatch(authUserSuccess(_.pick(tokenData, authProps)));
         auth = tokenData;
       }
