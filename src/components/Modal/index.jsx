@@ -60,4 +60,4 @@ Modal.propTypes = {
   title: PT.string
 };
 
-// export default Modal;
+export default Modal;
