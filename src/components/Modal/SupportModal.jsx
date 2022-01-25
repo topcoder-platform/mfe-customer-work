@@ -15,12 +15,7 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
 
     // use the state to handle form values
     const [formIsValid, setFormIsValid] = useState(false)
-    const [request, setRequest] = useState({
-        email,
-        firstName,
-        lastName,
-        question: ''
-    })
+    const [request, setRequest] = useState(null)
     const [submittedSupportRequest, setSubmittedSupportRequest] = useState(null)
 
     // set the form validators
@@ -47,8 +42,15 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
 
     // any time the form values change, update the request value and validate the form
     const handleInputChange = (name, value) => {
+        // if the request hasn't been initialized, use the default
+        const priorRequest = request || {
+            email,
+            firstName,
+            lastName,
+            question: ''
+        }
         const newRequest = {
-            ...request,
+            ...priorRequest,
             [name]: value
         }
         setRequest(newRequest)
@@ -90,7 +92,7 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
                                 name='firstName'
                                 onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                                 required
-                                value={request.handle}
+                                value={request?.firstName}
                             />
                         </FormField>
                     )}
@@ -101,7 +103,7 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
                                 name='lastName'
                                 onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                                 required
-                                value={request.handle}
+                                value={request?.lastName}
                             />
                         </FormField>
                     )}
@@ -112,7 +114,7 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
                                 name='email'
                                 onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                                 required
-                                value={request.email}
+                                value={request?.email}
                             />
                         </FormField>
                     )}

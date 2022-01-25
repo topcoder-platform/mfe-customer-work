@@ -61,6 +61,7 @@ const BasicInfo = ({
   const currentStep = useSelector((state) => state.progress.currentStep);
   const showSupportModal = useSelector(state => state.form.showSupportModal);
   const profileData = useSelector(getProfile);
+  const challenge = useSelector(state => state.challenge);
 
   const onBack = () => {
     navigate("/self-service/wizard");
@@ -126,7 +127,14 @@ const BasicInfo = ({
   }, [dispatch]);
 
   const onSubmitSupportRequest = (submittedSupportRequest) => {
-    console.debug('new support question', submittedSupportRequest)
+
+    const supportRequest = {
+      ...submittedSupportRequest,
+      challengeId: challenge?.id,
+      isSelfService: challenge?.legacy?.selfService
+    }
+
+    console.debug('new support question', supportRequest)
   }
 
   return (
