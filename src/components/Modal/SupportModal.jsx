@@ -125,6 +125,7 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
                             placeholder='Enter your question or issue'
                             required
                             rows='3'
+                            value={request?.question}
                         />
                     </FormField>
 
