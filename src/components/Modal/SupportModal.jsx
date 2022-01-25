@@ -1,22 +1,18 @@
 import React from "react"
 import PropType from "prop-types"
-import { Modal } from "react-responsive-modal"
 
-import styles from "./SupportModal.module.scss"
+import { Modal } from "."
 
 const SupportModal = ({ email, handle, handleClose }) => {
     return (
         <Modal 
-            onClose={handleClose}
-            open={true} 
-            showCloseIcon={false}
+            handleClose={handleClose}
+            show={true}
+            title="We're Here to Help"
         >
-            <div className={styles.titleContainer}>
-                We're Here to Help
-            </div>
-            <div>
+            <div style={{'text-align': 'center'}}>
                 Hi {(handle || 'there')}, we're here to help. Please
-                describe what you'd like to discuss and a Topcoder
+                describe what you'd like to discuss, and a Topcoder
                 Solutions Expert will email you back
                 {(email ? ` at ${email}` : '')}
                 &nbsp;within one business day.
