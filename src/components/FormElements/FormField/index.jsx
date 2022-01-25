@@ -8,7 +8,7 @@ import PT from "prop-types";
 import React from "react";
 import "./styles.module.scss";
 
-const FormField = ({
+export const FormField = ({
   children,
   label = "",
   placeholder = "",

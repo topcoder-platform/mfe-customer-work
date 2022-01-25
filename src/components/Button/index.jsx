@@ -16,7 +16,7 @@ import PT from "prop-types";
 import React from "react";
 import "./styles.module.scss";
 
-const Button = ({
+export const Button = ({
   children,
   size = BUTTON_SIZE.SMALL,
   type = BUTTON_TYPE.PRIMARY,

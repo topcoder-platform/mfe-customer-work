@@ -1,25 +1,128 @@
-import React from "react"
-import PropType from "prop-types"
+import _ from 'lodash'
+import PropType from 'prop-types'
+import React, { useState } from 'react'
 
-import { Modal } from "."
+import { Button } from '../Button'
+import { FormField } from '../FormElements/FormField'
+import { FormInputText } from '../FormElements/FormInputText'
+import { FormInputTextArea } from '../FormElements/FormInputTextArea'
 
-const SupportModal = ({ email, handle, handleClose }) => {
+import { Modal } from '.'
+import styles from './styles.module.scss'
+
+const SupportModal = ({ email, handle, handleClose, onSubmit }) => {
+    // use the state to handle form values
+    const [formIsValid, setFormIsValid] = useState(false)
+    const [request, setRequest] = useState({
+        email,
+        handle,
+        question: ''
+    })
+    const [submittedSupportRequest, setSubmittedSupportRequest] = useState(null)
+
+    // set the form validators
+    const validators = {
+        email: () => {
+            // TODO: validate email
+            console.debug('validating email')
+            return true
+        }
+    }
+
+    const handleSubmission = () => {
+        setSubmittedSupportRequest(request)
+        onSubmit()
+    }
+
+    // the request is valid if there are values for all of its properties
+    // and all validators associated w/the field succeed
+    const validateRequest = (newRequest, fieldName) => {
+        const isValid = validators[fieldName]
+        return (!isValid || isValid())
+            && !Object.keys(newRequest).some(k => _.isEmpty(newRequest[k]))
+    }
+
+    // any time the form values change, update the request value and validate the form
+    const handleInputChange = (name, value) => {
+        const newRequest = {
+            ...request,
+            [name]: value
+        }
+        setRequest(newRequest)
+        setFormIsValid(validateRequest(newRequest, name))
+    }
+
     return (
-        <Modal 
+        <Modal
             handleClose={handleClose}
+            hideClose={true}
             show={true}
             title="We're Here to Help"
         >
-            <div style={{'text-align': 'center'}}>
+            <div style={{ 'text-align': 'center' }}>
                 Hi {(handle || 'there')}, we're here to help. Please
                 describe what you'd like to discuss, and a Topcoder
                 Solutions Expert will email you back
                 {(email ? ` at ${email}` : '')}
                 &nbsp;within one business day.
             </div>
-            <div>
-                {/* TODO: form & button */}
-            </div>
+
+            {submittedSupportRequest && (
+                <div style={{
+                    'text-align': 'center',
+                    'font-weight': 'bold',
+                    'text-transform': 'uppercase',
+                    'margin-top': '30px'
+                }}>
+                    <p>Thank You.</p>
+                    <p>Message Received.</p>
+                </div>
+            )}
+
+            {(!submittedSupportRequest &&
+                <form>
+                    {(handle &&
+                        <FormField label='First Name'>
+                            <FormInputText
+                                name='handle'
+                                onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                                required
+                                value={request.handle}
+                            />
+                        </FormField>
+                    )}
+
+                    {(email &&
+                        <FormField label='Email'>
+                            <FormInputText
+                                name='email'
+                                onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                                required
+                                value={request.email}
+                            />
+                        </FormField>
+                    )}
+
+                    <FormField label='How Can We Help You?'>
+                        <FormInputTextArea name='question'
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                            placeholder='Enter your question or issue'
+                            required
+                            rows='3'
+                        />
+                    </FormField>
+
+                    <div className={styles.modalButtonContainer}>
+                        <Button
+                            type='primary'
+                            onClick={handleSubmission}
+                            disabled={!formIsValid}
+                        >
+                            Submit
+                        </Button>
+                    </div>
+                </form>
+            )}
         </Modal>
     )
 }
@@ -27,7 +130,9 @@ const SupportModal = ({ email, handle, handleClose }) => {
 SupportModal.propTypes = {
     email: PropType.string,
     handle: PropType.string,
-    handleClose: PropType.func.isRequired
+    handleClose: PropType.func.isRequired,
+    supportRequest: PropType.string,
+    onSubmit: PropType.func.isRequired
 }
 
 export default SupportModal

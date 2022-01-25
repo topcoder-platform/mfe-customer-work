@@ -48,6 +48,7 @@ const BasicInfo = ({
     formData?.selectedPageOption?.value !== null;
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
+  const [submittedSupportRequest] = useState(null)
   const price = useSelector((state) => state.form.price);
   const additionalPrice = useSelector((state) => state.form.additionalPrice);
   const devicePrice = useSelector((state) => state.form.devicePrice);
@@ -119,6 +120,10 @@ const BasicInfo = ({
     toggleSupportModal(false)
   }
 
+  const onSubmitSupportRequest = () => {
+      console.debug('new support question', submittedSupportRequest)
+  }
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -127,6 +132,7 @@ const BasicInfo = ({
           email={email}
           handle={handle}
           handleClose={onHideSupportModal}
+          onSubmit={onSubmitSupportRequest}
         ></SupportModal>
       )}
       <Page>

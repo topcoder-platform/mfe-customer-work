@@ -7,7 +7,7 @@ import cn from "classnames";
 import React from "react";
 import "./styles.module.scss";
 
-const FormInputTextArea = ({ styleName, ...props }) => {
+export const FormInputTextArea = ({ styleName, ...props }) => {
   return (
     <textarea
       styleName={cn("form-input-textarea", styleName || "")}

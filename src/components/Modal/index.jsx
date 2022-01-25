@@ -9,27 +9,28 @@ import PT from "prop-types";
 import styles from "./styles.module.scss";
 import IconCross from "../../assets/images/icon-cross.svg";
 
+// TODO: figure out why this only works when the const is exported and not the default at the end
 export const Modal = (
   { 
     children,
     handleClose = (f) => f,
+    hideClose = false,
     show = false, 
     title
   }
 ) => {
-
   return (
     show && (
-      <div styleName="modal">
+      <div styleName="modalContainer">
 
         <div
-          styleName="modal-back"
+          styleName="modalBackground"
           onClick={(e) => handleClose(e)}
           role="button"
           tabIndex={0}
         ></div>
 
-        <div styleName="modal-inner">
+        <div styleName="modalContent">
 
           <div className={styles.titleContainer}>
             {title}
@@ -37,10 +38,12 @@ export const Modal = (
 
           {children}
 
-          <IconCross
-            styleName="modal-close-btn"
-            onClick={(e) => handleClose(e)}
-          />
+          {!hideClose && (
+            <IconCross
+              styleName="modalCloseBtn"
+              onClick={(e) => handleClose(e)}
+            />
+          )}
           </div>
 
       </div>
@@ -50,8 +53,10 @@ export const Modal = (
 
 Modal.propTypes = {
   children: PT.node,
-  show: PT.bool,
   handleClose: PT.func,
+  hideClose: PT.bool,
+  show: PT.bool,
+  title: PT.string
 };
 
-export default Modal;
+// export default Modal;

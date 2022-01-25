@@ -1,6 +1,6 @@
 @import 'styles/include';
 
-.modal {
+.modalContainer {
   @include font-barlow;
   position: fixed;
   left: 0;
@@ -9,7 +9,7 @@
   bottom: 0;
   z-index: 1000;
 
-  .modal-inner {
+  .modalContent {
     width: 80%;
     max-width: 350px;
     min-height: 300px;
@@ -19,7 +19,7 @@
     border-radius: 5px;
     padding: 26px;
     overflow: auto;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.3em;
 
     .titleContainer {
@@ -30,9 +30,18 @@
       margin-bottom: 10px;
       font-weight: bold;
     }
+
+    form {
+      margin-top: 30px;
+
+      .modalButtonContainer {
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 
-  .modal-back {
+  .modalBackground {
     background: #00000055;
     height: 100vh;
     position: fixed;
@@ -43,7 +52,7 @@
     z-index: -1;
   }
 
-  .modal-close-btn {
+  .modalCloseBtn {
     position: absolute;
     top: 23px;
     right: 20px;
@@ -52,7 +61,7 @@
     width: 15px;
   }
 
-  .modal-close-btn * {
+  .modalCloseBtn * {
     stroke-width: 1px !important;
   }
 }
