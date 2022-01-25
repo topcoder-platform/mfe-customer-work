@@ -13,23 +13,6 @@
     max-width: 1920px;
     margin: 0 auto !important;
   }
-
-  .react-responsive-modal-container {
-    max-height: 95vh;
-    max-width: $screen-md;
-    overflow: hidden;
-    width: 387px;
-    position: fixed;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999;
-
-    .react-responsive-modal-modal {
-      text-align: center;
-      border-radius: 5px;
-    }
-  }
 }
 
 body {

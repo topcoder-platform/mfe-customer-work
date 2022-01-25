@@ -4,7 +4,7 @@ import { Modal } from "react-responsive-modal"
 
 import styles from "./SupportModal.module.scss"
 
-const SupportModal = ({ handleClose, email = null, handle = null}) => {
+const SupportModal = ({ email, handle, handleClose }) => {
     return (
         <Modal 
             onClose={handleClose}
@@ -31,7 +31,7 @@ const SupportModal = ({ handleClose, email = null, handle = null}) => {
 SupportModal.propTypes = {
     email: PropType.string,
     handle: PropType.string,
-    handleClose: PropType.func,
+    handleClose: PropType.func.isRequired
 }
 
 export default SupportModal

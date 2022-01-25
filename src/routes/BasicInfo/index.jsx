@@ -123,10 +123,11 @@ const BasicInfo = ({
     <>
       <LoadingSpinner show={isLoading} />
       {showSupportModal && (
-        <SupportModal handleClose={onHideSupportModal}
+        <SupportModal 
           email={email}
-          handle={handle}>
-        </SupportModal>
+          handle={handle}
+          handleClose={onHideSupportModal}
+        ></SupportModal>
       )}
       <Page>
         <PageContent>
