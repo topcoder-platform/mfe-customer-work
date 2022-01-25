@@ -38,7 +38,11 @@ const BasicInfo = ({
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
     selectedPageOption: { title: "How Many Pages?", option: "", value: null },
-    selectedDevice: { title: "Device Types", option: ["Computer"], value: [0] },
+    selectedDevices: {
+      title: "Device Types",
+      option: ["Computer"],
+      value: [0],
+    },
   });
   const isFormValid =
     formData?.projectTitle?.value.length &&
@@ -99,13 +103,13 @@ const BasicInfo = ({
 
   useEffect(() => {
     if (formData) {
-      formData?.selectedDevice?.value.forEach((device) => {
+      formData?.selectedDevices?.value.forEach((device) => {
         addDevicePrice(DeviceOptions[device]?.price || 0);
       });
       saveBasicInfo(formData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addDevicePrice, formData, formData.selectedDevice]);
+  }, [addDevicePrice, formData, formData.selectedDevices]);
 
   return (
     <>

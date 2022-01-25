@@ -17,6 +17,8 @@ const HelpIcon = ({ children }) => {
         styleName="tooltip"
         id={tooltipId.current}
         aria-haspopup="true"
+        place="bottom"
+        effect="solid"
       >
         {children}
       </ReactTooltip>
