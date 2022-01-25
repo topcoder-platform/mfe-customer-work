@@ -9,7 +9,8 @@ import PT from "prop-types";
 import styles from "./styles.module.scss";
 import IconCross from "../../assets/images/icon-cross.svg";
 
-// TODO: figure out why this only works when the const is exported and not the default at the end
+// TODO: figure out why this export is needed 
+// https://github.com/topcoder-platform/micro-frontends-self-service-app/issues/74 
 export const Modal = (
   { 
     children,
