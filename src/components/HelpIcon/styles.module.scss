@@ -1,0 +1,17 @@
+@import "styles/include";
+
+.help-icon {
+  .tooltip {
+    display: flex;
+    @include font-roboto;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    max-width: 30ch;
+    padding: 8px;
+    background-color: $grey-bg;
+    color: $black;
+    border-radius: 8px;
+    opacity: 1 !important;
+  }
+}
