@@ -11,7 +11,6 @@ import { useDispatch, connect } from "react-redux";
 import "./styles.module.scss";
 import { setCookie } from "../../autoSaveBeforeLogin";
 import { resetIntakeForm } from "../../actions/form";
-import { setProgressItem } from "../../actions/progress";
 
 /**
  * Thank You Page
@@ -19,10 +18,9 @@ import { setProgressItem } from "../../actions/progress";
 const ThankYou = () => {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
-  const [selectedWorkType, setSelectedWorkType] = useState("");
 
   useEffect(() => {
-    setSelectedWorkType(webWorkTypes[0]);
+    clearPreviousForm();
   }, []);
 
   const clearPreviousForm = () => {
@@ -58,7 +56,6 @@ const ThankYou = () => {
               </div>
             </div>
           </div>
-
         </PageContent>
       </Page>
     </>
@@ -67,6 +64,6 @@ const ThankYou = () => {
 
 const mapStateToProps = ({ form }) => form;
 
-const mapDispatchToProps = { setProgressItem };
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ThankYou);
