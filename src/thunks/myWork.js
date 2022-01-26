@@ -10,6 +10,8 @@ import {
   WORK_STATUS_ORDER,
 } from "constants/index.js";
 import { sortBySortOrder } from "utils";
+import { getForumNotifications } from "services/challenge";
+import _ from "lodash";
 
 /**
  * Loads work items as pages, concatenates these pages and adds proper work
@@ -66,13 +68,10 @@ export const loadWorks = () => async (dispatch, getState) => {
         ) {
           nextActionName = "Accept";
         }
-        let messagesCount = Math.floor(Math.random() * 100);
         item.nextActionName = nextActionName;
         item.challengeStatus = challengeStatus;
         item.workStatus = workStatus;
         item.sortOrder = sortOrder;
-        item.messagesCount = messagesCount;
-        item.messagesHasNew = !!messagesCount && !!Math.round(Math.random());
         item.rating = Math.round(Math.random() * 5);
         works.push(item);
       }
@@ -85,4 +84,45 @@ export const loadWorks = () => async (dispatch, getState) => {
   }
   works.sort(sortBySortOrder);
   dispatch(actions.loadWorksSuccess(works));
+};
+
+/**
+ * Loads forum notifications of dashboard work items
+ *
+ * @returns {() => Promise}
+ */
+export const loadForumNotifications = () => async (dispatch, getState) => {
+  const state = getState();
+  const works = selectors.getWorks(state);
+
+  let promises = [];
+  let newWorkItems = works.map((work) => {
+    if (work.status === "Active" && work.type !== "Task") {
+      promises.push(getForumNotifications(work.id));
+      return {
+        ...work,
+        forumNotificationLoading: true,
+      };
+    } else {
+      return work;
+    }
+  });
+
+  dispatch(actions.loadWorksSuccess(newWorkItems));
+  const results = await Promise.all(promises);
+
+  for (let result of results) {
+    const currentItem = _.find(newWorkItems, { id: result.challengeId });
+    const updatedItem = {
+      ...currentItem,
+      forumNotificationLoading: false,
+      messagesCount: result?.unreadNotifications || 0,
+      messagesHasNew: true,
+    };
+
+    newWorkItems = newWorkItems.map((item) =>
+      item.id === result.challengeId ? updatedItem : item
+    );
+  }
+  dispatch(actions.loadWorksSuccess(newWorkItems));
 };

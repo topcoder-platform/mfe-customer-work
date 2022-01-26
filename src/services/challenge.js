@@ -215,7 +215,11 @@ export async function getForumNotifications(challengeId) {
     }
   );
 
-  return response.json();
+  const res = await response.json();
+  return {
+    ...res,
+    challengeId,
+  };
 }
 
 export default {
