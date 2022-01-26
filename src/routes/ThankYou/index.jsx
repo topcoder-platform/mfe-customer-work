@@ -5,7 +5,6 @@ import Page from "components/Page";
 import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageH2 from "components/PageElements/PageH2";
-import Progress from "components/Progress";
 import { BUTTON_SIZE, MAX_COMPLETED_STEP, webWorkTypes } from "constants/";
 import React, { useEffect, useState } from "react";
 import { useDispatch, connect } from "react-redux";
@@ -60,7 +59,6 @@ const ThankYou = () => {
             </div>
           </div>
 
-          <Progress level={8} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>
