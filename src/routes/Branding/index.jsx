@@ -138,7 +138,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={5} />
+          <Progress level={5} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>

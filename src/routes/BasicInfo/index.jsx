@@ -152,7 +152,7 @@ const BasicInfo = ({
             </div>
           </PageFoot>
 
-          <Progress level={2} />
+          <Progress level={2} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>
