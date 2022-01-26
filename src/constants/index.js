@@ -109,12 +109,12 @@ export const DesignOptions = [
  * ProgressLevels
  */
 export const ProgressLevels = [
-  { label: "Basic Info", url: "/self-service/basic-info" },
-  { label: "Website Purpose", url: "/self-service/website-purpose" },
-  { label: "Page Details", url: "/self-service/page-details" },
-  { label: "Branding", url: "/self-service/branding" },
-  { label: "Review", url: "/self-service/review" },
-  { label: "Payment", url: "/self-service/payment" },
+  { label: "Basic Info", url: "/self-service/basic-info", trueIndex: 2, showIndex: 1 },
+  { label: "Website Purpose", url: "/self-service/website-purpose", trueIndex: 3, showIndex: 2 },
+  { label: "Page Details", url: "/self-service/page-details", trueIndex: 4, showIndex: 3 },
+  { label: "Branding", url: "/self-service/branding", trueIndex: 5, showIndex: 4 },
+  { label: "Review", url: "/self-service/review", trueIndex: 6, showIndex: 5  },
+  { label: "Payment", url: "/self-service/payment", trueIndex: 7, showIndex: 6 },
 ];
 
 /**

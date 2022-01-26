@@ -146,7 +146,7 @@ const Review = ({ setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={6} />
+          <Progress level={6} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>

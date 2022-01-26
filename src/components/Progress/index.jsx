@@ -15,29 +15,32 @@ import { setCookie, getCookie } from "../../autoSaveBeforeLogin";
 import IconThreeDots from "../../assets/images/icon-three-dots-vertical.svg";
 import "./styles.module.scss";
 
-const Progress = ({ level, styleName, ...props }) => {
+const Progress = ({ level, styleName, setStep, ...props }) => {
   const [progressPopupOpen, setProgressPopupOpen] = useState(false);
-  const maxCompletedStep = getCookie(MAX_COMPLETED_STEP) || 0;
+  let maxCompletedStep = getCookie(MAX_COMPLETED_STEP) || 0;
   if (
     _.isUndefined(maxCompletedStep) ||
     _.isNull(maxCompletedStep) ||
     parseInt(maxCompletedStep) < level
   ) {
     setCookie(MAX_COMPLETED_STEP, level, config.AUTO_SAVED_COOKIE_EXPIRED_IN);
+    maxCompletedStep = level;
   }
+
+  const trueLevel = _.find(levels, l => l.trueIndex === level)
 
   return (
     <div styleName={cn("onboard-progress", styleName || "")} {...props}>
       <div styleName="level-container">
         <div styleName="level">
-          <span styleName="level-num">STEP {level - 1} </span>
+          <span styleName="level-num">STEP {trueLevel.showIndex} </span>
           <span styleName="muted">/ {levels.length}</span>
         </div>
-        <div>{levels[level - 2].label}</div>
+        <div>{trueLevel.label}</div>
       </div>
       <ProgressDonutChart
         styleName="progress-donut-chart"
-        progress={100 * (level / levels.length)}
+        progress={100 * (trueLevel.showIndex / levels.length)}
       />
       <div
         styleName="progress-popup-toggle"
@@ -48,7 +51,8 @@ const Progress = ({ level, styleName, ...props }) => {
         <IconThreeDots />
       </div>
       <ProgressPopup
-        level={level}
+        setStep={setStep}
+        level={trueLevel.trueIndex}
         maxStep={maxCompletedStep}
         levels={levels}
         open={progressPopupOpen}

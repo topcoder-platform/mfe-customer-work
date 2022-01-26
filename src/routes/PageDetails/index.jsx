@@ -127,7 +127,7 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={4} />
+          <Progress level={4} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>

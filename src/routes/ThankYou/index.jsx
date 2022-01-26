@@ -60,7 +60,7 @@ const ThankYou = () => {
             </div>
           </div>
 
-          <Progress level={6} />
+          <Progress level={8} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>

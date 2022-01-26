@@ -189,7 +189,7 @@ const Payment = ({ setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={7} />
+          <Progress level={7} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>

@@ -123,7 +123,7 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={3} />
+          <Progress level={3} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>
