@@ -8,11 +8,11 @@ import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, MAX_COMPLETED_STEP, webWorkTypes } from "constants/";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import "./styles.module.scss";
 import { setCookie } from "../../autoSaveBeforeLogin";
-import { createNewChallenge } from "../../actions/challenge";
 import { resetIntakeForm } from "../../actions/form";
+import { setProgressItem } from "../../actions/progress";
 
 /**
  * Thank You Page
@@ -67,4 +67,8 @@ const ThankYou = () => {
   );
 };
 
-export default ThankYou;
+const mapStateToProps = ({ form }) => form;
+
+const mapDispatchToProps = { setProgressItem };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ThankYou);
