@@ -1,86 +1,57 @@
+import _ from 'lodash'
 import {
   CardCvcElement,
   CardExpiryElement,
   CardNumberElement,
 } from "@stripe/react-stripe-js";
-import FormField from "components/FormElements/FormField";
-import FormInputNumber from "components/FormElements/FormInputNumber";
-import Select from "components/ReactSelect";
 import PT from "prop-types";
 import React, { useState } from "react";
+
+import FormField from "../../../../components/FormElements/FormField";
+
 import "./styles.module.scss";
 
 /**
  * Payment Form Page
  */
-const PaymentForm = ({ minAmount, formData, setFormData }) => {
-  const handleInputChange = (name, value) => {
-    setFormData((formData) => ({ ...formData, [name]: value }));
-  };
+const PaymentForm = ({ formData, setFormData }) => {
+  const handleInputChange = (name, value) => setFormData((formData) => ({ ...formData, [name]: value }));
 
-  const [amountError, setAmountError] = useState("");
   const [cardNumberError, setCardNumberError] = useState("");
   const [cardExpiryError, setCardExpiryError] = useState("");
   const [cvcError, setCvcError] = useState("");
 
-  const currencyOptions = [
-    { label: "USD", value: "USD" },
-    { label: "EUR", value: "EUR" },
-    { label: "GBP", value: "GBP" },
-  ];
+  const getFieldError = (data) => data?.error?.message || ""
+
+  const onCardNumberChange = (data) => {
+    const errorMessage = getFieldError(data);
+    setCardNumberError(errorMessage);
+    if (_.isEmpty(errorMessage)) {
+      handleInputChange("cardNumber", data?.complete);
+    } 
+  }
+
+  const onExpirationChange = (data) => {
+    const errorMessage = getFieldError(data);
+    setCardExpiryError(errorMessage);
+    if (_.isEmpty(errorMessage)) {
+      handleInputChange("expiryDate", data?.complete);
+    }
+  }
+
+  const onCvcChange = (data) => {
+    const errorMessage = getFieldError(data);
+    setCvcError(errorMessage);
+    handleInputChange("cvc", !errorMessage && data?.complete);
+  }
 
   return (
     <div styleName="paymentForm">
-      <FormField label={"Amount"}>
-        <FormInputNumber
-          value={formData?.amount}
-          onChange={(e) => {
-            if (Number(e.target.value) < minAmount) {
-              setAmountError(`Amount should be greater than ${minAmount}`);
-            } else {
-              setAmountError("");
-            }
-            handleInputChange(e.target.name, e.target.value);
-          }}
-          name="amount"
-          placeholder={"Enter amount"}
-        />
-        {String(amountError).length ? (
-          <span styleName="error">{amountError}</span>
-        ) : null}
-      </FormField>
-      <FormField label={"Currency"}>
-        <Select
-          value={formData?.currency?.label}
-          onChange={(option) => {
-            handleInputChange("currency", option.value);
-          }}
-          name="currency"
-          options={currencyOptions}
-          style2={true}
-          placeholder={"Select currency"}
-        />
-      </FormField>
-      <FormField label={"Card Number"}>
-        <div styleName="cardElement">
-          <CardNumberElement
-            required
-            onChange={(data) => {
-              if (data?.error?.message) {
-                setCardNumberError(data?.error?.message);
-                handleInputChange("cardNumber", false);
-              } else {
-                setCardNumberError("");
-                if (data.complete) {
-                  handleInputChange("cardNumber", true);
-                } else {
-                  handleInputChange("cardNumber", false);
-                }
-              }
-            }}
-          />
-        </div>
 
+      <FormField label="Card Number">
+        <div styleName="cardElement">
+          <CardNumberElement required onChange={(data) => onCardNumberChange(data)} />
+        </div>
         {String(cardNumberError).length ? (
           <span styleName="error">{cardNumberError}</span>
         ) : null}
@@ -88,21 +59,7 @@ const PaymentForm = ({ minAmount, formData, setFormData }) => {
 
       <FormField label={"Expiration Date"}>
         <div styleName="cardElement">
-          <CardExpiryElement
-            onChange={(data) => {
-              if (data?.error?.message) {
-                setCardExpiryError(data?.error?.message);
-              } else {
-                setCardExpiryError("");
-
-                if (data.complete) {
-                  handleInputChange("expiryDate", true);
-                } else {
-                  handleInputChange("expiryDate", false);
-                }
-              }
-            }}
-          />
+          <CardExpiryElement required onChange={(data) => onExpirationChange(data)} />
         </div>
         {String(cardExpiryError).length ? (
           <span styleName="error">{cardExpiryError}</span>
@@ -111,21 +68,7 @@ const PaymentForm = ({ minAmount, formData, setFormData }) => {
 
       <FormField label={"CVC"}>
         <div styleName="cardElement">
-          <CardCvcElement
-            onChange={(data) => {
-              if (data?.error?.message) {
-                setCvcError(data?.error?.message);
-                handleInputChange("cvc", false);
-              } else {
-                setCvcError("");
-                if (data.complete) {
-                  handleInputChange("cvc", true);
-                } else {
-                  handleInputChange("cvc", false);
-                }
-              }
-            }}
-          />
+          <CardCvcElement required onChange={(data) => onCvcChange(data)} />
         </div>
         {String(cvcError).length ? (
           <span styleName="error">{cvcError}</span>
