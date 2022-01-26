@@ -1,4 +1,4 @@
-import { WORK_STATUS_ORDER, WORK_STATUSES } from "constants";
+import { WORK_STATUS_ORDER, WORK_STATUSES, CHALLENGE_STATUS } from "constants";
 import _ from "lodash";
 import moment from "moment";
 
@@ -96,6 +96,15 @@ export const phaseStartDate = (phase) => {
   return phase.actualStartDate;
 };
 
+export const isMessagesDisabled = (work) => {
+  const { status } = work || {};
+  return (
+    status === CHALLENGE_STATUS.NEW ||
+    status === CHALLENGE_STATUS.DRAFT ||
+    status === CHALLENGE_STATUS.CANCELLED
+  );
+};
+
 export default {
   getStatus,
   getNextAction,
@@ -104,4 +113,5 @@ export default {
   getReviewPhaseEndedDate,
   phaseEndDate,
   phaseStartDate,
+  isMessagesDisabled,
 };
