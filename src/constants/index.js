@@ -338,6 +338,7 @@ export const CHALLENGE_STATUS = {
   COMPLETED: "Completed",
   DRAFT: "Draft",
   NEW: "New",
+  APPROVED: "Approved",
 };
 
 export const WORK_STATUS_MAP = {
