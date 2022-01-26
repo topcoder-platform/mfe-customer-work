@@ -3,6 +3,7 @@
  *
  * Modal
  */
+import cn from "classnames";
 import React from "react";
 import PT from "prop-types";
 
@@ -14,6 +15,7 @@ import IconCross from "../../assets/images/icon-cross.svg";
 export const Modal = (
   { 
     children,
+    fullWidth,
     handleClose = (f) => f,
     hideClose = false,
     show = false, 
@@ -31,7 +33,7 @@ export const Modal = (
           tabIndex={0}
         ></div>
 
-        <div styleName="modalContent">
+        <div styleName={cn("modalContent", fullWidth ? "full-width" : "")}>
 
           <div className={styles.titleContainer}>
             {title}
