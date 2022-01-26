@@ -4,6 +4,7 @@
 import classNames from "classnames";
 import PT from "prop-types";
 import React from "react";
+import _ from "lodash";
 import { v4 as uuidV4 } from "uuid";
 import CheckIcon from "../../../../assets/images/check.svg";
 import "./styles.module.scss";
@@ -17,13 +18,29 @@ const ColorOptions = ({ colors, selectedColor, onSelect }) => {
           key={uuidV4}
           role="button"
           tabIndex={0}
-          onClick={() => onSelect(index, color.name)}
+          onClick={() => {
+            if (!_.isArray(selectedColor.value)) {
+              selectedColor.value = [];
+              selectedColor.option = [];
+            }
+            if (_.includes(selectedColor.value, color.name)) {
+              const newColors = _.filter(
+                selectedColor.value,
+                (v) => v !== color.name
+              );
+              onSelect(newColors, newColors);
+            } else {
+              if (selectedColor.value.length >= 3) return;
+              const newColors = [...selectedColor.value, color.name];
+              onSelect(newColors, newColors);
+            }
+          }}
         >
           <div
             styleName={classNames(
               "color",
               color.className,
-              selectedColor === index ? "selected" : null
+              _.includes(selectedColor.value, color.name) ? "selected" : null
             )}
           >
             <CheckIcon />

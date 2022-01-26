@@ -22,7 +22,7 @@ const LoginPrompt = ({ isLoggedIn, setProgressItem }) => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate('/self-service/branding')
+      navigate("/self-service/branding");
       setProgressItem(5);
     }
   }, [isLoggedIn]);
@@ -36,29 +36,29 @@ const LoginPrompt = ({ isLoggedIn, setProgressItem }) => {
   };
 
   const onBack = () => {
-    navigate("/self-service/page-details")
-  }
+    navigate("/self-service/page-details");
+  };
 
   return (
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>
-
           <div styleName="container">
             <div styleName="content">
-              <PageH2 styleName="loginTitle">Log in or create an account</PageH2>
+              <PageH2 styleName="loginTitle">
+                Log in or create an account
+              </PageH2>
               <p>
-              You are about to upload assets. To ensure your security, please log in or create an account.
+                You are about to upload assets. To ensure your security, please
+                log in or create an account.
               </p>
 
               <div styleName="btn">
                 <Button size={BUTTON_SIZE.MEDIUM} onClick={onLogin}>
                   LOG IN
                 </Button>
-                <span styleName="separator">
-                OR
-                </span>
+                <span styleName="separator">OR</span>
                 <Button size={BUTTON_SIZE.MEDIUM} onClick={onSingUp}>
                   SIGN UP
                 </Button>
@@ -82,7 +82,6 @@ const LoginPrompt = ({ isLoggedIn, setProgressItem }) => {
               </div>
             </div>
           </PageFoot>
-
         </PageContent>
       </Page>
     </>

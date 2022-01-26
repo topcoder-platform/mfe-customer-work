@@ -15,7 +15,10 @@ const Details = ({ challenge, formData }) => {
     <div styleName="details">
       <div styleName="reviewTable">
         <PageDivider />
-        <ReviewTable formData={_.get(formData, 'intake-form.form', {})} enableEdit={false} />
+        <ReviewTable
+          formData={_.get(formData, "intake-form.form", {})}
+          enableEdit={false}
+        />
       </div>
 
       <div styleName="invoiceWrapper">

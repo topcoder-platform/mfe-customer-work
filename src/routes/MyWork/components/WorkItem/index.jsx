@@ -6,7 +6,7 @@ import Rating from "components/Rating";
 import { formatWorkType } from "utils/formatters";
 import { CHALLENGE_STATUS } from "constants/index.js";
 import { Link } from "@reach/router";
-import { cacheChallengeId } from '../../../../autoSaveBeforeLogin'
+import { cacheChallengeId } from "../../../../autoSaveBeforeLogin";
 import styles from "./styles.module.scss";
 
 /**
@@ -30,13 +30,20 @@ const WorkItem = ({ work }) => {
     workStatus,
   } = work;
   const subTrack = legacy?.subTrack;
-  const url = workStatus === CHALLENGE_STATUS.DRAFT ? '/self-service/wizard' : `/self-service/work-items/${id}`
+  const url =
+    workStatus === CHALLENGE_STATUS.DRAFT
+      ? "/self-service/wizard"
+      : `/self-service/work-items/${id}`;
   return (
-    <Link styleName="container" to={url} onClick={() => {
-      if (workStatus === CHALLENGE_STATUS.DRAFT) {
-        cacheChallengeId(id)
-      }
-    }}>
+    <Link
+      styleName="container"
+      to={url}
+      onClick={() => {
+        if (workStatus === CHALLENGE_STATUS.DRAFT) {
+          cacheChallengeId(id);
+        }
+      }}
+    >
       <div styleName="header">
         <div
           styleName="status"

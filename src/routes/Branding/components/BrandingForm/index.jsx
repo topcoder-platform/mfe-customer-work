@@ -9,20 +9,23 @@ import PageDivider from "components/PageDivider";
 import PageP from "components/PageElements/PageP";
 import PageRow from "components/PageElements/PageRow";
 import RadioButton from "components/RadioButton";
-import Select from "components/ReactSelect";
 import ServicePrice from "components/ServicePrice";
 import {
   BUTTON_SIZE,
   BUTTON_TYPE,
   ColorOptionsItems,
   DeliverablesOptions,
-  DesignOptions,
+  AllowStockOptions,
 } from "constants/";
 import PT from "prop-types";
 import React, { useEffect, useState } from "react";
 import ColorOptions from "../ColorOptions";
 import FontOptions from "../FontOptions";
 import "./styles.module.scss";
+import _ from "lodash";
+import Modal from "components/Modal";
+import PolicyContent from "../PolicyContent";
+import PageH3 from "components/PageElements/PageH3";
 
 const BrandingForm = ({
   price,
@@ -33,8 +36,10 @@ const BrandingForm = ({
 }) => {
   const [selectedColor, setSelectedColor] = useState(0);
   const [selectedFont, setSelectedFont] = useState(0);
+  const [isPolicyModalOpen, setIsPolicyModalOpen] = useState(false);
   const [deliverableOptions, setDeliverableOptions] =
     useState(DeliverablesOptions);
+  const [allowStockOption, setAllowStockOption] = useState(AllowStockOptions);
 
   const handleInputChange = (name, value, option = null) => {
     setFormData((formData) => {
@@ -47,9 +52,65 @@ const BrandingForm = ({
     });
   };
 
+  const handleArrayInputChange = (index, name, key, value, option = null) => {
+    setFormData((formData) => {
+      const newFormData = {
+        ...formData,
+      };
+
+      if (!newFormData[name]) {
+        newFormData[name] = [
+          {
+            website: { name, value, option: option ? option : value },
+            feedback: { name, value, option: option ? option : value },
+          },
+        ];
+      }
+
+      newFormData[name][index][key] = {
+        name,
+        value,
+        option: option ? option : value,
+      };
+
+      saveBranding(newFormData);
+      return newFormData;
+    });
+  };
+
+  const addWebsite = () => {
+    setFormData((formData) => {
+      const newFormData = {
+        ...formData,
+        inspiration: [
+          ...(formData.inspiration || []),
+          {
+            website: { name: "Website", value: "", option: "" },
+            feedback: { name: "Feedback", value: "", option: "" },
+          },
+        ],
+      };
+
+      saveBranding(newFormData);
+      return newFormData;
+    });
+  };
+
+  const removeWebsite = (index) => {
+    setFormData((formData) => {
+      const newFormData = {
+        ...formData,
+      };
+      newFormData.inspiration.splice(index, 1);
+
+      saveBranding(newFormData);
+      return newFormData;
+    });
+  };
+
   useEffect(() => {
     if (formData.colorOption) {
-      setSelectedColor(formData?.colorOption?.value);
+      setSelectedColor(formData?.colorOption);
     }
   }, [formData.colorOption]);
 
@@ -67,11 +128,28 @@ const BrandingForm = ({
       });
       setDeliverableOptions(newDeliverableOptions);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData.selectedDeliverableOption]);
 
+    const optionSelected = formData?.allowStockOption;
+    if (optionSelected?.option && allowStockOption[0]) {
+      const newAllowStockPhoto = allowStockOption.map((o) => {
+        o.value = o.label === optionSelected.option;
+      });
+      setAllowStockOption(newAllowStockPhoto);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData.selectedDeliverableOption, formData.allowStockOption]);
   return (
     <div styleName="brandingForm">
+      <Modal
+        fullWidth
+        show={isPolicyModalOpen}
+        handleClose={() => setIsPolicyModalOpen(false)}
+      >
+        <PageH3>STOCK ARTWORK POLICY</PageH3>
+        <PageDivider />
+        <PolicyContent />
+      </Modal>
       <ServicePrice price={price} serviceType={serviceType} />
 
       <PageDivider />
@@ -79,8 +157,11 @@ const BrandingForm = ({
         <div>
           <PageP styleName="title">{"STYLE & THEME"}</PageP>
           <PageP styleName="description">
-            What ideas do you have for the overall style/ theme of your
-            website...
+            What ideas do you have for the overall style and theme of your
+            website? For example, modern and minimalist, bold and colorful, or
+            muted and masculine. Describe the vibe and personality you have in
+            mind, e.g. friendly, approachable, upscale, exclusive, high-tech,
+            handcrafted etc.
           </PageP>
         </div>
 
@@ -109,25 +190,56 @@ const BrandingForm = ({
         </div>
 
         <div styleName="formFieldWrapper">
-          <FormField label={"Website Address (optional)"}>
-            <FormInputText
-              placeholder={"Enter website url. E.g. www.acme.com"}
-              value={formData?.website?.value}
-              name="website"
-              onChange={(e) => handleInputChange(e.target.name, e.target.value)}
-            />
-          </FormField>
-          <FormField label={"What Do You Like (optional)"}>
-            <FormInputTextArea
-              value={formData?.description?.value}
-              onChange={(e) => handleInputChange(e.target.name, e.target.value)}
-              styleName={"text-area"}
-              name="description"
-              placeholder={"Describe what you like about this website"}
-            />
-          </FormField>
-
-          <Button type={BUTTON_TYPE.SECONDARY} size={BUTTON_SIZE.MEDIUM}>
+          {_.map(_.get(formData, "inspiration", []), (entry, index) => (
+            <div key={index}>
+              {index ? (
+                <div
+                  role="button"
+                  tabIndex="0"
+                  styleName="remove-website"
+                  onClick={() => removeWebsite(index)}
+                >
+                  Remove Website
+                </div>
+              ) : null}
+              <FormField label={"Website Address (optional)"}>
+                <FormInputText
+                  placeholder={"Enter website url. E.g. www.acme.com"}
+                  value={entry.website.value}
+                  name="website"
+                  onChange={(e) =>
+                    handleArrayInputChange(
+                      index,
+                      "inspiration",
+                      e.target.name,
+                      e.target.value
+                    )
+                  }
+                />
+              </FormField>
+              <FormField label={"What Do You Like (optional)"}>
+                <FormInputTextArea
+                  value={entry.feedback.value}
+                  onChange={(e) =>
+                    handleArrayInputChange(
+                      index,
+                      "inspiration",
+                      e.target.name,
+                      e.target.value
+                    )
+                  }
+                  styleName={"text-area"}
+                  name="feedback"
+                  placeholder={"Describe what you like about this website"}
+                />
+              </FormField>
+            </div>
+          ))}
+          <Button
+            type={BUTTON_TYPE.SECONDARY}
+            size={BUTTON_SIZE.MEDIUM}
+            onClick={addWebsite}
+          >
             ADD ANOTHER WEBSITE
           </Button>
         </div>
@@ -152,21 +264,21 @@ const BrandingForm = ({
               handleInputChange("colorOption", index, colorName);
             }}
           />
-          {selectedColor === ColorOptionsItems.length - 1 && (
-            <FormField label={"I Have Specific Colors (optional)"}>
-              <FormInputTextArea
-                value={formData?.specificColor?.value}
-                onChange={(e) =>
-                  handleInputChange(e.target.name, e.target.value)
-                }
-                styleName={"text-area"}
-                name="specificColor"
-                placeholder={
-                  "Specify colors using their value in RGB, CMYK, or Hex"
-                }
-              />
-            </FormField>
-          )}
+          <FormField
+            label={`I Have Specific Colors ${
+              selectedColor?.value?.length > 0 ? "(optional)" : ""
+            }`}
+          >
+            <FormInputTextArea
+              value={formData?.specificColor?.value}
+              onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+              styleName={"text-area"}
+              name="specificColor"
+              placeholder={
+                "Specify colors using their value in RGB, CMYK, or Hex"
+              }
+            />
+          </FormField>
         </div>
       </PageRow>
 
@@ -190,10 +302,35 @@ const BrandingForm = ({
           />
 
           <div styleName="uploadFonts">
-            <p>I have specific fonts I want to use</p>
-            <Button type={BUTTON_TYPE.SECONDARY} size={BUTTON_SIZE.MEDIUM}>
-              UPLOAD FONTS
-            </Button>
+            <p>
+              I have specific fonts I want to use.
+              <br />
+              Share a link to your publicly accessible fonts, via drive,
+              dropbox, etc.
+            </p>
+            <FormField label={"Shareable Font URL (Optional)"}>
+              <FormInputText
+                placeholder={"www.example-share-link.com"}
+                value={formData?.fontUrl?.value}
+                name="fontUrl"
+                onChange={(e) =>
+                  handleInputChange(e.target.name, e.target.value)
+                }
+              />
+            </FormField>
+            <FormField label={"How to Use Your Fonts (optional)"}>
+              <FormInputTextArea
+                placeholder={
+                  "Describe in detail how you would like our designers to use your`fonts"
+                }
+                value={formData?.fontUrl?.fontUsageDescription}
+                styleName={"text-area"}
+                name="fontUsage"
+                onChange={(e) =>
+                  handleInputChange(e.target.name, e.target.value)
+                }
+              />
+            </FormField>
           </div>
         </div>
       </PageRow>
@@ -212,9 +349,16 @@ const BrandingForm = ({
         <div styleName="formFieldWrapper">
           <div styleName="assets">
             <p>Package all assets into a single .zip file before uploading</p>
-            <Button type={BUTTON_TYPE.SECONDARY} size={BUTTON_SIZE.MEDIUM}>
-              UPLOAD OTHER ASSETS
-            </Button>
+            <FormField label={"Shareable Assets URL (Optional)"}>
+              <FormInputText
+                placeholder={"www.example-share-link.com"}
+                value={formData?.assetsUrl?.value}
+                name="assetsUrl"
+                onChange={(e) =>
+                  handleInputChange(e.target.name, e.target.value)
+                }
+              />
+            </FormField>
           </div>
         </div>
       </PageRow>
@@ -251,24 +395,31 @@ const BrandingForm = ({
             There may be additional costs for designs that use stock images.
             Designers will include details for stock images, so you can buy
             stock at the end of your contest.{" "}
-            <a href="/" role="button" tabIndex={0} styleName="link">
+            <span
+              role="button"
+              tabIndex={0}
+              styleName="link"
+              onClick={() => setIsPolicyModalOpen(true)}
+            >
               Learn more about our stock photo policy
-            </a>
+            </span>
           </PageP>
         </div>
 
         <div styleName="formFieldWrapper">
-          <FormField label={"Allow Stock Photos?"}>
-            <Select
-              value={formData?.design?.value}
-              onChange={(option) => {
-                handleInputChange("design", option, option.label);
-              }}
-              options={DesignOptions}
-              style2={true}
-              placeholder={"Select Design Options"}
-            />
-          </FormField>
+          <RadioButton
+            onChange={(items) => {
+              const selectedOption = items.findIndex((item) => item.value);
+              const foundOption = items.find((item) => item.value);
+              handleInputChange(
+                "allowStockOption",
+                selectedOption,
+                foundOption.label
+              );
+            }}
+            size="lg"
+            options={allowStockOption}
+          />
         </div>
       </PageRow>
 
