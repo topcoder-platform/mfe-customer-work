@@ -82,6 +82,7 @@
     "react-responsive-modal": "^6.2.0",
     "react-select": "^4.0.2",
     "react-spinners": "^0.11.0",
+    "react-tooltip": "^4.2.21",
     "reactjs-heap": "^1.0.3",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",

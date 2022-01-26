@@ -88,7 +88,10 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "basicInfo.supportedDevices",
-    value: _.get(jsonData, "form.basicInfo.selectedDevice.option"),
+    value: _.map(
+      _.get(jsonData, "form.basicInfo.selectedDevices.option", []),
+      (device) => `- ${device}\n`
+    ),
   });
 
   intakeMetadata.push({
@@ -175,8 +178,19 @@ export async function patchChallenge(intakeForm, challengeId) {
  */
 export async function activateChallenge(challengeId) {
   const challenge = await getChallengeDetails(challengeId);
+  const newDiscussions = [...(challenge.discussions || [])];
+  if (newDiscussions.length > 0) {
+    newDiscussions[0].name = challenge.name;
+  } else {
+    newDiscussions.push({
+      name: challenge.name,
+      type: "challenge",
+      provider: "vanilla",
+    });
+  }
   const body = {
     status: "Draft",
+    discussions: [...newDiscussions],
   };
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
