@@ -1,60 +1,77 @@
 @import "styles/include";
 
-.footerContent {
-  display: flex;
+.container {
+  position: relative;
+  display: grid;
+  margin-top: 26px;
   width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
+  @include font-roboto;
 
-  .footer-right {
-    display: flex;
-    gap: 16px;
+  .paymentWrapper {
+    display: grid;
+    grid-template-columns: 1fr 462px;
+    column-gap: 24px;
 
-    span {
-      @include font-roboto;
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+
+    .infoBox {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      color: $black;
-      font-size: 14px;
-      line-height: 12px;
+      row-gap: 24px;
+      font-size: 16px;
+      line-height: 26px;
+
+      .confirmationBox {
+        @include confirmationBox;
+      }
+
+      .title {
+        text-transform: uppercase;
+        font-size: 20px;
+      }
+
+      .importantInfo {
+        font-size: 16px;
+      }
+    }
+
+    .paymentBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid $gray-10;
+      border-radius: 8px;
+      margin-top: 18px;
+      padding: 24px;
+      row-gap: 8px;
+
+      .total {
+        @include font-barlow-condensed;
+        color: $aqua;
+        font-size: 48px;
+      }
+
+      .totalInfo {
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+
+      .paymentButtonContainer,
+      .wideButton {
+        width: 100%;
+      }
     }
   }
 }
 
-.backButtonWrapper {
-  min-width: 40px;
-  margin-top: 3px;
-}
-
-.container {
-  position: relative;
+.backButtonContainer {
   display: flex;
-  justify-content: center;
-  margin-top: 26px;
-  width: 100%;
+  flex: 1;
 
-  .paymentWrapper {
-    width: 412px;
-    display: flex;
-    flex-direction: column;
-
-    .title {
-      @include font-roboto;
-      font-size: 16px;
-      line-height: 26px;
-      align-self: center;
-    }
-
-    .paymentBox {
-      border: 1px solid $gray-10;
-      border-radius: 8px;
-      height: 450px;
-      margin-top: 18px;
-    }
-
-    .confirmationBox {
-      margin-top: 18px;
-    }
+  .backButtonWrapper {
+    min-width: 40px;
+    margin-top: 3px;
   }
 }
