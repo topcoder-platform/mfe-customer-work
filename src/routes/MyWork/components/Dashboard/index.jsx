@@ -13,7 +13,7 @@ import {
   clearCachedChallengeId,
   setCookie,
 } from "../../../../../src/autoSaveBeforeLogin";
-import { resetIntakeForm } from "../../../../../src/actions/form"
+import { resetIntakeForm } from "../../../../../src/actions/form";
 
 /**
  * Displays My Work Dashboard with work item list.

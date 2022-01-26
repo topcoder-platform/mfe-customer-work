@@ -5,10 +5,16 @@
  */
 import React from "react";
 import PT from "prop-types";
+import cn from "classnames";
 import "./styles.module.scss";
 import IconCross from "../../assets/images/icon-cross.svg";
 
-const Modal = ({ children, show = false, handleClose = (f) => f }) => {
+const Modal = ({
+  fullWidth,
+  children,
+  show = false,
+  handleClose = (f) => f,
+}) => {
   return (
     show && (
       <div styleName={"modal"}>
@@ -18,7 +24,7 @@ const Modal = ({ children, show = false, handleClose = (f) => f }) => {
           role="button"
           tabIndex={0}
         ></div>
-        <div styleName="modal-inner">
+        <div styleName={cn("modal-inner", fullWidth ? "full-width" : "")}>
           {children}
           <IconCross
             styleName="modal-close-btn"

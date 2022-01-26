@@ -46,9 +46,9 @@ export async function createChallenge() {
       {
         name: "new-self-service-project",
         type: "challenge",
-        provider: "vanilla"
-      }
-    ]
+        provider: "vanilla",
+      },
+    ],
   };
   const response = await axios.post(
     `${config.API.V5}/challenges`,
@@ -141,7 +141,7 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "branding.stockPhotos",
-    value: _.get(jsonData, "form.branding.design.option"), // TODO: Rename to stockPhotos
+    value: _.get(jsonData, "form.branding.allowStockOption.option"), // TODO: Rename to stockPhotos
   });
 
   intakeMetadata.push({
@@ -174,7 +174,7 @@ export async function patchChallenge(intakeForm, challengeId) {
  * Patch a New Challenge
  */
 export async function activateChallenge(challengeId) {
-  const challenge = await getChallengeDetails(challengeId)
+  const challenge = await getChallengeDetails(challengeId);
   const body = {
     status: "Draft",
   };
