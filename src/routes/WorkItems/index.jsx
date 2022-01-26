@@ -201,19 +201,22 @@ const WorkItem = ({
             >
               DETAILS
             </Tab>
-            <Tab
-              active={selectedTab === "messaging"}
-              onClick={() => {
-                setSelectedTab("messaging");
-              }}
-            >
-              MESSAGES
-              {forumNotifications && forumNotifications.unreadNotifications ? (
-                <span styleName="message-count">
-                  {padStart(forumNotifications.unreadNotifications)}
-                </span>
-              ) : null}
-            </Tab>
+            {work && !workUtil.isMessagesDisabled(work) ? (
+              <Tab
+                active={selectedTab === "messaging"}
+                onClick={() => {
+                  setSelectedTab("messaging");
+                }}
+              >
+                MESSAGES
+                {forumNotifications &&
+                forumNotifications.unreadNotifications ? (
+                  <span styleName="message-count">
+                    {padStart(forumNotifications.unreadNotifications)}
+                  </span>
+                ) : null}
+              </Tab>
+            ) : null}
             <Tab
               active={selectedTab === "solutions"}
               onClick={() => {
