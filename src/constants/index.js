@@ -1,7 +1,10 @@
+import moment from "moment";
+
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
 import MyWorkIcon from "../assets/images/icon-my-work.svg";
 import workUtil from "../utils/work";
-import moment from "moment";
+
+import countries from "./countries";
 
 export const AUTOSAVE_THROTTLE_TIME = 5000;
 
@@ -538,3 +541,8 @@ export const SURVEY_QUESTIONS = [
     value: "",
   },
 ];
+
+export const COUNTRY_OPTIONS = countries.map(ct => ({
+  label: ct.name,
+  value: ct.code
+}))

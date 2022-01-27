@@ -6,10 +6,15 @@ import {
 } from "@stripe/react-stripe-js";
 import PT from "prop-types";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 import FormField from "../../../../components/FormElements/FormField";
+import { FormInputText } from "../../../../components/FormElements/FormInputText";
+import ReactSelect from '../../../../components/ReactSelect';
+import { COUNTRY_OPTIONS } from '../../../../constants';
+import { getProfile } from "../../../../selectors/profile";
 
-import "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 /**
  * Payment Form Page
@@ -20,6 +25,15 @@ const PaymentForm = ({ formData, setFormData }) => {
   const [cardNumberError, setCardNumberError] = useState("");
   const [cardExpiryError, setCardExpiryError] = useState("");
   const [cvcError, setCvcError] = useState("");
+  const { email } = useSelector(getProfile);
+
+  // set the email, if it exists
+  if (formData && !formData.email && email) {
+    setFormData({
+      ...formData,
+      email,
+    })
+  }
 
   const getFieldError = (data) => data?.error?.message || ""
 
@@ -46,34 +60,78 @@ const PaymentForm = ({ formData, setFormData }) => {
   }
 
   return (
-    <div styleName="paymentForm">
+    <div className={styles.paymentForm}>
+
+      <div className={styles.formHeader}>
+        Contact Information
+      </div>
+
+      <FormField label="Email">
+        <div className={styles.cardElement}>
+          <FormInputText name="email" value={email} disabled></FormInputText>
+        </div>
+      </FormField>
+
+      <div className={styles.formHeader}>
+        Card Information
+      </div>
 
       <FormField label="Card Number">
-        <div styleName="cardElement">
+        <div className={styles.cardElement}>
           <CardNumberElement required onChange={(data) => onCardNumberChange(data)} />
         </div>
-        {String(cardNumberError).length ? (
-          <span styleName="error">{cardNumberError}</span>
-        ) : null}
+        {!!String(cardNumberError).length && (
+          <span className={styles.error}>{cardNumberError}</span>
+        )}
       </FormField>
 
-      <FormField label={"Expiration Date"}>
-        <div styleName="cardElement">
-          <CardExpiryElement required onChange={(data) => onExpirationChange(data)} />
+      <div className={styles.halfWidth}>
+        <FormField label={"Expiration Date"}>
+          <div className={styles.cardElement}>
+            <CardExpiryElement required onChange={(data) => onExpirationChange(data)} />
+          </div>
+          {!!String(cardExpiryError).length && (
+            <span className={styles.error}>{cardExpiryError}</span>
+          )}
+        </FormField>
+
+        <FormField label={"CVC"}>
+          <div className={styles.cardElement}>
+            <CardCvcElement required onChange={(data) => onCvcChange(data)} />
+          </div>
+          {!!String(cvcError).length && (
+            <span className={styles.error}>{cvcError}</span>
+          )}
+        </FormField>
+      </div>
+
+      <FormField label="Name On Card">
+        <div className={styles.cardElement}>
+          <FormInputText name="cardName" 
+            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+          ></FormInputText>
         </div>
-        {String(cardExpiryError).length ? (
-          <span styleName="error">{cardExpiryError}</span>
-        ) : null}
       </FormField>
 
-      <FormField label={"CVC"}>
-        <div styleName="cardElement">
-          <CardCvcElement required onChange={(data) => onCvcChange(data)} />
+      <FormField label="Country or Region">
+        <div className={styles.cardElement}>
+          <ReactSelect
+            value={formData?.design?.value}
+            onChange={(option) => handleInputChange("country", option.value)}
+            options={COUNTRY_OPTIONS}
+            style2={false}
+          ></ReactSelect>
         </div>
-        {String(cvcError).length ? (
-          <span styleName="error">{cvcError}</span>
-        ) : null}
       </FormField>
+
+      <FormField label="Zip Code">
+        <div className={styles.cardElement}>
+          <FormInputText name="zipCode" placeholder="12345"
+            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+          ></FormInputText>
+        </div>
+      </FormField>
+      
     </div>
   );
 };
@@ -83,7 +141,7 @@ PaymentForm.defaultProps = {};
 PaymentForm.propTypes = {
   formData: PT.shape(),
   onFormUpdate: PT.func,
-  minAmount: PT.number,
+  setFormData: PT.func.isRequired
 };
 
 export default PaymentForm;

@@ -2,17 +2,30 @@
 
 .paymentForm {
   width: 100%;
-}
 
-.cardElement {
-  @include formInputText;
-}
+  .formHeader {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
 
-.error {
-  display: flex;
-  color: #ec2710;
-  margin-left: 14px;
-  font-size: 11px;
-  margin-top: -15px;
-  padding-bottom: 5px;
+  .cardElement {
+    @include formInputText;
+  }
+  
+  .halfWidth {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 8px;
+    width: 100%;
+  }
+
+  .error {
+    display: flex;
+    color: $red;
+    margin-left: 14px;
+    font-size: 11px;
+    margin-top: -15px;
+    padding-bottom: 5px;
+  }
 }

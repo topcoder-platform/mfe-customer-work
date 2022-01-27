@@ -1,23 +1,14 @@
 import { navigate, redirectTo } from "@reach/router";
 import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import Button from "../../components/Button";
-import FormInputCheckbox from "components/FormElements/FormInputCheckbox";
-import LoadingSpinner from "components/LoadingSpinner";
-import Page from "components/Page";
-import PageContent from "components/PageContent";
-import PageDivider from "../../components/PageDivider";
-import PageFoot from "components/PageElements/PageFoot";
-import PageH2 from "components/PageElements/PageH2";
-import PageUl from "../../components/PageElements/PageUl";
-import Progress from "components/Progress";
-import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
-import { activateChallenge } from "services/challenge";
+
 import config from "../../../config";
+
 import { triggerAutoSave } from "../../actions/autoSave";
+import { resetIntakeForm } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import {
@@ -25,10 +16,23 @@ import {
   setCookie,
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
+import Button from "../../components/Button";
+import FormInputCheckbox from "../../components/FormElements/FormInputCheckbox";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import Page from "../../components/Page";
+import PageContent from "../../components/PageContent";
+import PageDivider from "../../components/PageDivider";
+import PageFoot from "../../components/PageElements/PageFoot";
+import PageH2 from "../../components/PageElements/PageH2";
+import PageUl from "../../components/PageElements/PageUl";
+import Progress from "../../components/Progress";
+import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "../../constants";
 import withAuthentication from "../../hoc/withAuthentication";
+import { activateChallenge } from "../../services/challenge";
 import * as services from "../../services/payment";
+import { getUserProfile } from "../../thunks/profile";
+
 import PaymentForm from "./components/PaymentForm";
-import { resetIntakeForm } from "../../actions/form";
 import "./styles.module.scss";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
@@ -43,7 +47,6 @@ const Payment = ({ setProgressItem }) => {
 
   const [isLoading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
-  const form = useSelector((state) => state.form);
   const price = useSelector((state) => state.form.price);
   const additionalPrice = useSelector((state) => state.form.additionalPrice);
   const devicePrice = useSelector((state) => state.form.devicePrice);
@@ -54,11 +57,12 @@ const Payment = ({ setProgressItem }) => {
   const elements = useElements();
 
   const [formData, setFormData] = useState({
-    amount: total,
-    currency: null,
-    cardNumber: false,
-    expiryDate: false,
-    cvc: false,
+    cardName: null,
+    cardNumber: false, // value is bool indicating if it's valid or not
+    country: null,
+    cvc: false, // value is bool indicating if it's valid or not
+    expiryDate: false, // value is bool indicating if it's valid or not
+    zipCode: null
   });
 
   const onBack = () => {
@@ -83,9 +87,8 @@ const Payment = ({ setProgressItem }) => {
       .processPayment(
         stripe,
         elements,
-        formData.amount,
-        formData.currency,
-        challengeId
+        challengeId,
+        formData
       )
       .then((res) => {
         activateChallenge(challengeId);
@@ -120,21 +123,28 @@ const Payment = ({ setProgressItem }) => {
   }, [currentStep, dispatch, setProgressItem, firstMounted]);
 
   const isFormValid =
-    formData.amount &&
-    Number(formData.amount) >= total &&
-    formData.currency &&
+    formData.cardName &&
     formData.cardNumber &&
-    formData.expiryDate &&
+    formData.country &&
     formData.cvc &&
+    formData.expiryDate &&
+    formData.zipCode &&
     checked;
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
 
   return (
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>
+
           <PageH2>PAYMENT</PageH2>
+
           <PageDivider />
+
           <div styleName="container">
             <div styleName="paymentWrapper">
 
@@ -186,13 +196,9 @@ const Payment = ({ setProgressItem }) => {
                   Total Payment
                 </div>
 
-                <PageDivider />
+                <PageDivider styleName="pageDivider" />
 
-                <PaymentForm
-                  minAmount={total}
-                  formData={formData}
-                  setFormData={setFormData}
-                />
+                <PaymentForm formData={formData} setFormData={setFormData}/>
 
                 {/* TODO: add link to order contract */}
                 <div>
