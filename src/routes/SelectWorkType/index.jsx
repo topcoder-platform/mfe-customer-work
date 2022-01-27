@@ -172,7 +172,7 @@ const SelectWorkType = ({
               </div>              
               <div className={styles.heroButtonContainer}>
                 <Button
-                    onClick={onStartWork}
+                    onClick={() => handleClick()}
                     size={BUTTON_SIZE.MEDIUM}
                     type='secondary'
                   >
