@@ -54,6 +54,7 @@ const SelectWorkType = ({
   const profileData = useSelector(getProfile);
 
   useEffect(() => {
+    setCurrentStep(1);
     setSelectInit(true);
 
     return () => {
@@ -75,7 +76,7 @@ const SelectWorkType = ({
     }
   }, [workType]);
 
-  const handleClick = (selectedItem) => {
+  const handleClick = (selectedItem = webWorkTypes[0]) => {
     if (!currentStep) {
       setCurrentStep(1);
       setSelectedWorkType(selectedItem?.title);
@@ -127,12 +128,13 @@ const SelectWorkType = ({
     );
 
   const onStartWork = useCallback(() => {
-    setCookie(MAX_COMPLETED_STEP, "", -1);
-    clearCachedChallengeId();
-    clearAutoSavedForm();
-    dispatch(resetIntakeForm(true));
-    setProgressItem(1);
-    navigate("/self-service/basic-info");
+    // setCookie(MAX_COMPLETED_STEP, "", -1);
+    // clearCachedChallengeId();
+    // clearAutoSavedForm();
+    // dispatch(resetIntakeForm(true));
+    // setProgressItem(1);
+    // navigate("/self-service/basic-info");
+    handleClick();
   }, []);
 
   return (
