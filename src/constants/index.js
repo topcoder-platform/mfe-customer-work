@@ -149,7 +149,7 @@ export const ProgressLevels = [
  * page options
  */
 export const PageOptions = [
-  { label: "1 page (from 50$)", price: 50, value: false },
+  { label: "1 page", price: 50, value: false },
   { label: "2 page (from 100$)", price: 100, value: false },
   { label: "3 page (from 150$)", price: 150, value: false },
   { label: "4 page (from 200$)", price: 200, value: false },

@@ -191,6 +191,18 @@ export async function activateChallenge(challengeId) {
   const body = {
     status: "Draft",
     discussions: [...newDiscussions],
+    prizeSets: [
+      {
+        prizes: [
+          {
+            type: "USD",
+            value: 1,
+          },
+        ],
+        description: "Challenge Prizes",
+        type: "placement",
+      },
+    ],
   };
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
