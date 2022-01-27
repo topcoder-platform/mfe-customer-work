@@ -69,13 +69,12 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
     });
   };
 
-
   return (
     <>
       {steps.map((step, index) => {
-      const redirectPage = ProgressLevels.find(
-        (item) => item.label === step.label
-      );
+        const redirectPage = ProgressLevels.find(
+          (item) => item.label === step.label
+        );
         return (
           <>
             <div
@@ -84,12 +83,13 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
               tabIndex={0}
               onClick={() => setStepToggler(index)}
             >
-              <p styleName="stepLabel">{step.label}
-              {enableEdit && (
-                <Link styleName="link" to={redirectPage?.url}>
-                  edit
-                </Link>
-              )}
+              <p styleName="stepLabel">
+                {step.label}
+                {enableEdit && (
+                  <Link styleName="link" to={redirectPage?.url}>
+                    edit
+                  </Link>
+                )}
               </p>
               <div styleName={classNames("icon", step.isOpen ? "open" : null)}>
                 <ArrowIcon />

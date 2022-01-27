@@ -144,11 +144,19 @@ export const DeviceOptions = [
  * page options
  */
 export const DeliverablesOptions = [
-  { label: "No Preference. Recommended for best participation", value: false },
+  { label: "Any (recommended for best participation)", value: false },
+  { label: "Adobe XD", value: false },
   { label: "Figma", value: false },
   { label: "Sketch", value: false },
-  { label: "Adobe XD", value: false },
   { label: "Other", value: false },
+];
+
+/**
+ * page options
+ */
+export const AllowStockOptions = [
+  { label: "Yes, allow stock photos", value: true },
+  { label: "No, do not allow stock photos", value: false },
 ];
 
 /**
@@ -200,6 +208,7 @@ export const webWorkTypes = [
  * Color Options
  */
 export const ColorOptionsItems = [
+  { name: "Any Colors", className: "angularGradient" },
   { name: "Blues", className: "blues" },
   { name: "Aquas", className: "aquas" },
   { name: "Greens", className: "greens" },
@@ -210,7 +219,6 @@ export const ColorOptionsItems = [
   { name: "Yellows", className: "yellows" },
   { name: "Light Grays", className: "lightGrays" },
   { name: "Dark Grays", className: "darkGrays" },
-  { name: "Any Colors", className: "angularGradient" },
 ];
 
 /**
@@ -255,7 +263,8 @@ export const ACTIONS = {
     REVIEW_CONFIRMED: "REVIEW_CONFIRMED",
     SAVE_FORM: "SAVE_FORM",
     RESET_INTAKE_FORM: "RESET_INTAKE_FORM",
-    TOGGLE_SUPPORT_MODAL: "TOGGLE_SUPPORT_MODAL"
+    TOGGLE_SUPPORT_MODAL: "TOGGLE_SUPPORT_MODAL",
+    CREATE_SUPPORT_TICKET: "CREATE_SUPPORT_TICKET"
   },
   PROGRESS: {
     SET_ITEM: "SET_ITEM",
