@@ -37,9 +37,6 @@ const ThankYou = () => {
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>
-          <PageH2>Thank You</PageH2>
-          <PageDivider />
-
           <div styleName="container">
             <div styleName="content">
               <PageH2>THANK YOU</PageH2>
@@ -51,7 +48,7 @@ const ThankYou = () => {
 
               <div styleName="btn">
                 <Button size={BUTTON_SIZE.MEDIUM} onClick={onDone}>
-                  Go to My Work
+                  Go to Dashboard
                 </Button>
               </div>
             </div>
