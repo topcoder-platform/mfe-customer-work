@@ -1,25 +1,48 @@
 import { navigate } from "@reach/router";
-import Button from "components/Button";
-import LoadingSpinner from "components/LoadingSpinner";
-import Page from "components/Page";
-import PageContent from "components/PageContent";
-import PageDivider from "components/PageDivider";
-import PageH2 from "components/PageElements/PageH2";
-import PageP from "components/PageElements/PageP";
-import TabSelector from "components/TabSelector";
-import { BUTTON_SIZE, BUTTON_TYPE, webWorkTypes, workTypes } from "constants/";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
+
 import { triggerAutoSave } from "../../actions/autoSave";
-import { saveWorkType, updatePrice } from "../../actions/form";
+import { 
+  saveWorkType,
+  updatePrice,
+  toggleSupportModal,
+  createNewSupportTicket,
+  resetIntakeForm
+} from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
+import {
+  clearAutoSavedForm,
+  clearCachedChallengeId,
+  setCookie,
+} from "../../autoSaveBeforeLogin";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import "./styles.module.scss";
+import IconWebsiteTools from "../../assets/images/design-tools.svg";
+import Button from "../../components/Button";
+import HelpBanner from "../../components/HelpBanner";
+import SupportModal from "../../components/Modal/SupportModal";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import Page from "../../components/Page";
+import PageContent from "../../components/PageContent";
+import PageDivider from "../../components/PageDivider";
+import PageFoot from "../../components/PageElements/PageFoot";
+import PageH2 from "../../components/PageElements/PageH2";
+import { BUTTON_SIZE, BUTTON_TYPE, HELP_BANNER, ROUTES, MAX_COMPLETED_STEP, webWorkTypes } from "../../constants/";
+import { getProfile } from "../../selectors/profile";
+import { getUserProfile } from "../../thunks/profile";
+
+import styles from "./styles.module.scss";
 
 /**
  * Select Work Type Page
  */
-const SelectWorkType = ({ saveWorkType, updatePrice, setProgressItem }) => {
+const SelectWorkType = ({ 
+  saveWorkType,
+  updatePrice, 
+  setProgressItem,
+  toggleSupportModal,
+  createNewSupportTicket,
+}) => {
   const dispatch = useDispatch();
   const [selectInitiated, setSelectInit] = useState(false);
   const workType = useSelector((state) => state.form.workType);
@@ -27,6 +50,8 @@ const SelectWorkType = ({ saveWorkType, updatePrice, setProgressItem }) => {
   const [currentStep, setCurrentStep] = useState(workType?.workTypeStep || 0);
   const [selectedWorkType, setSelectedWorkType] = useState("");
   const [selectedWorkTypeDetail, setSelectedWorkTypeDetail] = useState("");
+  const showSupportModal = useSelector((state) => state.form.showSupportModal);
+  const profileData = useSelector(getProfile);
 
   useEffect(() => {
     setProgressItem(1);
@@ -84,64 +109,120 @@ const SelectWorkType = ({ saveWorkType, updatePrice, setProgressItem }) => {
     dispatch(triggerAutoSave(true));
   };
 
+  const onShowSupportModal = () => {
+    toggleSupportModal(true);
+  };
+  const onHideSupportModal = () => {
+    toggleSupportModal(false);
+  };
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+
+  const onSubmitSupportRequest = (submittedSupportRequest) =>
+    createNewSupportTicket(
+      submittedSupportRequest,
+      challenge?.id,
+      challenge?.legacy?.selfService
+    );
+
+  const onStartWork = useCallback(() => {
+    console.debug('starting work')
+    setCookie(MAX_COMPLETED_STEP, "", -1);
+    clearCachedChallengeId();
+    clearAutoSavedForm();
+    dispatch(resetIntakeForm(true));
+    navigate(ROUTES.INTAKE_FORM);
+  }, []);
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
+      {showSupportModal && (
+        <SupportModal
+          profileData={profileData}
+          handleClose={onHideSupportModal}
+          onSubmit={onSubmitSupportRequest}
+        ></SupportModal>
+      )}
       <Page>
         <PageContent>
           <PageH2>SELECT WORK TYPE</PageH2>
-          <PageDivider />
 
-          {currentStep === 0 && selectInitiated && (
-            <TabSelector
-              items={workTypes}
-              handleClick={handleClick}
-              selectedState={workType?.selectedWorkType}
-            />
-          )}
-          {currentStep === 1 && (
-            <div styleName="tabSelectorWrapper">
-              <div
-                styleName="backButton"
-                onClick={onBack}
-                role="button"
-                tabIndex={0}
-              >
-                <Button size={BUTTON_SIZE.SMALL} type={BUTTON_TYPE.ROUNDED}>
-                  <BackIcon />
-                </Button>
-                <span>{selectedWorkType}</span>
+          <div className={styles.heroContainer}>
+
+            <div className={styles.heroBackgroundContainer}></div>
+
+            <div className={styles.heroContent}>
+              <div className={styles.heroHeader}>
+                <div className={styles.heroIconContainer}>
+                  <IconWebsiteTools />
+                </div>
+                <div className={styles.heroHeaderContent}>
+                  <div>website design</div>
+                  <div className={styles.heroHeaderSubtitle}>starting at $630 | 5–7 Days</div>
+                </div>
               </div>
-              <TabSelector
-                items={webWorkTypes}
-                handleClick={handleClick}
-                selectedState={workType?.selectedWorkTypeDetail}
-              />
+              <div className={styles.heroText}>
+                ​​Create a beautiful custom visual design for your website. 
+                Specify the scope and device types, your vision, and receive 
+                up to 5 modern designs.
+              </div>              
+              <div className={styles.heroButtonContainer}>
+                <Button
+                    onClick={onStartWork}
+                    size={BUTTON_SIZE.MEDIUM}
+                    type='secondary'
+                  >
+                    START WORK
+                  </Button>
+              </div>
             </div>
-          )}
-          <PageDivider />
-          <PageP styleName="bold">Looking For Something Else?</PageP>
-          <PageP styleName="description">
-            Topcoder also offers solutions for multiple other technical needs
-            and problems. We have community members expertly skilled in the
-            areas of UI/UX Design, Data Science, Quality Assurance, and more.
-            We'd love to talk with you about all of our services.
-          </PageP>
 
-          {currentStep === 0 && (
-            <div styleName="footer">
-              <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                <div
-                  role="button"
-                  tabIndex={0}
-                  styleName="backButtonWrapper"
-                  onClick={onBack}
-                >
+          </div>
+
+          <div className={styles.cardContainer}>
+            <div className={styles.card}>
+              <div className={styles.smallHeader}>Coming Soon</div>
+              <div className={styles.title}>Website Development</div>
+              <div className={styles.text}>
+                  Our developers can bring your website designs to life! 
+                  We'll get your website ready for the world to see. 
+              </div>
+            </div>
+            <div className={styles.card}>
+              <div className={styles.smallHeader}>Coming Soon</div>
+              <div className={styles.title}>Data Sciene &amp; AI</div>
+              <div className={styles.text}>
+                Data Mining &amp; Analysis will empower you to reach your goals faster. 
+                Tap data science geniuses from our pool of experts. 
+              </div>
+            </div>
+          </div>
+
+          <HelpBanner
+            title={HELP_BANNER.title}
+            description={HELP_BANNER.description}
+            contactSupport={onShowSupportModal}
+          />
+
+          <PageDivider />
+
+          <PageFoot>
+            <div className={styles.backButtonContainer}>
+              <Button
+                size={BUTTON_SIZE.MEDIUM}
+                type={BUTTON_TYPE.SECONDARY}
+                onClick={onBack}
+              >
+                <div className={styles.backButtonWrapper}>
                   <BackIcon />
                 </div>
               </Button>
             </div>
-          )}
+          </PageFoot>
+
         </PageContent>
       </Page>
     </>
@@ -154,6 +235,8 @@ const mapDispatchToProps = {
   saveWorkType,
   updatePrice,
   setProgressItem,
+  toggleSupportModal,
+  createNewSupportTicket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectWorkType);
