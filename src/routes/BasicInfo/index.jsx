@@ -117,7 +117,7 @@ const BasicInfo = ({
       setFormData(basicInfo);
     }
 
-    if (_.get(pageDetails.pages.length) === 0) {
+    if (_.get(pageDetails, "pages.length") === 0) {
       updateNumOfPages(1);
     }
 
