@@ -1,4 +1,5 @@
 import { navigate } from "@reach/router";
+
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 
@@ -10,6 +11,11 @@ import {
   createNewSupportTicket
 } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
+import {
+  clearAutoSavedForm,
+  clearCachedChallengeId,
+  setCookie,
+} from "../../autoSaveBeforeLogin";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import IconWebsiteTools from "../../assets/images/design-tools.svg";
 import Button from "../../components/Button";
@@ -77,7 +83,7 @@ const SelectWorkType = ({
     }
   }, [workType]);
 
-  const handleClick = (selectedItem) => {
+  const handleClick = (selectedItem = webWorkTypes[0]) => {
     if (!currentStep) {
       setCurrentStep(1);
       setSelectedWorkType(selectedItem?.title);
