@@ -13,7 +13,7 @@ import ServicePrice from "components/ServicePrice";
 import { HELP_BANNER, PageOptions } from "constants/";
 import PT from "prop-types";
 import _ from "lodash";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DeviceTypes from "../DeviceTypes";
 import "./styles.module.scss";
 
@@ -25,6 +25,7 @@ const BasicInfoForm = ({
   onShowSupportModal,
   numOfPages,
   updateNumOfPages,
+  estimate,
 }) => {
   const handleInputChange = (name, value, option = "") => {
     onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
@@ -34,6 +35,7 @@ const BasicInfoForm = ({
     ...o,
     value: i === numOfPages - 1,
   }));
+
   useEffect(() => {
     return () => {
       listOptions.forEach((option, i) => {
@@ -44,7 +46,11 @@ const BasicInfoForm = ({
 
   return (
     <div styleName="basicInfoForm">
-      <ServicePrice price={price} serviceType={serviceType} />
+      <ServicePrice
+        price={estimate.total}
+        duration={estimate.totalDuration}
+        serviceType={serviceType}
+      />
 
       <PageDivider />
       <PageRow styleName="form-row">
@@ -126,6 +132,7 @@ BasicInfoForm.defaultProps = {
 };
 
 BasicInfoForm.propTypes = {
+  estimate: PT.shape().isRequired,
   price: PT.string,
   serviceType: PT.string,
   onFormUpdate: PT.func,

@@ -4,6 +4,7 @@ import { axiosInstance as axios } from "./requestInterceptor";
 import templateData from "../assets/data/spec-templates/website-design.json";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import _ from "lodash";
+import { getDynamicPriceAndTimeline } from "utils/";
 
 /**
  * Get Challenge challenge details
@@ -67,9 +68,21 @@ export async function patchChallenge(intakeForm, challengeId) {
   // TODO: Move this into a service/util. Currently hardcoded for website design
   const intakeMetadata = [];
 
+  const numOfPages = _.get(jsonData, "form.pageDetails.pages.length", 1);
+  const numOfDevices = _.get(
+    jsonData,
+    "form.basicInfo.selectedDevice.option.length",
+    1
+  );
+
   intakeMetadata.push({
     name: "websitePurpose.description",
     value: _.get(jsonData, "form.websitePurpose.description.value"),
+  });
+
+  intakeMetadata.push({
+    name: "basicInfo.numberOfPages",
+    value: numOfPages,
   });
 
   intakeMetadata.push({
@@ -83,13 +96,13 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "basicInfo.numberOfDevices",
-    value: _.get(jsonData, "form.basicInfo.selectedDeviceNumber.value", 1),
+    value: numOfDevices,
   });
 
   intakeMetadata.push({
     name: "basicInfo.supportedDevices",
     value: _.map(
-      _.get(jsonData, "form.basicInfo.selectedDevices.option", []),
+      _.get(jsonData, "form.basicInfo.selectedDevice.option", []),
       (device) => `- ${device}\n`
     ),
   });
@@ -152,6 +165,11 @@ export async function patchChallenge(intakeForm, challengeId) {
     value: _.get(jsonData, "form.branding.selectedDeliverableOption.option"),
   });
 
+  const dynamicPriceAndTimeline = getDynamicPriceAndTimeline(
+    numOfPages,
+    numOfDevices
+  );
+
   const body = {
     ...(name ? { name } : {}),
     metadata: [
@@ -165,6 +183,9 @@ export async function patchChallenge(intakeForm, challengeId) {
       },
     ],
   };
+  if (dynamicPriceAndTimeline) {
+    body.prizeSets = dynamicPriceAndTimeline.prizeSets;
+  }
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
     JSON.stringify(body)
@@ -191,18 +212,6 @@ export async function activateChallenge(challengeId) {
   const body = {
     status: "Draft",
     discussions: [...newDiscussions],
-    prizeSets: [
-      {
-        prizes: [
-          {
-            type: "USD",
-            value: 1,
-          },
-        ],
-        description: "Challenge Prizes",
-        type: "placement",
-      },
-    ],
   };
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,

@@ -18,6 +18,7 @@ import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import ReviewTable from "./components/ReviewTable";
 import ServicePrice from "components/ServicePrice";
 import "./styles.module.scss";
+import { getDynamicPriceAndTimelineEstimate } from "utils/";
 
 /**
  * Review Page
@@ -34,6 +35,8 @@ const Review = ({ setProgressItem }) => {
   const pagePrice = useSelector((state) => state.form.pagePrice);
   const total = price + additionalPrice + devicePrice + pagePrice;
   const workType = useSelector((state) => state.form.workType);
+  const fullState = useSelector((state) => state);
+  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -88,7 +91,8 @@ const Review = ({ setProgressItem }) => {
           <PageH2>REVIEW</PageH2>
           <PageDivider />
           <ServicePrice
-            price={total}
+            price={estimate.total}
+            duration={estimate.totalDuration}
             serviceType={workType?.selectedWorkTypeDetail}
           />
           <div styleName="infoAlert">

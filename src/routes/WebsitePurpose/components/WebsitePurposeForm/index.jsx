@@ -21,6 +21,7 @@ const WebsitePurposeForm = ({
   price,
   serviceType,
   saveWebsitePurpose,
+  estimate,
 }) => {
   const handleInputChange = (name, value, option = null) => {
     setFormData((formData) => {
@@ -35,7 +36,7 @@ const WebsitePurposeForm = ({
 
   return (
     <div styleName="websitePurposeForm">
-      <ServicePrice price={price} serviceType={serviceType} />
+      <ServicePrice price={estimate.total} duration={estimate.totalDuration} serviceType={serviceType} />
 
       <PageDivider />
       <PageRow styleName="form-row">
@@ -162,6 +163,7 @@ WebsitePurposeForm.defaultProps = {
 };
 
 WebsitePurposeForm.propTypes = {
+  estimate: PT.shape().isRequired,
   price: PT.string,
   serviceType: PT.string,
   formData: PT.shape(),

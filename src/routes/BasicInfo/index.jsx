@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { navigate, redirectTo } from "@reach/router";
+import _ from "lodash";
 import Button from "components/Button";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
@@ -32,6 +33,7 @@ import { getUserProfile } from "../../thunks/profile";
 
 import BasicInfoForm from "./components/BasicInfoForm";
 import "./styles.module.scss";
+import { getDynamicPriceAndTimelineEstimate } from "utils/";
 
 /**
  * Basic Info Page
@@ -68,6 +70,7 @@ const BasicInfo = ({
   const showSupportModal = useSelector((state) => state.form.showSupportModal);
   const profileData = useSelector(getProfile);
   const challenge = useSelector((state) => state.challenge);
+  const fullState = useSelector((state) => state);
 
   const onBack = () => {
     navigate("/self-service/wizard");
@@ -80,7 +83,7 @@ const BasicInfo = ({
   };
 
   const updateNumOfPages = (newNumOfPages) => {
-    let newPages = pageDetails.pages;
+    let newPages = pageDetails?.pages || [];
     if (newNumOfPages < newPages.length) {
       newPages = newPages.slice(0, newNumOfPages);
     } else {
@@ -112,6 +115,10 @@ const BasicInfo = ({
 
     if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
       setFormData(basicInfo);
+    }
+
+    if (_.get(pageDetails.pages.length) === 0) {
+      updateNumOfPages(1);
     }
 
     setFirstMounted(true);
@@ -172,6 +179,7 @@ const BasicInfo = ({
           <PageDivider />
 
           <BasicInfoForm
+            estimate={getDynamicPriceAndTimelineEstimate(fullState)}
             formData={formData}
             price={total}
             serviceType={workType?.selectedWorkTypeDetail}
