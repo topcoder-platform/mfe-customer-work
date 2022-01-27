@@ -5,13 +5,11 @@ import Page from "components/Page";
 import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageH2 from "components/PageElements/PageH2";
-import Progress from "components/Progress";
 import { BUTTON_SIZE, MAX_COMPLETED_STEP, webWorkTypes } from "constants/";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import "./styles.module.scss";
 import { setCookie } from "../../autoSaveBeforeLogin";
-import { createNewChallenge } from "../../actions/challenge";
 import { resetIntakeForm } from "../../actions/form";
 
 /**
@@ -20,10 +18,9 @@ import { resetIntakeForm } from "../../actions/form";
 const ThankYou = () => {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
-  const [selectedWorkType, setSelectedWorkType] = useState("");
 
   useEffect(() => {
-    setSelectedWorkType(webWorkTypes[0]);
+    clearPreviousForm();
   }, []);
 
   const clearPreviousForm = () => {
@@ -59,12 +56,14 @@ const ThankYou = () => {
               </div>
             </div>
           </div>
-
-          <Progress level={6} />
         </PageContent>
       </Page>
     </>
   );
 };
 
-export default ThankYou;
+const mapStateToProps = ({ form }) => form;
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ThankYou);

@@ -1,7 +1,10 @@
+import moment from "moment";
+
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
 import MyWorkIcon from "../assets/images/icon-my-work.svg";
 import workUtil from "../utils/work";
-import moment from "moment";
+
+import countries from "./countries";
 
 export const AUTOSAVE_THROTTLE_TIME = 5000;
 
@@ -109,19 +112,44 @@ export const DesignOptions = [
  * ProgressLevels
  */
 export const ProgressLevels = [
-  { label: "Basic Info", url: "/self-service/basic-info" },
-  { label: "Website Purpose", url: "/self-service/website-purpose" },
-  { label: "Page Details", url: "/self-service/page-details" },
-  { label: "Branding", url: "/self-service/branding" },
-  { label: "Review", url: "/self-service/review" },
-  { label: "Payment", url: "/self-service/payment" },
+  {
+    label: "Basic Info",
+    url: "/self-service/basic-info",
+    trueIndex: 2,
+    showIndex: 1,
+  },
+  {
+    label: "Website Purpose",
+    url: "/self-service/website-purpose",
+    trueIndex: 3,
+    showIndex: 2,
+  },
+  {
+    label: "Page Details",
+    url: "/self-service/page-details",
+    trueIndex: 4,
+    showIndex: 3,
+  },
+  {
+    label: "Branding",
+    url: "/self-service/branding",
+    trueIndex: 5,
+    showIndex: 4,
+  },
+  { label: "Review", url: "/self-service/review", trueIndex: 6, showIndex: 5 },
+  {
+    label: "Payment",
+    url: "/self-service/payment",
+    trueIndex: 7,
+    showIndex: 6,
+  },
 ];
 
 /**
  * page options
  */
 export const PageOptions = [
-  { label: "1 page (from 50$)", price: 50, value: false },
+  { label: "1 page", price: 50, value: false },
   { label: "2 page (from 100$)", price: 100, value: false },
   { label: "3 page (from 150$)", price: 150, value: false },
   { label: "4 page (from 200$)", price: 200, value: false },
@@ -141,11 +169,19 @@ export const DeviceOptions = [
  * page options
  */
 export const DeliverablesOptions = [
-  { label: "No Preference. Recommended for best participation", value: false },
+  { label: "Any (recommended for best participation)", value: false },
+  { label: "Adobe XD", value: false },
   { label: "Figma", value: false },
   { label: "Sketch", value: false },
-  { label: "Adobe XD", value: false },
   { label: "Other", value: false },
+];
+
+/**
+ * page options
+ */
+export const AllowStockOptions = [
+  { label: "Yes, allow stock photos", value: true },
+  { label: "No, do not allow stock photos", value: false },
 ];
 
 /**
@@ -197,6 +233,7 @@ export const webWorkTypes = [
  * Color Options
  */
 export const ColorOptionsItems = [
+  { name: "Any Colors", className: "angularGradient" },
   { name: "Blues", className: "blues" },
   { name: "Aquas", className: "aquas" },
   { name: "Greens", className: "greens" },
@@ -207,7 +244,6 @@ export const ColorOptionsItems = [
   { name: "Yellows", className: "yellows" },
   { name: "Light Grays", className: "lightGrays" },
   { name: "Dark Grays", className: "darkGrays" },
-  { name: "Any Colors", className: "angularGradient" },
 ];
 
 /**
@@ -252,7 +288,8 @@ export const ACTIONS = {
     REVIEW_CONFIRMED: "REVIEW_CONFIRMED",
     SAVE_FORM: "SAVE_FORM",
     RESET_INTAKE_FORM: "RESET_INTAKE_FORM",
-    TOGGLE_SUPPORT_MODAL: "TOGGLE_SUPPORT_MODAL"
+    TOGGLE_SUPPORT_MODAL: "TOGGLE_SUPPORT_MODAL",
+    CREATE_SUPPORT_TICKET: "CREATE_SUPPORT_TICKET",
   },
   PROGRESS: {
     SET_ITEM: "SET_ITEM",
@@ -331,6 +368,7 @@ export const CHALLENGE_STATUS = {
   COMPLETED: "Completed",
   DRAFT: "Draft",
   NEW: "New",
+  APPROVED: "Approved",
 };
 
 export const WORK_STATUS_MAP = {
@@ -538,3 +576,8 @@ export const SURVEY_QUESTIONS = [
     value: "",
   },
 ];
+
+export const COUNTRY_OPTIONS = countries.map((ct) => ({
+  label: ct.name,
+  value: ct.code,
+}));

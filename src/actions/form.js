@@ -1,4 +1,5 @@
 import { ACTIONS } from "../constants";
+import { createSupportTicket } from "../services/form";
 
 export const saveForm = (form) => ({
   type: ACTIONS.FORM.SAVE_FORM,
@@ -64,3 +65,15 @@ export const toggleSupportModal = (show = null) => ({
   type: ACTIONS.FORM.TOGGLE_SUPPORT_MODAL,
   payload: show,
 });
+
+export const createNewSupportTicket =
+  (request, challengeId, selfService) => (dispatch) => {
+    return createSupportTicket(request, challengeId, selfService)
+      .then((ticket) => {
+        dispatch(() => ({
+          type: ACTIONS.FORM.CREATE_SUPPORT_TICKET,
+          payload: ticket,
+        }));
+      })
+      .catch((e) => {});
+  };

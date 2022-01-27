@@ -6,10 +6,11 @@
 import React from "react";
 import PT from "prop-types";
 import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
 import "./styles.module.scss";
 
-const ReactSelect = (props) => {
+// TODO: figure out why this export is needed
+// https://github.com/topcoder-platform/micro-frontends-self-service-app/issues/74
+export const ReactSelect = (props) => {
   const customStyles = {
     control: (provided, state) => ({
       ...provided,

@@ -27,18 +27,25 @@ const Branding = ({ saveBranding, setProgressItem }) => {
     theme: { title: "Style & Theme", option: "", value: null },
     website: { title: "Inspiration web site", option: "", value: "" },
     description: { title: "What Do you like", option: "", value: "" },
-    colorOption: { title: "Colors", option: "", value: 0 },
+    colorOption: { title: "Color Option", value: [], option: [] },
     specificColor: { title: "Custom Color", option: "", value: "" },
+    fontUrl: { title: "Custom Font URL", value: "", fontUsageDescription: "" },
+    assetsUrl: { title: "Custom Assets URL", value: "" },
     fontOption: { title: "Fonts", option: "", value: 0 },
-    design: { title: "Allow Stock Photos?", option: "", value: null },
     anythingToAvoid: { title: "Anything to Avoid?", option: "", value: "" },
     selectedDeliverableOption: {
       title: "Final Deliverable Option",
       option: "",
       value: null,
     },
+    allowStockOption: {
+      title: "Allow Stock Photos",
+      option: "",
+      value: null,
+    },
     customDeliverable: { title: "Custom Delivrable", option: "", value: "" },
   });
+
   const dispatch = useDispatch();
   const price = useSelector((state) => state.form.price);
   const additionalPrice = useSelector((state) => state.form.additionalPrice);
@@ -74,7 +81,11 @@ const Branding = ({ saveBranding, setProgressItem }) => {
 
   const isFormValid =
     formData?.theme?.value &&
-    formData?.selectedDeliverableOption?.value !== null;
+    formData?.selectedDeliverableOption?.value !== null &&
+    (formData?.colorOption.value.length > 0 ||
+      formData?.specificColor.value.trim() !== "") &&
+    (formData?.selectedDeliverableOption.option !== "Other" ||
+      formData?.customDeliverable.value.trim() !== "");
 
   const onBack = () => {
     navigate("/self-service/page-details");
@@ -127,7 +138,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={5} />
+          <Progress level={5} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>
@@ -141,4 +152,7 @@ const mapDispatchToProps = {
   setProgressItem,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAuthentication(Branding));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAuthentication(Branding));

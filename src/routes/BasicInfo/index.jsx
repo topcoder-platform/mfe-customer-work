@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { navigate, redirectTo } from "@reach/router";
 import Button from "components/Button";
@@ -19,14 +19,19 @@ import {
   addDevicePrice,
   saveBasicInfo,
   updateAdditionalPrice,
-  toggleSupportModal
+  toggleSupportModal,
+  createNewSupportTicket,
+  savePageDetails,
 } from "../../actions/form";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
+import SupportModal from "../../components/Modal/SupportModal";
+import { getProfile } from "../../selectors/profile";
+import { getUserProfile } from "../../thunks/profile";
+
 import BasicInfoForm from "./components/BasicInfoForm";
 import "./styles.module.scss";
-import SupportModal from "../../components/Modal/SupportModal"
 
 /**
  * Basic Info Page
@@ -36,16 +41,19 @@ const BasicInfo = ({
   updateAdditionalPrice,
   addDevicePrice,
   setProgressItem,
-  toggleSupportModal
+  savePageDetails,
+  toggleSupportModal,
+  createNewSupportTicket,
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
-    selectedPageOption: { title: "How Many Pages?", option: "", value: null },
-    selectedDevice: { title: "Device Types", option: "Computer", value: 0 }
+    selectedDevices: {
+      title: "Device Types",
+      option: ["Computer"],
+      value: [0],
+    },
   });
-  const isFormValid =
-    formData?.projectTitle?.value.length &&
-    formData?.selectedPageOption?.value !== null;
+  const isFormValid = formData?.projectTitle?.value.length;
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const price = useSelector((state) => state.form.price);
@@ -56,7 +64,10 @@ const BasicInfo = ({
   const workType = useSelector((state) => state.form.workType);
   const basicInfo = useSelector((state) => state.form.basicInfo);
   const currentStep = useSelector((state) => state.progress.currentStep);
-  const showSupportModal = useSelector(state => state.form.showSupportModal)
+  const pageDetails = useSelector((state) => state.form.pageDetails);
+  const showSupportModal = useSelector((state) => state.form.showSupportModal);
+  const profileData = useSelector(getProfile);
+  const challenge = useSelector((state) => state.challenge);
 
   const onBack = () => {
     navigate("/self-service/wizard");
@@ -68,7 +79,26 @@ const BasicInfo = ({
     navigate("/self-service/website-purpose");
   };
 
+  const updateNumOfPages = (newNumOfPages) => {
+    let newPages = pageDetails.pages;
+    if (newNumOfPages < newPages.length) {
+      newPages = newPages.slice(0, newNumOfPages);
+    } else {
+      for (let i = 0; i <= newNumOfPages - newPages.length; i += 1) {
+        newPages.push({
+          pageName: "",
+          pageDetails: "",
+        });
+      }
+    }
+    savePageDetails({
+      ...pageDetails,
+      pages: newPages,
+    });
+  };
+
   const [firstMounted, setFirstMounted] = useState(true);
+
   useEffect(() => {
     if (!firstMounted) {
       return;
@@ -93,37 +123,52 @@ const BasicInfo = ({
 
   useEffect(() => {
     if (formData) {
-      updateAdditionalPrice(
-        PageOptions[formData?.selectedPageOption?.value]?.price || 0
-      );
+      updateAdditionalPrice(0); // TODO: fix this
       saveBasicInfo(formData);
     }
   }, [formData, updateAdditionalPrice, saveBasicInfo]);
 
   useEffect(() => {
     if (formData) {
-      addDevicePrice(
-        DeviceOptions[formData?.selectedDevice?.value]?.price || 0
-      );
+      formData?.selectedDevices?.value.forEach((device) => {
+        addDevicePrice(DeviceOptions[device]?.price || 0);
+      });
       saveBasicInfo(formData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addDevicePrice, formData, formData.selectedDevice]);
+  }, [addDevicePrice, formData, formData.selectedDevices]);
 
   const onShowSupportModal = () => {
-    toggleSupportModal(true)
-  }
+    toggleSupportModal(true);
+  };
   const onHideSupportModal = () => {
-    toggleSupportModal(false)
-  }
+    toggleSupportModal(false);
+  };
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+
+  const onSubmitSupportRequest = (submittedSupportRequest) =>
+    createNewSupportTicket(
+      submittedSupportRequest,
+      challenge?.id,
+      challenge?.legacy?.selfService
+    );
 
   return (
     <>
       <LoadingSpinner show={isLoading} />
-      {showSupportModal && (<SupportModal handleClose={onHideSupportModal}></SupportModal>)}
+      {showSupportModal && (
+        <SupportModal
+          profileData={profileData}
+          handleClose={onHideSupportModal}
+          onSubmit={onSubmitSupportRequest}
+        ></SupportModal>
+      )}
       <Page>
         <PageContent>
-          <PageH2>BASIC INFO: {showSupportModal}</PageH2>
+          <PageH2>BASIC INFO</PageH2>
           <PageDivider />
 
           <BasicInfoForm
@@ -131,6 +176,8 @@ const BasicInfo = ({
             price={total}
             serviceType={workType?.selectedWorkTypeDetail}
             onFormUpdate={setFormData}
+            numOfPages={pageDetails?.pages?.length || 0}
+            updateNumOfPages={updateNumOfPages}
             onShowSupportModal={onShowSupportModal}
           />
 
@@ -160,7 +207,7 @@ const BasicInfo = ({
             </div>
           </PageFoot>
 
-          <Progress level={2} />
+          <Progress level={2} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>
@@ -174,7 +221,9 @@ const mapDispatchToProps = {
   saveBasicInfo,
   addDevicePrice,
   setProgressItem,
-  toggleSupportModal
+  savePageDetails,
+  toggleSupportModal,
+  createNewSupportTicket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);

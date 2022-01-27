@@ -6,9 +6,9 @@ import Rating from "components/Rating";
 import { formatWorkType } from "utils/formatters";
 import { CHALLENGE_STATUS } from "constants/index.js";
 import { Link } from "@reach/router";
-import { cacheChallengeId } from '../../../../autoSaveBeforeLogin'
+import { cacheChallengeId } from "../../../../autoSaveBeforeLogin";
 import styles from "./styles.module.scss";
-
+import ClipLoader from "react-spinners/ClipLoader";
 /**
  * Displays a work item for the work item list in the dashboard.
  *
@@ -28,15 +28,23 @@ const WorkItem = ({ work }) => {
     numOfRegistrants,
     rating,
     workStatus,
+    forumNotificationLoading,
   } = work;
   const subTrack = legacy?.subTrack;
-  const url = workStatus === CHALLENGE_STATUS.DRAFT ? '/self-service/wizard' : `/self-service/work-items/${id}`
+  const url =
+    workStatus === CHALLENGE_STATUS.DRAFT
+      ? "/self-service/wizard"
+      : `/self-service/work-items/${id}`;
   return (
-    <Link styleName="container" to={url} onClick={() => {
-      if (workStatus === CHALLENGE_STATUS.DRAFT) {
-        cacheChallengeId(id)
-      }
-    }}>
+    <Link
+      styleName="container"
+      to={url}
+      onClick={() => {
+        if (workStatus === CHALLENGE_STATUS.DRAFT) {
+          cacheChallengeId(id);
+        }
+      }}
+    >
       <div styleName="header">
         <div
           styleName="status"
@@ -62,13 +70,19 @@ const WorkItem = ({ work }) => {
         <div styleName="participants">
           Participants: {numOfRegistrants || 0}
         </div>
-        {!!messagesCount && (
+        {(!!messagesCount || !!forumNotificationLoading) && (
           <div
             styleName="messages"
             className={cn({ [styles.hasNew]: messagesHasNew })}
           >
             Unread Messages
-            <span styleName="count">{messagesCount}</span>
+            {!!forumNotificationLoading ? (
+              <div styleName="forumLoader">
+                <ClipLoader size={12} loading={true} />
+              </div>
+            ) : (
+              <span styleName="count">{messagesCount}</span>
+            )}
           </div>
         )}
         {challengeStatus === CHALLENGE_STATUS.COMPLETED &&

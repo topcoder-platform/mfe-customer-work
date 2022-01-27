@@ -12,35 +12,35 @@ import RadioButton from "components/RadioButton";
 import ServicePrice from "components/ServicePrice";
 import { HELP_BANNER, PageOptions } from "constants/";
 import PT from "prop-types";
+import _ from "lodash";
 import React, { useEffect } from "react";
 import DeviceTypes from "../DeviceTypes";
 import "./styles.module.scss";
 
-const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate, onShowSupportModal }) => {
+const BasicInfoForm = ({
+  formData,
+  price,
+  serviceType,
+  onFormUpdate,
+  onShowSupportModal,
+  numOfPages,
+  updateNumOfPages,
+}) => {
   const handleInputChange = (name, value, option = "") => {
-    onFormUpdate((formData) => ({
-      ...formData,
-      [name]: { ...formData[name], option, value },
-    }));
+    onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
   };
 
-  const listOptions = PageOptions;
+  const listOptions = _.map(PageOptions, (o, i) => ({
+    ...o,
+    value: i === numOfPages - 1,
+  }));
   useEffect(() => {
     return () => {
-      listOptions.forEach((option) => {
+      listOptions.forEach((option, i) => {
         option.value = false;
       });
     };
   }, []);
-
-  useEffect(() => {
-    if (
-      formData?.selectedPageOption &&
-      listOptions[formData?.selectedPageOption?.value]
-    ) {
-      listOptions[formData?.selectedPageOption?.value].value = true;
-    }
-  }, [formData]);
 
   return (
     <div styleName="basicInfoForm">
@@ -81,14 +81,9 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate, onShowSuppo
 
         <div styleName="formFieldWrapper">
           <RadioButton
-            onChange={(items) => {
-              const selectedOption = items.findIndex((item) => item.value);
-              const option = items.find((item) => item.value);
-              handleInputChange(
-                "selectedPageOption",
-                selectedOption,
-                option.label
-              );
+            onChange={(items, i) => {
+              const newNumOfPages = _.findIndex(items, (i) => i.value);
+              updateNumOfPages(newNumOfPages + 1);
             }}
             size="lg"
             options={listOptions}
@@ -109,7 +104,7 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate, onShowSuppo
 
         <div styleName="formFieldWrapper">
           <DeviceTypes
-            selectedOption={formData?.selectedDevice?.value}
+            selectedOptions={formData?.selectedDevice?.value}
             onSelect={(selectedOption, option) => {
               handleInputChange("selectedDevice", selectedOption, option);
             }}

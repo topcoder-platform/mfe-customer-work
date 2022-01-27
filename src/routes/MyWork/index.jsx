@@ -9,7 +9,7 @@ import { checkIfLoggedIn } from "hoc/withAuthentication/thunks";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getWorksIsLoading } from "selectors/myWork";
-import { loadWorks } from "thunks/myWork";
+import { loadWorks, loadForumNotifications } from "thunks/myWork";
 import Dashboard from "./components/Dashboard";
 import "./styles.module.scss";
 
@@ -33,6 +33,12 @@ const MyWork = () => {
       dispatch(loadWorks());
     }
   }, [isLoggedIn, dispatch]);
+
+  useEffect(() => {
+    if (isLoggedIn && !worksIsLoading) {
+      dispatch(loadForumNotifications());
+    }
+  }, [isLoggedIn, worksIsLoading, dispatch]);
 
   useEffect(() => {
     if (!isLoggingIn && !isLoggedIn) {
