@@ -19,11 +19,15 @@ export async function processPayment(
   stripe,
   elements,
   amount,
-  currency,
-  challengeId
+  challengeId,
+  cardName, 
+  country, 
+  email,
+  zipCode
 ) {
   // get project ID from challenge
   const challenge = await challengeService.getChallengeDetails(challengeId);
+
   try {
     // Call stripe api the create payment method, so the card info does not pass to our server.
     const payload = await stripe.createPaymentMethod({
@@ -31,16 +35,22 @@ export async function processPayment(
       card: elements.getElement(CardNumberElement),
     });
 
-    let response = await axios.post(
-      `${config.API.V5}/customer-payments`,
-      JSON.stringify({
-        amount,
-        currency,
-        paymentMethodId: payload.paymentMethod.id,
-        reference: "project",
-        referenceId: _.toString(challenge.projectId),
-      })
-    );
+    // WARNING: this will fail until the API accepts cardName, country, email, and zipCode
+    // until then, you can comment them out of the body, and it will work
+    // please remove this comment after the api is updated
+    const body = JSON.stringify({
+      amount,
+      cardName, 
+      country, 
+      email,
+      zipCode,
+      paymentMethodId: payload.paymentMethod.id,
+      reference: "project",
+      referenceId: _.toString(challenge.projectId),
+    });
+    const url =  `${config.API.V5}/customer-payments`;
+    let response = await axios.post(url, body);
+
     const customerPayment = response.data;
     if (customerPayment.status === "requires_action") {
       await stripe.handleCardAction(customerPayment.clientSecret);

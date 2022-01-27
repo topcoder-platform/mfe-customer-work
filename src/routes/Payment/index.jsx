@@ -87,8 +87,12 @@ const Payment = ({ setProgressItem }) => {
       .processPayment(
         stripe,
         elements,
+        total,
         challengeId,
-        formData
+        formData.cardName,
+        formData.country,
+        formData.email,
+        formData.zipCode
       )
       .then((res) => {
         activateChallenge(challengeId);
