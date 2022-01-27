@@ -3,34 +3,53 @@
  *
  * Modal
  */
+import cn from "classnames";
 import React from "react";
 import PT from "prop-types";
-import cn from "classnames";
-import "./styles.module.scss";
+
+import styles from "./styles.module.scss";
 import IconCross from "../../assets/images/icon-cross.svg";
 
-const Modal = ({
-  fullWidth,
-  children,
-  show = false,
-  handleClose = (f) => f,
-}) => {
+// TODO: figure out why this export is needed 
+// https://github.com/topcoder-platform/micro-frontends-self-service-app/issues/74 
+export const Modal = (
+  { 
+    children,
+    fullWidth,
+    halfWidth,
+    handleClose = (f) => f,
+    hideClose = false,
+    show = false, 
+    title
+  }
+) => {
   return (
     show && (
-      <div styleName={"modal"}>
+      <div styleName="modalContainer">
+
         <div
-          styleName="modal-back"
+          styleName="modalBackground"
           onClick={(e) => handleClose(e)}
           role="button"
           tabIndex={0}
         ></div>
-        <div styleName={cn("modal-inner", fullWidth ? "full-width" : "")}>
+
+        <div styleName={cn("modalContent", fullWidth ? "full-width" : "", halfWidth ? "half-width" : "")}>
+
+          <div className={styles.titleContainer}>
+            {title}
+          </div>
+
           {children}
-          <IconCross
-            styleName="modal-close-btn"
-            onClick={(e) => handleClose(e)}
-          />
-        </div>
+
+          {!hideClose && (
+            <IconCross
+              styleName="modalCloseBtn"
+              onClick={(e) => handleClose(e)}
+            />
+          )}
+          </div>
+
       </div>
     )
   );
@@ -38,8 +57,10 @@ const Modal = ({
 
 Modal.propTypes = {
   children: PT.node,
-  show: PT.bool,
   handleClose: PT.func,
+  hideClose: PT.bool,
+  show: PT.bool,
+  title: PT.string
 };
 
 export default Modal;

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState, useLayoutEffect } from "react";
 import _ from "lodash";
 import PT from "prop-types";
 import { navigate } from "@reach/router";
-import { connect } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import Button from "components/Button";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
@@ -32,6 +32,13 @@ import {
   setIsSavingSurveyDone,
   getForumNotifications,
 } from "../../actions/work";
+import {
+  toggleSupportModal,
+  createNewSupportTicket
+} from "../../actions/form";
+import SupportModal from "../../components/Modal/SupportModal"
+import { getUserProfile } from "../../thunks/profile"
+import { getProfile } from '../../selectors/profile'
 
 import "./styles.module.scss";
 
@@ -55,8 +62,11 @@ const WorkItem = ({
   setIsSavingSurveyDone,
   getForumNotifications,
 }) => {
+  const dispatch = useDispatch();
   const [selectedTab, setSelectedTab] = useState("summary");
   const [showSurvey, setShowSurvey] = useState(false);
+  const [showSupportModal, setShowSupportModal] = useState(false)
+  const profileData = useSelector(getProfile);
 
   useLayoutEffect(() => {
     const query = new URLSearchParams(window.location.search);
@@ -166,9 +176,30 @@ const WorkItem = ({
     }
   }, [work]);
 
+  const onShowSupportModal = () => {
+    setShowSupportModal(true)
+  }
+  const onHideSupportModal = () => {
+    setShowSupportModal(false)
+  }
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+
+  const onSubmitSupportRequest = (submittedSupportRequest) => 
+    createNewSupportTicket(submittedSupportRequest, work?.id, work?.legacy?.selfService)
+
   return (
     <>
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
+      {showSupportModal && (
+        <SupportModal
+          profileData={profileData}
+          handleClose={onHideSupportModal}
+          onSubmit={onSubmitSupportRequest}
+        ></SupportModal>
+      )}
       <Page styleName="page">
         <PageContent styleName="pageContent">
           <PageH3 styleName="pageTitle">
@@ -254,7 +285,7 @@ const WorkItem = ({
               />
               <div styleName="solution-tab-footer">
                 {markAsDoneButton}
-                <a href="#void" styleName="need-help-link">
+                <a onClick={onShowSupportModal} styleName="need-help-link">
                   Need Help?
                 </a>
               </div>
@@ -356,6 +387,8 @@ const mapDispatchToProps = {
   saveSurvey,
   setIsSavingSurveyDone,
   getForumNotifications,
+  toggleSupportModal,
+  createNewSupportTicket
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkItem);

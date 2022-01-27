@@ -16,7 +16,7 @@ import React, { useEffect } from "react";
 import DeviceTypes from "../DeviceTypes";
 import "./styles.module.scss";
 
-const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
+const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate, onShowSupportModal }) => {
   const handleInputChange = (name, value, option = "") => {
     onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
   };
@@ -116,6 +116,7 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
       <HelpBanner
         title={HELP_BANNER.title}
         description={HELP_BANNER.description}
+        contactSupport={onShowSupportModal}
       />
     </div>
   );

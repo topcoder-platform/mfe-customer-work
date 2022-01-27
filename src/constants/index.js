@@ -1,7 +1,10 @@
+import moment from "moment";
+
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
 import MyWorkIcon from "../assets/images/icon-my-work.svg";
 import workUtil from "../utils/work";
-import moment from "moment";
+
+import countries from "./countries";
 
 export const AUTOSAVE_THROTTLE_TIME = 5000;
 
@@ -260,6 +263,8 @@ export const ACTIONS = {
     REVIEW_CONFIRMED: "REVIEW_CONFIRMED",
     SAVE_FORM: "SAVE_FORM",
     RESET_INTAKE_FORM: "RESET_INTAKE_FORM",
+    TOGGLE_SUPPORT_MODAL: "TOGGLE_SUPPORT_MODAL",
+    CREATE_SUPPORT_TICKET: "CREATE_SUPPORT_TICKET"
   },
   PROGRESS: {
     SET_ITEM: "SET_ITEM",
@@ -546,3 +551,8 @@ export const SURVEY_QUESTIONS = [
     value: "",
   },
 ];
+
+export const COUNTRY_OPTIONS = countries.map(ct => ({
+  label: ct.name,
+  value: ct.code
+}))
