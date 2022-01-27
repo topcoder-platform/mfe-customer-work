@@ -34,7 +34,10 @@
   margin-bottom: 104px;
 }
 
-.backButtonWrapper {
-  min-width: 40px;
-  margin-top: 3px;
+.backButtonContainer {
+  @include backButtonContainer;
+
+  .backButtonWrapper {
+    @include backButtonWrapper;
+  }
 }

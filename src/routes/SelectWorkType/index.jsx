@@ -1,25 +1,36 @@
 import { navigate } from "@reach/router";
-import Button from "components/Button";
-import LoadingSpinner from "components/LoadingSpinner";
-import Page from "components/Page";
-import PageContent from "components/PageContent";
-import PageDivider from "components/PageDivider";
-import PageH2 from "components/PageElements/PageH2";
-import PageP from "components/PageElements/PageP";
-import TabSelector from "components/TabSelector";
-import { BUTTON_SIZE, BUTTON_TYPE, webWorkTypes, workTypes } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
+
 import { triggerAutoSave } from "../../actions/autoSave";
-import { saveWorkType, updatePrice } from "../../actions/form";
+import { saveWorkType, updatePrice, toggleSupportModal, createNewSupportTicket } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
+import Button from "../../components/Button";
+import HelpBanner from "../../components/HelpBanner";
+import SupportModal from "../../components/Modal/SupportModal";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import Page from "../../components/Page";
+import PageContent from "../../components/PageContent";
+import PageDivider from "../../components/PageDivider";
+import PageFoot from "../../components/PageElements/PageFoot";
+import PageH2 from "../../components/PageElements/PageH2";
+import { BUTTON_SIZE, BUTTON_TYPE, HELP_BANNER, webWorkTypes, workTypes } from "constants/";
+import { getProfile } from "../../selectors/profile";
+import { getUserProfile } from "../../thunks/profile";
+
 import "./styles.module.scss";
 
 /**
  * Select Work Type Page
  */
-const SelectWorkType = ({ saveWorkType, updatePrice, setProgressItem }) => {
+const SelectWorkType = ({ 
+  saveWorkType,
+  updatePrice, 
+  setProgressItem,
+  toggleSupportModal,
+  createNewSupportTicket,
+}) => {
   const dispatch = useDispatch();
   const [selectInitiated, setSelectInit] = useState(false);
   const workType = useSelector((state) => state.form.workType);
@@ -27,6 +38,8 @@ const SelectWorkType = ({ saveWorkType, updatePrice, setProgressItem }) => {
   const [currentStep, setCurrentStep] = useState(workType?.workTypeStep || 0);
   const [selectedWorkType, setSelectedWorkType] = useState("");
   const [selectedWorkTypeDetail, setSelectedWorkTypeDetail] = useState("");
+  const showSupportModal = useSelector((state) => state.form.showSupportModal);
+  const profileData = useSelector(getProfile);
 
   useEffect(() => {
     setProgressItem(1);
@@ -84,64 +97,61 @@ const SelectWorkType = ({ saveWorkType, updatePrice, setProgressItem }) => {
     dispatch(triggerAutoSave(true));
   };
 
+  const onShowSupportModal = () => {
+    toggleSupportModal(true);
+  };
+  const onHideSupportModal = () => {
+    toggleSupportModal(false);
+  };
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+
+  const onSubmitSupportRequest = (submittedSupportRequest) =>
+    createNewSupportTicket(
+      submittedSupportRequest,
+      challenge?.id,
+      challenge?.legacy?.selfService
+    );
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
+      {showSupportModal && (
+        <SupportModal
+          profileData={profileData}
+          handleClose={onHideSupportModal}
+          onSubmit={onSubmitSupportRequest}
+        ></SupportModal>
+      )}
       <Page>
         <PageContent>
           <PageH2>SELECT WORK TYPE</PageH2>
+
+
           <PageDivider />
 
-          {currentStep === 0 && selectInitiated && (
-            <TabSelector
-              items={workTypes}
-              handleClick={handleClick}
-              selectedState={workType?.selectedWorkType}
-            />
-          )}
-          {currentStep === 1 && (
-            <div styleName="tabSelectorWrapper">
-              <div
-                styleName="backButton"
+          <HelpBanner
+            title={HELP_BANNER.title}
+            description={HELP_BANNER.description}
+            contactSupport={onShowSupportModal}
+          />
+
+          <PageFoot>
+            <div styleName="backButtonContainer">
+              <Button
+                size={BUTTON_SIZE.MEDIUM}
+                type={BUTTON_TYPE.SECONDARY}
                 onClick={onBack}
-                role="button"
-                tabIndex={0}
               >
-                <Button size={BUTTON_SIZE.SMALL} type={BUTTON_TYPE.ROUNDED}>
-                  <BackIcon />
-                </Button>
-                <span>{selectedWorkType}</span>
-              </div>
-              <TabSelector
-                items={webWorkTypes}
-                handleClick={handleClick}
-                selectedState={workType?.selectedWorkTypeDetail}
-              />
-            </div>
-          )}
-          <PageDivider />
-          <PageP styleName="bold">Looking For Something Else?</PageP>
-          <PageP styleName="description">
-            Topcoder also offers solutions for multiple other technical needs
-            and problems. We have community members expertly skilled in the
-            areas of UI/UX Design, Data Science, Quality Assurance, and more.
-            We'd love to talk with you about all of our services.
-          </PageP>
-
-          {currentStep === 0 && (
-            <div styleName="footer">
-              <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                <div
-                  role="button"
-                  tabIndex={0}
-                  styleName="backButtonWrapper"
-                  onClick={onBack}
-                >
+                <div styleName="backButtonWrapper">
                   <BackIcon />
                 </div>
               </Button>
             </div>
-          )}
+          </PageFoot>
+
         </PageContent>
       </Page>
     </>
@@ -154,6 +164,8 @@ const mapDispatchToProps = {
   saveWorkType,
   updatePrice,
   setProgressItem,
+  toggleSupportModal,
+  createNewSupportTicket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectWorkType);
