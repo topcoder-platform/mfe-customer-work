@@ -20,15 +20,15 @@ import {
   saveBasicInfo,
   updateAdditionalPrice,
   toggleSupportModal,
-  createNewSupportTicket
+  createNewSupportTicket,
+  savePageDetails,
 } from "../../actions/form";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
-import { savePageDetails } from "../../actions/form";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import SupportModal from "../../components/Modal/SupportModal"
-import { getProfile } from '../../selectors/profile'
-import { getUserProfile } from "../../thunks/profile"
+import SupportModal from "../../components/Modal/SupportModal";
+import { getProfile } from "../../selectors/profile";
+import { getUserProfile } from "../../thunks/profile";
 
 import BasicInfoForm from "./components/BasicInfoForm";
 import "./styles.module.scss";
@@ -43,7 +43,7 @@ const BasicInfo = ({
   setProgressItem,
   savePageDetails,
   toggleSupportModal,
-  createNewSupportTicket
+  createNewSupportTicket,
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
@@ -65,9 +65,9 @@ const BasicInfo = ({
   const basicInfo = useSelector((state) => state.form.basicInfo);
   const currentStep = useSelector((state) => state.progress.currentStep);
   const pageDetails = useSelector((state) => state.form.pageDetails);
-  const showSupportModal = useSelector(state => state.form.showSupportModal);
+  const showSupportModal = useSelector((state) => state.form.showSupportModal);
   const profileData = useSelector(getProfile);
-  const challenge = useSelector(state => state.challenge);
+  const challenge = useSelector((state) => state.challenge);
 
   const onBack = () => {
     navigate("/self-service/wizard");
@@ -80,20 +80,20 @@ const BasicInfo = ({
   };
 
   const updateNumOfPages = (newNumOfPages) => {
-    let newPages = pageDetails.pages
+    let newPages = pageDetails.pages;
     if (newNumOfPages < newPages.length) {
-      newPages = newPages.slice(0, newNumOfPages)
+      newPages = newPages.slice(0, newNumOfPages);
     } else {
       for (let i = 0; i <= newNumOfPages - newPages.length; i += 1) {
         newPages.push({
           pageName: "",
           pageDetails: "",
-        })
+        });
       }
     }
     savePageDetails({
       ...pageDetails,
-      pages: newPages
+      pages: newPages,
     });
   };
 
@@ -139,18 +139,22 @@ const BasicInfo = ({
   }, [addDevicePrice, formData, formData.selectedDevices]);
 
   const onShowSupportModal = () => {
-    toggleSupportModal(true)
-  }
+    toggleSupportModal(true);
+  };
   const onHideSupportModal = () => {
-    toggleSupportModal(false)
-  }
+    toggleSupportModal(false);
+  };
 
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const onSubmitSupportRequest = (submittedSupportRequest) => 
-    createNewSupportTicket(submittedSupportRequest, challenge?.id, challenge?.legacy?.selfService)
+  const onSubmitSupportRequest = (submittedSupportRequest) =>
+    createNewSupportTicket(
+      submittedSupportRequest,
+      challenge?.id,
+      challenge?.legacy?.selfService
+    );
 
   return (
     <>
@@ -219,7 +223,7 @@ const mapDispatchToProps = {
   setProgressItem,
   savePageDetails,
   toggleSupportModal,
-  createNewSupportTicket
+  createNewSupportTicket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);

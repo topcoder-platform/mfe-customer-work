@@ -10,7 +10,13 @@ import PT from "prop-types";
 import React from "react";
 import "./styles.module.scss";
 
-const PageListInput = ({ name, addListInputItem, styleName, children, canAdd }) => {
+const PageListInput = ({
+  name,
+  addListInputItem,
+  styleName,
+  children,
+  canAdd,
+}) => {
   return (
     <div styleName={cn("page-list-input", styleName || "")}>
       <div>
@@ -21,14 +27,13 @@ const PageListInput = ({ name, addListInputItem, styleName, children, canAdd }) 
             tabIndex={0}
             onClick={(e) => addListInputItem(name)}
           >
-            {
-              canAdd && (
-                <div>
-                  <p styleName="pageText">NEED ANOTHER PAGE?</p>
-                  <Button type={BUTTON_TYPE.SECONDARY} size={BUTTON_SIZE.MEDIUM}>
-                    ADD PAGE: +$100
-                  </Button>
-                </div>
+            {canAdd && (
+              <div>
+                <p styleName="pageText">NEED ANOTHER PAGE?</p>
+                <Button type={BUTTON_TYPE.SECONDARY} size={BUTTON_SIZE.MEDIUM}>
+                  ADD PAGE: +$100
+                </Button>
+              </div>
             )}
           </div>
         </div>

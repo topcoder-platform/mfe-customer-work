@@ -12,16 +12,28 @@ import RadioButton from "components/RadioButton";
 import ServicePrice from "components/ServicePrice";
 import { HELP_BANNER, PageOptions } from "constants/";
 import PT from "prop-types";
+import _ from "lodash";
 import React, { useEffect } from "react";
 import DeviceTypes from "../DeviceTypes";
 import "./styles.module.scss";
 
-const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate, onShowSupportModal, numOfPages, updateNumOfPages }) => {
+const BasicInfoForm = ({
+  formData,
+  price,
+  serviceType,
+  onFormUpdate,
+  onShowSupportModal,
+  numOfPages,
+  updateNumOfPages,
+}) => {
   const handleInputChange = (name, value, option = "") => {
     onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
   };
 
-  const listOptions = _.map(PageOptions, (o, i) => ({ ...o, value: i === numOfPages - 1 }));
+  const listOptions = _.map(PageOptions, (o, i) => ({
+    ...o,
+    value: i === numOfPages - 1,
+  }));
   useEffect(() => {
     return () => {
       listOptions.forEach((option, i) => {
@@ -70,8 +82,8 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate, onShowSuppo
         <div styleName="formFieldWrapper">
           <RadioButton
             onChange={(items, i) => {
-              const newNumOfPages = _.findIndex(items, i => i.value)
-              updateNumOfPages(newNumOfPages + 1)
+              const newNumOfPages = _.findIndex(items, (i) => i.value);
+              updateNumOfPages(newNumOfPages + 1);
             }}
             size="lg"
             options={listOptions}

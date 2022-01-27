@@ -101,7 +101,7 @@ export const isMessagesDisabled = (work) => {
   return (
     status === CHALLENGE_STATUS.NEW ||
     status === CHALLENGE_STATUS.DRAFT ||
-    status === CHALLENGE_STATUS.CANCELLED || 
+    status === CHALLENGE_STATUS.CANCELLED ||
     status === CHALLENGE_STATUS.APPROVED
   );
 };

@@ -70,9 +70,7 @@ const ProgressPopup = ({
                 role="tab"
                 tabIndex={0}
               >
-                <div
-                  styleName={cn("level-check-icon", getLevelClass(level))}
-                >
+                <div styleName={cn("level-check-icon", getLevelClass(level))}>
                   {getLevelClass(level) === "done" && (
                     <IconCheck styleName={"icon-check"} />
                   )}

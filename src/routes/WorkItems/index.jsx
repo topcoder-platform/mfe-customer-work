@@ -32,13 +32,10 @@ import {
   setIsSavingSurveyDone,
   getForumNotifications,
 } from "../../actions/work";
-import {
-  toggleSupportModal,
-  createNewSupportTicket
-} from "../../actions/form";
-import SupportModal from "../../components/Modal/SupportModal"
-import { getUserProfile } from "../../thunks/profile"
-import { getProfile } from '../../selectors/profile'
+import { toggleSupportModal, createNewSupportTicket } from "../../actions/form";
+import SupportModal from "../../components/Modal/SupportModal";
+import { getUserProfile } from "../../thunks/profile";
+import { getProfile } from "../../selectors/profile";
 
 import "./styles.module.scss";
 
@@ -65,7 +62,7 @@ const WorkItem = ({
   const dispatch = useDispatch();
   const [selectedTab, setSelectedTab] = useState("summary");
   const [showSurvey, setShowSurvey] = useState(false);
-  const [showSupportModal, setShowSupportModal] = useState(false)
+  const [showSupportModal, setShowSupportModal] = useState(false);
   const profileData = useSelector(getProfile);
 
   useLayoutEffect(() => {
@@ -177,18 +174,22 @@ const WorkItem = ({
   }, [work]);
 
   const onShowSupportModal = () => {
-    setShowSupportModal(true)
-  }
+    setShowSupportModal(true);
+  };
   const onHideSupportModal = () => {
-    setShowSupportModal(false)
-  }
+    setShowSupportModal(false);
+  };
 
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const onSubmitSupportRequest = (submittedSupportRequest) => 
-    createNewSupportTicket(submittedSupportRequest, work?.id, work?.legacy?.selfService)
+  const onSubmitSupportRequest = (submittedSupportRequest) =>
+    createNewSupportTicket(
+      submittedSupportRequest,
+      work?.id,
+      work?.legacy?.selfService
+    );
 
   return (
     <>
@@ -388,7 +389,7 @@ const mapDispatchToProps = {
   setIsSavingSurveyDone,
   getForumNotifications,
   toggleSupportModal,
-  createNewSupportTicket
+  createNewSupportTicket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkItem);

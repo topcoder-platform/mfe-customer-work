@@ -27,7 +27,7 @@ const Progress = ({ level, styleName, setStep, ...props }) => {
     maxCompletedStep = level;
   }
 
-  const trueLevel = _.find(levels, l => l.trueIndex === level)
+  const trueLevel = _.find(levels, (l) => l.trueIndex === level);
 
   return (
     <div styleName={cn("onboard-progress", styleName || "")} {...props}>

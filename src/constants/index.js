@@ -112,12 +112,37 @@ export const DesignOptions = [
  * ProgressLevels
  */
 export const ProgressLevels = [
-  { label: "Basic Info", url: "/self-service/basic-info", trueIndex: 2, showIndex: 1 },
-  { label: "Website Purpose", url: "/self-service/website-purpose", trueIndex: 3, showIndex: 2 },
-  { label: "Page Details", url: "/self-service/page-details", trueIndex: 4, showIndex: 3 },
-  { label: "Branding", url: "/self-service/branding", trueIndex: 5, showIndex: 4 },
-  { label: "Review", url: "/self-service/review", trueIndex: 6, showIndex: 5  },
-  { label: "Payment", url: "/self-service/payment", trueIndex: 7, showIndex: 6 },
+  {
+    label: "Basic Info",
+    url: "/self-service/basic-info",
+    trueIndex: 2,
+    showIndex: 1,
+  },
+  {
+    label: "Website Purpose",
+    url: "/self-service/website-purpose",
+    trueIndex: 3,
+    showIndex: 2,
+  },
+  {
+    label: "Page Details",
+    url: "/self-service/page-details",
+    trueIndex: 4,
+    showIndex: 3,
+  },
+  {
+    label: "Branding",
+    url: "/self-service/branding",
+    trueIndex: 5,
+    showIndex: 4,
+  },
+  { label: "Review", url: "/self-service/review", trueIndex: 6, showIndex: 5 },
+  {
+    label: "Payment",
+    url: "/self-service/payment",
+    trueIndex: 7,
+    showIndex: 6,
+  },
 ];
 
 /**
@@ -264,7 +289,7 @@ export const ACTIONS = {
     SAVE_FORM: "SAVE_FORM",
     RESET_INTAKE_FORM: "RESET_INTAKE_FORM",
     TOGGLE_SUPPORT_MODAL: "TOGGLE_SUPPORT_MODAL",
-    CREATE_SUPPORT_TICKET: "CREATE_SUPPORT_TICKET"
+    CREATE_SUPPORT_TICKET: "CREATE_SUPPORT_TICKET",
   },
   PROGRESS: {
     SET_ITEM: "SET_ITEM",
@@ -552,7 +577,7 @@ export const SURVEY_QUESTIONS = [
   },
 ];
 
-export const COUNTRY_OPTIONS = countries.map(ct => ({
+export const COUNTRY_OPTIONS = countries.map((ct) => ({
   label: ct.name,
-  value: ct.code
-}))
+  value: ct.code,
+}));

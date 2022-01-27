@@ -18,7 +18,7 @@ const initialState = {
   branding: null,
   reviewConfirmed: false,
   updatedAt: "",
-  showSupportModal: false
+  showSupportModal: false,
 };
 
 const formReducer = (state = initialState, action) => {
@@ -102,11 +102,12 @@ const formReducer = (state = initialState, action) => {
     case ACTIONS.FORM.TOGGLE_SUPPORT_MODAL:
       // if we don't have a payload, just toggle the modal
       // otherwise, override the toggle w/the payload
-      const showSupportModal = action.payload === null ? !state.showSupportModal : action.payload
+      const showSupportModal =
+        action.payload === null ? !state.showSupportModal : action.payload;
       return {
         ...state,
-        showSupportModal
-      }
+        showSupportModal,
+      };
     default:
       return state;
   }
