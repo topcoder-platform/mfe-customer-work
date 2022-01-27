@@ -1,5 +1,6 @@
 import { navigate } from "@reach/router";
-import React, { useEffect, useState, useCallback } from "react";
+
+import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 
 import { triggerAutoSave } from "../../actions/autoSave";
@@ -7,8 +8,7 @@ import {
   saveWorkType,
   updatePrice,
   toggleSupportModal,
-  createNewSupportTicket,
-  resetIntakeForm
+  createNewSupportTicket
 } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import {
@@ -27,7 +27,7 @@ import PageContent from "../../components/PageContent";
 import PageDivider from "../../components/PageDivider";
 import PageFoot from "../../components/PageElements/PageFoot";
 import PageH2 from "../../components/PageElements/PageH2";
-import { BUTTON_SIZE, BUTTON_TYPE, HELP_BANNER, ROUTES, MAX_COMPLETED_STEP, webWorkTypes } from "../../constants/";
+import { BUTTON_SIZE, BUTTON_TYPE, HELP_BANNER, webWorkTypes, workTypes } from "../../constants/";
 import { getProfile } from "../../selectors/profile";
 import { getUserProfile } from "../../thunks/profile";
 
@@ -52,6 +52,13 @@ const SelectWorkType = ({
   const [selectedWorkTypeDetail, setSelectedWorkTypeDetail] = useState("");
   const showSupportModal = useSelector((state) => state.form.showSupportModal);
   const profileData = useSelector(getProfile);
+
+  const allWorkTypes = [
+    ...workTypes,
+    ...webWorkTypes
+  ]
+  const workTypesComingSoon = allWorkTypes.filter(wt => wt.comingSoon)
+  const featuredWorkType = allWorkTypes.find(wt => wt.featured)
 
   useEffect(() => {
     setCurrentStep(1);
@@ -127,16 +134,6 @@ const SelectWorkType = ({
       challenge?.legacy?.selfService
     );
 
-  const onStartWork = useCallback(() => {
-    // setCookie(MAX_COMPLETED_STEP, "", -1);
-    // clearCachedChallengeId();
-    // clearAutoSavedForm();
-    // dispatch(resetIntakeForm(true));
-    // setProgressItem(1);
-    // navigate("/self-service/basic-info");
-    handleClick();
-  }, []);
-
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -161,18 +158,16 @@ const SelectWorkType = ({
                   <IconWebsiteTools />
                 </div>
                 <div className={styles.heroHeaderContent}>
-                  <div>website design</div>
-                  <div className={styles.heroHeaderSubtitle}>starting at $630 | 5–7 Days</div>
+                  <div>{featuredWorkType.title}</div>
+                  <div className={styles.heroHeaderSubtitle}>
+                    starting at ${featuredWorkType.price} | 5–7 Days
+                  </div>
                 </div>
               </div>
-              <div className={styles.heroText}>
-                ​​Create a beautiful custom visual design for your website. 
-                Specify the scope and device types, your vision, and receive 
-                up to 5 modern designs.
-              </div>              
+              <div className={styles.heroText}>{featuredWorkType.subTitle}</div>              
               <div className={styles.heroButtonContainer}>
                 <Button
-                    onClick={() => handleClick()}
+                    onClick={() => handleClick(featuredWorkType)}
                     size={BUTTON_SIZE.MEDIUM}
                     type='secondary'
                   >
@@ -184,22 +179,13 @@ const SelectWorkType = ({
           </div>
 
           <div className={styles.cardContainer}>
-            <div className={styles.card}>
-              <div className={styles.smallHeader}>Coming Soon</div>
-              <div className={styles.title}>Website Development</div>
-              <div className={styles.text}>
-                  Our developers can bring your website designs to life! 
-                  We'll get your website ready for the world to see. 
-              </div>
-            </div>
-            <div className={styles.card}>
-              <div className={styles.smallHeader}>Coming Soon</div>
-              <div className={styles.title}>Data Sciene &amp; AI</div>
-              <div className={styles.text}>
-                Data Mining &amp; Analysis will empower you to reach your goals faster. 
-                Tap data science geniuses from our pool of experts. 
-              </div>
-            </div>
+
+            {workTypesComingSoon.map(wt => <div className={styles.card}>
+                <div className={styles.smallHeader}>Coming Soon</div>
+                <div className={styles.title}>{wt.title}</div>
+                <div className={styles.text}>{wt.subTitle}</div>
+              </div>)}
+
           </div>
 
           <HelpBanner

@@ -188,7 +188,12 @@ export const AllowStockOptions = [
  * Work Types
  */
 export const workTypes = [
-  { title: "Web", subTitle: "Example or description text", price: 499 },
+  { 
+    title: "Web",
+    subTitle: "Our developers can bring your website designs to life! We'll get your website ready for the world to see.",
+    price: 499,
+    comingSoon: true
+  },
   { title: "Mobile", subTitle: "Example or description text", price: 499 },
   {
     title: "Architecture",
@@ -198,8 +203,9 @@ export const workTypes = [
   { title: "API", subTitle: "Example or description text", price: 499 },
   {
     title: "Data Science & AI",
-    subTitle: "Example or description text",
+    subTitle: "Data Mining & Analysis will empower you to reach your goals faster. Tap data science geniuses from our pool of experts.",
     price: 499,
+    comingSoon: true
   },
   {
     title: "Visual Design",
@@ -214,8 +220,9 @@ export const workTypes = [
 export const webWorkTypes = [
   {
     title: "Website Design",
-    subTitle: "Information to help understand what this category would include",
-    price: 499,
+    subTitle: "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    price: 630,
+    featured: true
   },
   {
     title: "Website Development",
