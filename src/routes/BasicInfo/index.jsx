@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { navigate, redirectTo } from "@reach/router";
 import Button from "components/Button";
@@ -19,11 +19,17 @@ import {
   addDevicePrice,
   saveBasicInfo,
   updateAdditionalPrice,
+  toggleSupportModal,
+  createNewSupportTicket
 } from "../../actions/form";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import { savePageDetails } from "../../actions/form";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
+import SupportModal from "../../components/Modal/SupportModal"
+import { getProfile } from '../../selectors/profile'
+import { getUserProfile } from "../../thunks/profile"
+
 import BasicInfoForm from "./components/BasicInfoForm";
 import "./styles.module.scss";
 
@@ -36,6 +42,8 @@ const BasicInfo = ({
   addDevicePrice,
   setProgressItem,
   savePageDetails,
+  toggleSupportModal,
+  createNewSupportTicket
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
@@ -57,6 +65,9 @@ const BasicInfo = ({
   const basicInfo = useSelector((state) => state.form.basicInfo);
   const currentStep = useSelector((state) => state.progress.currentStep);
   const pageDetails = useSelector((state) => state.form.pageDetails);
+  const showSupportModal = useSelector(state => state.form.showSupportModal);
+  const profileData = useSelector(getProfile);
+  const challenge = useSelector(state => state.challenge);
 
   const onBack = () => {
     navigate("/self-service/wizard");
@@ -127,9 +138,30 @@ const BasicInfo = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addDevicePrice, formData, formData.selectedDevices]);
 
+  const onShowSupportModal = () => {
+    toggleSupportModal(true)
+  }
+  const onHideSupportModal = () => {
+    toggleSupportModal(false)
+  }
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+
+  const onSubmitSupportRequest = (submittedSupportRequest) => 
+    createNewSupportTicket(submittedSupportRequest, challenge?.id, challenge?.legacy?.selfService)
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
+      {showSupportModal && (
+        <SupportModal
+          profileData={profileData}
+          handleClose={onHideSupportModal}
+          onSubmit={onSubmitSupportRequest}
+        ></SupportModal>
+      )}
       <Page>
         <PageContent>
           <PageH2>BASIC INFO</PageH2>
@@ -142,6 +174,7 @@ const BasicInfo = ({
             onFormUpdate={setFormData}
             numOfPages={pageDetails?.pages?.length || 0}
             updateNumOfPages={updateNumOfPages}
+            onShowSupportModal={onShowSupportModal}
           />
 
           <PageDivider />
@@ -185,6 +218,8 @@ const mapDispatchToProps = {
   addDevicePrice,
   setProgressItem,
   savePageDetails,
+  toggleSupportModal,
+  createNewSupportTicket
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);
