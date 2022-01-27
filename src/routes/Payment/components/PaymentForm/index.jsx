@@ -114,14 +114,12 @@ const PaymentForm = ({ formData, setFormData }) => {
       </FormField>
 
       <FormField label="Country or Region">
-        <div className={styles.cardElement}>
-          <ReactSelect
-            value={formData?.design?.value}
-            onChange={(option) => handleInputChange("country", option.value)}
-            options={COUNTRY_OPTIONS}
-            style2={false}
-          ></ReactSelect>
-        </div>
+        <ReactSelect
+          value={formData?.country}
+          onChange={(option) => handleInputChange("country", option.value)}
+          options={COUNTRY_OPTIONS}
+          style2={true}
+        ></ReactSelect>
       </FormField>
 
       <FormField label="Zip Code">
