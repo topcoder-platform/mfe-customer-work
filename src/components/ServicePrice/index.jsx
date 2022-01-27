@@ -4,12 +4,11 @@
 import PageRow from "components/PageElements/PageRow";
 import PT from "prop-types";
 import React from "react";
-import moment from "moment";
 import "./styles.module.scss";
 import WebsiteDesignIcon from "../../assets/images/website-design.svg";
 import HelpIcon from "../HelpIcon";
 
-const ServicePrice = ({ serviceType, price, durationInSec = 86400 }) => {
+const ServicePrice = ({ serviceType, price, duration = 1 }) => {
   return (
     <div styleName="container">
       <PageRow>
@@ -19,7 +18,7 @@ const ServicePrice = ({ serviceType, price, durationInSec = 86400 }) => {
           <div styleName="priceAndDuradion">
             PRICE: ${price}
             <span styleName="separator" />
-            {moment.utc(durationInSec * 1000).format("D")} Days
+            {duration} Days
             <HelpIcon>
               The price and project length is dynamic and dependant on the
               variables selected as your define your work.

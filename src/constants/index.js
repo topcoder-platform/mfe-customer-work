@@ -581,3 +581,725 @@ export const COUNTRY_OPTIONS = countries.map((ct) => ({
   label: ct.name,
   value: ct.code,
 }));
+
+export const COST_TIMELINE_MAPPING = [
+  [
+    {
+      total: 360,
+      submissionDuration: 2,
+      totalDuration: 4,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 100,
+            },
+            {
+              type: "USD",
+              value: 50,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 60,
+            },
+            {
+              type: "USD",
+              value: 60,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 1 device
+    {
+      total: 455,
+      submissionDuration: 2,
+      totalDuration: 4,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 150,
+            },
+            {
+              type: "USD",
+              value: 75,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 70,
+            },
+            {
+              type: "USD",
+              value: 70,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 2 devices
+    {
+      total: 550,
+      submissionDuration: 2,
+      totalDuration: 4,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 200,
+            },
+            {
+              type: "USD",
+              value: 100,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 80,
+            },
+            {
+              type: "USD",
+              value: 80,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 3 devices
+  ], // 1 page
+
+  [
+    {
+      total: 493,
+      submissionDuration: 2,
+      totalDuration: 4,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 175,
+            },
+            {
+              type: "USD",
+              value: 88,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 70,
+            },
+            {
+              type: "USD",
+              value: 70,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 1 device
+    {
+      total: 663,
+      submissionDuration: 2,
+      totalDuration: 4,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 275,
+            },
+            {
+              type: "USD",
+              value: 138,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 80,
+            },
+            {
+              type: "USD",
+              value: 80,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 2 devices
+    {
+      total: 758,
+      submissionDuration: 2,
+      totalDuration: 4,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 325,
+            },
+            {
+              type: "USD",
+              value: 163,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 90,
+            },
+            {
+              type: "USD",
+              value: 90,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 3 devices
+  ], // 2 pages
+
+  [
+    {
+      total: 625,
+      submissionDuration: 3,
+      totalDuration: 5,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 250,
+            },
+            {
+              type: "USD",
+              value: 125,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 80,
+            },
+            {
+              type: "USD",
+              value: 80,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 1 device
+    {
+      total: 870,
+      submissionDuration: 3,
+      totalDuration: 5,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 400,
+            },
+            {
+              type: "USD",
+              value: 200,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 90,
+            },
+            {
+              type: "USD",
+              value: 90,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 2 devices
+    {
+      total: 965,
+      submissionDuration: 3,
+      totalDuration: 5,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 450,
+            },
+            {
+              type: "USD",
+              value: 225,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 100,
+            },
+            {
+              type: "USD",
+              value: 100,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 3 devices
+  ], // 3 pages
+
+  [
+    {
+      total: 758,
+      submissionDuration: 3,
+      totalDuration: 5,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 325,
+            },
+            {
+              type: "USD",
+              value: 163,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 90,
+            },
+            {
+              type: "USD",
+              value: 90,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 1 device
+    {
+      total: 1078,
+      submissionDuration: 3,
+      totalDuration: 5,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 525,
+            },
+            {
+              type: "USD",
+              value: 263,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 100,
+            },
+            {
+              type: "USD",
+              value: 100,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 2 devices
+    {
+      total: 1173,
+      submissionDuration: 4,
+      totalDuration: 6,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 575,
+            },
+            {
+              type: "USD",
+              value: 288,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 110,
+            },
+            {
+              type: "USD",
+              value: 110,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 3 devices
+  ], // 4 pages
+
+  [
+    {
+      total: 890,
+      submissionDuration: 3,
+      totalDuration: 5,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 400,
+            },
+            {
+              type: "USD",
+              value: 200,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 100,
+            },
+            {
+              type: "USD",
+              value: 100,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 1 device
+    {
+      total: 1285,
+      submissionDuration: 3,
+      totalDuration: 5,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 650,
+            },
+            {
+              type: "USD",
+              value: 325,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 110,
+            },
+            {
+              type: "USD",
+              value: 110,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 2 devices
+    {
+      total: 1418,
+      submissionDuration: 4,
+      totalDuration: 6,
+      prizeSets: [
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 725,
+            },
+            {
+              type: "USD",
+              value: 363,
+            },
+            {
+              type: "USD",
+              value: 40,
+            },
+            {
+              type: "USD",
+              value: 30,
+            },
+            {
+              type: "USD",
+              value: 20,
+            },
+          ],
+          description: "Challenge Prizes",
+          type: "placement",
+        },
+        {
+          prizes: [
+            {
+              type: "USD",
+              value: 110,
+            },
+            {
+              type: "USD",
+              value: 110,
+            },
+          ],
+          description: "Reviewer Payment",
+          type: "reviewer",
+        },
+      ],
+    }, // 3 devices
+  ], // 5 pages
+];

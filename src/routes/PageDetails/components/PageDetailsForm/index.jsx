@@ -23,6 +23,7 @@ const PageDetailsForm = ({
   serviceType,
   onAdd,
   onRemove,
+  estimate,
 }) => {
   // get an empty page item
   const emptyPage = () => ({
@@ -73,7 +74,7 @@ const PageDetailsForm = ({
 
   return (
     <div styleName="pageDetailsForm">
-      <ServicePrice price={price} serviceType={serviceType} />
+      <ServicePrice price={estimate.total} duration={estimate.totalDuration} serviceType={serviceType} />
       <PageDivider />
       <PageRow styleName="form-row">
         <div>
@@ -226,6 +227,7 @@ PageDetailsForm.defaultProps = {
 };
 
 PageDetailsForm.propTypes = {
+  estimate: PT.shape().isRequired,
   price: PT.string,
   serviceType: PT.string,
   setListInputs: PT.func,

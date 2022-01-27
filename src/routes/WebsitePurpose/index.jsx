@@ -10,6 +10,7 @@ import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
+import { getDynamicPriceAndTimelineEstimate } from "utils/";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { saveWebsitePurpose } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
@@ -42,6 +43,7 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
   const workType = useSelector((state) => state.form.workType);
   const websitePurpose = useSelector((state) => state.form.websitePurpose);
   const currentStep = useSelector((state) => state.progress.currentStep);
+  const fullState = useSelector((state) => state);
 
   const isFormValid =
     formData?.industry?.value &&
@@ -90,6 +92,7 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
           <PageDivider />
 
           <WebsitePurposeForm
+            estimate={getDynamicPriceAndTimelineEstimate(fullState)}
             price={total}
             serviceType={workType?.selectedWorkTypeDetail}
             formData={formData}

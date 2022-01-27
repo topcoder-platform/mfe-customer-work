@@ -10,6 +10,7 @@ import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
+import { getDynamicPriceAndTimelineEstimate } from "utils/";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { savePageDetails, updatePagePrice } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
@@ -39,6 +40,7 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
   const workType = useSelector((state) => state.form.workType);
   const pageDetails = useSelector((state) => state.form.pageDetails);
   const currentStep = useSelector((state) => state.progress.currentStep);
+  const fullState = useSelector((state) => state);
 
   const onBack = () => {
     navigate("/self-service/website-purpose");
@@ -92,6 +94,7 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
           <PageDivider />
 
           <PageDetailsForm
+            estimate={getDynamicPriceAndTimelineEstimate(fullState)}
             price={total}
             savePageDetails={savePageDetails}
             serviceType={workType?.selectedWorkTypeDetail}

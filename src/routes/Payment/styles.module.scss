@@ -72,11 +72,9 @@
 }
 
 .backButtonContainer {
-  display: flex;
-  flex: 1;
+  @include backButtonContainer;
 
   .backButtonWrapper {
-    min-width: 40px;
-    margin-top: 3px;
+    @include backButtonWrapper;
   }
 }

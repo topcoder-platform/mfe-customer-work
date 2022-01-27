@@ -17,6 +17,7 @@ import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import BrandingForm from "./components/BrandingForm";
 import "./styles.module.scss";
+import { getDynamicPriceAndTimelineEstimate } from "utils/";
 
 /**
  * Branding Page
@@ -55,6 +56,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
   const workType = useSelector((state) => state.form.workType);
   const branding = useSelector((state) => state.form.branding);
   const currentStep = useSelector((state) => state.progress.currentStep);
+  const fullState = useSelector((state) => state);
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -106,6 +108,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
           <PageDivider />
 
           <BrandingForm
+            estimate={getDynamicPriceAndTimelineEstimate(fullState)}
             price={total}
             serviceType={workType?.selectedWorkTypeDetail}
             formData={formData}

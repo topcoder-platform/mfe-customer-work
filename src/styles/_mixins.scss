@@ -56,3 +56,13 @@
     background-color: $grey-bg !important;
   }
 }
+
+@mixin backButtonWrapper {
+  min-width: 40px;
+  margin-top: 3px;
+}
+
+@mixin backButtonContainer {
+  display: flex;
+  flex: 1;
+}

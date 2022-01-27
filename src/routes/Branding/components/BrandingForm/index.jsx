@@ -33,6 +33,7 @@ const BrandingForm = ({
   setFormData,
   formData,
   saveBranding,
+  estimate,
 }) => {
   const [selectedColor, setSelectedColor] = useState(0);
   const [selectedFont, setSelectedFont] = useState(0);
@@ -150,7 +151,7 @@ const BrandingForm = ({
         <PageDivider />
         <PolicyContent />
       </Modal>
-      <ServicePrice price={price} serviceType={serviceType} />
+      <ServicePrice price={estimate.total} duration={estimate.totalDuration} serviceType={serviceType} />
 
       <PageDivider />
       <PageRow styleName="form-row">
@@ -474,6 +475,7 @@ BrandingForm.defaultProps = {
 };
 
 BrandingForm.propTypes = {
+  estimate: PT.shape().isRequired,
   price: PT.string,
   serviceType: PT.string,
   formData: PT.shape(),
