@@ -16,6 +16,7 @@ export const Modal = (
   { 
     children,
     fullWidth,
+    halfWidth,
     handleClose = (f) => f,
     hideClose = false,
     show = false, 
@@ -33,7 +34,7 @@ export const Modal = (
           tabIndex={0}
         ></div>
 
-        <div styleName={cn("modalContent", fullWidth ? "full-width" : "")}>
+        <div styleName={cn("modalContent", fullWidth ? "full-width" : "", halfWidth ? "half-width" : "")}>
 
           <div className={styles.titleContainer}>
             {title}

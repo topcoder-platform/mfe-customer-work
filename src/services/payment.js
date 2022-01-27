@@ -15,16 +15,7 @@ import { axiosInstance as axios } from "./requestInterceptor";
  *
  * @returns {Promise} promise
  */
-export async function processPayment(
-  stripe,
-  elements,
-  amount,
-  challengeId,
-  cardName, 
-  country, 
-  email,
-  zipCode
-) {
+export async function processPayment(stripe, elements, amount, challengeId) {
   // get project ID from challenge
   const challenge = await challengeService.getChallengeDetails(challengeId);
 
@@ -40,15 +31,11 @@ export async function processPayment(
     // please remove this comment after the api is updated
     const body = JSON.stringify({
       amount,
-      cardName, 
-      country, 
-      email,
-      zipCode,
       paymentMethodId: payload.paymentMethod.id,
       reference: "project",
       referenceId: _.toString(challenge.projectId),
     });
-    const url =  `${config.API.V5}/customer-payments`;
+    const url = `${config.API.V5}/customer-payments`;
     let response = await axios.post(url, body);
 
     const customerPayment = response.data;

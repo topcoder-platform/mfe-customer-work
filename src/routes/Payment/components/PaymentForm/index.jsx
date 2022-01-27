@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from "lodash";
 import {
   CardCvcElement,
   CardExpiryElement,
@@ -8,10 +8,10 @@ import PT from "prop-types";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
-import { FormField }  from "../../../../components/FormElements/FormField";
+import { FormField } from "../../../../components/FormElements/FormField";
 import { FormInputText } from "../../../../components/FormElements/FormInputText";
-import { ReactSelect } from '../../../../components/ReactSelect';
-import { COUNTRY_OPTIONS } from '../../../../constants';
+import { ReactSelect } from "../../../../components/ReactSelect";
+import { COUNTRY_OPTIONS } from "../../../../constants";
 import { getProfile } from "../../../../selectors/profile";
 
 import styles from "./styles.module.scss";
@@ -20,7 +20,8 @@ import styles from "./styles.module.scss";
  * Payment Form Page
  */
 const PaymentForm = ({ formData, setFormData }) => {
-  const handleInputChange = (name, value) => setFormData((formData) => ({ ...formData, [name]: value }));
+  const handleInputChange = (name, value) =>
+    setFormData((formData) => ({ ...formData, [name]: value }));
 
   const [cardNumberError, setCardNumberError] = useState("");
   const [cardExpiryError, setCardExpiryError] = useState("");
@@ -32,18 +33,18 @@ const PaymentForm = ({ formData, setFormData }) => {
     setFormData({
       ...formData,
       email,
-    })
+    });
   }
 
-  const getFieldError = (data) => data?.error?.message || ""
+  const getFieldError = (data) => data?.error?.message || "";
 
   const onCardNumberChange = (data) => {
     const errorMessage = getFieldError(data);
     setCardNumberError(errorMessage);
     if (_.isEmpty(errorMessage)) {
       handleInputChange("cardNumber", data?.complete);
-    } 
-  }
+    }
+  };
 
   const onExpirationChange = (data) => {
     const errorMessage = getFieldError(data);
@@ -51,34 +52,32 @@ const PaymentForm = ({ formData, setFormData }) => {
     if (_.isEmpty(errorMessage)) {
       handleInputChange("expiryDate", data?.complete);
     }
-  }
+  };
 
   const onCvcChange = (data) => {
     const errorMessage = getFieldError(data);
     setCvcError(errorMessage);
     handleInputChange("cvc", !errorMessage && data?.complete);
-  }
+  };
 
   return (
     <div className={styles.paymentForm}>
-
-      <div className={styles.formHeader}>
-        Contact Information
-      </div>
+      <div className={styles.formHeader}>Contact Information</div>
 
       <FormField label="Email">
         <div className={styles.cardElement}>
-          <FormInputText name="email" value={email} disabled></FormInputText>
+          <FormInputText name="email" value={email}></FormInputText>
         </div>
       </FormField>
 
-      <div className={styles.formHeader}>
-        Card Information
-      </div>
+      <div className={styles.formHeader}>Card Information</div>
 
       <FormField label="Card Number">
         <div className={styles.cardElement}>
-          <CardNumberElement required onChange={(data) => onCardNumberChange(data)} />
+          <CardNumberElement
+            required
+            onChange={(data) => onCardNumberChange(data)}
+          />
         </div>
         {!!String(cardNumberError).length && (
           <span className={styles.error}>{cardNumberError}</span>
@@ -88,7 +87,10 @@ const PaymentForm = ({ formData, setFormData }) => {
       <div className={styles.halfWidth}>
         <FormField label={"Expiration Date"}>
           <div className={styles.cardElement}>
-            <CardExpiryElement required onChange={(data) => onExpirationChange(data)} />
+            <CardExpiryElement
+              required
+              onChange={(data) => onExpirationChange(data)}
+            />
           </div>
           {!!String(cardExpiryError).length && (
             <span className={styles.error}>{cardExpiryError}</span>
@@ -107,7 +109,8 @@ const PaymentForm = ({ formData, setFormData }) => {
 
       <FormField label="Name On Card">
         <div className={styles.cardElement}>
-          <FormInputText name="cardName" 
+          <FormInputText
+            name="cardName"
             onChange={(e) => handleInputChange(e.target.name, e.target.value)}
           ></FormInputText>
         </div>
@@ -116,7 +119,7 @@ const PaymentForm = ({ formData, setFormData }) => {
       <FormField label="Country or Region">
         <ReactSelect
           value={formData?.country}
-          onChange={(option) => handleInputChange("country", option.value)}
+          onChange={(option) => handleInputChange("country", option)}
           options={COUNTRY_OPTIONS}
           style2={true}
         ></ReactSelect>
@@ -124,12 +127,13 @@ const PaymentForm = ({ formData, setFormData }) => {
 
       <FormField label="Zip Code">
         <div className={styles.cardElement}>
-          <FormInputText name="zipCode" placeholder="12345"
+          <FormInputText
+            name="zipCode"
+            placeholder="12345"
             onChange={(e) => handleInputChange(e.target.name, e.target.value)}
           ></FormInputText>
         </div>
       </FormField>
-      
     </div>
   );
 };
@@ -139,7 +143,7 @@ PaymentForm.defaultProps = {};
 PaymentForm.propTypes = {
   formData: PT.shape(),
   onFormUpdate: PT.func,
-  setFormData: PT.func.isRequired
+  setFormData: PT.func.isRequired,
 };
 
 export default PaymentForm;

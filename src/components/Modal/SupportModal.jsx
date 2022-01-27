@@ -59,6 +59,7 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
 
     return (
         <Modal
+            halfWidth
             handleClose={handleClose}
             hideClose={true}
             show={true}

@@ -13,7 +13,7 @@
     width: 80%;
     max-width: 350px;
     min-height: 300px;
-    height: calc(100vh - 100px);
+    max-height: calc(100vh - 100px);
     margin: 50px auto 0;
     background: white;
     position: relative;
@@ -44,6 +44,10 @@
   
   .full-width {
     max-width: 100%;
+  }
+
+  .half-width {
+    max-width: 50%;
   }
 
   .modalBackground {

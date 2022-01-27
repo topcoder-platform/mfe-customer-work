@@ -62,7 +62,7 @@ const Payment = ({ setProgressItem }) => {
     country: null,
     cvc: false, // value is bool indicating if it's valid or not
     expiryDate: false, // value is bool indicating if it's valid or not
-    zipCode: null
+    zipCode: null,
   });
 
   const onBack = () => {
@@ -84,16 +84,7 @@ const Payment = ({ setProgressItem }) => {
     setLoading(true);
 
     services
-      .processPayment(
-        stripe,
-        elements,
-        total,
-        challengeId,
-        formData.cardName,
-        formData.country,
-        formData.email,
-        formData.zipCode
-      )
+      .processPayment(stripe, elements, total, challengeId)
       .then((res) => {
         activateChallenge(challengeId);
         clearPreviousForm();
