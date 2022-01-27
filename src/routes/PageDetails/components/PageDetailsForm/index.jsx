@@ -4,7 +4,9 @@
 import FormField from "components/FormElements/FormField";
 import FormInputText from "components/FormElements/FormInputText";
 import FormInputTextArea from "components/FormElements/FormInputTextArea";
+import HelpBanner from "components/HelpBanner";
 import PageDivider from "components/PageDivider";
+import PageH3 from "components/PageElements/PageH3";
 import PageP from "components/PageElements/PageP";
 import PageRow from "components/PageElements/PageRow";
 import PageListInput from "components/PageListInput";
@@ -77,10 +79,10 @@ const PageDetailsForm = ({
         <div>
           <PageP styleName="title">Describe your pages</PageP>
           <PageP styleName="description">
-            <p>
+            <PageP>
               For each page (or screen) required in your design project, please
               provide:
-            </p>
+            </PageP>
             <ol styleName="list">
               <li>A descriptive page name. i.e. Landing Page</li>
               <li>The primary purpose of the page.</li>
@@ -90,15 +92,36 @@ const PageDetailsForm = ({
                 documents. Tip: Use bullets to list and organize these details.
               </li>
             </ol>
-            <div role="button" tabIndex="0" styleName="link" target="_blank">
-              See an example page description
-            </div>
+            <HelpBanner title="Example Page description" styles={["gray"]}>
+              <PageH3>Page Name</PageH3>
+              <PageP>WalkieDoggie Homepage</PageP>
+              <PageH3>Requirements & Details </PageH3>
+              <PageP>The purpose of this screen is to welcome our customers and make them feel welcome and warm. We love their dog and we want them to feel it!</PageP>
+              <br />
+              <PageP>This page is essentially a landing page where we really want them to do one core action and that’s to get started finding their perfect “Walkie” which is what we call our professional dog walkers.</PageP>
+              <br />
+              <PageP> Top Navigation:
+                <br /> 
+                The top navigation of the website should allow a user to mouse over core navigation sections. Our Services, Our Walkies, Our Promise, Locations We Serve, FAQs
+              </PageP>
+              <br />
+              <PageP>In the top navigation - top right - I’d like to make sure a user can “Create an Account” and if they are logged in, they would see their profile image and know they are logged in.</PageP>
+              <br />
+              <PageP>Main Body: I want to see amazing imagery choice/design here and a large tagline that reads, “We Love Your Dog, Too” with a main button that says “Find Your Walkie”</PageP>
+              <br />
+              <PageP>On the home screen I would also like to see included: Our TrustPilot Rating - <a href="https://www.trustpilot.com/"> https://www.trustpilot.com/ </a> - We have a 4.7 out of 5 rating so plz mock up how that will look.</PageP>
+              <br />
+              <PageP>I want a badge of some sort that indicates all of our dog walkers are insured.</PageP>
+              <br />
+              <PageP>I want to see one amazing testimonial on the screen that reads… “WalkieDoggie is perfect. They are always professional and they take amazing care of our dog, Beefcake.” The testimonial is from “Victoria B.” from Tacoma, Washington (please use an image of a young, professional female for this testimonial image</PageP>
+            </HelpBanner>
           </PageP>
         </div>
 
         <div styleName="formFieldWrapper">
           <PageListInput
             listInput={listInputs.pages}
+            canAdd={listInputs.pages.length < 5}
             name="pages"
             addListInputItem={addListInputItem}
           >

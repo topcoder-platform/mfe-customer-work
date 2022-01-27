@@ -16,28 +16,19 @@ import React, { useEffect } from "react";
 import DeviceTypes from "../DeviceTypes";
 import "./styles.module.scss";
 
-const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
+const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate, numOfPages, updateNumOfPages }) => {
   const handleInputChange = (name, value, option = "") => {
     onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
   };
 
-  const listOptions = PageOptions;
+  const listOptions = _.map(PageOptions, (o, i) => ({ ...o, value: i === numOfPages - 1 }));
   useEffect(() => {
     return () => {
-      listOptions.forEach((option) => {
+      listOptions.forEach((option, i) => {
         option.value = false;
       });
     };
   }, []);
-
-  useEffect(() => {
-    if (
-      formData?.selectedPageOption &&
-      listOptions[formData?.selectedPageOption?.value]
-    ) {
-      listOptions[formData?.selectedPageOption?.value].value = true;
-    }
-  }, [formData]);
 
   return (
     <div styleName="basicInfoForm">
@@ -78,14 +69,9 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
 
         <div styleName="formFieldWrapper">
           <RadioButton
-            onChange={(items) => {
-              const selectedOption = items.findIndex((item) => item.value);
-              const option = items.find((item) => item.value);
-              handleInputChange(
-                "selectedPageOption",
-                selectedOption,
-                option.label
-              );
+            onChange={(items, i) => {
+              const newNumOfPages = _.findIndex(items, i => i.value)
+              updateNumOfPages(newNumOfPages + 1)
             }}
             size="lg"
             options={listOptions}

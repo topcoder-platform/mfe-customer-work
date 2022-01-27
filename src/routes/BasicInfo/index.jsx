@@ -22,6 +22,7 @@ import {
 } from "../../actions/form";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
+import { savePageDetails } from "../../actions/form";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import BasicInfoForm from "./components/BasicInfoForm";
 import "./styles.module.scss";
@@ -34,19 +35,17 @@ const BasicInfo = ({
   updateAdditionalPrice,
   addDevicePrice,
   setProgressItem,
+  savePageDetails,
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
-    selectedPageOption: { title: "How Many Pages?", option: "", value: null },
     selectedDevices: {
       title: "Device Types",
       option: ["Computer"],
       value: [0],
     },
   });
-  const isFormValid =
-    formData?.projectTitle?.value.length &&
-    formData?.selectedPageOption?.value !== null;
+  const isFormValid = formData?.projectTitle?.value.length;
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const price = useSelector((state) => state.form.price);
@@ -57,6 +56,7 @@ const BasicInfo = ({
   const workType = useSelector((state) => state.form.workType);
   const basicInfo = useSelector((state) => state.form.basicInfo);
   const currentStep = useSelector((state) => state.progress.currentStep);
+  const pageDetails = useSelector((state) => state.form.pageDetails);
 
   const onBack = () => {
     navigate("/self-service/wizard");
@@ -66,6 +66,24 @@ const BasicInfo = ({
     setProgressItem(3);
     saveBasicInfo(formData);
     navigate("/self-service/website-purpose");
+  };
+
+  const updateNumOfPages = (newNumOfPages) => {
+    let newPages = pageDetails.pages
+    if (newNumOfPages < newPages.length) {
+      newPages = newPages.slice(0, newNumOfPages)
+    } else {
+      for (let i = 0; i <= newNumOfPages - newPages.length; i += 1) {
+        newPages.push({
+          pageName: "",
+          pageDetails: "",
+        })
+      }
+    }
+    savePageDetails({
+      ...pageDetails,
+      pages: newPages
+    });
   };
 
   const [firstMounted, setFirstMounted] = useState(true);
@@ -94,9 +112,7 @@ const BasicInfo = ({
 
   useEffect(() => {
     if (formData) {
-      updateAdditionalPrice(
-        PageOptions[formData?.selectedPageOption?.value]?.price || 0
-      );
+      updateAdditionalPrice(0); // TODO: fix this
       saveBasicInfo(formData);
     }
   }, [formData, updateAdditionalPrice, saveBasicInfo]);
@@ -124,6 +140,8 @@ const BasicInfo = ({
             price={total}
             serviceType={workType?.selectedWorkTypeDetail}
             onFormUpdate={setFormData}
+            numOfPages={pageDetails?.pages?.length || 0}
+            updateNumOfPages={updateNumOfPages}
           />
 
           <PageDivider />
@@ -166,6 +184,7 @@ const mapDispatchToProps = {
   saveBasicInfo,
   addDevicePrice,
   setProgressItem,
+  savePageDetails,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);

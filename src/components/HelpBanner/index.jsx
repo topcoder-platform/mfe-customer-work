@@ -3,15 +3,15 @@
  */
 import classNames from "classnames";
 import React, { useState } from "react";
+import cn from "classnames";
 import ArrowIcon from "../../assets/images/icon-arrow.svg";
 import "./styles.module.scss";
 
-const HelpBanner = ({ title, description }) => {
+const HelpBanner = ({ title, description, children, styles = [] }) => {
   const [open, setOpen] = useState(false);
-
   return (
     <div
-      styleName="banner"
+      styleName={cn("banner", ...styles)}
       onClick={() => setOpen(!open)}
       role="button"
       tabIndex={0}
@@ -24,7 +24,7 @@ const HelpBanner = ({ title, description }) => {
         </div>
       </div>
 
-      {open && <p styleName="description">{description}</p>}
+      {open && <p styleName="description">{children || description}</p>}
     </div>
   );
 };
