@@ -1,11 +1,23 @@
 import { navigate } from "@reach/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 
 import { triggerAutoSave } from "../../actions/autoSave";
-import { saveWorkType, updatePrice, toggleSupportModal, createNewSupportTicket } from "../../actions/form";
+import { 
+  saveWorkType,
+  updatePrice,
+  toggleSupportModal,
+  createNewSupportTicket,
+  resetIntakeForm
+} from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
+import {
+  clearAutoSavedForm,
+  clearCachedChallengeId,
+  setCookie,
+} from "../../autoSaveBeforeLogin";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
+import IconWebsiteTools from "../../assets/images/design-tools.svg";
 import Button from "../../components/Button";
 import HelpBanner from "../../components/HelpBanner";
 import SupportModal from "../../components/Modal/SupportModal";
@@ -15,11 +27,11 @@ import PageContent from "../../components/PageContent";
 import PageDivider from "../../components/PageDivider";
 import PageFoot from "../../components/PageElements/PageFoot";
 import PageH2 from "../../components/PageElements/PageH2";
-import { BUTTON_SIZE, BUTTON_TYPE, HELP_BANNER, webWorkTypes, workTypes } from "constants/";
+import { BUTTON_SIZE, BUTTON_TYPE, HELP_BANNER, ROUTES, MAX_COMPLETED_STEP, webWorkTypes } from "../../constants/";
 import { getProfile } from "../../selectors/profile";
 import { getUserProfile } from "../../thunks/profile";
 
-import "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 /**
  * Select Work Type Page
@@ -115,6 +127,15 @@ const SelectWorkType = ({
       challenge?.legacy?.selfService
     );
 
+  const onStartWork = useCallback(() => {
+    console.debug('starting work')
+    setCookie(MAX_COMPLETED_STEP, "", -1);
+    clearCachedChallengeId();
+    clearAutoSavedForm();
+    dispatch(resetIntakeForm(true));
+    navigate(ROUTES.INTAKE_FORM);
+  }, []);
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -129,8 +150,56 @@ const SelectWorkType = ({
         <PageContent>
           <PageH2>SELECT WORK TYPE</PageH2>
 
+          <div className={styles.heroContainer}>
 
-          <PageDivider />
+            <div className={styles.heroBackgroundContainer}></div>
+
+            <div className={styles.heroContent}>
+              <div className={styles.heroHeader}>
+                <div className={styles.heroIconContainer}>
+                  <IconWebsiteTools />
+                </div>
+                <div className={styles.heroHeaderContent}>
+                  <div>website design</div>
+                  <div className={styles.heroHeaderSubtitle}>starting at $630 | 5–7 Days</div>
+                </div>
+              </div>
+              <div className={styles.heroText}>
+                ​​Create a beautiful custom visual design for your website. 
+                Specify the scope and device types, your vision, and receive 
+                up to 5 modern designs.
+              </div>              
+              <div className={styles.heroButtonContainer}>
+                <Button
+                    onClick={onStartWork}
+                    size={BUTTON_SIZE.MEDIUM}
+                    type='secondary'
+                  >
+                    START WORK
+                  </Button>
+              </div>
+            </div>
+
+          </div>
+
+          <div className={styles.cardContainer}>
+            <div className={styles.card}>
+              <div className={styles.smallHeader}>Coming Soon</div>
+              <div className={styles.title}>Website Development</div>
+              <div className={styles.text}>
+                  Our developers can bring your website designs to life! 
+                  We'll get your website ready for the world to see. 
+              </div>
+            </div>
+            <div className={styles.card}>
+              <div className={styles.smallHeader}>Coming Soon</div>
+              <div className={styles.title}>Data Sciene &amp; AI</div>
+              <div className={styles.text}>
+                Data Mining &amp; Analysis will empower you to reach your goals faster. 
+                Tap data science geniuses from our pool of experts. 
+              </div>
+            </div>
+          </div>
 
           <HelpBanner
             title={HELP_BANNER.title}
@@ -138,14 +207,16 @@ const SelectWorkType = ({
             contactSupport={onShowSupportModal}
           />
 
+          <PageDivider />
+
           <PageFoot>
-            <div styleName="backButtonContainer">
+            <div className={styles.backButtonContainer}>
               <Button
                 size={BUTTON_SIZE.MEDIUM}
                 type={BUTTON_TYPE.SECONDARY}
                 onClick={onBack}
               >
-                <div styleName="backButtonWrapper">
+                <div className={styles.backButtonWrapper}>
                   <BackIcon />
                 </div>
               </Button>
