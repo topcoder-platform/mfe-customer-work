@@ -54,7 +54,6 @@ const SelectWorkType = ({
   const profileData = useSelector(getProfile);
 
   useEffect(() => {
-    setProgressItem(1);
     setSelectInit(true);
 
     return () => {
@@ -128,12 +127,12 @@ const SelectWorkType = ({
     );
 
   const onStartWork = useCallback(() => {
-    console.debug('starting work')
     setCookie(MAX_COMPLETED_STEP, "", -1);
     clearCachedChallengeId();
     clearAutoSavedForm();
     dispatch(resetIntakeForm(true));
-    navigate(ROUTES.INTAKE_FORM);
+    setProgressItem(1);
+    navigate("/self-service/basic-info");
   }, []);
 
   return (
