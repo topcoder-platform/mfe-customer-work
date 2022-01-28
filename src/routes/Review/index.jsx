@@ -106,11 +106,11 @@ const Review = ({ setProgressItem }) => {
           <ReviewTable formData={formData} />
 
           <div styleName="confirmationBox">
-            Details above accurately describe the work I’m engaging in. I
-            understand that this information is what Topcoder members will see,
-            and it is accurate to the best of my ability. From this point
-            forward, I understand that I cannot edit these requirements or
-            change the scope of the project.
+            <strong>
+              The details above accurately describe the work I want delivered.
+            </strong>{" "}
+            From this point forward, I understand that I cannot edit these
+            requirements nor change the scope of the project.
             <br />
             <br />
             <FormInputCheckbox

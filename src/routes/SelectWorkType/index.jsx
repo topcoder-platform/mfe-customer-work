@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 
 import { triggerAutoSave } from "../../actions/autoSave";
-import { 
+import {
   saveWorkType,
   updatePrice,
   toggleSupportModal,
-  createNewSupportTicket
+  createNewSupportTicket,
 } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import {
@@ -27,7 +27,13 @@ import PageContent from "../../components/PageContent";
 import PageDivider from "../../components/PageDivider";
 import PageFoot from "../../components/PageElements/PageFoot";
 import PageH2 from "../../components/PageElements/PageH2";
-import { BUTTON_SIZE, BUTTON_TYPE, HELP_BANNER, webWorkTypes, workTypes } from "../../constants/";
+import {
+  BUTTON_SIZE,
+  BUTTON_TYPE,
+  HELP_BANNER,
+  webWorkTypes,
+  workTypes,
+} from "../../constants/";
 import { getProfile } from "../../selectors/profile";
 import { getUserProfile } from "../../thunks/profile";
 
@@ -36,9 +42,9 @@ import styles from "./styles.module.scss";
 /**
  * Select Work Type Page
  */
-const SelectWorkType = ({ 
+const SelectWorkType = ({
   saveWorkType,
-  updatePrice, 
+  updatePrice,
   setProgressItem,
   toggleSupportModal,
   createNewSupportTicket,
@@ -53,12 +59,9 @@ const SelectWorkType = ({
   const showSupportModal = useSelector((state) => state.form.showSupportModal);
   const profileData = useSelector(getProfile);
 
-  const allWorkTypes = [
-    ...workTypes,
-    ...webWorkTypes
-  ]
-  const workTypesComingSoon = allWorkTypes.filter(wt => wt.comingSoon)
-  const featuredWorkType = allWorkTypes.find(wt => wt.featured)
+  const allWorkTypes = [...workTypes, ...webWorkTypes];
+  const workTypesComingSoon = allWorkTypes.filter((wt) => wt.comingSoon);
+  const featuredWorkType = allWorkTypes.find((wt) => wt.featured);
 
   useEffect(() => {
     setCurrentStep(1);
@@ -149,7 +152,6 @@ const SelectWorkType = ({
           <PageH2>SELECT WORK TYPE</PageH2>
 
           <div className={styles.heroContainer}>
-
             <div className={styles.heroBackgroundContainer}></div>
 
             <div className={styles.heroContent}>
@@ -164,28 +166,27 @@ const SelectWorkType = ({
                   </div>
                 </div>
               </div>
-              <div className={styles.heroText}>{featuredWorkType.subTitle}</div>              
+              <div className={styles.heroText}>{featuredWorkType.subTitle}</div>
               <div className={styles.heroButtonContainer}>
                 <Button
-                    onClick={() => handleClick(featuredWorkType)}
-                    size={BUTTON_SIZE.MEDIUM}
-                    type='secondary'
-                  >
-                    START WORK
-                  </Button>
+                  onClick={() => handleClick(featuredWorkType)}
+                  size={BUTTON_SIZE.MEDIUM}
+                  type="secondary"
+                >
+                  START WORK
+                </Button>
               </div>
             </div>
-
           </div>
 
           <div className={styles.cardContainer}>
-
-            {workTypesComingSoon.map(wt => <div className={styles.card}>
+            {workTypesComingSoon.map((wt) => (
+              <div className={styles.card}>
                 <div className={styles.smallHeader}>Coming Soon</div>
                 <div className={styles.title}>{wt.title}</div>
                 <div className={styles.text}>{wt.subTitle}</div>
-              </div>)}
-
+              </div>
+            ))}
           </div>
 
           <HelpBanner
@@ -209,7 +210,6 @@ const SelectWorkType = ({
               </Button>
             </div>
           </PageFoot>
-
         </PageContent>
       </Page>
     </>

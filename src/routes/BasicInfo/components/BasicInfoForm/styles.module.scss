@@ -25,3 +25,14 @@
     margin-top: 48px;
   }
 }
+
+.infoAlert {
+  @include font-barlow;
+  display: flex;
+  padding: 16px;
+  background: #E0FAF3;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 16px;
+  line-height: 26px;
+}

@@ -36,16 +36,20 @@ const WebsitePurposeForm = ({
 
   return (
     <div styleName="websitePurposeForm">
-      <ServicePrice price={estimate.total} duration={estimate.totalDuration} serviceType={serviceType} />
+      <ServicePrice
+        price={estimate.total}
+        duration={estimate.totalDuration}
+        serviceType={serviceType}
+      />
 
       <PageDivider />
       <PageRow styleName="form-row">
         <div>
           <PageP styleName="title">Your industry</PageP>
           <PageP styleName="description">
-            Knowing the industry that you want your website designed for will
-            help the designers understand some basic visual directions and
-            overall tone of your website design.
+            Knowing your industry will help our designers understand your
+            audience, and the basic visual direction and overall tone to take
+            for your website design.
           </PageP>
         </div>
 
@@ -69,14 +73,14 @@ const WebsitePurposeForm = ({
         <div>
           <PageP styleName="title">DESCRIPTION</PageP>
           <PageP styleName="description">
-            Describe what your website does. This can include general
-            descriptions as well as goals of the website...{" "}
+            What is the purpose of your website? What do you want visitors to be
+            able to do, e.g., see your work? contact you? You can include a
+            general description as well as goals of the website.{" "}
           </PageP>
           <br />
           <PageP styleName="description">
             <strong>Example:</strong> <br />A dog walking website that allows
-            visitors to select dog walkers and schedule dog walking
-            appointments.
+            visitors to select dog walkers and schedule dog walking appointments
           </PageP>
         </div>
 
@@ -97,12 +101,17 @@ const WebsitePurposeForm = ({
       <PageRow styleName="form-row">
         <div>
           <PageP styleName="title">USERS</PageP>
-          <PageP styleName="description">Who will use your website?</PageP>
+          <PageP styleName="description">
+            Describe your target audience—are they pharmaceutical reps?
+            Middle-aged mechanical engineers? Beekeepers? Write their user
+            story, using the format, “As a &lt;type of userz&gt;, I want
+            &lt;some goal&gt;, so that &lt;some reason&gt;.”
+          </PageP>
           <br />
           <PageP styleName="description">
-            <strong>Example:</strong> <br />A dog walking website that allows
-            visitors to select dog walkers and schedule dog walking
-            appointments.
+            <strong>Example:</strong> <br />
+            “As a dog owner, I want someone trustworthy to walk my dog, so that
+            he feels lovedwhen i'm at work.“
           </PageP>
         </div>
 
@@ -125,9 +134,9 @@ const WebsitePurposeForm = ({
           <PageP styleName="title">EXISTING WEBSITE?</PageP>
           <PageP styleName="description">
             If you have an existing website, please enter it here. Are we
-            designing new pages for your existing website? Or are we redesigning
-            your current website? Please add additional information on how the
-            designers should reference and use your existing website.
+            designing additional pages for your existing website? Or are we
+            redesigning your current website? Please add additional information
+            on how the designers should reference and use your existing website.
           </PageP>
         </div>
 
