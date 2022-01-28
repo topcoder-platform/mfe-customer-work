@@ -74,7 +74,11 @@ const PageDetailsForm = ({
 
   return (
     <div styleName="pageDetailsForm">
-      <ServicePrice price={estimate.total} duration={estimate.totalDuration} serviceType={serviceType} />
+      <ServicePrice
+        price={estimate.total}
+        duration={estimate.totalDuration}
+        serviceType={serviceType}
+      />
       <PageDivider />
       <PageRow styleName="form-row">
         <div>
@@ -90,7 +94,7 @@ const PageDetailsForm = ({
               <li>
                 Describe all required content and functional elements. Or,
                 reference the content as provided in uploaded resource
-                documents. Tip: Use bullets to list and organize these details.
+                documents.
               </li>
             </ol>
             <HelpBanner title="Example Page description" styles={["gray"]}>

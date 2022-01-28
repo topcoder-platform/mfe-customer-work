@@ -48,7 +48,8 @@ export const BUTTON_TYPE = {
 export const MAX_COMPLETED_STEP = "MAX_COMPLETED_STEP";
 export const HELP_BANNER = {
   title: "Not seeing what you need?",
-  description: "Not seeing what you need?",
+  description:
+    "Topcoder also offers solutions for multiple other technical needs and problems. We have community members expertly skilled in the areas of UX / UI  Design, Data Science, Quality Assurance, and more. We’d love to talk with you about all of our services.",
 };
 
 /**
@@ -188,11 +189,12 @@ export const AllowStockOptions = [
  * Work Types
  */
 export const workTypes = [
-  { 
+  {
     title: "Web",
-    subTitle: "Our developers can bring your website designs to life! We'll get your website ready for the world to see.",
+    subTitle:
+      "Our developers can bring your website designs to life! We'll get your website ready for the world to see.",
     price: 499,
-    comingSoon: true
+    comingSoon: true,
   },
   { title: "Mobile", subTitle: "Example or description text", price: 499 },
   {
@@ -203,9 +205,10 @@ export const workTypes = [
   { title: "API", subTitle: "Example or description text", price: 499 },
   {
     title: "Data Science & AI",
-    subTitle: "Data Mining & Analysis will empower you to reach your goals faster. Tap data science geniuses from our pool of experts.",
+    subTitle:
+      "Data Mining & Analysis will empower you to reach your goals faster. Tap data science geniuses from our pool of experts.",
     price: 499,
-    comingSoon: true
+    comingSoon: true,
   },
   {
     title: "Visual Design",
@@ -220,9 +223,10 @@ export const workTypes = [
 export const webWorkTypes = [
   {
     title: "Website Design",
-    subTitle: "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    subTitle:
+      "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
     price: 630,
-    featured: true
+    featured: true,
   },
   {
     title: "Website Development",

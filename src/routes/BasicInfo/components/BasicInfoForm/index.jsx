@@ -51,6 +51,13 @@ const BasicInfoForm = ({
         duration={estimate.totalDuration}
         serviceType={serviceType}
       />
+      <div styleName="infoAlert">
+        Your Website Design project includes up to 5 unique Visual Design
+        solutions. Each solution will match your specified scope and device
+        types. You will receive industry-standard source files to take forward
+        to further design and/or development. Design deliverables will NOT
+        include functional code.
+      </div>
 
       <PageDivider />
       <PageRow styleName="form-row">

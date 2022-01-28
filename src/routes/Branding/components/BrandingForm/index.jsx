@@ -151,7 +151,11 @@ const BrandingForm = ({
         <PageDivider />
         <PolicyContent />
       </Modal>
-      <ServicePrice price={estimate.total} duration={estimate.totalDuration} serviceType={serviceType} />
+      <ServicePrice
+        price={estimate.total}
+        duration={estimate.totalDuration}
+        serviceType={serviceType}
+      />
 
       <PageDivider />
       <PageRow styleName="form-row">
@@ -184,7 +188,7 @@ const BrandingForm = ({
         <div>
           <PageP styleName="title">Inspiration</PageP>
           <PageP styleName="description">
-            Are there other website that you like that the designers can draw
+            Are there other websites you would like our designers to draw
             inspiration from? List websites you like and describe what you like
             about them.
           </PageP>
@@ -251,8 +255,8 @@ const BrandingForm = ({
         <div>
           <PageP styleName="title">COLORS</PageP>
           <PageP styleName="description">
-            Pick up to three colors you'd like your designers to use when
-            designing. You can also specify your specific brand colors.
+            Pick up to three colors you'd like our designers to use. You can
+            also include your specific brand colors.
           </PageP>
         </div>
 
@@ -289,7 +293,7 @@ const BrandingForm = ({
           <PageP styleName="title">FONTS</PageP>
           <PageP styleName="description">
             Choose your general font style preference. If you have specific
-            fonts that should be used, please upload them.
+            fonts that should be used, please share them.
           </PageP>
         </div>
 
@@ -341,9 +345,9 @@ const BrandingForm = ({
         <div>
           <PageP styleName="title">Other Assets (optional)</PageP>
           <PageP styleName="description">
-            Do you have any additional assets that would be helpful to the
-            designers? E.g. Your current logo, branding direction, photos,
-            illustrations, content, layout ideas, etc.{" "}
+            Do you have any additional assets that would be helpful to our
+            designers? For example, your current logo, branding direction,
+            photos, illustrations, content, layout ideas, etc.{" "}
           </PageP>
         </div>
 
@@ -369,9 +373,8 @@ const BrandingForm = ({
         <div>
           <PageP styleName="title">Anything to avoid? (optional)</PageP>
           <PageP styleName="description">
-            If there are any themes, ideas, or specific directions that the
-            designers should avoid, please let us know. Be as descriptive as
-            possible.
+            If there are any themes, ideas, or specific directions our designers
+            should avoid, please let us know. Be as descriptive as possible.
           </PageP>
         </div>
 
@@ -393,9 +396,9 @@ const BrandingForm = ({
         <div>
           <PageP styleName="title">Allow Stock Photos?</PageP>
           <PageP styleName="description">
-            There may be additional costs for designs that use stock images.
-            Designers will include details for stock images, so you can buy
-            stock at the end of your contest.{" "}
+            ​​There may be additional costs for designs that use stock images.
+            Our designers will include details for any stock images used, so you
+            can buy them at the end of the project.{" "}
             <span
               role="button"
               tabIndex={0}
@@ -429,8 +432,8 @@ const BrandingForm = ({
         <div>
           <PageP styleName="title">Final Deliverable Source Files</PageP>
           <PageP styleName="description">
-            If the designers must design your website in a specific design
-            software, please specify...{" "}
+            If you want your final deliverables created with a specific design
+            software, please specify.{" "}
           </PageP>
         </div>
 
