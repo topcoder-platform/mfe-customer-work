@@ -42,7 +42,7 @@ const ThankYou = () => {
               <PageH2>THANK YOU</PageH2>
               <p>
                 Your payment has been processed successfully. You will now be
-                taken to your work dashboard where you can manage the work
+                taken to your work Dashboard where you can manage the work
                 you’ve submitted.
               </p>
 
