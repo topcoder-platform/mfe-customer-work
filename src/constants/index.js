@@ -596,7 +596,7 @@ export const COUNTRY_OPTIONS = countries.map((ct) => ({
 export const COST_TIMELINE_MAPPING = [
   [
     {
-      total: 360,
+      total: 649,
       submissionDuration: 2,
       totalDuration: 4,
       prizeSets: [
@@ -643,7 +643,7 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 1 device
     {
-      total: 455,
+      total: 748,
       submissionDuration: 2,
       totalDuration: 4,
       prizeSets: [
@@ -690,7 +690,7 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 2 devices
     {
-      total: 550,
+      total: 847,
       submissionDuration: 2,
       totalDuration: 4,
       prizeSets: [
@@ -740,7 +740,7 @@ export const COST_TIMELINE_MAPPING = [
 
   [
     {
-      total: 493,
+      total: 899,
       submissionDuration: 2,
       totalDuration: 4,
       prizeSets: [
@@ -787,7 +787,7 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 1 device
     {
-      total: 663,
+      total: 1097,
       submissionDuration: 2,
       totalDuration: 4,
       prizeSets: [
@@ -834,7 +834,7 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 2 devices
     {
-      total: 758,
+      total: 1295,
       submissionDuration: 2,
       totalDuration: 4,
       prizeSets: [
@@ -884,7 +884,7 @@ export const COST_TIMELINE_MAPPING = [
 
   [
     {
-      total: 625,
+      total: 1149,
       submissionDuration: 3,
       totalDuration: 5,
       prizeSets: [
@@ -931,7 +931,7 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 1 device
     {
-      total: 870,
+      total: 1446,
       submissionDuration: 3,
       totalDuration: 5,
       prizeSets: [
@@ -978,7 +978,7 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 2 devices
     {
-      total: 965,
+      total: 1743,
       submissionDuration: 3,
       totalDuration: 5,
       prizeSets: [
@@ -1028,7 +1028,7 @@ export const COST_TIMELINE_MAPPING = [
 
   [
     {
-      total: 758,
+      total: 1399,
       submissionDuration: 3,
       totalDuration: 5,
       prizeSets: [
@@ -1075,7 +1075,7 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 1 device
     {
-      total: 1078,
+      total: 1795,
       submissionDuration: 3,
       totalDuration: 5,
       prizeSets: [
@@ -1122,7 +1122,7 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 2 devices
     {
-      total: 1173,
+      total: 2191,
       submissionDuration: 4,
       totalDuration: 6,
       prizeSets: [
@@ -1172,7 +1172,7 @@ export const COST_TIMELINE_MAPPING = [
 
   [
     {
-      total: 890,
+      total: 1649,
       submissionDuration: 3,
       totalDuration: 5,
       prizeSets: [
@@ -1219,7 +1219,7 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 1 device
     {
-      total: 1285,
+      total: 2144,
       submissionDuration: 3,
       totalDuration: 5,
       prizeSets: [
@@ -1266,7 +1266,7 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 2 devices
     {
-      total: 1418,
+      total: 2639,
       submissionDuration: 4,
       totalDuration: 6,
       prizeSets: [

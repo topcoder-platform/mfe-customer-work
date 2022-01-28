@@ -65,14 +65,16 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
       show={true}
       title="We're Here to Help"
     >
-      <div>
-        Hi {firstName || "there"}, we're here to help. Please describe what
-        you'd like to discuss, and a Topcoder Solutions Expert will email you
-        back
-        {email ? ` at ` : ""}
-        {email ? <strong>{email}</strong> : ""}
-        &nbsp;within one business day.
-      </div>
+      {!submittedSupportRequest && (
+        <div>
+          Hi {firstName || "there"}, we're here to help. Please describe what
+          you'd like to discuss, and a Topcoder Solutions Expert will email you
+          back
+          {email ? ` at ` : ""}
+          {email ? <strong>{email}</strong> : ""}
+          &nbsp;within one business day.
+        </div>
+      )}
 
       {submittedSupportRequest && (
         <div
@@ -129,7 +131,7 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
             </FormField>
           )}
 
-          <FormField label="How Can We Help You?">
+          <FormField label="How can we help you?">
             <FormInputTextArea
               name="question"
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
