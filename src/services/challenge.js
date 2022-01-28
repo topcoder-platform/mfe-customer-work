@@ -43,6 +43,7 @@ export async function createChallenge() {
     legacy: {
       selfService: true,
     },
+    tags: ["Other"],
     discussions: [
       {
         name: "new-self-service-project",
