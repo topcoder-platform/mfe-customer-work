@@ -1,8 +1,5 @@
 import React from "react";
-import PT from "prop-types";
-import Button from "components/Button";
 import PageDivider from "components/PageDivider";
-import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
 import ReviewTable from "../../../Review/components/ReviewTable";
 import config from "../../../../../config";
 import ArrowRightIcon from "../../../../assets/images/arrow-right.svg";
@@ -22,19 +19,13 @@ const Details = ({ challenge, formData }) => {
       </div>
 
       <div styleName="invoiceWrapper">
-        <Button size={BUTTON_SIZE.SMALL} type={BUTTON_TYPE.SECONDARY}>
-          DOWNLOAD INVOICE
-        </Button>
-        <PageDivider />
-
         <a
           styleName="link"
           target="_blank"
           rel="noopener noreferrer"
           href={`${config.TOPCODER_COMMUNITY_WEBSITE_URL}/challenges/${challenge?.id}`}
         >
-          WORK CONTRACT
-          <ArrowRightIcon />
+          ORDER CONTRACT
         </a>
         <a
           styleName="link"
@@ -43,7 +34,6 @@ const Details = ({ challenge, formData }) => {
           href={`${config.TERMS_URL}`}
         >
           PRIVACY POLICY
-          <ArrowRightIcon />
         </a>
         <a
           styleName="link"
@@ -52,7 +42,6 @@ const Details = ({ challenge, formData }) => {
           href={`${config.PRIVACY_POLICY_URL}`}
         >
           TERMS
-          <ArrowRightIcon />
         </a>
       </div>
     </div>

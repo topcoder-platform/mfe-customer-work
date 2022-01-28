@@ -8,6 +8,7 @@
   }
 
   .invoiceWrapper {
+    padding: 16px;
     width: 264px;
     background-color: $tc-white;
     border-radius: 8px;
@@ -24,16 +25,11 @@
       @include font-roboto;
       display: block;
       font-weight: 600;
-      padding: 0 16px;
       font-size: 14px;
       color: $grey-text;
       line-height: 10px;
       margin-bottom: 12px;
       cursor: pointer;
-
-      svg {
-        margin-left: 4px;
-      }
     }
   }
 }
