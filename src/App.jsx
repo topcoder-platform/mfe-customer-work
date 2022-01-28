@@ -17,6 +17,7 @@ import { ScrollToTop } from "./ScrollToTop";
 import "react-responsive-modal/styles.css";
 
 import styles from "./styles/main.module.scss";
+import SupportPage from "./routes/SupportPage";
 
 const sidebar = <Sidebar menus={menuItems} />;
 
@@ -64,6 +65,7 @@ const App = () => {
           )}
           <Profile path="/self-service/profile" />
           <Home path="/self-service" />
+          <SupportPage path="/self-service/support" />
         </ScrollToTop>
       </Router>
     </div>
