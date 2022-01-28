@@ -35,11 +35,6 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
     },
   });
   const dispatch = useDispatch();
-  const price = useSelector((state) => state.form.price);
-  const additionalPrice = useSelector((state) => state.form.additionalPrice);
-  const devicePrice = useSelector((state) => state.form.devicePrice);
-  const pagePrice = useSelector((state) => state.form.pagePrice);
-  const total = price + additionalPrice + devicePrice + pagePrice;
   const workType = useSelector((state) => state.form.workType);
   const websitePurpose = useSelector((state) => state.form.websitePurpose);
   const currentStep = useSelector((state) => state.progress.currentStep);
@@ -93,7 +88,6 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
 
           <WebsitePurposeForm
             estimate={getDynamicPriceAndTimelineEstimate(fullState)}
-            price={total}
             serviceType={workType?.selectedWorkTypeDetail}
             formData={formData}
             setFormData={setFormData}

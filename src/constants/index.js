@@ -151,10 +151,10 @@ export const ProgressLevels = [
  */
 export const PageOptions = [
   { label: "1 page", price: 50, value: false },
-  { label: "2 page (from 100$)", price: 100, value: false },
-  { label: "3 page (from 150$)", price: 150, value: false },
-  { label: "4 page (from 200$)", price: 200, value: false },
-  { label: "5 page (from 300$)", price: 300, value: false },
+  { label: "2 pages", price: 100, value: false },
+  { label: "3 pages", price: 150, value: false },
+  { label: "4 pages", price: 200, value: false },
+  { label: "5 pages", price: 300, value: false },
 ];
 
 /**
@@ -190,7 +190,7 @@ export const AllowStockOptions = [
  */
 export const workTypes = [
   {
-    title: "Web",
+    title: "Website Development",
     subTitle:
       "Our developers can bring your website designs to life! We'll get your website ready for the world to see.",
     price: 499,

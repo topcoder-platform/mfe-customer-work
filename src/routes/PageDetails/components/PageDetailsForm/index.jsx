@@ -21,8 +21,6 @@ const PageDetailsForm = ({
   setListInputs,
   price,
   serviceType,
-  onAdd,
-  onRemove,
   estimate,
 }) => {
   // get an empty page item
@@ -54,7 +52,6 @@ const PageDetailsForm = ({
       savePageDetails(listInputUpdated);
       return listInputUpdated;
     });
-    onAdd();
   };
 
   // remove an item from list input
@@ -69,7 +66,6 @@ const PageDetailsForm = ({
       savePageDetails(listInputUpdated);
       return listInputUpdated;
     });
-    onRemove();
   };
 
   return (
@@ -89,7 +85,7 @@ const PageDetailsForm = ({
               provide:
             </PageP>
             <ol styleName="list">
-              <li>A descriptive page name. i.e. Landing Page</li>
+              <li>A descriptive page name. i.e. Homepage</li>
               <li>The primary purpose of the page.</li>
               <li>
                 Describe all required content and functional elements. Or,
@@ -236,8 +232,6 @@ PageDetailsForm.propTypes = {
   serviceType: PT.string,
   setListInputs: PT.func,
   listInputs: PT.arrayOf(PT.shape()),
-  onAdd: PT.func,
-  onRemove: PT.func,
 };
 
 export default PageDetailsForm;

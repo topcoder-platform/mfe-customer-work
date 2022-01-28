@@ -19,7 +19,6 @@ import "./styles.module.scss";
 
 const BasicInfoForm = ({
   formData,
-  price,
   serviceType,
   onFormUpdate,
   onShowSupportModal,
@@ -65,7 +64,7 @@ const BasicInfoForm = ({
           <PageP styleName="title">PROJECT TITLE</PageP>
           <PageP styleName="description">
             Give your project a descriptive title. This title is what the
-            designers will see when looking for your work...
+            designers will see when looking for your work.
           </PageP>
         </div>
 
@@ -88,7 +87,7 @@ const BasicInfoForm = ({
         <div>
           <PageP styleName="title">How many pages?</PageP>
           <PageP styleName="description">
-            How many pages (individual screens) would you like designed?...
+            How many pages (individual screens) would you like designed?
           </PageP>
         </div>
 
@@ -109,9 +108,9 @@ const BasicInfoForm = ({
         <div>
           <PageP styleName="title">Device Types</PageP>
           <PageP styleName="description">
-            All website designs include computer size. You can add tablet and/
-            or mobile device sizes as well. Designing for multiple devices sizes
-            or types is referred to as Responsive Design.
+            Your project includes designs for computers. You can add tablet and/
+            or mobile device sizes as well. Designing for multiple devices,
+            sizes or types is referred to as Responsive Design.
           </PageP>
         </div>
 
@@ -134,13 +133,11 @@ const BasicInfoForm = ({
 };
 
 BasicInfoForm.defaultProps = {
-  price: 0,
   serviceType: "",
 };
 
 BasicInfoForm.propTypes = {
   estimate: PT.shape().isRequired,
-  price: PT.string,
   serviceType: PT.string,
   onFormUpdate: PT.func,
   formData: PT.shape(),

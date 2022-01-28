@@ -12,7 +12,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { getDynamicPriceAndTimelineEstimate } from "utils/";
 import { triggerAutoSave } from "../../actions/autoSave";
-import { savePageDetails, updatePagePrice } from "../../actions/form";
+import { savePageDetails } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import PageDetailsForm from "./components/PageDetailsForm";
@@ -21,7 +21,7 @@ import "./styles.module.scss";
 /**
  * Page Details Page
  */
-const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
+const PageDetails = ({ savePageDetails, setProgressItem }) => {
   const [isLoading, setLoading] = useState(false);
   const [listInputs, setListInputs] = useState({
     pages: [
@@ -32,11 +32,6 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
     ],
   });
   const dispatch = useDispatch();
-  const price = useSelector((state) => state.form.price);
-  const additionalPrice = useSelector((state) => state.form.additionalPrice);
-  const devicePrice = useSelector((state) => state.form.devicePrice);
-  const pagePrice = useSelector((state) => state.form.pagePrice);
-  const total = price + additionalPrice + devicePrice + pagePrice;
   const workType = useSelector((state) => state.form.workType);
   const pageDetails = useSelector((state) => state.form.pageDetails);
   const currentStep = useSelector((state) => state.progress.currentStep);
@@ -95,13 +90,10 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
 
           <PageDetailsForm
             estimate={getDynamicPriceAndTimelineEstimate(fullState)}
-            price={total}
             savePageDetails={savePageDetails}
             serviceType={workType?.selectedWorkTypeDetail}
             listInputs={listInputs}
             setListInputs={setListInputs}
-            onAdd={() => updatePagePrice(pagePrice + 100)}
-            onRemove={() => updatePagePrice(pagePrice - 100)}
           />
 
           <PageDivider />
@@ -140,7 +132,6 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
 const mapStateToProps = ({ form }) => form;
 
 const mapDispatchToProps = {
-  updatePagePrice,
   savePageDetails,
   setProgressItem,
 };

@@ -6,16 +6,10 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { triggerAutoSave } from "../../actions/autoSave";
 import {
   saveWorkType,
-  updatePrice,
   toggleSupportModal,
   createNewSupportTicket,
 } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
-import {
-  clearAutoSavedForm,
-  clearCachedChallengeId,
-  setCookie,
-} from "../../autoSaveBeforeLogin";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import IconWebsiteTools from "../../assets/images/design-tools.svg";
 import Button from "../../components/Button";
@@ -44,19 +38,14 @@ import styles from "./styles.module.scss";
  */
 const SelectWorkType = ({
   saveWorkType,
-  updatePrice,
   setProgressItem,
   toggleSupportModal,
   createNewSupportTicket,
 }) => {
   const dispatch = useDispatch();
-  const [selectInitiated, setSelectInit] = useState(false);
-  const workType = useSelector((state) => state.form.workType);
   const [isLoading, setLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(workType?.workTypeStep || 0);
-  const [selectedWorkType, setSelectedWorkType] = useState("");
-  const [selectedWorkTypeDetail, setSelectedWorkTypeDetail] = useState("");
   const showSupportModal = useSelector((state) => state.form.showSupportModal);
+  const challenge = useSelector((state) => state.challenge);
   const profileData = useSelector(getProfile);
 
   const allWorkTypes = [...workTypes, ...webWorkTypes];
@@ -64,56 +53,24 @@ const SelectWorkType = ({
   const featuredWorkType = allWorkTypes.find((wt) => wt.featured);
 
   useEffect(() => {
-    setCurrentStep(1);
-    setSelectInit(true);
-
     return () => {
-      saveWorkType({ workTypeStep: currentStep });
       dispatch(triggerAutoSave(true));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (workType?.workTypeStep !== undefined) {
-      setCurrentStep(workType.workTypeStep);
-    }
-    if (workType?.selectedWorkType) {
-      setSelectedWorkType(workType.selectedWorkType);
-    }
-    if (workType?.selectedWorkTypeDetail) {
-      setSelectedWorkTypeDetail(workType.selectedWorkTypeDetail);
-    }
-  }, [workType]);
-
   const handleClick = (selectedItem = webWorkTypes[0]) => {
-    if (!currentStep) {
-      setCurrentStep(1);
-      setSelectedWorkType(selectedItem?.title);
-      saveWorkType({
-        workTypeStep: 1,
-        selectedWorkType: selectedItem?.title,
-      });
-      dispatch(triggerAutoSave(true));
-    } else {
-      setSelectedWorkTypeDetail(selectedItem?.title);
-      saveWorkType({
-        selectedWorkType,
-        selectedWorkTypeDetail: selectedItem?.title,
-      });
-      updatePrice(selectedItem?.price);
-      setProgressItem(2);
-      navigate(`/self-service/basic-info`);
-    }
+    saveWorkType({
+      selectedWorkType: featuredWorkType.title,
+      selectedWorkTypeDetail: featuredWorkType.title,
+    });
+    setProgressItem(2);
+    navigate(`/self-service/basic-info`);
+    dispatch(triggerAutoSave(true));
   };
 
   const onBack = () => {
-    if (currentStep === 1) {
-      setCurrentStep(0);
-      setSelectedWorkTypeDetail("");
-    } else {
-      navigate(`/self-service`);
-    }
+    navigate(`/self-service`);
     setProgressItem(1);
     saveWorkType({ workTypeStep: 0 });
     dispatch(triggerAutoSave(true));
@@ -220,7 +177,6 @@ const mapStateToProps = ({ form }) => form;
 
 const mapDispatchToProps = {
   saveWorkType,
-  updatePrice,
   setProgressItem,
   toggleSupportModal,
   createNewSupportTicket,

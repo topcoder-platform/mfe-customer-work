@@ -39,7 +39,9 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
   };
 
   const handleLoginSave = (autoSave, dataToSave, challengeId, challenge) => {
-    const metaData = challenge?.metadata ? challenge.metadata[0] : undefined;
+    const metaData = challenge?.metadata
+      ? _.find(challenge.metadata, (m) => m.name === "intake-form")
+      : undefined;
     const formString = JSON.stringify(dataToSave);
     if (metaData?.value !== formString) {
       dispatch(sendAutoSavedPatch(formString, challengeId));

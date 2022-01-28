@@ -48,11 +48,6 @@ const Branding = ({ saveBranding, setProgressItem }) => {
   });
 
   const dispatch = useDispatch();
-  const price = useSelector((state) => state.form.price);
-  const additionalPrice = useSelector((state) => state.form.additionalPrice);
-  const devicePrice = useSelector((state) => state.form.devicePrice);
-  const pagePrice = useSelector((state) => state.form.pagePrice);
-  const total = price + additionalPrice + devicePrice + pagePrice;
   const workType = useSelector((state) => state.form.workType);
   const branding = useSelector((state) => state.form.branding);
   const currentStep = useSelector((state) => state.progress.currentStep);
@@ -109,7 +104,6 @@ const Branding = ({ saveBranding, setProgressItem }) => {
 
           <BrandingForm
             estimate={getDynamicPriceAndTimelineEstimate(fullState)}
-            price={total}
             serviceType={workType?.selectedWorkTypeDetail}
             formData={formData}
             setFormData={setFormData}

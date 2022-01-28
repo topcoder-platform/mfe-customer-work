@@ -62,15 +62,15 @@ const SupportModal = ({ profileData, handleClose, onSubmit }) => {
     <Modal
       halfWidth
       handleClose={handleClose}
-      hideClose={true}
       show={true}
       title="We're Here to Help"
     >
-      <div style={{ "text-align": "center" }}>
+      <div>
         Hi {firstName || "there"}, we're here to help. Please describe what
         you'd like to discuss, and a Topcoder Solutions Expert will email you
         back
-        {email ? ` at ${email}` : ""}
+        {email ? ` at ` : ""}
+        {email ? <strong>{email}</strong> : ""}
         &nbsp;within one business day.
       </div>
 

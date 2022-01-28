@@ -7,14 +7,18 @@ import config from "../../config";
 import { ACTIONS } from "constants/";
 
 const initialState = {
-  price: 0,
-  additionalPrice: 0,
-  devicePrice: 0,
   pagePrice: 0,
   workType: null,
   basicInfo: null,
   websitePurpose: null,
-  pageDetails: null,
+  pageDetails: {
+    pages: [
+      {
+        pageName: "",
+        pageDetails: "",
+      },
+    ],
+  },
   branding: null,
   reviewConfirmed: false,
   updatedAt: "",
@@ -43,30 +47,6 @@ const formReducer = (state = initialState, action) => {
           ...state.workType,
           ...action.payload,
         },
-        updatedAt,
-      };
-    case ACTIONS.FORM.UPDATE_PRICE:
-      return {
-        ...state,
-        price: action.payload,
-        updatedAt,
-      };
-    case ACTIONS.FORM.UPDATE_ADDITIONAL_PRICE:
-      return {
-        ...state,
-        additionalPrice: action.payload,
-        updatedAt,
-      };
-    case ACTIONS.FORM.ADD_DEVICE_PRICE:
-      return {
-        ...state,
-        devicePrice: action.payload,
-        updatedAt,
-      };
-    case ACTIONS.FORM.UPDATE_PAGE_PRICE:
-      return {
-        ...state,
-        pagePrice: action.payload,
         updatedAt,
       };
     case ACTIONS.FORM.REVIEW_CONFIRMED:

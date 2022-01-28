@@ -41,26 +41,6 @@ export const reviewConfirmed = (confirmed) => ({
   payload: confirmed,
 });
 
-export const updatePrice = (price) => ({
-  type: ACTIONS.FORM.UPDATE_PRICE,
-  payload: price,
-});
-
-export const updateAdditionalPrice = (price) => ({
-  type: ACTIONS.FORM.UPDATE_ADDITIONAL_PRICE,
-  payload: price,
-});
-
-export const addDevicePrice = (price) => ({
-  type: ACTIONS.FORM.ADD_DEVICE_PRICE,
-  payload: price,
-});
-
-export const updatePagePrice = (price) => ({
-  type: ACTIONS.FORM.UPDATE_PAGE_PRICE,
-  payload: price,
-});
-
 export const toggleSupportModal = (show = null) => ({
   type: ACTIONS.FORM.TOGGLE_SUPPORT_MODAL,
   payload: show,

@@ -17,9 +17,7 @@ import {
   PageOptions,
 } from "constants/";
 import {
-  addDevicePrice,
   saveBasicInfo,
-  updateAdditionalPrice,
   toggleSupportModal,
   createNewSupportTicket,
   savePageDetails,
@@ -40,8 +38,6 @@ import { getDynamicPriceAndTimelineEstimate } from "utils/";
  */
 const BasicInfo = ({
   saveBasicInfo,
-  updateAdditionalPrice,
-  addDevicePrice,
   setProgressItem,
   savePageDetails,
   toggleSupportModal,
@@ -58,11 +54,6 @@ const BasicInfo = ({
   const isFormValid = formData?.projectTitle?.value.length;
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
-  const price = useSelector((state) => state.form.price);
-  const additionalPrice = useSelector((state) => state.form.additionalPrice);
-  const devicePrice = useSelector((state) => state.form.devicePrice);
-  const pagePrice = useSelector((state) => state.form.pagePrice);
-  const total = price + additionalPrice + devicePrice + pagePrice;
   const workType = useSelector((state) => state.form.workType);
   const basicInfo = useSelector((state) => state.form.basicInfo);
   const currentStep = useSelector((state) => state.progress.currentStep);
@@ -117,10 +108,6 @@ const BasicInfo = ({
       setFormData(basicInfo);
     }
 
-    if (_.get(pageDetails, "pages.length") === 0) {
-      updateNumOfPages(1);
-    }
-
     setFirstMounted(true);
 
     return () => {
@@ -130,20 +117,16 @@ const BasicInfo = ({
 
   useEffect(() => {
     if (formData) {
-      updateAdditionalPrice(0); // TODO: fix this
       saveBasicInfo(formData);
     }
-  }, [formData, updateAdditionalPrice, saveBasicInfo]);
+  }, [formData, saveBasicInfo]);
 
   useEffect(() => {
     if (formData) {
-      formData?.selectedDevices?.value.forEach((device) => {
-        addDevicePrice(DeviceOptions[device]?.price || 0);
-      });
       saveBasicInfo(formData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addDevicePrice, formData, formData.selectedDevices]);
+  }, [formData, formData.selectedDevices]);
 
   const onShowSupportModal = () => {
     toggleSupportModal(true);
@@ -181,7 +164,6 @@ const BasicInfo = ({
           <BasicInfoForm
             estimate={getDynamicPriceAndTimelineEstimate(fullState)}
             formData={formData}
-            price={total}
             serviceType={workType?.selectedWorkTypeDetail}
             onFormUpdate={setFormData}
             numOfPages={pageDetails?.pages?.length || 0}
@@ -225,9 +207,7 @@ const BasicInfo = ({
 const mapStateToProps = ({ form }) => form;
 
 const mapDispatchToProps = {
-  updateAdditionalPrice,
   saveBasicInfo,
-  addDevicePrice,
   setProgressItem,
   savePageDetails,
   toggleSupportModal,

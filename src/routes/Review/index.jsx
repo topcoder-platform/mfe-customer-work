@@ -29,11 +29,6 @@ const Review = ({ setProgressItem }) => {
   const formData = useSelector((state) => state?.form);
   const [checked, setChecked] = useState(false);
   const currentStep = useSelector((state) => state?.progress.currentStep);
-  const price = useSelector((state) => state.form.price);
-  const additionalPrice = useSelector((state) => state.form.additionalPrice);
-  const devicePrice = useSelector((state) => state.form.devicePrice);
-  const pagePrice = useSelector((state) => state.form.pagePrice);
-  const total = price + additionalPrice + devicePrice + pagePrice;
   const workType = useSelector((state) => state.form.workType);
   const fullState = useSelector((state) => state);
   const estimate = getDynamicPriceAndTimelineEstimate(fullState);

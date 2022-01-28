@@ -23,7 +23,7 @@ export async function getChallengeDetails(challengeId) {
  * @param {String} userHandle
  */
 export async function getIntakeFormChallenges(userHandle, challengeId) {
-  let url = `${config.API.V5}/challenges?createdBy=${userHandle}&selfService=true`;
+  let url = `${config.API.V5}/challenges?createdBy=${userHandle}&selfService=true&status=New`;
   url += challengeId ? `&id=${challengeId}` : "";
   const response = await axios.get(url);
 

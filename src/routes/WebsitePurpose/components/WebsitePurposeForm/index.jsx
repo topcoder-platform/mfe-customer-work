@@ -85,7 +85,7 @@ const WebsitePurposeForm = ({
         </div>
 
         <div styleName="formFieldWrapper">
-          <FormField label={"Design Brief"}>
+          <FormField label={"Description"}>
             <FormInputTextArea
               value={formData?.description?.value}
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
@@ -116,7 +116,7 @@ const WebsitePurposeForm = ({
         </div>
 
         <div styleName="formFieldWrapper">
-          <FormField label={"User Story"}>
+          <FormField label={"Users"}>
             <FormInputTextArea
               value={formData?.userStory?.value}
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}

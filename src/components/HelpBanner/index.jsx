@@ -16,13 +16,13 @@ const HelpBanner = ({
 }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div
-      styleName={cn("banner", ...styles)}
-      onClick={() => setOpen(!open)}
-      role="button"
-      tabIndex={0}
-    >
-      <div styleName="title">
+    <div styleName={cn("banner", ...styles)}>
+      <div
+        styleName="title"
+        onClick={() => setOpen(!open)}
+        role="button"
+        tabIndex={0}
+      >
         <span>{title}</span>
 
         <div styleName={cn("arrowIcon", open ? "up" : null)}>
@@ -34,7 +34,7 @@ const HelpBanner = ({
         <p styleName="description">{description}</p>
       )}
       {open && children && <p styleName="description">{children}</p>}
-      {open && (
+      {open && contactSupport && (
         <p styleName="supportButton">
           <Button onClick={contactSupport}>Contact support</Button>
         </p>

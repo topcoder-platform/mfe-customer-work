@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
+import { getDynamicPriceAndTimelineEstimate } from "utils/";
 
 import config from "../../../config";
 
@@ -47,14 +48,12 @@ const Payment = ({ setProgressItem }) => {
 
   const [isLoading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
-  const price = useSelector((state) => state.form.price);
-  const additionalPrice = useSelector((state) => state.form.additionalPrice);
-  const devicePrice = useSelector((state) => state.form.devicePrice);
-  const pagePrice = useSelector((state) => state.form.pagePrice);
-  const total = price + additionalPrice + devicePrice + pagePrice;
   const currentStep = useSelector((state) => state.progress.currentStep);
+  const fullState = useSelector((state) => state);
   const stripe = useStripe();
   const elements = useElements();
+
+  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const [formData, setFormData] = useState({
     cardName: null,
@@ -84,7 +83,7 @@ const Payment = ({ setProgressItem }) => {
     setLoading(true);
 
     services
-      .processPayment(stripe, elements, total, challengeId)
+      .processPayment(stripe, elements, estimate.total, challengeId)
       .then((res) => {
         activateChallenge(challengeId);
         clearPreviousForm();
@@ -188,7 +187,7 @@ const Payment = ({ setProgressItem }) => {
               </div>
 
               <div styleName="paymentBox">
-                <div styleName="total">${total}</div>
+                <div styleName="total">${estimate.total}</div>
 
                 <div styleName="totalInfo">Total Payment</div>
 
@@ -212,7 +211,7 @@ const Payment = ({ setProgressItem }) => {
                     onClick={onNext}
                     styleName="wideButton"
                   >
-                    PAY ${total}
+                    PAY ${estimate.total}
                   </Button>
                 </div>
               </div>

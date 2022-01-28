@@ -95,7 +95,9 @@ export default function IntakeForm() {
     if (!challengeId) return undefined;
     return getIntakeFormChallenges(handle, challengeId)
       .then((challengeDetail) => {
-        const savedChallenge = challengeDetail ? challengeDetail[0] : undefined;
+        const savedChallenge = challengeDetail
+          ? _.find(challengeDetail, (c) => c.status === "New")
+          : undefined;
         if (savedChallenge) {
           dispatch(getChallenge(savedChallenge));
           cacheChallengeId(savedChallenge.id);
@@ -116,10 +118,8 @@ export default function IntakeForm() {
     const metaData = challengeDetail?.metadata;
     const savedForm = metaData
       ? _.find(metaData, (m) => m.name === "intake-form")
-      : undefined;
-    return _.isString(savedForm?.value)
-      ? JSON.parse(savedForm?.value)
-      : undefined;
+      : {};
+    return _.isString(savedForm?.value) ? JSON.parse(savedForm?.value) : {};
   };
 
   const syncSavedData = (savedData) => {
