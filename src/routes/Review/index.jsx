@@ -109,7 +109,7 @@ const Review = ({ setProgressItem }) => {
             <br />
             <br />
             <FormInputCheckbox
-              label={"Yes, I confirm the above details are correct"}
+              label={"Yes, I confirm the above details are correct."}
               checked={checked}
               onChange={(e) => {
                 const isChecked = e.target.checked;

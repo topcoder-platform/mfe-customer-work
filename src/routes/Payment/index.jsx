@@ -155,7 +155,7 @@ const Payment = ({ setProgressItem }) => {
                   <PageUl>
                     <li>
                       <strong>
-                        Your Dashboard is your go-to-hub for managing your work.
+                        Your Dashboard is your go-to hub for managing your work.
                       </strong>
                       &nbsp; From here you can view timelines, details, and a
                       lot more important information tied to your work

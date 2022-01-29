@@ -85,7 +85,7 @@ const PageDetailsForm = ({
               provide:
             </PageP>
             <ol styleName="list">
-              <li>A descriptive page name. i.e. Homepage</li>
+              <li>A descriptive page name (e.g. Homepage).</li>
               <li>The primary purpose of the page.</li>
               <li>
                 Describe all required content and functional elements. Or,
@@ -116,7 +116,7 @@ const PageDetailsForm = ({
                 <br />
                 The top navigation of the website should allow a user to mouse
                 over core navigation sections. Our Services, Our Walkies, Our
-                Promise, Locations We Serve, FAQs
+                Promise, Locations We Serve, FAQs.
               </PageP>
               <br />
               <PageP>
@@ -128,7 +128,7 @@ const PageDetailsForm = ({
               <PageP>
                 Main Body: I want to see amazing imagery choice/design here and
                 a large tagline that reads, “We Love Your Dog, Too” with a main
-                button that says “Find Your Walkie”
+                button that says “Find Your Walkie”.
               </PageP>
               <br />
               <PageP>
@@ -152,7 +152,7 @@ const PageDetailsForm = ({
                 “WalkieDoggie is perfect. They are always professional and they
                 take amazing care of our dog, Beefcake.” The testimonial is from
                 “Victoria B.” from Tacoma, Washington (please use an image of a
-                young, professional female for this testimonial image
+                young, professional female for this testimonial image).
               </PageP>
             </HelpBanner>
           </PageP>

@@ -104,14 +104,14 @@ const WebsitePurposeForm = ({
           <PageP styleName="description">
             Describe your target audience—are they pharmaceutical reps?
             Middle-aged mechanical engineers? Beekeepers? Write their user
-            story, using the format, “As a &lt;type of userz&gt;, I want
+            story, using the format, “As a &lt;type of users&gt;, I want
             &lt;some goal&gt;, so that &lt;some reason&gt;.”
           </PageP>
           <br />
           <PageP styleName="description">
             <strong>Example:</strong> <br />
             “As a dog owner, I want someone trustworthy to walk my dog, so that
-            he feels lovedwhen i'm at work.“
+            he feels loved when I'm at work.“
           </PageP>
         </div>
 
@@ -143,7 +143,7 @@ const WebsitePurposeForm = ({
         <div styleName="formFieldWrapper">
           <FormField label={"Existing Website (Optional)"}>
             <FormInputText
-              placeholder={"Enter website url. E.g. www.acme.com"}
+              placeholder={"Enter website url. e.g. www.acme.com"}
               value={formData?.existingWebsite?.value}
               name="existingWebsite"
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}

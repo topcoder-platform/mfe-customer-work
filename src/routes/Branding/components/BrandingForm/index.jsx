@@ -164,9 +164,11 @@ const BrandingForm = ({
           <PageP styleName="description">
             What ideas do you have for the overall style and theme of your
             website? For example, modern and minimalist, bold and colorful, or
-            muted and masculine. Describe the vibe and personality you have in
-            mind, e.g. friendly, approachable, upscale, exclusive, high-tech,
-            handcrafted etc.
+            muted and masculine.
+          </PageP>
+          <PageP>
+            Describe the vibe and personality you have in mind. For example:
+            friendly, approachable, upscale, exclusive, high-tech, handcrafted.
           </PageP>
         </div>
 
@@ -209,7 +211,7 @@ const BrandingForm = ({
               ) : null}
               <FormField label={"Website Address (optional)"}>
                 <FormInputText
-                  placeholder={"Enter website url. E.g. www.acme.com"}
+                  placeholder={"Enter website url. e.g. www.acme.com"}
                   value={entry.website.value}
                   name="website"
                   onChange={(e) =>
@@ -310,8 +312,8 @@ const BrandingForm = ({
             <p>
               I have specific fonts I want to use.
               <br />
-              Share a link to your publicly accessible fonts, via drive,
-              dropbox, etc.
+              Share a link to your publicly accessible fonts via drive, dropbox,
+              etc.
             </p>
             <FormField label={"Shareable Font URL (Optional)"}>
               <FormInputText
@@ -326,7 +328,7 @@ const BrandingForm = ({
             <FormField label={"How to Use Your Fonts (optional)"}>
               <FormInputTextArea
                 placeholder={
-                  "Describe in detail how you would like our designers to use your`fonts"
+                  "Describe in detail how you would like our designers to use your fonts"
                 }
                 value={formData?.fontUrl?.fontUsageDescription}
                 styleName={"text-area"}
@@ -347,13 +349,16 @@ const BrandingForm = ({
           <PageP styleName="description">
             Do you have any additional assets that would be helpful to our
             designers? For example, your current logo, branding direction,
-            photos, illustrations, content, layout ideas, etc.{" "}
+            photos, illustrations, content, layout ideas.
           </PageP>
         </div>
 
         <div styleName="formFieldWrapper">
           <div styleName="assets">
-            <p>Package all assets into a single .zip file before uploading</p>
+            <p>
+              Share a link to your publicly accessible assets via drive,
+              dropbox, etc.
+            </p>
             <FormField label={"Shareable Assets URL (Optional)"}>
               <FormInputText
                 placeholder={"www.example-share-link.com"}
@@ -407,6 +412,7 @@ const BrandingForm = ({
             >
               Learn more about our stock photo policy
             </span>
+            .
           </PageP>
         </div>
 
@@ -430,7 +436,7 @@ const BrandingForm = ({
       <PageDivider />
       <PageRow styleName="form-row">
         <div>
-          <PageP styleName="title">Final Deliverable Source Files</PageP>
+          <PageP styleName="title">Final Deliverable Format</PageP>
           <PageP styleName="description">
             If you want your final deliverables created with a specific design
             software, please specify.{" "}
@@ -454,9 +460,9 @@ const BrandingForm = ({
 
           {formData.selectedDeliverableOption?.value === 4 && (
             <div styleName="customDeliverable">
-              <FormField label={"Custom Deliverable Source"}>
+              <FormField label={"Desired Deliverable Format"}>
                 <FormInputText
-                  placeholder={"Describe your custom deliverable source file"}
+                  placeholder={"Describe your desired deliverable format file"}
                   value={formData?.customDeliverable?.value}
                   name="customDeliverable"
                   onChange={(e) =>

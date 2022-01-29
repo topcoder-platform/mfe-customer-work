@@ -50,8 +50,8 @@ const LoginPrompt = ({ isLoggedIn, setProgressItem }) => {
                 Log in or create an account
               </PageH2>
               <p>
-                You are about to share assets. To ensure your security, please
-                log in or create an account.
+                You are about to share secured information. To ensure your
+                security, please log in or create an account.
               </p>
 
               <div styleName="btn">

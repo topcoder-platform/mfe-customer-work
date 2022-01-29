@@ -38,6 +38,33 @@ const ProfileForm = ({
 
         <div styleName="formFieldWrapper">
           <FormField
+            label={"Username"}
+            disabled
+            styleName="formField"
+            formTitleStyle="formTitleStyle"
+            labelStyle="labelStyle"
+          >
+            <FormInputText
+              value={formData.handle}
+              styleName="formInputText"
+              disabled
+            />
+          </FormField>
+          <FormField
+            label={"Email"}
+            disabled
+            styleName="formField"
+            formTitleStyle="formTitleStyle"
+            labelStyle="labelStyle"
+          >
+            <FormInputText
+              value={formData.email}
+              styleName="formInputText"
+              disabled
+              name="email"
+            />
+          </FormField>
+          <FormField
             label={"First Name"}
             styleName="formField"
             formTitleStyle="formTitleStyle"
@@ -67,33 +94,6 @@ const ProfileForm = ({
               maxLength={64}
               styleName="formInputText"
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
-            />
-          </FormField>
-          <FormField
-            label={"Email"}
-            disabled
-            styleName="formField"
-            formTitleStyle="formTitleStyle"
-            labelStyle="labelStyle"
-          >
-            <FormInputText
-              value={formData.email}
-              styleName="formInputText"
-              disabled
-              name="email"
-            />
-          </FormField>
-          <FormField
-            label={"Username"}
-            disabled
-            styleName="formField"
-            formTitleStyle="formTitleStyle"
-            labelStyle="labelStyle"
-          >
-            <FormInputText
-              value={formData.handle}
-              styleName="formInputText"
-              disabled
             />
           </FormField>
         </div>
