@@ -119,7 +119,7 @@ const SelectWorkType = ({
                 <div className={styles.heroHeaderContent}>
                   <div>{featuredWorkType.title}</div>
                   <div className={styles.heroHeaderSubtitle}>
-                    starting at ${featuredWorkType.price} | 5–7 Days
+                    starting at ${featuredWorkType.price} &nbsp;|&nbsp; 4-6 Days
                   </div>
                 </div>
               </div>
