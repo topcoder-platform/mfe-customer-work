@@ -5,6 +5,7 @@ import templateData from "../assets/data/spec-templates/website-design.json";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import _ from "lodash";
 import { getDynamicPriceAndTimeline } from "utils/";
+import { DEFAULT_TIMELINE } from "constants/";
 
 /**
  * Get Challenge challenge details
@@ -186,6 +187,19 @@ export async function patchChallenge(intakeForm, challengeId) {
   };
   if (dynamicPriceAndTimeline) {
     body.prizeSets = dynamicPriceAndTimeline.prizeSets;
+    body.phases = [
+      {
+        // Submission
+        phaseId: "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
+        duration: (dynamicPriceAndTimeline.totalDuration - 2) * 86400,
+      },
+      {
+        // Registration
+        phaseId: "a93544bc-c165-4af4-b55e-18f3593b457a",
+        duration: (dynamicPriceAndTimeline.totalDuration - 2) * 86400,
+      },
+      ...DEFAULT_TIMELINE,
+    ];
   }
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
