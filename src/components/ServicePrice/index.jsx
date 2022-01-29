@@ -7,6 +7,7 @@ import React from "react";
 import "./styles.module.scss";
 import WebsiteDesignIcon from "../../assets/images/website-design.svg";
 import HelpIcon from "../HelpIcon";
+import { currencyFormat } from "utils/";
 
 const ServicePrice = ({ serviceType, price, duration = 1 }) => {
   return (
@@ -16,7 +17,7 @@ const ServicePrice = ({ serviceType, price, duration = 1 }) => {
         <div>
           <p styleName="serviceTitle">{serviceType}</p>
           <div styleName="priceAndDuradion">
-            PRICE: ${price}
+            PRICE: {currencyFormat(price)}
             <span styleName="separator" />
             {duration} Days
             <HelpIcon>

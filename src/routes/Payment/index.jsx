@@ -4,7 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
-import { getDynamicPriceAndTimelineEstimate } from "utils/";
+import { getDynamicPriceAndTimelineEstimate, currencyFormat } from "utils/";
 
 import config from "../../../config";
 
@@ -187,7 +187,7 @@ const Payment = ({ setProgressItem }) => {
               </div>
 
               <div styleName="paymentBox">
-                <div styleName="total">${estimate.total}</div>
+                <div styleName="total">{currencyFormat(estimate.total)}</div>
 
                 <div styleName="totalInfo">Total Payment</div>
 

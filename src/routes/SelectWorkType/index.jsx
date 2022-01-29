@@ -32,6 +32,7 @@ import { getProfile } from "../../selectors/profile";
 import { getUserProfile } from "../../thunks/profile";
 
 import styles from "./styles.module.scss";
+import { currencyFormat } from "utils/";
 
 /**
  * Select Work Type Page
@@ -119,7 +120,7 @@ const SelectWorkType = ({
                 <div className={styles.heroHeaderContent}>
                   <div>{featuredWorkType.title}</div>
                   <div className={styles.heroHeaderSubtitle}>
-                    starting at ${featuredWorkType.price} &nbsp;|&nbsp; 4-6 Days
+                    starting at {currencyFormat(featuredWorkType.price)} &nbsp;|&nbsp; 4-6 Days
                   </div>
                 </div>
               </div>

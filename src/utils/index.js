@@ -60,3 +60,12 @@ export function getDynamicPriceAndTimelineEstimate(formData) {
 export function getDynamicPriceAndTimeline(pages, devices) {
   return COST_TIMELINE_MAPPING[pages - 1][devices - 1];
 }
+
+/**
+ * Format number to currency
+ * @param {Number} num number
+ * @returns the formated string
+ */
+export function currencyFormat(num) {
+  return "$" + _.toString(num).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
