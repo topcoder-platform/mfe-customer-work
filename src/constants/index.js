@@ -618,6 +618,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 649,
       submissionDuration: 2,
       totalDuration: 4,
+      costPerAdditionalPage: 99,
       prizeSets: [
         {
           prizes: [
@@ -665,6 +666,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 748,
       submissionDuration: 2,
       totalDuration: 4,
+      costPerAdditionalPage: 198,
       prizeSets: [
         {
           prizes: [
@@ -712,6 +714,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 847,
       submissionDuration: 2,
       totalDuration: 4,
+      costPerAdditionalPage: 297,
       prizeSets: [
         {
           prizes: [
@@ -762,6 +765,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 899,
       submissionDuration: 2,
       totalDuration: 4,
+      costPerAdditionalPage: 99,
       prizeSets: [
         {
           prizes: [
@@ -809,6 +813,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 1097,
       submissionDuration: 2,
       totalDuration: 4,
+      costPerAdditionalPage: 198,
       prizeSets: [
         {
           prizes: [
@@ -856,6 +861,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 1295,
       submissionDuration: 2,
       totalDuration: 4,
+      costPerAdditionalPage: 297,
       prizeSets: [
         {
           prizes: [
@@ -906,6 +912,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 1149,
       submissionDuration: 3,
       totalDuration: 5,
+      costPerAdditionalPage: 99,
       prizeSets: [
         {
           prizes: [
@@ -953,6 +960,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 1446,
       submissionDuration: 3,
       totalDuration: 5,
+      costPerAdditionalPage: 198,
       prizeSets: [
         {
           prizes: [
@@ -1000,6 +1008,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 1743,
       submissionDuration: 3,
       totalDuration: 5,
+      costPerAdditionalPage: 297,
       prizeSets: [
         {
           prizes: [
@@ -1050,6 +1059,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 1399,
       submissionDuration: 3,
       totalDuration: 5,
+      costPerAdditionalPage: 99,
       prizeSets: [
         {
           prizes: [
@@ -1097,6 +1107,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 1795,
       submissionDuration: 3,
       totalDuration: 5,
+      costPerAdditionalPage: 198,
       prizeSets: [
         {
           prizes: [
@@ -1144,6 +1155,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 2191,
       submissionDuration: 4,
       totalDuration: 6,
+      costPerAdditionalPage: 297,
       prizeSets: [
         {
           prizes: [
@@ -1194,6 +1206,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 1649,
       submissionDuration: 3,
       totalDuration: 5,
+      costPerAdditionalPage: 99,
       prizeSets: [
         {
           prizes: [
@@ -1241,6 +1254,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 2144,
       submissionDuration: 3,
       totalDuration: 5,
+      costPerAdditionalPage: 198,
       prizeSets: [
         {
           prizes: [
@@ -1288,6 +1302,7 @@ export const COST_TIMELINE_MAPPING = [
       total: 2639,
       submissionDuration: 4,
       totalDuration: 6,
+      costPerAdditionalPage: 297,
       prizeSets: [
         {
           prizes: [

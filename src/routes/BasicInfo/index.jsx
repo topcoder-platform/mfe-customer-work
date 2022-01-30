@@ -31,7 +31,11 @@ import { getUserProfile } from "../../thunks/profile";
 
 import BasicInfoForm from "./components/BasicInfoForm";
 import "./styles.module.scss";
-import { getDynamicPriceAndTimelineEstimate } from "utils/";
+import {
+  getDynamicPriceAndTimeline,
+  getDynamicPriceAndTimelineEstimate,
+  currencyFormat,
+} from "utils/";
 
 /**
  * Basic Info Page
@@ -45,7 +49,7 @@ const BasicInfo = ({
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
-    selectedDevices: {
+    selectedDevice: {
       title: "Device Types",
       option: ["Computer"],
       value: [0],
@@ -62,6 +66,7 @@ const BasicInfo = ({
   const profileData = useSelector(getProfile);
   const challenge = useSelector((state) => state.challenge);
   const fullState = useSelector((state) => state);
+  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const onBack = () => {
     navigate("/self-service/wizard");
@@ -119,14 +124,7 @@ const BasicInfo = ({
     if (formData) {
       saveBasicInfo(formData);
     }
-  }, [formData, saveBasicInfo]);
-
-  useEffect(() => {
-    if (formData) {
-      saveBasicInfo(formData);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData, formData.selectedDevices]);
+  }, [formData, formData.selectedDevices, saveBasicInfo]);
 
   const onShowSupportModal = () => {
     toggleSupportModal(true);
@@ -162,7 +160,17 @@ const BasicInfo = ({
           <PageDivider />
 
           <BasicInfoForm
-            estimate={getDynamicPriceAndTimelineEstimate(fullState)}
+            pageListOptions={_.map(PageOptions, (o, i) => ({
+              ...o,
+              value: i === (pageDetails?.pages?.length || 0) - 1,
+              label: `${o.label} (${currencyFormat(
+                getDynamicPriceAndTimeline(
+                  i + 1,
+                  formData?.selectedDevice?.value?.length || 0
+                ).total
+              )})`,
+            }))}
+            estimate={estimate}
             formData={formData}
             serviceType={workType?.selectedWorkTypeDetail}
             onFormUpdate={setFormData}

@@ -4,7 +4,8 @@
  * Radio button component.
  */
 import PT from "prop-types";
-import React, { useState } from "react";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
 import "./styles.module.scss";
 
 function RadioButton({ options, onChange, size, errorMsg }) {
@@ -17,6 +18,21 @@ function RadioButton({ options, onChange, size, errorMsg }) {
   if (!sizeStyle) {
     sizeStyle = size === "xs" ? "xsSize" : "smSize";
   }
+
+  useEffect(() => {
+    if (
+      !options ||
+      !options.length ||
+      _.isEqualWith(internalOptions, options, "label")
+    ) {
+      return;
+    }
+    const newOptions = _.cloneDeep(internalOptions);
+    for (let i = 0; i < options.length; i += 1) {
+      newOptions[i].label = options[i].label;
+    }
+    setInternalOptions(newOptions);
+  }, [options]);
 
   return (
     <React.Fragment>
