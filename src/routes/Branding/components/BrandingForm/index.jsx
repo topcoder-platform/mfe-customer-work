@@ -24,7 +24,7 @@ import FontOptions from "../FontOptions";
 import "./styles.module.scss";
 import _ from "lodash";
 import Modal from "components/Modal";
-import PolicyContent from "../PolicyContent";
+import PolicyContent from "../../../../components/Modal/PolicyContent";
 import PageH3 from "components/PageElements/PageH3";
 
 const BrandingForm = ({
