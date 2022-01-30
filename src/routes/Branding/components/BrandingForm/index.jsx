@@ -28,7 +28,6 @@ import PolicyContent from "../PolicyContent";
 import PageH3 from "components/PageElements/PageH3";
 
 const BrandingForm = ({
-  price,
   serviceType,
   setFormData,
   formData,
@@ -330,9 +329,9 @@ const BrandingForm = ({
                 placeholder={
                   "Describe in detail how you would like our designers to use your fonts"
                 }
-                value={formData?.fontUrl?.fontUsageDescription}
+                value={formData?.fontUsageDescription?.value}
                 styleName={"text-area"}
-                name="fontUsage"
+                name="fontUsageDescription"
                 onChange={(e) =>
                   handleInputChange(e.target.name, e.target.value)
                 }
