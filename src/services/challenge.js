@@ -44,7 +44,7 @@ export async function createChallenge() {
     legacy: {
       selfService: true,
     },
-    tags: ["Other"],
+    tags: ["Website Design"],
     discussions: [
       {
         name: "new-self-service-project",

@@ -7,6 +7,10 @@
     cursor: pointer;
   }
 
+  .disabled {
+    cursor: default;
+  }
+
   .icon {
     display: flex;
     justify-content: center;

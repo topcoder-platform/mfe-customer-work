@@ -24,7 +24,6 @@ const WorkItem = ({ work }) => {
     messagesCount,
     messagesHasNew,
     name,
-    nextActionName,
     numOfRegistrants,
     rating,
     workStatus,
@@ -52,11 +51,6 @@ const WorkItem = ({ work }) => {
         >
           {workStatus}
         </div>
-        {nextActionName && (
-          <div styleName="next-action">
-            Next Action&nbsp;-&nbsp;{nextActionName}
-          </div>
-        )}
         <div styleName="date-created">
           Created: {moment(created).format("MM/DD/YY")}
         </div>
@@ -64,9 +58,6 @@ const WorkItem = ({ work }) => {
       <div styleName="title">{name}</div>
       {subTrack && <div styleName="type">{formatWorkType(subTrack)}</div>}
       <div styleName="info">
-        <div styleName="id">
-          Work ID: <span>{id}</span>
-        </div>
         <div styleName="participants">
           Participants: {numOfRegistrants || 0}
         </div>
