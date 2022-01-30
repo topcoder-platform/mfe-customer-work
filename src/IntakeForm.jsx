@@ -44,7 +44,10 @@ export default function IntakeForm() {
           event.returnValue = "";
         }
       })
-      .catch((error) => authUserError(error));
+      .catch((error) => {
+        setCookie(MAX_COMPLETED_STEP, "", -1);
+        authUserError(error);
+      });
     dispatch(triggerAutoSave(true));
   };
 
