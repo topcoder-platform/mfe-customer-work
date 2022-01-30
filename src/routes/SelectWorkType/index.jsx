@@ -120,7 +120,8 @@ const SelectWorkType = ({
                 <div className={styles.heroHeaderContent}>
                   <div>{featuredWorkType.title}</div>
                   <div className={styles.heroHeaderSubtitle}>
-                    starting at {currencyFormat(featuredWorkType.price)} &nbsp;|&nbsp; 4-6 Days
+                    starting at {currencyFormat(featuredWorkType.price)}{" "}
+                    &nbsp;|&nbsp; 4-6 Days
                   </div>
                 </div>
               </div>

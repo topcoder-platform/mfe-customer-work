@@ -78,3 +78,8 @@
     @include backButtonWrapper;
   }
 }
+
+.error {
+  font-size: 14px;
+  color: $red-120;
+}
