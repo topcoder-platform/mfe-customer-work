@@ -151,7 +151,6 @@ const PaymentForm = ({ formData, setFormData }) => {
       <FormField label="Zip Code">
         <div className={styles.cardElement}>
           <FormInputText
-            className={styles.cardElement}
             name="zipCode"
             placeholder="12345"
             onChange={(e) => handleInputChange(e.target.name, e.target.value)}
