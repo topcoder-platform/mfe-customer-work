@@ -11,6 +11,12 @@
 
   .cardElement {
     @include formInputText;
+    padding: 0 8px !important;
+
+    input, select {
+      @include formInputText;
+      padding: 0 8px !important;
+    }
   }
   
   .halfWidth {
