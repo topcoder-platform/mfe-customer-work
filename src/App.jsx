@@ -5,7 +5,7 @@ import {
 } from "@topcoder/micro-frontends-navbar-app";
 import Sidebar from "components/Sidebar";
 import React, { useLayoutEffect, useState } from "react";
-import { menuItems } from "./constants";
+import { menuItems, UNDER_MAINTENANCE } from "./constants";
 import IntakeForm from "./IntakeForm";
 import Home from "./routes/Home";
 import MyWork from "./routes/MyWork";
@@ -18,6 +18,7 @@ import "react-responsive-modal/styles.css";
 
 import styles from "./styles/main.module.scss";
 import SupportPage from "./routes/SupportPage";
+import UnderMaintenance from "./routes/UnderMaintenance";
 
 const sidebar = <Sidebar menus={menuItems} />;
 
@@ -41,6 +42,14 @@ const App = () => {
 
   if (isLoggedIn == null) {
     return null;
+  }
+
+  if (UNDER_MAINTENANCE) {
+    return (
+      <div className={styles["topcoder-micro-frontends-self-service-app"]}>
+        <UnderMaintenance />
+      </div>
+    );
   }
 
   return (
