@@ -482,7 +482,11 @@ export const WORK_TIMELINE = [
   {
     title: "IN REVIEW",
     date: (work) => {
-      const phase = work.phases.find((phase) => phase.name === "Approval");
+      let phase = work.phases.find((phase) => phase.name === "Approval");
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Review");
+      }
       return workUtil.phaseEndDate(phase);
     },
     active: (work) => {
@@ -492,7 +496,11 @@ export const WORK_TIMELINE = [
       return _.filter(reviewPhases, (p) => p.isOpen).length > 0;
     },
     completed: (work) => {
-      const phase = work.phases.find((phase) => phase.name === "Approval");
+      let phase = work.phases.find((phase) => phase.name === "Approval");
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Review");
+      }
       const isPhaseClosed = moment(workUtil.phaseEndDate(phase)).isBefore();
       const didStart =
         WORK_STATUS_ORDER[work.status] >=
