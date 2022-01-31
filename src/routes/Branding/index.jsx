@@ -91,7 +91,9 @@ const Branding = ({ saveBranding, setProgressItem }) => {
     (formData?.colorOption.value.length > 0 ||
       formData?.specificColor.value.trim() !== "") &&
     (formData?.selectedDeliverableOption.option !== "Other" ||
-      formData?.customDeliverable.value.trim() !== "");
+      formData?.customDeliverable.value.trim() !== "") &&
+    (formData?.fontOption.option !== null ||
+      formData?.fontUrl.value.trim() !== "");
 
   const onBack = () => {
     navigate("/self-service/page-details");

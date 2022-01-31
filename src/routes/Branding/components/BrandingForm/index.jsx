@@ -304,8 +304,12 @@ const BrandingForm = ({
           <FontOptions
             selectedFont={selectedFont}
             onSelect={(index, fontName) => {
-              setSelectedFont(index);
-              handleInputChange("fontOption", index, fontName);
+              if (selectedFont === index) {
+                handleInputChange("fontOption", null, null);
+              } else {
+                setSelectedFont(index);
+                handleInputChange("fontOption", index, fontName);
+              }
             }}
           />
 
@@ -316,7 +320,11 @@ const BrandingForm = ({
               Share a link to your publicly accessible fonts via drive, dropbox,
               etc.
             </p>
-            <FormField label={"Shareable Font URL (Optional)"}>
+            <FormField
+              label={`Shareable Font URL ${
+                _.isNull(selectedFont) ? "" : "(Optional)"
+              }`}
+            >
               <FormInputText
                 placeholder={"www.example-share-link.com"}
                 value={formData?.fontUrl?.value}
@@ -326,7 +334,11 @@ const BrandingForm = ({
                 }
               />
             </FormField>
-            <FormField label={"How to Use Your Fonts (optional)"}>
+            <FormField
+              label={`How to Use Your Fonts ${
+                _.isNull(selectedFont) ? "" : "(Optional)"
+              }`}
+            >
               <FormInputTextArea
                 placeholder={
                   "Describe in detail how you would like our designers to use your fonts"
