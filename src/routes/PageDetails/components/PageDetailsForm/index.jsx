@@ -13,7 +13,6 @@ import PageListInput from "components/PageListInput";
 import ServicePrice from "components/ServicePrice";
 import PT from "prop-types";
 import React from "react";
-import { BASE_COST_PER_PAGE } from "constants/";
 import "./styles.module.scss";
 
 const PageDetailsForm = ({
