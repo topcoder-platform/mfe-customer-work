@@ -1,0 +1,14 @@
+@import "styles/include";
+
+.container {
+  font: 16px;
+}
+
+li {
+  padding-left: 20px;
+}
+
+.topCoderLink {
+  text-decoration: underline;
+  color: $link-blue!important;
+}

@@ -14,9 +14,24 @@ const FormInputCheckbox = ({
   label,
   onChange = (f) => f,
   styleName,
+  inline,
   ...props
 }) => {
-  return (
+  return inline ? (
+    <div styleName={cn("styles.inline")}>
+      <label styleName={cn("styles.form-input-checkbox", styleName || "")}>
+        <Checkbox
+          className={"form-input-rc-checkbox"}
+          onChange={onChange}
+          {...props}
+        />
+        <span
+          styleName="styles.label"
+          dangerouslySetInnerHTML={{ __html: label }}
+        ></span>
+      </label>
+    </div>
+  ) : (
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label styleName={cn("styles.form-input-checkbox", styleName || "")}>
       <Checkbox

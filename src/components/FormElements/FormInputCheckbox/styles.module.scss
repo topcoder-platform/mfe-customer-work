@@ -50,3 +50,11 @@
     }
   }
 }
+
+.inline {
+  display: inline-block;
+  .span {
+    color: $link-blue;
+    text-decoration: underline;
+  }
+}

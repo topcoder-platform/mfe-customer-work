@@ -1,6 +1,7 @@
 import { navigate, redirectTo } from "@reach/router";
 import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import Modal from "components/Modal";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
@@ -35,6 +36,7 @@ import { getUserProfile } from "../../thunks/profile";
 
 import PaymentForm from "./components/PaymentForm";
 import "./styles.module.scss";
+import OrderContract from "../../components/Modal/OrderContract";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
@@ -53,6 +55,7 @@ const Payment = ({ setProgressItem }) => {
   const fullState = useSelector((state) => state);
   const stripe = useStripe();
   const elements = useElements();
+  const [isOrderContractModalOpen, setIsOrderContractModalOpen] = useState(false);
 
   const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
@@ -135,6 +138,13 @@ const Payment = ({ setProgressItem }) => {
 
   return (
     <>
+    <Modal
+      fullWidth
+      show={isOrderContractModalOpen}
+      handleClose={() => setIsOrderContractModalOpen(false)}
+    >
+      <OrderContract />
+    </Modal>
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>
@@ -204,13 +214,21 @@ const Payment = ({ setProgressItem }) => {
                   </div>
                 )}
 
-                {/* TODO: add link to order contract */}
-                <div>
+                <div styleName="contract">
                   <FormInputCheckbox
-                    label="Yes, I understand and agree to Topcoder's <span>Order Contract</span>"
+                    label="Yes, I understand and agree to Topcoder's&nbsp;"
                     checked={checked}
                     onChange={(e) => setChecked(e.target.checked)}
+                    inline
                   />
+                  <span
+                    role="button"
+                    tabIndex={0}
+                    styleName="link"
+                    onClick={() => setIsOrderContractModalOpen(true)}
+                  >
+                    Order Contract
+                  </span>
                 </div>
 
                 <div styleName="paymentButtonContainer">
