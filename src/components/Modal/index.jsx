@@ -38,16 +38,18 @@ export const Modal = ({
             halfWidth ? "half-width" : ""
           )}
         >
-          <div className={styles.titleContainer}>{title}</div>
+          <div styleName="stickyHeader">
+            <div className={styles.titleContainer}>{title}</div>
+            {!hideClose && (
+              <IconCross
+                styleName="modalCloseBtn"
+                onClick={(e) => handleClose(e)}
+              />
+            )}
+          </div>
+
 
           {children}
-
-          {!hideClose && (
-            <IconCross
-              styleName="modalCloseBtn"
-              onClick={(e) => handleClose(e)}
-            />
-          )}
         </div>
       </div>
     )

@@ -23,6 +23,11 @@
     font-size: 15px;
     line-height: 1.3em;
 
+    .stickyHeader {
+      position: sticky;
+      top: 0;
+    }
+
     .titleContainer {
       display: flex;
       justify-content: center;
