@@ -3,7 +3,6 @@ import PT from "prop-types";
 import SolutionList from "./SolutionList";
 import SolutionListItem from "./SolutionListItem";
 import SolutionNotAvailableYet from "./SolutionsNotAvailableYet";
-import IconHint from "../../../../assets/images/icon-hint.svg";
 
 import "./styles.module.scss";
 import { WORK_STATUSES } from "constants/";
@@ -35,10 +34,6 @@ const Solutions = ({
     <div styleName="solutions">
       <h6 styleName="title">
         THE FOLLOWING SOLUTIONS HAVE MET YOUR DETAILED CRITERIA
-        <IconHint styleName="help-icon" />
-        <a href="#void" styleName="download-all-solutions-btn">
-          Download All Solutions
-        </a>
       </h6>
 
       <SolutionList>
