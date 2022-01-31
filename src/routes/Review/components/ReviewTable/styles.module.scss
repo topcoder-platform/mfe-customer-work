@@ -55,6 +55,7 @@
     display: flex;
 
     .item {
+      text-transform: capitalize;
       @include font-roboto;
       font-weight: 700;
       font-size: 16px;
@@ -66,5 +67,9 @@
     @include font-roboto;
     font-size: 16px;
     line-height: 26px;
+
+    .detail {
+      padding-left: 20px;
+    }
   }
 }

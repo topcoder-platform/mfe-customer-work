@@ -26,10 +26,15 @@ const Branding = ({ saveBranding, setProgressItem }) => {
   const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     theme: { title: "Style & Theme", option: "", value: null },
-    website: { title: "Inspiration web site", option: "", value: "" },
-    description: { title: "What Do you like", option: "", value: "" },
+    inspiration: [
+      {
+        website: { title: "Website Address", value: "", option: "" },
+        feedback: { title: "What Do You Like", value: "", option: "" },
+      },
+    ],
     colorOption: { title: "Color Option", value: [], option: [] },
     specificColor: { title: "Custom Color", option: "", value: "" },
+    fontOption: { title: "Fonts", option: "", value: 0 },
     fontUrl: { title: "Custom Font URL", value: "", option: "" },
     fontUsageDescription: {
       title: "How to Use Your Fonts",
@@ -37,15 +42,14 @@ const Branding = ({ saveBranding, setProgressItem }) => {
       option: "",
     },
     assetsUrl: { title: "Custom Assets URL", value: "" },
-    fontOption: { title: "Fonts", option: "", value: 0 },
     anythingToAvoid: { title: "Anything to Avoid?", option: "", value: "" },
-    selectedDeliverableOption: {
-      title: "Final Deliverable Option",
+    allowStockOption: {
+      title: "Allow Stock Photos",
       option: "",
       value: null,
     },
-    allowStockOption: {
-      title: "Allow Stock Photos",
+    selectedDeliverableOption: {
+      title: "Final Deliverable Option",
       option: "",
       value: null,
     },

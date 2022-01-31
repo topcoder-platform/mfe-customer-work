@@ -3,6 +3,7 @@ import classNames from "classnames";
 import PageDivider from "components/PageDivider";
 import { ProgressLevels } from "constants/";
 import React, { useState } from "react";
+import _ from "lodash";
 import ArrowIcon from "../../../../assets/images/icon-arrow.svg";
 import "./styles.module.scss";
 
@@ -25,20 +26,49 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
     setSteps(newSteps);
   };
 
-  const renderDetails = (step) => {
-    const items = formData[step.value] || {};
-    return Object.keys(items).map((key) => (
+  const formatOption = (option) => {
+    if (_.isArray(option)) return option.join(", ");
+    if (_.isObject(option)) {
+      return formatOption(_.get(option, "option", option));
+    }
+    return option;
+  };
+
+  const renderOption = (option, title) => {
+    return (
       <div>
-        {items[key]?.option && (
+        {option.option && (
           <div styleName="detail">
             <div styleName="itemWrapper">
-              <p styleName="item">{items[key]?.title}</p>
+              <p styleName="item">{option.title || title}</p>
             </div>
-            <p styleName="key">{items[key]?.option}</p>
+            <p styleName="key">{formatOption(option.option)}</p>
           </div>
         )}
       </div>
-    ));
+    );
+  };
+
+  const renderDetails = (step) => {
+    const items = formData[step.value] || {};
+    return Object.keys(items).map((key) => {
+      if (_.isArray(items[key]))
+        return _.map(items[key], (item, i) => (
+          <div styleName="detail" key={i}>
+            <div styleName="itemWrapper">
+              <p styleName="item">
+                {key} {i + 1}
+              </p>
+            </div>
+            <p styleName="key">
+              {Object.keys(item).map((subKey) =>
+                renderOption(item[subKey], subKey)
+              )}
+            </p>
+          </div>
+        ));
+      return renderOption(items[key]);
+    });
   };
 
   const renderPageDetails = (step) => {
