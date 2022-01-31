@@ -60,7 +60,7 @@ const Summary = ({ summary, setSelectedTab, setShowSurvey }) => {
               </PageP>
               <PageP>
                 Thank you!
-                <br />- The Topcoder Team
+                <br />The Topcoder Team
               </PageP>
             </div>
           ) : (
