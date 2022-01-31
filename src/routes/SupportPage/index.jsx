@@ -18,9 +18,7 @@ import Button from "components/Button";
 import PageFoot from "components/PageElements/PageFoot";
 import { navigate } from "@reach/router";
 
-const SupportPage = ({
-  createNewSupportTicket,
-}) => {
+const SupportPage = ({ createNewSupportTicket }) => {
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challenge);
   const profileData = useSelector(getProfile);
@@ -29,7 +27,6 @@ const SupportPage = ({
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
-
 
   // use the state to handle form values
   const [formIsValid, setFormIsValid] = useState(false);
@@ -87,90 +84,92 @@ const SupportPage = ({
           <PageH2>Contact Us</PageH2>
           <PageDivider />
           {!submittedSupportRequest && (
-          <div>
-            <br />
-            Hi {firstName || "there"}, we're here to help. Please describe what
-            you'd like to discuss, and a Topcoder Solutions Expert will email you
-            back
-            {email ? ` at ` : ""}
-            {email ? <strong>{email}</strong> : ""}
-            &nbsp;within one business day.
-            <br />
-            <br />
-          </div>
-        )}
+            <div>
+              <br />
+              Hi {firstName || "there"}, we're here to help. Please describe
+              what you'd like to discuss, and a Topcoder Solutions Expert will
+              email you back
+              {email ? ` at ` : ""}
+              {email ? <strong>{email}</strong> : ""}
+              &nbsp;within one business day.
+              <br />
+              <br />
+            </div>
+          )}
 
-        {submittedSupportRequest && (
-          <div
-            style={{
-              "text-align": "center",
-              "font-weight": "bold",
-              "text-transform": "uppercase",
-              "margin-top": "30px",
-            }}
-          >
-            <br />
-            <br />
-            <p>Thank You.</p>
-            <p>Message Received.</p>
-            <br />
-            <br />
-          </div>
-        )}
+          {submittedSupportRequest && (
+            <div
+              style={{
+                "text-align": "center",
+                "font-weight": "bold",
+                "text-transform": "uppercase",
+                "margin-top": "30px",
+              }}
+            >
+              <br />
+              <br />
+              <p>Thank You.</p>
+              <p>Message Received.</p>
+              <br />
+              <br />
+            </div>
+          )}
 
-        {!submittedSupportRequest && (
-          <form>
-            {!firstName && (
-              <FormField label="First Name">
-                <FormInputText
-                  name="firstName"
+          {!submittedSupportRequest && (
+            <form>
+              {!firstName && (
+                <FormField label="First Name">
+                  <FormInputText
+                    name="firstName"
+                    onChange={(e) =>
+                      handleInputChange(e.target.name, e.target.value)
+                    }
+                    required
+                    value={request?.firstName}
+                  />
+                </FormField>
+              )}
+
+              {!lastName && (
+                <FormField label="Last Name">
+                  <FormInputText
+                    name="lastName"
+                    onChange={(e) =>
+                      handleInputChange(e.target.name, e.target.value)
+                    }
+                    required
+                    value={request?.lastName}
+                  />
+                </FormField>
+              )}
+
+              {!email && (
+                <FormField label="Email">
+                  <FormInputText
+                    name="email"
+                    onChange={(e) =>
+                      handleInputChange(e.target.name, e.target.value)
+                    }
+                    required
+                    value={request?.email}
+                  />
+                </FormField>
+              )}
+
+              <FormField label="How can we help you?">
+                <FormInputTextArea
+                  name="question"
                   onChange={(e) =>
                     handleInputChange(e.target.name, e.target.value)
                   }
+                  placeholder="Enter your question or issue"
                   required
-                  value={request?.firstName}
+                  rows="3"
+                  value={request?.question}
                 />
               </FormField>
-            )}
-
-            {!lastName && (
-              <FormField label="Last Name">
-                <FormInputText
-                  name="lastName"
-                  onChange={(e) =>
-                    handleInputChange(e.target.name, e.target.value)
-                  }
-                  required
-                  value={request?.lastName}
-                />
-              </FormField>
-            )}
-
-            {!email && (
-              <FormField label="Email">
-                <FormInputText
-                  name="email"
-                  onChange={(e) =>
-                    handleInputChange(e.target.name, e.target.value)
-                  }
-                  required
-                  value={request?.email}
-                />
-              </FormField>
-            )}
-
-            <FormField label="How can we help you?">
-              <FormInputTextArea
-                name="question"
-                onChange={(e) => handleInputChange(e.target.name, e.target.value)}
-                placeholder="Enter your question or issue"
-                required
-                rows="3"
-                value={request?.question}
-              />
-            </FormField>
-          </form>
-        )}
+            </form>
+          )}
 
           <PageFoot>
             <div styleName="footerContent">
@@ -200,13 +199,12 @@ const SupportPage = ({
       </Page>
     </>
   );
-}
+};
 
-
-const mapStateToProps = ({ form }) => form
+const mapStateToProps = ({ form }) => form;
 
 const mapDispatchToProps = {
-  createNewSupportTicket
-}
+  createNewSupportTicket,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SupportPage);

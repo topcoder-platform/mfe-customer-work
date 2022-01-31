@@ -7,41 +7,43 @@ import ArrowRightIcon from "../../../../assets/images/arrow-right.svg";
 import "./styles.module.scss";
 import _ from "lodash";
 import Modal from "components/Modal";
-import OrderContract from "components/Modal/OrderContract"
+import OrderContract from "components/Modal/OrderContract";
 import PrivacyPolicyModal from "components/Modal/PrivacyPolicyModal";
 import TermsModal from "components/Modal/TermsModal";
 
 const Details = ({ challenge, formData }) => {
-  const [isOrderContractModalOpen, setIsOrderContractModalOpen] = useState(false);
-  const [isPrivacyPolicyModalOpen, setIsPrivacyPolicyModalOpen] = useState(false);
+  const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
+    useState(false);
+  const [isPrivacyPolicyModalOpen, setIsPrivacyPolicyModalOpen] =
+    useState(false);
   const [isTermsModalOpne, setIsTermsModalOpen] = useState(false);
 
   return (
     <div styleName="details">
-        <Modal
-          fullWidth
-          show={isOrderContractModalOpen}
-          styleName="link"
-          handleClose={() => setIsOrderContractModalOpen(false)}
-        >
-          <OrderContract />
-        </Modal>
-        <Modal
-          fullWidth
-          show={isPrivacyPolicyModalOpen}
-          styleName="link"
-          handleClose={() => setIsPrivacyPolicyModalOpen(false)}
-        >
-          <PrivacyPolicyModal />
-        </Modal>
-        <Modal
-          fullWidth
-          show={isTermsModalOpne}
-          styleName="link"
-          handleClose={() => setIsTermsModalOpen(false)}
-        >
-          <TermsModal />
-        </Modal>
+      <Modal
+        fullWidth
+        show={isOrderContractModalOpen}
+        styleName="link"
+        handleClose={() => setIsOrderContractModalOpen(false)}
+      >
+        <OrderContract />
+      </Modal>
+      <Modal
+        fullWidth
+        show={isPrivacyPolicyModalOpen}
+        styleName="link"
+        handleClose={() => setIsPrivacyPolicyModalOpen(false)}
+      >
+        <PrivacyPolicyModal />
+      </Modal>
+      <Modal
+        fullWidth
+        show={isTermsModalOpne}
+        styleName="link"
+        handleClose={() => setIsTermsModalOpen(false)}
+      >
+        <TermsModal />
+      </Modal>
       <div styleName="reviewTable">
         <PageDivider />
         <ReviewTable

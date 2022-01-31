@@ -55,7 +55,8 @@ const Payment = ({ setProgressItem }) => {
   const fullState = useSelector((state) => state);
   const stripe = useStripe();
   const elements = useElements();
-  const [isOrderContractModalOpen, setIsOrderContractModalOpen] = useState(false);
+  const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
+    useState(false);
 
   const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
@@ -144,13 +145,13 @@ const Payment = ({ setProgressItem }) => {
 
   return (
     <>
-    <Modal
-      fullWidth
-      show={isOrderContractModalOpen}
-      handleClose={() => setIsOrderContractModalOpen(false)}
-    >
-      <OrderContract />
-    </Modal>
+      <Modal
+        fullWidth
+        show={isOrderContractModalOpen}
+        handleClose={() => setIsOrderContractModalOpen(false)}
+      >
+        <OrderContract />
+      </Modal>
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>

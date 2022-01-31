@@ -48,7 +48,6 @@ export const Modal = ({
             )}
           </div>
 
-
           {children}
         </div>
       </div>

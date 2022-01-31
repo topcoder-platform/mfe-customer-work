@@ -35,22 +35,34 @@ const PolicyContent = () => (
         You are only allowed to use Stock Artwork from the provided websites:
         <ul>
           <li>
-            <a href="http://www.istockphoto.com/" target="_blank">iStockPhoto.com</a>
+            <a href="http://www.istockphoto.com/" target="_blank">
+              iStockPhoto.com
+            </a>
           </li>
           <li>
-            <a href="https://stock.adobe.com/" target="_blank">Adobe Stock</a>
+            <a href="https://stock.adobe.com/" target="_blank">
+              Adobe Stock
+            </a>
           </li>
           <li>
-            <a href="http://www.shutterstock.com/" target="_blank">Shutterstock</a>
+            <a href="http://www.shutterstock.com/" target="_blank">
+              Shutterstock
+            </a>
           </li>
           <li>
-            <a href="http://publicdomainarchive.com/" target="_blank">Public Domain Archive</a>
+            <a href="http://publicdomainarchive.com/" target="_blank">
+              Public Domain Archive
+            </a>
           </li>
           <li>
-            <a href="https://unsplash.com/" target="_blank">Unsplash</a>
+            <a href="https://unsplash.com/" target="_blank">
+              Unsplash
+            </a>
           </li>
           <li>
-            <a href="https://www.pexels.com/" target="_blank">Pexels</a>
+            <a href="https://www.pexels.com/" target="_blank">
+              Pexels
+            </a>
           </li>
         </ul>
       </li>
@@ -133,16 +145,24 @@ const PolicyContent = () => (
     </ul>
     <br />
     <PageH2>APPROVED FONT SITES</PageH2>
-    <a href="https://typekit.com/fonts?collection=trial&purpose=desktop" target="_blank">
+    <a
+      href="https://typekit.com/fonts?collection=trial&purpose=desktop"
+      target="_blank"
+    >
       Typekit
     </a>
     &nbsp;(Limited Library)
     <br />
     <br />
-    <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>
+    <a href="https://fonts.google.com/" target="_blank">
+      Google Fonts
+    </a>
     <br />
     <br />
-    <a href="https://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">
+    <a
+      href="https://www.w3schools.com/cssref/css_websafe_fonts.asp"
+      target="_blank"
+    >
       Web Safe Fonts
     </a>
     <PageH2>ICON POLICY</PageH2>
@@ -213,32 +233,44 @@ const PolicyContent = () => (
     <ul>
       <li>
         <PageP>
-          <a href="https://iconmonstr.com/" target="_blank">Iconmonstr</a>
+          <a href="https://iconmonstr.com/" target="_blank">
+            Iconmonstr
+          </a>
         </PageP>
       </li>
       <li>
         <PageP>
-          <a href="https://thenounproject.com/" target="_blank">The Noun Project</a>
+          <a href="https://thenounproject.com/" target="_blank">
+            The Noun Project
+          </a>
         </PageP>
       </li>
       <li>
         <PageP>
-          <a href="https://feathericons.com/" target="_blank">Feather Icons</a>
+          <a href="https://feathericons.com/" target="_blank">
+            Feather Icons
+          </a>
         </PageP>
       </li>
       <li>
         <PageP>
-          <a href="https://material.io/icons/" target="_blank">Material Icons</a>
+          <a href="https://material.io/icons/" target="_blank">
+            Material Icons
+          </a>
         </PageP>
       </li>
       <li>
         <PageP>
-          <a href="https://useiconic.com/open" target="_blank">Open Iconic</a>
+          <a href="https://useiconic.com/open" target="_blank">
+            Open Iconic
+          </a>
         </PageP>
       </li>
       <li>
         <PageP>
-          <a href="https://www.flaticon.com/" target="_blank">FlatIcon</a>
+          <a href="https://www.flaticon.com/" target="_blank">
+            FlatIcon
+          </a>
         </PageP>
       </li>
     </ul>
