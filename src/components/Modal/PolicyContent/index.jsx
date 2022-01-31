@@ -139,7 +139,7 @@ const PolicyContent = () => (
     &nbsp;(Limited Library)
     <br />
     <br />
-    <a href="https://fonts.google.com/">Google Fonts</a>
+    <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>
     <br />
     <br />
     <a href="https://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">
