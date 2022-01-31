@@ -133,7 +133,7 @@ const PageDetailsForm = ({
               <PageP>
                 On the home screen I would also like to see included: Our
                 TrustPilot Rating -{" "}
-                <a href="https://www.trustpilot.com/">
+                <a target="_blank" href="https://www.trustpilot.com/">
                   {" "}
                   https://www.trustpilot.com/{" "}
                 </a>{" "}

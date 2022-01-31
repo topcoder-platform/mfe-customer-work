@@ -738,7 +738,7 @@ const PrivacyPolicyModal = () => (
             <li>
               To exercise your rights regarding your Personal Data, or if you have questions 
               regarding this Privacy Statement or our privacy practices please ll out <a href="/self-service/support" target="_blank">this form</a>,
-              email us at <a href="mailToPrivacy@topcoder.com">privacy@topcoder.com</a>, call us at 855 867-1356, or write to us at:
+              email us at <a href="mailto:Privacy@topcoder.com">privacy@topcoder.com</a>, call us at 855 867-1356, or write to us at:
             </li>
             <br />
             <li>

@@ -39,7 +39,7 @@ const TermsModal = () => (
             </li>
             <li>
               User agrees to comply with all terms of the Topcoder Privacy Policy available at  
-               <a href="http://www.topcoder.com/community/how-it-works/privacy-policy/" target="_blank"> http://www.topcoder.com/community/how-it-works/privacy-policy/</a>
+               <a href="https://www.topcoder.com/policy/privacy-policy/" target="_blank"> https://www.topcoder.com/policy/privacy-policy/</a>
             </li>
             <li>
               <PageH3>3.GENERAL USE OF TOPCODER.COM.</PageH3>
