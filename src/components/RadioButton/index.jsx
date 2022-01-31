@@ -33,7 +33,12 @@ function RadioButton({ options, onChange, size, errorMsg }) {
       for (let i = 0; i < options.length; i += 1) {
         newOptions[i].label = options[i]?.label;
         newOptions[i].key = i;
-        newOptions[i].value = options[i].value || newOptions[i].value;
+        if (
+          _.isUndefined(newOptions[i].value) &&
+          !_.isUndefined(options[i].value)
+        ) {
+          newOptions[i].value = options[i].value;
+        }
       }
       setInternalOptions(newOptions);
     }
