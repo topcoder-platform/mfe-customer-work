@@ -75,6 +75,11 @@ const PaymentForm = ({ formData, setFormData }) => {
       <FormField label="Card Number">
         <div className={styles.cardElement}>
           <CardNumberElement
+            options={{
+              classes: {
+                base: styles.cardElement,
+              },
+            }}
             required
             onChange={(data) => onCardNumberChange(data)}
           />
@@ -88,6 +93,11 @@ const PaymentForm = ({ formData, setFormData }) => {
         <FormField label={"Expiration Date"}>
           <div className={styles.cardElement}>
             <CardExpiryElement
+              options={{
+                classes: {
+                  base: styles.cardElement,
+                },
+              }}
               required
               onChange={(data) => onExpirationChange(data)}
             />
@@ -99,7 +109,15 @@ const PaymentForm = ({ formData, setFormData }) => {
 
         <FormField label={"CVC"}>
           <div className={styles.cardElement}>
-            <CardCvcElement required onChange={(data) => onCvcChange(data)} />
+            <CardCvcElement
+              options={{
+                classes: {
+                  base: styles.cardElement,
+                },
+              }}
+              required
+              onChange={(data) => onCvcChange(data)}
+            />
           </div>
           {!!String(cvcError).length && (
             <span className={styles.error}>{cvcError}</span>
@@ -110,6 +128,11 @@ const PaymentForm = ({ formData, setFormData }) => {
       <FormField label="Name On Card">
         <div className={styles.cardElement}>
           <FormInputText
+            options={{
+              classes: {
+                base: styles.cardElement,
+              },
+            }}
             name="cardName"
             onChange={(e) => handleInputChange(e.target.name, e.target.value)}
           ></FormInputText>

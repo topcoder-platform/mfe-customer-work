@@ -28,7 +28,6 @@ import PolicyContent from "../../../../components/Modal/PolicyContent";
 import PageH3 from "components/PageElements/PageH3";
 
 const BrandingForm = ({
-  price,
   serviceType,
   setFormData,
   formData,
@@ -126,6 +125,7 @@ const BrandingForm = ({
     if (itemSelected?.option && deliverableOptions[0]) {
       const newDeliverableOptions = deliverableOptions.map((o) => {
         o.value = o.label === itemSelected.option;
+        return o;
       });
       setDeliverableOptions(newDeliverableOptions);
     }
@@ -134,6 +134,7 @@ const BrandingForm = ({
     if (optionSelected?.option && allowStockOption[0]) {
       const newAllowStockPhoto = allowStockOption.map((o) => {
         o.value = o.label === optionSelected.option;
+        return o;
       });
       setAllowStockOption(newAllowStockPhoto);
     }
@@ -330,9 +331,9 @@ const BrandingForm = ({
                 placeholder={
                   "Describe in detail how you would like our designers to use your fonts"
                 }
-                value={formData?.fontUrl?.fontUsageDescription}
+                value={formData?.fontUsageDescription?.value}
                 styleName={"text-area"}
-                name="fontUsage"
+                name="fontUsageDescription"
                 onChange={(e) =>
                   handleInputChange(e.target.name, e.target.value)
                 }

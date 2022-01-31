@@ -8,6 +8,7 @@ import Button from "components/Button";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import PT from "prop-types";
 import React from "react";
+import { currencyFormat } from "utils/";
 import "./styles.module.scss";
 
 const PageListInput = ({
@@ -16,6 +17,7 @@ const PageListInput = ({
   styleName,
   children,
   canAdd,
+  pageCost,
 }) => {
   return (
     <div styleName={cn("page-list-input", styleName || "")}>
@@ -31,7 +33,7 @@ const PageListInput = ({
               <div>
                 <p styleName="pageText">NEED ANOTHER PAGE?</p>
                 <Button type={BUTTON_TYPE.SECONDARY} size={BUTTON_SIZE.MEDIUM}>
-                  ADD PAGE: +$100
+                  ADD PAGE: +{currencyFormat(pageCost)}
                 </Button>
               </div>
             )}

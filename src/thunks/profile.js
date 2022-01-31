@@ -59,11 +59,11 @@ export const updateBasicInfoAndPassword =
       ) {
         const res = results[0].value;
         dispatch(
-          actions.updateBasicInfoSuccess(
-            res.handle,
-            res.firstName,
-            res.lastName
-          )
+          actions.updateBasicInfoSuccess({
+            handle: res.handle,
+            firstName: res.firstName,
+            lastName: res.lastName,
+          })
         );
         toastr.success(
           "Success",
@@ -79,11 +79,11 @@ export const updateBasicInfoAndPassword =
           results[1].reason?.response?.data?.result?.content ||
           "Something went wrong";
         dispatch(
-          actions.updateBasicInfoSuccess(
-            res.handle,
-            res.firstName,
-            res.lastName
-          )
+          actions.updateBasicInfoSuccess({
+            handle: res.handle,
+            firstName: res.firstName,
+            lastName: res.lastName,
+          })
         );
         toastr.warning("Profile is updated but user password is failed", err);
       }
@@ -111,11 +111,11 @@ export const updateBasicInfoAndPassword =
         .updateBasicInfo(handle, firstName, lastName)
         .then((res) => {
           dispatch(
-            actions.updateBasicInfoSuccess(
-              res.handle,
-              res.firstName,
-              res.lastName
-            )
+            actions.updateBasicInfoSuccess({
+              handle: res.handle,
+              firstName: res.firstName,
+              lastName: res.lastName,
+            })
           );
           toastr.success("Success", "Profile info has successfully updated");
           updateUserProfile(res.firstName, res.lastName);

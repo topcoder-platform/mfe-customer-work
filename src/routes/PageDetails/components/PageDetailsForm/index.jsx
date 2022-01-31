@@ -19,7 +19,6 @@ const PageDetailsForm = ({
   savePageDetails,
   listInputs,
   setListInputs,
-  price,
   serviceType,
   estimate,
 }) => {
@@ -160,6 +159,7 @@ const PageDetailsForm = ({
 
         <div styleName="formFieldWrapper">
           <PageListInput
+            pageCost={estimate.costPerAdditionalPage}
             listInput={listInputs.pages}
             canAdd={listInputs.pages.length < 5}
             name="pages"

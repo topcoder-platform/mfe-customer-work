@@ -104,9 +104,6 @@ const ProfileForm = ({
       <PageRow styleName="form-row">
         <div styleName="leftContent">
           <PageP styleName="title">RESET PASSWORD</PageP>
-          <PageP styleName="description">
-            Do eiusmod tempor incididunt ut labore et dolore magna aliqua{" "}
-          </PageP>
         </div>
 
         <div styleName="formFieldWrapper">

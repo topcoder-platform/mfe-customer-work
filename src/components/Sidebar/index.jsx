@@ -22,7 +22,10 @@ const Sidebar = ({ menus }) => {
       {menus.map((menu) => {
         const isActive = menu.url === activeMenuUrl;
         return (
-          <Link styleName="menu" to={menu.url}>
+          <Link
+            styleName={classNames("menu", isActive ? "disabled" : "")}
+            to={menu.url}
+          >
             <div styleName="icon">{isActive ? menu.activeIcon : menu.icon}</div>
 
             <p styleName={classNames("item", isActive ? "active" : null)}>

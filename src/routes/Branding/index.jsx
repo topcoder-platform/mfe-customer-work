@@ -30,7 +30,12 @@ const Branding = ({ saveBranding, setProgressItem }) => {
     description: { title: "What Do you like", option: "", value: "" },
     colorOption: { title: "Color Option", value: [], option: [] },
     specificColor: { title: "Custom Color", option: "", value: "" },
-    fontUrl: { title: "Custom Font URL", value: "", fontUsageDescription: "" },
+    fontUrl: { title: "Custom Font URL", value: "", option: "" },
+    fontUsageDescription: {
+      title: "How to Use Your Fonts",
+      value: "",
+      option: "",
+    },
     assetsUrl: { title: "Custom Assets URL", value: "" },
     fontOption: { title: "Fonts", option: "", value: 0 },
     anythingToAvoid: { title: "Anything to Avoid?", option: "", value: "" },

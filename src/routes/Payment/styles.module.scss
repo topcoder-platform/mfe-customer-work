@@ -83,6 +83,7 @@
     @include backButtonWrapper;
   }
 }
+
 .inline {
   display: inline-block;
 }
@@ -91,4 +92,9 @@
   color: $link-blue;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.error {
+  font-size: 14px;
+  color: $red-120;
 }

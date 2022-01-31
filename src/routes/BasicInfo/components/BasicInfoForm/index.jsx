@@ -10,10 +10,10 @@ import PageP from "components/PageElements/PageP";
 import PageRow from "components/PageElements/PageRow";
 import RadioButton from "components/RadioButton";
 import ServicePrice from "components/ServicePrice";
-import { HELP_BANNER, PageOptions } from "constants/";
+import { HELP_BANNER } from "constants/";
 import PT from "prop-types";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DeviceTypes from "../DeviceTypes";
 import "./styles.module.scss";
 
@@ -25,23 +25,11 @@ const BasicInfoForm = ({
   numOfPages,
   updateNumOfPages,
   estimate,
+  pageListOptions,
 }) => {
   const handleInputChange = (name, value, option = "") => {
     onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
   };
-
-  const listOptions = _.map(PageOptions, (o, i) => ({
-    ...o,
-    value: i === numOfPages - 1,
-  }));
-
-  useEffect(() => {
-    return () => {
-      listOptions.forEach((option, i) => {
-        option.value = false;
-      });
-    };
-  }, []);
 
   return (
     <div styleName="basicInfoForm">
@@ -98,7 +86,7 @@ const BasicInfoForm = ({
               updateNumOfPages(newNumOfPages + 1);
             }}
             size="lg"
-            options={listOptions}
+            options={pageListOptions}
           />
         </div>
       </PageRow>
@@ -116,6 +104,7 @@ const BasicInfoForm = ({
 
         <div styleName="formFieldWrapper">
           <DeviceTypes
+            numOfPages={numOfPages}
             selectedOptions={formData?.selectedDevice?.value}
             onSelect={(selectedOption, option) => {
               handleInputChange("selectedDevice", selectedOption, option);

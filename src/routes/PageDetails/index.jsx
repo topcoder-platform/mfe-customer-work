@@ -36,6 +36,7 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
   const pageDetails = useSelector((state) => state.form.pageDetails);
   const currentStep = useSelector((state) => state.progress.currentStep);
   const fullState = useSelector((state) => state);
+  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const onBack = () => {
     navigate("/self-service/website-purpose");
@@ -89,7 +90,7 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
           <PageDivider />
 
           <PageDetailsForm
-            estimate={getDynamicPriceAndTimelineEstimate(fullState)}
+            estimate={estimate}
             savePageDetails={savePageDetails}
             serviceType={workType?.selectedWorkTypeDetail}
             listInputs={listInputs}

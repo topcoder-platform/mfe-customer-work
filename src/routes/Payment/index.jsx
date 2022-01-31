@@ -48,6 +48,7 @@ const stripePromise = loadStripe(config.STRIPE.API_KEY, {
 const Payment = ({ setProgressItem }) => {
   const dispatch = useDispatch();
 
+  const [paymentFailed, setPaymentFailed] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
   const currentStep = useSelector((state) => state.progress.currentStep);
@@ -84,6 +85,7 @@ const Payment = ({ setProgressItem }) => {
     }
 
     setLoading(true);
+    setPaymentFailed(false);
 
     services
       .processPayment(stripe, elements, estimate.total, challengeId)
@@ -92,8 +94,10 @@ const Payment = ({ setProgressItem }) => {
         clearPreviousForm();
         navigate("/self-service/thank-you");
         setProgressItem(8);
+        setPaymentFailed(false);
       })
       .catch(() => {
+        setPaymentFailed(true);
         toastr.error("Error", "There was an error processing the payment");
       })
       .finally(() => {
@@ -204,6 +208,11 @@ const Payment = ({ setProgressItem }) => {
                 <PageDivider styleName="pageDivider" />
 
                 <PaymentForm formData={formData} setFormData={setFormData} />
+                {paymentFailed && (
+                  <div styleName="error">
+                    Your card was declined. Please try a different card.
+                  </div>
+                )}
 
                 <div styleName="contract">
                   <FormInputCheckbox
