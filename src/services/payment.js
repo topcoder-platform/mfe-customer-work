@@ -20,7 +20,8 @@ export async function processPayment(
   elements,
   amount,
   challengeId,
-  receiptEmail
+  receiptEmail,
+  description
 ) {
   // get project ID from challenge
   const challenge = await challengeService.getChallengeDetails(challengeId);
@@ -42,6 +43,7 @@ export async function processPayment(
       paymentMethodId: payload.paymentMethod.id,
       reference: "project",
       referenceId: _.toString(challenge.projectId),
+      description,
     });
     const url = `${config.API.V5}/customer-payments`;
     let response = await axios.post(url, body);

@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
 import { getDynamicPriceAndTimelineEstimate, currencyFormat } from "utils/";
-
+import _ from "lodash";
 import config from "../../../config";
 
 import { triggerAutoSave } from "../../actions/autoSave";
@@ -88,13 +88,27 @@ const Payment = ({ setProgressItem }) => {
     setLoading(true);
     setPaymentFailed(false);
 
+    const description = `Work Item #${challengeId}\n${_.get(
+      fullState,
+      "form.websitePurpose.description.value"
+    )}\n${_.get(fullState, "form.workType.selectedWorkType")}\n${_.get(
+      fullState,
+      "form.pageDetails.pages.length",
+      1
+    )} Pages\n${_.get(
+      fullState,
+      "form.basicInfo.selectedDevice.option.length",
+      1
+    )} Devices`;
+
     services
       .processPayment(
         stripe,
         elements,
         estimate.total,
         challengeId,
-        formData.email
+        formData.email,
+        description
       )
       .then((res) => {
         activateChallenge(challengeId);
