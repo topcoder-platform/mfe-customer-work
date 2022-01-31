@@ -7,7 +7,11 @@ import workUtil from "../utils/work";
 
 import countries from "./countries";
 
-export const AUTOSAVE_THROTTLE_TIME = 5000;
+export const DEVICE_TYPE_DETAILS = {
+  computer: "Default screen 1366px width, 768px height",
+  tablet: "Default screen (vertical) 810px height, 1080px width",
+  phone: "Default screen 375px width, 812px height",
+};
 
 export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",

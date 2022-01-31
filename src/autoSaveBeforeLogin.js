@@ -2,7 +2,6 @@ import {
   ACTIONS,
   AUTO_SAVE_FORM,
   CACHED_CHALLENGE_ID,
-  AUTOSAVE_THROTTLE_TIME,
 } from "constants/index";
 import CryptoJS from "crypto-js";
 import _ from "lodash";
@@ -16,7 +15,7 @@ import {
 } from "./actions/autoSave";
 
 export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
-  const handleAutoSave = _.throttle(() => {
+  const handleAutoSave = () => {
     const { progress, form, authUser, challenge, autoSave } = getState();
     const isEmptyForm = !form?.workType?.selectedWorkType;
     if (isEmptyForm) return;
@@ -29,7 +28,7 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
     } else {
       dispatch(storeAutoSavedCookie(dataToSave));
     }
-  }, AUTOSAVE_THROTTLE_TIME);
+  };
 
   const clearCachedCookie = (autoSave) => {
     if (autoSave.triggered && !autoSave.cookieCleared) {

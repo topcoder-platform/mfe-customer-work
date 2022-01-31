@@ -1,4 +1,4 @@
-import { CHALLENGE_FIELD_VALUES } from "constants/index";
+import { CHALLENGE_FIELD_VALUES, DEVICE_TYPE_DETAILS } from "constants/index";
 import config from "../../config";
 import { axiosInstance as axios } from "./requestInterceptor";
 import templateData from "../assets/data/spec-templates/website-design.json";
@@ -84,34 +84,26 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "basicInfo.numberOfPages",
-    value: numOfPages,
-  });
-
-  intakeMetadata.push({
-    name: "basicInfo.selectedPageOption",
-    value: _.get(
-      jsonData,
-      "form.basicInfo.selectedPageOption.option",
-      ""
-    ).split("(")[0],
+    value: numOfPages === 1 ? "1 Screen" : `${numOfPages} Screens`,
   });
 
   intakeMetadata.push({
     name: "basicInfo.numberOfDevices",
-    value: numOfDevices,
+    value: numOfDevices === 1 ? "1 Device" : `${numOfDevices} Devices`,
   });
 
   intakeMetadata.push({
     name: "basicInfo.supportedDevices",
     value: _.map(
       _.get(jsonData, "form.basicInfo.selectedDevice.option", []),
-      (device) => `- ${device}\n`
+      (device) =>
+        `- **${device}**: ${DEVICE_TYPE_DETAILS[_.toLower(device)]} \n`
     ),
   });
 
   intakeMetadata.push({
     name: "websitePurpose.industry",
-    value: _.get(jsonData, "form.websitePurpose.industry.value.value"),
+    value: _.get(jsonData, "form.websitePurpose.industry.value.label"),
   });
 
   intakeMetadata.push({
@@ -123,7 +115,8 @@ export async function patchChallenge(intakeForm, challengeId) {
     name: "pageDetails",
     value: _.map(
       _.get(jsonData, "form.pageDetails.pages", []),
-      (p) => `### ${p.pageName}\n\n${p.pageDetails}`
+      (p) =>
+        `### ${p.pageName} \n\n#### Requirements & Details:\n\n ${p.pageDetails}`
     ).join("\n\n"),
   });
 
@@ -132,34 +125,71 @@ export async function patchChallenge(intakeForm, challengeId) {
     value: _.get(jsonData, "form.branding.theme.value"),
   });
 
-  intakeMetadata.push({
-    name: "branding.websitesForInspiration",
-    value: _.get(jsonData, "form.branding.website.value"), // TODO: This is not correct
-  });
+  const webSitesForInspiration = _.get(jsonData, "form.branding.inspiration");
+
+  if (webSitesForInspiration && webSitesForInspiration.length > 0) {
+    intakeMetadata.push({
+      name: "branding.websitesForInspiration",
+      value: `### INSPIRATION:\n\n${_.map(
+        webSitesForInspiration,
+        (w) =>
+          `Website Address: [${w.website.value}](${w.website.value})\n- ${w.feedback.value}`
+      )}`,
+    });
+  } else {
+    intakeMetadata.push({
+      name: "branding.websitesForInspiration",
+      value: "\n",
+    });
+  }
 
   intakeMetadata.push({
     name: "branding.colorOption",
-    value: _.get(jsonData, "form.branding.colorOption.option"),
+    value: _.get(jsonData, "form.branding.colorOption.option", []).join(", "),
   });
 
   intakeMetadata.push({
     name: "branding.specificColor",
-    value: _.get(jsonData, "form.branding.specificColor.value"),
+    value: _.get(jsonData, "form.branding.specificColor.value", "N/A"),
   });
 
   intakeMetadata.push({
     name: "branding.fontOption",
-    value: _.get(jsonData, "form.branding.fontOption.option"),
+    value: _.get(jsonData, "form.branding.fontOption.option", "N/A"),
   });
 
+  const fontUrl = _.get(jsonData, "form.branding.fontOption.option");
+
   intakeMetadata.push({
-    name: "branding.fontFiles",
-    value: "N/A", // TODO: This is not correct
+    name: "branding.fontUrl",
+    value: fontUrl ? `[${fontUrl}](${fontUrl})` : "N/A",
+  });
+
+  const fontUsage = _.get(
+    jsonData,
+    "form.branding.fontUsageDescription.option",
+    "N/A"
+  );
+
+  intakeMetadata.push({
+    name: "branding.fontUsageDescription",
+    value: fontUsage,
+  });
+
+  const assetsUrl = _.get(jsonData, "form.branding.assetsUrl.option");
+
+  intakeMetadata.push({
+    name: "branding.assetsUrl",
+    value: assetsUrl ? `[${assetsUrl}](${assetsUrl})` : "N/A",
   });
 
   intakeMetadata.push({
     name: "branding.stockPhotos",
-    value: _.get(jsonData, "form.branding.allowStockOption.option"), // TODO: Rename to stockPhotos
+    value: _.get(
+      jsonData,
+      "form.branding.allowStockOption.option",
+      "Yes, allow stock photos"
+    ),
   });
 
   intakeMetadata.push({
