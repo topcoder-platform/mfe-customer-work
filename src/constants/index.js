@@ -9,6 +9,8 @@ import countries from "./countries";
 
 export const AUTOSAVE_THROTTLE_TIME = 5000;
 
+export const BASE_COST_PER_PAGE = 99;
+
 export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
   HOME_PAGE: "/self-service",

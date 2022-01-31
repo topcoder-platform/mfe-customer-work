@@ -15,7 +15,13 @@ import { axiosInstance as axios } from "./requestInterceptor";
  *
  * @returns {Promise} promise
  */
-export async function processPayment(stripe, elements, amount, challengeId) {
+export async function processPayment(
+  stripe,
+  elements,
+  amount,
+  challengeId,
+  receiptEmail
+) {
   // get project ID from challenge
   const challenge = await challengeService.getChallengeDetails(challengeId);
 
@@ -31,6 +37,8 @@ export async function processPayment(stripe, elements, amount, challengeId) {
     // please remove this comment after the api is updated
     const body = JSON.stringify({
       amount,
+      currency: "USD",
+      receiptEmail,
       paymentMethodId: payload.paymentMethod.id,
       reference: "project",
       referenceId: _.toString(challenge.projectId),

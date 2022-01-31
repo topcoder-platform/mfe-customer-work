@@ -88,7 +88,13 @@ const Payment = ({ setProgressItem }) => {
     setPaymentFailed(false);
 
     services
-      .processPayment(stripe, elements, estimate.total, challengeId)
+      .processPayment(
+        stripe,
+        elements,
+        estimate.total,
+        challengeId,
+        formData.email
+      )
       .then((res) => {
         activateChallenge(challengeId);
         clearPreviousForm();
