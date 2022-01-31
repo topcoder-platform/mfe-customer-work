@@ -50,7 +50,7 @@ export const MAX_COMPLETED_STEP = "MAX_COMPLETED_STEP";
 export const HELP_BANNER = {
   title: "Not seeing what you need?",
   description:
-    "Topcoder also offers solutions for multiple other technical needs and problems. We have community members expertly skilled in the areas of UX / UI  Design, Data Science, Quality Assurance, and more. We’d love to talk with you about all of our services.",
+    "Topcoder also offers solutions for multiple other technical needs and problems. We have community members expertly skilled in Development, UX / UI Design, Data Science, Quality Assurance, and more. We’d love to talk with you about all of our services.",
 };
 
 /**
