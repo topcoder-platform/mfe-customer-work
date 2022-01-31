@@ -125,6 +125,7 @@ const BrandingForm = ({
     if (itemSelected?.option && deliverableOptions[0]) {
       const newDeliverableOptions = deliverableOptions.map((o) => {
         o.value = o.label === itemSelected.option;
+        return o;
       });
       setDeliverableOptions(newDeliverableOptions);
     }
@@ -133,6 +134,7 @@ const BrandingForm = ({
     if (optionSelected?.option && allowStockOption[0]) {
       const newAllowStockPhoto = allowStockOption.map((o) => {
         o.value = o.label === optionSelected.option;
+        return o;
       });
       setAllowStockOption(newAllowStockPhoto);
     }
