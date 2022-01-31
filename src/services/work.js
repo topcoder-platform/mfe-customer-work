@@ -79,8 +79,6 @@ export const getSummary = (work) => {
 
   return {
     status: workUtil.getStatus(work),
-    nextAction: workUtil.getNextAction(work),
-    daysToBegin: workUtil.getNextActionDaysToBegin(work),
 
     participants: work.numOfRegistrants,
     solutions: work.numOfSubmissions,

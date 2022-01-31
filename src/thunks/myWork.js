@@ -59,16 +59,6 @@ export const loadWorks = () => async (dispatch, getState) => {
             workStatus = status;
           }
         }
-        let nextActionName = null;
-        if (challengeStatus === CHALLENGE_STATUS.NEW) {
-          nextActionName = "Submit work";
-        } else if (
-          challengeStatus === CHALLENGE_STATUS.DRAFT ||
-          challengeStatus === CHALLENGE_STATUS.ACTIVE
-        ) {
-          nextActionName = "Accept";
-        }
-        item.nextActionName = nextActionName;
         item.challengeStatus = challengeStatus;
         item.workStatus = workStatus;
         item.sortOrder = sortOrder;

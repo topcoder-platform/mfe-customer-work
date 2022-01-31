@@ -2,9 +2,11 @@ import React from "react";
 import PT from "prop-types";
 import moment from "moment";
 import TimelineHeader from "./TimelineHeader";
+import { WORK_STATUSES } from "constants";
 import Timeline from "./Timeline";
 
 import "./styles.module.scss";
+import PageP from "components/PageElements/PageP";
 
 export const TimelineContext = React.createContext();
 
@@ -15,7 +17,6 @@ const Summary = ({ summary, setSelectedTab, setShowSurvey }) => {
     submitDate,
     workId,
     status,
-    nextAction,
     daysToBegin,
     timeline,
   } = summary;
@@ -36,15 +37,35 @@ const Summary = ({ summary, setSelectedTab, setShowSurvey }) => {
         </ul>
       </div>
       <div styleName="work-timeline">
-        <TimelineHeader
-          status={status}
-          nextAction={nextAction}
-          daysToBegin={daysToBegin}
-        />
+        <TimelineHeader status={status} daysToBegin={daysToBegin} />
         <TimelineContext.Provider
           value={{ workId, setSelectedTab, setShowSurvey }}
         >
-          <Timeline timeline={timeline} />
+          {status === WORK_STATUSES.DirectedToSales.name ? (
+            <div styleName="redirected-text">
+              <PageP>
+                We have a few outstanding questions that will help us better
+                understand the work and scope before we can launch your work on
+                our platform.
+              </PageP>
+              <PageP>
+                A Topcoder Solutions Expert will reach out to you about your
+                work request.
+              </PageP>
+              <PageP>
+                <strong>
+                  Please note, the charge to your credit card has been put on
+                  hold automatically for you.
+                </strong>
+              </PageP>
+              <PageP>
+                Thank you!
+                <br />- The Topcoder Team
+              </PageP>
+            </div>
+          ) : (
+            <Timeline timeline={timeline} />
+          )}
         </TimelineContext.Provider>
       </div>
     </div>
@@ -60,7 +81,6 @@ Summary.propTypes = {
     submitDate: PT.string,
     workId: PT.string,
     status: PT.string,
-    nextAction: PT.string,
     daysToBegin: PT.number,
     timeline: PT.arrayOf(PT.shape()),
   }),

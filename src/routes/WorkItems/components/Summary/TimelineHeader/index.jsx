@@ -6,13 +6,13 @@ import { padStart } from "utils";
 
 import "./styles.module.scss";
 
-const TimelineHeader = ({ status, nextAction, daysToBegin }) => {
+const TimelineHeader = ({ status, daysToBegin }) => {
   const item = _.find(WORK_STATUSES, { name: status });
   const color = item ? item.color : undefined;
 
   let str = status;
   if (status === WORK_STATUSES.DirectedToSales.name) {
-    str = "SENT TO SOLUTIONS EXPERT";
+    str = "redirected";
   }
 
   let daysStr;
@@ -28,13 +28,6 @@ const TimelineHeader = ({ status, nextAction, daysToBegin }) => {
       <span styleName="work-status" style={{ backgroundColor: color }}>
         {str}
       </span>
-      {nextAction && (
-        <span styleName="next-action">
-          NEXT ACTION - {nextAction}
-          {daysToBegin != null && ": "}
-          {daysToBegin != null && <strong>{daysStr}</strong>}
-        </span>
-      )}
     </div>
   );
 };
@@ -43,7 +36,6 @@ TimelineHeader.defaultProps = {};
 
 TimelineHeader.propTypes = {
   status: PT.string,
-  nextAction: PT.string,
   daysToBegin: PT.number,
 };
 

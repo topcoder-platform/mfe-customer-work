@@ -1,4 +1,4 @@
-@import "styles/include";
+ @import "styles/include";
 
 .float-right {
   height: 0;
@@ -50,4 +50,16 @@
 .work-timeline {
   min-height: 514px;
   max-width: calc(100% - 264px - 24px);
+}
+
+.redirected-text {
+  min-height: 251px;
+  padding: 16px;
+  background-color: $gray-10;
+  border-radius: 0 0 8px 8px;
+  @include font-barlow;
+  font-size: 16px;
+  line-height: 20px;
+  color: $black;
+  margin-bottom: 79px;
 }

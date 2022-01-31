@@ -96,7 +96,6 @@ WorkItem.propTypes = {
     messagesCount: PT.number.isRequired,
     messagesHasNew: PT.bool,
     name: PT.string.isRequired,
-    nextActionName: PT.string,
     numOfRegistrants: PT.number,
     rating: PT.number.isRequired,
     status: PT.string,

@@ -1,3 +1,4 @@
+import _ from "lodash";
 import moment from "moment";
 
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
@@ -402,9 +403,9 @@ export const CHALLENGE_STATUS = {
 };
 
 export const WORK_STATUS_MAP = {
-  [CHALLENGE_STATUS.ACTIVE]: "In progress",
-  [CHALLENGE_STATUS.CANCELLED]: "Directed to sales",
-  [CHALLENGE_STATUS.COMPLETED]: "Completed",
+  [CHALLENGE_STATUS.ACTIVE]: "Started",
+  [CHALLENGE_STATUS.CANCELLED]: "Redirected",
+  [CHALLENGE_STATUS.COMPLETED]: "Done",
   [CHALLENGE_STATUS.DRAFT]: "Submitted",
   [CHALLENGE_STATUS.NEW]: "Draft",
 };
@@ -426,28 +427,28 @@ export const WORK_STATUSES = {
   Submitted: {
     name: WORK_STATUS_MAP[CHALLENGE_STATUS.DRAFT],
     value: CHALLENGE_STATUS.DRAFT,
-    color: "#e90c5a",
+    color: "#12C188",
   },
   InProgress: {
     name: WORK_STATUS_MAP[CHALLENGE_STATUS.ACTIVE],
     value: CHALLENGE_STATUS.ACTIVE,
-    color: "#12c188",
+    color: "#12C188",
   },
   Completed: {
     name: WORK_STATUS_MAP[CHALLENGE_STATUS.COMPLETED],
     value: CHALLENGE_STATUS.COMPLETED,
-    color: "#2c95d7",
+    color: "#555555",
   },
   DirectedToSales: {
     name: WORK_STATUS_MAP[CHALLENGE_STATUS.CANCELLED],
     value: CHALLENGE_STATUS.CANCELLED,
-    color: "#6569ff",
+    color: "#F46500",
   },
 };
 
 export const WORK_TIMELINE = [
   {
-    title: "WORK SUBMITTED",
+    title: "SUBMITTED",
     date: "created",
     completed: (work) => {
       const submitted =
@@ -457,72 +458,65 @@ export const WORK_TIMELINE = [
     },
   },
   {
-    title: "WORK STARTED",
+    title: "STARTED",
     date: (work) => {
       const phase = work.phases.find((phase) => phase.name === "Registration");
       return phase && workUtil.phaseStartDate(phase);
     },
     active: (work) => {
-      const phase = work.phases.find((phase) => phase.name === "Registration");
-      const isRegistrationPhaseOpen =
+      const phase = work.phases.find((phase) => phase.name === "Submission");
+      const isPhaseOpen =
         phase && phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
-      return (
-        work.status === WORK_STATUSES.InProgress.value &&
-        isRegistrationPhaseOpen
-      );
+      return work.status === WORK_STATUSES.InProgress.value && isPhaseOpen;
     },
     completed: (work) => {
-      const phase = work.phases.find((phase) => phase.name === "Registration");
-      const isRegistrationPhaseClosed =
+      const phase = work.phases.find((phase) => phase.name === "Submission");
+      const isPhaseOpen =
         phase && moment(workUtil.phaseEndDate(phase)).isBefore();
       const didStart =
         WORK_STATUS_ORDER[work.status] >=
         WORK_STATUS_ORDER[WORK_STATUSES.InProgress.value];
-      return isRegistrationPhaseClosed && didStart;
+      return isPhaseOpen && didStart;
     },
   },
   {
-    title: "WORK FINISHED",
+    title: "IN REVIEW",
     date: (work) => {
-      const phase = work.phases.find((phase) => phase.name === "Submission");
+      const phase = work.phases.find((phase) => phase.name === "Approval");
       return workUtil.phaseEndDate(phase);
     },
     active: (work) => {
-      const phase = work.phases.find((phase) => phase.name === "Submission");
-      const isSubmissionPhaseOpen =
-        phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
-      return (
-        work.status === WORK_STATUSES.InProgress.value && isSubmissionPhaseOpen
+      const reviewPhases = _.filter(work.phases, (p) =>
+        _.includes(["Approval", "Screening", "Review"], p.name)
       );
+      return _.filter(reviewPhases, (p) => p.isOpen).length > 0;
     },
     completed: (work) => {
-      const phase = work.phases.find((phase) => phase.name === "Submission");
-      const isSubmissionPhaseClosed = moment(
-        workUtil.phaseEndDate(phase)
-      ).isBefore();
+      const phase = work.phases.find((phase) => phase.name === "Approval");
+      const isPhaseClosed = moment(workUtil.phaseEndDate(phase)).isBefore();
       const didStart =
         WORK_STATUS_ORDER[work.status] >=
         WORK_STATUS_ORDER[WORK_STATUSES.InProgress.value];
-      return isSubmissionPhaseClosed && didStart;
+      return isPhaseClosed && didStart;
     },
   },
   {
     name: "downloads-ready",
-    title: "DOWNLOADS READY",
+    title: "SOLUTIONS READY",
     date: (work) => {
-      let phase = work.phases.find((phase) => phase.name === "Review");
+      let phase = work.phases.find((phase) => phase.name === "Approval");
 
       if (!phase) {
-        phase = work.phases.find((phase) => phase.name === "Iterative Review");
+        phase = work.phases.find((phase) => phase.name === "Review");
       }
 
       return phase && workUtil.phaseEndDate(phase);
     },
     active: (work) => {
-      let phase = work.phases.find((phase) => phase.name === "Review");
+      let phase = work.phases.find((phase) => phase.name === "Approval");
 
       if (!phase) {
-        phase = work.phases.find((phase) => phase.name === "Iterative Review");
+        phase = work.phases.find((phase) => phase.name === "Review");
       }
 
       const isReviewPhaseOpen =
@@ -530,10 +524,10 @@ export const WORK_TIMELINE = [
       return isReviewPhaseOpen;
     },
     completed: (work) => {
-      let phase = work.phases.find((phase) => phase.name === "Review");
+      let phase = work.phases.find((phase) => phase.name === "Approval");
 
       if (!phase) {
-        phase = work.phases.find((phase) => phase.name === "Iterative Review");
+        phase = work.phases.find((phase) => phase.name === "Review");
       }
 
       const isReviewPhaseEnded =
@@ -549,7 +543,7 @@ export const WORK_TIMELINE = [
   },
   {
     name: "mark-as-done",
-    title: "MARK AS DONE",
+    title: "DONE",
     date: (work) => {
       if (work.status === WORK_STATUSES.Completed.value) {
         return work.updated;
@@ -575,7 +569,7 @@ export const WORK_TIMELINE = [
   },
   {
     name: "send-to-solutions-expert",
-    title: "SEND TO SOLUTIONS EXPERT",
+    title: "REDIRECTED",
     date: (work) => {
       if (work.status === WORK_STATUSES.DirectedToSales.value) {
         return work.updated;

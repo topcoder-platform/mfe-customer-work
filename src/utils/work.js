@@ -7,15 +7,6 @@ export const getStatus = (work) => {
   return workStatus ? workStatus.name : work.status;
 };
 
-export const getNextAction = (work) => {
-  if (work.status === "New") {
-    return "Submit work";
-  } else if (work.status === "Draft" || work.status === "Active") {
-    return "Accept";
-  }
-  return "";
-};
-
 /**
  * @internal
  */
@@ -30,21 +21,6 @@ const getCurrentPhase = (work) => {
   }
 
   return currentPhase;
-};
-
-export const getNextActionDaysToBegin = (work) => {
-  if (work.status === "New" || work.status === "Draft") {
-    return moment(work.phases[0].scheduledStartDate).diff(moment(), "days");
-  }
-
-  const currentPhase = getCurrentPhase(work);
-  if (!currentPhase) {
-    return;
-  }
-
-  const endDate = moment(currentPhase.scheduledEndDate);
-  const now = moment();
-  return endDate.diff(now, "days");
 };
 
 export const isReviewPhaseEnded = (work) => {
@@ -108,8 +84,6 @@ export const isMessagesDisabled = (work) => {
 
 export default {
   getStatus,
-  getNextAction,
-  getNextActionDaysToBegin,
   isReviewPhaseEnded,
   getReviewPhaseEndedDate,
   phaseEndDate,
