@@ -112,6 +112,16 @@ export async function patchChallenge(intakeForm, challengeId) {
   });
 
   intakeMetadata.push({
+    name: "websitePurpose.existingWebsite",
+    value: _.get(jsonData, "form.websitePurpose.existingWebsite.value"),
+  });
+
+  intakeMetadata.push({
+    name: "websitePurpose.existingWebsiteInfo",
+    value: _.get(jsonData, "form.websitePurpose.existingWebsiteInfo.value"),
+  });
+
+  intakeMetadata.push({
     name: "pageDetails",
     value: _.map(
       _.get(jsonData, "form.pageDetails.pages", []),
@@ -130,7 +140,7 @@ export async function patchChallenge(intakeForm, challengeId) {
   if (webSitesForInspiration && webSitesForInspiration.length > 0) {
     intakeMetadata.push({
       name: "branding.websitesForInspiration",
-      value: `### INSPIRATION:\n\n${_.map(
+      value: `### INSPIRATION: \n\n ${_.map(
         webSitesForInspiration,
         (w) =>
           `Website Address: [${w.website.value}](${w.website.value})\n- ${w.feedback.value}`
