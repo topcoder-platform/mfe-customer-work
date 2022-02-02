@@ -49,6 +49,7 @@ const BasicInfo = ({
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
+    numberOfPages: { title: "How Many Pages?", option: "", value: "" },
     selectedDevice: {
       title: "Device Types",
       option: ["Computer"],
@@ -94,6 +95,14 @@ const BasicInfo = ({
     savePageDetails({
       ...pageDetails,
       pages: newPages,
+    });
+    setFormData({
+      ...formData,
+      numberOfPages: {
+        title: "How Many Pages?",
+        option: newNumOfPages === 1 ? "1 Screen" : `${newNumOfPages} Screens`,
+        value: newNumOfPages === 1 ? "1 Screen" : `${newNumOfPages} Screens`,
+      },
     });
   };
 
