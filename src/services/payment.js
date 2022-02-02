@@ -52,7 +52,7 @@ export async function processPayment(
     if (customerPayment.status === "requires_action") {
       await stripe.handleCardAction(customerPayment.clientSecret);
       response = await axios.patch(
-        `${config.API.v5}/customer-payments/${customerPayment.id}/confirm`,
+        `${config.API.V5}/customer-payments/${customerPayment.id}/confirm`,
         JSON.stringify({})
       );
     }
