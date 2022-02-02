@@ -31,7 +31,7 @@ const TermsModal = () => (
               <PageH3>1.ACCOUNT</PageH3>
             </li>
             <li>
-              ser may set up an account in connection with the use of
+              User may set up an account in connection with the use of
               Topcoder.com. User may not use a third party's account without
               permission. When setting up an account, User must supply accurate
               and complete information. User is solely responsible for its

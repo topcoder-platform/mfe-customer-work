@@ -53,7 +53,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
       option: "",
       value: null,
     },
-    customDeliverable: { title: "Custom Delivrable", option: "", value: "" },
+    customDeliverable: { title: "Custom Deliverable", option: "", value: "" },
   });
 
   const dispatch = useDispatch();
