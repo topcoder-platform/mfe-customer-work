@@ -10,34 +10,41 @@ import PageP from "components/PageElements/PageP";
 import PageRow from "components/PageElements/PageRow";
 import RadioButton from "components/RadioButton";
 import ServicePrice from "components/ServicePrice";
-import { HELP_BANNER, PageOptions } from "constants/";
+import { HELP_BANNER } from "constants/";
 import PT from "prop-types";
-import React, { useEffect } from "react";
+import _ from "lodash";
+import React from "react";
 import DeviceTypes from "../DeviceTypes";
 import "./styles.module.scss";
 
-const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
+const BasicInfoForm = ({
+  formData,
+  serviceType,
+  onFormUpdate,
+  onShowSupportModal,
+  numOfPages,
+  updateNumOfPages,
+  estimate,
+  pageListOptions,
+}) => {
   const handleInputChange = (name, value, option = "") => {
-    onFormUpdate((formData) => ({
-      ...formData,
-      [name]: { ...formData[name], option, value },
-    }));
+    onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
   };
-
-  const listOptions = PageOptions;
-
-  useEffect(() => {
-    if (
-      formData?.selectedPageOption &&
-      listOptions[formData?.selectedPageOption]
-    ) {
-      listOptions[formData?.selectedPageOption].value = true;
-    }
-  }, [formData]);
 
   return (
     <div styleName="basicInfoForm">
-      <ServicePrice price={price} serviceType={serviceType} />
+      <ServicePrice
+        price={estimate?.total}
+        duration={estimate?.totalDuration}
+        serviceType={serviceType}
+      />
+      <div styleName="infoAlert">
+        Your Website Design project includes up to 5 unique Visual Design
+        solutions. Each solution will match your specified scope and device
+        types. You will receive industry-standard source files to take forward
+        to further design and/or development. Design deliverables will NOT
+        include functional code.
+      </div>
 
       <PageDivider />
       <PageRow styleName="form-row">
@@ -45,7 +52,7 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
           <PageP styleName="title">PROJECT TITLE</PageP>
           <PageP styleName="description">
             Give your project a descriptive title. This title is what the
-            designers will see when looking for your work...
+            designers will see when looking for your work.
           </PageP>
         </div>
 
@@ -68,23 +75,18 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
         <div>
           <PageP styleName="title">How many pages?</PageP>
           <PageP styleName="description">
-            How many pages (individual screens) would you like designed?...
+            How many pages (individual screens) would you like designed?
           </PageP>
         </div>
 
         <div styleName="formFieldWrapper">
           <RadioButton
-            onChange={(items) => {
-              const selectedOption = items.findIndex((item) => item.value);
-              const option = items.find((item) => item.value);
-              handleInputChange(
-                "selectedPageOption",
-                selectedOption,
-                option.label
-              );
+            onChange={(items, i) => {
+              const newNumOfPages = _.findIndex(items, (i) => i.value);
+              updateNumOfPages(newNumOfPages + 1);
             }}
             size="lg"
-            options={listOptions}
+            options={pageListOptions}
           />
         </div>
       </PageRow>
@@ -94,15 +96,16 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
         <div>
           <PageP styleName="title">Device Types</PageP>
           <PageP styleName="description">
-            All website designs include computer size. You can add tablet and/
-            or mobile device sizes as well. Designing for multiple devices sizes
-            or types is referred to as Responsive Design.
+            Your project includes designs for computers. You can add tablet and/
+            or mobile device sizes as well. Designing for multiple devices,
+            sizes or types is referred to as Responsive Design.
           </PageP>
         </div>
 
         <div styleName="formFieldWrapper">
           <DeviceTypes
-            selectedOption={formData?.selectedDevice?.value}
+            numOfPages={numOfPages}
+            selectedOptions={formData?.selectedDevice?.value}
             onSelect={(selectedOption, option) => {
               handleInputChange("selectedDevice", selectedOption, option);
             }}
@@ -112,18 +115,18 @@ const BasicInfoForm = ({ formData, price, serviceType, onFormUpdate }) => {
       <HelpBanner
         title={HELP_BANNER.title}
         description={HELP_BANNER.description}
+        contactSupport={onShowSupportModal}
       />
     </div>
   );
 };
 
 BasicInfoForm.defaultProps = {
-  price: 0,
   serviceType: "",
 };
 
 BasicInfoForm.propTypes = {
-  price: PT.string,
+  estimate: PT.shape().isRequired,
   serviceType: PT.string,
   onFormUpdate: PT.func,
   formData: PT.shape(),

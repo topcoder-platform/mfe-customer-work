@@ -16,6 +16,7 @@ const ProgressPopup = ({
   maxStep,
   levels,
   open,
+  setStep,
   handleClose = (e) => e,
   styleName,
   ...props
@@ -39,13 +40,10 @@ const ProgressPopup = ({
   useOutsideAlerter(wrapperRef);
   const navigate = useNavigate();
   // add a class to show if it's done or current or notDone yet
-  const getLevelClass = (levelIndex) => {
-    let levelNumber = levelIndex + 1;
-    // last level, everything is done.
-    if (level === levels.length) return "done";
-    return levelNumber === level
+  const getLevelClass = (curLevel) => {
+    return curLevel.trueIndex === level
       ? "current"
-      : levelNumber <= maxStep
+      : curLevel.trueIndex < maxStep
       ? "done"
       : "";
   };
@@ -61,17 +59,19 @@ const ProgressPopup = ({
           <div>
             {levels.map((level, levelIndex) => (
               <div
-                styleName={cn("level", getLevelClass(levelIndex))}
+                key={levelIndex}
+                styleName={cn("level", getLevelClass(level))}
                 onClick={() => {
-                  getLevelClass(levelIndex) !== "" ? navigate(level.url) : null;
+                  if (getLevelClass(level) !== "") {
+                    setStep(level.trueIndex);
+                    navigate(level.url);
+                  }
                 }}
                 role="tab"
                 tabIndex={0}
               >
-                <div
-                  styleName={cn("level-check-icon", getLevelClass(levelIndex))}
-                >
-                  {getLevelClass(levelIndex) === "done" && (
+                <div styleName={cn("level-check-icon", getLevelClass(level))}>
+                  {getLevelClass(level) === "done" && (
                     <IconCheck styleName={"icon-check"} />
                   )}
                 </div>

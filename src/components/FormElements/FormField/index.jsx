@@ -3,18 +3,22 @@
  *
  * A Form Field Is a wrapper for input to add the label to it
  */
-import React from "react";
-import PT from "prop-types";
 import cn from "classnames";
+import PT from "prop-types";
+import React from "react";
 import "./styles.module.scss";
 
-const FormField = ({
+// TODO: figure out why this export is needed
+// https://github.com/topcoder-platform/micro-frontends-self-service-app/issues/74
+export const FormField = ({
   children,
   label = "",
   placeholder = "",
   onChange = (f) => f,
   className,
   styleName,
+  disabled,
+  helperText,
   ...props
 }) => {
   const handleClick = (e) => {
@@ -25,14 +29,32 @@ const FormField = ({
   return (
     <div
       className={cn("form-field-wrapper", className || "")}
-      styleName={cn("form-field-wrapper", styleName || "")}
+      styleName={cn(
+        "form-field-wrapper",
+        styleName || "",
+        helperText ? "helper" : null
+      )}
     >
-      <div className={cn("form-field")} styleName={cn("form-field")} {...props}>
-        <div styleName="label" onClick={handleClick}>
+      <div
+        className={cn("form-field")}
+        styleName={cn(
+          "form-field",
+          disabled ? "disabled" : null,
+          props.formTitleStyle ? props.formTitleStyle : null
+        )}
+        {...props}
+      >
+        <div
+          styleName={cn("label", props.labelStyle ? props.labelStyle : null)}
+          onClick={handleClick}
+          role="presentation"
+        >
           {label}
         </div>
         {children}
       </div>
+      {helperText && <div styleName="helperText">{helperText}</div>}
+
       <div className="error" styleName="error">
         {props.error}
       </div>

@@ -8,8 +8,10 @@ import PageFoot from "components/PageElements/PageFoot";
 import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
-import React, { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { connect, useSelector, useDispatch } from "react-redux";
+import { getDynamicPriceAndTimelineEstimate } from "utils/";
+import { triggerAutoSave } from "../../actions/autoSave";
 import { saveWebsitePurpose } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
@@ -32,14 +34,11 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
       value: "",
     },
   });
-  const price = useSelector((state) => state.form.price);
-  const additionalPrice = useSelector((state) => state.form.additionalPrice);
-  const devicePrice = useSelector((state) => state.form.devicePrice);
-  const pagePrice = useSelector((state) => state.form.pagePrice);
-  const total = price + additionalPrice + devicePrice + pagePrice;
+  const dispatch = useDispatch();
   const workType = useSelector((state) => state.form.workType);
   const websitePurpose = useSelector((state) => state.form.websitePurpose);
   const currentStep = useSelector((state) => state.progress.currentStep);
+  const fullState = useSelector((state) => state);
 
   const isFormValid =
     formData?.industry?.value &&
@@ -53,10 +52,17 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
   const onNext = () => {
     saveWebsitePurpose(formData);
     navigate("/self-service/page-details");
-    setProgressItem(3);
+    setProgressItem(4);
   };
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
+    if (!firstMounted) {
+      return;
+    }
+
+    setProgressItem(3);
+
     if (currentStep === 0) {
       redirectTo("/self-service");
     }
@@ -64,7 +70,13 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
     if (websitePurpose) {
       setFormData(websitePurpose);
     }
-  }, []);
+
+    setFirstMounted(false);
+
+    return () => {
+      dispatch(triggerAutoSave(true));
+    };
+  }, [currentStep, websitePurpose, dispatch, setProgressItem, firstMounted]);
 
   return (
     <>
@@ -75,10 +87,11 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
           <PageDivider />
 
           <WebsitePurposeForm
-            price={total}
+            estimate={getDynamicPriceAndTimelineEstimate(fullState)}
             serviceType={workType?.selectedWorkTypeDetail}
             formData={formData}
             setFormData={setFormData}
+            saveWebsitePurpose={saveWebsitePurpose}
           />
 
           <PageDivider />
@@ -107,7 +120,7 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={3} />
+          <Progress level={3} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>

@@ -1,0 +1,64 @@
+@import "styles/include";
+
+.page {
+  padding-bottom: 0;
+}
+
+.pageContent {
+  padding: 17px 24px 32px 24px;
+}
+
+.pageTitle {
+  @include font-barlow;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1;
+  color: $gui-kit-gray-90;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 16px 0;
+}
+
+.message-count {
+  @include font-roboto;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 12px;
+  color: $tc-white;
+
+  display: inline-block;
+  min-width: 22px;
+  padding: 5px;
+  margin: -5px 0 -2px 4px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $pastel-red;
+  border-radius: 11px;
+}
+
+.markAsDoneBtn {
+  margin: 16px 0 0 auto;
+}
+
+.solution-tab-footer {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  margin-top: 16px;
+
+  .need-help-link {
+    @include font-roboto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1;
+    color: $link-blue-dark;
+
+    margin-right: 15px;
+  }
+
+  .markAsDoneBtn {
+    margin: 0;
+  }
+}

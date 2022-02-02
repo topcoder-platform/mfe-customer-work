@@ -8,9 +8,11 @@ import PageFoot from "components/PageElements/PageFoot";
 import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
-import React, { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
-import { savePageDetails, updatePagePrice } from "../../actions/form";
+import React, { useEffect, useRef, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { getDynamicPriceAndTimelineEstimate } from "utils/";
+import { triggerAutoSave } from "../../actions/autoSave";
+import { savePageDetails } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import PageDetailsForm from "./components/PageDetailsForm";
@@ -19,7 +21,7 @@ import "./styles.module.scss";
 /**
  * Page Details Page
  */
-const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
+const PageDetails = ({ savePageDetails, setProgressItem }) => {
   const [isLoading, setLoading] = useState(false);
   const [listInputs, setListInputs] = useState({
     pages: [
@@ -29,33 +31,44 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
       },
     ],
   });
-  const price = useSelector((state) => state.form.price);
-  const additionalPrice = useSelector((state) => state.form.additionalPrice);
-  const devicePrice = useSelector((state) => state.form.devicePrice);
-  const pagePrice = useSelector((state) => state.form.pagePrice);
-  const total = price + additionalPrice + devicePrice + pagePrice;
+  const dispatch = useDispatch();
   const workType = useSelector((state) => state.form.workType);
   const pageDetails = useSelector((state) => state.form.pageDetails);
   const currentStep = useSelector((state) => state.progress.currentStep);
+  const fullState = useSelector((state) => state);
+  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const onBack = () => {
     navigate("/self-service/website-purpose");
   };
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
+    if (!firstMounted) {
+      return;
+    }
+
+    setProgressItem(4);
+
     if (currentStep === 0) {
-      redirectTo("/self-service");
+      redirectTo("/self-service/wizard");
     }
 
     if (pageDetails) {
       setListInputs(pageDetails);
     }
-  }, []);
+
+    setFirstMounted(false);
+
+    return () => {
+      dispatch(triggerAutoSave(true));
+    };
+  }, [currentStep, pageDetails, dispatch, setProgressItem, firstMounted]);
 
   const onNext = () => {
-    navigate("/self-service/branding");
+    navigate("/self-service/login-prompt");
     savePageDetails(listInputs);
-    setProgressItem(4);
+    setProgressItem(5);
   };
 
   const isFormValid = () => {
@@ -77,12 +90,11 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
           <PageDivider />
 
           <PageDetailsForm
-            price={total}
+            estimate={estimate}
+            savePageDetails={savePageDetails}
             serviceType={workType?.selectedWorkTypeDetail}
             listInputs={listInputs}
             setListInputs={setListInputs}
-            onAdd={() => updatePagePrice(pagePrice + 100)}
-            onRemove={() => updatePagePrice(pagePrice - 100)}
           />
 
           <PageDivider />
@@ -111,7 +123,7 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={4} />
+          <Progress level={4} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>
@@ -121,7 +133,6 @@ const PageDetails = ({ updatePagePrice, savePageDetails, setProgressItem }) => {
 const mapStateToProps = ({ form }) => form;
 
 const mapDispatchToProps = {
-  updatePagePrice,
   savePageDetails,
   setProgressItem,
 };

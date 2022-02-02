@@ -4,19 +4,45 @@
  * Radio button component.
  */
 import PT from "prop-types";
-import React, { useState } from "react";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
 import "./styles.module.scss";
 
 function RadioButton({ options, onChange, size, errorMsg }) {
-  const [internalOptions, setInternalOptions] = useState(options);
-  const optionsWithKey = internalOptions.map((o, oIndex) => ({
-    ...o,
-    key: oIndex,
-  }));
+  const [internalOptions, setInternalOptions] = useState(
+    (options || []).map((o, i) => ({ ...o, key: i }))
+  );
   let sizeStyle = size === "lg" ? "lgSize" : null;
   if (!sizeStyle) {
     sizeStyle = size === "xs" ? "xsSize" : "smSize";
   }
+
+  useEffect(() => {
+    if (
+      !options ||
+      !options.length ||
+      _.isEqualWith(internalOptions, options, "label")
+    ) {
+      return;
+    } else if (!internalOptions || !internalOptions.length) {
+      setInternalOptions(
+        options.map((option, index) => ({ ...option, key: index }))
+      );
+    } else {
+      const newOptions = _.cloneDeep(internalOptions);
+      for (let i = 0; i < options.length; i += 1) {
+        newOptions[i].label = options[i]?.label;
+        newOptions[i].key = i;
+        if (
+          _.isUndefined(newOptions[i].value) &&
+          !_.isUndefined(options[i].value)
+        ) {
+          newOptions[i].value = options[i].value;
+        }
+      }
+      setInternalOptions(newOptions);
+    }
+  }, [options]);
 
   return (
     <React.Fragment>
@@ -24,15 +50,15 @@ function RadioButton({ options, onChange, size, errorMsg }) {
         className="radioButtonContainer"
         styleName={`radioButtonContainer ${sizeStyle}`}
       >
-        {optionsWithKey.map((o) => (
+        {internalOptions.map((o) => (
           <div key={o.key} styleName="radioButton" className="radioButton">
             <label styleName="container">
               <input
                 type="radio"
                 checked={o.value}
                 onChange={() => {
-                  const newOptions = optionsWithKey.map((oWithKeyTmp) => ({
-                    label: oWithKeyTmp.label,
+                  const newOptions = internalOptions.map((oWithKeyTmp) => ({
+                    ...oWithKeyTmp,
                     value: o.key === oWithKeyTmp.key,
                   }));
                   setInternalOptions(newOptions);

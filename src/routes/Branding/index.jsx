@@ -9,12 +9,15 @@ import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import React, { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import withAuthentication from "hoc/withAuthentication";
+import { triggerAutoSave } from "../../actions/autoSave";
 import { saveBranding } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import BrandingForm from "./components/BrandingForm";
 import "./styles.module.scss";
+import { getDynamicPriceAndTimelineEstimate } from "utils/";
 
 /**
  * Branding Page
@@ -23,42 +26,74 @@ const Branding = ({ saveBranding, setProgressItem }) => {
   const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     theme: { title: "Style & Theme", option: "", value: null },
-    website: { title: "Inspiration web site", option: "", value: "" },
-    description: { title: "What Do you like", option: "", value: "" },
-    colorOption: { title: "Colors", option: "", value: 0 },
+    inspiration: [
+      {
+        website: { title: "Website Address", value: "", option: "" },
+        feedback: { title: "What Do You Like", value: "", option: "" },
+      },
+    ],
+    colorOption: { title: "Color Option", value: [], option: [] },
     specificColor: { title: "Custom Color", option: "", value: "" },
     fontOption: { title: "Fonts", option: "", value: 0 },
-    design: { title: "Allow Stock Photos?", option: "", value: null },
+    fontUrl: { title: "Custom Font URL", value: "", option: "" },
+    fontUsageDescription: {
+      title: "How to Use Your Fonts",
+      value: "",
+      option: "",
+    },
+    assetsUrl: { title: "Custom Assets URL", value: "" },
     anythingToAvoid: { title: "Anything to Avoid?", option: "", value: "" },
+    allowStockOption: {
+      title: "Allow Stock Photos",
+      option: "",
+      value: null,
+    },
     selectedDeliverableOption: {
       title: "Final Deliverable Option",
       option: "",
       value: null,
     },
-    customDeliverable: { title: "Custom Delivrable", option: "", value: "" },
+    customDeliverable: { title: "Custom Deliverable", option: "", value: "" },
   });
-  const price = useSelector((state) => state.form.price);
-  const additionalPrice = useSelector((state) => state.form.additionalPrice);
-  const devicePrice = useSelector((state) => state.form.devicePrice);
-  const pagePrice = useSelector((state) => state.form.pagePrice);
-  const total = price + additionalPrice + devicePrice + pagePrice;
+
+  const dispatch = useDispatch();
   const workType = useSelector((state) => state.form.workType);
   const branding = useSelector((state) => state.form.branding);
   const currentStep = useSelector((state) => state.progress.currentStep);
+  const fullState = useSelector((state) => state);
 
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
+    if (!firstMounted) {
+      return;
+    }
+
+    setProgressItem(5);
+
     if (currentStep === 0) {
-      redirectTo("/self-service");
+      redirectTo("/self-service/wizard");
     }
 
     if (branding) {
       setFormData(branding);
     }
-  }, []);
+
+    setFirstMounted(false);
+
+    return () => {
+      dispatch(triggerAutoSave(true));
+    };
+  }, [currentStep, branding, dispatch, setProgressItem, firstMounted]);
 
   const isFormValid =
     formData?.theme?.value &&
-    formData?.selectedDeliverableOption?.value !== null;
+    formData?.selectedDeliverableOption?.value !== null &&
+    (formData?.colorOption.value.length > 0 ||
+      formData?.specificColor.value.trim() !== "") &&
+    (formData?.selectedDeliverableOption.option !== "Other" ||
+      formData?.customDeliverable.value.trim() !== "") &&
+    (formData?.fontOption.option !== null ||
+      formData?.fontUrl.value.trim() !== "");
 
   const onBack = () => {
     navigate("/self-service/page-details");
@@ -67,7 +102,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
   const onNext = () => {
     navigate("/self-service/review");
     saveBranding(formData);
-    setProgressItem(5);
+    setProgressItem(6);
   };
 
   return (
@@ -79,10 +114,11 @@ const Branding = ({ saveBranding, setProgressItem }) => {
           <PageDivider />
 
           <BrandingForm
-            price={total}
+            estimate={getDynamicPriceAndTimelineEstimate(fullState)}
             serviceType={workType?.selectedWorkTypeDetail}
             formData={formData}
             setFormData={setFormData}
+            saveBranding={saveBranding}
           />
 
           <PageFoot>
@@ -110,7 +146,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={5} />
+          <Progress level={5} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>
@@ -124,4 +160,7 @@ const mapDispatchToProps = {
   setProgressItem,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Branding);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAuthentication(Branding));

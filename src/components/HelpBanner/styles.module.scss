@@ -1,14 +1,13 @@
 @import "styles/include";
 
-
 .banner {
   background-color: $orange-25;
   border-radius: 8px;
   width: 100%;
   margin-top: 32px;
-  cursor: pointer;
 
   .title {
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     padding: 16px;
@@ -36,5 +35,29 @@
     color: $black;
     margin-top: 4px;
     padding: 16px;
+  }
+
+  .supportButton {
+    padding: 16px;
+  }
+}
+
+.gray {
+  background-color: $gray-10;
+  font-size: 16px;
+  @include font-roboto;
+  line-height: 26px;
+  color: $black;
+  padding: 16px;
+  font-style: normal;
+
+  .description {
+    padding-top: 0px;
+  }
+  
+  a {
+    text-decoration: underline;
+    color: $link-blue;
+    cursor: pointer;
   }
 }

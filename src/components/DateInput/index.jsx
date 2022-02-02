@@ -27,6 +27,8 @@ const DateInput = (props) => {
       <div
         onClick={() => calendarRef.current.setOpen(true)}
         styleName={cn("styles.icon", "styles.icon-calendar")}
+        role="button"
+        tabIndex={0}
       >
         <CalendarIcon />
       </div>
@@ -55,6 +57,8 @@ const DateInput = (props) => {
           open ? "styles.icon-arrow-open" : ""
         )}
         onClick={() => calendarRef.current.setOpen(true)}
+        role="button"
+        tabIndex={0}
       >
         <ArrowIcon />
       </div>

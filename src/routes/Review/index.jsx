@@ -1,5 +1,4 @@
-import { Link, navigate, redirectTo } from "@reach/router";
-import classNames from "classnames";
+import { navigate, redirectTo } from "@reach/router";
 import Button from "components/Button";
 import FormInputCheckbox from "components/FormElements/FormInputCheckbox";
 import LoadingSpinner from "components/LoadingSpinner";
@@ -9,42 +8,66 @@ import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
 import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
-import { BUTTON_SIZE, BUTTON_TYPE, ProgressLevels } from "constants/";
+import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import React, { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { triggerAutoSave } from "../../actions/autoSave";
+import { reviewConfirmed } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
-import ArrowIcon from "../../assets/images/icon-arrow.svg";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
+import ReviewTable from "./components/ReviewTable";
+import ServicePrice from "components/ServicePrice";
 import "./styles.module.scss";
+import { getDynamicPriceAndTimelineEstimate } from "utils/";
 
 /**
  * Review Page
  */
 const Review = ({ setProgressItem }) => {
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
-  const formData = useSelector((state) => state.form);
+  const formData = useSelector((state) => state?.form);
   const [checked, setChecked] = useState(false);
-  const [steps, setSteps] = useState([
-    { id: 0, label: "Basic Info", value: "basicInfo", isOpen: false },
-    { id: 1, label: "Website Purpose", value: "websitePurpose", isOpen: false },
-    { id: 2, label: "Page Details", value: "pageDetails", isOpen: false },
-    { id: 3, label: "Branding", value: "branding", isOpen: false },
-  ]);
-  const currentStep = useSelector((state) => state.progress.currentStep);
+  const currentStep = useSelector((state) => state?.progress.currentStep);
+  const workType = useSelector((state) => state.form.workType);
+  const fullState = useSelector((state) => state);
+  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
-  const setStepToggler = (id) => {
-    const newSteps = steps.map((item) =>
-      item.id === id ? { ...item, isOpen: !item.isOpen } : item
-    );
-
-    setSteps(newSteps);
-  };
-
+  const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
+    if (!firstMounted) {
+      return;
+    }
+
+    setProgressItem(6);
+
     if (currentStep === 0) {
       redirectTo("/self-service");
     }
-  }, []);
+
+    if (formData?.reviewConfirmed) {
+      setChecked(true);
+    }
+
+    setFirstMounted(false);
+
+    return () => {
+      dispatch(triggerAutoSave(true));
+    };
+  }, [currentStep, formData, dispatch, setProgressItem, firstMounted]);
+
+  const [anotherFirstMounted, setAnotherFirstMounted] = useState(true);
+  useEffect(() => {
+    if (!anotherFirstMounted) {
+      return;
+    }
+
+    if (currentStep === 0) {
+      redirectTo("/self-service");
+    }
+
+    setAnotherFirstMounted(false);
+  }, [currentStep, anotherFirstMounted]);
 
   const onBack = () => {
     navigate("/self-service/branding");
@@ -52,66 +75,7 @@ const Review = ({ setProgressItem }) => {
 
   const onNext = () => {
     navigate("/self-service/payment");
-    setProgressItem(6);
-  };
-
-  const renderDetails = (step) => {
-    const redirectPage = ProgressLevels.find(
-      (item) => item.label === step.label
-    );
-    const items = formData[step.value] || {};
-    return Object.keys(items).map((key) => (
-      <div>
-        {items[key]?.option && (
-          <div styleName="detail">
-            <div styleName="itemWrapper">
-              <p styleName="item">{items[key]?.title}</p>
-              <Link styleName="link" to={redirectPage?.url}>
-                edit
-              </Link>
-            </div>
-            <p styleName="key">{items[key]?.option}</p>
-          </div>
-        )}
-      </div>
-    ));
-  };
-
-  const renderPageDetails = (step) => {
-    const items = formData[step.value] || {};
-    const pages = items?.pages || [];
-    const redirectPage = ProgressLevels.find(
-      (item) => item.label === step.label
-    );
-
-    return pages.map((page, index) => {
-      return (
-        <div>
-          {page?.pageName && (
-            <div styleName="detail">
-              <div styleName="itemWrapper">
-                <p styleName="item">Page {index + 1} Name</p>
-                <Link styleName="link" to={redirectPage?.url}>
-                  edit
-                </Link>
-              </div>
-              <p styleName="key">{page?.pageName}</p>
-            </div>
-          )}
-          {page?.pageDetails && (
-            <div styleName="detail">
-              <div styleName="itemWrapper">
-                <p styleName="item">Page {index + 1} Requirements</p>
-                <Link styleName="link" to={redirectPage?.url}>
-                  edit
-                </Link>
-              </div>
-              <p styleName="key">{page?.pageDetails}</p>
-            </div>
-          )}
-        </div>
-      );
-    });
+    setProgressItem(7);
   };
 
   return (
@@ -121,42 +85,40 @@ const Review = ({ setProgressItem }) => {
         <PageContent>
           <PageH2>REVIEW</PageH2>
           <PageDivider />
-
-          {steps.map((step, index) => {
-            return (
-              <>
-                <div
-                  styleName="header"
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setStepToggler(index)}
-                >
-                  <p styleName="stepLabel">{step.label}</p>
-                  <div
-                    styleName={classNames("icon", step.isOpen ? "open" : null)}
-                  >
-                    <ArrowIcon />
-                  </div>
-                </div>
-
-                {step.isOpen
-                  ? step.value === "pageDetails"
-                    ? renderPageDetails(step)
-                    : renderDetails(step)
-                  : null}
-
-                <PageDivider />
-              </>
-            );
-          })}
+          <ServicePrice
+            price={estimate.total}
+            duration={estimate.totalDuration}
+            serviceType={workType?.selectedWorkTypeDetail}
+          />
+          <div styleName="infoAlert">
+            Your Website Design project includes up to 5 unique Visual Design
+            solutions. Each solution will match your specified scope and device
+            types. You will receive industry-standard source files to take
+            forward to further design and/or development. Design deliverables
+            will NOT include functional code.
+          </div>
+          <PageDivider />
+          <ReviewTable formData={formData} />
 
           <div styleName="confirmationBox">
+            <strong>
+              The details above accurately describe the work I want delivered.
+            </strong>{" "}
+            From this point forward, I understand that I cannot edit these
+            requirements nor change the scope of the project.
+            <br />
+            <br />
             <FormInputCheckbox
-              label={"Yes, I confirm the above details are correct"}
+              label={"Yes, I confirm the above details are correct."}
               checked={checked}
-              onChange={(e) => setChecked(e.target.checked)}
+              onChange={(e) => {
+                const isChecked = e.target.checked;
+                setChecked(isChecked);
+                dispatch(reviewConfirmed(isChecked));
+              }}
             />
           </div>
+          <PageDivider />
 
           <PageFoot>
             <div styleName="footerContent">
@@ -183,7 +145,7 @@ const Review = ({ setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={6} />
+          <Progress level={6} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>

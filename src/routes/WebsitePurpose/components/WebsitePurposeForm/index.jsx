@@ -1,6 +1,7 @@
 /**
  * Tab element
  */
+import _ from "lodash";
 import FormField from "components/FormElements/FormField";
 import FormInputText from "components/FormElements/FormInputText";
 import FormInputTextArea from "components/FormElements/FormInputTextArea";
@@ -14,26 +15,41 @@ import PT from "prop-types";
 import React from "react";
 import "./styles.module.scss";
 
-const WebsitePurposeForm = ({ formData, setFormData, price, serviceType }) => {
+const WebsitePurposeForm = ({
+  formData,
+  setFormData,
+  price,
+  serviceType,
+  saveWebsitePurpose,
+  estimate,
+}) => {
   const handleInputChange = (name, value, option = null) => {
-    setFormData((formData) => ({
-      ...formData,
-      [name]: { ...formData[name], option: option ? option : value, value },
-    }));
+    setFormData((formData) => {
+      const newFormData = {
+        ...formData,
+        [name]: { ...formData[name], option: option ? option : value, value },
+      };
+      saveWebsitePurpose(newFormData);
+      return newFormData;
+    });
   };
 
   return (
     <div styleName="websitePurposeForm">
-      <ServicePrice price={price} serviceType={serviceType} />
+      <ServicePrice
+        price={estimate.total}
+        duration={estimate.totalDuration}
+        serviceType={serviceType}
+      />
 
       <PageDivider />
       <PageRow styleName="form-row">
         <div>
           <PageP styleName="title">Your industry</PageP>
           <PageP styleName="description">
-            Knowing the industry that you want your website designed for will
-            help the designers understand some basic visual directions and
-            overall tone of your website design.
+            Knowing your industry will help our designers understand your
+            audience, and the basic visual direction and overall tone to take
+            for your website design.
           </PageP>
         </div>
 
@@ -57,19 +73,19 @@ const WebsitePurposeForm = ({ formData, setFormData, price, serviceType }) => {
         <div>
           <PageP styleName="title">DESCRIPTION</PageP>
           <PageP styleName="description">
-            Describe what your website does. This can include general
-            descriptions as well as goals of the website...{" "}
+            What is the purpose of your website? What do you want visitors to be
+            able to do, e.g., see your work? contact you? You can include a
+            general description as well as goals of the website.{" "}
           </PageP>
           <br />
           <PageP styleName="description">
             <strong>Example:</strong> <br />A dog walking website that allows
-            visitors to select dog walkers and schedule dog walking
-            appointments.
+            visitors to select dog walkers and schedule dog walking appointments
           </PageP>
         </div>
 
         <div styleName="formFieldWrapper">
-          <FormField label={"Design Brief"}>
+          <FormField label={"Description"}>
             <FormInputTextArea
               value={formData?.description?.value}
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
@@ -85,17 +101,22 @@ const WebsitePurposeForm = ({ formData, setFormData, price, serviceType }) => {
       <PageRow styleName="form-row">
         <div>
           <PageP styleName="title">USERS</PageP>
-          <PageP styleName="description">Who will use your website?</PageP>
+          <PageP styleName="description">
+            Describe your target audience—are they pharmaceutical reps?
+            Middle-aged mechanical engineers? Beekeepers? Write their user
+            story, using the format, “As a &lt;type of users&gt;, I want
+            &lt;some goal&gt;, so that &lt;some reason&gt;.”
+          </PageP>
           <br />
           <PageP styleName="description">
-            <strong>Example:</strong> <br />A dog walking website that allows
-            visitors to select dog walkers and schedule dog walking
-            appointments.
+            <strong>Example:</strong> <br />
+            “As a dog owner, I want someone trustworthy to walk my dog, so that
+            he feels loved when I'm at work.“
           </PageP>
         </div>
 
         <div styleName="formFieldWrapper">
-          <FormField label={"User Story"}>
+          <FormField label={"Users"}>
             <FormInputTextArea
               value={formData?.userStory?.value}
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
@@ -113,16 +134,16 @@ const WebsitePurposeForm = ({ formData, setFormData, price, serviceType }) => {
           <PageP styleName="title">EXISTING WEBSITE?</PageP>
           <PageP styleName="description">
             If you have an existing website, please enter it here. Are we
-            designing new pages for your existing website? Or are we redesigning
-            your current website? Please add additional information on how the
-            designers should reference and use your existing website.
+            designing additional pages for your existing website? Or are we
+            redesigning your current website? Please add additional information
+            on how the designers should reference and use your existing website.
           </PageP>
         </div>
 
         <div styleName="formFieldWrapper">
           <FormField label={"Existing Website (Optional)"}>
             <FormInputText
-              placeholder={"Enter website url. E.g. www.acme.com"}
+              placeholder={"Enter website url. e.g. www.acme.com"}
               value={formData?.existingWebsite?.value}
               name="existingWebsite"
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
@@ -151,6 +172,7 @@ WebsitePurposeForm.defaultProps = {
 };
 
 WebsitePurposeForm.propTypes = {
+  estimate: PT.shape().isRequired,
   price: PT.string,
   serviceType: PT.string,
   formData: PT.shape(),

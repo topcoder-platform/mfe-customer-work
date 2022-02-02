@@ -1,102 +1,174 @@
 import { navigate } from "@reach/router";
-import Button from "components/Button";
-import LoadingSpinner from "components/LoadingSpinner";
-import Page from "components/Page";
-import PageContent from "components/PageContent";
-import PageDivider from "components/PageDivider";
-import PageH2 from "components/PageElements/PageH2";
-import PageP from "components/PageElements/PageP";
-import Progress from "components/Progress";
-import TabSelector from "components/TabSelector";
-import { BUTTON_SIZE, BUTTON_TYPE, webWorkTypes, workTypes } from "constants/";
+
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { saveWorkType, updatePrice } from "../../actions/form";
+import { connect, useDispatch, useSelector } from "react-redux";
+
+import { triggerAutoSave } from "../../actions/autoSave";
+import {
+  saveWorkType,
+  toggleSupportModal,
+  createNewSupportTicket,
+} from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import "./styles.module.scss";
+import IconWebsiteTools from "../../assets/images/design-tools.svg";
+import Button from "../../components/Button";
+import HelpBanner from "../../components/HelpBanner";
+import SupportModal from "../../components/Modal/SupportModal";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import Page from "../../components/Page";
+import PageContent from "../../components/PageContent";
+import PageDivider from "../../components/PageDivider";
+import PageFoot from "../../components/PageElements/PageFoot";
+import PageH2 from "../../components/PageElements/PageH2";
+import {
+  BUTTON_SIZE,
+  BUTTON_TYPE,
+  HELP_BANNER,
+  webWorkTypes,
+  workTypes,
+} from "../../constants/";
+import { getProfile } from "../../selectors/profile";
+import { getUserProfile } from "../../thunks/profile";
+
+import styles from "./styles.module.scss";
+import { currencyFormat } from "utils/";
 
 /**
  * Select Work Type Page
  */
-const SelectWorkType = ({ saveWorkType, updatePrice, setProgressItem }) => {
+const SelectWorkType = ({
+  saveWorkType,
+  setProgressItem,
+  toggleSupportModal,
+  createNewSupportTicket,
+}) => {
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [selectedWorkType, setSelectedWorkType] = useState("");
-  const [selectedWorkTypeDetail, setSelectedWorkTypeDetail] = useState("");
+  const showSupportModal = useSelector((state) => state.form.showSupportModal);
+  const challenge = useSelector((state) => state.challenge);
+  const profileData = useSelector(getProfile);
+
+  const allWorkTypes = [...workTypes, ...webWorkTypes];
+  const workTypesComingSoon = allWorkTypes.filter((wt) => wt.comingSoon);
+  const featuredWorkType = allWorkTypes.find((wt) => wt.featured);
 
   useEffect(() => {
-    setProgressItem(1);
+    return () => {
+      dispatch(triggerAutoSave(true));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClick = (selectedItem) => {
-    if (!currentStep) {
-      setCurrentStep(1);
-      setSelectedWorkType(selectedItem?.title);
-    } else {
-      setSelectedWorkTypeDetail(selectedItem?.title);
-      saveWorkType({
-        selectedWorkType,
-        selectedWorkTypeDetail: selectedItem?.title,
-      });
-      updatePrice(selectedItem?.price);
-      setProgressItem(2);
-      navigate(`/self-service/basic-info`);
-    }
+  const handleClick = (selectedItem = webWorkTypes[0]) => {
+    saveWorkType({
+      selectedWorkType: featuredWorkType.title,
+      selectedWorkTypeDetail: featuredWorkType.title,
+    });
+    setProgressItem(2);
+    navigate(`/self-service/basic-info`);
+    dispatch(triggerAutoSave(true));
   };
 
   const onBack = () => {
-    setCurrentStep(0);
-    setSelectedWorkTypeDetail("");
+    navigate(`/self-service`);
+    setProgressItem(1);
+    saveWorkType({ workTypeStep: 0 });
+    dispatch(triggerAutoSave(true));
   };
+
+  const onShowSupportModal = () => {
+    toggleSupportModal(true);
+  };
+  const onHideSupportModal = () => {
+    toggleSupportModal(false);
+  };
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+
+  const onSubmitSupportRequest = (submittedSupportRequest) =>
+    createNewSupportTicket(
+      submittedSupportRequest,
+      challenge?.id,
+      challenge?.legacy?.selfService
+    );
 
   return (
     <>
       <LoadingSpinner show={isLoading} />
+      {showSupportModal && (
+        <SupportModal
+          profileData={profileData}
+          handleClose={onHideSupportModal}
+          onSubmit={onSubmitSupportRequest}
+        ></SupportModal>
+      )}
       <Page>
         <PageContent>
           <PageH2>SELECT WORK TYPE</PageH2>
-          <PageDivider />
 
-          {currentStep === 0 && (
-            <TabSelector items={workTypes} handleClick={handleClick} />
-          )}
-          {currentStep === 1 && (
-            <div styleName="tabSeletorWrapper">
-              <div
-                styleName="backButton"
-                onClick={onBack}
-                role="button"
-                tabIndex={0}
-              >
-                <Button size={BUTTON_SIZE.SMALL} type={BUTTON_TYPE.ROUNDED}>
-                  <BackIcon />
-                </Button>
-                <span>{selectedWorkType}</span>
+          <div className={styles.heroContainer}>
+            <div className={styles.heroBackgroundContainer}></div>
+
+            <div className={styles.heroContent}>
+              <div className={styles.heroHeader}>
+                <div className={styles.heroIconContainer}>
+                  <IconWebsiteTools />
+                </div>
+                <div className={styles.heroHeaderContent}>
+                  <div>{featuredWorkType.title}</div>
+                  <div className={styles.heroHeaderSubtitle}>
+                    starting at {currencyFormat(featuredWorkType.price)}{" "}
+                    &nbsp;|&nbsp; 4-6 Days
+                  </div>
+                </div>
               </div>
-              <TabSelector items={webWorkTypes} handleClick={handleClick} />
+              <div className={styles.heroText}>{featuredWorkType.subTitle}</div>
+              <div className={styles.heroButtonContainer}>
+                <Button
+                  onClick={() => handleClick(featuredWorkType)}
+                  size={BUTTON_SIZE.MEDIUM}
+                  type="secondary"
+                >
+                  START WORK
+                </Button>
+              </div>
             </div>
-          )}
+          </div>
+
+          <div className={styles.cardContainer}>
+            {workTypesComingSoon.map((wt) => (
+              <div className={styles.card}>
+                <div className={styles.smallHeader}>Coming Soon</div>
+                <div className={styles.title}>{wt.title}</div>
+                <div className={styles.text}>{wt.subTitle}</div>
+              </div>
+            ))}
+          </div>
+
+          <HelpBanner
+            title={HELP_BANNER.title}
+            description={HELP_BANNER.description}
+            contactSupport={onShowSupportModal}
+          />
+
           <PageDivider />
-          <PageP styleName="bold">Looking For Something Else?</PageP>
-          <PageP styleName="description">
-            Topcoder also offers solutions for multiple other technical needs
-            and problems. We have community members expertly skilled in the
-            areas of UI/UX Design, Data Science, Quality Assurance, and more.
-            We'd love to talk with you about all of our services.
-          </PageP>
 
-          <Progress level={1} />
-
-          {currentStep === 0 && (
-            <div styleName="footer">
-              <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                <div styleName="backButtonWrapper">
+          <PageFoot>
+            <div className={styles.backButtonContainer}>
+              <Button
+                size={BUTTON_SIZE.MEDIUM}
+                type={BUTTON_TYPE.SECONDARY}
+                onClick={onBack}
+              >
+                <div className={styles.backButtonWrapper}>
                   <BackIcon />
                 </div>
               </Button>
             </div>
-          )}
+          </PageFoot>
         </PageContent>
       </Page>
     </>
@@ -107,8 +179,9 @@ const mapStateToProps = ({ form }) => form;
 
 const mapDispatchToProps = {
   saveWorkType,
-  updatePrice,
   setProgressItem,
+  toggleSupportModal,
+  createNewSupportTicket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectWorkType);

@@ -5,24 +5,30 @@ import Page from "components/Page";
 import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageH2 from "components/PageElements/PageH2";
-import Progress from "components/Progress";
-import { MAX_COMPLETED_STEP, BUTTON_SIZE, webWorkTypes } from "constants/";
+import { BUTTON_SIZE, MAX_COMPLETED_STEP, webWorkTypes } from "constants/";
 import React, { useEffect, useState } from "react";
+import { useDispatch, connect } from "react-redux";
 import "./styles.module.scss";
+import { setCookie } from "../../autoSaveBeforeLogin";
+import { resetIntakeForm } from "../../actions/form";
 
 /**
  * Thank You Page
  */
 const ThankYou = () => {
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
-  const [selectedWorkType, setSelectedWorkType] = useState("");
 
   useEffect(() => {
-    setSelectedWorkType(webWorkTypes[0]);
+    clearPreviousForm();
   }, []);
 
-  const onDone = () => {
-    localStorage.removeItem(MAX_COMPLETED_STEP);
+  const clearPreviousForm = () => {
+    dispatch(resetIntakeForm(true));
+    setCookie(MAX_COMPLETED_STEP, "", -1);
+  };
+
+  const onDone = async () => {
     navigate("/self-service");
   };
 
@@ -31,31 +37,30 @@ const ThankYou = () => {
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>
-          <PageH2>Thank You</PageH2>
-          <PageDivider />
-
           <div styleName="container">
             <div styleName="content">
               <PageH2>THANK YOU</PageH2>
               <p>
                 Your payment has been processed successfully. You will now be
-                taken to your work dashboard where you can manage the work
+                taken to your work Dashboard where you can manage the work
                 you’ve submitted.
               </p>
 
               <div styleName="btn">
                 <Button size={BUTTON_SIZE.MEDIUM} onClick={onDone}>
-                  SUBMIT WORK
+                  Go to Dashboard
                 </Button>
               </div>
             </div>
           </div>
-
-          <Progress level={6} />
         </PageContent>
       </Page>
     </>
   );
 };
 
-export default ThankYou;
+const mapStateToProps = ({ form }) => form;
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ThankYou);

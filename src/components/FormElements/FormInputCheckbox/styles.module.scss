@@ -9,6 +9,13 @@
     font-size: 14px;
     line-height: 14px;
     margin-left: 8px;
+    font-weight: bold;
+
+    span {
+      text-decoration: underline;
+      color: $link-blue;
+      cursor: pointer;
+    }
   }
 }
 
@@ -41,5 +48,13 @@
       background-color: $green1;
       border-color: $green1;
     }
+  }
+}
+
+.inline {
+  display: inline-block;
+  .span {
+    color: $link-blue;
+    text-decoration: underline;
   }
 }

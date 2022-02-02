@@ -22,7 +22,7 @@
       }
 
       &.active {
-        background-color: $teal;
+        background-color: $green1;
         outline: 0;
       }
     }
@@ -45,6 +45,15 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 26px;
+    }
+
+    .subDescription {
+      @include font-roboto;
+      text-align: center;
+      color: $black;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 20px;
     }
   }
 

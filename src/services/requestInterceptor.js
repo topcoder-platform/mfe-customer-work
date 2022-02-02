@@ -2,6 +2,10 @@ import axios from "axios";
 import _ from "lodash";
 import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
 
+const CancelToken = axios.CancelToken;
+
+export { CancelToken };
+
 export const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",

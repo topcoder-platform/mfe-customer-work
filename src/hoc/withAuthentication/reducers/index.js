@@ -6,6 +6,7 @@ import _ from "lodash";
 
 const initialState = {
   isLoggedIn: undefined,
+  isLoggingIn: true,
   userId: undefined,
   handle: undefined,
   roles: [],
@@ -27,7 +28,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         ...authInitialState,
         ...action.payload,
-        isLoggedIn: true,
+        isLoggedIn: !!action.payload?.handle,
+        isLoggingIn: false,
       };
 
     case ACTION_TYPE.AUTH_USER_ERROR:
@@ -35,6 +37,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         ...authInitialState,
         authError: action.payload,
+        isLoggingIn: false,
       };
 
     default:

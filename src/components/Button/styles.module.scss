@@ -8,6 +8,7 @@
   cursor: pointer;
   align-items: center;
   display: flex;
+  justify-content: center;
   margin: 0;
   padding: 0;
   text-decoration: none;
@@ -17,6 +18,17 @@
   &[disabled] {
     cursor: default;
   }
+}
+
+.size-large {
+  border-radius: 25px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 46px;
+  height: 48px;
+  padding: 18px 30px;
+  text-transform: uppercase;
 }
 
 .size-medium {
@@ -38,6 +50,17 @@
   letter-spacing: 0.8px;
   height: 30px;
   padding: 0 14px;
+  text-transform: uppercase;
+}
+
+.size-tiny {
+  border-radius: 12px;
+  padding: 6px 15px;
+  height: 24px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
 }
 

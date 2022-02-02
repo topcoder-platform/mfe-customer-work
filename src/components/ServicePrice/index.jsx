@@ -4,18 +4,26 @@
 import PageRow from "components/PageElements/PageRow";
 import PT from "prop-types";
 import React from "react";
-import HintIcon from "../../assets/images/icon-hint.svg";
 import "./styles.module.scss";
+import WebsiteDesignIcon from "../../assets/images/website-design.svg";
+import HelpIcon from "../HelpIcon";
+import { currencyFormat } from "utils/";
 
-const ServicePrice = ({ serviceType, price }) => {
+const ServicePrice = ({ serviceType, price, duration = 1 }) => {
   return (
-    <div>
+    <div styleName="container">
       <PageRow>
+        <WebsiteDesignIcon />
         <div>
           <p styleName="serviceTitle">{serviceType}</p>
-          <div styleName="servicePrice">
-            PRICE: ${price}
-            <HintIcon />
+          <div styleName="priceAndDuradion">
+            PRICE: {currencyFormat(price)}
+            <span styleName="separator" />
+            {duration} Days
+            <HelpIcon>
+              The price and project length is dynamic and dependant on the
+              variables selected as your define your work.
+            </HelpIcon>
           </div>
         </div>
       </PageRow>

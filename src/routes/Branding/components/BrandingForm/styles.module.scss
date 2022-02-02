@@ -1,6 +1,18 @@
 @import "styles/include";
 
 .brandingForm {
+  .remove-website {
+    color: $green1;
+    cursor: pointer;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-end;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .title {
     font-weight: 600;
     color: $grey-text;
@@ -44,9 +56,8 @@
       font-weight: 700;
       font-size: 12px;
       letter-spacing: 0.8px;
-      line-height: 12px;
+      line-height: 16px;
       color: $black;
-      text-transform: uppercase;
       margin-bottom: 8px;
     }
   }
@@ -60,7 +71,6 @@
       letter-spacing: 0.8px;
       line-height: 12px;
       color: $black;
-      text-transform: uppercase;
       margin-bottom: 8px;
     }
   }
