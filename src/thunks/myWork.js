@@ -62,7 +62,6 @@ export const loadWorks = () => async (dispatch, getState) => {
         item.challengeStatus = challengeStatus;
         item.workStatus = workStatus;
         item.sortOrder = sortOrder;
-        // TODO: Read from metadata
         const customerFeedback = _.get(item, "metadata", []).find(
           (i) => i.name === "customerFeedback"
         );

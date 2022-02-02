@@ -81,15 +81,16 @@ const BasicInfo = ({
   const updateNumOfPages = (newNumOfPages) => {
     let newPages = pageDetails?.pages || [];
     if (newNumOfPages < newPages.length) {
-      newPages = newPages.slice(0, newNumOfPages);
-    } else {
-      for (let i = 0; i <= newNumOfPages - newPages.length; i += 1) {
+      newPages.length = newNumOfPages;
+    } else if (newNumOfPages !== newPages.length) {
+      for (let i = newPages.length; i < newNumOfPages; i += 1) {
         newPages.push({
           pageName: "",
           pageDetails: "",
         });
       }
     }
+
     savePageDetails({
       ...pageDetails,
       pages: newPages,
