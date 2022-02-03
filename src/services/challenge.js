@@ -153,6 +153,17 @@ export async function patchChallenge(intakeForm, challengeId) {
     });
   }
 
+  const anythingToAvoid = _.get(
+    jsonData,
+    "form.branding.anythingToAvoid.value",
+    "N/A"
+  );
+
+  intakeMetadata.push({
+    name: "branding.anythingToAvoid",
+    value: anythingToAvoid !== "" ? anythingToAvoid : "N/A",
+  });
+
   intakeMetadata.push({
     name: "branding.colorOption",
     value: _.get(jsonData, "form.branding.colorOption.option", []).join(", "),
