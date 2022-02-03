@@ -34,7 +34,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
     ],
     colorOption: { title: "Color Option", value: [], option: [] },
     specificColor: { title: "Custom Color", option: "", value: "" },
-    fontOption: { title: "Fonts", option: "", value: 0 },
+    fontOption: { title: "Fonts", option: "", value: -1 },
     fontUrl: { title: "Custom Font URL", value: "", option: "" },
     fontUsageDescription: {
       title: "How to Use Your Fonts",
