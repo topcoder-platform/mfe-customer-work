@@ -241,6 +241,7 @@ export async function patchChallenge(intakeForm, challengeId) {
       ...DEFAULT_TIMELINE,
     ];
   }
+
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
     JSON.stringify(body)

@@ -8,7 +8,13 @@ import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
 import PageH3 from "components/PageElements/PageH3";
-import { BUTTON_SIZE, BUTTON_TYPE, tabNames, WORK_STATUSES } from "constants/";
+import {
+  BUTTON_SIZE,
+  BUTTON_TYPE,
+  tabNames,
+  WORK_STATUSES,
+  ROUTES,
+} from "constants/";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import Tabs from "./components/Tabs";
 import Tab from "./components/Tab";
@@ -90,6 +96,12 @@ const WorkItem = ({
   useEffect(() => {
     if (!work) {
       return;
+    }
+
+    if (profileData) {
+      if (work.createdBy !== profileData.handle) {
+        navigate(ROUTES.HOME_PAGE);
+      }
     }
 
     if (selectedTab === "summary") {

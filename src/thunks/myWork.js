@@ -62,7 +62,12 @@ export const loadWorks = () => async (dispatch, getState) => {
         item.challengeStatus = challengeStatus;
         item.workStatus = workStatus;
         item.sortOrder = sortOrder;
-        item.rating = Math.round(Math.random() * 5);
+        const customerFeedback = _.get(item, "metadata", []).find(
+          (i) => i.name === "customerFeedback"
+        );
+        if (customerFeedback) {
+          item.rating = JSON.parse(customerFeedback.value);
+        }
         works.push(item);
       }
     }
