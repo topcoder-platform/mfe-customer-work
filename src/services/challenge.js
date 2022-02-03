@@ -97,7 +97,7 @@ export async function patchChallenge(intakeForm, challengeId) {
     value: _.map(
       _.get(jsonData, "form.basicInfo.selectedDevice.option", []),
       (device) =>
-        `- **${device}**: ${DEVICE_TYPE_DETAILS[_.toLower(device)]} \n`
+        `- **${device}**: ${DEVICE_TYPE_DETAILS[_.toLower(device)]} \n\n `
     ),
   });
 
@@ -168,7 +168,7 @@ export async function patchChallenge(intakeForm, challengeId) {
     value: _.get(jsonData, "form.branding.fontOption.option", "N/A"),
   });
 
-  const fontUrl = _.get(jsonData, "form.branding.fontOption.option");
+  const fontUrl = _.get(jsonData, "form.branding.fontUrl.option");
 
   intakeMetadata.push({
     name: "branding.fontUrl",
@@ -193,13 +193,15 @@ export async function patchChallenge(intakeForm, challengeId) {
     value: assetsUrl ? `[${assetsUrl}](${assetsUrl})` : "N/A",
   });
 
+  const stockPhotos = _.get(
+    jsonData,
+    "form.branding.allowStockOption.option",
+    "Yes, allow stock photos"
+  );
+
   intakeMetadata.push({
     name: "branding.stockPhotos",
-    value: _.get(
-      jsonData,
-      "form.branding.allowStockOption.option",
-      "Yes, allow stock photos"
-    ),
+    value: stockPhotos !== "" ? stockPhotos : "Yes, allow stock photos",
   });
 
   intakeMetadata.push({
@@ -214,6 +216,7 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   const body = {
     ...(name ? { name } : {}),
+    ...templateData,
     metadata: [
       ..._.map(
         _.filter(intakeMetadata, (e) => !_.isEmpty(e.value)),
