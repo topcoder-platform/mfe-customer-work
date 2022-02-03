@@ -7,7 +7,7 @@ import workUtil from "../utils/work";
 
 import countries from "./countries";
 
-export const UNDER_MAINTENANCE = true;
+export const UNDER_MAINTENANCE = false;
 
 export const DEVICE_TYPE_DETAILS = {
   computer: "Default screen 1366px width, 768px height",
