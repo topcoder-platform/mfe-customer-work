@@ -90,12 +90,11 @@ const Payment = ({ setProgressItem }) => {
 
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,
-      "form.websitePurpose.description.value"
-    )}\n${_.get(fullState, "form.workType.selectedWorkType")}\n${_.get(
+      "form.basicInfo.projectTitle.value"
+    ).slice(0, 355)}\n${_.get(
       fullState,
-      "form.pageDetails.pages.length",
-      1
-    )} Pages\n${_.get(
+      "form.workType.selectedWorkType"
+    )}\n${_.get(fullState, "form.pageDetails.pages.length", 1)} Pages\n${_.get(
       fullState,
       "form.basicInfo.selectedDevice.option.length",
       1
