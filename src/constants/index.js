@@ -1305,11 +1305,11 @@ export const COST_TIMELINE_MAPPING = [
           prizes: [
             {
               type: "USD",
-              value: 725,
+              value: 700,
             },
             {
               type: "USD",
-              value: 363,
+              value: 350,
             },
             {
               type: "USD",
@@ -1331,11 +1331,11 @@ export const COST_TIMELINE_MAPPING = [
           prizes: [
             {
               type: "USD",
-              value: 110,
+              value: 120,
             },
             {
               type: "USD",
-              value: 110,
+              value: 120,
             },
           ],
           description: "Reviewer Payment",
