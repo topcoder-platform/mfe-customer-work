@@ -90,7 +90,8 @@ const Payment = ({ setProgressItem }) => {
 
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,
-      "form.basicInfo.projectTitle.value"
+      "form.basicInfo.projectTitle.value",
+      ""
     ).slice(0, 355)}\n${_.get(
       fullState,
       "form.workType.selectedWorkType"
