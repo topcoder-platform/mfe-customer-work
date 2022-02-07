@@ -536,8 +536,14 @@ export const WORK_TIMELINE = [
     completed: (work) => {
       let phase = work.phases.find((phase) => phase.name === "Approval");
 
+      const customerFeedbacked =
+        work.metadata &&
+        work.metadata.find((item) => item.name === "customerFeedback");
+
       const isReviewPhaseEnded =
-        phase && moment(workUtil.phaseEndDate(phase)).isBefore();
+        phase &&
+        (moment(workUtil.phaseEndDate(phase)).isBefore() ||
+          !customerFeedbacked);
 
       return (
         isReviewPhaseEnded && work.status === WORK_STATUSES.Completed.value
