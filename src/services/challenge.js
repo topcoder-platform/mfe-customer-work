@@ -4,6 +4,7 @@ import { axiosInstance as axios } from "./requestInterceptor";
 import templateData from "../assets/data/spec-templates/website-design.json";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import _ from "lodash";
+import moment from "moment";
 import { getDynamicPriceAndTimeline } from "utils/";
 import { DEFAULT_TIMELINE } from "constants/";
 
@@ -279,9 +280,26 @@ export async function activateChallenge(challengeId) {
       provider: "vanilla",
     });
   }
+
+  let daysToAdd;
+  switch (moment(new Date()).weekday()) {
+    case moment().day("Friday").weekday():
+      daysToAdd = 3;
+      break;
+    case moment().day("Saturday").weekday():
+      daysToAdd = 2;
+      break;
+    case moment().day("Sunday").weekday():
+      daysToAdd = 1;
+      break;
+    default:
+      daysToAdd = 1;
+  }
+
   const body = {
     status: "Draft",
     discussions: [...newDiscussions],
+    startDate: moment().add(daysToAdd, "days").format(),
   };
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
