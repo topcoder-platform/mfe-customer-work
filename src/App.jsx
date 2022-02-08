@@ -5,7 +5,7 @@ import {
 } from "@topcoder/micro-frontends-navbar-app";
 import Sidebar from "components/Sidebar";
 import React, { useLayoutEffect, useState } from "react";
-import { menuItems, UNDER_MAINTENANCE } from "./constants";
+import { menuItems, UNDER_MAINTENANCE, GA_ID } from "./constants";
 import IntakeForm from "./IntakeForm";
 import Home from "./routes/Home";
 import MyWork from "./routes/MyWork";
@@ -23,12 +23,16 @@ import UnderMaintenance from "./routes/UnderMaintenance";
 
 const sidebar = <Sidebar menus={menuItems} />;
 
-ReactGA.initialize("GTM-MXXQHG8");
+if (process.env.APPMODE === "production") {
+  ReactGA.initialize(GA_ID);
+}
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
-  ReactGA.pageview(location.pathname);
+  if (process.env.APPMODE === "production") {
+    ReactGA.pageview(location.pathname);
+  }
 
   useLayoutEffect(() => {
     const checkIsLoggedIn = async () => {
