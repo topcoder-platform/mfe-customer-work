@@ -5,14 +5,14 @@ import {
 } from "@topcoder/micro-frontends-navbar-app";
 import Sidebar from "components/Sidebar";
 import React, { useLayoutEffect, useState } from "react";
-import { menuItems, UNDER_MAINTENANCE } from "./constants";
+import { menuItems, UNDER_MAINTENANCE, GA_ID } from "./constants";
 import IntakeForm from "./IntakeForm";
 import Home from "./routes/Home";
 import MyWork from "./routes/MyWork";
 import Profile from "./routes/Profile";
 import WorkItems from "./routes/WorkItems";
 import Layout from "components/Layout";
-import ReactGA from "react-ga";
+import TagManager from "react-gtm-module";
 import { ScrollToTop } from "./ScrollToTop";
 
 import "react-responsive-modal/styles.css";
@@ -23,12 +23,14 @@ import UnderMaintenance from "./routes/UnderMaintenance";
 
 const sidebar = <Sidebar menus={menuItems} />;
 
-ReactGA.initialize("GTM-MXXQHG8");
+if (process.env.APPMODE === "production") {
+  TagManager.initialize({
+    gtmId: GA_ID,
+  });
+}
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
-
-  ReactGA.pageview(location.pathname);
 
   useLayoutEffect(() => {
     const checkIsLoggedIn = async () => {

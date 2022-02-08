@@ -9,6 +9,8 @@ import countries from "./countries";
 
 export const UNDER_MAINTENANCE = false;
 
+export const GA_ID = "GTM-MXXQHG8";
+
 export const DEVICE_TYPE_DETAILS = {
   computer: "Default screen 1366px width, 768px height",
   tablet: "Default screen (vertical) 810px height, 1080px width",
