@@ -12,7 +12,7 @@ import MyWork from "./routes/MyWork";
 import Profile from "./routes/Profile";
 import WorkItems from "./routes/WorkItems";
 import Layout from "components/Layout";
-import ReactGA from "react-ga";
+import TagManager from "react-gtm-module";
 import { ScrollToTop } from "./ScrollToTop";
 
 import "react-responsive-modal/styles.css";
@@ -24,15 +24,13 @@ import UnderMaintenance from "./routes/UnderMaintenance";
 const sidebar = <Sidebar menus={menuItems} />;
 
 if (process.env.APPMODE === "production") {
-  ReactGA.initialize(GA_ID);
+  TagManager.initialize({
+    gtmId: GA_ID,
+  });
 }
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
-
-  if (process.env.APPMODE === "production") {
-    ReactGA.pageview(location.pathname);
-  }
 
   useLayoutEffect(() => {
     const checkIsLoggedIn = async () => {
