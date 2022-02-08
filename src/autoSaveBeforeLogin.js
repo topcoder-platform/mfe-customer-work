@@ -22,7 +22,8 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
 
     const challengeId = loadChallengeId() || challenge?.id;
     const dataToSave = { progress, form };
-    if (authUser?.isLoggedIn && challengeId) {
+    const currentStep = _.get(dataToSave, "progress.currentStep", 1);
+    if (authUser?.isLoggedIn && challengeId && currentStep >= 3) {
       clearCachedCookie(autoSave);
       handleLoginSave(autoSave, dataToSave, challengeId, challenge);
     } else {
