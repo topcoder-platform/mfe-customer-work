@@ -18,7 +18,7 @@ export async function createSupportTicket(request, challengeId, isSelfService) {
   const supportRequest = {
     ...request,
     challengeId,
-    isSelfService,
+    isSelfService: true, // TODO: clean up. Should always be true
   };
   const body = JSON.stringify(supportRequest);
   const url = `${config.API.V5}/challenges/support-requests`;
