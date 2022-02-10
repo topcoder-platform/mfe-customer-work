@@ -217,8 +217,26 @@ export async function patchChallenge(intakeForm, challengeId) {
   });
 
   intakeMetadata.push({
+    name: "allowStockArt",
+    value: _.toString(
+      (stockPhotos !== "" ? stockPhotos : "Yes, allow stock photos") ===
+        "Yes, allow stock photos"
+    ),
+  });
+
+  intakeMetadata.push({
     name: "branding.selectedDeliverableOption",
     value: _.get(jsonData, "form.branding.selectedDeliverableOption.option"),
+  });
+
+  intakeMetadata.push({
+    name: "submissionLimit",
+    value: JSON.stringify({ unlimited: "true", limit: "false", count: "" }),
+  });
+
+  intakeMetadata.push({
+    name: "submissionsViewable",
+    value: "false",
   });
 
   const dynamicPriceAndTimeline = getDynamicPriceAndTimeline(
