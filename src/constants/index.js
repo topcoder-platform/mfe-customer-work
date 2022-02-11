@@ -522,10 +522,6 @@ export const WORK_TIMELINE = [
     date: (work) => {
       let phase = work.phases.find((phase) => phase.name === "Approval");
 
-      if (!phase) {
-        phase = work.phases.find((phase) => phase.name === "Review");
-      }
-
       return phase && workUtil.phaseEndDate(phase);
     },
     active: (work) => {
