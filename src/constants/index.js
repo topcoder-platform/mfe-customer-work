@@ -617,10 +617,11 @@ export const COUNTRY_OPTIONS = countries.map((ct) => ({
 export const COST_TIMELINE_MAPPING = [
   [
     {
-      total: 649,
+      total: 349,
+      stickerPrice: 649,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 250,
+      costPerAdditionalPage: 150,
       prizeSets: [
         {
           prizes: [
@@ -665,10 +666,11 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 1 device
     {
-      total: 748,
+      total: 448,
+      stickerPrice: 748,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 349,
+      costPerAdditionalPage: 249,
       prizeSets: [
         {
           prizes: [
@@ -713,10 +715,11 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 2 devices
     {
-      total: 847,
+      total: 547,
+      stickerPrice: 847,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 448,
+      costPerAdditionalPage: 348,
       prizeSets: [
         {
           prizes: [
@@ -764,10 +767,11 @@ export const COST_TIMELINE_MAPPING = [
 
   [
     {
-      total: 899,
+      total: 499,
+      stickerPrice: 899,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 250,
+      costPerAdditionalPage: 150,
       prizeSets: [
         {
           prizes: [
@@ -812,10 +816,11 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 1 device
     {
-      total: 1097,
+      total: 598,
+      stickerPrice: 1097,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 349,
+      costPerAdditionalPage: 249,
       prizeSets: [
         {
           prizes: [
@@ -860,10 +865,11 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 2 devices
     {
-      total: 1295,
+      total: 697,
+      stickerPrice: 1295,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 448,
+      costPerAdditionalPage: 348,
       prizeSets: [
         {
           prizes: [
@@ -911,10 +917,11 @@ export const COST_TIMELINE_MAPPING = [
 
   [
     {
-      total: 1149,
+      total: 649,
+      stickerPrice: 1149,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 250,
+      costPerAdditionalPage: 150,
       prizeSets: [
         {
           prizes: [
@@ -959,10 +966,11 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 1 device
     {
-      total: 1446,
+      total: 748,
+      stickerPrice: 1446,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 349,
+      costPerAdditionalPage: 249,
       prizeSets: [
         {
           prizes: [
@@ -1007,10 +1015,11 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 2 devices
     {
-      total: 1743,
+      total: 847,
+      stickerPrice: 1743,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 448,
+      costPerAdditionalPage: 348,
       prizeSets: [
         {
           prizes: [
@@ -1058,10 +1067,11 @@ export const COST_TIMELINE_MAPPING = [
 
   [
     {
-      total: 1399,
+      total: 799,
+      stickerPrice: 1399,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 250,
+      costPerAdditionalPage: 150,
       prizeSets: [
         {
           prizes: [
@@ -1106,10 +1116,11 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 1 device
     {
-      total: 1795,
+      total: 898,
+      stickerPrice: 1795,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 349,
+      costPerAdditionalPage: 249,
       prizeSets: [
         {
           prizes: [
@@ -1154,10 +1165,11 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 2 devices
     {
-      total: 2191,
+      total: 997,
+      stickerPrice: 2191,
       submissionDuration: 4,
       totalDuration: 6,
-      costPerAdditionalPage: 448,
+      costPerAdditionalPage: 348,
       prizeSets: [
         {
           prizes: [
@@ -1205,10 +1217,11 @@ export const COST_TIMELINE_MAPPING = [
 
   [
     {
-      total: 1649,
+      total: 949,
+      stickerPrice: 1649,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 250,
+      costPerAdditionalPage: 150,
       prizeSets: [
         {
           prizes: [
@@ -1253,10 +1266,11 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 1 device
     {
-      total: 2144,
+      total: 1048,
+      stickerPrice: 2144,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 349,
+      costPerAdditionalPage: 249,
       prizeSets: [
         {
           prizes: [
@@ -1301,10 +1315,11 @@ export const COST_TIMELINE_MAPPING = [
       ],
     }, // 2 devices
     {
-      total: 2639,
+      total: 1147,
+      stickerPrice: 2639,
       submissionDuration: 4,
       totalDuration: 6,
-      costPerAdditionalPage: 448,
+      costPerAdditionalPage: 348,
       prizeSets: [
         {
           prizes: [
