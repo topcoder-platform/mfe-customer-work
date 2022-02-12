@@ -34,6 +34,7 @@ const BasicInfoForm = ({
   return (
     <div styleName="basicInfoForm">
       <ServicePrice
+        stickerPrice={estimate?.stickerPrice}
         price={estimate?.total}
         duration={estimate?.totalDuration}
         serviceType={serviceType}
