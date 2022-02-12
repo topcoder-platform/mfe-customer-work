@@ -15,14 +15,23 @@
   text-transform: uppercase;
 }
 
-.priceAndDuradion {
+.priceAndDuration {
   @include font-barlow;
   margin-top: 8px;
   font-size: 20px;
   line-height: 20px;
-  font-weight: 600;
   color: $black;
   display: flex;
+
+  .discount {
+    color: $discount-green;
+  }
+
+  .stickerPrice {
+    color: $gray-80;
+    text-decoration: line-through;
+    margin-right: 4px;
+  }
 
   .separator {
     width: 2px;

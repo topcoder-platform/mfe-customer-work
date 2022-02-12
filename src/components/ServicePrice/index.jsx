@@ -9,15 +9,22 @@ import WebsiteDesignIcon from "../../assets/images/website-design.svg";
 import HelpIcon from "../HelpIcon";
 import { currencyFormat } from "utils/";
 
-const ServicePrice = ({ serviceType, price, duration = 1 }) => {
+const ServicePrice = ({ stickerPrice, serviceType, price, duration = 1 }) => {
   return (
     <div styleName="container">
       <PageRow>
         <WebsiteDesignIcon />
         <div>
           <p styleName="serviceTitle">{serviceType}</p>
-          <div styleName="priceAndDuradion">
-            PRICE: {currencyFormat(price)}
+          <div styleName="priceAndDuration">
+            {stickerPrice && (
+              <span styleName="stickerPrice">
+                {currencyFormat(stickerPrice)}
+              </span>
+            )}
+            <span styleName="discount">
+              {currencyFormat(price)} through February
+            </span>
             <span styleName="separator" />
             {duration} Days
             <HelpIcon>

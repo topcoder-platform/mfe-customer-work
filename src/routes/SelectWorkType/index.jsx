@@ -120,8 +120,19 @@ const SelectWorkType = ({
                 <div className={styles.heroHeaderContent}>
                   <div>{featuredWorkType.title}</div>
                   <div className={styles.heroHeaderSubtitle}>
-                    starting at {currencyFormat(featuredWorkType.price)}{" "}
-                    &nbsp;|&nbsp; 4-6 Days
+                    starting at&nbsp;
+                    {featuredWorkType.stickerPrice && (
+                      <span className={styles.strikeThrough}>
+                        {currencyFormat(featuredWorkType.stickerPrice)}
+                      </span>
+                    )}
+                    {
+                      <span className={styles.priceChip}>
+                        {currencyFormat(featuredWorkType.price)}
+                      </span>
+                    }
+                    <span className={styles.separator}>|</span>
+                    4-6 Days
                   </div>
                 </div>
               </div>
