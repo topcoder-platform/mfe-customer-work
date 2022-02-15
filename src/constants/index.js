@@ -526,11 +526,15 @@ export const WORK_TIMELINE = [
       return phase && workUtil.phaseEndDate(phase);
     },
     active: (work) => {
-      let phase = work.phases.find((phase) => phase.name === "Approval");
+      const active =
+        WORK_STATUS_ORDER[work.status] >=
+        WORK_STATUS_ORDER[WORK_STATUSES.Completed.value];
 
-      const isReviewPhaseOpen =
-        phase && phase.isOpen && moment(workUtil.phaseEndDate(phase)).isAfter();
-      return isReviewPhaseOpen;
+      const customerFeedbacked =
+        work.metadata &&
+        work.metadata.find((item) => item.name === "customerFeedback");
+
+      return active && !customerFeedbacked;
     },
     completed: (work) => {
       let phase = work.phases.find((phase) => phase.name === "Approval");
@@ -557,7 +561,17 @@ export const WORK_TIMELINE = [
         return work.updated;
       }
     },
-    active: (work) => work.status === WORK_STATUSES.Completed.value,
+    active: (work) => {
+      const active =
+        WORK_STATUS_ORDER[work.status] >=
+        WORK_STATUS_ORDER[WORK_STATUSES.Completed.value];
+
+      const customerFeedbacked =
+        work.metadata &&
+        work.metadata.find((item) => item.name === "customerFeedback");
+
+      return active && customerFeedbacked;
+    },
     completed: (work) => {
       const customerFeedbacked =
         work.metadata &&
