@@ -1,8 +1,4 @@
-import {
-  ACTIONS,
-  AUTO_SAVE_FORM,
-  CACHED_CHALLENGE_ID,
-} from "constants/index";
+import { ACTIONS, AUTO_SAVE_FORM, CACHED_CHALLENGE_ID } from "constants/index";
 import CryptoJS from "crypto-js";
 import _ from "lodash";
 import moment from "moment";
@@ -13,6 +9,9 @@ import {
   sendAutoSavedPatch,
   storeAutoSavedCookie,
 } from "./actions/autoSave";
+import { createNewChallenge } from "./actions/challenge";
+
+let CREATION_IN_PROGRESS = false;
 
 export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
   const handleAutoSave = () => {
@@ -20,12 +19,29 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
     const isEmptyForm = !form?.workType?.selectedWorkType;
     if (isEmptyForm) return;
 
-    const challengeId = loadChallengeId() || challenge?.id;
+    let challengeId = loadChallengeId() || challenge?.id;
     const dataToSave = { progress, form };
     const currentStep = _.get(dataToSave, "progress.currentStep", 1);
-    if (authUser?.isLoggedIn && challengeId && currentStep >= 3) {
-      clearCachedCookie(autoSave);
-      handleLoginSave(autoSave, dataToSave, challengeId, challenge);
+    if (authUser?.isLoggedIn && currentStep >= 3) {
+      const triggerSave = () => {
+        challengeId = loadChallengeId() || challenge?.id;
+        if (!challengeId) {
+          // retry until challenge gets created
+          return setTimeout(() => triggerSave(), 1000);
+        }
+        CREATION_IN_PROGRESS = false;
+        clearCachedCookie(autoSave);
+        handleLoginSave(autoSave, dataToSave, challengeId, challenge);
+      };
+      if (!challengeId) {
+        if (!CREATION_IN_PROGRESS) {
+          dispatch(createNewChallenge());
+          CREATION_IN_PROGRESS = true;
+        }
+        triggerSave();
+      } else {
+        triggerSave();
+      }
     } else {
       dispatch(storeAutoSavedCookie(dataToSave));
     }

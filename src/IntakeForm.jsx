@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { decodeToken } from "tc-auth-lib";
 import { autoSaveInitErrored, triggerAutoSave } from "./actions/autoSave";
-import { createNewChallenge, getChallenge } from "./actions/challenge";
+import { getChallenge } from "./actions/challenge";
 import { saveForm } from "./actions/form";
 import { setProgressItem } from "./actions/progress";
 import {
@@ -90,7 +90,6 @@ export default function IntakeForm() {
     const challengeDetail = await receiveChallengeDetail(handle);
     const dataToSync = await getSavedDataAfterLoggedIn(challengeDetail);
     syncSavedData(dataToSync);
-    if (!challengeDetail) await dispatch(createNewChallenge());
   };
 
   const receiveChallengeDetail = async (handle) => {
