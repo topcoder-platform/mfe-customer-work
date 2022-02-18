@@ -78,8 +78,7 @@ export const getSummary = (work) => {
   }));
 
   return {
-    status: workUtil.getStatus(work),
-
+    status: _.findLast(timeline, "completed").title,
     participants: work.numOfRegistrants,
     solutions: work.numOfSubmissions,
     submitDate: work.created,

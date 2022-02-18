@@ -427,6 +427,7 @@ export const WORK_STATUS_ORDER = {
   [CHALLENGE_STATUS.CANCELLED]: 4, // Directed to sales
   Unknown: 999,
 };
+
 export const WORK_STATUSES = {
   Draft: {
     name: WORK_STATUS_MAP[CHALLENGE_STATUS.NEW],
@@ -451,14 +452,19 @@ export const WORK_STATUSES = {
   DirectedToSales: {
     name: WORK_STATUS_MAP[CHALLENGE_STATUS.CANCELLED],
     value: CHALLENGE_STATUS.CANCELLED,
-    color: "#F46500",
+    color: "#E90C5A",
   },
 };
 
 export const WORK_TIMELINE = [
   {
     title: "SUBMITTED",
+    color: "#12C188",
+    name: "submitted",
     date: "created",
+    active: (work) => {
+      return work.status === WORK_STATUSES.Submitted.value;
+    },
     completed: (work) => {
       const submitted =
         WORK_STATUS_ORDER[work.status] >
@@ -467,7 +473,9 @@ export const WORK_TIMELINE = [
     },
   },
   {
+    name: "started",
     title: "STARTED",
+    color: "#12C188",
     date: (work) => {
       const phase = work.phases.find((phase) => phase.name === "Registration");
       return phase && workUtil.phaseStartDate(phase);
@@ -489,7 +497,9 @@ export const WORK_TIMELINE = [
     },
   },
   {
+    name: "in-review",
     title: "IN REVIEW",
+    color: "#12C188",
     date: (work) => {
       let phase = work.phases.find((phase) => phase.name === "Approval");
 
@@ -520,6 +530,7 @@ export const WORK_TIMELINE = [
   {
     name: "downloads-ready",
     title: "SOLUTIONS READY",
+    color: "#2C95D7",
     date: (work) => {
       let phase = work.phases.find((phase) => phase.name === "Approval");
 
@@ -556,6 +567,7 @@ export const WORK_TIMELINE = [
   {
     name: "mark-as-done",
     title: "DONE",
+    color: "#555555",
     date: (work) => {
       if (work.status === WORK_STATUSES.Completed.value) {
         return work.updated;
@@ -592,6 +604,7 @@ export const WORK_TIMELINE = [
   {
     name: "send-to-solutions-expert",
     title: "REDIRECTED",
+    color: "#F46500",
     date: (work) => {
       if (work.status === WORK_STATUSES.DirectedToSales.value) {
         return work.updated;
