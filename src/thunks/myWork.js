@@ -5,13 +5,14 @@ import * as services from "services/myWork";
 import * as selectors from "selectors/myWork";
 import * as actions from "actions/myWork";
 import {
-  CHALLENGE_STATUS,
+  WORK_TIMELINE,
   WORK_STATUS_MAP,
   WORK_STATUS_ORDER,
 } from "constants/index.js";
 import { sortBySortOrder } from "utils";
 import { getForumNotifications } from "services/challenge";
 import _ from "lodash";
+import { getSummary } from "services/work";
 
 /**
  * Loads work items as pages, concatenates these pages and adds proper work
@@ -59,6 +60,7 @@ export const loadWorks = () => async (dispatch, getState) => {
             workStatus = status;
           }
         }
+        item.summary = getSummary(item);
         item.challengeStatus = challengeStatus;
         item.workStatus = workStatus;
         item.sortOrder = sortOrder;

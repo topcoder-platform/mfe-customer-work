@@ -92,8 +92,12 @@
   background-color: #F46500;
 }
 
-.overdue {
+.overdue, .deleted {
   background-color: #e90c5a;
+}
+
+.redirected {
+  background-color: #F46500;
 }
 
 .type {

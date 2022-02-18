@@ -12,7 +12,11 @@ const TimelineHeader = ({ status, daysToBegin }) => {
   const color = item ? item.color : "#555555";
 
   let str = status;
-  if (status === WORK_STATUSES.DirectedToSales.name) {
+  if (
+    status === WORK_STATUSES.DirectedToSales.name ||
+    status === WORK_STATUSES.Cancelled.name ||
+    status === WORK_STATUSES.PaymentFailed.name
+  ) {
     str = "redirected";
   }
 

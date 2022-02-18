@@ -28,6 +28,7 @@ const WorkItem = ({ work }) => {
     rating,
     workStatus,
     forumNotificationLoading,
+    summary,
   } = work;
   const subTrack = legacy?.subTrack;
   const url =
@@ -47,9 +48,12 @@ const WorkItem = ({ work }) => {
       <div styleName="header">
         <div
           styleName="status"
-          className={cn(styles[(challengeStatus || "").toLowerCase()])}
+          className={cn(
+            styles[(challengeStatus || "").toLowerCase()],
+            styles[(summary.status || "").toLowerCase()]
+          )}
         >
-          {workStatus}
+          {summary.status}
         </div>
         <div styleName="date-created">
           Created: {moment(created).format("MM/DD/YY")}

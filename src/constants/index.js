@@ -405,18 +405,24 @@ export const INTAKE_FORM_ROUTES = [
 export const CHALLENGE_STATUS = {
   ACTIVE: "Active",
   CANCELLED: "Cancelled",
+  CANCELLED_REQUIREMENTS_INFEASIBLE: "Cancelled - Requirements Infeasible",
+  CANCELLED_PAYMENT_FAILED: "Cancelled - Payment Failed",
   COMPLETED: "Completed",
   DRAFT: "Draft",
   NEW: "New",
   APPROVED: "Approved",
+  DELETED: "Deleted",
 };
 
 export const WORK_STATUS_MAP = {
   [CHALLENGE_STATUS.ACTIVE]: "Started",
   [CHALLENGE_STATUS.CANCELLED]: "Redirected",
+  [CHALLENGE_STATUS.CANCELLED_REQUIREMENTS_INFEASIBLE]: "Redirected",
+  [CHALLENGE_STATUS.CANCELLED_PAYMENT_FAILED]: "Redirected",
   [CHALLENGE_STATUS.COMPLETED]: "Done",
   [CHALLENGE_STATUS.DRAFT]: "Submitted",
   [CHALLENGE_STATUS.NEW]: "Draft",
+  [CHALLENGE_STATUS.DELETED]: "Deleted",
 };
 
 export const WORK_STATUS_ORDER = {
@@ -425,6 +431,8 @@ export const WORK_STATUS_ORDER = {
   [CHALLENGE_STATUS.ACTIVE]: 2, // In progress
   [CHALLENGE_STATUS.COMPLETED]: 3,
   [CHALLENGE_STATUS.CANCELLED]: 4, // Directed to sales
+  [CHALLENGE_STATUS.CANCELLED_REQUIREMENTS_INFEASIBLE]: 4, // Directed to sales
+  [CHALLENGE_STATUS.CANCELLED_PAYMENT_FAILED]: 4, // Directed to sales
   Unknown: 999,
 };
 
@@ -449,10 +457,25 @@ export const WORK_STATUSES = {
     value: CHALLENGE_STATUS.COMPLETED,
     color: "#555555",
   },
+  Deleted: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.DELETED],
+    value: CHALLENGE_STATUS.DELETED,
+    color: "#E90C5A",
+  },
   DirectedToSales: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.CANCELLED_REQUIREMENTS_INFEASIBLE],
+    value: CHALLENGE_STATUS.CANCELLED_REQUIREMENTS_INFEASIBLE,
+    color: "#F46500",
+  },
+  Cancelled: {
     name: WORK_STATUS_MAP[CHALLENGE_STATUS.CANCELLED],
     value: CHALLENGE_STATUS.CANCELLED,
-    color: "#E90C5A",
+    color: "#F46500",
+  },
+  PaymentFailed: {
+    name: WORK_STATUS_MAP[CHALLENGE_STATUS.CANCELLED_PAYMENT_FAILED],
+    value: CHALLENGE_STATUS.CANCELLED_PAYMENT_FAILED,
+    color: "#F46500",
   },
 };
 
@@ -512,7 +535,10 @@ export const WORK_TIMELINE = [
       const reviewPhases = _.filter(work.phases, (p) =>
         _.includes(["Approval", "Screening", "Review"], p.name)
       );
-      return _.filter(reviewPhases, (p) => p.isOpen).length > 0;
+      return (
+        work.status === WORK_STATUSES.InProgress.value &&
+        _.filter(reviewPhases, (p) => p.isOpen).length > 0
+      );
     },
     completed: (work) => {
       let phase = work.phases.find((phase) => phase.name === "Approval");
@@ -609,10 +635,20 @@ export const WORK_TIMELINE = [
       if (work.status === WORK_STATUSES.DirectedToSales.value) {
         return work.updated;
       }
+      if (work.status === WORK_STATUSES.PaymentFailed.value) {
+        return work.updated;
+      }
+      if (work.status === WORK_STATUSES.Cancelled.value) {
+        return work.updated;
+      }
     },
     completed: true,
     hidden: (work) => {
-      return work.status !== WORK_STATUSES.DirectedToSales.value;
+      return (
+        work.status !== WORK_STATUSES.DirectedToSales.value &&
+        work.status !== WORK_STATUSES.Cancelled.value &&
+        work.status !== WORK_STATUSES.PaymentFailed.value
+      );
     },
   },
 ];
