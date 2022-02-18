@@ -78,7 +78,7 @@ export const getSummary = (work) => {
   }));
 
   let status = _.get(
-    _.findLast(timeline, "completed"),
+    _.findLast(timeline, "active"),
     "title",
     workUtil.getStatus(work)
   );
