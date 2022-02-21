@@ -13,6 +13,8 @@ const challengeReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
+    case ACTIONS.FORM.RESET_INTAKE_FORM:
+      return {};
     default:
       return state;
   }
