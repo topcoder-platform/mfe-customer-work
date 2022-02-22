@@ -224,9 +224,42 @@ export async function patchChallenge(intakeForm, challengeId) {
     ),
   });
 
+  const selectedDeliverableOption = _.get(
+    jsonData,
+    "form.branding.selectedDeliverableOption.option"
+  );
+  let selectedDeliverableOptionFormatted;
+  switch (selectedDeliverableOption) {
+    case "Any (recommended for best participation)":
+      selectedDeliverableOptionFormatted =
+        "Design source files must be created with AdobeXD, Figma or Sketch applications";
+      break;
+    case "Adobe XD":
+      selectedDeliverableOptionFormatted =
+        "Design source files must be created with AdobeXD application.";
+      break;
+    case "Figma":
+      selectedDeliverableOptionFormatted =
+        "Design source files must be created with Figma application.";
+      break;
+    case "Sketch":
+      selectedDeliverableOptionFormatted =
+        "Design source files must be created with Sketch application.";
+      break;
+    case "Other":
+      selectedDeliverableOptionFormatted = `Design source files must be created with ${_.get(
+        jsonData,
+        "form.branding.customDeliverable.option"
+      )} application.`;
+      break;
+    default:
+      selectedDeliverableOptionFormatted =
+        "Design source files must be created with AdobeXD, Figma or Sketch applications";
+  }
+
   intakeMetadata.push({
     name: "branding.selectedDeliverableOption",
-    value: _.get(jsonData, "form.branding.selectedDeliverableOption.option"),
+    value: selectedDeliverableOptionFormatted,
   });
 
   intakeMetadata.push({
