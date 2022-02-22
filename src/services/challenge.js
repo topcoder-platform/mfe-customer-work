@@ -97,9 +97,8 @@ export async function patchChallenge(intakeForm, challengeId) {
     name: "basicInfo.supportedDevices",
     value: _.map(
       _.get(jsonData, "form.basicInfo.selectedDevice.option", []),
-      (device) =>
-        `- **${device}**: ${DEVICE_TYPE_DETAILS[_.toLower(device)]} \n\n `
-    ),
+      (device) => `- **${device}**: ${DEVICE_TYPE_DETAILS[_.toLower(device)]}`
+    ).join(" \n\n "),
   });
 
   intakeMetadata.push({
