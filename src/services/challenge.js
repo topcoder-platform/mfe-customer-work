@@ -294,7 +294,11 @@ export async function patchChallenge(intakeForm, challengeId) {
     metadata: [
       ..._.map(
         _.filter(intakeMetadata, (e) => !_.isEmpty(e.value)),
-        (e) => ({ ...e, value: _.toString(e.value) })
+        (e) => ({
+          ...e,
+          value:
+            _.toString(e.value).trim() === "" ? "None" : _.toString(e.value),
+        })
       ),
       {
         name: "intake-form",
