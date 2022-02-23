@@ -221,9 +221,14 @@ export async function patchChallenge(intakeForm, challengeId) {
     "Yes, allow stock photos"
   );
 
+  const stockPhotosText =
+    stockPhotos === "Yes, allow stock photos"
+      ? "Yes, stock photos allowed. [See this page for more details.](https://www.topcoder.com/thrive/articles/stock-artwork-font-and-icon-policies)"
+      : "No, stock photos not allowed";
+
   intakeMetadata.push({
     name: "branding.stockPhotos",
-    value: stockPhotos !== "" ? stockPhotos : "Yes, allow stock photos",
+    value: stockPhotosText,
   });
 
   intakeMetadata.push({
