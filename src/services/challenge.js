@@ -97,9 +97,8 @@ export async function patchChallenge(intakeForm, challengeId) {
     name: "basicInfo.supportedDevices",
     value: _.map(
       _.get(jsonData, "form.basicInfo.selectedDevice.option", []),
-      (device) =>
-        `- **${device}**: ${DEVICE_TYPE_DETAILS[_.toLower(device)]} \n\n `
-    ),
+      (device) => `- **${device}**: ${DEVICE_TYPE_DETAILS[_.toLower(device)]}`
+    ).join(" \n\n "),
   });
 
   intakeMetadata.push({
@@ -114,12 +113,16 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "websitePurpose.existingWebsite",
-    value: _.get(jsonData, "form.websitePurpose.existingWebsite.value"),
+    value: _.get(jsonData, "form.websitePurpose.existingWebsite.value", "None"),
   });
 
   intakeMetadata.push({
     name: "websitePurpose.existingWebsiteInfo",
-    value: _.get(jsonData, "form.websitePurpose.existingWebsiteInfo.value"),
+    value: _.get(
+      jsonData,
+      "form.websitePurpose.existingWebsiteInfo.value",
+      "None"
+    ),
   });
 
   intakeMetadata.push({
@@ -138,13 +141,18 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   const webSitesForInspiration = _.get(jsonData, "form.branding.inspiration");
 
-  if (webSitesForInspiration && webSitesForInspiration.length > 0) {
+  if (
+    webSitesForInspiration &&
+    webSitesForInspiration.length > 0 &&
+    _.filter(webSitesForInspiration, (w) => !_.isEmpty(w.website.value))
+      .length > 0
+  ) {
     intakeMetadata.push({
       name: "branding.websitesForInspiration",
       value: `### INSPIRATION: \n\n ${_.map(
         webSitesForInspiration,
         (w) =>
-          `Website Address: [${w.website.value}](${w.website.value})\n- ${w.feedback.value}`
+          `Website Address: [${w.website.value}](${w.website.value})\n - ${w.feedback.value}`
       )}`,
     });
   } else {
@@ -157,40 +165,42 @@ export async function patchChallenge(intakeForm, challengeId) {
   const anythingToAvoid = _.get(
     jsonData,
     "form.branding.anythingToAvoid.value",
-    "N/A"
+    "None"
   );
 
   intakeMetadata.push({
     name: "branding.anythingToAvoid",
-    value: anythingToAvoid !== "" ? anythingToAvoid : "N/A",
+    value: anythingToAvoid !== "" ? anythingToAvoid : "None",
   });
 
   intakeMetadata.push({
     name: "branding.colorOption",
-    value: _.get(jsonData, "form.branding.colorOption.option", []).join(", "),
+    value: _.get(jsonData, "form.branding.colorOption.option", ["None"]).join(
+      ", "
+    ),
   });
 
   intakeMetadata.push({
     name: "branding.specificColor",
-    value: _.get(jsonData, "form.branding.specificColor.value", "N/A"),
+    value: _.get(jsonData, "form.branding.specificColor.value", "None"),
   });
 
   intakeMetadata.push({
     name: "branding.fontOption",
-    value: _.get(jsonData, "form.branding.fontOption.option", "N/A"),
+    value: _.get(jsonData, "form.branding.fontOption.option", "None"),
   });
 
   const fontUrl = _.get(jsonData, "form.branding.fontUrl.option");
 
   intakeMetadata.push({
     name: "branding.fontUrl",
-    value: fontUrl ? `[${fontUrl}](${fontUrl})` : "N/A",
+    value: fontUrl ? `[${fontUrl}](${fontUrl})` : "None",
   });
 
   const fontUsage = _.get(
     jsonData,
     "form.branding.fontUsageDescription.option",
-    "N/A"
+    "None"
   );
 
   intakeMetadata.push({
@@ -202,7 +212,7 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "branding.assetsUrl",
-    value: assetsUrl ? `[${assetsUrl}](${assetsUrl})` : "N/A",
+    value: assetsUrl ? `[${assetsUrl}](${assetsUrl})` : "None",
   });
 
   const stockPhotos = _.get(
@@ -224,9 +234,42 @@ export async function patchChallenge(intakeForm, challengeId) {
     ),
   });
 
+  const selectedDeliverableOption = _.get(
+    jsonData,
+    "form.branding.selectedDeliverableOption.option"
+  );
+  let selectedDeliverableOptionFormatted;
+  switch (selectedDeliverableOption) {
+    case "Any (recommended for best participation)":
+      selectedDeliverableOptionFormatted =
+        "Design source files must be created with AdobeXD, Figma or Sketch applications";
+      break;
+    case "Adobe XD":
+      selectedDeliverableOptionFormatted =
+        "Design source files must be created with AdobeXD application.";
+      break;
+    case "Figma":
+      selectedDeliverableOptionFormatted =
+        "Design source files must be created with Figma application.";
+      break;
+    case "Sketch":
+      selectedDeliverableOptionFormatted =
+        "Design source files must be created with Sketch application.";
+      break;
+    case "Other":
+      selectedDeliverableOptionFormatted = `Design source files must be created with ${_.get(
+        jsonData,
+        "form.branding.customDeliverable.option"
+      )} application.`;
+      break;
+    default:
+      selectedDeliverableOptionFormatted =
+        "Design source files must be created with AdobeXD, Figma or Sketch applications";
+  }
+
   intakeMetadata.push({
     name: "branding.selectedDeliverableOption",
-    value: _.get(jsonData, "form.branding.selectedDeliverableOption.option"),
+    value: selectedDeliverableOptionFormatted,
   });
 
   intakeMetadata.push({
@@ -250,7 +293,11 @@ export async function patchChallenge(intakeForm, challengeId) {
     metadata: [
       ..._.map(
         _.filter(intakeMetadata, (e) => !_.isEmpty(e.value)),
-        (e) => ({ ...e, value: _.toString(e.value) })
+        (e) => ({
+          ...e,
+          value:
+            _.toString(e.value).trim() === "" ? "None" : _.toString(e.value),
+        })
       ),
       {
         name: "intake-form",

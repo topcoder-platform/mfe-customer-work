@@ -1,17 +1,22 @@
 import React from "react";
 import PT from "prop-types";
-import { WORK_STATUSES } from "constants";
+import { WORK_STATUSES, WORK_TIMELINE } from "constants";
 import _ from "lodash";
 import { padStart } from "utils";
 
 import "./styles.module.scss";
 
 const TimelineHeader = ({ status, daysToBegin }) => {
-  const item = _.find(WORK_STATUSES, { name: status });
-  const color = item ? item.color : undefined;
+  let item = _.find(WORK_TIMELINE, { title: status });
+  if (!item) item = _.find(WORK_STATUSES, { name: status });
+  const color = item ? item.color : "#555555";
 
   let str = status;
-  if (status === WORK_STATUSES.DirectedToSales.name) {
+  if (
+    status === WORK_STATUSES.DirectedToSales.name ||
+    status === WORK_STATUSES.Cancelled.name ||
+    status === WORK_STATUSES.PaymentFailed.name
+  ) {
     str = "redirected";
   }
 

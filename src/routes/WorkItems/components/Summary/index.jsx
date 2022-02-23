@@ -2,7 +2,7 @@ import React from "react";
 import PT from "prop-types";
 import moment from "moment";
 import TimelineHeader from "./TimelineHeader";
-import { WORK_STATUSES } from "constants";
+import _ from "lodash";
 import Timeline from "./Timeline";
 
 import "./styles.module.scss";
@@ -41,7 +41,7 @@ const Summary = ({ summary, setSelectedTab, setShowSurvey }) => {
         <TimelineContext.Provider
           value={{ workId, setSelectedTab, setShowSurvey }}
         >
-          {status === WORK_STATUSES.DirectedToSales.name ? (
+          {_.toLower(status) === "redirected" ? (
             <div styleName="redirected-text">
               <PageP>
                 We have a few outstanding questions that will help us better
@@ -63,6 +63,10 @@ const Summary = ({ summary, setSelectedTab, setShowSurvey }) => {
                 <br />
                 The Topcoder Team
               </PageP>
+            </div>
+          ) : _.toLower(status) === "deleted" ? (
+            <div styleName="redirected-text">
+              <PageP>This work item has been deleted.</PageP>
             </div>
           ) : (
             <Timeline timeline={timeline} />

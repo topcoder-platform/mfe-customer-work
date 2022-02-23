@@ -2,7 +2,7 @@ import _ from "lodash";
 import moment from "moment";
 import config from "../../config";
 import { axiosInstance as axios } from "./requestInterceptor";
-import { WORK_TIMELINE, CHALLENGE_STATUS } from "constants";
+import { WORK_TIMELINE, CHALLENGE_STATUS, WORK_STATUSES } from "constants";
 import workUtil from "utils/work";
 import { triggerDownload } from "utils";
 
@@ -77,9 +77,21 @@ export const getSummary = (work) => {
       index === timeline.length - 1 - timeline.filter((i) => i.hidden).length,
   }));
 
-  return {
-    status: workUtil.getStatus(work),
+  let status = _.get(
+    _.findLast(timeline, "active"),
+    "title",
+    workUtil.getStatus(work)
+  );
 
+  if (
+    status === WORK_STATUSES.DirectedToSales.name ||
+    status === WORK_STATUSES.PaymentFailed.name
+  ) {
+    status = "Redirected";
+  }
+
+  return {
+    status,
     participants: work.numOfRegistrants,
     solutions: work.numOfSubmissions,
     submitDate: work.created,
