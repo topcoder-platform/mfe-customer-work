@@ -129,8 +129,10 @@ export async function patchChallenge(intakeForm, challengeId) {
     name: "pageDetails",
     value: _.map(
       _.get(jsonData, "form.pageDetails.pages", []),
-      (p) =>
-        `### ${p.pageName} \n\n#### Requirements & Details:\n\n ${p.pageDetails}`
+      (p, i) =>
+        `### PAGE ${i + 1} NAME:\n\n ${
+          p.pageName
+        } \n\n#### Requirements & Details:\n\n ${p.pageDetails}`
     ).join("\n\n"),
   });
 
