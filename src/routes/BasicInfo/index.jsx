@@ -70,7 +70,9 @@ const BasicInfo = ({
   const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const onBack = () => {
-    navigate("/self-service/wizard");
+    // This is a temporary hack to get the customer directly into the landing page
+    // when clicking the back button instead of the product catalog page
+    navigate("/self-service");
   };
 
   const onNext = () => {

@@ -86,6 +86,8 @@ const SelectWorkType = ({
 
   useEffect(() => {
     dispatch(getUserProfile());
+    // This is a temporary hack to get the customer directly into the 1st step of the wizard
+    handleClick();
   }, [dispatch]);
 
   const onSubmitSupportRequest = (submittedSupportRequest) =>

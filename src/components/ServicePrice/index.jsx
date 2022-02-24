@@ -29,7 +29,7 @@ const ServicePrice = ({ stickerPrice, serviceType, price, duration = 1 }) => {
             {duration} Days
             <HelpIcon>
               The price and project length is dynamic and dependant on the
-              variables selected as your define your work.
+              variables selected as you define your work.
             </HelpIcon>
           </div>
         </div>
