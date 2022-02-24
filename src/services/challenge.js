@@ -80,21 +80,25 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "websitePurpose.description",
+    required: true,
     value: _.get(jsonData, "form.websitePurpose.description.value"),
   });
 
   intakeMetadata.push({
     name: "basicInfo.numberOfPages",
+    required: true,
     value: numOfPages === 1 ? "1 Screen" : `${numOfPages} Screens`,
   });
 
   intakeMetadata.push({
     name: "basicInfo.numberOfDevices",
+    required: true,
     value: numOfDevices === 1 ? "1 Device" : `${numOfDevices} Devices`,
   });
 
   intakeMetadata.push({
     name: "basicInfo.supportedDevices",
+    required: true,
     value: _.map(
       _.get(jsonData, "form.basicInfo.selectedDevice.option", []),
       (device) => `- **${device}**: ${DEVICE_TYPE_DETAILS[_.toLower(device)]}`
@@ -103,11 +107,13 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "websitePurpose.industry",
+    required: true,
     value: _.get(jsonData, "form.websitePurpose.industry.value.label"),
   });
 
   intakeMetadata.push({
     name: "websitePurpose.userStory",
+    required: true,
     value: _.get(jsonData, "form.websitePurpose.userStory.value"),
   });
 
@@ -127,6 +133,7 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "pageDetails",
+    required: true,
     value: _.map(
       _.get(jsonData, "form.pageDetails.pages", []),
       (p, i) =>
@@ -138,6 +145,7 @@ export async function patchChallenge(intakeForm, challengeId) {
 
   intakeMetadata.push({
     name: "branding.theme",
+    required: true,
     value: _.get(jsonData, "form.branding.theme.value"),
   });
 
@@ -298,14 +306,15 @@ export async function patchChallenge(intakeForm, challengeId) {
     ...(name ? { name } : {}),
     ...templateData,
     metadata: [
-      ..._.map(
-        _.filter(intakeMetadata, (e) => !_.isEmpty(e.value)),
-        (e) => ({
-          ...e,
-          value:
-            _.toString(e.value).trim() === "" ? "None" : _.toString(e.value),
-        })
-      ),
+      ..._.map(intakeMetadata, (e) => ({
+        name: e.name,
+        value:
+          _.toString(e.value).trim() === ""
+            ? e.required
+              ? ""
+              : "None"
+            : _.toString(e.value),
+      })),
       {
         name: "intake-form",
         value: intakeForm,
