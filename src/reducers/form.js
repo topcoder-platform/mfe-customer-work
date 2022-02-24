@@ -3,6 +3,7 @@
  */
 import moment from "moment";
 import "moment-timezone";
+import _ from "lodash";
 import config from "../../config";
 import { ACTIONS } from "constants/";
 
@@ -33,6 +34,14 @@ const formReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
         updatedAt,
+      };
+    case ACTIONS.CHALLENGE.GET_CHALLENGE:
+      const metaData = action.payload?.metadata
+        ? _.find(action.payload.metadata, (m) => m.name === "intake-form")
+        : undefined;
+      return {
+        ...state,
+        ..._.get(JSON.parse(_.get(metaData, "value", "{}")), "form", {}),
       };
     case ACTIONS.FORM.RESET_INTAKE_FORM:
       return {
