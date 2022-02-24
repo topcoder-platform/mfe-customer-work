@@ -3,7 +3,7 @@
  */
 
 import { ACTIONS } from "constants/";
-
+import _ from "lodash";
 const initialState = {
   currentStep: 0,
 };
@@ -14,6 +14,14 @@ const progressReducer = (state = initialState, action) => {
       return {
         ...state,
         currentStep: action.payload,
+      };
+    case ACTIONS.CHALLENGE.GET_CHALLENGE:
+      const metaData = action.payload?.metadata
+        ? _.find(action.payload.metadata, (m) => m.name === "intake-form")
+        : undefined;
+      return {
+        ...state,
+        ..._.get(JSON.parse(_.get(metaData, "value", "{}")), "progress", {}),
       };
     default:
       return state;
