@@ -64,6 +64,7 @@ const WorkItem = ({
   saveSurvey,
   setIsSavingSurveyDone,
   getForumNotifications,
+  createNewSupportTicket,
 }) => {
   const dispatch = useDispatch();
   const [selectedTab, setSelectedTab] = useState("summary");
