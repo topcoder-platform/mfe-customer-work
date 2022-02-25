@@ -12,6 +12,11 @@
   }
 }
 
+.container {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
 .backButtonWrapper {
   min-width: 40px;
   margin-top: 3px;

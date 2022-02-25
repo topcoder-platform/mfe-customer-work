@@ -19,6 +19,7 @@ import ReviewTable from "./components/ReviewTable";
 import ServicePrice from "components/ServicePrice";
 import "./styles.module.scss";
 import { getDynamicPriceAndTimelineEstimate } from "utils/";
+import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
 
 /**
  * Review Page
@@ -82,7 +83,8 @@ const Review = ({ setProgressItem }) => {
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
-        <PageContent>
+        <WebsiteDesignBanner />
+        <PageContent styleName="container">
           <PageH2>REVIEW</PageH2>
           <PageDivider />
           <ServicePrice

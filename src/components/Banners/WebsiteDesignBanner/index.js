@@ -1,0 +1,31 @@
+/**
+ * 
+ *  Website Design Banner
+ */
+ import "./styles.module.scss";
+ import { IconWebsiteTools } from "../../../assets/images/design-tools.svg"
+
+export const WebsiteDesignBanner = () => {
+  return (
+    <div styleName="heroContainer">
+      <div styleName="heroBackgroundContainer"></div>
+        <div styleName="heroContent">
+          <div styleName="heroHeader">
+            <div styleName="heroHeaderContent">
+              <div styleName="heroHeaderTitle">
+                <div styleName="heroIconContainer">
+                  <IconWebsiteTools />
+                </div>
+                WEBSITE DESIGN
+              </div>
+              <div styleName="heroHeaderSubtitle">Create a beautiful custom visual design for your website.
+            Specify the scope and device types, your vision, and receive up to 5 modern designs.
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default WebsiteDesignBanner;
