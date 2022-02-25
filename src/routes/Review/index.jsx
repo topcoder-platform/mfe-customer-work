@@ -19,6 +19,7 @@ import ReviewTable from "./components/ReviewTable";
 import ServicePrice from "components/ServicePrice";
 import "./styles.module.scss";
 import { getDynamicPriceAndTimelineEstimate } from "utils/";
+import { IconWebsiteTools } from "../../assets/images/design-tools.svg"
 
 /**
  * Review Page
@@ -82,7 +83,25 @@ const Review = ({ setProgressItem }) => {
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
-        <PageContent>
+        <div styleName="heroContainer">
+          <div styleName="heroBackgroundContainer"></div>
+            <div styleName="heroContent">
+              <div styleName="heroHeader">
+                <div styleName="heroHeaderContent">
+                  <div styleName="heroHeaderTitle">
+                    <div styleName="heroIconContainer">
+                      <IconWebsiteTools />
+                    </div>
+                    WEBSITE DESIGN
+                  </div>
+                  <div styleName="heroHeaderSubtitle">Create a beautiful custom visual design for your website.
+                Specify the scope and device types, your vision, and receive up to 5 modern designs.
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <PageContent styleName="container">
           <PageH2>REVIEW</PageH2>
           <PageDivider />
           <ServicePrice

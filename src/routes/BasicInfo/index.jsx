@@ -10,6 +10,7 @@ import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
 import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
+import { IconWebsiteTools } from "../../assets/images/design-tools.svg"
 import {
   BUTTON_SIZE,
   BUTTON_TYPE,
@@ -167,7 +168,25 @@ const BasicInfo = ({
         ></SupportModal>
       )}
       <Page>
-        <PageContent>
+        <div styleName="heroContainer">
+          <div styleName="heroBackgroundContainer"></div>
+            <div styleName="heroContent">
+              <div styleName="heroHeader">
+                <div styleName="heroHeaderContent">
+                  <div styleName="heroHeaderTitle">
+                    <div styleName="heroIconContainer">
+                      <IconWebsiteTools />
+                    </div>
+                    WEBSITE DESIGN
+                  </div>
+                  <div styleName="heroHeaderSubtitle">Create a beautiful custom visual design for your website.
+                Specify the scope and device types, your vision, and receive up to 5 modern designs.
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <PageContent styleName="container">
           <PageH2>BASIC INFO</PageH2>
           <PageDivider />
 
