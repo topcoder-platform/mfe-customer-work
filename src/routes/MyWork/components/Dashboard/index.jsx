@@ -5,7 +5,7 @@ import Header from "../Header";
 import WorkList from "../WorkList";
 import * as selectors from "selectors/myWork";
 import Button from "components/Button";
-import { ROUTES } from "constants/";
+import { webWorkTypes, workTypes } from "constants/";
 import { BUTTON_SIZE, MAX_COMPLETED_STEP } from "constants/index.js";
 import styles from "./styles.module.scss";
 import {
@@ -13,25 +13,37 @@ import {
   clearCachedChallengeId,
   setCookie,
 } from "../../../../../src/autoSaveBeforeLogin";
-import { resetIntakeForm } from "../../../../../src/actions/form";
+import { resetIntakeForm, saveWorkType } from "../../../../../src/actions/form";
+import { setProgressItem } from "../../../../../src/actions/progress";
+import { triggerAutoSave } from "../../../../../src/actions/autoSave";
 
 /**
  * Displays My Work Dashboard with work item list.
  *
  * @returns {JSX.Element}
  */
-const Dashboard = () => {
+const Dashboard = ({ saveWorkType, setProgressItem }) => {
   const dispatch = useDispatch();
 
   const worksCount = useSelector(selectors.getWorksCount);
   const worksError = useSelector(selectors.getWorksError);
 
+  const allWorkTypes = [...workTypes, ...webWorkTypes];
+  const workTypesComingSoon = allWorkTypes.filter((wt) => wt.comingSoon);
+  const featuredWorkType = allWorkTypes.find((wt) => wt.featured);
+
   const onClickBtnStart = useCallback(() => {
-    setCookie(MAX_COMPLETED_STEP, "", -1);
     clearCachedChallengeId();
     clearAutoSavedForm();
     dispatch(resetIntakeForm(true));
-    navigate(ROUTES.INTAKE_FORM);
+    // This is a temporary hack to get the customer directly into the 1st step of the wizard
+    saveWorkType({
+      selectedWorkType: featuredWorkType.title,
+      selectedWorkTypeDetail: featuredWorkType.title,
+    });
+    setProgressItem(2);
+    navigate(`/self-service/basic-info`);
+    dispatch(triggerAutoSave(true));
   }, []);
 
   return (
@@ -64,6 +76,9 @@ const Dashboard = () => {
 };
 
 const mapStateToProps = ({ form }) => form;
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  saveWorkType,
+  setProgressItem,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
