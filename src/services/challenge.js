@@ -117,18 +117,22 @@ export async function patchChallenge(intakeForm, challengeId) {
     value: _.get(jsonData, "form.websitePurpose.userStory.value"),
   });
 
-  intakeMetadata.push({
-    name: "websitePurpose.existingWebsite",
-    value: _.get(jsonData, "form.websitePurpose.existingWebsite.value", "None"),
-  });
+  const existingWebsite = _.get(
+    jsonData,
+    "form.websitePurpose.existingWebsite.value"
+  );
+
+  const existingWebsiteInfo = _.get(
+    jsonData,
+    "form.websitePurpose.existingWebsiteInfo.value",
+    "None"
+  );
 
   intakeMetadata.push({
-    name: "websitePurpose.existingWebsiteInfo",
-    value: _.get(
-      jsonData,
-      "form.websitePurpose.existingWebsiteInfo.value",
-      "None"
-    ),
+    name: "websitePurpose.existingWebsite",
+    value: existingWebsite
+      ? `[${existingWebsite}](${existingWebsite}) \n\n ${existingWebsiteInfo}`
+      : "None",
   });
 
   intakeMetadata.push({

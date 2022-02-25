@@ -10,6 +10,7 @@ import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
 import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
+import { WebsiteDesignBanner } from "components/Banners/WebsiteDesignBanner";
 import {
   BUTTON_SIZE,
   BUTTON_TYPE,
@@ -167,7 +168,8 @@ const BasicInfo = ({
         ></SupportModal>
       )}
       <Page>
-        <PageContent>
+        <WebsiteDesignBanner />
+        <PageContent styleName="container">
           <PageH2>BASIC INFO</PageH2>
           <PageDivider />
 
