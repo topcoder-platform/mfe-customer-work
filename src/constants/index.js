@@ -677,754 +677,85 @@ export const COUNTRY_OPTIONS = countries.map((ct) => ({
   value: ct.code,
 }));
 
-export const COST_TIMELINE_MAPPING = [
+export const BASE_PRODUCT_PRICE = 100;
+export const PER_PAGE_COST = 99;
+export const DEVICE_COST_PER_PAGE = 99;
+export const PRIZES_PAYMENT_BREAKDOWN = [0.5, 0.2, 0.1];
+export const REVIEWER_PAYMENT_BREAKDOWN = [0.1, 0.1];
+
+export const DURATION_MAPPING = [
   [
     {
-      total: 349,
-      stickerPrice: 649,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 150,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 100,
-            },
-            {
-              type: "USD",
-              value: 50,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 60,
-            },
-            {
-              type: "USD",
-              value: 60,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 1 device
     {
-      total: 448,
-      stickerPrice: 748,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 249,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 150,
-            },
-            {
-              type: "USD",
-              value: 75,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 70,
-            },
-            {
-              type: "USD",
-              value: 70,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 2 devices
     {
-      total: 547,
-      stickerPrice: 847,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 348,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 200,
-            },
-            {
-              type: "USD",
-              value: 100,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 80,
-            },
-            {
-              type: "USD",
-              value: 80,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 3 devices
   ], // 1 page
 
   [
     {
-      total: 499,
-      stickerPrice: 899,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 150,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 175,
-            },
-            {
-              type: "USD",
-              value: 88,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 70,
-            },
-            {
-              type: "USD",
-              value: 70,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 1 device
     {
-      total: 697,
-      stickerPrice: 1097,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 249,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 275,
-            },
-            {
-              type: "USD",
-              value: 138,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 80,
-            },
-            {
-              type: "USD",
-              value: 80,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 2 devices
     {
-      total: 895,
-      stickerPrice: 1295,
       submissionDuration: 2,
       totalDuration: 4,
-      costPerAdditionalPage: 348,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 325,
-            },
-            {
-              type: "USD",
-              value: 163,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 90,
-            },
-            {
-              type: "USD",
-              value: 90,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 3 devices
   ], // 2 pages
 
   [
     {
-      total: 649,
-      stickerPrice: 1149,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 150,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 250,
-            },
-            {
-              type: "USD",
-              value: 125,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 80,
-            },
-            {
-              type: "USD",
-              value: 80,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 1 device
     {
-      total: 946,
-      stickerPrice: 1446,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 249,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 400,
-            },
-            {
-              type: "USD",
-              value: 200,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 90,
-            },
-            {
-              type: "USD",
-              value: 90,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 2 devices
     {
-      total: 1243,
-      stickerPrice: 1743,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 348,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 450,
-            },
-            {
-              type: "USD",
-              value: 225,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 100,
-            },
-            {
-              type: "USD",
-              value: 100,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 3 devices
   ], // 3 pages
 
   [
     {
-      total: 799,
-      stickerPrice: 1399,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 150,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 325,
-            },
-            {
-              type: "USD",
-              value: 163,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 90,
-            },
-            {
-              type: "USD",
-              value: 90,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 1 device
     {
-      total: 1195,
-      stickerPrice: 1795,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 249,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 525,
-            },
-            {
-              type: "USD",
-              value: 263,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 100,
-            },
-            {
-              type: "USD",
-              value: 100,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 2 devices
     {
-      total: 1591,
-      stickerPrice: 2191,
       submissionDuration: 4,
       totalDuration: 6,
-      costPerAdditionalPage: 348,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 575,
-            },
-            {
-              type: "USD",
-              value: 288,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 110,
-            },
-            {
-              type: "USD",
-              value: 110,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 3 devices
   ], // 4 pages
 
   [
     {
-      total: 949,
-      stickerPrice: 1649,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 150,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 400,
-            },
-            {
-              type: "USD",
-              value: 200,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 100,
-            },
-            {
-              type: "USD",
-              value: 100,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 1 device
     {
-      total: 1444,
-      stickerPrice: 2144,
       submissionDuration: 3,
       totalDuration: 5,
-      costPerAdditionalPage: 249,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 650,
-            },
-            {
-              type: "USD",
-              value: 325,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 110,
-            },
-            {
-              type: "USD",
-              value: 110,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 2 devices
     {
-      total: 1939,
-      stickerPrice: 2639,
       submissionDuration: 4,
       totalDuration: 6,
-      costPerAdditionalPage: 348,
-      prizeSets: [
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 700,
-            },
-            {
-              type: "USD",
-              value: 350,
-            },
-            {
-              type: "USD",
-              value: 40,
-            },
-            {
-              type: "USD",
-              value: 30,
-            },
-            {
-              type: "USD",
-              value: 20,
-            },
-          ],
-          description: "Challenge Prizes",
-          type: "placement",
-        },
-        {
-          prizes: [
-            {
-              type: "USD",
-              value: 120,
-            },
-            {
-              type: "USD",
-              value: 120,
-            },
-          ],
-          description: "Reviewer Payment",
-          type: "reviewer",
-        },
-      ],
     }, // 3 devices
   ], // 5 pages
 ];
