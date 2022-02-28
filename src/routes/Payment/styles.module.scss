@@ -51,6 +51,12 @@
         @include font-barlow-condensed;
         color: $aqua;
         font-size: 48px;
+
+        .originalPrice {
+          text-decoration: line-through;
+          margin-right: 20px;
+          font-size: 24px;
+        }
       }
 
       .totalInfo {

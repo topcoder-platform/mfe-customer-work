@@ -222,7 +222,12 @@ const Payment = ({ setProgressItem }) => {
               </div>
 
               <div styleName="paymentBox">
-                <div styleName="total">{currencyFormat(estimate.total)}</div>
+                <div styleName="total">
+                  <span styleName="originalPrice">
+                    {currencyFormat(estimate.total * 2)}
+                  </span>
+                  {currencyFormat(estimate.total)}
+                </div>
 
                 <div styleName="totalInfo">Total Payment</div>
 

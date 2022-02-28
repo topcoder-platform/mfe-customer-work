@@ -72,7 +72,7 @@ export function getDynamicPriceAndTimeline(pages, devices) {
     total,
     stickerPrice: total * 2,
     ...DURATION_MAPPING[pages - 1][devices - 1],
-    costPerAdditionalPage: pages * (devices - 1) + PER_PAGE_COST,
+    costPerAdditionalPage: devices * PER_PAGE_COST,
     prizeSets: [
       {
         prizes: [
