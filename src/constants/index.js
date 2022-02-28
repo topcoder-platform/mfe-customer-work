@@ -679,7 +679,6 @@ export const COUNTRY_OPTIONS = countries.map((ct) => ({
 
 export const BASE_PRODUCT_PRICE = 100;
 export const PER_PAGE_COST = 99;
-export const DEVICE_COST_PER_PAGE = 99;
 export const PRIZES_PAYMENT_BREAKDOWN = [0.5, 0.2, 0.1];
 export const REVIEWER_PAYMENT_BREAKDOWN = [0.1, 0.1];
 

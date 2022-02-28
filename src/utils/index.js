@@ -1,7 +1,6 @@
 import {
   BASE_PRODUCT_PRICE,
   PER_PAGE_COST,
-  DEVICE_COST_PER_PAGE,
   PRIZES_PAYMENT_BREAKDOWN,
   REVIEWER_PAYMENT_BREAKDOWN,
   DURATION_MAPPING,
@@ -68,12 +67,12 @@ export function getDynamicPriceAndTimeline(pages, devices) {
   const total =
     BASE_PRODUCT_PRICE +
     pages * PER_PAGE_COST +
-    pages * (devices - 1) * DEVICE_COST_PER_PAGE;
+    pages * (devices - 1) * PER_PAGE_COST;
   const pricing = {
     total,
     stickerPrice: total * 2,
     ...DURATION_MAPPING[pages - 1][devices - 1],
-    costPerAdditionalPage: pages * (devices - 1) + DEVICE_COST_PER_PAGE,
+    costPerAdditionalPage: pages * (devices - 1) + PER_PAGE_COST,
     prizeSets: [
       {
         prizes: [
