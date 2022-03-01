@@ -51,10 +51,13 @@
         @include font-barlow-condensed;
         color: $aqua;
         font-size: 48px;
+        position: relative;
 
         .originalPrice {
+          position: absolute;
+          bottom: 0;
+          left: -55px;
           text-decoration: line-through;
-          margin-right: 20px;
           font-size: 24px;
         }
       }

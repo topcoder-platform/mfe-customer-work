@@ -90,6 +90,7 @@ const Review = ({ setProgressItem }) => {
           <ServicePrice
             price={estimate.total}
             duration={estimate.totalDuration}
+            stickerPrice={estimate?.stickerPrice}
             serviceType={workType?.selectedWorkTypeDetail}
           />
           <div styleName="infoAlert">
