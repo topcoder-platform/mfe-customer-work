@@ -39,6 +39,7 @@ const WebsitePurposeForm = ({
       <ServicePrice
         price={estimate.total}
         duration={estimate.totalDuration}
+        stickerPrice={estimate?.stickerPrice}
         serviceType={serviceType}
       />
 

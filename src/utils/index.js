@@ -1,4 +1,10 @@
-import { COST_TIMELINE_MAPPING } from "constants/";
+import {
+  BASE_PRODUCT_PRICE,
+  PER_PAGE_COST,
+  PRIZES_PAYMENT_BREAKDOWN,
+  REVIEWER_PAYMENT_BREAKDOWN,
+  DURATION_MAPPING,
+} from "constants/";
 import _ from "lodash";
 
 /**
@@ -58,7 +64,40 @@ export function getDynamicPriceAndTimelineEstimate(formData) {
  * @param {Number} devices the number of devices
  */
 export function getDynamicPriceAndTimeline(pages, devices) {
-  return COST_TIMELINE_MAPPING[pages - 1][devices - 1];
+  const total =
+    BASE_PRODUCT_PRICE +
+    pages * PER_PAGE_COST +
+    pages * (devices - 1) * PER_PAGE_COST;
+  const pricing = {
+    total,
+    stickerPrice: total * 2,
+    ...DURATION_MAPPING[pages - 1][devices - 1],
+    costPerAdditionalPage: devices * PER_PAGE_COST,
+    prizeSets: [
+      {
+        prizes: [
+          ..._.map(PRIZES_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Challenge Prizes",
+        type: "placement",
+      },
+      {
+        prizes: [
+          ..._.map(REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Reviewer Payment",
+        type: "reviewer",
+      },
+    ],
+  };
+
+  return pricing;
 }
 
 /**

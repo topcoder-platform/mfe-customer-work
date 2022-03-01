@@ -22,9 +22,7 @@ const ServicePrice = ({ stickerPrice, serviceType, price, duration = 1 }) => {
                 {currencyFormat(stickerPrice)}
               </span>
             )}
-            <span styleName="discount">
-              {currencyFormat(price)} through February
-            </span>
+            <span styleName="discount">{currencyFormat(price)}</span>
             <span styleName="separator" />
             {duration} Days
             <HelpIcon>

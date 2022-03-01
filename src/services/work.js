@@ -129,7 +129,7 @@ export const getDetails = (work) => {
 export const getSolutions = async (workId) => {
   const challengeId = workId;
   const response = await axios.get(
-    `${config.API.V5}/submissions?challengeId=${challengeId}&orderBy=desc&sortBy=review.score&perPage=5`
+    `${config.API.V5}/submissions?challengeId=${challengeId}&orderBy=desc&sortBy=review.score&perPage=3`
   );
 
   return response.data;
