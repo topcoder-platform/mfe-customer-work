@@ -19,6 +19,7 @@ const progressReducer = (state = initialState, action) => {
       const metaData = action.payload?.metadata
         ? _.find(action.payload.metadata, (m) => m.name === "intake-form")
         : undefined;
+      if (!metaData) return state;
       return {
         ...state,
         ..._.get(JSON.parse(_.get(metaData, "value", "{}")), "progress", {}),
