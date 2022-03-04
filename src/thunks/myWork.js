@@ -68,7 +68,9 @@ export const loadWorks = () => async (dispatch, getState) => {
           (i) => i.name === "customerFeedback"
         );
         if (customerFeedback) {
-          item.rating = JSON.parse(customerFeedback.value);
+          const answers = JSON.parse(customerFeedback.value);
+          const numAnswers = _.filter(answers, (a) => _.isNumber(a.value));
+          item.rating = _.sumBy(numAnswers, "value") / numAnswers.length / 2;
         }
         works.push(item);
       }
