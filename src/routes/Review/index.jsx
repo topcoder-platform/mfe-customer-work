@@ -40,7 +40,7 @@ const Review = ({ setProgressItem }) => {
       return;
     }
 
-    setProgressItem(6);
+    setProgressItem(7);
 
     if (currentStep === 0) {
       redirectTo("/self-service");

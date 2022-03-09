@@ -5,6 +5,7 @@ import { axiosInstance as axios } from "./requestInterceptor";
 import { WORK_TIMELINE, CHALLENGE_STATUS, WORK_STATUSES } from "constants";
 import workUtil from "utils/work";
 import { triggerDownload } from "utils";
+import { getChallengeDetails } from "./challenge";
 
 export const getWork = async (id) => {
   const challengeId = id;
@@ -127,12 +128,31 @@ export const getDetails = (work) => {
 };
 
 export const getSolutions = async (workId) => {
-  const challengeId = workId;
+  const challenge = await getChallengeDetails(workId);
+  if (!challenge?.winners || challenge?.winners?.length === 0) return [];
   const response = await axios.get(
-    `${config.API.V5}/submissions?challengeId=${challengeId}&orderBy=desc&sortBy=review.score&perPage=3`
+    `${config.API.V5}/submissions?challengeId=${workId}&perPage=500`
   );
 
-  return response.data;
+  const submissions = response.data;
+  const res = [];
+
+  for (const winner of challenge.winners) {
+    try {
+      const memberRes = await axios.get(
+        `${config.API.V5}/members/${winner.handle}`
+      );
+      const { userId } = memberRes.data;
+      res.push({
+        ..._.find(
+          submissions,
+          (s) => _.toString(s.memberId) === _.toString(userId)
+        ),
+        placement: winner.placement,
+      });
+    } catch (e) {}
+  }
+  return _.sortBy(res, "placement");
 };
 
 export const downloadSolution = async (solutionId) => {

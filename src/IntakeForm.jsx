@@ -113,7 +113,7 @@ export default function IntakeForm() {
 
   const getSavedDataAfterLoggedIn = async (challengeDetail) => {
     const savedCookie = loadSavedFormCookie();
-    return savedCookie || dataSyncWithoutCookie(challengeDetail);
+    return dataSyncWithoutCookie(challengeDetail) || savedCookie;
   };
 
   const dataSyncWithoutCookie = (challengeDetail) => {
