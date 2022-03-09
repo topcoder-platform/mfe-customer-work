@@ -166,10 +166,7 @@ const BrandingForm = ({
           <PageP styleName="description">
             What ideas do you have for the overall style and theme of your
             website? For example, modern and minimalist, bold and colorful, or
-            muted and masculine.
-          </PageP>
-          <PageP>
-            Describe the vibe and personality you have in mind. For example:
+            muted and masculine. Describe the vibe and personality you have in mind. For example:
             friendly, approachable, upscale, exclusive, high-tech, handcrafted.
           </PageP>
         </div>
@@ -363,7 +360,7 @@ const BrandingForm = ({
           <PageP styleName="description">
             Do you have any additional assets that would be helpful to our
             designers? For example, your current logo, branding direction,
-            photos, illustrations, content, layout ideas.
+            photos, illustrations, content, layout ideas, etc.
           </PageP>
         </div>
 
@@ -450,7 +447,7 @@ const BrandingForm = ({
       <PageDivider />
       <PageRow styleName="form-row">
         <div>
-          <PageP styleName="title">Final Deliverable Format</PageP>
+          <PageP styleName="title">Final Deliverable SOURCE FILES</PageP>
           <PageP styleName="description">
             If you want your final deliverables created with a specific design
             software, please specify.{" "}
