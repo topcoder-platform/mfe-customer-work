@@ -78,7 +78,7 @@ const PageDetailsForm = ({
       <PageDivider />
       <PageRow styleName="form-row">
         <div>
-          <PageP styleName="title">Describe your pages</PageP>
+          <PageP styleName="title">Describe each page</PageP>
           <PageP styleName="description">
             <PageP>
               For each page (or screen) required in your design project, please
@@ -126,7 +126,9 @@ const PageDetailsForm = ({
               </PageP>
               <br />
               <PageP>
-                Main Body: I want to see amazing imagery choice/design here and
+                Main Body:
+                <br />
+                I want to see amazing imagery choice/design here and
                 a large tagline that reads, “We Love Your Dog, Too” with a main
                 button that says “Find Your Walkie”.
               </PageP>
