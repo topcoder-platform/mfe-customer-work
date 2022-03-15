@@ -71,8 +71,11 @@
     top: 23px;
     right: 20px;
     cursor: pointer;
-    height: 15px;
-    width: 15px;
+    height: 27px;
+    width: 27px;
+    padding: 6px;
+    border-radius: 100%;
+    background: white;
   }
 
   .modalCloseBtn * {
