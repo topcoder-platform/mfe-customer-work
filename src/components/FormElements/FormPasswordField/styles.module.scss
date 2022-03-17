@@ -22,7 +22,8 @@
   &:disabled {
     background-color: $grey-bg !important;
   }
-  ::-ms-reveal {
+
+  &::-ms-reveal {
     display: none;
   }
 }
