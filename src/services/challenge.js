@@ -236,7 +236,7 @@ export async function patchChallenge(intakeForm, challengeId) {
   );
 
   const stockPhotosText =
-    stockPhotos === "Yes, allow stock photos"
+    stockPhotos === "" || stockPhotos === "Yes, allow stock photos"
       ? "Yes, stock photos allowed. [See this page for more details.](https://www.topcoder.com/thrive/articles/stock-artwork-font-and-icon-policies)"
       : "No, stock photos not allowed";
 

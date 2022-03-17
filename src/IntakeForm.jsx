@@ -158,18 +158,20 @@ export default function IntakeForm() {
   return (
     <div>
       <LoadingSpinner show={isLoading} />
-      <Router>
-        <BasicInfo path="/basic-info" />
-        <WebsitePurpose path="/website-purpose" />
-        <PageDetails path="/page-details" />
-        <LoginPrompt path="/login-prompt" isLoggedIn={isLoggedIn} />
-        <Branding path="/branding" />
-        <Review path="/review" />
-        <Payment path="/payment" />
-        <ThankYou path="/thank-you" />
-        <SelectWorkType path="/wizard" />
-        <Redirect noThrow from="/*" to="/self-service/wizard" />
-      </Router>
+      {!isLoading && (
+        <Router>
+          <BasicInfo path="/basic-info" />
+          <WebsitePurpose path="/website-purpose" />
+          <PageDetails path="/page-details" />
+          <LoginPrompt path="/login-prompt" isLoggedIn={isLoggedIn} />
+          <Branding path="/branding" />
+          <Review path="/review" />
+          <Payment path="/payment" />
+          <ThankYou path="/thank-you" />
+          <SelectWorkType path="/wizard" />
+          <Redirect noThrow from="/*" to="/self-service/wizard" />
+        </Router>
+      )}
     </div>
   );
 }

@@ -52,7 +52,7 @@ const BasicInfoForm = ({
         <div>
           <PageP styleName="title">PROJECT TITLE</PageP>
           <PageP styleName="description">
-            Give your project a descriptive title. This title is what the
+            Give your project a descriptive title. This is what the
             designers will see when looking for your work.
           </PageP>
         </div>

@@ -22,6 +22,10 @@
   &:disabled {
     background-color: $grey-bg !important;
   }
+
+  &::-ms-reveal {
+    display: none;
+  }
 }
 
 .eye-icon {
