@@ -48,7 +48,7 @@ export function formatChallengeUpdateBody(intakeForm) {
   if (shareableLinks.length > 0) {
     shareableLinksContent = `## Access to the Data \n\n Please find the data in the following link(s): \n\n ${_.map(
       shareableLinks,
-      (l) => `- [${l}](${l})`
+      (l) => `- [${l}](${l}) \n\n `
     )}`;
   }
 
