@@ -48,7 +48,6 @@
   @include font-roboto;
   line-height: 26px;
   color: $black;
-  padding: 16px;
   font-style: normal;
 
   .description {
@@ -60,4 +59,8 @@
     color: $link-blue;
     cursor: pointer;
   }
+}
+
+.turqoise {
+  background-color: $turqoise;
 }

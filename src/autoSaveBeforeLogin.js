@@ -35,7 +35,9 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
       };
       if (!challengeId) {
         if (!CREATION_IN_PROGRESS) {
-          dispatch(createNewChallenge());
+          dispatch(
+            createNewChallenge(_.get(form, "workType.selectedWorkType"))
+          );
           CREATION_IN_PROGRESS = true;
         }
         triggerSave();

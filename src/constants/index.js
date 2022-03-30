@@ -232,11 +232,21 @@ export const workTypes = [
 export const webWorkTypes = [
   {
     title: "Website Design",
+    duration: "4-6 Days",
     subTitle:
       "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
     price: 199,
     stickerPrice: 398,
     featured: true,
+    startRoute: "/self-service/basic-info",
+  },
+  {
+    title: "Data Exploration",
+    subTitle: "Get insights about your data from Topcoder experts.",
+    price: 799,
+    duration: "6-7 Days",
+    featured: true,
+    startRoute: "/self-service/work/new/data-exploration/basic-info",
   },
   {
     title: "Website Development",
@@ -284,6 +294,7 @@ export const disabledSidebarRoutes = [
   "/self-service/profile",
   "/self-service/login-prompt",
   "/self-service/work-items/*",
+  "/self-service/work/*",
 ];
 
 export const menuItems = [
@@ -529,11 +540,22 @@ export const WORK_TIMELINE = [
       if (!phase) {
         phase = work.phases.find((phase) => phase.name === "Review");
       }
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Appeals");
+      }
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Appeals Response");
+      }
       return workUtil.phaseEndDate(phase);
     },
     active: (work) => {
       const reviewPhases = _.filter(work.phases, (p) =>
-        _.includes(["Approval", "Screening", "Review"], p.name)
+        _.includes(
+          ["Approval", "Screening", "Review", "Appeals", "Appeals Response"],
+          p.name
+        )
       );
       return (
         work.status === WORK_STATUSES.InProgress.value &&
@@ -545,6 +567,10 @@ export const WORK_TIMELINE = [
 
       if (!phase) {
         phase = work.phases.find((phase) => phase.name === "Review");
+      }
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Appeals Response");
       }
       const isPhaseClosed = moment(workUtil.phaseEndDate(phase)).isBefore();
       const didStart =
@@ -560,6 +586,9 @@ export const WORK_TIMELINE = [
     date: (work) => {
       let phase = work.phases.find((phase) => phase.name === "Approval");
 
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Appeals Response");
+      }
       return phase && workUtil.phaseEndDate(phase);
     },
     active: (work) => {

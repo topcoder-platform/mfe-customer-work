@@ -5,6 +5,7 @@ import {
   REVIEWER_PAYMENT_BREAKDOWN,
   DURATION_MAPPING,
 } from "constants/";
+import * as dataExplorationConfigs from "constants/products/DataExploration";
 import _ from "lodash";
 
 /**
@@ -46,6 +47,37 @@ export function padStart(target, targetLength = 2) {
   }
 
   return String.prototype.padStart.call(target, targetLength, "0");
+}
+
+export function getDataExplorationPriceAndTimelineEstimate() {
+  const total = dataExplorationConfigs.BASE_PRODUCT_PRICE;
+  return {
+    total,
+    submissionDuration: 3,
+    totalDuration: dataExplorationConfigs.DEFAULT_DURATION,
+    prizeSets: [
+      {
+        prizes: [
+          ..._.map(dataExplorationConfigs.PRIZES_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Challenge Prizes",
+        type: "placement",
+      },
+      {
+        prizes: [
+          ..._.map(dataExplorationConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Reviewer Payment",
+        type: "reviewer",
+      },
+    ],
+  };
 }
 
 export function getDynamicPriceAndTimelineEstimate(formData) {

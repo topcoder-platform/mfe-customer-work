@@ -18,13 +18,24 @@ import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import ReviewTable from "./components/ReviewTable";
 import ServicePrice from "components/ServicePrice";
 import "./styles.module.scss";
-import { getDynamicPriceAndTimelineEstimate } from "utils/";
-import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
+import {
+  getDynamicPriceAndTimelineEstimate,
+  getDataExplorationPriceAndTimelineEstimate,
+} from "utils/";
 
 /**
  * Review Page
  */
-const Review = ({ setProgressItem }) => {
+const Review = ({
+  setProgressItem,
+  previousPageUrl,
+  nextPageUrl,
+  showProgress,
+  introText,
+  banner,
+  showIcon,
+  enableEdit = true,
+}) => {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const formData = useSelector((state) => state?.form);
@@ -32,7 +43,10 @@ const Review = ({ setProgressItem }) => {
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const fullState = useSelector((state) => state);
-  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
+  const estimate =
+    workType === "Website Design"
+      ? getDynamicPriceAndTimelineEstimate(fullState)
+      : getDataExplorationPriceAndTimelineEstimate();
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -71,11 +85,11 @@ const Review = ({ setProgressItem }) => {
   }, [currentStep, anotherFirstMounted]);
 
   const onBack = () => {
-    navigate("/self-service/branding");
+    navigate(previousPageUrl || "/self-service/branding");
   };
 
   const onNext = () => {
-    navigate("/self-service/payment");
+    navigate(nextPageUrl || "/self-service/payment");
     setProgressItem(7);
   };
 
@@ -83,25 +97,20 @@ const Review = ({ setProgressItem }) => {
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
-        <WebsiteDesignBanner />
+        {banner}
         <PageContent styleName="container">
           <PageH2>REVIEW</PageH2>
           <PageDivider />
           <ServicePrice
+            showIcon={showIcon}
             price={estimate.total}
             duration={estimate.totalDuration}
             stickerPrice={estimate?.stickerPrice}
             serviceType={workType?.selectedWorkTypeDetail}
           />
-          <div styleName="infoAlert">
-            Your Website Design project includes up to 5 unique Visual Design
-            solutions. Each solution will match your specified scope and device
-            types. You will receive industry-standard source files to take
-            forward to further design and/or development. Design deliverables
-            will NOT include functional code.
-          </div>
+          {introText && <div styleName="infoAlert">{introText}</div>}
           <PageDivider />
-          <ReviewTable formData={formData} />
+          <ReviewTable formData={formData} enableEdit={enableEdit} />
 
           <div styleName="confirmationBox">
             <strong>
@@ -147,8 +156,7 @@ const Review = ({ setProgressItem }) => {
               </div>
             </div>
           </PageFoot>
-
-          <Progress level={6} setStep={setProgressItem} />
+          {showProgress && <Progress level={6} setStep={setProgressItem} />}
         </PageContent>
       </Page>
     </>

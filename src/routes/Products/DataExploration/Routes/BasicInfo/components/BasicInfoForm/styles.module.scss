@@ -1,0 +1,49 @@
+@import "styles/include";
+
+.basicInfoForm {
+  .title {
+    font-weight: 600;
+    color: $grey-text;
+    font-size: 20px;
+    line-height: 20px;
+    text-transform: uppercase;
+  }
+
+  .description {
+    @include font-roboto;
+    font-size: 16px;
+    line-height: 26px;
+    margin-top: 24px;
+    color: $grey-text;
+  }
+
+  .form-row {
+    align-items: flex-start;
+  }
+
+  .text-area {
+    height: 117px !important;
+  }
+
+  .formFieldWrapper {
+    margin-top: 48px;
+  }
+}
+
+.assets {
+  margin-top: 12px;
+  p {
+    @include font-roboto;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    line-height: 12px;
+    color: $black;
+    margin-bottom: 8px;
+  }
+}
+
+.list {
+  list-style-type: disc;
+  padding-left: 20px;
+}

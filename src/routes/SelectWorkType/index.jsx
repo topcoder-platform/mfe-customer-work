@@ -51,7 +51,7 @@ const SelectWorkType = ({
 
   const allWorkTypes = [...workTypes, ...webWorkTypes];
   const workTypesComingSoon = allWorkTypes.filter((wt) => wt.comingSoon);
-  const featuredWorkType = allWorkTypes.find((wt) => wt.featured);
+  const featuredWorkTypes = allWorkTypes.filter((wt) => wt.featured);
 
   useEffect(() => {
     return () => {
@@ -62,11 +62,11 @@ const SelectWorkType = ({
 
   const handleClick = (selectedItem = webWorkTypes[0]) => {
     saveWorkType({
-      selectedWorkType: featuredWorkType.title,
-      selectedWorkTypeDetail: featuredWorkType.title,
+      selectedWorkType: selectedItem.title,
+      selectedWorkTypeDetail: selectedItem.title,
     });
     setProgressItem(2);
-    navigate(`/self-service/basic-info`);
+    navigate(selectedItem.startRoute);
     dispatch(triggerAutoSave(true));
   };
 
@@ -108,46 +108,54 @@ const SelectWorkType = ({
       <Page>
         <PageContent>
           <PageH2>SELECT WORK TYPE</PageH2>
-
-          <div className={styles.heroContainer}>
-            <div className={styles.heroBackgroundContainer}></div>
-
-            <div className={styles.heroContent}>
-              <div className={styles.heroHeader}>
-                <div className={styles.heroIconContainer}>
-                  <IconWebsiteTools />
-                </div>
-                <div className={styles.heroHeaderContent}>
-                  <div>{featuredWorkType.title}</div>
-                  <div className={styles.heroHeaderSubtitle}>
-                    starting at&nbsp;
-                    {featuredWorkType.stickerPrice && (
-                      <span className={styles.strikeThrough}>
-                        {currencyFormat(featuredWorkType.stickerPrice)}
-                      </span>
-                    )}
-                    {
-                      <span className={styles.priceChip}>
-                        {currencyFormat(featuredWorkType.price)}
-                      </span>
-                    }
-                    <span className={styles.separator}>|</span>
-                    4-6 Days
+          {featuredWorkTypes.map((featuredWorkType) => (
+            <div className={styles.heroContainer}>
+              <div
+                className={`${styles.heroBackgroundContainer} ${
+                  styles[
+                    featuredWorkType.title.toLowerCase().split(" ").join("-")
+                  ]
+                }`}
+              ></div>
+              <div className={styles.heroContent}>
+                <div className={styles.heroHeader}>
+                  <div className={styles.heroIconContainer}>
+                    <IconWebsiteTools />
+                  </div>
+                  <div className={styles.heroHeaderContent}>
+                    <div>{featuredWorkType.title}</div>
+                    <div className={styles.heroHeaderSubtitle}>
+                      starting at&nbsp;
+                      {featuredWorkType.stickerPrice && (
+                        <span className={styles.strikeThrough}>
+                          {currencyFormat(featuredWorkType.stickerPrice)}
+                        </span>
+                      )}
+                      {
+                        <span className={styles.priceChip}>
+                          {currencyFormat(featuredWorkType.price)}
+                        </span>
+                      }
+                      <span className={styles.separator}>|</span>
+                      {featuredWorkType.duration}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className={styles.heroText}>{featuredWorkType.subTitle}</div>
-              <div className={styles.heroButtonContainer}>
-                <Button
-                  onClick={() => handleClick(featuredWorkType)}
-                  size={BUTTON_SIZE.MEDIUM}
-                  type="secondary"
-                >
-                  START WORK
-                </Button>
+                <div className={styles.heroText}>
+                  {featuredWorkType.subTitle}
+                </div>
+                <div className={styles.heroButtonContainer}>
+                  <Button
+                    onClick={() => handleClick(featuredWorkType)}
+                    size={BUTTON_SIZE.MEDIUM}
+                    type="secondary"
+                  >
+                    START WORK
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
 
           <div className={styles.cardContainer}>
             {workTypesComingSoon.map((wt) => (

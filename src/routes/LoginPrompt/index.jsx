@@ -17,12 +17,17 @@ import BackIcon from "../../assets/images/icon-back-arrow.svg";
 /**
  * Log in Page
  */
-const LoginPrompt = ({ isLoggedIn, setProgressItem }) => {
+const LoginPrompt = ({
+  isLoggedIn,
+  setProgressItem,
+  previousPageUrl,
+  nextPageUrl,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/self-service/branding");
+      navigate(nextPageUrl || "/self-service/branding");
       setProgressItem(5);
     }
   }, [isLoggedIn]);
@@ -36,7 +41,7 @@ const LoginPrompt = ({ isLoggedIn, setProgressItem }) => {
   };
 
   const onBack = () => {
-    navigate("/self-service/page-details");
+    navigate(previousPageUrl || "/self-service/page-details");
   };
 
   return (

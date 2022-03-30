@@ -7,8 +7,8 @@ export const getChallenge = (challenge) => ({
   payload: challenge,
 });
 
-export const createNewChallenge = () => (dispatch) => {
-  return createChallenge()
+export const createNewChallenge = (workType) => (dispatch) => {
+  return createChallenge(workType)
     .then((created) => {
       if (created?.id) {
         getChallenge(created);

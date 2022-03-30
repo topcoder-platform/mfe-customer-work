@@ -101,41 +101,49 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
 
   return (
     <>
-      {steps.map((step, index) => {
-        const redirectPage = ProgressLevels.find(
-          (item) => item.label === step.label
-        );
-        return (
-          <>
-            <div
-              styleName="header"
-              role="button"
-              tabIndex={0}
-              onClick={() => setStepToggler(index)}
-            >
-              <p styleName="stepLabel">
-                {step.label}
-                {enableEdit && (
-                  <Link styleName="link" to={redirectPage?.url}>
-                    edit
-                  </Link>
-                )}
-              </p>
-              <div styleName={classNames("icon", step.isOpen ? "open" : null)}>
-                <ArrowIcon />
+      {steps
+        .filter((s) => {
+          if (s.value === "pageDetails")
+            return _.get(formData[s.value], "pages[0].pageDetails") !== "";
+          return !!formData[s.value];
+        })
+        .map((step, index) => {
+          const redirectPage = ProgressLevels.find(
+            (item) => item.label === step.label
+          );
+          return (
+            <>
+              <div
+                styleName="header"
+                role="button"
+                tabIndex={0}
+                onClick={() => setStepToggler(index)}
+              >
+                <p styleName="stepLabel">
+                  {step.label}
+                  {enableEdit && (
+                    <Link styleName="link" to={redirectPage?.url}>
+                      edit
+                    </Link>
+                  )}
+                </p>
+                <div
+                  styleName={classNames("icon", step.isOpen ? "open" : null)}
+                >
+                  <ArrowIcon />
+                </div>
               </div>
-            </div>
 
-            {step.isOpen
-              ? step.value === "pageDetails"
-                ? renderPageDetails(step)
-                : renderDetails(step)
-              : null}
+              {step.isOpen
+                ? step.value === "pageDetails"
+                  ? renderPageDetails(step)
+                  : renderDetails(step)
+                : null}
 
-            <PageDivider />
-          </>
-        );
-      })}
+              <PageDivider />
+            </>
+          );
+        })}
     </>
   );
 };
