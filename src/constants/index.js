@@ -244,7 +244,7 @@ export const webWorkTypes = [
     title: "Data Exploration",
     subTitle: "Get insights about your data from Topcoder experts.",
     price: 799,
-    duration: "6-7 Days",
+    duration: "5 Days",
     featured: true,
     startRoute: "/self-service/work/new/data-exploration/basic-info",
   },
