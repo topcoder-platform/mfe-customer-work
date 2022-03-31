@@ -48,7 +48,9 @@ const BasicInfo = ({
     assetsUrl: { title: "Shareable URL Link(s)", value: "" },
     goals: { title: "Goals & Data Description", option: "", value: null },
   });
-  const isFormValid = formData?.projectTitle?.value.length;
+  const isFormValid =
+    formData?.projectTitle?.value?.trim().length &&
+    formData?.goals?.value?.trim().length;
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const workType = useSelector((state) => state.form.workType);
