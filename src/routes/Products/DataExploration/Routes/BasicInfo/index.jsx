@@ -41,6 +41,7 @@ const BasicInfo = ({
   setProgressItem,
   toggleSupportModal,
   createNewSupportTicket,
+  isLoggedIn,
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
@@ -69,9 +70,13 @@ const BasicInfo = ({
   };
 
   const onNext = () => {
-    setProgressItem(3);
+    setProgressItem(isLoggedIn ? 7 : 5);
     saveBasicInfo(formData);
-    navigate("/self-service/work/new/data-exploration/review");
+    navigate(
+      isLoggedIn
+        ? "/self-service/work/new/data-exploration/review"
+        : "/self-service/work/new/data-exploration/login-prompt"
+    );
   };
 
   const [firstMounted, setFirstMounted] = useState(true);
