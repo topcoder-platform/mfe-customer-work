@@ -13,8 +13,9 @@ const HelpBanner = ({
   contactSupport,
   children,
   styles = [],
+  defaultOpen = false,
 }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
   return (
     <div styleName={cn("banner", ...styles)}>
       <div

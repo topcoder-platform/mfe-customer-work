@@ -35,7 +35,11 @@ const BasicInfoForm = ({
         duration={estimate?.totalDuration}
         serviceType={serviceType}
       />
-      <HelpBanner title="What you will receive" styles={["turqoise"]}>
+      <HelpBanner
+        defaultOpen
+        title="What you will receive"
+        styles={["turqoise"]}
+      >
         <br />
         <ol styleName="list">
           <li>Clear written analysis of your data and key findings</li>
