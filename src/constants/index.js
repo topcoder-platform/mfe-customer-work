@@ -231,6 +231,14 @@ export const workTypes = [
  */
 export const webWorkTypes = [
   {
+    title: "Data Exploration",
+    subTitle: "Get insights about your data from Topcoder experts.",
+    price: 799,
+    duration: "5 Days",
+    featured: true,
+    startRoute: "/self-service/work/new/data-exploration/basic-info",
+  },
+  {
     title: "Website Design",
     duration: "4-6 Days",
     subTitle:
@@ -239,14 +247,6 @@ export const webWorkTypes = [
     stickerPrice: 398,
     featured: true,
     startRoute: "/self-service/basic-info",
-  },
-  {
-    title: "Data Exploration",
-    subTitle: "Get insights about your data from Topcoder experts.",
-    price: 799,
-    duration: "5 Days",
-    featured: true,
-    startRoute: "/self-service/work/new/data-exploration/basic-info",
   },
   {
     title: "Website Development",
