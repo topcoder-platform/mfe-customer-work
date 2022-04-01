@@ -12,7 +12,6 @@ export const INTAKE_FORM_ROUTES = [
   "/self-service/work/new/data-exploration/login-prompt",
   "/self-service",
   "/self-service/work/new/data-exploration/review",
-  "/self-service/work/new/data-exploration/payment",
   "/self-service/work/new/data-exploration/thank-you",
 ];
 

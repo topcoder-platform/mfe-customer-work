@@ -129,6 +129,12 @@ export const ProgressLevels = [
     showIndex: 1,
   },
   {
+    label: "Review Requirements",
+    url: "/self-service/work/new/data-exploration/basic-info",
+    trueIndex: 2,
+    showIndex: 1,
+  },
+  {
     label: "Website Purpose",
     url: "/self-service/website-purpose",
     trueIndex: 3,
@@ -147,12 +153,6 @@ export const ProgressLevels = [
     showIndex: 4,
   },
   { label: "Review", url: "/self-service/review", trueIndex: 6, showIndex: 5 },
-  {
-    label: "Payment",
-    url: "/self-service/payment",
-    trueIndex: 7,
-    showIndex: 6,
-  },
 ];
 
 /**
@@ -409,7 +409,6 @@ export const INTAKE_FORM_ROUTES = [
   "/self-service/login-prompt",
   "/self-service/branding",
   "/self-service/review",
-  "/self-service/payment",
   "/self-service/thank-you",
 ];
 
