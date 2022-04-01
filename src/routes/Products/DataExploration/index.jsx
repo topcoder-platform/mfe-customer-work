@@ -7,6 +7,7 @@ import LoginPrompt from "../../LoginPrompt";
 import BasicInfo from "./Routes/BasicInfo";
 import DataExplorationBanner from "../../../components/Banners/DataExplorationBanner";
 import config from "../../../../config";
+import DataExplorationIcon from "../../../assets/images/data-exploration-icon.svg";
 
 export default function DataExploration({ isLoggedIn }) {
   return (
@@ -28,6 +29,8 @@ export default function DataExploration({ isLoggedIn }) {
             ? "/self-service/work/new/data-exploration/payment"
             : config.SIGN_IN_URL
         }
+        icon={<DataExplorationIcon />}
+        showIcon
       />
       <Payment
         path="/payment"

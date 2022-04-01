@@ -12,7 +12,7 @@ import "./styles.module.scss";
  */
 const ReviewTable = ({ formData, enableEdit = true }) => {
   const [steps, setSteps] = useState([
-    { id: 0, label: "Basic Info", value: "basicInfo", isOpen: true },
+    { id: 0, label: "Review Requirements", value: "basicInfo", isOpen: true },
     { id: 1, label: "Website Purpose", value: "websitePurpose", isOpen: true },
     { id: 2, label: "Page Details", value: "pageDetails", isOpen: true },
     { id: 3, label: "Branding", value: "branding", isOpen: true },

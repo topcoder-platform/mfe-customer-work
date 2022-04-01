@@ -33,6 +33,7 @@ const Review = ({
   showProgress,
   introText,
   banner,
+  icon,
   showIcon,
   enableEdit = true,
 }) => {
@@ -99,10 +100,10 @@ const Review = ({
       <Page>
         {banner}
         <PageContent styleName="container">
-          <PageH2>REVIEW</PageH2>
-          <PageDivider />
           <ServicePrice
+            hideTitle
             showIcon={showIcon}
+            icon={icon}
             price={estimate.total}
             duration={estimate.totalDuration}
             stickerPrice={estimate?.stickerPrice}

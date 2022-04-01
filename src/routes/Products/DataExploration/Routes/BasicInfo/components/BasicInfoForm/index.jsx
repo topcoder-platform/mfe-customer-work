@@ -38,19 +38,13 @@ const BasicInfoForm = ({
         showIcon
         icon={<DataExplorationIcon />}
       />
-      <HelpBanner defaultOpen title="What will I get?" styles={["turqoise"]}>
-        <br />
-        <ol styleName="list">
-          <li>Clear written analysis of your data and key findings</li>
-          <li>
-            Visuals of the most compelling relationships and patterns in your
-            data
-          </li>
-          <li>
-            Expert commentary on the relevance of findings to your goals and
-            recommendations for further analysis
-          </li>
-        </ol>
+      <HelpBanner title="ABOUT DATA EXPLORATION" styles={["turqoise"]}>
+        <p>
+          In Data Exploration, multiple data science experts uncover the most
+          significant patterns and relationships in your data. Unlock the full
+          potential of your data with expert insights presented in an
+          easy-to-understand format.
+        </p>
       </HelpBanner>
 
       <PageDivider />
