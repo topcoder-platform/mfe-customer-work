@@ -14,8 +14,8 @@ import { HELP_BANNER } from "constants/";
 import PT from "prop-types";
 import _ from "lodash";
 import React from "react";
+import DataExplorationIcon from "../../../../../../../assets/images/data-exploration-icon.svg";
 import "./styles.module.scss";
-import PageH3 from "components/PageElements/PageH3";
 
 const BasicInfoForm = ({
   formData,
@@ -34,6 +34,9 @@ const BasicInfoForm = ({
         price={estimate?.total}
         duration={estimate?.totalDuration}
         serviceType={serviceType}
+        hideTitle
+        showIcon
+        icon={<DataExplorationIcon />}
       />
       <HelpBanner defaultOpen title="What will I get?" styles={["turqoise"]}>
         <br />

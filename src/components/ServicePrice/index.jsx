@@ -12,16 +12,19 @@ import { currencyFormat } from "utils/";
 const ServicePrice = ({
   stickerPrice,
   showIcon,
+  icon,
   serviceType,
   price,
   duration = 1,
+  hideTitle = false,
 }) => {
   return (
     <div styleName="container">
       <PageRow>
-        {showIcon && <WebsiteDesignIcon />}
+        {showIcon && icon && <>{icon}</>}
+        {showIcon && !icon && <WebsiteDesignIcon />}
         <div>
-          <p styleName="serviceTitle">{serviceType}</p>
+          {!hideTitle && <p styleName="serviceTitle">{serviceType}</p>}
           <div styleName="priceAndDuration">
             {stickerPrice && (
               <span styleName="stickerPrice">

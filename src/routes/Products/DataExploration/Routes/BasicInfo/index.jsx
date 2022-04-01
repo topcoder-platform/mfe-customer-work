@@ -142,9 +142,6 @@ const BasicInfo = ({
       <Page>
         <DataExplorationBanner />
         <PageContent styleName="container">
-          <PageH2>DATA &amp; GOALS</PageH2>
-          <PageDivider />
-
           <BasicInfoForm
             pageListOptions={_.map(PageOptions, (o, i) => ({
               ...o,
