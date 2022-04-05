@@ -10,7 +10,10 @@ import cn from "classnames";
 import ProgressDonutChart from "components/ProgressDonutChart";
 import ProgressPopup from "components/ProgressPopup";
 import config from "../../../config";
-import { MAX_COMPLETED_STEP, ProgressLevels as levels } from "constants";
+import {
+  MAX_COMPLETED_STEP,
+  ProgressLevels as originalLevels,
+} from "constants";
 import { setCookie, getCookie } from "../../autoSaveBeforeLogin";
 import IconThreeDots from "../../assets/images/icon-three-dots-vertical.svg";
 import "./styles.module.scss";
@@ -26,6 +29,8 @@ const Progress = ({ level, styleName, setStep, ...props }) => {
     setCookie(MAX_COMPLETED_STEP, level, config.AUTO_SAVED_COOKIE_EXPIRED_IN);
     maxCompletedStep = level;
   }
+
+  const levels = _.filter(originalLevels, (l) => l.visibleInProgressIndicator);
 
   const trueLevel = _.find(levels, (l) => l.trueIndex === level);
 

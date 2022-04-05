@@ -127,6 +127,7 @@ export const ProgressLevels = [
     url: "/self-service/basic-info",
     trueIndex: 2,
     showIndex: 1,
+    visibleInProgressIndicator: true,
   },
   {
     label: "Review Your Project Details",
@@ -139,20 +140,29 @@ export const ProgressLevels = [
     url: "/self-service/website-purpose",
     trueIndex: 3,
     showIndex: 2,
+    visibleInProgressIndicator: true,
   },
   {
     label: "Page Details",
     url: "/self-service/page-details",
     trueIndex: 4,
     showIndex: 3,
+    visibleInProgressIndicator: true,
   },
   {
     label: "Branding",
     url: "/self-service/branding",
     trueIndex: 5,
     showIndex: 4,
+    visibleInProgressIndicator: true,
   },
-  { label: "Review", url: "/self-service/review", trueIndex: 6, showIndex: 5 },
+  {
+    label: "Review",
+    url: "/self-service/review",
+    trueIndex: 6,
+    showIndex: 5,
+    visibleInProgressIndicator: true,
+  },
 ];
 
 /**
