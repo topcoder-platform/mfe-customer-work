@@ -9,26 +9,19 @@ import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
 import PageH2 from "components/PageElements/PageH2";
-import Progress from "components/Progress";
-import { WebsiteDesignBanner } from "components/Banners/WebsiteDesignBanner";
-import {
-  BUTTON_SIZE,
-  BUTTON_TYPE,
-  DeviceOptions,
-  PageOptions,
-} from "constants/";
+import { BUTTON_SIZE, BUTTON_TYPE, PageOptions } from "constants/";
 import {
   saveBasicInfo,
   toggleSupportModal,
   createNewSupportTicket,
   savePageDetails,
-} from "../../actions/form";
-import { triggerAutoSave } from "../../actions/autoSave";
-import { setProgressItem } from "../../actions/progress";
-import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import SupportModal from "../../components/Modal/SupportModal";
-import { getProfile } from "../../selectors/profile";
-import { getUserProfile } from "../../thunks/profile";
+} from "../../../../../actions/form";
+import { triggerAutoSave } from "../../../../../actions/autoSave";
+import { setProgressItem } from "../../../../../actions/progress";
+import BackIcon from "../../../../../assets/images/icon-back-arrow.svg";
+import SupportModal from "../../../../../components/Modal/SupportModal";
+import { getProfile } from "../../../../../selectors/profile";
+import { getUserProfile } from "../../../../../thunks/profile";
 
 import BasicInfoForm from "./components/BasicInfoForm";
 import "./styles.module.scss";
@@ -36,7 +29,9 @@ import {
   getDynamicPriceAndTimeline,
   getDynamicPriceAndTimelineEstimate,
   currencyFormat,
+  getDataExplorationPriceAndTimelineEstimate,
 } from "utils/";
+import DataExplorationBanner from "components/Banners/DataExplorationBanner";
 
 /**
  * Basic Info Page
@@ -44,20 +39,18 @@ import {
 const BasicInfo = ({
   saveBasicInfo,
   setProgressItem,
-  savePageDetails,
   toggleSupportModal,
   createNewSupportTicket,
+  isLoggedIn,
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
-    numberOfPages: { title: "How Many Pages?", option: "", value: "" },
-    selectedDevice: {
-      title: "Device Types",
-      option: ["Computer"],
-      value: [0],
-    },
+    assetsUrl: { title: "Shareable URL Link(s)", value: "" },
+    goals: { title: "Goals & Data Description", option: "", value: null },
   });
-  const isFormValid = formData?.projectTitle?.value.length;
+  const isFormValid =
+    formData?.projectTitle?.value?.trim().length &&
+    formData?.goals?.value?.trim().length;
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const workType = useSelector((state) => state.form.workType);
@@ -68,43 +61,24 @@ const BasicInfo = ({
   const profileData = useSelector(getProfile);
   const challenge = useSelector((state) => state.challenge);
   const fullState = useSelector((state) => state);
-  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
+
+  const estimate =
+    workType === "Website Design"
+      ? getDynamicPriceAndTimelineEstimate(fullState)
+      : getDataExplorationPriceAndTimelineEstimate();
 
   const onBack = () => {
     navigate("/self-service/wizard");
   };
 
   const onNext = () => {
-    setProgressItem(3);
+    setProgressItem(isLoggedIn ? 7 : 5);
     saveBasicInfo(formData);
-    navigate("/self-service/website-purpose");
-  };
-
-  const updateNumOfPages = (newNumOfPages) => {
-    let newPages = pageDetails?.pages || [];
-    if (newNumOfPages < newPages.length) {
-      newPages.length = newNumOfPages;
-    } else if (newNumOfPages !== newPages.length) {
-      for (let i = newPages.length; i < newNumOfPages; i += 1) {
-        newPages.push({
-          pageName: "",
-          pageDetails: "",
-        });
-      }
-    }
-
-    savePageDetails({
-      ...pageDetails,
-      pages: newPages,
-    });
-    setFormData({
-      ...formData,
-      numberOfPages: {
-        title: "How Many Pages?",
-        option: newNumOfPages === 1 ? "1 Screen" : `${newNumOfPages} Screens`,
-        value: newNumOfPages === 1 ? "1 Screen" : `${newNumOfPages} Screens`,
-      },
-    });
+    navigate(
+      isLoggedIn
+        ? "/self-service/work/new/data-exploration/review"
+        : "/self-service/work/new/data-exploration/login-prompt"
+    );
   };
 
   const [firstMounted, setFirstMounted] = useState(true);
@@ -166,11 +140,8 @@ const BasicInfo = ({
         ></SupportModal>
       )}
       <Page>
-        <WebsiteDesignBanner />
+        <DataExplorationBanner />
         <PageContent styleName="container">
-          <PageH2>BASIC INFO</PageH2>
-          <PageDivider />
-
           <BasicInfoForm
             pageListOptions={_.map(PageOptions, (o, i) => ({
               ...o,
@@ -187,7 +158,6 @@ const BasicInfo = ({
             serviceType={workType?.selectedWorkTypeDetail}
             onFormUpdate={setFormData}
             numOfPages={pageDetails?.pages?.length || 0}
-            updateNumOfPages={updateNumOfPages}
             onShowSupportModal={onShowSupportModal}
           />
 
@@ -211,13 +181,11 @@ const BasicInfo = ({
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
-                  NEXT
+                  REVIEW &amp; SUBMIT
                 </Button>
               </div>
             </div>
           </PageFoot>
-
-          <Progress level={2} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>

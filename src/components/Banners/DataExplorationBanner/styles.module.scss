@@ -12,6 +12,17 @@
   
   background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
   border-radius: 8px;
+  margin-bottom: -35px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+
+  @include mobile {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    grid-template-columns: 1fr 200px;
+  }
 
   .heroBackgroundContainer {
     position: static;
@@ -25,15 +36,12 @@
     align-self: stretch;
     flex-grow: 0;
 
+    background: url("../../../assets/images/data-exploration.png");
+    background-size: cover;
     border-radius: 0 8px 8px 0;
 
-    &.website-design {
-      background: url("../../assets/images/website-design.png");
-      background-size: cover;
-    }
-    &.data-exploration {
-      background: url("../../assets/images/data-exploration.png");
-      background-size: cover;
+    @include mobile {
+      width: 200px;
     }
   }
 
@@ -63,7 +71,6 @@
       padding: 0px;
 
       position: static;
-      height: 48px;
       left: 0px;
       top: 0px;
 
@@ -78,12 +85,10 @@
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        padding: 4px 0px 0px;
         margin-right: 16px;
         
         position: static;
         width: 40px;
-        height: 44px;
         left: 0px;
         top: 0px;
       }
@@ -97,7 +102,6 @@
         padding: 0px;
 
         position: static;
-        height: 48px;
         left: 56px;
         top: 0px;
 
@@ -106,29 +110,22 @@
         order: 1;
         flex-grow: 1;
 
-        text-transform: uppercase;
-        font-size: 24px;
+        font-size: 42px;
         font-weight: 400;
 
+        @include mobile {
+          flex: auto;
+        }
+
+        .heroHeaderTitle {
+          display: flex;
+        }
+
         .heroHeaderSubtitle {
-          font-size: 16px;
-
-          .strikeThrough {
-            text-decoration: line-through;
-          }
-
-          .priceChip {
-            background-color: $black-0;
-            color: $gui-kit-gray-90;
-            font-weight: 600;
-            border-radius: 10px;
-            padding: 0 8px;
-            margin: 0 8px;
-          }
-
-          .separator {
-            margin: 0 16px 0 8px;
-          }
+          font-size: 17px;
+          max-width: 713px;
+          line-height: 24px;
+          font-weight: 500;
         }
       }
     }
@@ -157,26 +154,6 @@
       flex: none;
       align-self: stretch;
       flex-grow: 0;
-    }
-
-    .heroButtonContainer {
-      /* Auto layout */
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 0px;
-
-      position: static;
-      height: 40px;
-      left: 0px;
-      top: 216px;
-
-      /* Inside auto layout */
-      flex: none;
-      order: 1;
-      align-self: stretch;
-      flex-grow: 0;
-      margin: 12px 0px;
     }
   }
 }
@@ -213,32 +190,14 @@
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
 
-    .title,
-    .smallHeader {
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    
-    .smallHeader {
-      font-size: 12px;
-    }
-
     .title {
       font-size: 24px;
     }
 
     .text {
       font-size: 16px;
-      line-height: 26px;
+      line-height: 28px;
       text-align: center;
     }
-  }
-}
-
-.backButtonContainer {
-  @include backButtonContainer;
-
-  .backButtonWrapper {
-    @include backButtonWrapper;
   }
 }

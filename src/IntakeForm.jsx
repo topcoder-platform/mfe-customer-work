@@ -16,6 +16,7 @@ import {
   setCookie,
 } from "./autoSaveBeforeLogin";
 import { INTAKE_FORM_ROUTES, MAX_COMPLETED_STEP } from "./constants";
+import { INTAKE_FORM_ROUTES as DATA_EXPLORATION_INTAKE_FORM_ROUTES } from "./constants/products/DataExploration";
 import {
   authUserError,
   authUserSuccess,
@@ -30,6 +31,8 @@ import SelectWorkType from "./routes/SelectWorkType";
 import ThankYou from "./routes/ThankYou";
 import WebsitePurpose from "./routes/WebsitePurpose";
 import LoginPrompt from "./routes/LoginPrompt";
+import DataExploration from "./routes/Products/DataExploration";
+import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
 
 export default function IntakeForm() {
   const dispatch = useDispatch();
@@ -69,9 +72,13 @@ export default function IntakeForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const goToUnfinishedStep = (currentStep) => {
+  const goToUnfinishedStep = (currentStep, workType) => {
     if (currentStep - 1 >= 0) {
-      navigate(INTAKE_FORM_ROUTES[currentStep - 1]);
+      if (workType === "Website Design") {
+        navigate(INTAKE_FORM_ROUTES[currentStep - 1]);
+      } else {
+        navigate(DATA_EXPLORATION_INTAKE_FORM_ROUTES[currentStep - 1]);
+      }
     }
   };
 
@@ -113,7 +120,7 @@ export default function IntakeForm() {
 
   const getSavedDataAfterLoggedIn = async (challengeDetail) => {
     const savedCookie = loadSavedFormCookie();
-    return dataSyncWithoutCookie(challengeDetail) || savedCookie;
+    return dataSyncWithoutCookie(challengeDetail) || savedCookie || {};
   };
 
   const dataSyncWithoutCookie = (challengeDetail) => {
@@ -121,7 +128,9 @@ export default function IntakeForm() {
     const savedForm = metaData
       ? _.find(metaData, (m) => m.name === "intake-form")
       : {};
-    return _.isString(savedForm?.value) ? JSON.parse(savedForm?.value) : {};
+    return _.isString(savedForm?.value)
+      ? JSON.parse(savedForm?.value)
+      : undefined;
   };
 
   const syncSavedData = (savedData) => {
@@ -130,7 +139,10 @@ export default function IntakeForm() {
     if (form) dispatch(saveForm(form));
     if (progress?.currentStep) {
       dispatch(setProgressItem(progress.currentStep));
-      goToUnfinishedStep(progress.currentStep);
+      goToUnfinishedStep(
+        progress.currentStep,
+        _.get(form, "workType.selectedWorkType")
+      );
     }
   };
 
@@ -160,16 +172,28 @@ export default function IntakeForm() {
       <LoadingSpinner show={isLoading} />
       {!isLoading && (
         <Router>
+          {/* Data Exploration */}
+          <DataExploration
+            path="/work/new/data-exploration/*"
+            isLoggedIn={isLoggedIn}
+          />
+          {/* Web Design */}
           <BasicInfo path="/basic-info" />
           <WebsitePurpose path="/website-purpose" />
           <PageDetails path="/page-details" />
           <LoginPrompt path="/login-prompt" isLoggedIn={isLoggedIn} />
           <Branding path="/branding" />
-          <Review path="/review" />
-          <Payment path="/payment" />
+          <Review
+            showIcon
+            introText="Your Website Design project includes up to 5 unique Visual Design solutions. Each solution will match your specified scope and device types. You will receive industry-standard source files to take take forward to further design and/or development. Design deliverables will NOT include functional code."
+            path="/review"
+            banner={<WebsiteDesignBanner />}
+            showProgress
+          />
+          <Payment path="/payment" showProgress />
           <ThankYou path="/thank-you" />
           <SelectWorkType path="/wizard" />
-          <Redirect noThrow from="/*" to="/self-service/wizard" />
+          {/* <Redirect noThrow from="/*" to="/self-service/wizard" /> */}
         </Router>
       )}
     </div>

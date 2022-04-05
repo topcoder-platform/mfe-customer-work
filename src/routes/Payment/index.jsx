@@ -5,7 +5,11 @@ import Modal from "components/Modal";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
-import { getDynamicPriceAndTimelineEstimate, currencyFormat } from "utils/";
+import {
+  getDynamicPriceAndTimelineEstimate,
+  getDataExplorationPriceAndTimelineEstimate,
+  currencyFormat,
+} from "utils/";
 import _ from "lodash";
 import config from "../../../config";
 
@@ -45,7 +49,12 @@ const stripePromise = loadStripe(config.STRIPE.API_KEY, {
 /**
  * Payment Page
  */
-const Payment = ({ setProgressItem }) => {
+const Payment = ({
+  setProgressItem,
+  previousPageUrl,
+  nextPageUrl,
+  showProgress,
+}) => {
   const dispatch = useDispatch();
 
   const [paymentFailed, setPaymentFailed] = useState(false);
@@ -53,12 +62,16 @@ const Payment = ({ setProgressItem }) => {
   const [checked, setChecked] = useState(false);
   const currentStep = useSelector((state) => state.progress.currentStep);
   const fullState = useSelector((state) => state);
+  const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
   const elements = useElements();
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
 
-  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
+  const estimate =
+    workType === "Website Design"
+      ? getDynamicPriceAndTimelineEstimate(fullState)
+      : getDataExplorationPriceAndTimelineEstimate();
 
   const [formData, setFormData] = useState({
     cardName: null,
@@ -70,7 +83,7 @@ const Payment = ({ setProgressItem }) => {
   });
 
   const onBack = () => {
-    navigate("/self-service/review");
+    navigate(previousPageUrl || "/self-service/review");
   };
 
   const clearPreviousForm = () => {
@@ -88,6 +101,17 @@ const Payment = ({ setProgressItem }) => {
     setLoading(true);
     setPaymentFailed(false);
 
+    const numOfPages = _.get(fullState, "form.pageDetails.pages.length", 1);
+    const numOfDevices = _.get(
+      fullState,
+      "form.basicInfo.selectedDevice.option.length",
+      1
+    );
+    const additionalPaymentInfo =
+      workType === "Website Design"
+        ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
+        : "";
+
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,
       "form.basicInfo.projectTitle.value",
@@ -95,11 +119,7 @@ const Payment = ({ setProgressItem }) => {
     ).slice(0, 355)}\n${_.get(
       fullState,
       "form.workType.selectedWorkType"
-    )}\n${_.get(fullState, "form.pageDetails.pages.length", 1)} Pages\n${_.get(
-      fullState,
-      "form.basicInfo.selectedDevice.option.length",
-      1
-    )} Devices`;
+    )}${additionalPaymentInfo}`;
 
     services
       .processPayment(
@@ -113,7 +133,7 @@ const Payment = ({ setProgressItem }) => {
       .then((res) => {
         activateChallenge(challengeId);
         clearPreviousForm();
-        navigate("/self-service/thank-you");
+        navigate(nextPageUrl || "/self-service/thank-you");
         setProgressItem(8);
         setPaymentFailed(false);
       })
@@ -223,9 +243,11 @@ const Payment = ({ setProgressItem }) => {
 
               <div styleName="paymentBox">
                 <div styleName="total">
-                  <span styleName="originalPrice">
-                    {currencyFormat(estimate.total * 2)}
-                  </span>
+                  {estimate.stickerPrice && (
+                    <span styleName="originalPrice">
+                      {currencyFormat(estimate.stickerPrice)}
+                    </span>
+                  )}
                   {currencyFormat(estimate.total)}
                 </div>
 
@@ -287,17 +309,27 @@ const Payment = ({ setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={7} setStep={setProgressItem} />
+          {showProgress && <Progress level={7} setStep={setProgressItem} />}
         </PageContent>
       </Page>
     </>
   );
 };
 
-const PaymentWrapper = ({ setProgressItem }) => {
+const PaymentWrapper = ({
+  setProgressItem,
+  previousPageUrl,
+  nextPageUrl,
+  showProgress,
+}) => {
   return (
     <Elements stripe={stripePromise}>
-      <Payment setProgressItem={setProgressItem} />
+      <Payment
+        setProgressItem={setProgressItem}
+        previousPageUrl={previousPageUrl}
+        nextPageUrl={nextPageUrl}
+        showProgress={showProgress}
+      />
     </Elements>
   );
 };

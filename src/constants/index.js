@@ -127,31 +127,41 @@ export const ProgressLevels = [
     url: "/self-service/basic-info",
     trueIndex: 2,
     showIndex: 1,
+    visibleInProgressIndicator: true,
+  },
+  {
+    label: "Review Your Project Details",
+    url: "/self-service/work/new/data-exploration/basic-info",
+    trueIndex: 2,
+    showIndex: 1,
   },
   {
     label: "Website Purpose",
     url: "/self-service/website-purpose",
     trueIndex: 3,
     showIndex: 2,
+    visibleInProgressIndicator: true,
   },
   {
     label: "Page Details",
     url: "/self-service/page-details",
     trueIndex: 4,
     showIndex: 3,
+    visibleInProgressIndicator: true,
   },
   {
     label: "Branding",
     url: "/self-service/branding",
     trueIndex: 5,
     showIndex: 4,
+    visibleInProgressIndicator: true,
   },
-  { label: "Review", url: "/self-service/review", trueIndex: 6, showIndex: 5 },
   {
-    label: "Payment",
-    url: "/self-service/payment",
-    trueIndex: 7,
-    showIndex: 6,
+    label: "Review",
+    url: "/self-service/review",
+    trueIndex: 6,
+    showIndex: 5,
+    visibleInProgressIndicator: true,
   },
 ];
 
@@ -231,12 +241,23 @@ export const workTypes = [
  */
 export const webWorkTypes = [
   {
+    title: "Data Exploration",
+    subTitle: "Get insights about your data from Topcoder experts.",
+    price: 599,
+    stickerPrice: 799,
+    duration: "5 Days",
+    featured: true,
+    startRoute: "/self-service/work/new/data-exploration/basic-info",
+  },
+  {
     title: "Website Design",
+    duration: "4-6 Days",
     subTitle:
       "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
     price: 199,
     stickerPrice: 398,
     featured: true,
+    startRoute: "/self-service/basic-info",
   },
   {
     title: "Website Development",
@@ -284,6 +305,7 @@ export const disabledSidebarRoutes = [
   "/self-service/profile",
   "/self-service/login-prompt",
   "/self-service/work-items/*",
+  "/self-service/work/*",
 ];
 
 export const menuItems = [
@@ -398,7 +420,6 @@ export const INTAKE_FORM_ROUTES = [
   "/self-service/login-prompt",
   "/self-service/branding",
   "/self-service/review",
-  "/self-service/payment",
   "/self-service/thank-you",
 ];
 
@@ -529,11 +550,22 @@ export const WORK_TIMELINE = [
       if (!phase) {
         phase = work.phases.find((phase) => phase.name === "Review");
       }
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Appeals");
+      }
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Appeals Response");
+      }
       return workUtil.phaseEndDate(phase);
     },
     active: (work) => {
       const reviewPhases = _.filter(work.phases, (p) =>
-        _.includes(["Approval", "Screening", "Review"], p.name)
+        _.includes(
+          ["Approval", "Screening", "Review", "Appeals", "Appeals Response"],
+          p.name
+        )
       );
       return (
         work.status === WORK_STATUSES.InProgress.value &&
@@ -545,6 +577,10 @@ export const WORK_TIMELINE = [
 
       if (!phase) {
         phase = work.phases.find((phase) => phase.name === "Review");
+      }
+
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Appeals Response");
       }
       const isPhaseClosed = moment(workUtil.phaseEndDate(phase)).isBefore();
       const didStart =
@@ -560,6 +596,9 @@ export const WORK_TIMELINE = [
     date: (work) => {
       let phase = work.phases.find((phase) => phase.name === "Approval");
 
+      if (!phase) {
+        phase = work.phases.find((phase) => phase.name === "Appeals Response");
+      }
       return phase && workUtil.phaseEndDate(phase);
     },
     active: (work) => {
