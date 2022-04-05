@@ -59,6 +59,7 @@ const Review = ({
   icon,
   showIcon,
   enableEdit = true,
+  secondaryBanner,
 }) => {
   const dispatch = useDispatch();
   const [paymentFailed, setPaymentFailed] = useState(false);
@@ -218,6 +219,7 @@ const Review = ({
           />
           <br />
           <br />
+          {secondaryBanner}
           <PageDivider />
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
@@ -323,16 +325,6 @@ const Review = ({
                   <div styleName="backButtonWrapper">
                     <BackIcon />
                   </div>
-                </Button>
-              </div>
-              <div styleName="footer-right">
-                <Button
-                  disabled={!isFormValid || isLoading}
-                  size={BUTTON_SIZE.MEDIUM}
-                  onClick={onNext}
-                  styleName="wideButton"
-                >
-                  PAY ${estimate.total}
                 </Button>
               </div>
             </div>

@@ -120,7 +120,7 @@ export default function IntakeForm() {
 
   const getSavedDataAfterLoggedIn = async (challengeDetail) => {
     const savedCookie = loadSavedFormCookie();
-    return dataSyncWithoutCookie(challengeDetail) || savedCookie;
+    return dataSyncWithoutCookie(challengeDetail) || savedCookie || {};
   };
 
   const dataSyncWithoutCookie = (challengeDetail) => {
@@ -128,7 +128,9 @@ export default function IntakeForm() {
     const savedForm = metaData
       ? _.find(metaData, (m) => m.name === "intake-form")
       : {};
-    return _.isString(savedForm?.value) ? JSON.parse(savedForm?.value) : {};
+    return _.isString(savedForm?.value)
+      ? JSON.parse(savedForm?.value)
+      : undefined;
   };
 
   const syncSavedData = (savedData) => {

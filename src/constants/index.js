@@ -129,7 +129,7 @@ export const ProgressLevels = [
     showIndex: 1,
   },
   {
-    label: "Review Requirements",
+    label: "Review Your Project Details",
     url: "/self-service/work/new/data-exploration/basic-info",
     trueIndex: 2,
     showIndex: 1,

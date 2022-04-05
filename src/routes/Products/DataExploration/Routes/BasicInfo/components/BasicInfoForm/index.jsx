@@ -16,6 +16,7 @@ import _ from "lodash";
 import React from "react";
 import DataExplorationIcon from "../../../../../../../assets/images/data-exploration-icon.svg";
 import "./styles.module.scss";
+import PageUl from "components/PageElements/PageUl";
 
 const BasicInfoForm = ({
   formData,
@@ -38,6 +39,20 @@ const BasicInfoForm = ({
         showIcon
         icon={<DataExplorationIcon />}
       />
+      <HelpBanner defaultOpen title="WHAT WILL I RECEIVE?" styles={["gray"]}>
+        <br />
+        <PageUl>
+          <li>Clear written analysis of your data and key findings</li>
+          <li>
+            Visuals of the most compelling relationships and patterns in your
+            data
+          </li>
+          <li>
+            Expert commentary on the relevance of findings to your goals and
+            recommendations for further analysis
+          </li>
+        </PageUl>
+      </HelpBanner>
       <HelpBanner title="ABOUT DATA EXPLORATION" styles={["turqoise"]}>
         <p>
           In Data Exploration, multiple data science experts uncover the most
