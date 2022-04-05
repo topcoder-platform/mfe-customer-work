@@ -82,7 +82,7 @@ const Review = ({
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
   const estimate =
-    workType === "Website Design"
+    workType?.selectedWorkType === "Website Design"
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : getDataExplorationPriceAndTimelineEstimate();
 
@@ -144,7 +144,7 @@ const Review = ({
       1
     );
     const additionalPaymentInfo =
-      workType === "Website Design"
+      workType?.selectedWorkType === "Website Design"
         ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
         : "";
 
