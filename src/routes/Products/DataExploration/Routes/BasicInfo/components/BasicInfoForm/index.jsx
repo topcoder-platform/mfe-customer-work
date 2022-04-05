@@ -33,6 +33,7 @@ const BasicInfoForm = ({
     <div styleName="basicInfoForm">
       <ServicePrice
         price={estimate?.total}
+        stickerPrice={estimate?.stickerPrice}
         duration={estimate?.totalDuration}
         serviceType={serviceType}
         hideTitle

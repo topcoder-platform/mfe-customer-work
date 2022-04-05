@@ -50,9 +50,12 @@ export function padStart(target, targetLength = 2) {
 }
 
 export function getDataExplorationPriceAndTimelineEstimate() {
-  const total = dataExplorationConfigs.BASE_PRODUCT_PRICE;
+  const total =
+    dataExplorationConfigs.PROMOTIONAL_PRODUCT_PRICE ||
+    dataExplorationConfigs.BASE_PRODUCT_PRICE;
   return {
     total,
+    stickerPrice: dataExplorationConfigs.BASE_PRODUCT_PRICE,
     submissionDuration: 3,
     totalDuration: dataExplorationConfigs.DEFAULT_DURATION,
     prizeSets: [

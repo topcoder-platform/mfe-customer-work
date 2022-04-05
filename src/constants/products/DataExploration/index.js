@@ -44,6 +44,7 @@ export const DEFAULT_TIMELINE = [
 ];
 
 export const BASE_PRODUCT_PRICE = 799;
-export const PRIZES_PAYMENT_BREAKDOWN = [0.36, 0.28, 0.1];
-export const REVIEWER_PAYMENT_BREAKDOWN = [0.1];
+export const PROMOTIONAL_PRODUCT_PRICE = 599;
+export const PRIZES_PAYMENT_BREAKDOWN = [0.4, 0.3333, 0.1333];
+export const REVIEWER_PAYMENT_BREAKDOWN = [0.0667, 0.0667];
 export const DEFAULT_DURATION = 5;
