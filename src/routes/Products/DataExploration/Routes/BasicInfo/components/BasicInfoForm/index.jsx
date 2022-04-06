@@ -40,7 +40,7 @@ const BasicInfoForm = ({
         showIcon
         icon={<DataExplorationIcon />}
       />
-      <HelpBanner defaultOpen title="WHAT WILL I RECEIVE?" styles={["gray"]}>
+      <HelpBanner defaultOpen title="WHAT WILL I GET?" styles={["gray"]}>
         <br />
         <PageUl>
           <li>Clear written analysis of your data and key findings</li>

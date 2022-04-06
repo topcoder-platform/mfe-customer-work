@@ -23,11 +23,7 @@ export default function DataExploration({ isLoggedIn }) {
       <Review
         banner={<DataExplorationBanner />}
         secondaryBanner={
-          <HelpBanner
-            defaultOpen
-            title="WHAT WILL I RECEIVE?"
-            styles={["gray"]}
-          >
+          <HelpBanner defaultOpen title="WHAT WILL I GET?" styles={["gray"]}>
             <br />
             <PageUl>
               <li>Clear written analysis of your data and key findings</li>
