@@ -25,6 +25,7 @@ export default function DataExploration({ isLoggedIn }) {
         secondaryBanner={
           <HelpBanner defaultOpen title="WHAT WILL I GET?" styles={["gray"]}>
             <br />
+            Topcoder data experts will create a custom report for you with:
             <PageUl>
               <li>Clear written analysis of your data and key findings</li>
               <li>
