@@ -102,6 +102,7 @@ module.exports = (webpackConfigEnv) => {
         thunks: path.resolve(__dirname, "src/thunks"),
         hoc: path.resolve(__dirname, "src/hoc"),
       },
+      extensions: [".ts", ".tsx", ".js", ".jsx"]
     },
     plugins: [
       new webpack.DefinePlugin({
