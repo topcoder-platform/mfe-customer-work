@@ -86,6 +86,14 @@ module.exports = (webpackConfigEnv) => {
             outputPath: "icons",
           },
         },
+        {
+          test: /\.(js|jsx|ts|tsx)$/,
+          exclude: /(node_modules|bower_components)/,
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env", "@babel/preset-react", "@babel/preset-typescript"]
+          }
+        },
       ],
     },
     resolve: {
