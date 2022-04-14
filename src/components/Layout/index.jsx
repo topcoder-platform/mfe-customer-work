@@ -8,6 +8,9 @@ import "./styles.module.scss";
  * Block Layout
  */
 const Layout = ({ sidebar, PageComponent, ...routeProps }) => {
+
+  // this will be used when implementing PROD-1559
+
   // const [size, mainRef] = useTargetSize();
   // const asideRef = useRef();
   // const height = size && size.height;
@@ -20,10 +23,13 @@ const Layout = ({ sidebar, PageComponent, ...routeProps }) => {
 
   return (
     <div styleName="layout">
+      {/* this will be used when implementing PROD-1559 */}
       {/* <aside styleName="aside" ref={asideRef}>
         {sidebar}
       </aside> */}
-      <main styleName="main">
+      {/* <main styleName="main" ref={mainRef}> */}
+
+      <main>
         <PageComponent {...routeProps} />
       </main>
     </div>

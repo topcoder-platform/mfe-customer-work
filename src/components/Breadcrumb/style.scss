@@ -1,5 +1,4 @@
-@import "styles/variables";
-@import "styles/mixins";
+@import "styles/include";
 
 .breadcrumb {
     padding: 12px 24px;
@@ -11,14 +10,11 @@
             align-items: center;
             padding: 0;
             a {
+                @extend .overline;
                 display: block;
                 padding: 12px;
                 color: $gray-80;
-                font-size: 12px;
-                font-weight: 700;
-                font-family: 'Roboto';
-                line-height: 16px;
-                text-transform: uppercase;
+                cursor: pointer;
             }
             &:not(:last-child)::after {
                 content: '';
@@ -27,8 +23,11 @@
                 height: 8px;
                 border-style: solid;
                 border-width: 1px 1px 0 0;
-                border-color: $back-60;
+                border-color: $black-60;
                 transform:rotate(45deg)
+            }
+            &:last-child a:last-child {
+                pointer-events: none;
             }
             &:last-child,
             &:hover {

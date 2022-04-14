@@ -97,8 +97,8 @@ const SelectWorkType = ({
     );
   
   const breadcrumb = [
-    {url:'/self-service/dashboard', name:"my work"},
-    {url:'/self-service/wizard', name:"start work"}
+    {url:'/self-service/dashboard', name:"My work"},
+    {url:'/self-service/wizard', name:"Start work"}
   ];
   
   return (
