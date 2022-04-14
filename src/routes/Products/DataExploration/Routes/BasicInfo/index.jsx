@@ -15,6 +15,7 @@ import {
   toggleSupportModal,
   createNewSupportTicket,
   savePageDetails,
+  saveWorkType,
 } from "../../../../../actions/form";
 import { triggerAutoSave } from "../../../../../actions/autoSave";
 import { setProgressItem } from "../../../../../actions/progress";
@@ -32,12 +33,14 @@ import {
   getDataExplorationPriceAndTimelineEstimate,
 } from "utils/";
 import DataExplorationBanner from "components/Banners/DataExplorationBanner";
+import { constants } from "buffer";
 
 /**
  * Basic Info Page
  */
 const BasicInfo = ({
   saveBasicInfo,
+  saveWorkType,
   setProgressItem,
   toggleSupportModal,
   createNewSupportTicket,
@@ -91,7 +94,11 @@ const BasicInfo = ({
     setProgressItem(2);
 
     if (currentStep === 0) {
-      redirectTo("/self-service/wizard");
+      saveWorkType({
+        selectedWorkType: 'Data Exploration',
+        selectedWorkTypeDetail: 'Data Exploration',
+      });
+      dispatch(triggerAutoSave(true));
     }
 
     if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
@@ -200,6 +207,7 @@ const mapDispatchToProps = {
   savePageDetails,
   toggleSupportModal,
   createNewSupportTicket,
+  saveWorkType,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);
