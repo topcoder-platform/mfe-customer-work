@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useContext, useState } from 'react'
 import Modal from 'react-responsive-modal'
 
-import { authUrlLogin, Button, Card, formReset, IconOutline } from '../../lib'
+import { authUrlLogin, Button, Card, formOnReset } from '../../lib'
 import { profileContext, ProfileContextData } from '../../lib/profile-provider'
 
 import styles from './Account.module.scss'
@@ -27,12 +27,12 @@ const Account: FC<{}> = () => {
     }
 
     function toggleEditName(): void {
-        formReset(editNameFormDef.inputs)
+        formOnReset(editNameFormDef.inputs)
         setEditNameOpen(!editProfileOpen)
     }
 
     function toggleChangePassword(): void {
-        formReset(changePasswordFormDef.inputs)
+        formOnReset(changePasswordFormDef.inputs)
         setChangePasswordOpen(!changePasswordOpen)
     }
 
