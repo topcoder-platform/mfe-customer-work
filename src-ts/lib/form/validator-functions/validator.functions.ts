@@ -48,7 +48,7 @@ export function password(value: string | undefined): string | undefined {
     // - at least 1 symbol or number
     const passwordRegex: RegExp = /^(?=.*[a-zA-Z])(?=.*[#$^+=!*()@%&\d]).{8,}$/g
 
-    return !passwordRegex.test(value) ? 'Password must contain >= 8 characters, >= 1 letter, and >= 1 number or symbol' : undefined
+    return !passwordRegex.test(value) ? 'Password rules: >= 8 characters, >= 1 letter, and >= 1 number or symbol' : undefined
 }
 
 export function matchOther(value: string | undefined, formElements?: HTMLFormControlsCollection, otherFieldName?: string): string | undefined {
@@ -67,7 +67,7 @@ export function matchOther(value: string | undefined, formElements?: HTMLFormCon
         return undefined
     }
 
-    return `Does not match the ${getOtherFieldLabel(otherField, otherFieldName)} value`
+    return `Does not match the ${getOtherFieldLabel(otherField, otherFieldName)}`
 }
 
 export function required(value: string | undefined): string | undefined {
@@ -87,7 +87,7 @@ export function requiredIfOther(value: string | undefined, formElements?: HTMLFo
         return undefined
     }
 
-    return `Required when ${getOtherFieldLabel(otherField, otherFieldName)} is not blank`
+    return `Required`
 }
 
 export function sslUrl(value: string | undefined): string | undefined {
@@ -135,5 +135,5 @@ function getOtherField(formElements?: HTMLFormControlsCollection, otherFieldName
 }
 
 function getOtherFieldLabel(otherField: HTMLInputElement, otherFieldName?: string): string {
-    return otherField.labels?.[0].firstChild?.nodeValue || otherFieldName as string
+    return(otherField.labels?.[0].firstChild as any)?.innerText || otherFieldName as string
 }
