@@ -32,7 +32,6 @@ export const changePasswordFormDef: FormDefinition = {
             label: 'Current Password',
             name: ChangePasswordFieldName.currentPassword,
             placeholder: 'Enter your current password',
-            preventSpellCheck: true,
             type: 'password',
             validators: [
                 validatorRequired,
@@ -44,7 +43,6 @@ export const changePasswordFormDef: FormDefinition = {
             label: 'New Password',
             name: ChangePasswordFieldName.newPassword,
             placeholder: 'Enter your new password',
-            preventSpellCheck: true,
             type: 'password',
             validators: [
                 validatorRequired,
@@ -58,7 +56,6 @@ export const changePasswordFormDef: FormDefinition = {
             label: 'Confirm Password',
             name: ChangePasswordFieldName.confirmPassword,
             placeholder: 'Re-enter your new password',
-            preventSpellCheck: true,
             type: 'password',
             validators: [
                 validatorRequiredIfOther,

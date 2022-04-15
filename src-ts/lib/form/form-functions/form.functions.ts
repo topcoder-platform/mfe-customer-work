@@ -73,38 +73,37 @@ export function reset(inputs: ReadonlyArray<FormInputModel>, formValue?: any): v
         })
 }
 
-export async function submitAsync<T, R>(
+export async function submitAsync<T>(
     event: FormEvent<HTMLFormElement>,
     inputs: ReadonlyArray<FormInputModel>,
     formName: string,
     formValue: T,
-    save: (value: T) => Promise<R>,
+    save: (value: T) => Promise<void>,
     onSuccess?: () => void,
 ): Promise<void> {
 
     event.preventDefault()
 
-    // get the form values so we can validate them
-    const formValues: HTMLFormControlsCollection = (event.target as HTMLFormElement).elements
+    // get the dirty fields before we validate b/c validation marks them dirty on submit
+    const dirty: FormInputModel | undefined = inputs.find(fieldDef => !!fieldDef.dirty)
 
     // if there are any validation errors, display a message and stop submitting
+    // NOTE: need to check this before we check if the form is dirty bc you
+    // could have a form that's not dirty but has errors and you wouldn't
+    // want to have it look like the submit succeeded
+    const formValues: HTMLFormControlsCollection = (event.target as HTMLFormElement).elements
     const isValid: boolean = validateForm(inputs, formValues, 'submit')
     if (!isValid) {
         return Promise.reject(ErrorMessage.submit)
     }
 
-    // if there are no dirty fields, just run the succeeded method
-    const dirty: FormInputModel | undefined = inputs.find(fieldDef => !!fieldDef.dirty)
-    if (!dirty) {
-        toast.success(`Your ${formName} has been saved.`)
-        onSuccess?.()
-        return Promise.resolve()
-    }
-
-    // set the values for the updated value
+    // set the properties for the updated T value
     inputs.forEach(field => (formValue as any)[field.name] = field.value)
 
-    return save(formValue)
+    // if there are no dirty fields, don't actually perform the save
+    const savePromise: Promise<void> = !dirty ? Promise.resolve() : save(formValue)
+
+    return savePromise
         .then(() => {
             toast.success(`Your ${formName} has been saved.`)
             onSuccess?.()

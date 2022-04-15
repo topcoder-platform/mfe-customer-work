@@ -16,7 +16,7 @@ interface InputTextProps {
     readonly onBlur: (event: FocusEvent<HTMLInputElement>) => void
     readonly onChange: (event: FocusEvent<HTMLInputElement>) => void
     readonly placeholder?: string
-    readonly preventSpellCheck?: boolean
+    readonly spellCheck?: boolean
     readonly tabIndex: number
     readonly type: 'password' | 'text'
     readonly value?: string | number
@@ -42,7 +42,7 @@ const InputText: FC<InputTextProps> = (props: InputTextProps) => {
                 onChange={props.onChange}
                 name={props.name}
                 placeholder={props.placeholder}
-                spellCheck={!props.preventSpellCheck}
+                spellCheck={!!props.spellCheck}
                 tabIndex={props.tabIndex}
                 type={props.type || 'text'}
             />

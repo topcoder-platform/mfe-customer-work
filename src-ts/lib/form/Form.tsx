@@ -44,7 +44,7 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
         }
 
         function onChange(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>): void {
-            formOnChange(event, formDef.inputs)
+            formOnChange(event, formDef.inputs, props.formValues)
             setFormDef({ ...formDef })
         }
 
@@ -56,7 +56,7 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
 
         async function onSubmitAsync(event: FormEvent<HTMLFormElement>): Promise<void> {
             const values: RequestType = props.requestGenerator(formDef.inputs)
-            formSubmitAsync<RequestType, void>(event, formDef.inputs, props.formDef.shortName || 'data', values, props.save, props.onSuccess)
+            formSubmitAsync<RequestType>(event, formDef.inputs, props.formDef.shortName || 'data', values, props.save, props.onSuccess)
                 .then(() => {
                     setFormKey(Date.now())
                     formReset(formDef.inputs, props.formValues)

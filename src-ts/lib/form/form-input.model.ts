@@ -13,7 +13,7 @@ export interface FormInputModel {
     readonly name: string
     readonly notTabbable?: boolean
     readonly placeholder?: string
-    readonly preventSpellCheck?: boolean
+    readonly spellCheck?: boolean
     readonly title?: string
     touched?: boolean
     readonly type: 'password' | 'text' | 'textarea'

@@ -16,6 +16,7 @@ interface InputTextareaProps {
     readonly onBlur: (event: FocusEvent<HTMLTextAreaElement>) => void
     readonly onChange: (event: FocusEvent<HTMLTextAreaElement>) => void
     readonly placeholder?: string
+    readonly spellCheck?: string
     readonly tabIndex: number
     readonly value?: string | number
 }
@@ -39,6 +40,7 @@ const InputTextarea: FC<InputTextareaProps> = (props: InputTextareaProps) => {
                 onBlur={props.onBlur}
                 onFocus={props.onChange}
                 placeholder={props.placeholder}
+                spellCheck={!!props.spellCheck}
                 tabIndex={props.tabIndex}
             />
         </InputWrapper>
