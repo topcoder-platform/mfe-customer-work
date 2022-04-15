@@ -8,6 +8,6 @@ export function get(handle: string): Promise<UserProfile> {
     return xhrGetAsync<UserProfile>(profileUrl(handle))
 }
 
-export function put(handle: string, profile: EditNameRequest): Promise<UserProfile> {
+export function putName(handle: string, profile: EditNameRequest): Promise<UserProfile> {
     return xhrPutAsync<EditNameRequest, UserProfile>(profileUrl(handle), profile)
 }
