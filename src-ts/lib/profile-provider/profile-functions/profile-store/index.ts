@@ -1,4 +1,4 @@
 export {
     get as profileStoreGet,
-    putName as profileStorePutName,
+    patchName as profileStorePatchName,
 } from './profile-xhr.store'

@@ -5,7 +5,7 @@ import { tokenGetAsync } from '../../functions/token-functions'
 import { EditNameRequest } from '../edit-name-request.model'
 import { UserProfile } from '../user-profile.model'
 
-import { profileStoreGet, profileStorePutName } from './profile-store'
+import { profileStoreGet, profileStorePatchName } from './profile-store'
 
 export async function getAsync(handle?: string): Promise<UserProfile | undefined> {
     handle = handle || (await tokenGetAsync())?.handle
@@ -13,7 +13,7 @@ export async function getAsync(handle?: string): Promise<UserProfile | undefined
 }
 
 export async function editNameAsync(handle: string, profile: EditNameRequest): Promise<any> {
-    return profileStorePutName(handle, profile)
+    return profileStorePatchName(handle, profile)
         .then(result => {
             updateUserProfile(result.firstName, result.lastName)
         })

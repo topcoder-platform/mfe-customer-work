@@ -8,8 +8,8 @@ export function get(handle: string): Promise<UserProfile> {
     return xhrGetAsync<UserProfile>(profileUrl(handle))
 }
 
-// TODO: this should prob be a patch, not a put, bc the
-// request body is just a partial profile
-export function putName(handle: string, request: EditNameRequest): Promise<UserProfile> {
+// NOTE: this method is named patch bc the request body is just a partial profile,
+// but the underlying xhr request is actually a put b/c the api doesn't support patch
+export function patchName(handle: string, request: EditNameRequest): Promise<UserProfile> {
     return xhrPutAsync<EditNameRequest, UserProfile>(profileUrl(handle), request)
 }
