@@ -1,10 +1,12 @@
 import { FC, FocusEvent } from 'react'
 
+import { FormInputAutocompleteOption } from '../form-input-autcomplete-option.enum'
 import { InputWrapper } from '../input-wrapper'
 
 import styles from './InputText.module.scss'
 
 interface InputTextProps {
+    readonly autocomplete?: FormInputAutocompleteOption
     readonly dirty?: boolean
     readonly disabled?: boolean
     readonly error?: string
@@ -14,9 +16,8 @@ interface InputTextProps {
     readonly onBlur: (event: FocusEvent<HTMLInputElement>) => void
     readonly onChange: (event: FocusEvent<HTMLInputElement>) => void
     readonly placeholder?: string
-    readonly preventAutocomplete?: boolean
+    readonly preventSpellCheck?: boolean
     readonly tabIndex: number
-    readonly touched?: boolean
     readonly type: 'password' | 'text'
     readonly value?: string | number
 }
@@ -31,10 +32,9 @@ const InputText: FC<InputTextProps> = (props: InputTextProps) => {
             hint={props.hint}
             label={props.label || props.name}
             name={props.name}
-            touched={!!props.touched}
         >
             <input
-                autoComplete={!!props.preventAutocomplete ? 'off' : undefined}
+                autoComplete={props.autocomplete}
                 className={styles['form-input-text']}
                 defaultValue={props.value}
                 disabled={!!props.disabled}
@@ -42,6 +42,7 @@ const InputText: FC<InputTextProps> = (props: InputTextProps) => {
                 onChange={props.onChange}
                 name={props.name}
                 placeholder={props.placeholder}
+                spellCheck={!props.preventSpellCheck}
                 tabIndex={props.tabIndex}
                 type={props.type || 'text'}
             />

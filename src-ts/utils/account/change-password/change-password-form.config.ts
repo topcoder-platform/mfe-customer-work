@@ -1,5 +1,6 @@
 import {
     FormDefinition,
+    FormInputAutocompleteOption,
     validatorDoesNotMatchOther,
     validatorMatchOther,
     validatorPassword,
@@ -27,19 +28,23 @@ export const changePasswordFormDef: FormDefinition = {
     ],
     inputs: [
         {
+            autocomplete: FormInputAutocompleteOption.current,
             label: 'Current Password',
             name: ChangePasswordFieldName.currentPassword,
             placeholder: 'Enter your current password',
+            preventSpellCheck: true,
             type: 'password',
             validators: [
                 validatorRequired,
             ],
         },
         {
+            autocomplete: FormInputAutocompleteOption.new,
             dependentField: ChangePasswordFieldName.currentPassword,
             label: 'New Password',
             name: ChangePasswordFieldName.newPassword,
             placeholder: 'Enter your new password',
+            preventSpellCheck: true,
             type: 'password',
             validators: [
                 validatorRequired,
@@ -48,10 +53,12 @@ export const changePasswordFormDef: FormDefinition = {
             ],
         },
         {
+            autocomplete: FormInputAutocompleteOption.off,
             dependentField: ChangePasswordFieldName.newPassword,
             label: 'Confirm Password',
             name: ChangePasswordFieldName.confirmPassword,
             placeholder: 'Re-enter your new password',
+            preventSpellCheck: true,
             type: 'password',
             validators: [
                 validatorRequiredIfOther,

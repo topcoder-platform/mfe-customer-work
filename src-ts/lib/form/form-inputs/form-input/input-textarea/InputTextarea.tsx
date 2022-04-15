@@ -1,10 +1,12 @@
 import { FC, FocusEvent } from 'react'
 
+import { FormInputAutocompleteOption } from '../form-input-autcomplete-option.enum'
 import { InputWrapper } from '../input-wrapper'
 
 import styles from './InputTextarea.module.scss'
 
 interface InputTextareaProps {
+    readonly autocomplete?: FormInputAutocompleteOption
     readonly dirty?: boolean
     readonly disabled?: boolean
     readonly error?: string
@@ -14,9 +16,7 @@ interface InputTextareaProps {
     readonly onBlur: (event: FocusEvent<HTMLTextAreaElement>) => void
     readonly onChange: (event: FocusEvent<HTMLTextAreaElement>) => void
     readonly placeholder?: string
-    readonly preventAutocomplete?: boolean
     readonly tabIndex: number
-    readonly touched?: boolean
     readonly value?: string | number
 }
 
@@ -29,10 +29,9 @@ const InputTextarea: FC<InputTextareaProps> = (props: InputTextareaProps) => {
             hint={props.hint}
             label={props.label || props.name}
             name={props.name}
-            touched={!!props.touched}
         >
             <textarea
-                autoComplete={!!props.preventAutocomplete ? 'off' : undefined}
+                autoComplete={props.autocomplete}
                 className={styles['form-input-textarea']}
                 defaultValue={props.value}
                 disabled={!!props.disabled}

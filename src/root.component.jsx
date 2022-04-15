@@ -22,7 +22,7 @@ export default function Root() {
       <Provider store={store}>
         <App />
         <ReduxToastr
-          timeOut={5000}
+          timeOut={3000}
           newestOnTop={false}
           preventDuplicates
           position="top-right"
@@ -34,7 +34,7 @@ export default function Root() {
         />
         <ToastContainer
           position={toast.POSITION.TOP_RIGHT}
-          autoClose={5000}
+          autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

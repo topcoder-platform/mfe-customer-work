@@ -1,6 +1,8 @@
+import { FormInputAutocompleteOption } from './form-inputs'
 import { ValidatorFn } from './validator-functions'
 
 export interface FormInputModel {
+    readonly autocomplete?: FormInputAutocompleteOption
     readonly dependentField?: string
     dirty?: boolean
     disabled?: boolean
@@ -11,7 +13,7 @@ export interface FormInputModel {
     readonly name: string
     readonly notTabbable?: boolean
     readonly placeholder?: string
-    readonly preventAutocomplete?: boolean
+    readonly preventSpellCheck?: boolean
     readonly title?: string
     touched?: boolean
     readonly type: 'password' | 'text' | 'textarea'
