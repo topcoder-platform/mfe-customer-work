@@ -107,68 +107,68 @@ function handleFieldEvent<T>(input: HTMLInputElement | HTMLTextAreaElement, inpu
     // set the def value
     inputDef.value = input.value
 
-    // remove any errors that no longer apply
+    // now let's validate the field
     const formElements: HTMLFormControlsCollection = (input.form as HTMLFormElement).elements
     validateField(inputDef, formElements, event)
 }
 
 function validateField(formInputDef: FormInputModel, formElements: HTMLFormControlsCollection, event: 'blur' | 'change' | 'submit'): void {
 
-    const existingError: string | undefined = formInputDef.error
+    const previousError: string | undefined = formInputDef.error
 
     formInputDef.validators
         ?.forEach(validator => {
 
-            // if the current error is the same as the existing error, then no need to do anything
-            const newError: string | undefined = validator(formInputDef.value, formElements, formInputDef.dependentField)
+            // if the next error is the same as the previous error, then no need to do anything
+            const nextError: string | undefined = validator(formInputDef.value, formElements, formInputDef.dependentField)
 
-            if (existingError === newError) {
+            if (previousError === nextError) {
                 return
             }
 
             // the change event has more complicated rules than the other events
             // so handle it separately
             if (event === 'change') {
-                validateFieldOnChange(existingError, newError, formInputDef)
+                validateFieldOnChange(previousError, nextError, formInputDef)
                 return
             }
 
-            // this is on blur or submit event,
+            // this is an on blur or submit event,
             // so if there isn't already an error for this field,
-            // set it to the new error
+            // set it to the next error
             if (!formInputDef.error) {
-                formInputDef.error = newError
+                formInputDef.error = nextError
             }
         })
 }
 
-function validateFieldOnChange(existingError: string | undefined, newError: string | undefined, formInputDef: FormInputModel): void {
+function validateFieldOnChange(previousError: string | undefined, nextError: string | undefined, formInputDef: FormInputModel): void {
 
     // this is a change event, so don't add errors - only change or remove them
 
-    // if the field no longer has an error, remove it and don't do anything else
-    if (!newError) {
+    // if the field no longer has an error, remove the current and don't do anything else
+    if (!nextError) {
         formInputDef.error = undefined
         return
     }
 
-    // if there is no existing error
+    // if there is no previous error
     // OR
-    // if the field already has an error that is not the new error,
-    // then don't set the new error
+    // if the field already has a current error that is not the next error,
+    // then don't set the next error
     // (e.g. if a field has both a required-if-other error and a regex error,
     // show the first error, don't replace it w/the 2nd error)
-    if (!existingError || formInputDef.error !== newError) {
+    if (!previousError || formInputDef.error !== nextError) {
         return
     }
 
-    // there is an existing error for this field,
-    // and the new error is not the first error for this field,
-    // so it's now safe to change the error
+    // there is a previous error for this field,
+    // and there is not current error,
+    // so it's now safe to change to the next error
     // (e.g. if a field has a required error then adds a value that
     // causes a regex error, update the error as soon as the value changes,
     // don't wait 'til blur)
-    formInputDef.error = newError
+    formInputDef.error = nextError
 }
 
 function validateForm(inputs: ReadonlyArray<FormInputModel>, formElements: HTMLFormControlsCollection, event: 'blur' | 'change' | 'submit'): boolean {
