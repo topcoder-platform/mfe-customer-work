@@ -43,19 +43,18 @@ const Account: FC<{}> = () => {
 
             <div className={styles['page-content']}>
 
-                <Card
-                    icon={IconOutline.UserIcon}
-                    title='Account'
-                >
+                <Card title='Account'>
                     <div>{profile.handle}</div>
                     <div>{profile.email}</div>
                 </Card>
 
                 <Card
-                    icon={IconOutline.UserIcon}
                     title='Name'
+                    onClick={toggleEditName}
                 >
-                    <div>{profile.firstName} {profile.lastName}</div>
+                    <div>
+                        {profile.firstName} {profile.lastName}
+                    </div>
                     <Button
                         label='edit name'
                         onClick={toggleEditName}
@@ -72,10 +71,12 @@ const Account: FC<{}> = () => {
                 </Modal>
 
                 <Card
-                    icon={IconOutline.LockClosedIcon}
+                    onClick={toggleChangePassword}
                     title='Password'
                 >
-                    <div>*******************</div>
+                    <div>
+                        *******************
+                    </div>
                     <Button
                         label='change password'
                         onClick={toggleChangePassword}

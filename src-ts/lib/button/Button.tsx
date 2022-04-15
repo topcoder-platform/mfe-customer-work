@@ -2,9 +2,8 @@ import classNames from 'classnames'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 
+import '../styles/index.scss'
 import { IconOutline } from '../svgs'
-
-import styles from './Button.module.scss'
 
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl'
 export type ButtonStyle = 'link' | 'primary' | 'secondary' | 'tertiary' | 'text'
@@ -70,11 +69,11 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
 
 function getButtonClasses(props: ButtonProps): string {
     const classes: string = classNames(
-        styles.button,
+        'button',
         props.className,
-        !!props.buttonStyle ? styles[props.buttonStyle] : styles.primary,
-        styles[`button-${props.size || 'md'}`],
-        !!props.disable ? styles.disabled : undefined
+        props.buttonStyle || 'primary',
+        `button-${props.size || 'md'}`,
+        !!props.disable ? 'disabled' : undefined
     )
     return classes
 }

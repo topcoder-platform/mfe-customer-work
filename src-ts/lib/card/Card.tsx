@@ -1,10 +1,14 @@
+import classNames from 'classnames'
 import { FC, ReactNode, SVGProps } from 'react'
 
-import styles from './Card.module.scss'
+import { ButtonStyle } from '../button'
+import '../styles/index.scss'
 
 export interface CardProps {
+    buttonStyle?: ButtonStyle
     children: ReactNode
     icon?: FC<SVGProps<SVGSVGElement>>
+    onClick?: () => void
     title: string
 }
 
@@ -13,9 +17,12 @@ const Card: FC<CardProps> = (props: CardProps) => {
     const Icon: FC<SVGProps<SVGSVGElement>> | undefined = props.icon
 
     return (
-        <div className={styles.card}>
+        <div
+            className={classNames('card', !!props.onClick ? 'clickable' : undefined, props.buttonStyle)}
+            onClick={props.onClick}
+        >
 
-            <div className={styles['card-title']}>
+            <div className='card-title'>
                 <div>
                     {props.title}
                 </div>
