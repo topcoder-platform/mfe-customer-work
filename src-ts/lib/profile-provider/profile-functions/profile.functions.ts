@@ -12,7 +12,7 @@ export async function getAsync(handle?: string): Promise<UserProfile | undefined
     return !handle ? Promise.resolve(undefined) : profileStoreGet(handle)
 }
 
-export async function changeNameAsync(handle: string, profile: EditNameRequest): Promise<any> {
+export async function editNameAsync(handle: string, profile: EditNameRequest): Promise<any> {
     return profileStorePut(handle, profile)
         .then(result => {
             updateUserProfile(result.firstName, result.lastName)
