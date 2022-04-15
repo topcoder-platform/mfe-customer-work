@@ -9,8 +9,8 @@ import {
     formInitializeValues,
     formOnBlur,
     formOnChange,
-    formReset,
-    formSubmitAsync,
+    formOnReset,
+    formOnSubmitAsync,
 } from './form-functions'
 import { FormInputModel } from './form-input.model'
 import { FormInputs } from './form-inputs'
@@ -45,23 +45,23 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
         }
 
         function onReset(): void {
-            formReset(props.formDef.inputs, props.formValues)
+            formOnReset(props.formDef.inputs, props.formValues)
             setFormDef({ ...formDef })
             setFormKey(Date.now())
         }
 
         async function onSubmitAsync(event: FormEvent<HTMLFormElement>): Promise<void> {
             const values: RequestType = props.requestGenerator(formDef.inputs)
-            formSubmitAsync<RequestType>(event, formDef.inputs, props.formDef.shortName || 'data', values, props.save, props.onSuccess)
+            formOnSubmitAsync<RequestType>(event, formDef.inputs, props.formDef.shortName || 'data', values, props.save, props.onSuccess)
                 .then(() => {
                     setFormKey(Date.now())
-                    formReset(formDef.inputs, props.formValues)
+                    formOnReset(formDef.inputs, props.formValues)
                     setFormDef({ ...formDef })
                 })
                 .catch((error: FormErrorMessage) => {
                     // only reset on save errors
                     if (props.resetOnError && error === FormErrorMessage.save) {
-                        formReset(formDef.inputs, props.formValues)
+                        formOnReset(formDef.inputs, props.formValues)
                         setFormKey(Date.now())
                     }
                     setFormDef({ ...formDef })

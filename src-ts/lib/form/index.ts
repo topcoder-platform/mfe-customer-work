@@ -3,7 +3,7 @@ export * from './form-button.model'
 export * from './form-definition.model'
 export {
     formGetInputModel,
-    formReset,
+    formOnReset as formReset,
 } from './form-functions'
 export * from './form-input.model'
 export { inputOptional, FormInputAutocompleteOption } from './form-inputs'
