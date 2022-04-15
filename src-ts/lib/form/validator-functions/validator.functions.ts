@@ -107,14 +107,7 @@ export function sslUrl(value: string | undefined): string | undefined {
     }
 }
 
-export type ValidatorFn = Array<
-    (
-        value: string | undefined,
-        formValues?: HTMLFormControlsCollection,
-        otherField?: string,
-    )
-        => string | undefined
->
+export type ValidatorFn = (value: string | undefined, formValues?: HTMLFormControlsCollection, otherField?: string) => string | undefined
 
 function getOtherField(formElements?: HTMLFormControlsCollection, otherFieldName?: string): HTMLInputElement {
 
@@ -135,5 +128,5 @@ function getOtherField(formElements?: HTMLFormControlsCollection, otherFieldName
 }
 
 function getOtherFieldLabel(otherField: HTMLInputElement, otherFieldName?: string): string {
-    return(otherField.labels?.[0].firstChild as any)?.innerText || otherFieldName as string
+    return (otherField.labels?.[0].firstChild as any)?.innerText || otherFieldName as string
 }

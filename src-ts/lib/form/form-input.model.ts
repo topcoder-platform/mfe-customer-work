@@ -17,6 +17,6 @@ export interface FormInputModel {
     readonly title?: string
     touched?: boolean
     readonly type: 'password' | 'text' | 'textarea'
-    readonly validators?: ValidatorFn
+    readonly validators?: ReadonlyArray<ValidatorFn>
     value?: string
 }
