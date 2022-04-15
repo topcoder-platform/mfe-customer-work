@@ -34,15 +34,15 @@ export function initializeValues<T>(inputs: ReadonlyArray<FormInputModel>, formV
         })
 }
 
-export function onBlur<T>(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>, inputs: ReadonlyArray<FormInputModel>, formValues?: T): ReadonlyArray<FormInputModel> {
-    return onFieldEvent<T>(event.target as HTMLInputElement | HTMLTextAreaElement, inputs, 'blur', formValues)
+export function onBlur<T>(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>, inputs: ReadonlyArray<FormInputModel>, formValues?: T): void {
+    onFieldEvent<T>(event.target as HTMLInputElement | HTMLTextAreaElement, inputs, 'blur', formValues)
 }
 
-export function onChange<T>(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>, inputs: ReadonlyArray<FormInputModel>, formValues?: T): ReadonlyArray<FormInputModel> {
-    return onFieldEvent<T>(event.target as HTMLInputElement | HTMLTextAreaElement, inputs, 'change', formValues)
+export function onChange<T>(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>, inputs: ReadonlyArray<FormInputModel>, formValues?: T): void {
+    onFieldEvent<T>(event.target as HTMLInputElement | HTMLTextAreaElement, inputs, 'change', formValues)
 }
 
-export function onFieldEvent<T>(input: HTMLInputElement | HTMLTextAreaElement, inputs: ReadonlyArray<FormInputModel>, event: 'blur' | 'change', formValues?: T): ReadonlyArray<FormInputModel> {
+export function onFieldEvent<T>(input: HTMLInputElement | HTMLTextAreaElement, inputs: ReadonlyArray<FormInputModel>, event: 'blur' | 'change', formValues?: T): void {
 
     // set the dirty and touched flags on the field
     const originalValue: string | undefined = (formValues as any)?.[input.name]
@@ -59,8 +59,6 @@ export function onFieldEvent<T>(input: HTMLInputElement | HTMLTextAreaElement, i
     // remove any errors that no longer apply
     const formElements: HTMLFormControlsCollection = (input.form as HTMLFormElement).elements
     validateField(inputDef, formElements, event)
-
-    return inputs
 }
 
 export function reset(inputs: ReadonlyArray<FormInputModel>, formValue?: any): void {

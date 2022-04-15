@@ -35,12 +35,8 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
             = useState<number>(Date.now())
 
         function onBlur(event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void {
-            const updatedFormInputs: ReadonlyArray<FormInputModel> = formOnBlur(event, formDef.inputs, props.formValues)
-            const updatedFormDef: FormDefinition = {
-                ...formDef,
-                inputs: [...updatedFormInputs],
-            }
-            setFormDef(updatedFormDef)
+            formOnBlur(event, formDef.inputs, props.formValues)
+            setFormDef({ ...formDef })
         }
 
         function onChange(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>): void {
