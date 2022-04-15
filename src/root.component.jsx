@@ -3,6 +3,8 @@ import { disableSidebarForRoute } from "@topcoder/micro-frontends-navbar-app";
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import ReduxToastr from "react-redux-toastr";
+import { toast, ToastContainer } from 'react-toastify'
+
 import App from "./App";
 import store from "./store";
 
@@ -29,6 +31,17 @@ export default function Root() {
           transitionOut="fadeOut"
           progressBar
           closeOnToastrClick
+        />
+        <ToastContainer
+          position={toast.POSITION.TOP_RIGHT}
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
         />
       </Provider>
     </LocationProvider>

@@ -6,8 +6,8 @@ import '../styles/index.scss'
 import { FormDefinition } from './form-definition.model'
 import {
     FormErrorMessage,
-    formGetInputModel,
     formInitializeValues,
+    formOnBlur,
     formOnChange,
     formReset,
     formSubmitAsync,
@@ -19,17 +19,14 @@ import styles from './Form.module.scss'
 interface FormProps<ValueType, RequestType> {
     readonly formDef: FormDefinition
     readonly formValues?: ValueType
+    readonly onSuccess?: () => void
     readonly requestGenerator: (inputs: ReadonlyArray<FormInputModel>) => RequestType
     readonly resetOnError: boolean
     readonly save: (value: RequestType) => Promise<void>
-    readonly succeeded?: () => void
 }
 
 const Form: <ValueType extends any, RequestType extends any>(props: FormProps<ValueType, RequestType>) => JSX.Element
     = <ValueType extends any, RequestType extends any>(props: FormProps<ValueType, RequestType>) => {
-
-        const [disableSave, setDisableSave]: [boolean, Dispatch<SetStateAction<boolean>>]
-            = useState<boolean>(false)
 
         const [formDef, setFormDef]: [FormDefinition, Dispatch<SetStateAction<FormDefinition>>]
             = useState<FormDefinition>({ ...props.formDef })
@@ -38,37 +35,28 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
             = useState<number>(Date.now())
 
         function onBlur(event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void {
-            const inputDef: FormInputModel = formGetInputModel(props.formDef.inputs, event.target.name)
-            inputDef.validateOnBlur
-                ?.forEach(validator => {
-                    if (!inputDef.error) {
-                        inputDef.error = validator(event.target.value, event.target.form?.elements, inputDef.dependentField)
-                        setFormDef({ ...formDef })
-                    }
-                })
+            const updatedFormInputs: ReadonlyArray<FormInputModel> = formOnBlur(event, formDef.inputs, props.formValues)
+            const updatedFormDef: FormDefinition = {
+                ...formDef,
+                inputs: [...updatedFormInputs],
+            }
+            setFormDef(updatedFormDef)
         }
 
-        async function onChange(event: FormEvent<HTMLFormElement>): Promise<void> {
-            const isValid: boolean = await formOnChange(event, formDef.inputs)
-            setFormDef({ ...formDef })
-            setDisableSave(!isValid)
-        }
-
-        function onFocus(event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void {
-            const inputDef: FormInputModel = formGetInputModel(props.formDef.inputs, event.target.name)
-            inputDef.touched = true
+        function onChange(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>): void {
+            formOnChange(event, formDef.inputs)
             setFormDef({ ...formDef })
         }
 
         function onReset(): void {
-            setFormDef({ ...formDef })
             formReset(props.formDef.inputs, props.formValues)
+            setFormDef({ ...formDef })
             setFormKey(Date.now())
         }
 
-        async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+        async function onSubmitAsync(event: FormEvent<HTMLFormElement>): Promise<void> {
             const values: RequestType = props.requestGenerator(formDef.inputs)
-            formSubmitAsync<RequestType, void>(event, formDef.inputs, props.formDef.title || 'data', values, props.save, setDisableSave, props.succeeded)
+            formSubmitAsync<RequestType, void>(event, formDef.inputs, props.formDef.shortName || 'data', values, props.save, props.onSuccess)
                 .then(() => {
                     setFormKey(Date.now())
                     formReset(formDef.inputs, props.formValues)
@@ -98,7 +86,6 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
                 return (
                     <Button
                         {...button}
-                        disable={button.isSave && disableSave}
                         key={button.label}
                         tabIndex={button.notTabble ? -1 : index + formDef.inputs.length + (formDef.tabIndexStart || 0)}
                     />
@@ -110,8 +97,7 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
                 action={''}
                 className={styles.form}
                 key={formKey}
-                onChange={onChange}
-                onSubmit={onSubmit}
+                onSubmit={onSubmitAsync}
             >
 
                 {!!props.formDef.title && (
@@ -124,7 +110,7 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
                 <FormInputs
                     formDef={formDef}
                     onBlur={onBlur}
-                    onFocus={onFocus}
+                    onChange={onChange}
                 />
 
                 <div className='button-container-outer'>

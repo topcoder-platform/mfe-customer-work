@@ -1,5 +1,5 @@
-import { Dispatch, FormEvent, SetStateAction } from 'react'
-import { toastr } from 'react-redux-toastr'
+import { FormEvent } from 'react'
+import { toast } from 'react-toastify'
 
 import { FormInputModel } from '../form-input.model'
 
@@ -34,19 +34,33 @@ export function initializeValues<T>(inputs: ReadonlyArray<FormInputModel>, formV
         })
 }
 
-export function onChange(event: FormEvent<HTMLFormElement>, inputs: ReadonlyArray<FormInputModel>): boolean {
+export function onBlur<T>(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>, inputs: ReadonlyArray<FormInputModel>, formValues?: T): ReadonlyArray<FormInputModel> {
+    return onFieldEvent<T>(event.target as HTMLInputElement | HTMLTextAreaElement, inputs, 'blur', formValues)
+}
 
-    const input: HTMLInputElement = (event.target as HTMLInputElement)
-    // set the input def info
+export function onChange<T>(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>, inputs: ReadonlyArray<FormInputModel>, formValues?: T): ReadonlyArray<FormInputModel> {
+    return onFieldEvent<T>(event.target as HTMLInputElement | HTMLTextAreaElement, inputs, 'change', formValues)
+}
+
+export function onFieldEvent<T>(input: HTMLInputElement | HTMLTextAreaElement, inputs: ReadonlyArray<FormInputModel>, event: 'blur' | 'change', formValues?: T): ReadonlyArray<FormInputModel> {
+
+    // set the dirty and touched flags on the field
+    const originalValue: string | undefined = (formValues as any)?.[input.name]
+
     const inputDef: FormInputModel = getInputModel(inputs, input.name)
-    inputDef.dirty = true
+    if (event === 'change') {
+        inputDef.dirty = input.value !== originalValue
+    }
+    inputDef.touched = true
+
+    // set the def value
     inputDef.value = input.value
 
-    // validate the form
+    // remove any errors that no longer apply
     const formElements: HTMLFormControlsCollection = (input.form as HTMLFormElement).elements
-    const isValid: boolean = validate(inputs, formElements)
+    validateField(inputDef, formElements, event)
 
-    return isValid
+    return inputs
 }
 
 export function reset(inputs: ReadonlyArray<FormInputModel>, formValue?: any): void {
@@ -65,27 +79,26 @@ export async function submitAsync<T, R>(
     formName: string,
     formValue: T,
     save: (value: T) => Promise<R>,
-    setDisableButton: Dispatch<SetStateAction<boolean>>,
-    succeeded?: () => void,
+    onSuccess?: () => void,
 ): Promise<void> {
 
     event.preventDefault()
-    setDisableButton(true)
-
-    // if there are no dirty fields, just run the succeeded method
-    const dirty: FormInputModel | undefined = inputs.find(fieldDef => !!fieldDef.dirty)
-    if (!dirty) {
-        succeeded?.()
-        return Promise.resolve()
-    }
 
     // get the form values so we can validate them
     const formValues: HTMLFormControlsCollection = (event.target as HTMLFormElement).elements
 
     // if there are any validation errors, display a message and stop submitting
-    const isValid: boolean = validate(inputs, formValues, true)
+    const isValid: boolean = validateForm(inputs, formValues, 'submit')
     if (!isValid) {
         return Promise.reject(ErrorMessage.submit)
+    }
+
+    // if there are no dirty fields, just run the succeeded method
+    const dirty: FormInputModel | undefined = inputs.find(fieldDef => !!fieldDef.dirty)
+    if (!dirty) {
+        toast.success(`Your ${formName} has been saved.`)
+        onSuccess?.()
+        return Promise.resolve()
     }
 
     // set the values for the updated value
@@ -93,32 +106,80 @@ export async function submitAsync<T, R>(
 
     return save(formValue)
         .then(() => {
-            toastr.success(
-                'Success',
-                `${formName} successfully saved'`
-            )
+            toast.success(`Your ${formName} has been saved.`)
+            onSuccess?.()
         })
         .catch(error => {
-            toastr.error(
-                'Error',
-                error.response?.data?.result?.content || error.message || `There was an error saving ${formName}`
-            )
+            toast.error(error.response?.data?.result?.content || error.message || error)
             return Promise.reject(ErrorMessage.save)
         })
 }
 
-function validate(inputs: ReadonlyArray<FormInputModel>, formElements: HTMLFormControlsCollection, formDirty?: boolean): boolean {
+function validateForm(inputs: ReadonlyArray<FormInputModel>, formElements: HTMLFormControlsCollection, event: 'blur' | 'change' | 'submit'): boolean {
     const errors: ReadonlyArray<FormInputModel> = inputs
         .filter(formInputDef => {
-            formInputDef.error = undefined
-            formInputDef.dirty = formInputDef.dirty || !!formDirty
-            formInputDef.validateOnChange
-                ?.forEach(validator => {
-                    if (!formInputDef.error) {
-                        formInputDef.error = validator(formInputDef.value, formElements, formInputDef.dependentField)
-                    }
-                })
+            formInputDef.dirty = formInputDef.dirty || event === 'submit'
+            validateField(formInputDef, formElements, event)
             return !!formInputDef.error
         })
     return !errors.length
+}
+
+function validateField(formInputDef: FormInputModel, formElements: HTMLFormControlsCollection, event: 'blur' | 'change' | 'submit'): void {
+
+    const existingError: string | undefined = formInputDef.error
+
+    formInputDef.validators
+        ?.forEach(validator => {
+
+            // if the current error is the same as the existing error, then no need to do anything
+            const newError: string | undefined = validator(formInputDef.value, formElements, formInputDef.dependentField)
+
+            if (existingError === newError) {
+                return
+            }
+
+            // the change event has more complicated rules than the other events
+            // so handle it separately
+            if (event === 'change') {
+                validateFieldOnChange(existingError, newError, formInputDef)
+                return
+            }
+
+            // this is on blur or submit event,
+            // so if there isn't already an error for this field,
+            // set it to the new error
+            if (!formInputDef.error) {
+                formInputDef.error = newError
+            }
+        })
+}
+
+function validateFieldOnChange(existingError: string | undefined, newError: string | undefined, formInputDef: FormInputModel): void {
+
+    // this is a change event, so don't add errors - only change or remove them
+
+    // if the field no longer has an error, remove it and don't do anything else
+    if (!newError) {
+        formInputDef.error = undefined
+        return
+    }
+
+    // if there is no existing error
+    // OR
+    // if the field already has an error that is not the new error,
+    // then don't set the new error
+    // (e.g. if a field has both a required-if-other error and a regex error,
+    // show the first error, don't replace it w/the 2nd error)
+    if (!existingError || formInputDef.error !== newError) {
+        return
+    }
+
+    // there is an existing error for this field,
+    // and the new error is not the first error for this field,
+    // so it's now safe to change the error
+    // (e.g. if a field has a required error then adds a value that
+    // causes a regex error, update the error as soon as the value changes,
+    // don't wait 'til blur)
+    formInputDef.error = newError
 }

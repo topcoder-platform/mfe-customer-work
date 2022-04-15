@@ -4,17 +4,18 @@ import {
     validatorMatchOther,
     validatorPassword,
     validatorRequired,
+    validatorRequiredIfOther,
 } from '../../../lib'
 
-export const passwordFormTitle: string = 'Reset Password'
+export const changePasswordFormTitle: string = 'Change Password'
 
-export enum PasswordFieldName {
+export enum ChangePasswordFieldName {
     confirmPassword = 'confirmPassword',
     currentPassword = 'password',
     newPassword = 'newPassword',
 }
 
-export const passwordFormDef: FormDefinition = {
+export const changePasswordFormDef: FormDefinition = {
     buttons: [
         {
             buttonStyle: 'secondary',
@@ -27,37 +28,38 @@ export const passwordFormDef: FormDefinition = {
     inputs: [
         {
             label: 'Current Password',
-            name: PasswordFieldName.currentPassword,
-            placeholder: 'type your current password',
+            name: ChangePasswordFieldName.currentPassword,
+            placeholder: 'Enter your current password',
             type: 'password',
-            validateOnChange: [
+            validators: [
                 validatorRequired,
             ],
         },
         {
-            dependentField: PasswordFieldName.currentPassword,
+            dependentField: ChangePasswordFieldName.currentPassword,
             label: 'New Password',
-            name: PasswordFieldName.newPassword,
-            placeholder: 'type your new password',
+            name: ChangePasswordFieldName.newPassword,
+            placeholder: 'Enter your new password',
             type: 'password',
-            validateOnChange: [
+            validators: [
                 validatorRequired,
                 validatorDoesNotMatchOther,
                 validatorPassword,
             ],
         },
         {
-            dependentField: PasswordFieldName.newPassword,
+            dependentField: ChangePasswordFieldName.newPassword,
             label: 'Confirm Password',
-            name: PasswordFieldName.confirmPassword,
-            placeholder: 're-type your new password',
+            name: ChangePasswordFieldName.confirmPassword,
+            placeholder: 'Re-enter your new password',
             type: 'password',
-            validateOnChange: [
-                validatorRequired,
+            validators: [
+                validatorRequiredIfOther,
                 validatorMatchOther,
             ],
         },
     ],
+    shortName: 'Password',
     tabIndexStart: 3,
-    title: passwordFormTitle,
+    title: changePasswordFormTitle,
 }

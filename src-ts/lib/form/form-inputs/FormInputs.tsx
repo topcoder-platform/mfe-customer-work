@@ -10,12 +10,12 @@ import styles from './FormInputs.module.scss'
 interface FormInputsProps {
     formDef: FormDefinition
     onBlur: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-    onFocus: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    onChange: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
 const FormInputs: (props: FormInputsProps) => JSX.Element = (props: FormInputsProps) => {
 
-    const { formDef, onBlur, onFocus }: FormInputsProps = props
+    const { formDef, onBlur, onChange }: FormInputsProps = props
 
     const formInputs: Array<JSX.Element> = formDef.inputs
         .map(input => formGetInputModel(formDef.inputs, input.name))
@@ -31,7 +31,7 @@ const FormInputs: (props: FormInputsProps) => JSX.Element = (props: FormInputsPr
                         <InputTextarea
                             {...inputModel}
                             onBlur={onBlur}
-                            onFocus={onFocus}
+                            onChange={onChange}
                             tabIndex={tabIndex}
                             value={inputModel.value}
                         />
@@ -43,7 +43,7 @@ const FormInputs: (props: FormInputsProps) => JSX.Element = (props: FormInputsPr
                         <InputText
                             {...inputModel}
                             onBlur={onBlur}
-                            onFocus={onFocus}
+                            onChange={onChange}
                             tabIndex={tabIndex}
                             type={inputModel.type || 'text'}
                             value={inputModel.value}

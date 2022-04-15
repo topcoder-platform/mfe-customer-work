@@ -1,6 +1,5 @@
 import { FC, FocusEvent } from 'react'
 
-import { ValidatorFn } from '../../../validator-functions'
 import { InputWrapper } from '../input-wrapper'
 
 import styles from './InputText.module.scss'
@@ -13,13 +12,12 @@ interface InputTextProps {
     readonly label?: string
     readonly name: string
     readonly onBlur: (event: FocusEvent<HTMLInputElement>) => void
-    readonly onFocus: (event: FocusEvent<HTMLInputElement>) => void
+    readonly onChange: (event: FocusEvent<HTMLInputElement>) => void
     readonly placeholder?: string
     readonly preventAutocomplete?: boolean
     readonly tabIndex: number
     readonly touched?: boolean
     readonly type: 'password' | 'text'
-    readonly validateOnBlur?: ValidatorFn
     readonly value?: string | number
 }
 
@@ -41,7 +39,7 @@ const InputText: FC<InputTextProps> = (props: InputTextProps) => {
                 defaultValue={props.value}
                 disabled={!!props.disabled}
                 onBlur={props.onBlur}
-                onFocus={props.onFocus}
+                onChange={props.onChange}
                 name={props.name}
                 placeholder={props.placeholder}
                 tabIndex={props.tabIndex}

@@ -3,6 +3,7 @@ export {
     getInputElement as formGetInput,
     getInputModel as formGetInputModel,
     initializeValues as formInitializeValues,
+    onBlur as formOnBlur,
     onChange as formOnChange,
     reset as formReset,
     submitAsync as formSubmitAsync,

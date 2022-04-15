@@ -1,15 +1,13 @@
-import { FormDefinition, validatorEmail, validatorRequired } from '../../../lib'
+import { FormDefinition, validatorRequired } from '../../../lib'
 
-export const profileFormTitle: string = 'Basic Information'
+export const editNameFormTitle: string = 'Edit Name'
 
-export enum ProfileFieldName {
-    email = 'email',
+export enum EditNameFieldName {
     firstName = 'firstName',
-    handle = 'handle',
     lastName = 'lastName',
 }
 
-export const profileFormDef: FormDefinition = {
+export const editNameFormDef: FormDefinition = {
     buttons: [
         {
             buttonStyle: 'secondary',
@@ -22,21 +20,22 @@ export const profileFormDef: FormDefinition = {
     inputs: [
         {
             label: 'First Name',
-            name: ProfileFieldName.firstName,
+            name: EditNameFieldName.firstName,
             type: 'text',
-            validateOnChange: [
+            validators: [
                 validatorRequired,
             ],
         },
         {
             label: 'Last Name',
-            name: ProfileFieldName.lastName,
+            name: EditNameFieldName.lastName,
             type: 'text',
-            validateOnChange: [
+            validators: [
                 validatorRequired,
             ],
         },
     ],
+    shortName: 'Name',
     tabIndexStart: 3,
-    title: profileFormTitle,
+    title: editNameFormTitle,
 }

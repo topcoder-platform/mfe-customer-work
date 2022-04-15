@@ -1,4 +1,4 @@
 export {
     getAsync as profileGetAsync,
-    updateAsync as profileUpdateAsync,
+    changeNameAsync as profileChangeNameAsync,
 } from './profile.functions'

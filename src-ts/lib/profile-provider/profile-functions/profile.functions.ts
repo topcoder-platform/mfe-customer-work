@@ -2,7 +2,7 @@
 import { updateUserProfile } from '@topcoder/micro-frontends-navbar-app'
 
 import { tokenGetAsync } from '../../functions/token-functions'
-import { UserProfileUpdateRequest } from '../user-profile-update-request.model'
+import { EditNameRequest } from '../edit-name-request.model'
 import { UserProfile } from '../user-profile.model'
 
 import { profileStoreGet, profileStorePut } from './profile-store'
@@ -12,7 +12,7 @@ export async function getAsync(handle?: string): Promise<UserProfile | undefined
     return !handle ? Promise.resolve(undefined) : profileStoreGet(handle)
 }
 
-export async function updateAsync(handle: string, profile: UserProfileUpdateRequest): Promise<any> {
+export async function changeNameAsync(handle: string, profile: EditNameRequest): Promise<any> {
     return profileStorePut(handle, profile)
         .then(result => {
             updateUserProfile(result.firstName, result.lastName)
