@@ -3,11 +3,6 @@ import { toast } from 'react-toastify'
 
 import { FormInputModel } from '../form-input.model'
 
-export enum ErrorMessage {
-    save = 'Error on save',
-    submit = 'Error on submit',
-}
-
 export function getInputElement(formElements: HTMLFormControlsCollection, fieldName: string): HTMLInputElement {
     return formElements.namedItem(fieldName) as HTMLInputElement
 }
@@ -73,7 +68,7 @@ export async function onSubmitAsync<T>(
     const formValues: HTMLFormControlsCollection = (event.target as HTMLFormElement).elements
     const isValid: boolean = validateForm(inputs, formValues, 'submit')
     if (!isValid) {
-        return Promise.reject(ErrorMessage.submit)
+        return Promise.reject()
     }
 
     // set the properties for the updated T value
@@ -88,8 +83,7 @@ export async function onSubmitAsync<T>(
             onSuccess?.()
         })
         .catch(error => {
-            toast.error(error.response?.data?.result?.content || error.message || error)
-            return Promise.reject(ErrorMessage.save)
+            return Promise.reject(error.response?.data?.result?.content || error.message || error)
         })
 }
 
@@ -127,10 +121,11 @@ function validateField(formInputDef: FormInputModel, formElements: HTMLFormContr
                 return
             }
 
-            // the change event has more complicated rules than the other events
-            // so handle it separately
+            // we only remove errors on change
             if (event === 'change') {
-                validateFieldOnChange(previousError, nextError, formInputDef)
+                if (!nextError) {
+                    formInputDef.error = undefined
+                }
                 return
             }
 
@@ -141,35 +136,6 @@ function validateField(formInputDef: FormInputModel, formElements: HTMLFormContr
                 formInputDef.error = nextError
             }
         })
-}
-
-function validateFieldOnChange(previousError: string | undefined, nextError: string | undefined, formInputDef: FormInputModel): void {
-
-    // this is a change event, so don't add errors - only change or remove them
-
-    // if the field no longer has an error, remove the current error and don't do anything else
-    if (!nextError) {
-        formInputDef.error = undefined
-        return
-    }
-
-    // if there is no previous error
-    // OR
-    // if the field already has a current error that is not the next error,
-    // then don't set the next error
-    // (e.g. if a field has both a required-if-other error and a regex error,
-    // show the first error, don't replace it w/the 2nd error)
-    if (!previousError || formInputDef.error !== nextError) {
-        return
-    }
-
-    // there is a previous error for this field,
-    // and there is not a current error,
-    // so it's now safe to set the current error to the next error
-    // (e.g. if a field has a required error then adds a value that
-    // causes a regex error, update the error as soon as the value changes,
-    // don't wait 'til blur)
-    formInputDef.error = nextError
 }
 
 function validateForm(inputs: ReadonlyArray<FormInputModel>, formElements: HTMLFormControlsCollection, event: 'blur' | 'change' | 'submit'): boolean {

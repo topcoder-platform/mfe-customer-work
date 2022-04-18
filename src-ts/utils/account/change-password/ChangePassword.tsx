@@ -44,10 +44,9 @@ const ChangePassword: FC<ChangePasswordProps> = (props: ChangePasswordProps) => 
     return (
         <Form
             formDef={passwordForm}
-            requestGenerator={requestGenerator}
-            resetOnError={true}
-            save={save}
             onSuccess={props.onClose}
+            requestGenerator={requestGenerator}
+            save={save}
         />
     )
 }

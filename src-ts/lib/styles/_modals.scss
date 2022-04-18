@@ -3,10 +3,10 @@
 .react-responsive-modal-container {
     display: flex;
     justify-content: center;
+    height: auto;
 
     .react-responsive-modal-modal {
         min-width: 450px;
-        min-height: 60%;
         border-radius: $pad-sm;
         display: flex;
         flex-direction: column;

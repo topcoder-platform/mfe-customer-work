@@ -7,24 +7,6 @@ a {
     text-decoration: none;
 }
 
-.button-container-outer,
-.button-container-inner {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-.button-container-outer {
-    flex: 1;
-    flex-direction: column;
-}
-
-.button-container-inner {
-    width: 100%;
-    border-top: 1px solid $black-10;
-    padding-top: 28px;
-}
-
 .button-primary-hover {
     background-color: $turq-140;
     border-color: $turq-140;
