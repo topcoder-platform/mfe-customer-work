@@ -1,5 +1,5 @@
 // tslint:disable-next-line: no-implicit-dependencies // TODO: create types
-import { updateUserProfile } from '@topcoder/micro-frontends-navbar-app'
+import { updateUserProfile } from '@topcoder/mfe-header'
 
 import { tokenGetAsync } from '../../functions/token-functions'
 import { EditNameRequest } from '../edit-name-request.model'

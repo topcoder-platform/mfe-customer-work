@@ -1,5 +1,5 @@
 {
-  "name": "@topcoder/micro-frontends-self-service-app",
+  "name": "@topcoder/mfe-customer-work",
   "scripts": {
     "start": "node server.js",
     "dev": "cross-env webpack-dev-server --port 8519 --host 0.0.0.0",

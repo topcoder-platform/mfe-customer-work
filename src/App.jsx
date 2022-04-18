@@ -2,7 +2,7 @@ import { Redirect, Router } from "@reach/router";
 import {
   getAuthUserTokens,
   disableNavigationForRoute,
-} from "@topcoder/micro-frontends-navbar-app";
+} from "@topcoder/mfe-header";
 import Sidebar from "components/Sidebar";
 import React, { useLayoutEffect, useState } from "react";
 import { menuItems, UNDER_MAINTENANCE, GA_ID } from "./constants";

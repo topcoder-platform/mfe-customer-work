@@ -1,7 +1,7 @@
 import {
   getAuthUserProfile,
   updateUserProfile,
-} from "@topcoder/micro-frontends-navbar-app";
+} from "@topcoder/mfe-header";
 import * as actions from "actions/profile";
 import _ from "lodash";
 import { toastr } from "react-redux-toastr";
