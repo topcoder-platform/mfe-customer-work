@@ -54,7 +54,7 @@ jobs:
     environment:
       DEPLOY_ENV: "DEV"
       LOGICAL_ENV: "dev"
-      APPNAME: "micro-frontends-self-service-app"
+      APPNAME: "mfe-customer-work"
     steps: *builddeploy_steps
 
   "build-prod":
@@ -62,7 +62,7 @@ jobs:
     environment:
       DEPLOY_ENV: "PROD"
       LOGICAL_ENV: "prod"
-      APPNAME: "micro-frontends-self-service-app"
+      APPNAME: "mfe-customer-work"
     steps: *builddeploy_steps
 
 workflows:

@@ -54,7 +54,7 @@ const App = () => {
 
   if (UNDER_MAINTENANCE) {
     return (
-      <div className={styles["topcoder-micro-frontends-self-service-app"]}>
+      <div className={styles["topcoder-mfe-customer-work"]}>
         <UnderMaintenance />
       </div>
     );
@@ -62,7 +62,7 @@ const App = () => {
 
   return (
     <ProfileProvider>
-      <div className={styles["topcoder-micro-frontends-self-service-app"]}>
+      <div className={styles["topcoder-mfe-customer-work"]}>
         <Router primary={false}>
           <ScrollToTop path="/">
             <IntakeForm path="/self-service/*" />
