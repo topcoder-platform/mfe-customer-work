@@ -1,5 +1,5 @@
 module.exports = {
-  rootDir: "src",
+  rootDir: "src-ts",
   transform: {
     "^.+\\.(j|t)sx?$": "babel-jest",
   },

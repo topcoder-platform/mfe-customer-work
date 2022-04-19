@@ -1,20 +1,20 @@
 import { Dispatch, FC, SetStateAction, useContext, useState } from 'react'
 import Modal from 'react-responsive-modal'
 
-import { authUrlLogin, Button, Card, IconOutline } from '../../lib'
+import { authUrlLogin, Button, Card, formOnReset } from '../../lib'
 import { profileContext, ProfileContextData } from '../../lib/profile-provider'
 
 import styles from './Account.module.scss'
-import { PasswordReset } from './password-reset'
-import { ProfileUpdate } from './profile-update'
+import { ChangePassword, changePasswordFormDef } from './change-password'
+import { EditName, editNameFormDef } from './edit-name'
 
 const Account: FC<{}> = () => {
 
     const profileContextData: ProfileContextData = useContext(profileContext)
     const { profile, initialized }: ProfileContextData = profileContextData
 
-    const [editProfileOpen, setEditProfileOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
-    const [resetPasswordOpen, setResetPasswordOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
+    const [editProfileOpen, setEditNameOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
+    const [changePasswordOpen, setChangePasswordOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
     // TODO: create an auth provider
     // if we don't have a profile, don't show the page until it's initialized
@@ -26,12 +26,14 @@ const Account: FC<{}> = () => {
         return <></>
     }
 
-    function toggleEditProfile(): void {
-        setEditProfileOpen(!editProfileOpen)
+    function toggleEditName(): void {
+        formOnReset(editNameFormDef.inputs)
+        setEditNameOpen(!editProfileOpen)
     }
 
-    function toggleResetPassword(): void {
-        setResetPasswordOpen(!resetPasswordOpen)
+    function toggleChangePassword(): void {
+        formOnReset(changePasswordFormDef.inputs)
+        setChangePasswordOpen(!changePasswordOpen)
     }
 
     return (
@@ -41,22 +43,21 @@ const Account: FC<{}> = () => {
 
             <div className={styles['page-content']}>
 
-                <Card
-                    icon={IconOutline.UserIcon}
-                    title='Account'
-                >
+                <Card title='Account'>
                     <div>{profile.handle}</div>
                     <div>{profile.email}</div>
                 </Card>
 
                 <Card
-                    icon={IconOutline.UserIcon}
                     title='Name'
+                    onClick={toggleEditName}
                 >
-                    <div>{profile.firstName} {profile.lastName}</div>
+                    <div>
+                        {profile.firstName} {profile.lastName}
+                    </div>
                     <Button
                         label='edit name'
-                        onClick={toggleEditProfile}
+                        onClick={toggleEditName}
                         tabIndex={1}
                         buttonStyle='secondary'
                     />
@@ -64,29 +65,31 @@ const Account: FC<{}> = () => {
 
                 <Modal
                     open={editProfileOpen}
-                    onClose={toggleEditProfile}
+                    onClose={toggleEditName}
                 >
-                    <ProfileUpdate onClose={toggleEditProfile} />
+                    <EditName onClose={toggleEditName} />
                 </Modal>
 
                 <Card
-                    icon={IconOutline.LockClosedIcon}
+                    onClick={toggleChangePassword}
                     title='Password'
                 >
-                    <div>*******************</div>
+                    <div>
+                        *******************
+                    </div>
                     <Button
                         label='change password'
-                        onClick={toggleResetPassword}
+                        onClick={toggleChangePassword}
                         tabIndex={2}
                         buttonStyle='secondary'
                     />
                 </Card>
 
                 <Modal
-                    open={resetPasswordOpen}
-                    onClose={toggleResetPassword}
+                    open={changePasswordOpen}
+                    onClose={toggleChangePassword}
                 >
-                    <PasswordReset onClose={toggleResetPassword} />
+                    <ChangePassword onClose={toggleChangePassword} />
                 </Modal>
 
             </div>

@@ -15,14 +15,13 @@ interface InputWrapperProps {
     readonly hint?: string
     readonly label: string
     readonly name: string
-    readonly touched?: boolean
 }
 
 const InputWrapper: FC<InputWrapperProps> = (props: InputWrapperProps) => {
 
     const [focusStyle, setFocusStyle]: [string | undefined, Dispatch<SetStateAction<string | undefined>>] = useState<string | undefined>()
 
-    const showError: boolean = !!props.error && (!!props.dirty || !!props.touched)
+    const showError: boolean = !!props.error && !!props.dirty
     const formFieldClasses: string = classNames(
         styles.input,
         props.disabled ? styles.disabled : undefined,

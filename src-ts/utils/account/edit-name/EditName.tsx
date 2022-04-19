@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction, useContext, useState } from 'react'
 
 import {
+    EditNameRequest,
     Form,
     FormDefinition,
     formGetInputModel,
@@ -8,42 +9,37 @@ import {
     profileContext,
     ProfileContextData,
     UserProfile,
-    UserProfileUpdateRequest,
 } from '../../../lib'
 import '../../../lib/styles/index.scss'
 
-import { ProfileFieldName, profileFormDef } from './profile-update-form.config'
+import { EditNameFieldName, editNameFormDef } from './edit-name-form.config'
 
-interface ProfileUpdateProps {
+interface EditNameProps {
     onClose: () => void
 }
 
-const ProfileUpdate: FC<ProfileUpdateProps> = (props: ProfileUpdateProps) => {
+const EditName: FC<EditNameProps> = (props: EditNameProps) => {
 
     const profileContextData: ProfileContextData = useContext(profileContext)
     const { profile, updateProfile }: ProfileContextData = profileContextData
 
     const [profileForm]: [FormDefinition, Dispatch<SetStateAction<FormDefinition>>]
-        = useState<FormDefinition>(profileFormDef)
+        = useState<FormDefinition>(editNameFormDef)
 
-    function requestGenerator(inputs: ReadonlyArray<FormInputModel>): UserProfileUpdateRequest {
-        const email: string = formGetInputModel(inputs, ProfileFieldName.email).value as string
-        const firstName: string = formGetInputModel(inputs, ProfileFieldName.firstName).value as string
-        const lastName: string = formGetInputModel(inputs, ProfileFieldName.lastName).value as string
+    function requestGenerator(inputs: ReadonlyArray<FormInputModel>): EditNameRequest {
+        const firstName: string = formGetInputModel(inputs, EditNameFieldName.firstName).value as string
+        const lastName: string = formGetInputModel(inputs, EditNameFieldName.lastName).value as string
         return {
-            email,
             firstName,
             lastName,
         }
     }
 
-    function saveProfile(updatedProfile: UserProfileUpdateRequest): Promise<void> {
-        console.debug('updating')
+    function saveProfile(updatedProfile: EditNameRequest): Promise<void> {
         return updateProfile({
             ...profileContextData,
             profile: {
                 ...profileContextData.profile as UserProfile,
-                email: updatedProfile.email,
                 firstName: updatedProfile.firstName,
                 lastName: updatedProfile.lastName,
             },
@@ -58,10 +54,9 @@ const ProfileUpdate: FC<ProfileUpdateProps> = (props: ProfileUpdateProps) => {
             formDef={profileForm}
             formValues={profile}
             requestGenerator={requestGenerator}
-            resetOnError={false}
             save={saveProfile}
-            succeeded={props.onClose} />
+            onSuccess={props.onClose} />
     )
 }
 
-export default ProfileUpdate
+export default EditName
