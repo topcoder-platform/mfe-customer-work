@@ -2,14 +2,13 @@ import { Redirect, Router } from "@reach/router";
 import {
   getAuthUserTokens,
   disableNavigationForRoute,
-} from "@topcoder/micro-frontends-navbar-app";
+} from "@topcoder/mfe-header";
 import Sidebar from "components/Sidebar";
 import React, { useLayoutEffect, useState } from "react";
 import { menuItems, UNDER_MAINTENANCE, GA_ID } from "./constants";
 import IntakeForm from "./IntakeForm";
 import Home from "./routes/Home";
 import MyWork from "./routes/MyWork";
-import Profile from "./routes/Profile";
 import WorkItems from "./routes/WorkItems";
 import MyWorkDetails from "./routes/MyWorkDetails";
 import Layout from "components/Layout";
@@ -21,6 +20,8 @@ import "react-responsive-modal/styles.css";
 import styles from "./styles/main.module.scss";
 import SupportPage from "./routes/SupportPage";
 import UnderMaintenance from "./routes/UnderMaintenance";
+import { Account } from "../src-ts/utils/account";
+import { ProfileProvider } from "../src-ts/lib/profile-provider";
 
 const sidebar = <Sidebar menus={menuItems} />;
 
@@ -54,39 +55,41 @@ const App = () => {
 
   if (UNDER_MAINTENANCE) {
     return (
-      <div className={styles["topcoder-micro-frontends-self-service-app"]}>
+      <div className={styles["topcoder-mfe-customer-work"]}>
         <UnderMaintenance />
       </div>
     );
   }
 
   return (
-    <div className={styles["topcoder-micro-frontends-self-service-app"]}>
-      <Router primary={false}>
-        <ScrollToTop path="/">
-          <IntakeForm path="/self-service/*" />
-          {isLoggedIn && (
-            <>
-              <Layout
-                path="/self-service/dashboard"
-                sidebar={sidebar}
-                PageComponent={MyWork}
-              />
-              <Layout
-                path="/self-service/work-items/:workItemId"
-                sidebar={sidebar}
-                PageComponent={WorkItems}
-              />
-              <Redirect noThrow from="/self-service/*" to="/self-service" />
-            </>
-          )}
-          <Profile path="/self-service/profile" />
-          <Home path="/self-service" />
-          <SupportPage path="/self-service/support" />
-          <MyWorkDetails path="/self-service/details" />
-        </ScrollToTop>
-      </Router>
-    </div>
+    <ProfileProvider>
+      <div className={styles["topcoder-mfe-customer-work"]}>
+        <Router primary={false}>
+          <ScrollToTop path="/">
+            <IntakeForm path="/self-service/*" />
+            {isLoggedIn && (
+              <>
+                <Layout
+                  path="/self-service/dashboard"
+                  sidebar={sidebar}
+                  PageComponent={MyWork}
+                />
+                <Layout
+                  path="/self-service/work-items/:workItemId"
+                  sidebar={sidebar}
+                  PageComponent={WorkItems}
+                />
+                <Redirect noThrow from="/self-service/*" to="/self-service" />
+              </>
+            )}
+            <Account path="/self-service/account" />
+            <Home path="/self-service" />
+            <SupportPage path="/self-service/support" />
+            <MyWorkDetails path="/self-service/details" />
+          </ScrollToTop>
+        </Router>
+      </div>
+    </ProfileProvider>
   );
 };
 

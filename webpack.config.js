@@ -15,14 +15,14 @@ const cssLocalIdent =
 module.exports = (webpackConfigEnv) => {
   const defaultConfig = singleSpaDefaults({
     orgName: "topcoder",
-    projectName: "micro-frontends-self-service-app",
+    projectName: "mfe-customer-work",
     webpackConfigEnv,
   });
 
   return webpackMerge.smart(defaultConfig, {
     // to reduce size of bundle
     externals: {
-      "@topcoder/micro-frontends-navbar-app": "@topcoder/micro-frontends-navbar-app",
+      "@topcoder/mfe-header": "@topcoder/mfe-header",
       "react": "react",
       "react-dom": "react-dom",
     },
@@ -123,6 +123,9 @@ module.exports = (webpackConfigEnv) => {
       // ignore moment locales to reduce bundle size by 64kb gzipped
       // see solution details https://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.ProvidePlugin({
+        "React": "react",
+     }),
     ],
   });
 };
