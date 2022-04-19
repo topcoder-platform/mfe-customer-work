@@ -1,0 +1,61 @@
+@import "styles/include";
+
+/* Tab Container */
+.tabs {
+  ul.nav {
+    display: flex;
+    align-items: center;
+    background: $blue2;
+    border-bottom: 1px solid $gray-70;
+    li {
+      @include font-barlow;
+      position: relative;
+      padding: 12px 16px;
+      color: $gray-80;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.7s;
+      .number {
+        display: inline-block;
+        width: 24px;
+        height: 16px;
+        margin-left: 12px;
+        border-radius: 50px;
+        color: $white;
+        text-align: center;
+      }
+      &.messages .number {
+        background: $gui-kit-level-5;
+      }
+      &.sulutions .number {
+        background: $blue-100;
+      }
+      &.active {
+        color: $grey-text;
+        font-weight: 700;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: 100%;
+          display: block;
+          width: 40px;
+          height: 10px;
+          background: url("../../../../assets/images/tab-arrow.png") no-repeat;
+          background-size: cover;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+}
+   
+
+/* Tab Content Styles */
+.tab-content {
+  margin-top: 25px;
+}

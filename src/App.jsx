@@ -11,6 +11,7 @@ import Home from "./routes/Home";
 import MyWork from "./routes/MyWork";
 import Profile from "./routes/Profile";
 import WorkItems from "./routes/WorkItems";
+import MyWorkDetails from "./routes/MyWorkDetails";
 import Layout from "components/Layout";
 import TagManager from "react-gtm-module";
 import { ScrollToTop } from "./ScrollToTop";
@@ -82,6 +83,7 @@ const App = () => {
           <Profile path="/self-service/profile" />
           <Home path="/self-service" />
           <SupportPage path="/self-service/support" />
+          <MyWorkDetails path="/self-service/details" />
         </ScrollToTop>
       </Router>
     </div>

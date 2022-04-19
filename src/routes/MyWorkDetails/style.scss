@@ -1,0 +1,36 @@
+@import "styles/include";
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  margin: 0 32px 16px;
+}
+.list-txt {
+  display: flex;
+  margin: 16px 0 24px;
+  .overline {
+    margin-right: 24px;
+    color: $black-60;
+  }
+  .cycle::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    border: 2px solid $blue-100;
+    border-radius: 50%;
+  }
+}
+.grey-box {
+  margin-bottom: 40px;
+  padding: 16px 24px 24px;
+  border-radius: 8px;
+  background: $grey-bg;
+  h3 {
+    margin-bottom: 16px;
+  }
+}

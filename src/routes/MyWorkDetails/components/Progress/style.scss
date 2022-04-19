@@ -1,0 +1,85 @@
+@import "styles/include";
+
+.progress-bar-list {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-left: 30px;
+  &__item {
+    position: relative;
+    width: 25%;
+    &:last-child {
+      width: auto;
+    }
+    .label {
+      display: block;
+      margin-top: 8px;
+      margin-left: -40px;
+      width: 125px;
+      text-align: center;
+      span {
+        display: block;
+      }
+      .name {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .date {
+        display: block;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+    .dots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin-bottom: 8px;
+        background: $gray-10;
+        border: 4px solid $black-20;
+        border-radius: 50%;
+        box-sizing: border-box;
+        color: $black-60;
+    }
+    &:not(:last-child):after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 16px;
+        left: 40px;
+        width: 100%;
+        height: 8px;
+        background-color: $black-20;
+    }
+    &.active {
+      .dots {
+        color: $white;
+        background-color: $purple-100;
+        border-color: $purple-100;
+      }
+      .label {
+        color: $grey-text;
+      }
+      &:after {
+        background-color: $purple-100;
+      }
+    }
+      
+    &.select {
+      .dots {
+        color: $purple-100;
+        border-color: $purple-100;
+        background-color: $white;
+      }
+      .label {
+        color: $grey-text;
+        .name {
+          color: $purple-100;
+        }
+      }
+    }
+  }
+}
