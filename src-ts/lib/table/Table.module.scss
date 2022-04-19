@@ -1,0 +1,12 @@
+.tr {
+
+    &.clickable {
+        cursor: pointer;
+    }
+
+    .th {
+        white-space: nowrap;
+        text-align: left;
+        padding: 4px;
+    }
+}

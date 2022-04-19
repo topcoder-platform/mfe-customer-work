@@ -1,0 +1,13 @@
+.td {
+    max-width: 560px;
+    padding: 4px;
+
+    &.money {
+        text-align: right;
+    }
+
+    &.date,
+    &.text {
+        white-space: nowrap;
+    }
+}

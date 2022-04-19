@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import WorkItem from "../WorkItem";
+
+import { WorkList as WorkListTs } from '../../../../../src-ts/tools/work'
+
 import { getWorks } from "selectors/myWork";
 import "./styles.module.scss";
 
@@ -12,12 +14,8 @@ import "./styles.module.scss";
 const WorkList = () => {
   const works = useSelector(getWorks);
   return (
-    <div styleName="container">
-      {works.map((work) => (
-        <WorkItem key={work.id} work={work} />
-      ))}
-    </div>
-  );
+      <WorkListTs challenges={works} />
+  )
 };
 
 export default WorkList;
