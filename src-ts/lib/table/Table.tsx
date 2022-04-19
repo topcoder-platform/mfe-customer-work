@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import TableCell from './table-cell/TableCell'
+import { TableCell } from './table-cell'
 import { TableColumn } from './table-column.model'
 import styles from './Table.module.scss'
 

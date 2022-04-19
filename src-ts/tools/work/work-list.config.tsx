@@ -1,9 +1,9 @@
 import { TableColumn } from '../../lib'
 
-import WorkBadgeRenderer from './work-badge-renderer/WorkBadgeRenderer'
-import WorkListTitleRenderer from './work-list-title-renderer/WorkListTitleRenderer'
-import WorkStatusRenderer from './work-status-renderer/WorkStatusRenderer'
-import { Work } from './work.model'
+import { WorkBadgeRenderer } from './work-badge-renderer'
+import { Work } from './work-functions'
+import { WorkListTitleRenderer } from './work-list-title-renderer'
+import { WorkStatusRenderer } from './work-status-renderer'
 
 function messageBadgeRenderer(work: Work): JSX.Element {
     return WorkBadgeRenderer({
