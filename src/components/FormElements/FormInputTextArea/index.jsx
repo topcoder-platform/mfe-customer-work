@@ -8,7 +8,7 @@ import React from "react";
 import "./styles.module.scss";
 
 // TODO: figure out why this export is needed
-// https://github.com/topcoder-platform/micro-frontends-self-service-app/issues/74
+// https://github.com/topcoder-platform/mfe-customer-work/issues/74
 export const FormInputTextArea = ({ styleName, ...props }) => {
   return (
     <textarea
