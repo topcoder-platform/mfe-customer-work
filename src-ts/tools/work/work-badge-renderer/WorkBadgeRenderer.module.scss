@@ -1,0 +1,16 @@
+@import '../../../lib/styles';
+
+.badge {
+
+    &.unread-messages{
+        background-color: $red-100;
+    }
+
+    &.no-unread-messages{
+        background-color: $black-80;
+    }
+
+    &.items {
+        background-color: $blue-100;
+    }
+}

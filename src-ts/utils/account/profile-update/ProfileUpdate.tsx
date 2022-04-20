@@ -38,7 +38,6 @@ const ProfileUpdate: FC<ProfileUpdateProps> = (props: ProfileUpdateProps) => {
     }
 
     function saveProfile(updatedProfile: UserProfileUpdateRequest): Promise<void> {
-        console.debug('updating')
         return updateProfile({
             ...profileContextData,
             profile: {

@@ -8,8 +8,17 @@ declare module '*.scss' {
     export = scssFile
 }
 
-declare module 'tc-auth-lib'
+declare module '*.svg' {
+    import * as React from 'react';
+  
+    export const ReactComponent: React.FunctionComponent<React.SVGProps<
+      SVGSVGElement
+    > & { title?: string }>;
+  
+    const src: string;
+    export default src;
+  }
 
 declare module '@topcoder/micro-frontends-navbar-app'
 
-declare module 'react-redux-toastr'
+declare module 'tc-auth-lib'
