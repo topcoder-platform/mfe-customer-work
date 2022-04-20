@@ -23,9 +23,9 @@ const Card: FC<CardProps> = (props: CardProps) => {
         >
 
             <div className='card-title'>
-                <div>
+                <h3>
                     {props.title}
-                </div>
+                </h3>
                 {!!Icon && <Icon />}
             </div>
 
