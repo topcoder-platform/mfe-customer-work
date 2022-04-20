@@ -1,4 +1,4 @@
-import { FormDefinition, validatorRequired } from '../../../lib'
+import { FormDefinition, FormInputAutocompleteOption, validatorRequired } from '../../../lib'
 
 export const editNameFormTitle: string = 'Edit Name'
 
@@ -19,6 +19,7 @@ export const editNameFormDef: FormDefinition = {
     ],
     inputs: [
         {
+            autocomplete: FormInputAutocompleteOption.off,
             label: 'First Name',
             name: EditNameFieldName.firstName,
             type: 'text',
@@ -27,6 +28,7 @@ export const editNameFormDef: FormDefinition = {
             ],
         },
         {
+            autocomplete: FormInputAutocompleteOption.off,
             label: 'Last Name',
             name: EditNameFieldName.lastName,
             type: 'text',

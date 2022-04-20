@@ -21,7 +21,7 @@ export const changePasswordFormDef: FormDefinition = {
         {
             buttonStyle: 'secondary',
             isSave: true,
-            label: 'Save',
+            label: 'Save new password',
             size: 'xl',
             type: 'submit',
         },

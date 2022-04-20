@@ -1,11 +1,19 @@
-import { Dispatch, FocusEvent, FormEvent, SetStateAction, useState } from 'react'
+import {
+    createRef,
+    Dispatch,
+    FocusEvent,
+    FormEvent,
+    RefObject,
+    SetStateAction,
+    useEffect,
+    useState,
+} from 'react'
 
 import { Button } from '../button'
 import '../styles/index.scss'
 
 import { FormDefinition } from './form-definition.model'
 import {
-    FormErrorMessage,
     formInitializeValues,
     formOnBlur,
     formOnChange,
@@ -21,7 +29,6 @@ interface FormProps<ValueType, RequestType> {
     readonly formValues?: ValueType
     readonly onSuccess?: () => void
     readonly requestGenerator: (inputs: ReadonlyArray<FormInputModel>) => RequestType
-    readonly resetOnError: boolean
     readonly save: (value: RequestType) => Promise<void>
 }
 
@@ -31,8 +38,14 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
         const [formDef, setFormDef]: [FormDefinition, Dispatch<SetStateAction<FormDefinition>>]
             = useState<FormDefinition>({ ...props.formDef })
 
+        const [formError, setFormError]: [string | undefined, Dispatch<SetStateAction<string | undefined>>]
+            = useState<string | undefined>()
+
         const [formKey, setFormKey]: [number, Dispatch<SetStateAction<number>>]
             = useState<number>(Date.now())
+
+        const [formRef]: [RefObject<HTMLFormElement>, Dispatch<SetStateAction<RefObject<HTMLFormElement>>>]
+            = useState<RefObject<HTMLFormElement>>(createRef<HTMLFormElement>())
 
         function onBlur(event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void {
             formOnBlur(event, formDef.inputs, props.formValues)
@@ -58,12 +71,8 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
                     formOnReset(formDef.inputs, props.formValues)
                     setFormDef({ ...formDef })
                 })
-                .catch((error: FormErrorMessage) => {
-                    // only reset on save errors
-                    if (props.resetOnError && error === FormErrorMessage.save) {
-                        formOnReset(formDef.inputs, props.formValues)
-                        setFormKey(Date.now())
-                    }
+                .catch((error: string | undefined) => {
+                    setFormError(error)
                     setFormDef({ ...formDef })
                 })
         }
@@ -88,12 +97,28 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
                 )
             })
 
+        // set the max width of the form error so that it doesn't push the width of the form wider
+        const buttonsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>()
+        const errorsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>()
+        useEffect(() => {
+            const formWidth: number = formRef.current?.clientWidth || 0
+            const buttonsWidth: number = buttonsRef.current?.clientWidth || 0
+            const errorWidth: number = formWidth - buttonsWidth
+
+            // errorsRef current will always exist,
+            // but need to to satisfy typescript and check
+            if (!!errorsRef.current) {
+                errorsRef.current.style.maxWidth = `${errorWidth}px`
+            }
+        }, [formRef])
+
         return (
             <form
                 action={''}
                 className={styles.form}
                 key={formKey}
                 onSubmit={onSubmitAsync}
+                ref={formRef}
             >
 
                 {!!props.formDef.title && (
@@ -109,8 +134,14 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
                     onChange={onChange}
                 />
 
-                <div className='button-container-outer'>
-                    <div className='button-container-inner'>
+                <div className={styles['form-footer']}>
+                    <div
+                        className={styles['form-error']}
+                        ref={errorsRef}
+                    >
+                        {formError}
+                    </div>
+                    <div ref={buttonsRef}>
                         {buttons}
                     </div>
                 </div>

@@ -54,7 +54,6 @@ const EditName: FC<EditNameProps> = (props: EditNameProps) => {
             formDef={profileForm}
             formValues={profile}
             requestGenerator={requestGenerator}
-            resetOnError={false}
             save={saveProfile}
             onSuccess={props.onClose} />
     )
