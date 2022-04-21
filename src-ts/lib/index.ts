@@ -10,3 +10,4 @@ export {
 } from './functions'
 export * from './svgs'
 export * from './table'
+export * from './work-provider'

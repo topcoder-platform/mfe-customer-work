@@ -1,10 +1,10 @@
 import { FC, SVGProps } from 'react'
 
 // TODO: export these from the svg barrel file
+import { Work, WorkType } from '../../../lib'
 import { ReactComponent as IconWorkTypeDataExploration } from '../../../lib/svgs/work-type-data-exploration.svg'
 import { ReactComponent as IconWorkTypeUnknown } from '../../../lib/svgs/work-type-unknown.svg'
 import { ReactComponent as IconWorkTypeWebsiteDesign } from '../../../lib/svgs/work-type-website-design.svg'
-import { Work, WorkType } from '../work-functions'
 
 import styles from './WorkListTitleRenderer.module.scss'
 

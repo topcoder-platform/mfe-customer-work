@@ -1,43 +1,41 @@
 import { useNavigate } from '@reach/router' // TODO: switch to react-router-dom
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 
 import { cacheChallengeId } from '../../../src/autoSaveBeforeLogin' // TODO: move to src-ts
-import { Table } from '../../lib'
+import { Table, Work, workContext, WorkContextData, WorkStatus } from '../../lib'
 
-import { Challenge, Work, workCreate, WorkStatus } from './work-functions'
 import { workListColumns } from './work-list.config'
 
-interface WorkListProps {
-    challenges: Array<Challenge>
-}
+const WorkList: FC<{}> = () => {
 
-const WorkList: FC<WorkListProps> = (props: WorkListProps) => {
+    const workContextData: WorkContextData = useContext(workContext)
+    const { work, initialized }: WorkContextData = workContextData
+
+    if (!initialized) {
+        return <></>
+    }
 
     const navigate: any = useNavigate()
 
-    function viewWorkDetails(work: Work): void {
+    function viewWorkDetails(selectedWork: Work): void {
 
-        const isDraft: boolean = work.status === WorkStatus.draft
+        const isDraft: boolean = selectedWork.status === WorkStatus.draft
 
         if (isDraft) {
-            cacheChallengeId(work.id)
+            cacheChallengeId(selectedWork.id)
         }
 
         // TODO: get these routes from an object/function that's not hard-coded
         const url: string = isDraft
             ? '/self-service/wizard'
-            : `/self-service/work-items/${work.id}`
+            : `/self-service/work-items/${selectedWork.id}`
 
         navigate(url)
     }
 
-    // filter out deleted items,
-    // run the raw challenges through the factory,
-    // and sort by the default sort,
+    // sort by the default sort,
     // which is descending by created date
-    const workList: Array<Work> = props.challenges
-        .map(challenge => workCreate(challenge))
-        .filter(work => work.status !== WorkStatus.deleted)
+    const workList: Array<Work> = work
         .sort((a, b) => b.created.getTime() - a.created.getTime())
 
     return (

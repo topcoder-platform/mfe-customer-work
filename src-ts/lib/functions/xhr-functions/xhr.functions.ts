@@ -28,6 +28,11 @@ xhrInstance.interceptors.response.use((config) => config,
     }
 )
 
+export async function deleteAsync<T>(url: string): Promise<T> {
+    const output: AxiosResponse<T> = await xhrInstance.delete(url)
+    return output.data
+}
+
 export async function getAsync<T>(url: string): Promise<T> {
     const output: AxiosResponse<T> = await xhrInstance.get(url)
     return output.data

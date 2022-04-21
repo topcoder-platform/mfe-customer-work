@@ -1,7 +1,4 @@
-export interface ChallengeMetadata {
-    name: string
-    value: string
-}
+import { ChallengeMetadata } from './challenge-metadata.model'
 
 export interface Challenge {
     cost?: number

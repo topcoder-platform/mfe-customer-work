@@ -1,7 +1,8 @@
 import moment from 'moment'
 
+import { Challenge, ChallengeMetadata } from '../work-store'
+
 import { ChallengeStatus } from './challenge-status.enum'
-import { Challenge, ChallengeMetadata } from './challenge.model'
 import { WorkStatus } from './work-status.enum'
 import { WorkType } from './work-type.enum'
 import { Work } from './work.model'

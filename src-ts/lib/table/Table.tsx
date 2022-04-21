@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { MouseEvent } from 'react'
 
 import { TableCell } from './table-cell'
 import { TableColumn } from './table-column.model'
@@ -19,7 +20,8 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
         const rowCells: Array<JSX.Element> = props.data
             .map((data, index) => {
 
-                function onRowClick(): void {
+                function onRowClick(event: MouseEvent<HTMLTableRowElement>): void {
+                    event.preventDefault()
                     props.onRowClick?.(data)
                 }
 
