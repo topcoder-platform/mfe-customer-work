@@ -1,7 +1,7 @@
 import React from "react";
 
 import { WorkTable } from '../../../../../src-ts/tools/work'
-import { ProfileProvider, WorkProvider } from "../../../../../src-ts/lib"
+import { WorkProvider } from "../../../../../src-ts/lib"
 /**
  * Displays a list of work items for dashboard.
  *
@@ -9,11 +9,9 @@ import { ProfileProvider, WorkProvider } from "../../../../../src-ts/lib"
  */
 const WorkList = () => {
   return (
-    <ProfileProvider>
-      <WorkProvider>
-        <WorkTable />
-      </WorkProvider>
-    </ProfileProvider>
+    <WorkProvider>
+      <WorkTable />
+    </WorkProvider>
   )
 };
 
