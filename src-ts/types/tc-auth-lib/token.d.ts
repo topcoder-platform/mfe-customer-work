@@ -9,4 +9,4 @@ export interface User {
 export function getToken(key: any): any
 export function decodeToken(token: any): User
 function isTokenExpired(token: any, offsetSeconds?: number): boolean
-//# sourceMappingURL=token.d.ts.map
+// # sourceMappingURL=token.d.ts.map

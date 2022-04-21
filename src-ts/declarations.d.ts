@@ -21,4 +21,7 @@ declare module '*.svg' {
 
 declare module '@topcoder/micro-frontends-navbar-app'
 
+declare module 'react-redux-toastr'
+
 declare module 'tc-auth-lib'
+

@@ -1,0 +1,45 @@
+@import 'buttons';
+@import 'fonts';
+@import 'layout';
+
+.card {
+    padding: $pad-lg $pad-lg $pad-xxxxl $pad-lg;
+    border: solid $border-xs $black-100;
+    border-radius: $pad-sm;
+
+    &.clickable {
+        cursor: pointer;
+
+        &:hover {
+
+            .button {
+                
+                &.primary {
+                    @extend .button-primary-hover;
+                }
+    
+                &.secondary {
+                    @extend .button-secondary-hover;
+                }
+    
+                &.tertiary {
+                    @extend .button-tertiary-hover;
+                }
+            }
+        }
+    }
+
+    .card-title {
+        @include font-weight-semi-bold;
+        @include font-barlow;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $pad-xl;
+
+        svg {
+            height: $pad-xl;
+            width: $pad-xl;
+        }
+    }
+}
