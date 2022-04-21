@@ -4,9 +4,9 @@ import { FC, useContext } from 'react'
 import { cacheChallengeId } from '../../../src/autoSaveBeforeLogin' // TODO: move to src-ts
 import { Table, Work, workContext, WorkContextData, WorkStatus } from '../../lib'
 
-import { workListColumns } from './work-list.config'
+import { workListColumns } from './work-table.config'
 
-const WorkList: FC<{}> = () => {
+const WorkTable: FC<{}> = () => {
 
     const workContextData: WorkContextData = useContext(workContext)
     const { work, initialized }: WorkContextData = workContextData
@@ -47,4 +47,4 @@ const WorkList: FC<{}> = () => {
     )
 }
 
-export default WorkList
+export default WorkTable

@@ -1,14 +1,14 @@
 import { FC, SVGProps } from 'react'
 
-// TODO: export these from the svg barrel file
 import { Work, WorkType } from '../../../lib'
+// TODO: export these from the svg barrel file
 import { ReactComponent as IconWorkTypeDataExploration } from '../../../lib/svgs/work-type-data-exploration.svg'
 import { ReactComponent as IconWorkTypeUnknown } from '../../../lib/svgs/work-type-unknown.svg'
 import { ReactComponent as IconWorkTypeWebsiteDesign } from '../../../lib/svgs/work-type-website-design.svg'
 
-import styles from './WorkListTitleRenderer.module.scss'
+import styles from './WorkTableTitleRenderer.module.scss'
 
-function WorkListTitleRenderer(data: Work): JSX.Element {
+function WorkTableTitleRenderer(data: Work): JSX.Element {
 
     let Icon: FC<SVGProps<SVGSVGElement>>
     switch (data.type) {
@@ -27,7 +27,7 @@ function WorkListTitleRenderer(data: Work): JSX.Element {
     }
 
     return (
-        <div className={styles['work-list-title-container']}>
+        <div className={styles['work-table-title-container']}>
             <Icon />
             <div>
                 <div>{data.title}</div>
@@ -38,4 +38,4 @@ function WorkListTitleRenderer(data: Work): JSX.Element {
     )
 }
 
-export default WorkListTitleRenderer
+export default WorkTableTitleRenderer

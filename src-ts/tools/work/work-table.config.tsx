@@ -2,8 +2,8 @@ import { TableColumn, Work } from '../../lib'
 
 import { WorkBadgeRenderer } from './work-badge-renderer'
 import { WorkDeleteButtonRenderer } from './work-delete-button-renderer'
-import { WorkListTitleRenderer } from './work-list-title-renderer'
 import { WorkStatusRenderer } from './work-status-renderer'
+import { WorkTableTitleRenderer } from './work-table-title-renderer'
 
 function messageBadgeRenderer(work: Work): JSX.Element {
     return WorkBadgeRenderer({
@@ -15,7 +15,7 @@ function messageBadgeRenderer(work: Work): JSX.Element {
 export const workListColumns: Array<TableColumn<Work>> = [
     {
         label: 'Title',
-        renderer: WorkListTitleRenderer,
+        renderer: WorkTableTitleRenderer,
         type: 'element',
     },
     {
