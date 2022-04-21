@@ -7,10 +7,11 @@
 
     .react-responsive-modal-modal {
         min-width: 450px;
+        max-width: 590px;
         border-radius: $pad-sm;
         display: flex;
         flex-direction: column;
-        margin: 116px 0;
+        margin: auto;
     
         h2 {
             padding: 0;

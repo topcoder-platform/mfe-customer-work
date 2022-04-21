@@ -1,1 +1,1 @@
-export { default as WorkList } from './WorkList'
+export { default as WorkTable } from './WorkTable'
