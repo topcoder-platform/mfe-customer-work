@@ -2,6 +2,8 @@
 
 .work-table-title-container {
     display: flex;
+    min-width: 250px;
+
     svg {
         min-width: 32px;
         margin-right: $pad-lg;

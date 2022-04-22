@@ -18,7 +18,7 @@ export interface ButtonProps {
     readonly onClick?: (event?: any) => void
     readonly route?: string
     readonly size?: ButtonSize
-    readonly tabIndex: number
+    readonly tabIndex?: number
     readonly type?: ButtonType
     readonly url?: string
 }

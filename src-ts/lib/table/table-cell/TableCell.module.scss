@@ -1,6 +1,7 @@
 @import '../../styles';
 
 .td {
+    max-width: 450px;
     @extend .medium-subtitle;
     padding: $pad-lg;
     background: $black-5;
@@ -21,7 +22,10 @@
     }
 
     &.action {
-        cursor: default;
+
+        &:not(.empty) {
+            cursor: default;
+        }
     }
 
     &.money {

@@ -12,7 +12,7 @@ import {
 } from '../../../lib'
 import '../../../lib/styles/index.scss'
 
-function WorkDeleteButtonRenderer(work: Work): JSX.Element {
+function WorkDeleteButtonRenderer(work: Work): JSX.Element | undefined {
 
     const workContextData: WorkContextData = useContext(workContext)
     const { deleteWorkAsync }: WorkContextData = workContextData
@@ -21,7 +21,7 @@ function WorkDeleteButtonRenderer(work: Work): JSX.Element {
 
     // if the item is in draft status, don't display anything
     if (work.status !== WorkStatus.draft) {
-        return <></>
+        return undefined
     }
 
     async function deleteWork(): Promise<void> {
