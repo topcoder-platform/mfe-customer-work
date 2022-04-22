@@ -1,0 +1,19 @@
+@import '../styles';
+
+.tooltip {
+    display: inline;
+    margin-left: $pad-xs;
+    cursor: pointer;
+
+    svg {
+        @include icon-md;
+    }
+}
+
+.tooltip-open {
+    position: absolute;
+    z-index: 100;
+    background-color: $black-100;
+    color: $tc-white;
+    padding: $pad-md;
+}

@@ -3,6 +3,7 @@ export {
     authUrlLogout,
     authUrlSignup,
 } from './authentication-functions'
+export * from './component-visible-functions'
 export * from './logging-functions'
 export { messageGetAndSetForWorkItemsAsync } from './message-functions'
 export * from './text-format-functions'

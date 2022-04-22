@@ -46,6 +46,7 @@ export const workListColumns: Array<TableColumn<Work>> = [
     {
         label: 'Messages',
         renderer: messageBadgeRenderer,
+        tooltip: 'Messages pending response',
         type: 'element',
     },
     {

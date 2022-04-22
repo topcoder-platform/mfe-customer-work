@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import { MouseEvent } from 'react'
 
+import { Tooltip } from '../tooltip'
+
 import { TableCell } from './table-cell'
 import { TableColumn } from './table-column.model'
 import styles from './Table.module.scss'
@@ -15,7 +17,12 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
     = <T extends { [propertyName: string]: any }>(props: TableProps<T>) => {
 
         const headerRow: Array<JSX.Element> = props.columns
-            .map(col => <th className={styles.th}>{col.label}</th>)
+            .map(col => (
+                <th className={styles.th}>
+                    {col.label}
+                    <Tooltip tooltip={col.tooltip} />
+                </th>
+            ))
 
         const rowCells: Array<JSX.Element> = props.data
             .map((data, index) => {
