@@ -1,7 +1,7 @@
 import { EnvironmentConfig } from '../../../../config'
 import { xhrGetAsync } from '../../xhr-functions'
 
-import { GetUnreadMessageCountResponse } from '.'
+import { GetUnreadMessageCountResponse } from './get-unread-message-count-response.model'
 
 export async function getUnreadCountAsync(workId: string, handle: string): Promise<GetUnreadMessageCountResponse> {
 
