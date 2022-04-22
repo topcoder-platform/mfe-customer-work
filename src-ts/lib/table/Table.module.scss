@@ -1,12 +1,24 @@
-.tr {
+@import '../styles';
 
-    &.clickable {
-        cursor: pointer;
-    }
+table {
+    .tr {
 
-    .th {
-        white-space: nowrap;
-        text-align: left;
-        padding: 4px;
+        &.clickable {
+            cursor: pointer;
+        }
+    
+        .th {
+            @extend .small-tab;
+            padding: $pad-lg;
+            white-space: nowrap;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        &:nth-child(2n + 1) {
+            td {
+                background: $tc-white;
+            }
+        }
     }
 }

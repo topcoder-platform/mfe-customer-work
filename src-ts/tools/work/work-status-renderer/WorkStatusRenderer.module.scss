@@ -3,6 +3,8 @@
 .status-container {
     display: flex;
     align-items: center;
+    text-transform: uppercase;
+    white-space: nowrap;
 
     .active,
     .done,
@@ -12,6 +14,7 @@
 
         svg {
             @include icon-sm;
+            margin-right: $pad-xs;
         }
     }
 

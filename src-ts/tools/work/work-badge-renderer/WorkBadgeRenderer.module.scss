@@ -1,6 +1,11 @@
 @import '../../../lib/styles';
 
 .badge {
+    @extend .medium-subtitle;
+    display: inline-block;
+    padding: 0 $pad-sm;
+    border-radius: $pad-sm;
+    color: $tc-white;
 
     &.unread-messages{
         background-color: $red-100;

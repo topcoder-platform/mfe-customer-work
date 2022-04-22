@@ -37,7 +37,7 @@ function WorkDeleteButtonRenderer(work: Work): JSX.Element {
     return (
         <>
             <Button
-                buttonStyle='tertiary'
+                buttonStyle='icon'
                 icon={IconOutline.TrashIcon}
                 onClick={toggleConfirmation}
             />
