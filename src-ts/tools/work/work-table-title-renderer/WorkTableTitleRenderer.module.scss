@@ -1,4 +1,9 @@
+@import '../../../lib/styles';
+
 .work-table-title-container {
     display: flex;
-    align-items: center;
+    svg {
+        min-width: 32px;
+        margin-right: $pad-lg;
+    }
 }

@@ -1,3 +1,5 @@
+@import '../styles';
+
 .tr {
 
     &.clickable {
@@ -5,8 +7,16 @@
     }
 
     .th {
+        @extend .small-tab;
+        padding: $pad-lg;
         white-space: nowrap;
         text-align: left;
-        padding: 4px;
+        text-transform: uppercase;
+    }
+
+    &:nth-child(2n + 1) {
+        td {
+            background: $tc-white;
+        }
     }
 }

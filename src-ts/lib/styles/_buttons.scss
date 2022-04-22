@@ -166,6 +166,17 @@ a {
     &.text {
         border-color: transparent;
     }
+
+    &.icon {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: $turq-160;
+        &:focus {
+            outline: none;
+        }
+    }
 }
 
 .button-container {

@@ -30,9 +30,9 @@ function WorkTableTitleRenderer(data: Work): JSX.Element {
         <div className={styles['work-table-title-container']}>
             <Icon />
             <div>
-                <div>{data.title}</div>
+                <div className='medium-subtitle'>{data.title}</div>
                 {/* TODO: limit the height/number of chars for the desc */}
-                <div>{data.description}</div>
+                <div className='body-ultra-small'>{data.description}</div>
             </div>
         </div>
     )
