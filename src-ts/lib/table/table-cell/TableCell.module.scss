@@ -20,6 +20,10 @@
         text-align: center;
     }
 
+    &.action {
+        cursor: default;
+    }
+
     &.money {
         text-align: right;
         white-space: nowrap;
