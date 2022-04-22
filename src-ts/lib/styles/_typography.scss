@@ -92,6 +92,14 @@ hr {
     @include font-weight-bold;
 }
 
+.body-medium-bold {
+    @include font-weight-semi-bold;
+    @include font-barlow;
+    padding: 0;
+    font-size: 20px;
+    line-height: 22px;
+}
+
 .ultra-small {
     font-size: 11px;
     line-height: 16px;
