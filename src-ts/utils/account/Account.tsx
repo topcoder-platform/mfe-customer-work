@@ -4,8 +4,7 @@ import Modal from 'react-responsive-modal'
 import { authUrlLogin, Button, Card, formOnReset } from '../../lib'
 import { profileContext, ProfileContextData } from '../../lib/profile-provider'
 
-import styles from './AccountSettings.module.scss'
-
+import styles from './Account.module.scss'
 import { ChangePassword, changePasswordFormDef } from './change-password'
 import { EditName, editNameFormDef } from './edit-name'
 
