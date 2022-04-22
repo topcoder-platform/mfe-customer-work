@@ -1,12 +1,19 @@
 @import '~react-responsive-modal/styles.css';
 
 .react-responsive-modal-container {
+    position: fixed;
     display: flex;
     justify-content: center;
     height: auto;
+    
+    @include gtemd {
+        max-width: 450px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 
     .react-responsive-modal-modal {
-        position: fixed;
         display: flex;
         flex-direction: column;
         width: 100vw;
@@ -15,12 +22,9 @@
         border-radius: 0;
 
         @include gtemd {
-            top: 50%;
             max-width: 450px;
             height: auto;
-            margin-top: 10px;
             border-radius: $pad-sm;
-            transform: translateY(-50%);
         }
     
         h2 {
