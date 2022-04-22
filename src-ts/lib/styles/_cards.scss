@@ -10,7 +10,7 @@
     background-color: $black-5;
 
     &.clickable {
-        background: linear-gradient(84.45deg, $blue-160 2.12%, $blue-110 97.43%);
+        background: $tc-grad15;
         color: $tc-white;
         cursor: pointer;
 
@@ -33,26 +33,25 @@
         }
     }
 
+    .card-title {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $pad-sm;
+        svg {
+            height: $pad-xl;
+            width: $pad-xl;
+        }
+    }
+
     .button {
         margin: auto auto 0 0;
         border: 0;
     }
 
-    .card-title {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: $pad-sm;
-        h3 {
-            @include font-weight-semi-bold;
-            @include font-barlow;
-            padding: 0;
-            font-size: 20px;
-            line-height: 22px;
-            text-transform: uppercase;
-        }
-        svg {
-            height: $pad-xl;
-            width: $pad-xl;
+    p {
+        word-break: break-all;
+        &:last-of-type {
+            margin-bottom: $pad-xl;
         }
     }
 }

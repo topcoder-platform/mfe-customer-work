@@ -124,7 +124,6 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
                 {!!props.formDef.title && (
                     <>
                         <h2>{props.formDef.title}</h2>
-                        <hr />
                     </>
                 )}
 

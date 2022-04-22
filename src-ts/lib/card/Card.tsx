@@ -23,7 +23,7 @@ const Card: FC<CardProps> = (props: CardProps) => {
         >
 
             <div className='card-title'>
-                <h3>
+                <h3 className='body-medium-bold'>
                     {props.title}
                 </h3>
                 {!!Icon && <Icon />}

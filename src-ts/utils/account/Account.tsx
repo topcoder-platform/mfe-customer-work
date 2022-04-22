@@ -4,7 +4,8 @@ import Modal from 'react-responsive-modal'
 import { authUrlLogin, Button, Card, formOnReset } from '../../lib'
 import { profileContext, ProfileContextData } from '../../lib/profile-provider'
 
-import './styles.scss'
+import styles from './AccountSettings.module.scss'
+
 import { ChangePassword, changePasswordFormDef } from './change-password'
 import { EditName, editNameFormDef } from './edit-name'
 
@@ -37,11 +38,11 @@ const Account: FC<{}> = () => {
     }
 
     return (
-        <div className='page-container'>
+        <div className={styles['page-container']}>
 
             <h1>Account Settings</h1>
 
-            <div className='page-content'>
+            <div className={styles['page-content']}>
 
                 <Card title='Account'>
                     <p><strong>Email:</strong> {profile.email}</p>
