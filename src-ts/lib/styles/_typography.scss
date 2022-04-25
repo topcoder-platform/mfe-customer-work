@@ -106,3 +106,12 @@ hr {
     @include font-weight-less-bold;
     font-style: italic;
 }
+
+.overline {
+    @include font-roboto;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
