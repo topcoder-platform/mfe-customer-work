@@ -1,5 +1,8 @@
 import moment from 'moment'
 
+// TODO: return prices from the api rather than hard-coding in the UI
+import * as DesignPrices from '../../../../../src/constants'
+import * as DataPrices from '../../../../../src/constants/products/DataExploration'
 import { Challenge, ChallengeMetadata } from '../work-store'
 
 import { ChallengeStatus } from './challenge-status.enum'
@@ -13,7 +16,7 @@ export function create(challenge: Challenge): Work {
     const type: WorkType = getType(challenge)
 
     return {
-        cost: challenge.cost || Math.random() * 1250, // TODO: real cost
+        cost: getCost(challenge, type),
         created: new Date(challenge.created),
         description: getDescription(challenge, type),
         id: challenge.id,
@@ -27,6 +30,26 @@ export function create(challenge: Challenge): Work {
 
 function findMetadata(challenge: Challenge, metadataName: string): ChallengeMetadata | undefined {
     return challenge.metadata?.find((item: ChallengeMetadata) => item.name === metadataName)
+}
+
+function getCost(challenge: Challenge, type: WorkType): number | undefined {
+
+    function getCountFromString(raw: string | undefined): number {
+        return Number(raw?.split(' ')?.[0] || '0')
+    }
+
+    switch (type) {
+
+        case WorkType.data:
+            return DataPrices.PROMOTIONAL_PRODUCT_PRICE || DataPrices.BASE_PRODUCT_PRICE
+
+        case WorkType.design:
+            const pageCount: number = getCountFromString(findMetadata(challenge, 'basicInfo.numberOfPages')?.value)
+            const deviceCount: number = getCountFromString(findMetadata(challenge, 'basicInfo.numberOfDevices')?.value)
+            return DesignPrices.BASE_PRODUCT_PRICE +
+                pageCount * DesignPrices.PER_PAGE_COST +
+                pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
+    }
 }
 
 function getDescription(challenge: Challenge, type: WorkType): string | undefined {
@@ -91,7 +114,7 @@ function getType(challenge: Challenge): WorkType {
 
     // get the intake form from the metadata
     const intakeForm: ChallengeMetadata | undefined = findMetadata(challenge, 'intake-form')
-    if (!intakeForm) {
+    if (!intakeForm?.value) {
         return WorkType.unknown
     }
 

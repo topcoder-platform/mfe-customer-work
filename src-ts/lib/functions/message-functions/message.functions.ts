@@ -1,4 +1,4 @@
-import { Work, WorkStatus, WorkType } from '../../work-provider'
+import { Work, WorkStatus } from '../../work-provider'
 
 import { GetUnreadMessageCountResponse, messageStoreGetUnreadCountAsync } from './message-store'
 
@@ -6,7 +6,7 @@ export async function getAndSetForWorkItemsAsync(workItems: Array<Work>, handle:
 
     // create a list of promises
     const requestsList: Array<Promise<GetUnreadMessageCountResponse>> = workItems
-        .filter(work => work.status === WorkStatus.active && work.type !== WorkType.task)
+        .filter(work => work.status === WorkStatus.active)
         .map(work => {
             return messageStoreGetUnreadCountAsync(work.id, handle)
                 .catch(() => ({
