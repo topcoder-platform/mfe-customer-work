@@ -49,15 +49,8 @@ const Dashboard = () => {
     : (
       <div styleName="start-message">
         <div styleName="text">
-          This is your home where your future work will live. Let’s go!
+          Your future work will live here. Let's go!
         </div>
-        <Button
-          size={BUTTON_SIZE.MEDIUM}
-          className={styles.button}
-          onClick={onClickBtnStart}
-        >
-          START WORK
-        </Button>
       </div>
     )
 
