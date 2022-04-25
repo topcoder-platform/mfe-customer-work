@@ -129,7 +129,7 @@ function getType(challenge: Challenge): WorkType {
                 selectedWorkTypeDetail: WorkType
             }
         }
-    } = JSON.parse(intakeForm.value as string)
+    } = JSON.parse(intakeForm.value)
 
     const workTypeKey: (keyof typeof WorkType) | undefined = Object.entries(WorkType)
         .find(([key, value]) => value === form.form.workType?.selectedWorkTypeDetail)
