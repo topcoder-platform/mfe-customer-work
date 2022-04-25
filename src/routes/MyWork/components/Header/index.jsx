@@ -1,10 +1,8 @@
-import React, { useCallback } from "react";
-import { useSelector } from "react-redux";
-import { navigate } from "@reach/router";
+import React, { useContext } from "react";
 import Button from "components/Button";
-import { getWorksCount } from "selectors/myWork";
-import { ROUTES } from "constants/index.js";
 import styles from "./styles.module.scss";
+
+import { workContext } from '../../../../../src-ts/lib'
 
 /**
  * Displays dashboard's header with title and "Start Work" button.
@@ -12,16 +10,20 @@ import styles from "./styles.module.scss";
  * @returns {JSX.Element}
  */
 const Header = ({ onStartWork }) => {
-  const worksCount = useSelector(getWorksCount);
+
+  const workContextData = useContext(workContext)
 
   return (
     <div styleName="container">
+
       <h2 styleName="heading">My Work</h2>
-      {!!worksCount && (
+
+      {workContextData.hasWork && (
         <Button className={styles.button} onClick={onStartWork}>
           START WORK
         </Button>
       )}
+
     </div>
   );
 };

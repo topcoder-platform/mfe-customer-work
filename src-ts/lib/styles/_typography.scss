@@ -107,6 +107,13 @@ hr {
     font-style: italic;
 }
 
+.small-tab {
+    @include font-barlow; 
+    @include font-weight-medium;
+    font-size: 11px;
+    line-height: 14px;
+}
+
 .overline {
     @include font-roboto;
     font-size: 12px;
@@ -114,4 +121,5 @@ hr {
     line-height: 16px;
     text-transform: uppercase;
     letter-spacing: 1px;
+
 }

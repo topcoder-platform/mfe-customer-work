@@ -1,5 +1,6 @@
-@import './palette';
+@import './icons';
 @import './layout';
+@import './palette';
 
 // TODO: add reset and have it take care of this
 a {
@@ -117,6 +118,14 @@ a {
         }
     }
 
+    svg {
+        @include icon-lg;
+    }
+
+    &:not(.link) {
+        margin-right: $pad-xs;
+    }
+
     &.link {
         margin: 0;
         padding: 0;
@@ -157,4 +166,21 @@ a {
     &.text {
         border-color: transparent;
     }
+
+    &.icon {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: $turq-160;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
