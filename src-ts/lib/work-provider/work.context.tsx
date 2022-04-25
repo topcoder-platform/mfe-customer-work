@@ -4,6 +4,7 @@ import { WorkContextData } from './work-context-data.model'
 
 export const defaultWorkContextData: WorkContextData = {
     deleteWorkAsync: () => Promise.resolve(),
+    hasWork: false,
     initialized: false,
     work: [],
 }
