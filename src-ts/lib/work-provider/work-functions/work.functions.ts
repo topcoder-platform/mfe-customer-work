@@ -13,7 +13,7 @@ export async function getAsync(handle: string, page: Page): Promise<Array<Work>>
     // get the response
     const challenges: Array<Challenge> = await workStoreGetAsync(handle, page)
 
-    // run it through the factory and filter out deleted and non-self-servcie
+    // run it through the factory and filter out deleted and non-self-service
     const workItems: Array<Work> = challenges
         .map(challenge => workFactoryCreate(challenge))
         .filter(work => work.status !== WorkStatus.deleted && work.type !== WorkType.unknown)
