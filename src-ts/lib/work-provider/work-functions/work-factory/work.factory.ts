@@ -1,5 +1,8 @@
 import moment from 'moment'
 
+// TODO: return prices from the api rather than hard-coding in the UI
+import * as DesignPrices from '../../../../../src/constants'
+import * as DataPrices from '../../../../../src/constants/products/DataExploration'
 import { Challenge, ChallengeMetadata } from '../work-store'
 
 import { ChallengeStatus } from './challenge-status.enum'
@@ -13,7 +16,7 @@ export function create(challenge: Challenge): Work {
     const type: WorkType = getType(challenge)
 
     return {
-        cost: challenge.cost || Math.random() * 1250, // TODO: real cost
+        cost: getCost(challenge, type),
         created: new Date(challenge.created),
         description: getDescription(challenge, type),
         id: challenge.id,
@@ -27,6 +30,30 @@ export function create(challenge: Challenge): Work {
 
 function findMetadata(challenge: Challenge, metadataName: string): ChallengeMetadata | undefined {
     return challenge.metadata?.find((item: ChallengeMetadata) => item.name === metadataName)
+}
+
+function getCost(challenge: Challenge, type: WorkType): number | undefined {
+
+    switch (type) {
+
+        case WorkType.data:
+            return DataPrices.PROMOTIONAL_PRODUCT_PRICE || DataPrices.BASE_PRODUCT_PRICE
+
+        case WorkType.design:
+            const pagesString: string | undefined = findMetadata(challenge, 'basicInfo.numberOfPages')?.value
+            const devicesString: string | undefined = findMetadata(challenge, 'basicInfo.numberOfDevices')?.value
+            const pageCount: number = Number(pagesString?.split(' ')?.[0] || '0')
+            const deviceCount: number = Number(devicesString?.split(' ')?.[0] || '0')
+
+            const cost: number = DesignPrices.BASE_PRODUCT_PRICE +
+                pageCount * DesignPrices.PER_PAGE_COST +
+                pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
+
+            return cost
+
+        default:
+            return undefined
+    }
 }
 
 function getDescription(challenge: Challenge, type: WorkType): string | undefined {
@@ -91,7 +118,7 @@ function getType(challenge: Challenge): WorkType {
 
     // get the intake form from the metadata
     const intakeForm: ChallengeMetadata | undefined = findMetadata(challenge, 'intake-form')
-    if (!intakeForm) {
+    if (!intakeForm?.value) {
         return WorkType.unknown
     }
 
@@ -102,7 +129,7 @@ function getType(challenge: Challenge): WorkType {
                 selectedWorkTypeDetail: WorkType
             }
         }
-    } = JSON.parse(intakeForm.value)
+    } = JSON.parse(intakeForm.value as string)
 
     const workTypeKey: (keyof typeof WorkType) | undefined = Object.entries(WorkType)
         .find(([key, value]) => value === form.form.workType?.selectedWorkTypeDetail)
