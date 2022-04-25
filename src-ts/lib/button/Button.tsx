@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { FC, RefObject, SVGProps } from 'react'
+import { FC, SVGProps } from 'react'
 import { Link } from 'react-router-dom'
 
 import '../styles/index.scss'
