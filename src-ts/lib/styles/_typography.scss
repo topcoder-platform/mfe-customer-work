@@ -106,3 +106,10 @@ hr {
     @include font-weight-less-bold;
     font-style: italic;
 }
+
+.small-tab {
+    @include font-barlow; 
+    @include font-weight-medium;
+    font-size: 11px;
+    line-height: 14px;
+}

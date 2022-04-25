@@ -1,0 +1,40 @@
+@import '../../styles';
+
+.td {
+    max-width: 450px;
+    @extend .medium-subtitle;
+    padding: $pad-lg;
+    background: $black-5;
+    word-break: break-word;
+    vertical-align: top;
+    font-weight: 500;
+
+    &:first-child {
+        border-radius: $pad-sm 0 0 $pad-sm;
+    }
+
+    &:last-child {
+        border-radius: 0 $pad-sm $pad-sm 0;
+    }
+
+    &:nth-last-child(2) {
+        text-align: center;
+    }
+
+    &.action {
+
+        &:not(.empty) {
+            cursor: default;
+        }
+    }
+
+    &.money {
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    &.date,
+    &.text {
+        white-space: nowrap;
+    }
+}

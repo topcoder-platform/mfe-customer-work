@@ -7,6 +7,7 @@ import { EnvironmentConfigDefault } from './environment.default.config'
 export const EnvironmentConfigProd: GlobalConfig = {
     ...EnvironmentConfigDefault,
     API: {
+        FORUM_V2: 'https://vanilla.topcoder.com/api/v2',
         V3: 'https://api.topcoder.com/v3',
         V5: 'https://api.topcoder.com/v5',
     },

@@ -1,0 +1,55 @@
+@import '../../../lib/styles';
+
+.status-container {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    .active,
+    .done,
+    .draft,
+    .ready,
+    .transferred {
+
+        svg {
+            @include icon-sm;
+            margin-right: $pad-xs;
+        }
+    }
+
+    .active {
+
+        svg {
+            fill: $turq-120;
+        }
+    }
+
+    .done {
+
+        svg {
+            fill: $black-80;
+        }
+    }
+
+    .draft {
+
+        svg {
+            fill: $black-80;
+        }
+    }
+
+    .ready {
+
+        svg {
+            fill: $blue-100;
+        }
+    }
+
+    .transferred {
+
+        svg {
+            fill: $legacy-120;
+        }
+    }
+}
