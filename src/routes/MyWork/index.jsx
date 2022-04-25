@@ -1,17 +1,11 @@
 import { navigate } from "@reach/router";
 import LoadingSpinner from "components/LoadingSpinner";
 import { ROUTES } from "constants/index.js";
-import {
-  getIsLoggedIn,
-  getIsLoggingIn,
-} from "hoc/withAuthentication/selectors";
-import { checkIfLoggedIn } from "hoc/withAuthentication/thunks";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getWorksIsLoading } from "selectors/myWork";
-import { loadWorks, loadForumNotifications } from "thunks/myWork";
+import React, { useContext, useEffect } from "react";
 import Dashboard from "./components/Dashboard";
 import "./styles.module.scss";
+
+import { workContext, profileContext } from '../../../src-ts/lib'
 
 /**
  * Dashboard's route component.
@@ -19,26 +13,13 @@ import "./styles.module.scss";
  * @returns {JSX.Element}
  */
 const MyWork = () => {
-  const isLoggedIn = useSelector(getIsLoggedIn);
-  const isLoggingIn = useSelector(getIsLoggingIn);
-  const worksIsLoading = useSelector(getWorksIsLoading);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(checkIfLoggedIn());
-  }, [dispatch]);
+  const workContextData = useContext(workContext)
+  const profileContextData = useContext(profileContext)
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(loadWorks());
-    }
-  }, [isLoggedIn, dispatch]);
-
-  useEffect(() => {
-    if (isLoggedIn && !worksIsLoading) {
-      dispatch(loadForumNotifications());
-    }
-  }, [isLoggedIn, worksIsLoading, dispatch]);
+  const isLoggedIn = profileContextData.initialized && !!profileContextData.profile;
+  const isLoggingIn = !profileContextData.initialized; 
+  const worksIsLoading = !workContextData.initialized;
 
   useEffect(() => {
     if (!isLoggingIn && !isLoggedIn) {

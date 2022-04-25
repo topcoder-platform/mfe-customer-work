@@ -1,7 +1,6 @@
 import { ChallengeMetadata } from './challenge-metadata.model'
 
 export interface Challenge {
-    cost?: number
     created: string
     description: string
     id: string

@@ -22,23 +22,36 @@ export const WorkProvider: FC<{ children: ReactNode }> = ({ children }: { childr
 
     async function getAndSetWork(): Promise<void> {
 
-        // TODO: actual pagination and sorting
-        const page: Page = {
-            number: 1,
-            size: 100,
-            sort: {
-                direction: 'desc',
-                fieldName: 'created',
-            },
-        }
-        const work: Array<Work> = await workGetAsync((profile as UserProfile).handle, page)
+        try {
+            // TODO: actual pagination and sorting
+            const page: Page = {
+                number: 1,
+                size: 100,
+                sort: {
+                    direction: 'desc',
+                    fieldName: 'created',
+                },
+            }
+            const work: Array<Work> = await workGetAsync((profile as UserProfile).handle, page)
 
-        const contextData: WorkContextData = {
-            deleteWorkAsync,
-            initialized: true,
-            work,
+            const contextData: WorkContextData = {
+                deleteWorkAsync,
+                hasWork: !!work.length,
+                initialized: true,
+                work,
+            }
+            setWorkContextData(contextData)
+
+        } catch (error: any) {
+            const contextData: WorkContextData = {
+                deleteWorkAsync,
+                error: error.response?.data?.result?.content || error.message || error,
+                hasWork: false,
+                initialized: true,
+                work: [],
+            }
+            setWorkContextData(contextData)
         }
-        setWorkContextData(contextData)
     }
 
     useEffect(() => {

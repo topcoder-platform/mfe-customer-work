@@ -10,7 +10,7 @@ interface TableCellProps<T> {
     readonly data: T
     readonly index: number
     readonly propertyName?: string
-    readonly renderer?: (data: T) => JSX.Element
+    readonly renderer?: (data: T) => JSX.Element | undefined
     readonly type: TableCellType
 }
 
@@ -46,9 +46,15 @@ const TableCell: <T extends { [propertyName: string]: any }>(props: TableCellPro
             event.stopPropagation()
         }
 
+        const classes: string = classNames(
+            styles.td,
+            styles[props.type],
+            !data ? styles.empty : undefined,
+        )
+
         return (
             <td
-                className={classNames(styles.td, styles[props.type])}
+                className={classes}
                 key={`${props.index}-${props.propertyName}`}
                 onClick={onClick}
             >
