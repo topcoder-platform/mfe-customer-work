@@ -34,25 +34,21 @@ function findMetadata(challenge: Challenge, metadataName: string): ChallengeMeta
 
 function getCost(challenge: Challenge, type: WorkType): number | undefined {
 
+    function getCountFromString(raw: string | undefined): number {
+        return Number(raw?.split(' ')?.[0] || '0')
+    }
+
     switch (type) {
 
         case WorkType.data:
             return DataPrices.PROMOTIONAL_PRODUCT_PRICE || DataPrices.BASE_PRODUCT_PRICE
 
         case WorkType.design:
-            const pagesString: string | undefined = findMetadata(challenge, 'basicInfo.numberOfPages')?.value
-            const devicesString: string | undefined = findMetadata(challenge, 'basicInfo.numberOfDevices')?.value
-            const pageCount: number = Number(pagesString?.split(' ')?.[0] || '0')
-            const deviceCount: number = Number(devicesString?.split(' ')?.[0] || '0')
-
-            const cost: number = DesignPrices.BASE_PRODUCT_PRICE +
+            const pageCount: number = getCountFromString(findMetadata(challenge, 'basicInfo.numberOfPages')?.value)
+            const deviceCount: number = getCountFromString(findMetadata(challenge, 'basicInfo.numberOfDevices')?.value)
+            return DesignPrices.BASE_PRODUCT_PRICE +
                 pageCount * DesignPrices.PER_PAGE_COST +
                 pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
-
-            return cost
-
-        default:
-            return undefined
     }
 }
 
