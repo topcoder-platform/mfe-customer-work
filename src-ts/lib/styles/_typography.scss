@@ -58,12 +58,6 @@ hr {
     width: 100%;
 }
 
-.medium-subtitle {
-    font-size: 14px;
-    line-height: 16px;
-    letter-spacing: .5px;
-}
-
 .large-tab {
     @include font-barlow-condensed;
     font-size: 20px;
@@ -76,6 +70,13 @@ hr {
     font-size: 14px !important;
     line-height: 22px !important;
     @include font-weight-less-bold;
+}
+
+.body-small-medium {
+    @include font-weight-medium;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0;
 }
 
 .body-ultra-small,
@@ -123,3 +124,71 @@ hr {
     letter-spacing: 1px;
 
 }
+
+p {
+    @include font-roboto;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    &:not(:last-child) {
+        margin-bottom: 16px;
+    }
+}
+
+.medium-subtitle {
+    @include font-roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.medium-subtitle {
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: .5px;
+}
+
+.large-subtitle {
+    @include font-roboto;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    &.bold {
+        font-weight: 700;
+    }
+}
+
+.large-medium {
+    @include font-roboto;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    &.bold {
+        font-weight: 700;
+    }
+}
+
+.medium-medium {
+    @include font-roboto;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 26px;
+}
+
+.overline {
+    @include font-roboto;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.label {
+    @include font-roboto;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 10px;
+} 

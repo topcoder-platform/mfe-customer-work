@@ -1,0 +1,15 @@
+@import '../../../lib/styles';
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $pad-xxxxl 0 $pad-xxl;
+    margin: 0 $pad-xxxxl $pad-lg;
+    border-bottom: $border-xs solid $black-80;
+
+    .heading {
+        margin-right: $pad-xxxxl;
+        color: $black-100;
+    }
+}

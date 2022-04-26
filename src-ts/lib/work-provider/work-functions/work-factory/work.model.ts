@@ -1,3 +1,4 @@
+import { WorkProgress } from './work-progress.model'
 import { WorkStatus } from './work-status.enum'
 import { WorkType } from './work-type.enum'
 
@@ -7,7 +8,8 @@ export interface Work {
     description?: string
     id: string
     messageCount?: number
-    solutionsReady?: Date
+    progress: WorkProgress
+    solutionsReadyDate?: Date
     status: WorkStatus
     title: string
     type: WorkType

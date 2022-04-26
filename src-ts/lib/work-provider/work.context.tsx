@@ -1,8 +1,10 @@
 import { Context, createContext } from 'react'
 
 import { WorkContextData } from './work-context-data.model'
+import { workFactoryCreate } from './work-functions'
 
 export const defaultWorkContextData: WorkContextData = {
+    createFromChallenge: workFactoryCreate,
     deleteWorkAsync: () => Promise.resolve(),
     hasWork: false,
     initialized: false,

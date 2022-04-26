@@ -1,0 +1,19 @@
+@import "../../../../lib/styles";
+
+.progress-container {
+    margin-bottom: calc($pad-lg + $pad-xxl);
+    padding: $pad-lg $pad-xxl $pad-xxl;
+    border-radius: $pad-sm;
+    @extend .bg-black-5;
+
+    h3 {
+        margin-bottom: $pad-lg;
+    }
+
+    .progress {
+        display: flex;
+        justify-content: space-between;
+        margin-top: calc($pad-lg + $pad-xxl);
+        margin-left: calc($pad-xxxxl - $border);
+    }
+}

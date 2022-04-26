@@ -9,9 +9,25 @@ $black-10: #E9E9E9;
 $black-5: #F4F4F4;
 $black-2: #FBFBFB;
 
+.bg-black-5 {
+    background-color: $black-5;
+}
+.bg-black-10 {
+    background-color: $black-10;
+}
+.bg-black-20 {
+    background-color: $black-20;
+}
+.bg-black-100 {
+    background-color: $black-100;
+}
+
+
 /* WHITE */
 $tc-white: #FFFFFF;
-
+.bg-tc-white {
+    background-color: $tc-white;
+}
 
 /* RED */
 $red-100: #EF3A3A;
@@ -99,6 +115,10 @@ $purple-25: #E6CFF1;
 // dark
 $purple-120: #8231A9;
 $purple-140: #652385;
+
+.bg-purple-100 {
+    background-color: $purple-100;
+}
 
 
 /* ORANGE LEGACY */

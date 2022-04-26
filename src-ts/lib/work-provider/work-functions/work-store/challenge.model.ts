@@ -1,4 +1,5 @@
 import { ChallengeMetadata } from './challenge-metadata.model'
+import { ChallengePhase } from './challenge-phase'
 
 export interface Challenge {
     created: string
@@ -6,9 +7,8 @@ export interface Challenge {
     id: string
     metadata: Array<ChallengeMetadata>
     name: string
-    phases: Array<{
-        name: string
-    }>
+    phases: Array<ChallengePhase>
     status: string
     tags: Array<string>
+    updated?: string
 }
