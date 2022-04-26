@@ -14,17 +14,21 @@ import { Work } from './work.model'
 export function create(challenge: Challenge): Work {
 
     const status: WorkStatus = getStatus(challenge)
+    const submittedDate: Date | undefined = getSubmittedDate(challenge)
     const type: WorkType = getType(challenge)
 
     return {
         cost: getCost(challenge, type),
-        created: new Date(challenge.created),
+        created: submittedDate,
         description: getDescription(challenge, type),
         id: challenge.id,
         messageCount: Number((Math.random() * 10).toFixed(0)), // TODO: real message count
+        participantsCount: challenge.numOfRegistrants,
         progress: getProgress(challenge, status),
+        solutionsCount: challenge.numOfSubmissions,
         solutionsReadyDate: getSolutionsReadyDate(challenge),
         status,
+        submittedDate,
         title: challenge.name,
         type,
     }
@@ -80,7 +84,7 @@ function getProgress(challenge: Challenge, workStatus: WorkStatus): WorkProgress
 
     const steps: ReadonlyArray<WorkProgressStep> = [
         {
-            date: new Date(challenge.created),
+            date: getSubmittedDate(challenge),
             name: 'Submitted',
         },
         {
@@ -187,6 +191,10 @@ function getStatus(challenge: Challenge): WorkStatus {
         default:
             return WorkStatus.deleted
     }
+}
+
+function getSubmittedDate(challenge: Challenge): Date {
+    return new Date(challenge.created)
 }
 
 function getType(challenge: Challenge): WorkType {

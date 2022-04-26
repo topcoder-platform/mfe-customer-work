@@ -8,9 +8,12 @@ export interface Work {
     description?: string
     id: string
     messageCount?: number
+    participantsCount?: number
     progress: WorkProgress
+    solutionsCount?: number
     solutionsReadyDate?: Date
     status: WorkStatus
+    submittedDate?: Date
     title: string
     type: WorkType
 }

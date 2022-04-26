@@ -2,6 +2,7 @@ import { FC, useContext } from 'react'
 
 import { Work, workContext, WorkContextData } from '../../../lib'
 
+import { WorkDetailHighlights } from './WorkDetailHighlights'
 import { WorkDetailProgress } from './WorkDetailProgress'
 
 interface WorkDetailSummaryProps {
@@ -14,9 +15,10 @@ const WorkDetailSummary: FC<WorkDetailSummaryProps> = (props: WorkDetailSummaryP
     const work: Work = workContextData.createFromChallenge(props.challenge)
 
     return (
-        <WorkDetailProgress
-            {...work.progress}
-        />
+        <>
+            <WorkDetailProgress {...work.progress} />
+            <WorkDetailHighlights work={work} />
+        </>
     )
 }
 

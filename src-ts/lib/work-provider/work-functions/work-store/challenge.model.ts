@@ -7,6 +7,8 @@ export interface Challenge {
     id: string
     metadata: Array<ChallengeMetadata>
     name: string
+    numOfRegistrants?: number
+    numOfSubmissions?: number
     phases: Array<ChallengePhase>
     status: string
     tags: Array<string>

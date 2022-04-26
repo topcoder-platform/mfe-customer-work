@@ -9,6 +9,7 @@ export {
     authUrlLogout,
     authUrlSignup,
     textFormatDateLocaleShortString,
+    textFormatMoneyLocaleString,
 } from './functions'
 export * from './svgs'
 export * from './table'

@@ -22,12 +22,12 @@ const WorkDetailProgressItem: FC<WorkDetailProgressItemProps> = (props: WorkDeta
     return (
         <div className={classNames(styles['progress-bar-list-item'], getClasses())} >
 
-            <span className={classNames(styles.dots, 'medium-medium')}>
+            <span className={classNames(styles.dots, 'body-medium-medium')}>
                 {props.currentIndex + 1}
             </span>
 
             <div className={styles.label}>
-                <span className={classNames(styles.name, 'large-subtitle')}>
+                <span className={classNames(styles.name, 'large-subtitle-bold')}>
                     {props.name}
                 </span>
                 <span className={classNames(styles.date, 'body-small-medium')}>
