@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from "react";
 import { connect, useDispatch } from "react-redux";
 import { navigate } from "@reach/router";
-import Header from "../Header";
+import Header from "../../../../components/PageHeader";
 import Button from "components/Button";
 import { BUTTON_SIZE } from "constants/index.js";
 import styles from "./styles.module.scss";
@@ -56,8 +56,8 @@ const Dashboard = () => {
 
   return (
     <div styleName="container">
+      <Header title="My Work" onClick={onClickBtnStart} buttonContent="START WORK" />
       <div styleName="content">
-        <Header onStartWork={onClickBtnStart} />
         {workErrorElement}
         {workTable}
         {noWork}

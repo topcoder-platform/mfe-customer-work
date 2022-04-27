@@ -8,22 +8,10 @@ import "./styles.module.scss";
  * Block Layout
  */
 const Layout = ({ sidebar, PageComponent, ...routeProps }) => {
-  const [size, mainRef] = useTargetSize();
-  const asideRef = useRef();
-  const height = size && size.height;
-
-  useEffect(() => {
-    if (height) {
-      asideRef.current.style.height = `${height}px`;
-    }
-  }, [height]);
-
+  
   return (
     <div styleName="layout">
-      <aside styleName="aside" ref={asideRef}>
-        {sidebar}
-      </aside>
-      <main styleName="main" ref={mainRef}>
+      <main className="main">
         <PageComponent {...routeProps} />
       </main>
     </div>

@@ -11,45 +11,37 @@
     .draft,
     .ready,
     .transferred {
-
-        svg {
-            @include icon-sm;
+        &:before {
+            content: '';
+            position: relative;
+            top: -1px;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
             margin-right: $pad-xs;
+            border-radius: 50px;
+            border: 2px solid transparent;
+
         }
     }
 
-    .active {
-
-        svg {
-            fill: $turq-120;
-        }
+    .active:before {
+        border-color: $turq-120;
     }
 
-    .done {
-
-        svg {
-            fill: $black-80;
-        }
+    .done:before {
+        border-color: $black-80;
     }
 
-    .draft {
-
-        svg {
-            fill: $black-80;
-        }
+    .draft:before {
+        border-color: $black-80;
+    }
+    
+    .ready:before {
+        border-color: $black-80;
     }
 
-    .ready {
-
-        svg {
-            fill: $blue-100;
-        }
-    }
-
-    .transferred {
-
-        svg {
-            fill: $legacy-120;
-        }
+    .transferred:before {
+        border-color: $legacy-120;
     }
 }
