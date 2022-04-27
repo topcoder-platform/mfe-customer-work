@@ -1,37 +1,49 @@
 @import '../styles';
 
-.tr {
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
 
-    &.clickable {
-        position: relative;
-        cursor: pointer;
+    .tr {
 
-        &:hover {
-            &::after {
-                content: "";
-                position: absolute;
-                display: block;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                border: 1px solid $turq-160;
-                border-radius: 8px;
+        &.clickable {
+            position: relative;
+            cursor: pointer;
+
+            td {
+                border: 1px solid transparent;
+            }
+    
+            &:hover {
+    
+                td {
+                    border-top-color: $turq-160;
+                    border-bottom-color: $turq-160;
+        
+                    &:first-child {
+                        border-left-color: $turq-160;
+                    }
+                    
+                    &:last-child {
+                        border-right-color: $turq-160;
+                    }
+                }
             }
         }
-    }
+    
+        .th {
+            @extend .small-tab;
+            padding: $pad-lg;
+            white-space: nowrap;
+            text-align: left;
+            text-transform: uppercase;
+        }
+    
+        &:nth-child(2n + 1) {
 
-    .th {
-        @extend .small-tab;
-        padding: $pad-lg;
-        white-space: nowrap;
-        text-align: left;
-        text-transform: uppercase;
-    }
-
-    &:nth-child(2n + 1) {
-        td {
-            background: $tc-white;
+            td {
+                background: $tc-white;
+            }
         }
     }
 }

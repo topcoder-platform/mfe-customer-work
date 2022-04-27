@@ -169,10 +169,16 @@ a {
 
     &.icon {
         margin: 0;
-        padding: 0;
+        padding: $pad-sm calc($pad-sm - $border-xs) $pad-xs $pad-sm;
         border: 0;
         background: none;
         color: $turq-160;
+
+        &:hover {
+            background-color: $black-10;
+            color: $turq-100;
+        }
+
         &:focus {
             outline: none;
         }

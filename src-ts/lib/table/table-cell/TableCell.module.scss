@@ -21,10 +21,8 @@
     }
 
     &.action {
-
-        &:not(.empty) {
-            cursor: default;
-        }
+        text-align: center;
+        padding: $pad-sm;
     }
 
     &.money {
