@@ -10,9 +10,7 @@ function WorkStatusRenderer(work: Work): JSX.Element {
 
     return (
         <div className={styles['status-container']}>
-            <div className={styles[statusKey]}>
-                <IconOutline.CheckCircleIcon />
-            </div>
+            <div className={styles[statusKey]}></div>
             <div className='small-tab'>{work.status}</div>
         </div>
     )

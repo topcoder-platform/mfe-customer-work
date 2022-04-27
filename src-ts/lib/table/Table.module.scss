@@ -3,7 +3,22 @@
 .tr {
 
     &.clickable {
+        position: relative;
         cursor: pointer;
+
+        &:hover {
+            &::after {
+                content: "";
+                position: absolute;
+                display: block;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border: 1px solid $turq-160;
+                border-radius: 8px;
+            }
+        }
     }
 
     .th {

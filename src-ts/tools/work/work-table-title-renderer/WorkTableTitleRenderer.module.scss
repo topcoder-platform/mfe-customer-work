@@ -8,4 +8,18 @@
         min-width: 32px;
         margin-right: $pad-lg;
     }
+    .title {
+        @extend .medium-subtitle;
+        font-weight: 500;
+    }
+    
+    .description {
+        @extend .body-ultra-small;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
+
