@@ -169,7 +169,7 @@ a {
 
     &.icon {
         margin: 0;
-        padding: 8px 7px 4px 8px;
+        padding: $pad-sm calc($pad-sm - $border-xs) $pad-xs $pad-sm;
         border: 0;
         background: none;
         color: $turq-160;
