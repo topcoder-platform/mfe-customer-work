@@ -104,6 +104,17 @@ function handleFieldEvent<T>(input: HTMLInputElement | HTMLTextAreaElement, inpu
     // now let's validate the field
     const formElements: HTMLFormControlsCollection = (input.form as HTMLFormElement).elements
     validateField(inputDef, formElements, event)
+
+    // if the input doesn't have any dependent fields, we're done
+    if (!inputDef.dependentFields?.length) {
+        return
+    }
+
+    inputDef.dependentFields
+        .forEach(dependentField => {
+            const dependentFieldDef: FormInputModel = getInputModel(inputs, dependentField)
+            validateField(dependentFieldDef, formElements, event)
+        })
 }
 
 function validateField(formInputDef: FormInputModel, formElements: HTMLFormControlsCollection, event: 'blur' | 'change' | 'submit'): void {
@@ -112,10 +123,10 @@ function validateField(formInputDef: FormInputModel, formElements: HTMLFormContr
     const previousError: string | undefined = formInputDef.error
 
     formInputDef.validators
-        ?.forEach(validator => {
+        ?.forEach(validatorFunction => {
 
             // if the next error is the same as the previous error, then no need to do anything
-            const nextError: string | undefined = validator(formInputDef.value, formElements, formInputDef.dependentField)
+            const nextError: string | undefined = validatorFunction.validator(formInputDef.value, formElements, validatorFunction.dependentField)
 
             if (previousError === nextError) {
                 return
