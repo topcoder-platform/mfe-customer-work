@@ -18,7 +18,7 @@ const MyWork = () => {
   const profileContextData = useContext(profileContext)
 
   const isLoggedIn = profileContextData.initialized && !!profileContextData.profile;
-  const isLoggingIn = !profileContextData.initialized; 
+  const isLoggingIn = !profileContextData.initialized;
   const worksIsLoading = !workContextData.initialized;
 
   useEffect(() => {
@@ -28,13 +28,13 @@ const MyWork = () => {
   }, [isLoggedIn, isLoggingIn]);
 
   return (
-    <div styleName="container">
+    <>
       {isLoggedIn && !worksIsLoading ? (
         <Dashboard />
       ) : (
         <LoadingSpinner show={true} />
       )}
-    </div>
+    </>
   );
 };
 
