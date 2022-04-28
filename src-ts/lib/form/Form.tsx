@@ -11,6 +11,7 @@ import {
 
 import { Button } from '../button'
 import '../styles/index.scss'
+import { IconOutline } from '../svgs'
 
 import { FormDefinition } from './form-definition.model'
 import {
@@ -131,12 +132,15 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
                 />
 
                 <div className={styles['form-footer']}>
-                    <div
-                        className={styles['form-error']}
-                        ref={errorsRef}
-                    >
-                        {formError}
-                    </div>
+                    {!!formError && (
+                        <div
+                            className={styles['form-error']}
+                            ref={errorsRef}
+                        >
+                            <IconOutline.InformationCircleIcon />
+                            {formError}
+                        </div>
+                    )}
                     <div className={styles['button-container']}>
                         {buttons}
                     </div>
