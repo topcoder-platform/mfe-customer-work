@@ -8,10 +8,9 @@ import "./styles.module.scss";
  * Block Layout
  */
 const Layout = ({ sidebar, PageComponent, ...routeProps }) => {
-  
   return (
     <div styleName="layout">
-      <main className="main">
+      <main>
         <PageComponent {...routeProps} />
       </main>
     </div>

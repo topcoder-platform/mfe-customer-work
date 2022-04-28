@@ -44,17 +44,17 @@ const Account: FC<{}> = () => {
             <div className={styles['page-content']}>
 
                 <Card title='Account'>
-                    <div>{profile.handle}</div>
-                    <div>{profile.email}</div>
+                    <p><strong>Email:</strong> {profile.email}</p>
+                    <p><strong>Username:</strong> {profile.handle}</p>
                 </Card>
 
                 <Card
                     title='Name'
                     onClick={toggleEditName}
                 >
-                    <div>
+                    <p>
                         {profile.firstName} {profile.lastName}
-                    </div>
+                    </p>
                     <Button
                         label='edit name'
                         onClick={toggleEditName}
@@ -74,9 +74,9 @@ const Account: FC<{}> = () => {
                     onClick={toggleChangePassword}
                     title='Password'
                 >
-                    <div>
+                    <p>
                         *******************
-                    </div>
+                    </p>
                     <Button
                         label='change password'
                         onClick={toggleChangePassword}

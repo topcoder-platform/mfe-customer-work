@@ -34,7 +34,7 @@ Inside the project folder run:
 - `nvm use 10.22.1;` - to use npm version: 10.22.1
 - `npm i` - install dependencies
 - `npm run local` - run app in `development` mode and `dev` config
-- This app will be loaded as a normal MFE app, its url is `http://localhost:8519/self-service/topcoder-micro-frontends-self-service-app.js` and is configurated in the config file of Self Service App
+- This app will be loaded as a normal MFE app, its url is `http://localhost:8519/self-service/topcoder-mfe-customer-work.js` and is configurated in the config file of Self Service App
 
 ## Deployment to Production
 
@@ -56,7 +56,7 @@ Make sure you have [Heroky CLI](https://devcenter.heroku.com/articles/heroku-cli
 
 - `git push heroku master` - push changes to Heroku and trigger deploying
 
-- Now you have to configure frame app to use the URL provided by Heroku like `https://<APP-NAME>.herokuapp.com/gigs-app/topcoder-micro-frontends-self-service-app.js` to load this microapp.
+- Now you have to configure frame app to use the URL provided by Heroku like `https://<APP-NAME>.herokuapp.com/gigs-app/topcoder-mfe-customer-work.js` to load this microapp.
 
 ### Aggregator API
 
@@ -64,7 +64,7 @@ Please refer to [Swagger Doc](./src/api/docs/swagger.yaml) for Aggregator API en
 
 #### Aggregator API Configuration
 
-In the `micro-frontends-self-service-app` root directory create `.env` file with the next environment variables.
+In the `mfe-customer-work` root directory create `.env` file with the next environment variables.
 
 ```bash
 # Auth0 config

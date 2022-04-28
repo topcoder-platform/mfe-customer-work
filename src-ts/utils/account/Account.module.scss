@@ -4,15 +4,21 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    margin: 0 $pad-xxxxl;
+
+    h1 {
+        border-bottom: 1px solid $black-10;
+        color: $black-100;
+    }
 
     .page-content {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         column-gap: $pad-xxl;
+        margin: $pad-xxxxl 0 0;
 
         @include ltemd {
-            display: flex;
-            flex-direction: column;
+            grid-template-columns: 1fr;
             row-gap: $pad-xxl;
         }
     }
