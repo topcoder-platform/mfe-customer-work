@@ -48,7 +48,7 @@ const Dashboard = () => {
       title='My Work'
     >
       {workErrorElement}
-      {workTable}
+      <WorkTable />
     </ContentLayout>
   );
 };
