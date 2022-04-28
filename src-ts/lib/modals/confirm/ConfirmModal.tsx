@@ -1,13 +1,15 @@
-import { FC } from 'react';
-import Modal, { ModalProps } from 'react-responsive-modal';
-import { Button } from '../../button';
-import { IconOutline } from '../../svgs';
-import styles from './ConfirmModal.module.scss';
+import { FC } from 'react'
+import Modal, { ModalProps } from 'react-responsive-modal'
+
+import { Button } from '../../button'
+import { IconOutline } from '../../svgs'
+
+import styles from './ConfirmModal.module.scss'
 
 export interface ConfirmModalProps extends ModalProps {
-    title: string;
-    action?: string;
-    onConfirm: () => void;
+    action?: string
+    onConfirm: () => void
+    title: string
 }
 
 const ConfirmModal: FC<ConfirmModalProps> = ({
@@ -20,13 +22,13 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
     return (
         <Modal
             {...props}
-            closeIcon={<IconOutline.XIcon width={28} height={28}/>}
+            closeIcon={<IconOutline.XIcon width={28} height={28} />}
         >
             <div className={styles['modal-header']}>
                 <h4 className='details'>{title}</h4>
             </div>
 
-            <hr className={styles['spacer']}/>
+            <hr className={styles['spacer']} />
 
             <div className={styles['modal-body']}>
                 {children}
@@ -51,6 +53,6 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
 
         </Modal>
     )
-};
+}
 
 export default ConfirmModal

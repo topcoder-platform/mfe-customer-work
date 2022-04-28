@@ -1,16 +1,15 @@
 import { Dispatch, SetStateAction, useContext, useState } from 'react'
-import Modal from 'react-responsive-modal'
 import { toast } from 'react-toastify'
 
 import {
     Button,
+    ConfirmModal,
     IconOutline,
     Work,
     workContext,
     WorkContextData,
     WorkStatus,
 } from '../../../lib'
-import ConfirmModal from '../../../lib/modals/confirm/ConfirmModal'
 import '../../../lib/styles/index.scss'
 
 function WorkDeleteButtonRenderer(work: Work): JSX.Element | undefined {
