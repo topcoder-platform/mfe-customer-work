@@ -5,11 +5,12 @@ import { cacheChallengeId } from '../../../src/autoSaveBeforeLogin' // TODO: mov
 import { Table, Work, workContext, WorkContextData, WorkStatus } from '../../lib'
 
 import { workListColumns } from './work-table.config'
+import styles from './WorkTable.module.scss'
 
 const WorkTable: FC<{}> = () => {
 
     const workContextData: WorkContextData = useContext(workContext)
-    const { work, initialized }: WorkContextData = workContextData
+    const { hasWork, work, initialized }: WorkContextData = workContextData
 
     if (!initialized) {
         return <></>
@@ -38,12 +39,18 @@ const WorkTable: FC<{}> = () => {
     const workList: Array<Work> = work
         .sort((a: Work, b: Work) => b.created.getTime() - a.created.getTime())
 
-    return (
+    return hasWork ? (
         <Table
             columns={workListColumns}
             data={workList}
             onRowClick={viewWorkDetails}
         />
+    ) : (
+        <div className={styles['start-message']}>
+            <div className='body-large'>
+                Your future work will live here. Let's go!
+            </div>
+        </div>
     )
 }
 

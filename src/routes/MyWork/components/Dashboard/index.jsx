@@ -42,20 +42,6 @@ const Dashboard = () => {
     )
     : undefined
 
-  const workTable = hasWork
-    ? <WorkTable />
-    : undefined
-
-  const noWork = !!workTable
-    ? undefined
-    : (
-      <div styleName="start-message">
-        <div styleName="text">
-          Your future work will live here. Let's go!
-        </div>
-      </div>
-    )
-
   return (
     <ContentLayout
       buttonConfig={startWorkButtonProps}
@@ -63,7 +49,6 @@ const Dashboard = () => {
     >
       {workErrorElement}
       {workTable}
-      {noWork}
     </ContentLayout>
   );
 };
