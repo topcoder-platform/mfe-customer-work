@@ -21,7 +21,7 @@ export const changePasswordFormDef: FormDefinition = {
         {
             buttonStyle: 'secondary',
             isSave: true,
-            label: 'Save new password',
+            label: 'Change password',
             size: 'xl',
             type: 'submit',
         },
@@ -29,37 +29,60 @@ export const changePasswordFormDef: FormDefinition = {
     inputs: [
         {
             autocomplete: FormInputAutocompleteOption.current,
+            dependentFields: [
+                ChangePasswordFieldName.newPassword,
+            ],
             label: 'Current Password',
             name: ChangePasswordFieldName.currentPassword,
             placeholder: 'Enter your current password',
             type: 'password',
             validators: [
-                validatorRequired,
+                {
+                    validator: validatorRequired,
+                },
             ],
         },
         {
             autocomplete: FormInputAutocompleteOption.new,
-            dependentField: ChangePasswordFieldName.currentPassword,
+            dependentFields: [
+                ChangePasswordFieldName.confirmPassword,
+                ChangePasswordFieldName.currentPassword,
+            ],
             label: 'New Password',
             name: ChangePasswordFieldName.newPassword,
             placeholder: 'Enter your new password',
             type: 'password',
             validators: [
-                validatorRequired,
-                validatorDoesNotMatchOther,
-                validatorPassword,
+                {
+                    validator: validatorRequired,
+                },
+                {
+                    dependentField: ChangePasswordFieldName.currentPassword,
+                    validator: validatorDoesNotMatchOther,
+                },
+                {
+                    validator: validatorPassword,
+                },
             ],
         },
         {
             autocomplete: FormInputAutocompleteOption.off,
-            dependentField: ChangePasswordFieldName.newPassword,
+            dependentFields:[
+                 ChangePasswordFieldName.newPassword,
+            ],
             label: 'Confirm Password',
             name: ChangePasswordFieldName.confirmPassword,
             placeholder: 'Re-enter your new password',
             type: 'password',
             validators: [
-                validatorRequiredIfOther,
-                validatorMatchOther,
+                {
+                    dependentField: ChangePasswordFieldName.newPassword,
+                    validator: validatorRequiredIfOther,
+                },
+                {
+                    dependentField: ChangePasswordFieldName.newPassword,
+                    validator: validatorMatchOther,
+                },
             ],
         },
     ],

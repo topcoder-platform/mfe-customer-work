@@ -35,6 +35,9 @@
 
         .react-responsive-modal-closeButton {
             top: $pad-xl;
+            padding: $pad-xs;
+            border-radius: 50%;
+
             svg {
                 fill: $turq-160;
                 @include gtemd {
@@ -43,7 +46,8 @@
             }
             
             &:focus {
-                outline: 2px solid $turq-140;
+                background-color: $black-10;
+                outline: 0;
             }
         }
     }
