@@ -69,6 +69,12 @@ h4 {
     line-height: 24px;
 }
 
+.body-large {
+    @include font-roboto;
+    font-size: 24px;
+    line-height: 32px;
+}
+
 .body-small {
     font-size: 14px !important;
     line-height: 22px !important;
