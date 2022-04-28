@@ -12,8 +12,7 @@
 
     .form-footer {
         display: flex;
-        justify-content: flex-end;
-        align-items: center;
+        flex-direction: column;
         width: 100%;
         margin-top: auto;
         margin-bottom: -#{$pad-md};
@@ -25,9 +24,15 @@
             padding-top: $pad-xl;
         }
 
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
         .form-error {
             @extend .body-small;
             color: $red-100;
+            text-align: center;
         }
 
         button:last-child {

@@ -98,17 +98,14 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
             })
 
         // set the max width of the form error so that it doesn't push the width of the form wider
-        const buttonsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>()
         const errorsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>()
         useEffect(() => {
             const formWidth: number = formRef.current?.clientWidth || 0
-            const buttonsWidth: number = buttonsRef.current?.clientWidth || 0
-            const errorWidth: number = formWidth - buttonsWidth
 
             // errorsRef current will always exist,
             // but need to to satisfy typescript and check
             if (!!errorsRef.current) {
-                errorsRef.current.style.maxWidth = `${errorWidth}px`
+                errorsRef.current.style.maxWidth = `${formWidth}px`
             }
         }, [formRef])
 
@@ -140,7 +137,7 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
                     >
                         {formError}
                     </div>
-                    <div ref={buttonsRef}>
+                    <div className={styles['button-container']}>
                         {buttons}
                     </div>
                 </div>
