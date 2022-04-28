@@ -88,7 +88,7 @@ $error-line-height: 14px;
         align-items: center;
         color: $red-100;
         // extend body ultra small and override it
-        @extend .body-ultra-small;
+        @extend .ultra-small;
         line-height: $error-line-height;
         margin-top: $pad-xs;
 

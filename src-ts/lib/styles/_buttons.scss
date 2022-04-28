@@ -28,8 +28,8 @@ a {
     white-space: nowrap;
     cursor: pointer;
     margin: $pad-md;
-    // extend body ultra small medium and override it
-    @extend .body-ultra-small-medium;
+    // extend ultra small bold and override it
+    @extend .ultra-small-bold;
     line-height: 24px;
     
     &:focus {

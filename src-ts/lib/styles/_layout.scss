@@ -18,7 +18,6 @@ $pad-xl: calc(5 * $pad-xs); // 20
 $pad-xxl: calc(6 * $pad-xs); // 24
 $pad-xxxl: calc(7 * $pad-xs); // 28
 $pad-xxxxl: calc(8 * $pad-xs); // 32
-$pad-content-lg: calc($pad-xxl + $pad-xxxxl);
 
 @mixin content-height {
     height: calc(100vh - $header-height);

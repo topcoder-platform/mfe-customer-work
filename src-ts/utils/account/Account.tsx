@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useContext, useState } from 'react'
 import Modal from 'react-responsive-modal'
 
-import { authUrlLogin, Button, Card, formOnReset } from '../../lib'
+import { authUrlLogin, Button, Card, ContentLayout, formOnReset } from '../../lib'
 import { profileContext, ProfileContextData } from '../../lib/profile-provider'
 
 import styles from './Account.module.scss'
@@ -37,11 +37,9 @@ const Account: FC<{}> = () => {
     }
 
     return (
-        <div className={styles['page-container']}>
+        <ContentLayout title='Account Settings'>
 
-            <h1>Account Settings</h1>
-
-            <div className={styles['page-content']}>
+            <div className={styles.cards}>
 
                 <Card title='Account'>
                     <p><strong>Email:</strong> {profile.email}</p>
@@ -93,7 +91,8 @@ const Account: FC<{}> = () => {
                 </Modal>
 
             </div>
-        </div>
+
+        </ContentLayout>
     )
 }
 
