@@ -3,6 +3,7 @@ export * from './card'
 export * from './content-layout'
 export * from './form'
 export * from './global-config.model'
+export * from './modals'
 export * from './profile-provider'
 export {
     authUrlLogin,

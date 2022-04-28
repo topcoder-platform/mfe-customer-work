@@ -1,3 +1,4 @@
+@import "breakpoints";
 @import "fonts";
 @import "layout";
 
@@ -17,45 +18,35 @@ h2,
 h3,
 h4 {
     @include font-barlow-condensed;
+    @include font-weight-semi-bold;
     text-transform: uppercase;
     margin: 0;
     letter-spacing: 0;
-    padding: 24px 0;
+    padding: 0;
+    border: 0 none;
+    &.details {
+        @include font-barlow;
+    }
 }
 
 h1 {
-    @include font-weight-semi-bold;
     font-size: 34px;
     line-height: 32px;
 }
 
-h2,
-h3,
-h4 {
-    @include font-weight-medium;
-}
-
 h2 {
-    font-size: 28px;
+    font-size: 24px;
     line-height: 28px;
 }
 
 h3 {
-    font-size: 24px;
-    line-height: 24px;
+    font-size: 22px;
+    line-height: 26px;
 }
 
 h4 {
-    font-size: 20px;
-    line-height: 20px;
-}
-
-hr {
-    color: $black-10;
-    background-color: $black-10;
-    border-radius: 1px;
-    margin: 16px 0px;
-    width: 100%;
+    font-size: 18px;
+    line-height: 22px;
 }
 
 .medium-subtitle {
@@ -70,6 +61,12 @@ hr {
     line-height: 16px;
     text-transform: uppercase;
     @include font-weight-medium;
+}
+
+.body-main {
+    @include font-roboto;
+    font-size: 16px;
+    line-height: 24px;
 }
 
 .body-large {

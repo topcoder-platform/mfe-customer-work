@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useContext, useState } from 'react'
-import Modal from 'react-responsive-modal'
 import { toast } from 'react-toastify'
 
 import {
     Button,
+    ConfirmModal,
     IconOutline,
     Work,
     workContext,
@@ -43,34 +43,16 @@ function WorkDeleteButtonRenderer(work: Work): JSX.Element | undefined {
                 title='Delete'
             />
 
-            <Modal
+            <ConfirmModal
+                title='Delete Draft'
+                action='delete'
                 onClose={toggleConfirmation}
+                onConfirm={deleteWork}
                 open={confirmationOpen}
             >
-                <h2>Delete Draft</h2>
-                <hr />
-
-                <div>
-                    Are you sure you would like to delete your draft work?
-                    This action can not be undone and will permanently remove your work.
-                </div>
-
-                <div className='button-container'>
-                    <Button
-                        label='Cancel'
-                        onClick={toggleConfirmation}
-                        tabIndex={1}
-                        buttonStyle='secondary'
-                    />
-                    <Button
-                        buttonStyle='primary'
-                        label='Delete'
-                        onClick={deleteWork}
-                        tabIndex={2}
-                    />
-                </div>
-
-            </Modal>
+                Are you sure you would like to delete your draft work?
+                This action can not be undone and will permanently remove your work.
+            </ConfirmModal>
         </>
 
     )

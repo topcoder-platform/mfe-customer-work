@@ -28,7 +28,6 @@ a {
     border: solid $border;
     white-space: nowrap;
     cursor: pointer;
-    margin: $pad-md;
     // extend ultra small bold and override it
     @extend .ultra-small-bold;
     line-height: 24px;
@@ -122,10 +121,6 @@ a {
         @include icon-lg;
     }
 
-    &:not(.link) {
-        margin-right: $pad-xs;
-    }
-
     &.link {
         margin: 0;
         padding: 0;
@@ -183,10 +178,4 @@ a {
             outline: none;
         }
     }
-}
-
-.button-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
 }
