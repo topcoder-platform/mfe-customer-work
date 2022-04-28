@@ -37,7 +37,7 @@ const WorkTable: FC<{}> = () => {
     // sort by the default sort,
     // which is descending by created date
     const workList: Array<Work> = work
-        .sort((a, b) => b.created.getTime() - a.created.getTime())
+        .sort((a: Work, b: Work) => b.created.getTime() - a.created.getTime())
 
     return hasWork ? (
         <Table
