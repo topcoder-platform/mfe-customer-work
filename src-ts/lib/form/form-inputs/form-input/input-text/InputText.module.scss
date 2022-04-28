@@ -16,10 +16,6 @@
         border: none !important;
         outline: none !important;
         color: $black-100 !important;
-
-        &::placeholder {
-            color: $black-60 !important;
-        }
     }
   
     &:disabled {
@@ -27,6 +23,7 @@
     }
 
     &::placeholder {
+        color: $black-60 !important;
         opacity: 1 !important;
         text-transform: none !important;
     }

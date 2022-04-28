@@ -78,20 +78,6 @@ hr {
     @include font-weight-less-bold;
 }
 
-.body-ultra-small,
-.body-ultra-small-medium {
-    font-size: 12px;
-    line-height: 18px;
-}
-
-.body-ultra-small {
-    @include font-weight-less-bold;
-}
-
-.body-ultra-small-medium {
-    @include font-weight-bold;
-}
-
 .body-medium-bold {
     @include font-weight-semi-bold;
     @include font-barlow;
@@ -100,11 +86,24 @@ hr {
     line-height: 22px;
 }
 
-.ultra-small {
+.ultra-small,
+.ultra-small-medium,
+.ultra-small-bold {
     font-size: 11px;
     line-height: 16px;
+}
+
+.ultra-small {
     @include font-weight-less-bold;
     font-style: italic;
+}
+
+.ultra-small-medium {
+    @include font-weight-medium;
+}
+
+.ultra-small-bold {
+    @include font-weight-bold;
 }
 
 .small-tab {
