@@ -40,27 +40,12 @@ const Dashboard = () => {
     )
     : undefined
 
-  const workTable = hasWork
-    ? <WorkTable />
-    : undefined
-
-  const noWork = !!workTable
-    ? undefined
-    : (
-      <div styleName="start-message">
-        <div styleName="text">
-          Your future work will live here. Let's go!
-        </div>
-      </div>
-    )
-
   return (
     <div styleName="container">
       <Header title="My Work" onClick={onClickBtnStart} buttonContent="START WORK" />
       <div styleName="content">
         {workErrorElement}
-        {workTable}
-        {noWork}
+        <WorkTable />
       </div>
     </div>
   );
