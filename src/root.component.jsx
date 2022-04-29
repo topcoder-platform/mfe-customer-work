@@ -1,8 +1,8 @@
 import { createHistory, LocationProvider } from "@reach/router";
 import React, { StrictMode } from "react";
 import { Provider } from "react-redux";
-import ReduxToastr from "react-redux-toastr";
 import { BrowserRouter } from "react-router-dom";
+import ReduxToastr from "react-redux-toastr";
 
 import {
   AppNextGen,
