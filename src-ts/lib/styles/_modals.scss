@@ -4,7 +4,7 @@
     position: fixed;
     display: flex;
     justify-content: center;
-    height: auto;
+    height: auto !important;
     
     @include gtemd {
         max-width: 450px;
