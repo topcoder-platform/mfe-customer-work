@@ -26,7 +26,18 @@ module.exports = function (api) {
           generateScopedName,
         },
       ],
-      "inline-react-svg",
+      [
+        "inline-react-svg",
+        {
+          "svgo": {
+            "plugins": [
+              {
+                "cleanupIDs": false
+              }
+            ]
+          }
+        }
+      ],
     ],
     env: {
       test: {
