@@ -24,7 +24,9 @@ export const editNameFormDef: FormDefinition = {
             name: EditNameFieldName.firstName,
             type: 'text',
             validators: [
-                validatorRequired,
+                {
+                    validator: validatorRequired,
+                },
             ],
         },
         {
@@ -33,7 +35,9 @@ export const editNameFormDef: FormDefinition = {
             name: EditNameFieldName.lastName,
             type: 'text',
             validators: [
-                validatorRequired,
+                {
+                    validator: validatorRequired,
+                },
             ],
         },
     ],

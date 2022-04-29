@@ -107,7 +107,10 @@ export function sslUrl(value: string | undefined): string | undefined {
     }
 }
 
-export type ValidatorFn = (value: string | undefined, formValues?: HTMLFormControlsCollection, otherField?: string) => string | undefined
+export interface ValidatorFn {
+    dependentField?: string,
+    validator: (value: string | undefined, formValues?: HTMLFormControlsCollection, otherField?: string) => string | undefined
+}
 
 function getOtherField(formElements?: HTMLFormControlsCollection, otherFieldName?: string): HTMLInputElement {
 

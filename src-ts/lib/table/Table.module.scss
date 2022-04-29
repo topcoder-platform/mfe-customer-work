@@ -42,10 +42,6 @@
                 padding-left: 0;
             }
 
-            &.date {
-                text-align: right;
-            }
-
             .tooltip {
                 display: inline-block;
                 margin-left: $pad-xs;
@@ -58,6 +54,7 @@
                     }
                 }
             }
+
         }
     
         &:nth-child(2n + 1) {
