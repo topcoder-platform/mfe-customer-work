@@ -38,7 +38,7 @@ export interface UseHoverElementValue {
 export function useOnHoverElement(el: HTMLElement|null, cb: (isVisible: boolean) => void): UseHoverElementValue {
     const counter: MutableRefObject<number> = useRef(0)
 
-    const handleover: (ev: RMouseEvent<Element, MouseEvent>) => void = useCallback((ev: RMouseEvent<Element, MouseEvent>) => {
+    const handleHover: (ev: RMouseEvent<Element, MouseEvent>) => void = useCallback((ev: RMouseEvent<Element, MouseEvent>) => {
         const nextVal: number = counter.current + (ev.type === 'mouseenter' ? 1 : -1)
         if (!!nextVal !== !!counter.current) {
             cb(!!nextVal)
@@ -47,7 +47,7 @@ export function useOnHoverElement(el: HTMLElement|null, cb: (isVisible: boolean)
     }, [cb, el])
 
     return {
-        onMouseEnter: handleover,
-        onMouseLeave: handleover,
+        onMouseEnter: handleHover,
+        onMouseLeave: handleHover,
     }
 }
