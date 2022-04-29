@@ -3,21 +3,9 @@
 .tooltip {
     display: inline-block;
     position: relative;
-    top: 2px;
     
     &-icon {
-        margin-left: $pad-xs;
         cursor: pointer;
-        svg {
-            @include icon-md;
-        }
-    }
-    
-
-    &-arrow {
-        position: absolute;
-        top: -11px;
-        right: 11px;
     }
 
     &-content {
@@ -33,6 +21,19 @@
     border-radius: 8px;
     color: $tc-white;
     padding: $pad-md;
-    right: -24px;
-    top: 21px;
+    pointer-events: none;
+    
+    .tooltip-arrow {
+        position: absolute;
+    }
+
+    &:global(.pos-end-end) {
+        top: 21px;
+        right: -24px;
+
+        .tooltip-arrow {
+            top: -11px;
+            right: 11px;
+        }
+    }
 }
