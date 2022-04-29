@@ -38,11 +38,20 @@
             text-align: left;
             text-transform: uppercase;
 
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &.date {
+                text-align: right;
+            }
+
             .tooltip {
                 display: inline-block;
                 margin-left: $pad-xs;
                 position: relative;
                 top: 2px;
+
                 :global(.tooltip-icon) {
                     svg {
                         @include icon-md;

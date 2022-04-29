@@ -30,6 +30,10 @@
         white-space: nowrap;
     }
 
+    &.date {
+        text-align: right;
+    }
+
     &.date,
     &.text {
         white-space: nowrap;

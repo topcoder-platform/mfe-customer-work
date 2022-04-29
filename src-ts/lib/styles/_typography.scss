@@ -50,6 +50,7 @@ h4 {
 }
 
 .medium-subtitle {
+    @include font-weight-medium;
     font-size: 14px;
     line-height: 16px;
     letter-spacing: .5px;
@@ -92,13 +93,13 @@ h4 {
 .ultra-small,
 .ultra-small-medium,
 .ultra-small-bold {
+    @include font-roboto; 
     font-size: 11px;
     line-height: 16px;
 }
 
 .ultra-small {
     @include font-weight-less-bold;
-    font-style: italic;
 }
 
 .ultra-small-medium {
