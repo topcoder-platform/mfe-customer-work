@@ -10,11 +10,12 @@
     }
     .title {
         @extend .medium-subtitle;
-        font-weight: 500;
+        @include font-black-100;
     }
     
     .description {
         @extend .ultra-small;
+        margin-top: 6px;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;

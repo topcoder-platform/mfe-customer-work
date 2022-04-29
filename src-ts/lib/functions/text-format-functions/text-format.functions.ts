@@ -8,7 +8,7 @@ export function dateLocaleShortString(date: Date): string | undefined {
 }
 
 export function moneyLocaleString(amount: number): string | undefined {
-    return amount?.toLocaleString(undefined, {
+    return amount?.toLocaleString('en-US', {
         currency: 'USD', // TODO: handle other currencies
         maximumFractionDigits: 0,
         style: 'currency',
