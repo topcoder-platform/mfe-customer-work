@@ -2,10 +2,10 @@ import { MouseEvent as RMouseEvent, MouseEventHandler, MutableRefObject, useCall
 
 /**
  * Registers an outside click event handler, and calls the callback on click outside
- * @param el Html element to register the event habdler for
+ * @param el Html element to register the event handler for
  * @param cb Callback function to be called on click outside of provided element
  */
-export function useClickOutside(el: HTMLElement|null, cb: (ev: MouseEvent) => void): void {
+export function useClickOutside(el: HTMLElement | null, cb: (ev: MouseEvent) => void): void {
     const handleClick: (ev: MouseEvent) => void = useCallback((ev: MouseEvent) => {
         if (el && !el.contains(ev.target as unknown as Node)) {
             cb(ev)
@@ -32,10 +32,10 @@ export interface UseHoverElementValue {
 
 /**
  * Registers an outside click event handler, and calls the callback on click outside
- * @param el Html element to register the event habdler for
+ * @param el Html element to register the event handler for
  * @param cb Callback function to be called on click outside of provided element
  */
-export function useOnHoverElement(el: HTMLElement|null, cb: (isVisible: boolean) => void): UseHoverElementValue {
+export function useOnHoverElement(el: HTMLElement | null, cb: (isVisible: boolean) => void): UseHoverElementValue {
     const counter: MutableRefObject<number> = useRef(0)
 
     const handleHover: (ev: RMouseEvent<Element, MouseEvent>) => void = useCallback((ev: RMouseEvent<Element, MouseEvent>) => {
