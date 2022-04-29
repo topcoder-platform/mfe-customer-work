@@ -10,6 +10,7 @@
 
     &-content {
         @extend .body-small;
+        @include font-roboto;
         text-transform: none;
     }
 }
@@ -20,20 +21,33 @@
     background-color: $black-100;
     border-radius: 8px;
     color: $tc-white;
-    padding: $pad-md;
+    padding: $pad-sm;
     pointer-events: none;
+    min-width: 62px;
     
     .tooltip-arrow {
         position: absolute;
     }
 
-    &:global(.pos-end-end) {
-        top: 21px;
-        right: -24px;
-
+    &:global(.posy-end) {
+        top: calc(100% + 9px);
         .tooltip-arrow {
             top: -11px;
+        }
+    }
+    &:global(.posx-end) {
+        right: -24px;
+        .tooltip-arrow {
             right: 11px;
+        }
+    }
+
+    &:global(.posx-middle) {
+        left: 50%;
+        transform: translateX(-50%);
+
+        .tooltip-arrow {
+            right: calc(50% - 18px);
         }
     }
 }
