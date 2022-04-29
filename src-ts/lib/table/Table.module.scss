@@ -37,6 +37,14 @@
             white-space: nowrap;
             text-align: left;
             text-transform: uppercase;
+
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &.date {
+                text-align: right;
+            }
         }
     
         &:nth-child(2n + 1) {

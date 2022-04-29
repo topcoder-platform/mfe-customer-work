@@ -11,37 +11,32 @@
     .draft,
     .ready,
     .transferred {
-        &:before {
-            content: '';
-            position: relative;
-            top: -1px;
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            margin-right: $pad-xs;
-            border-radius: 50px;
-            border: 2px solid transparent;
-
-        }
+        position: relative;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin-right: $pad-xs;
+        border-radius: 50px;
+        border: 2px solid transparent;
     }
 
-    .active:before {
+    .active {
         border-color: $turq-120;
     }
 
-    .done:before {
+    .done {
         border-color: $black-80;
     }
 
-    .draft:before {
+    .draft {
         border-color: $black-80;
     }
     
-    .ready:before {
+    .ready {
         border-color: $black-80;
     }
 
-    .transferred:before {
+    .transferred {
         border-color: $legacy-120;
     }
 }
