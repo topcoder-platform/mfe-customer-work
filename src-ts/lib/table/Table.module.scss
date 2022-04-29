@@ -49,18 +49,18 @@
                 top: 2px;
 
                 :global(.tooltip-icon) {
+
                     svg {
                         @include icon-md;
                     }
                 }
             }
-
         }
     
         &:nth-child(2n + 1) {
 
             td {
-                background: $tc-white;
+                background-color: $tc-white;
             }
         }
     }
