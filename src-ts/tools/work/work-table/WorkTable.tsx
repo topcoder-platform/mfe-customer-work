@@ -1,5 +1,5 @@
 import { FC, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 import { cacheChallengeId } from '../../../../src/autoSaveBeforeLogin' // TODO: move to src-ts
 import { Table, Work, workContext, WorkContextData, WorkStatus } from '../../../lib'
@@ -16,7 +16,7 @@ const WorkTable: FC<{}> = () => {
         return <></>
     }
 
-    const navigate: any = useNavigate()
+    const navigate: NavigateFunction = useNavigate()
 
     function viewWorkDetails(selectedWork: Work): void {
 
