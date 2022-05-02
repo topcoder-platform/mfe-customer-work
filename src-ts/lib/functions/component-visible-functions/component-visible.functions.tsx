@@ -31,9 +31,9 @@ export interface UseHoverElementValue {
 }
 
 /**
- * Registers an outside click event handler, and calls the callback on click outside
- * @param el Html element to register the event handler for
- * @param cb Callback function to be called on click outside of provided element
+ * Create event handlers for hover in/hover out for the passed element
+ * @param el Html element to register the event handlers for
+ * @param cb Callback function to be called on hover in/hover out of provided element
  */
 export function useOnHoverElement(el: HTMLElement | null, cb: (isVisible: boolean) => void): UseHoverElementValue {
     const counter: MutableRefObject<number> = useRef(0)

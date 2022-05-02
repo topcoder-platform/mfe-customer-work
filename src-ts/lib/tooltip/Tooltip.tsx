@@ -40,8 +40,8 @@ const Tooltip: FC<TooltipProps> = ({
     const triggerRef: MutableRefObject<any> = useRef(undefined)
     const [tooltipOpen, setTooltipOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
-    const toggleOpen: (t?: boolean) => void = useCallback((t?: boolean) => {
-      setTooltipOpen(d => typeof t === 'boolean' ? !!t : !d)
+    const toggleOpen: (toggleValue?: boolean) => void = useCallback((toggleValue?: boolean) => {
+      setTooltipOpen(currentTooltipOpen => typeof toggleValue === 'boolean' ? toggleValue : !currentTooltipOpen)
     }, [])
 
     const revealHandlers: ClickHandlersValue|UseHoverElementValue = triggerOn === 'click'
