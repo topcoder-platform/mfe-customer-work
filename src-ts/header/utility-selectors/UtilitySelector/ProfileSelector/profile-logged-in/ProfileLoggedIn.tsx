@@ -2,10 +2,12 @@ import { Dispatch, FC, SetStateAction, useContext, useState } from 'react'
 
 import {
     Avatar,
+    ComponentVisible,
     IconOutline,
     logInfo,
     profileContext,
     ProfileContextData,
+    useHideClickOutside,
 } from '../../../../../lib'
 
 import { ProfilePanel } from './profile-panel'
@@ -20,16 +22,25 @@ const ProfileLoggedIn: FC<ProfileLoggedInProps> = (props: ProfileLoggedInProps) 
     const { profile }: ProfileContextData = useContext(profileContext)
     const [profilePanelOpen, setProfilePanelOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
+    const {
+        isComponentVisible,
+        ref,
+        setIsComponentVisible,
+    }: ComponentVisible = useHideClickOutside(false)
+
     if (!profile) {
         logInfo('tried to render the logged in profile w/out a profile')
         return <></>
     }
 
-    // TODO: handle click outside
-
     function toggleProfilePanel(): void {
         const toggleTo: boolean = !profilePanelOpen
         setProfilePanelOpen(toggleTo)
+        setIsComponentVisible(toggleTo)
+    }
+
+    if (!isComponentVisible && profilePanelOpen) {
+        setProfilePanelOpen(isComponentVisible)
     }
 
     return (
@@ -46,17 +57,18 @@ const ProfileLoggedIn: FC<ProfileLoggedInProps> = (props: ProfileLoggedInProps) 
                     size='sm'
                 />
                 {profilePanelOpen && (
-                    <>
-                        <div className={styles.overlay}>
-                            <IconOutline.XIcon />
-                        </div>
-                        <ProfilePanel
-                            settingsTitle={props.settingsTitle}
-                            toggleProfilePanel={toggleProfilePanel}
-                        />
-                    </>
+                    <div className={styles.overlay}>
+                        <IconOutline.XIcon />
+                    </div>
                 )}
             </div>
+            {profilePanelOpen && (
+                <ProfilePanel
+                    refObject={ref}
+                    settingsTitle={props.settingsTitle}
+                    toggleProfilePanel={toggleProfilePanel}
+                />
+            )}
         </>
     )
 }

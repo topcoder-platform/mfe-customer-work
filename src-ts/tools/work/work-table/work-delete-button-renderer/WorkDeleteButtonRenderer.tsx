@@ -5,7 +5,6 @@ import {
     Button,
     ConfirmModal,
     IconOutline,
-    Tooltip,
     Work,
     workContext,
     WorkContextData,
@@ -37,18 +36,12 @@ function WorkDeleteButtonRenderer(work: Work): JSX.Element | undefined {
 
     return (
         <>
-            <Tooltip
-                content='Delete'
-                positionX='middle'
-                positionY='end'
-                triggerOn='hover'
-                trigger={(
-                    <Button
-                        buttonStyle='icon'
-                        icon={IconOutline.TrashIcon}
-                        onClick={toggleConfirmation}
-                    />
-                )}
+            <Button
+                buttonStyle='icon'
+                icon={IconOutline.TrashIcon}
+                onClick={toggleConfirmation}
+                title='Delete'
+                tabIndex={-1}
             />
 
             <ConfirmModal
@@ -62,6 +55,7 @@ function WorkDeleteButtonRenderer(work: Work): JSX.Element | undefined {
                 This action can not be undone and will permanently remove your work.
             </ConfirmModal>
         </>
+
     )
 }
 

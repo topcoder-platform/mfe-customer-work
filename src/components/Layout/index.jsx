@@ -1,14 +1,16 @@
 import React from "react";
 import PT from "prop-types";
 
+import "./styles.module.scss";
+
 /**
  * Block Layout
  */
 const Layout = ({ PageComponent, ...routeProps }) => {
   
   return (
-    <div>
-      <main>
+    <div styleName="layout">
+      <main className="main">
         <PageComponent {...routeProps} />
       </main>
     </div>
