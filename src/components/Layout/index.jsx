@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, {  } from "react";
 import PT from "prop-types";
-import { useTargetSize } from "utils/hooks/useTargetSize";
 
 import "./styles.module.scss";
 
@@ -8,10 +7,9 @@ import "./styles.module.scss";
  * Block Layout
  */
 const Layout = ({ sidebar, PageComponent, ...routeProps }) => {
-  
   return (
-    <div styleName="layout">
-      <main className="main">
+    <div>
+      <main>
         <PageComponent {...routeProps} />
       </main>
     </div>

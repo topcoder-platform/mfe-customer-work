@@ -8,10 +8,10 @@ ENV APPMODE=$APPMODE
 ENV APPENV=$APPENV
 
 # Copy the current directory into the Docker image
-COPY . /micro-frontends-self-service-app
+COPY . /mfe-customer-work
 
 # Set working directory for future use
-WORKDIR /micro-frontends-self-service-app
+WORKDIR /mfe-customer-work
 
 # Install the dependencies from package.json
 RUN npm install

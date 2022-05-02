@@ -19,7 +19,7 @@ declare module '*.svg' {
     export default src
 }
 
-declare module '@topcoder/micro-frontends-navbar-app'
+declare module '@topcoder/mfe-header'
 
 declare module 'react-redux-toastr'
 

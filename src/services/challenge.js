@@ -1,6 +1,6 @@
 import config from "../../config";
 import { axiosInstance as axios } from "./requestInterceptor";
-import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserProfile } from "@topcoder/mfe-header";
 import _ from "lodash";
 import moment from "moment";
 import * as websiteDesignUtils from "utils/products/WebDesign";
