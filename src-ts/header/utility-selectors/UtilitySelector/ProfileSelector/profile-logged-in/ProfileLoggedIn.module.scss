@@ -1,6 +1,6 @@
 @import '../../../../../lib/styles';
 
-$overlaySquare: calc($pad-xxxxl);
+$overlaySquare: $pad-xxxxl;
 
 .profile-avatar,
 .overlay {
