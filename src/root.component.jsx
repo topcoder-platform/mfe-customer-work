@@ -20,7 +20,7 @@ const history = createHistory(window);
 
 export default function Root() {
   return (
-    <>
+    <Provider store={store}>
 
       <BrowserRouter>
         <RouteProvider
@@ -34,21 +34,20 @@ export default function Root() {
       </BrowserRouter>
 
       <LocationProvider history={history}>
-        <Provider store={store}>
-          <App />
-          <ReduxToastr
-            timeOut={3000}
-            newestOnTop={false}
-            preventDuplicates
-            position="top-right"
-            getState={(state) => state.toastr}
-            transitionIn="fadeIn"
-            transitionOut="fadeOut"
-            progressBar
-            closeOnToastrClick
-          />
-        </Provider>
+        <App />
+        <ReduxToastr
+          timeOut={3000}
+          newestOnTop={false}
+          preventDuplicates
+          position="top-right"
+          getState={(state) => state.toastr}
+          transitionIn="fadeIn"
+          transitionOut="fadeOut"
+          progressBar
+          closeOnToastrClick
+        />
       </LocationProvider>
-    </>
+
+    </Provider>
   );
 }
