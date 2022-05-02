@@ -13,7 +13,7 @@ const ProfileNotLoggedIn: FC<{}> = () => {
                 buttonStyle='text'
                 className={styles.login}
                 label='Log In'
-                size='sm'
+                size='md'
                 tabIndex={-1}
                 url={authUrlLogin(routeRoot)}
             />
@@ -21,7 +21,7 @@ const ProfileNotLoggedIn: FC<{}> = () => {
                 buttonStyle='tertiary'
                 className={styles.signup}
                 label='Sign Up'
-                size='sm'
+                size='md'
                 tabIndex={-1}
                 url={authUrlSignup(routeRoot)}
             />

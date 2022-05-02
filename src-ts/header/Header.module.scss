@@ -1,8 +1,7 @@
 @import '../lib/styles';
 
 .header-wrap {
-    display: flex;
-    justify-content: center;
+    display: block;
     background-color: $tc-black;
 }
 
@@ -10,33 +9,13 @@
     display: grid;
     height: $header-height;
     align-items: center;
-    padding: 0 $pad-xxxxl 0 0;
-    max-width: $max-content-width;
     width: 100%;
+    margin: 0 auto;
+    @include pagePaddings;
+    grid-template-columns: 78px 1fr auto;
 
     @include ltemd {
         grid-template-columns: $header-height 1fr $header-height;
         align-items: center;
-    }
-
-    @include sm {
-        padding: 0 $pad-lg 0 0;
-    }
-
-    @include md {
-        grid-template-columns: $left-col-width-md 1fr auto;
-        padding: 0 $pad-lg 0 0;
-    }
-
-    @include lg {
-        grid-template-columns: $left-col-width-lg 1fr auto;
-    }
-
-    @include xl {
-        grid-template-columns: $left-col-width-xl 1fr auto;
-    }
-
-    @include xxl {
-        grid-template-columns: $left-col-width-xl 1fr auto;
     }
 }

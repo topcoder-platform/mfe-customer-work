@@ -42,7 +42,7 @@ a {
     }
     
     &.button-md {
-        padding: $pad-xs $pad-xl;
+        padding: 3*$border $pad-xl;
         font-size: 13px;
     }
 
@@ -159,7 +159,9 @@ a {
     }
 
     &.text {
+        color: $tc-white;
         border-color: transparent;
+        font-size: 12px;
     }
 
     &.icon {

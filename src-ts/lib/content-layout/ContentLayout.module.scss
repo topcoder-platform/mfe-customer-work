@@ -2,14 +2,11 @@
 
 .content {
     @include content-height;
-    padding: 0 $pad-xxxxl;
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
-
-    @include md {
-        padding: 0 $pad-xxl;
-    }
+    padding-top: 0;
+    @include pagePaddings;
 
     @include ltesm {
         padding: 0;
@@ -22,7 +19,6 @@
         .content-inner {
             flex: 1;
             max-width: $xxl-min;
-            @include pagePaddings;
             display: flex;
             flex-direction: column;
 
