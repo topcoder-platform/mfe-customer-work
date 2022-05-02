@@ -27,9 +27,14 @@
             flex-direction: column;
 
             .page-header {
+                display: flex;
+                align-items: center;
+                border-bottom: $border solid $black-5;
+                margin-top: $pad-sm;
+                padding: $pad-xxl 0;
 
                 h1 {
-                    border-bottom: $border solid $black-5;
+                    flex: 1;
                     color: $black-100;
                 }
             }

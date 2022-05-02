@@ -20,7 +20,7 @@ import styles from "./styles/main.module.scss";
 import SupportPage from "./routes/SupportPage";
 import UnderMaintenance from "./routes/UnderMaintenance";
 import { Account } from "../src-ts/utils/account";
-import { ProfileProvider } from "../src-ts/lib/profile-provider";
+import { WorkProvider } from "../src-ts/lib";
 
 const sidebar = <Sidebar menus={menuItems} />;
 
@@ -61,7 +61,7 @@ const App = () => {
   }
 
   return (
-    <ProfileProvider>
+    <WorkProvider>
       <div className={styles["topcoder-mfe-customer-work"]}>
         <Router primary={false}>
           <ScrollToTop path="/">
@@ -87,7 +87,7 @@ const App = () => {
           </ScrollToTop>
         </Router>
       </div>
-    </ProfileProvider>
+    </WorkProvider>
   );
 };
 

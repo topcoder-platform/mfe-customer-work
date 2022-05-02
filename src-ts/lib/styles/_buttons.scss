@@ -1,5 +1,6 @@
-@import './palette';
+@import './icons';
 @import './layout';
+@import './palette';
 
 // TODO: add reset and have it take care of this
 a {
@@ -27,7 +28,6 @@ a {
     border: solid $border;
     white-space: nowrap;
     cursor: pointer;
-    margin: $pad-md;
     // extend ultra small bold and override it
     @extend .ultra-small-bold;
     line-height: 24px;
@@ -117,6 +117,10 @@ a {
         }
     }
 
+    svg {
+        @include icon-lg;
+    }
+
     &.link {
         margin: 0;
         padding: 0;
@@ -156,5 +160,22 @@ a {
 
     &.text {
         border-color: transparent;
+    }
+
+    &.icon {
+        margin: 0;
+        padding: $pad-sm calc($pad-sm - $border-xs) $pad-xs $pad-sm;
+        border: 0;
+        background: none;
+        color: $turq-160;
+
+        &:hover {
+            background-color: $black-10;
+            color: $turq-100;
+        }
+
+        &:focus {
+            outline: none;
+        }
     }
 }

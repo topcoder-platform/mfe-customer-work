@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, {  } from "react";
 import PT from "prop-types";
-import { useTargetSize } from "utils/hooks/useTargetSize";
 
 import "./styles.module.scss";
 
@@ -9,7 +8,7 @@ import "./styles.module.scss";
  */
 const Layout = ({ sidebar, PageComponent, ...routeProps }) => {
   return (
-    <div styleName="layout">
+    <div>
       <main>
         <PageComponent {...routeProps} />
       </main>

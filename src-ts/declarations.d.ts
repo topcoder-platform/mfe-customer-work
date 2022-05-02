@@ -8,8 +8,19 @@ declare module '*.scss' {
     export = scssFile
 }
 
-declare module 'tc-auth-lib'
+declare module '*.svg' {
+    import * as React from 'react'
+
+    export const ReactComponent: React.FunctionComponent<React.SVGProps<
+        SVGSVGElement
+    > & { title?: string }>
+
+    const src: string
+    export default src
+}
 
 declare module '@topcoder/mfe-header'
 
 declare module 'react-redux-toastr'
+
+declare module 'tc-auth-lib'
