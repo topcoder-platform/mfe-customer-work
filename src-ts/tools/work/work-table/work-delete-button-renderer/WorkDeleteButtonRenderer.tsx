@@ -5,6 +5,7 @@ import {
     Button,
     ConfirmModal,
     IconOutline,
+    Tooltip,
     Work,
     workContext,
     WorkContextData,
@@ -36,12 +37,18 @@ function WorkDeleteButtonRenderer(work: Work): JSX.Element | undefined {
 
     return (
         <>
-            <Button
-                buttonStyle='icon'
-                icon={IconOutline.TrashIcon}
-                onClick={toggleConfirmation}
-                title='Delete'
-                tabIndex={-1}
+            <Tooltip
+                content='Delete'
+                positionX='middle'
+                positionY='end'
+                triggerOn='hover'
+                trigger={(
+                    <Button
+                        buttonStyle='icon'
+                        icon={IconOutline.TrashIcon}
+                        onClick={toggleConfirmation}
+                    />
+                )}
             />
 
             <ConfirmModal
