@@ -28,9 +28,8 @@ a {
     border: solid $border;
     white-space: nowrap;
     cursor: pointer;
-    margin: $pad-md;
-    // extend body ultra small medium and override it
-    @extend .body-ultra-small-medium;
+    // extend ultra small bold and override it
+    @extend .ultra-small-bold;
     line-height: 24px;
     
     &:focus {
@@ -122,10 +121,6 @@ a {
         @include icon-lg;
     }
 
-    &:not(.link) {
-        margin-right: $pad-xs;
-    }
-
     &.link {
         margin: 0;
         padding: 0;
@@ -169,18 +164,18 @@ a {
 
     &.icon {
         margin: 0;
-        padding: 0;
+        padding: $pad-sm calc($pad-sm - $border-xs) $pad-xs $pad-sm;
         border: 0;
         background: none;
         color: $turq-160;
+
+        &:hover {
+            background-color: $black-10;
+            color: $turq-100;
+        }
+
         &:focus {
             outline: none;
         }
     }
-}
-
-.button-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
 }

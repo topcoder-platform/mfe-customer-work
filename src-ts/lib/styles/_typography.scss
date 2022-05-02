@@ -1,3 +1,4 @@
+@import "breakpoints";
 @import "fonts";
 @import "layout";
 
@@ -16,23 +17,20 @@ h1,
 h2,
 h3,
 h4 {
+    @include font-barlow-condensed;
     @include font-weight-semi-bold;
     text-transform: uppercase;
     letter-spacing: 0;
-    margin: 0;
     padding: 0;
+    border: 0 none;
+    &.details {
+        @include font-barlow;
+    }
 }
 
 h1 {
-    @include font-barlow-condensed;
     font-size: 34px;
     line-height: 32px;
-}
-
-h2,
-h3,
-h4 {
-    @include font-barlow;
 }
 
 h2 {
@@ -48,24 +46,6 @@ h3 {
 h4 {
     font-size: 18px;
     line-height: 22px;
-}
-
-p {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-
-    &:not(:last-child) {
-        margin-bottom: 16px;
-    }
-}
-
-hr {
-    color: $black-10;
-    background-color: $black-10;
-    border-radius: 1px;
-    margin: 16px 0px;
-    width: 100%;
 }
 
 /* Tabs */
@@ -92,7 +72,7 @@ hr {
 }
 
 .medium-subtitle {
-    font-weight: 500;
+    @include font-weight-medium;
     font-size: 14px;
     line-height: 16px;
     letter-spacing: .5px;
@@ -120,39 +100,50 @@ hr {
     line-height: 22px;
 }
 
+.body-main {
+    @include font-roboto;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.body-large {
+    @include font-roboto;
+    font-size: 24px;
+    line-height: 32px;
+}
+
 .body-small {
     font-size: 14px !important;
     line-height: 22px !important;
     @include font-weight-less-bold;
 }
 
-.body-small-medium {
-    @extend .body-small;
-    @include font-weight-medium;
-    letter-spacing: 0;
+.body-medium-bold {
+    @include font-weight-semi-bold;
+    @include font-barlow;
+    padding: 0;
+    font-size: 20px;
+    line-height: 22px;
 }
 
-.body-ultra-small,
-.body-ultra-small-medium {
-    font-size: 12px;
-    line-height: 18px;
-}
-
-.body-ultra-small {
-    @include font-weight-less-bold;
-}
-
-.body-ultra-small-medium {
-    @include font-weight-bold;
-}
-
-/* Ultra small */
-
-.ultra-small {
+.ultra-small,
+.ultra-small-medium,
+.ultra-small-bold {
+    @include font-roboto; 
     font-size: 11px;
     line-height: 16px;
+}
+
+.ultra-small {
     @include font-weight-less-bold;
-    font-style: italic;
+}
+
+.ultra-small-medium {
+    @include font-weight-medium;
+}
+
+.ultra-small-bold {
+    @include font-weight-bold;
 }
 
 .overline {
@@ -166,5 +157,5 @@ hr {
 .label {
     @include font-weight-semi-bold;
     font-size: 11px;
-    line-height: 10px;
-} 
+    line-height: 14px;
+}

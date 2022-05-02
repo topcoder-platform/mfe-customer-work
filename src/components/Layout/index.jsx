@@ -1,14 +1,12 @@
 import React from "react";
 import PT from "prop-types";
 
-import "./styles.module.scss";
-
 /**
  * Block Layout
  */
-const Layout = ({ sidebar, PageComponent, ...routeProps }) => {
+const Layout = ({  PageComponent, ...routeProps }) => {
   return (
-    <div styleName="layout">
+    <div>
       <main>
         <PageComponent {...routeProps} />
       </main>
@@ -17,7 +15,6 @@ const Layout = ({ sidebar, PageComponent, ...routeProps }) => {
 };
 
 Layout.propTypes = {
-  sidebar: PT.node,
   PageComponent: PT.func,
   path: PT.string,
 };

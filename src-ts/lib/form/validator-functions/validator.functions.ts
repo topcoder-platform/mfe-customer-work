@@ -48,7 +48,7 @@ export function password(value: string | undefined): string | undefined {
     // - at least 1 symbol or number
     const passwordRegex: RegExp = /^(?=.*[a-zA-Z])(?=.*[#$^+=!*()@%&\d]).{8,}$/g
 
-    return !passwordRegex.test(value) ? 'Password rules: >= 8 characters, >= 1 letter, and >= 1 number or symbol' : undefined
+    return !passwordRegex.test(value) ? 'Password rules: 8+ characters, 1+ letter, and 1+ number or symbol' : undefined
 }
 
 export function matchOther(value: string | undefined, formElements?: HTMLFormControlsCollection, otherFieldName?: string): string | undefined {
@@ -107,7 +107,10 @@ export function sslUrl(value: string | undefined): string | undefined {
     }
 }
 
-export type ValidatorFn = (value: string | undefined, formValues?: HTMLFormControlsCollection, otherField?: string) => string | undefined
+export interface ValidatorFn {
+    dependentField?: string,
+    validator: (value: string | undefined, formValues?: HTMLFormControlsCollection, otherField?: string) => string | undefined
+}
 
 function getOtherField(formElements?: HTMLFormControlsCollection, otherFieldName?: string): HTMLInputElement {
 

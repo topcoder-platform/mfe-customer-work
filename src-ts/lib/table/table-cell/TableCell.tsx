@@ -56,9 +56,13 @@ const TableCell: <T extends { [propertyName: string]: any }>(props: TableCellPro
             <td
                 className={classes}
                 key={`${props.index}-${props.propertyName}`}
-                onClick={onClick}
             >
-                {data}
+                <div
+                    className={styles[props.type]}
+                    onClick={onClick}
+                >
+                    {data}
+                </div>
             </td>
         )
     }
