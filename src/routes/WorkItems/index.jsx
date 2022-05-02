@@ -43,7 +43,7 @@ import SupportModal from "../../components/Modal/SupportModal";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
 
-import { Breadcrumb } from '../../../src-ts/lib'
+import { Breadcrumb, TabsNavbar } from '../../../src-ts/lib'
 import { WorkDetailHeader, WorkDetailSummary } from '../../../src-ts/tools/work'
 
 import "./styles.module.scss";
@@ -74,22 +74,6 @@ const WorkItem = ({
   const [showSurvey, setShowSurvey] = useState(false);
   const [showSupportModal, setShowSupportModal] = useState(false);
   const profileData = useSelector(getProfile);
-
-  useLayoutEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const initialTab = query.get("tab");
-    if (initialTab && tabNames.indexOf(initialTab) !== -1) {
-      setSelectedTab(initialTab);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.history.replaceState(
-      window.history.state,
-      "",
-      `?tab=${selectedTab}`
-    );
-  }, [selectedTab]);
 
   useEffect(() => {
     getWork(workItemId);
@@ -200,6 +184,22 @@ const WorkItem = ({
     }
   ];
 
+  const navTabs = useMemo(() => [
+    {id: 'summary', title: 'Summary'},
+    {id: 'details', title: 'Details'},
+    work && !workUtil.isMessagesDisabled(work) && {
+      id: 'messaging',
+      title: 'Messages',
+      badges: [
+        forumNotifications?.unreadNotifications && {
+          count: +forumNotifications?.unreadNotifications,
+          type: 'info'
+        }
+      ].filter(Boolean)
+    },
+    {id: 'solutions', title: 'Solutions'},
+  ].filter(Boolean), [work]);
+
   return (
     <>
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
@@ -219,48 +219,11 @@ const WorkItem = ({
             markAsDone={() => setShowSurvey(true)}
           />
 
-          <Tabs>
-            <Tab
-              active={selectedTab === "summary"}
-              onClick={() => {
-                setSelectedTab("summary");
-              }}
-            >
-              SUMMARY
-            </Tab>
-            <Tab
-              active={selectedTab === "details"}
-              onClick={() => {
-                setSelectedTab("details");
-              }}
-            >
-              DETAILS
-            </Tab>
-            {work && !workUtil.isMessagesDisabled(work) ? (
-              <Tab
-                active={selectedTab === "messaging"}
-                onClick={() => {
-                  setSelectedTab("messaging");
-                }}
-              >
-                MESSAGES
-                {forumNotifications &&
-                  forumNotifications.unreadNotifications ? (
-                  <span styleName="message-count">
-                    {padStart(forumNotifications.unreadNotifications)}
-                  </span>
-                ) : null}
-              </Tab>
-            ) : null}
-            <Tab
-              active={selectedTab === "solutions"}
-              onClick={() => {
-                setSelectedTab("solutions");
-              }}
-            >
-              SOLUTIONS
-            </Tab>
-          </Tabs>
+          <TabsNavbar
+            tabs={navTabs}
+            defaultActive="summary"
+            onChange={setSelectedTab}
+          ></TabsNavbar>
 
           <div>
             <TabPane value={selectedTab} tab="summary">

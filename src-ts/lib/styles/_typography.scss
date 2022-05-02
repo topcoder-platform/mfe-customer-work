@@ -72,6 +72,14 @@ hr {
     @include font-weight-medium;
 }
 
+.medium-tab {
+    @include font-barlow; 
+    @include font-weight-semi-bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 20px;
+}
+
 .small-tab {
     @include font-barlow; 
     @include font-weight-medium;
