@@ -2,12 +2,14 @@
 import * as IconOutline from '@heroicons/react/outline'
 import * as IconSolid from '@heroicons/react/solid'
 
-import { ReactComponent as IconWorkTypeDataExploration } from './work-type-data-exploration.svg'
-import { ReactComponent as IconWorkTypeUnknown } from './work-type-unknown.svg'
-import { ReactComponent as IconWorkTypeWebsiteDesign } from './work-type-website-design.svg'
+import { ReactComponent as LogoIcon } from './logo.svg'
+import { ReactComponent as WorkTypeDataExplorationIcon } from './work-type-data-exploration.svg'
+import { ReactComponent as WorkTypeUnknownIcon } from './work-type-unknown.svg'
+import { ReactComponent as WorkTypeWebsiteDesignIcon } from './work-type-website-design.svg'
 
 export { IconOutline }
 export { IconSolid }
-export { IconWorkTypeDataExploration }
-export { IconWorkTypeUnknown }
-export { IconWorkTypeWebsiteDesign }
+export { LogoIcon }
+export { WorkTypeDataExplorationIcon }
+export { WorkTypeUnknownIcon }
+export { WorkTypeWebsiteDesignIcon }

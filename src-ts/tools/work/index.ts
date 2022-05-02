@@ -1,1 +1,1 @@
-export { default as WorkTable } from './WorkTable'
+export * from './work.routes'
