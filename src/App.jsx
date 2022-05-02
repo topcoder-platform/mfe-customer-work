@@ -3,9 +3,8 @@ import {
   getAuthUserTokens,
   disableNavigationForRoute,
 } from "@topcoder/micro-frontends-navbar-app";
-import Sidebar from "components/Sidebar";
 import React, { useLayoutEffect, useState } from "react";
-import { menuItems, UNDER_MAINTENANCE, GA_ID } from "./constants";
+import { UNDER_MAINTENANCE, GA_ID } from "./constants";
 import IntakeForm from "./IntakeForm";
 import Home from "./routes/Home";
 import WorkItems from "./routes/WorkItems";
@@ -18,8 +17,6 @@ import "react-responsive-modal/styles.css";
 import styles from "./styles/main.module.scss";
 import SupportPage from "./routes/SupportPage";
 import UnderMaintenance from "./routes/UnderMaintenance";
-
-const sidebar = <Sidebar menus={menuItems} />;
 
 if (process.env.APPMODE === "production") {
   TagManager.initialize({
@@ -67,7 +64,6 @@ const App = () => {
             <>
               <Layout
                 path="/self-service/work-items/:workItemId"
-                sidebar={sidebar}
                 PageComponent={WorkItems}
               />
               <Redirect noThrow from="/self-service/*" to="/self-service" />

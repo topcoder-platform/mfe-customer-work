@@ -1,5 +1,5 @@
 
-import { PlatformRoute } from '../../lib'
+import { PlatformRoute, routeRoot } from '../../lib'
 
 import Work, { toolTitle } from './Work'
 import { WorkTable } from './work-table'
@@ -17,7 +17,7 @@ export const workRoutes: Array<PlatformRoute> = [
         ],
         element: <Work />,
         enabled: true,
-        route: '/work/dashboard',
+        route: routeRoot,
         title: toolTitle,
     },
 ]

@@ -311,7 +311,7 @@ export const disabledSidebarRoutes = [
 export const menuItems = [
   {
     item: "My Work",
-    url: "/work/dashboard",
+    url: ROUTES.DASHBOARD_PAGE,
     icon: <MyWorkIcon />,
     activeIcon: <MyWorkActiveIcon />,
   },

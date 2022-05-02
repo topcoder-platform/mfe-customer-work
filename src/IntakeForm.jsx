@@ -64,6 +64,11 @@ export default function IntakeForm() {
       .catch((e) => {
         dispatch(autoSaveInitErrored(e));
       });
+
+      window.addEventListener("beforeunload", onReload);
+    return () => {
+      window.removeEventListener("beforeunload", onReload);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
