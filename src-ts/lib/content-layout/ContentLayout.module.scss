@@ -22,7 +22,7 @@
         .content-inner {
             flex: 1;
             max-width: $xxl-min;
-            padding: 0;
+            @include pagePaddings;
             display: flex;
             flex-direction: column;
 

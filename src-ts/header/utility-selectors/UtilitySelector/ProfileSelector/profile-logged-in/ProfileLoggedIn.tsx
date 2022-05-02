@@ -57,18 +57,18 @@ const ProfileLoggedIn: FC<ProfileLoggedInProps> = (props: ProfileLoggedInProps) 
                     size='sm'
                 />
                 {profilePanelOpen && (
-                    <div className={styles.overlay}>
-                        <IconOutline.XIcon />
-                    </div>
+                    <>
+                        <div className={styles.overlay}>
+                            <IconOutline.XIcon />
+                        </div>
+                        <ProfilePanel
+                            refObject={ref}
+                            settingsTitle={props.settingsTitle}
+                            toggleProfilePanel={toggleProfilePanel}
+                        />
+                    </>
                 )}
             </div>
-            {profilePanelOpen && (
-                <ProfilePanel
-                    refObject={ref}
-                    settingsTitle={props.settingsTitle}
-                    toggleProfilePanel={toggleProfilePanel}
-                />
-            )}
         </>
     )
 }

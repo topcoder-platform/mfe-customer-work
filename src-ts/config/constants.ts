@@ -1,4 +1,4 @@
 export enum ToolTitle {
-    settings = 'Account Settings',
+    settings = 'Profile Settings',
     work = 'Work',
 }

@@ -1,6 +1,7 @@
 @import 'palette';
 
 $header-height: 80px;
+$max-content-width: 1440px;
 
 /* Left Col includes the header logo link and the sections container */
 $left-col-width-md: $header-height;
@@ -61,4 +62,20 @@ hr {
 #tc-accounts-iframe {
     border: none;
     display: none;
+}
+
+
+@mixin pagePaddings {
+    padding-left: $pad-xxxxl;
+    padding-right: $pad-xxxxl;
+
+    @include ltemd {
+        padding-left: $pad-xxl;
+        padding-right: $pad-xxl;
+    }
+    
+    @include xxs {
+        padding-left: $pad-lg;
+        padding-right: $pad-lg;
+    }
 }
