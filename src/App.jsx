@@ -58,7 +58,6 @@ const App = () => {
     <div className={styles["topcoder-micro-frontends-self-service-app"]}>
       <Router primary={false}>
         <ScrollToTop path="/">
-          {/* TODO: change the src-ts routes so that this wildcard route doesn't match */}
           <IntakeForm path="/self-service/*" />
           {isLoggedIn && (
             <>
