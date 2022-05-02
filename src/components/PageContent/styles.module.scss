@@ -1,7 +1,7 @@
 @import "styles/include";
 .page-content {
   margin: 32px 0;
-  padding: 40px;
+  padding: 40px 0;
   @include mobile {
     padding: 20px;
   }

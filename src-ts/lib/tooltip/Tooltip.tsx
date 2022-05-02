@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 
 import { ComponentVisible, useHideClickOutside } from '../functions'
-import { IconOutline } from '../svgs'
+import { IconOutline, TooltipArrowIcon } from '../svgs'
 
 import styles from './Tooltip.module.scss'
 
@@ -35,11 +35,8 @@ const Tooltip: FC<TooltipProps> = (props: TooltipProps) => {
     }
 
     return (
-        <>
-            <div
-                className={styles.tooltip}
-                onClick={toggleOpen}
-            >
+        <div className={styles.tooltip}>
+            <div className={styles['tooltip-icon']} onClick={toggleOpen}>
                 <IconOutline.InformationCircleIcon />
             </div>
             {tooltipOpen && (
@@ -47,10 +44,15 @@ const Tooltip: FC<TooltipProps> = (props: TooltipProps) => {
                     className={styles['tooltip-open']}
                     ref={ref}
                 >
-                    {props.tooltip}
+                    <div className={styles['tooltip-arrow']}>
+                        <TooltipArrowIcon />
+                    </div>
+                    <div className={styles['tooltip-content']}>
+                        {props.tooltip}
+                    </div>
                 </div>
             )}
-        </>
+        </div>
     )
 }
 

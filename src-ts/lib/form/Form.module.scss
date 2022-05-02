@@ -12,8 +12,7 @@
 
     .form-footer {
         display: flex;
-        justify-content: flex-end;
-        align-items: center;
+        flex-direction: column;
         width: 100%;
         margin-top: auto;
         margin-bottom: -#{$pad-md};
@@ -22,12 +21,26 @@
 
         @include gtemd {
             margin: $pad-xl 0 0;
-            padding-top: $pad-xl;
+            padding-top: $pad-xxxl;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
         }
 
         .form-error {
-            @extend .body-small;
+            display: flex;
+            @extend .ultra-small-medium;
             color: $red-100;
+            background-color: $black-5;
+            padding: $pad-xs;
+            margin-bottom: $pad-xl;
+
+            svg {
+                @include icon-lg;
+                margin-right: $pad-xs;
+            }
         }
 
         button:last-child {

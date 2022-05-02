@@ -1,22 +1,53 @@
 @import '../styles';
 
-.tr {
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
 
-    &.clickable {
-        cursor: pointer;
-    }
+    .tr {
 
-    .th {
-        @extend .small-tab;
-        padding: $pad-lg;
-        white-space: nowrap;
-        text-align: left;
-        text-transform: uppercase;
-    }
+        &.clickable {
+            position: relative;
+            cursor: pointer;
 
-    &:nth-child(2n + 1) {
-        td {
-            background: $tc-white;
+            td {
+                border: 1px solid transparent;
+            }
+    
+            &:hover {
+    
+                td {
+                    border-top-color: $turq-160;
+                    border-bottom-color: $turq-160;
+        
+                    &:first-child {
+                        border-left-color: $turq-160;
+                    }
+                    
+                    &:last-child {
+                        border-right-color: $turq-160;
+                    }
+                }
+            }
+        }
+    
+        .th {
+            @extend .small-tab;
+            padding: $pad-lg;
+            white-space: nowrap;
+            text-align: left;
+            text-transform: uppercase;
+
+            &:first-child {
+                padding-left: 0;
+            }
+        }
+    
+        &:nth-child(2n + 1) {
+
+            td {
+                background: $tc-white;
+            }
         }
     }
 }

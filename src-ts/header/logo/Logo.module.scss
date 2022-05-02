@@ -1,0 +1,27 @@
+@import '../../lib/styles';
+
+.logo-no-link,
+.logo-link {
+    display: flex;
+
+    svg {
+        width: calc($pad-xxl + $pad-xxxxl);
+        height: $pad-xl;
+        fill: none;
+
+        path {
+            fill: $tc-white;
+        }
+
+        @include ltemd {
+            padding: 0;
+        }
+    }  
+}
+
+.logo-no-link {
+
+    a {
+        cursor: default;
+    }
+}

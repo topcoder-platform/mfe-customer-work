@@ -7,7 +7,6 @@
     background: $black-5;
     word-break: break-word;
     vertical-align: top;
-    font-weight: 500;
 
     &:first-child {
         border-radius: $pad-sm 0 0 $pad-sm;
@@ -22,15 +21,17 @@
     }
 
     &.action {
-
-        &:not(.empty) {
-            cursor: default;
-        }
+        text-align: center;
+        padding: $pad-sm;
     }
 
     &.money {
         text-align: right;
         white-space: nowrap;
+    }
+
+    &.date {
+        text-align: right;
     }
 
     &.date,

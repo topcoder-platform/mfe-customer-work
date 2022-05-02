@@ -1,0 +1,39 @@
+@import '../styles/';
+
+.content {
+    @include content-height;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    padding-top: 0;
+    @include pagePaddings;
+
+    @include ltesm {
+        padding: 0;
+    }
+
+    .content-outer {
+        display: flex;
+        justify-content: center;
+
+        .content-inner {
+            flex: 1;
+            max-width: $xxl-min;
+            display: flex;
+            flex-direction: column;
+
+            .page-header {
+                display: flex;
+                align-items: center;
+                border-bottom: $border solid $black-5;
+                margin-top: $pad-sm;
+                padding: $pad-xxl 0;
+
+                h1 {
+                    flex: 1;
+                    color: $black-100;
+                }
+            }
+        }
+    }
+}

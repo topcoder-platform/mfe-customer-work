@@ -1,4 +1,7 @@
+@import 'palette';
+
 $header-height: 80px;
+$max-content-width: 1440px;
 
 /* Left Col includes the header logo link and the sections container */
 $left-col-width-md: $header-height;
@@ -18,7 +21,6 @@ $pad-xl: calc(5 * $pad-xs); // 20
 $pad-xxl: calc(6 * $pad-xs); // 24
 $pad-xxxl: calc(7 * $pad-xs); // 28
 $pad-xxxxl: calc(8 * $pad-xs); // 32
-$pad-content-lg: calc($pad-xxl + $pad-xxxxl);
 
 @mixin content-height {
     height: calc(100vh - $header-height);
@@ -48,7 +50,31 @@ $pad-content-lg: calc($pad-xxl + $pad-xxxxl);
     padding: $pad-xxl;
 }
 
+hr {
+    color: $black-10;
+    border: 1px solid;
+    border-radius: 1px;
+    margin: 16px 0px;
+    width: 100%;
+}
+
 #tc-accounts-iframe {
     border: none;
     display: none;
+}
+
+
+@mixin pagePaddings {
+    padding-left: $pad-xxxxl;
+    padding-right: $pad-xxxxl;
+
+    @include ltemd {
+        padding-left: $pad-xxl;
+        padding-right: $pad-xxl;
+    }
+    
+    @include xxs {
+        padding-left: $pad-lg;
+        padding-right: $pad-lg;
+    }
 }
