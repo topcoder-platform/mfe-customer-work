@@ -6,8 +6,10 @@
     grid-template-columns: 1fr;
     justify-content: center;
     padding-top: 0;
+    max-width: $max-content-width;
     @include pagePaddings;
-
+    margin: 0 auto;
+ 
     @include ltesm {
         padding: 0;
     }

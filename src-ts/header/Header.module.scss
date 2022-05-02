@@ -11,6 +11,7 @@
     align-items: center;
     width: 100%;
     margin: 0 auto;
+    max-width: $max-content-width;
     @include pagePaddings;
     grid-template-columns: 78px 1fr auto;
 
