@@ -12,4 +12,5 @@ export {
 } from './functions'
 export * from './svgs'
 export * from './table'
+export * from './tooltip'
 export * from './work-provider'
