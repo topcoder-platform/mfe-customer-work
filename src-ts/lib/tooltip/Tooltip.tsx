@@ -1,73 +1,57 @@
-import classNames from 'classnames'
-import { Dispatch, FC, MutableRefObject, ReactNode, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
 
-import { useClickOutside, UseHoverElementValue, useOnHoverElement } from '../functions'
+import { ComponentVisible, useHideClickOutside } from '../functions'
+import { IconOutline } from '../svgs'
 
 import styles from './Tooltip.module.scss'
 
 interface TooltipProps {
-    content?: string
-    positionX?: 'start'|'middle'|'end'
-    positionY?: 'start'|'middle'|'end'
-    trigger: ReactNode
-    triggerOn?: 'click'|'hover'
+    tooltip?: string
 }
 
-interface ClickHandlersValue {
-    onClick: (ev: any) => void
-}
+const Tooltip: FC<TooltipProps> = (props: TooltipProps) => {
 
-function useClickHandlers(trigger: MutableRefObject<any>, toggle: (ev: any) => void): ClickHandlersValue {
-    useClickOutside(trigger.current, () => toggle(false))
+    const [tooltipOpen, setTooltipOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
-    return {
-        onClick: toggle,
-    }
-}
-
-const Tooltip: FC<TooltipProps> = ({
-    content,
-    trigger,
-    triggerOn = 'click',
-    positionX = 'middle',
-    positionY = 'end',
-}: TooltipProps) => {
     // if we didn't get a tooltip, just return an empty fragment
-    if (!content) {
+    if (!props.tooltip) {
         return <></>
     }
 
-    const triggerRef: MutableRefObject<any> = useRef(undefined)
-    const [tooltipOpen, setTooltipOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
+    const {
+        isComponentVisible,
+        ref,
+        setIsComponentVisible,
+    }: ComponentVisible = useHideClickOutside(false)
 
-    const toggleOpen: (toggleValue?: boolean) => void = useCallback((toggleValue?: boolean) => {
-      setTooltipOpen(currentTooltipOpen => typeof toggleValue === 'boolean' ? toggleValue : !currentTooltipOpen)
-    }, [])
+    function toggleOpen(): void {
+        const toggleTo: boolean = !tooltipOpen
+        setTooltipOpen(toggleTo)
+        setIsComponentVisible(toggleTo)
+    }
 
-    const revealHandlers: ClickHandlersValue|UseHoverElementValue = triggerOn === 'click'
-        ? useClickHandlers(triggerRef, toggleOpen)
-        : useOnHoverElement(triggerRef.current, toggleOpen)
+    if (!isComponentVisible && tooltipOpen) {
+        setTooltipOpen(isComponentVisible)
+    }
 
     return (
         <div className={styles.tooltip}>
-            <div
-                className={classNames('tooltip-icon', styles['tooltip-icon'])}
-                ref={triggerRef}
-                {...revealHandlers}
-            >
-                {trigger}
+            <div className={styles['tooltip-icon']} onClick={toggleOpen}>
+                <IconOutline.InformationCircleIcon />
             </div>
             {tooltipOpen && (
-                <div className={classNames(styles['tooltip-open'], `posy-${positionY}`, `posx-${positionX}`)}>
+                <div
+                    className={styles['tooltip-open']}
+                    ref={ref}
+                >
                     <div className={styles['tooltip-arrow']}>
-                        {/* TODO: convert this to a .svg file and import from /svgs */}
                         <svg width='37' height='9' viewBox='0 0 37 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
                             <path fill-rule='evenodd' clip-rule='evenodd' d='M13.875 3.53787L15.8535 1.25575C17.2816 -0.391461 19.6241 -0.422124 21.0857 1.18727C21.1062 1.20983 21.1265 1.23266 21.1465 1.25575L23.125 3.53787C26.0826 6.94936 29.2109 9 34.368 9H37L0 9H2.63195C7.78907 9 10.9174 6.94936 13.875 3.53787Z' fill='#2A2A2A'/>
                             <path fill-rule='evenodd' clip-rule='evenodd' d='M13.875 3.53787L15.8535 1.25575C17.2816 -0.391461 19.6241 -0.422124 21.0857 1.18727C21.1062 1.20983 21.1265 1.23266 21.1465 1.25575L23.125 3.53787C26.0826 6.94936 29.2109 9 34.368 9H37L0 9H2.63195C7.78907 9 10.9174 6.94936 13.875 3.53787Z' fill='black' fill-opacity='0.2'/>
                         </svg>
                     </div>
                     <div className={styles['tooltip-content']}>
-                        {content}
+                        {props.tooltip}
                     </div>
                 </div>
             )}
