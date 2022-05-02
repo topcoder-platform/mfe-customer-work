@@ -1,11 +1,12 @@
 import moment from 'moment'
 
-// TODO: return prices from the api rather than hard-coding in the UI
 import * as DesignPrices from '../../../../../src/constants'
 import * as DataPrices from '../../../../../src/constants/products/DataExploration'
-import { Challenge, ChallengeMetadata } from '../work-store'
+import { Challenge, ChallengeMetadata, ChallengePhase, ChallengePhaseName } from '../work-store'
 
 import { ChallengeStatus } from './challenge-status.enum'
+import { WorkProgressStep } from './work-progress-step.model'
+import { WorkProgress } from './work-progress.model'
 import { WorkStatus } from './work-status.enum'
 import { WorkType } from './work-type.enum'
 import { Work } from './work.model'
@@ -13,16 +14,21 @@ import { Work } from './work.model'
 export function create(challenge: Challenge): Work {
 
     const status: WorkStatus = getStatus(challenge)
+    const submittedDate: Date | undefined = getSubmittedDate(challenge)
     const type: WorkType = getType(challenge)
 
     return {
         cost: getCost(challenge, type),
-        created: new Date(challenge.created),
+        created: submittedDate,
         description: getDescription(challenge, type),
         id: challenge.id,
         messageCount: Number((Math.random() * 10).toFixed(0)), // TODO: real message count
-        solutionsReady: getSolutionsReadyDate(challenge, status),
+        participantsCount: challenge.numOfRegistrants,
+        progress: getProgress(challenge, status),
+        solutionsCount: challenge.numOfSubmissions,
+        solutionsReadyDate: getSolutionsReadyDate(challenge),
         status,
+        submittedDate,
         title: challenge.name,
         type,
     }
@@ -30,6 +36,16 @@ export function create(challenge: Challenge): Work {
 
 function findMetadata(challenge: Challenge, metadataName: string): ChallengeMetadata | undefined {
     return challenge.metadata?.find((item: ChallengeMetadata) => item.name === metadataName)
+}
+
+function findPhase(challenge: Challenge, phases: Array<string>): ChallengePhase | undefined {
+    let phase: ChallengePhase | undefined
+    let index: number = 0
+    while (!phase && index < phases.length) {
+        phase = challenge.phases.find((p: any) => p.name === phases[index])
+        index++
+    }
+    return phase
 }
 
 function getCost(challenge: Challenge, type: WorkType): number | undefined {
@@ -64,24 +80,91 @@ function getDescription(challenge: Challenge, type: WorkType): string | undefine
     }
 }
 
-function getSolutionsReadyDate(challenge: { [prop: string]: any }, status: WorkStatus): Date | undefined {
+function getProgress(challenge: Challenge, workStatus: WorkStatus): WorkProgress {
 
-    if (status === WorkStatus.draft) {
+    const steps: ReadonlyArray<WorkProgressStep> = [
+        {
+            date: getSubmittedDate(challenge),
+            name: 'Submitted',
+        },
+        {
+            date: getProgressStepDateStart(challenge, [ChallengePhaseName.registration]),
+            name: 'Started',
+        },
+        {
+            date: getProgressStepDateEnd(challenge, [
+                ChallengePhaseName.approval,
+                ChallengePhaseName.review,
+                ChallengePhaseName.appeals,
+                ChallengePhaseName.appealsResponse,
+            ]),
+            name: 'In Review',
+        },
+        {
+            date: getSolutionsReadyDate(challenge),
+            name: 'Solutions Ready',
+        },
+        {
+            date: workStatus === WorkStatus.done && !!challenge.updated
+                ? new Date(challenge.updated)
+                : undefined,
+            name: 'Done',
+        },
+    ]
+
+    return {
+        activeStepIndex: getProgressStepActive(challenge, workStatus),
+        steps,
+    }
+}
+
+function getProgressStepActive(challenge: Challenge, workStatus: WorkStatus): number {
+
+    switch (challenge.status) {
+
+        case ChallengeStatus.active:
+            const submissionIsOpen: boolean = !!findPhase(challenge, [ChallengePhaseName.submission])?.isOpen
+            const submissionEndDate: Date | undefined = getProgressStepDateEnd(challenge, [ChallengePhaseName.submission])
+            return submissionIsOpen && new Date() > (submissionEndDate as Date) ? 1 : 2
+
+        case ChallengeStatus.completed:
+            return workStatus === WorkStatus.ready ? 3 : 4
+
+        default:
+            return 0
+    }
+}
+
+function getProgressStepDateEnd(challenge: Challenge, phases: Array<string>): Date | undefined {
+
+    const phase: ChallengePhase | undefined = findPhase(challenge, phases)
+    if (!phase) {
         return undefined
     }
 
-    const readyPhase: any = challenge.phases.find((phase: any) => phase.name === 'Approval')
-        || challenge.phases.find((phase: any) => phase.name === 'Appeals Response')
+    if (phase.isOpen || moment(phase.scheduledStartDate).isAfter()) {
+        return new Date(phase.scheduledEndDate)
+    }
 
-    if (!readyPhase) {
+    return new Date(phase.actualEndDate || phase.scheduledEndDate)
+}
+
+function getProgressStepDateStart(challenge: Challenge, phases: Array<string>): Date | undefined {
+
+    const phase: ChallengePhase | undefined = findPhase(challenge, phases)
+    if (!phase) {
         return undefined
     }
 
-    if (readyPhase.isOpen || moment(readyPhase.scheduledStartDate).isAfter()) {
-        return new Date(readyPhase.scheduledEndDate)
+    if (!phase.isOpen || moment(phase.scheduledStartDate).isAfter()) {
+        return new Date(phase.scheduledStartDate)
     }
 
-    return new Date(readyPhase.actualEndDate || readyPhase.scheduledEndDate)
+    return new Date(phase.actualStartDate)
+}
+
+function getSolutionsReadyDate(challenge: Challenge): Date | undefined {
+    return getProgressStepDateEnd(challenge, [ChallengePhaseName.approval, ChallengePhaseName.appealsResponse])
 }
 
 function getStatus(challenge: Challenge): WorkStatus {
@@ -108,6 +191,10 @@ function getStatus(challenge: Challenge): WorkStatus {
         default:
             return WorkStatus.deleted
     }
+}
+
+function getSubmittedDate(challenge: Challenge): Date {
+    return new Date(challenge.created)
 }
 
 function getType(challenge: Challenge): WorkType {

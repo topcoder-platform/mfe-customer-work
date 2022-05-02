@@ -43,6 +43,9 @@ import SupportModal from "../../components/Modal/SupportModal";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
 
+import { Breadcrumb } from '../../../src-ts/lib'
+import { WorkDetailHeader, WorkDetailSummary } from '../../../src-ts/tools/work'
+
 import "./styles.module.scss";
 
 /**
@@ -159,25 +162,6 @@ const WorkItem = ({
     }
   }, [work]);
 
-  const markAsDoneButton = useMemo(() => {
-    if (work) {
-      if (
-        work.status === WORK_STATUSES.Completed.value &&
-        _.find(work.metadata, { name: "customerFeedback" }) == null
-      ) {
-        return (
-          <Button
-            styleName="markAsDoneBtn"
-            onClick={() => setShowSurvey(true)}
-            size={BUTTON_SIZE.MEDIUM}
-          >
-            MARK AS DONE
-          </Button>
-        );
-      }
-    }
-  }, [work]);
-
   const [customerFeedback, setCustomerFeedback] = useState();
   useEffect(() => {
     if (work && work.metadata) {
@@ -204,6 +188,18 @@ const WorkItem = ({
       work?.legacy?.selfService
     );
 
+  // TODO: get routes from a provider
+  const breadcrumb = [
+    {
+      name: "My work",
+      url: '/self-service/dashboard',
+    },
+    {
+      name: work?.name,
+      url: '', // this isn't necessary bc it's not a link
+    }
+  ];
+
   return (
     <>
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
@@ -216,18 +212,12 @@ const WorkItem = ({
       )}
       <Page styleName="page">
         <PageContent styleName="pageContent">
-          <PageH3 styleName="pageTitle">
-            <Button
-              size={BUTTON_SIZE.MEDIUM}
-              type={BUTTON_TYPE.ROUNDED}
-              onClick={() => {
-                navigate("/self-service");
-              }}
-            >
-              <BackIcon />
-            </Button>
-            {work && work.name}
-          </PageH3>
+
+          <Breadcrumb items={breadcrumb} />
+          <WorkDetailHeader
+            challenge={work}
+            markAsDone={() => setShowSurvey(true)}
+          />
 
           <Tabs>
             <Tab
@@ -255,7 +245,7 @@ const WorkItem = ({
               >
                 MESSAGES
                 {forumNotifications &&
-                forumNotifications.unreadNotifications ? (
+                  forumNotifications.unreadNotifications ? (
                   <span styleName="message-count">
                     {padStart(forumNotifications.unreadNotifications)}
                   </span>
@@ -275,18 +265,12 @@ const WorkItem = ({
           <div>
             <TabPane value={selectedTab} tab="summary">
               {summary && (
-                <Summary
-                  summary={summary}
-                  setSelectedTab={setSelectedTab}
-                  setShowSurvey={setShowSurvey}
-                />
+                <WorkDetailSummary challenge={work} />
               )}
-              {markAsDoneButton}
             </TabPane>
 
             <TabPane value={selectedTab} tab="details">
               <Details challenge={work} formData={details} />
-              {markAsDoneButton}
             </TabPane>
 
             <TabPane value={selectedTab} tab="solutions">
@@ -298,7 +282,6 @@ const WorkItem = ({
                 work={work}
               />
               <div styleName="solution-tab-footer">
-                {markAsDoneButton}
                 <a onClick={onShowSupportModal} styleName="need-help-link">
                   Need Help?
                 </a>
@@ -307,11 +290,9 @@ const WorkItem = ({
 
             <TabPane value={selectedTab} tab="messaging">
               {work && <Forum challengeId={work.id} />}
-              {markAsDoneButton}
             </TabPane>
 
             <TabPane value={selectedTab} tab="history">
-              {markAsDoneButton}
             </TabPane>
           </div>
         </PageContent>
