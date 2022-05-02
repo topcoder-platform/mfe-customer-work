@@ -1,8 +1,15 @@
 @import '../styles';
 
-.breadcrumb {
-    padding: $pad-md $pad-xxl;
+.breadcrumb-wrap {
+    width: 100%;
     background: $black-5;
+}
+
+.breadcrumb {
+    padding: $pad-md 0;
+    max-width: $max-content-width;
+    margin: 0 auto;
+    @include pagePaddings;
 
     ol {
         display: flex;
