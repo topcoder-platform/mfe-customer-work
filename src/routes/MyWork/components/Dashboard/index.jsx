@@ -20,7 +20,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const workContextData = useContext(workContext)
-  const { hasWork, workError } = workContextData
+  const { workError } = workContextData
 
   const onClickBtnStart = useCallback(() => {
     clearCachedChallengeId();

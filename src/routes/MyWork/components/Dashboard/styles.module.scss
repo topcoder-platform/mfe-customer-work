@@ -4,7 +4,7 @@
 .container {
   flex: 1 1 0;
   min-height: calc(100vh - var(--navbarHeight));
-  background-color: $white;
+  background-color: $tc-white;
 
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
 .sidebar {
   flex: 0 0 auto;
   width: 104px;
-  background-color: $white;
+  background-color: $tc-white;
 }
 
 .content {
