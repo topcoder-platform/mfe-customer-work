@@ -17,7 +17,7 @@ export const workRoutes: Array<PlatformRoute> = [
         ],
         element: <Work />,
         enabled: true,
-        route: '/self-service/dashboard',
+        route: '/work/dashboard',
         title: toolTitle,
     },
 ]

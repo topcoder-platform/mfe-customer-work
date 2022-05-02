@@ -24,7 +24,7 @@ const Work: FC<{}> = () => {
     return (
         <ContentLayout
             buttonConfig={buttonConfig}
-            title={toolTitle}
+            title={'My Work'}
         >
             <WorkProvider>
                 <Outlet />

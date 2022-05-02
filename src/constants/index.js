@@ -20,7 +20,7 @@ export const DEVICE_TYPE_DETAILS = {
 export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
   HOME_PAGE: "/self-service",
-  DASHBOARD_PAGE: "/self-service/dashboard",
+  DASHBOARD_PAGE: "/work/dashboard",
 };
 
 /**
@@ -311,7 +311,7 @@ export const disabledSidebarRoutes = [
 export const menuItems = [
   {
     item: "My Work",
-    url: "/self-service/dashboard",
+    url: "/work/dashboard",
     icon: <MyWorkIcon />,
     activeIcon: <MyWorkActiveIcon />,
   },
