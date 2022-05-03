@@ -22,7 +22,6 @@ import {
   toggleSupportModal,
   createNewSupportTicket,
   savePageDetails,
-  saveWorkType,
 } from "../../actions/form";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
@@ -48,7 +47,6 @@ const BasicInfo = ({
   savePageDetails,
   toggleSupportModal,
   createNewSupportTicket,
-  saveWorkType
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
@@ -119,11 +117,7 @@ const BasicInfo = ({
     setProgressItem(2);
 
     if (currentStep === 0) {
-      saveWorkType({
-        selectedWorkType: 'Website Design',
-        selectedWorkTypeDetail: 'Website Design',
-      });
-      dispatch(triggerAutoSave(true));
+      redirectTo("/self-service/wizard");
     }
 
     if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
@@ -238,7 +232,6 @@ const mapDispatchToProps = {
   savePageDetails,
   toggleSupportModal,
   createNewSupportTicket,
-  saveWorkType
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);
