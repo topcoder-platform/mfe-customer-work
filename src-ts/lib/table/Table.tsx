@@ -58,12 +58,14 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
 
         return (
             /* TODO: sticky header */
-            <table className={styles.table}>
-                <tr className={styles.tr}>
-                    {headerRow}
-                </tr>
-                {rowCells}
-            </table>
+            <div className={styles['table-wrap']}>
+                <table className={styles.table}>
+                    <tr className={styles.tr}>
+                        {headerRow}
+                    </tr>
+                    {rowCells}
+                </table>
+            </div>
         )
     }
 

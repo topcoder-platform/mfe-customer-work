@@ -8,8 +8,8 @@
         max-width: $xxl-min;
         @include pagePaddings;
         margin: 0 auto;
-
         .content-inner {
+            margin: 0 auto;
             flex: 1;
             max-width: $xxl-min;
             display: flex;
