@@ -9,7 +9,6 @@ import { menuItems, UNDER_MAINTENANCE, GA_ID } from "./constants";
 import IntakeForm from "./IntakeForm";
 import Home from "./routes/Home";
 import MyWork from "./routes/MyWork";
-import Profile from "./routes/Profile";
 import WorkItems from "./routes/WorkItems";
 import Layout from "components/Layout";
 import TagManager from "react-gtm-module";
@@ -20,6 +19,8 @@ import "react-responsive-modal/styles.css";
 import styles from "./styles/main.module.scss";
 import SupportPage from "./routes/SupportPage";
 import UnderMaintenance from "./routes/UnderMaintenance";
+import { Account } from "../src-ts/utils/account";
+import { ProfileProvider } from "../src-ts/lib/profile-provider";
 
 const sidebar = <Sidebar menus={menuItems} />;
 
@@ -60,31 +61,33 @@ const App = () => {
   }
 
   return (
-    <div className={styles["topcoder-mfe-customer-work"]}>
-      <Router primary={false}>
-        <ScrollToTop path="/">
-          <IntakeForm path="/self-service/*" />
-          {isLoggedIn && (
-            <>
-              <Layout
-                path="/self-service/dashboard"
-                sidebar={sidebar}
-                PageComponent={MyWork}
-              />
-              <Layout
-                path="/self-service/work-items/:workItemId"
-                sidebar={sidebar}
-                PageComponent={WorkItems}
-              />
-              <Redirect noThrow from="/self-service/*" to="/self-service" />
-            </>
-          )}
-          <Profile path="/self-service/profile" />
-          <Home path="/self-service" />
-          <SupportPage path="/self-service/support" />
-        </ScrollToTop>
-      </Router>
-    </div>
+    <ProfileProvider>
+      <div className={styles["topcoder-mfe-customer-work"]}>
+        <Router primary={false}>
+          <ScrollToTop path="/">
+            <IntakeForm path="/self-service/*" />
+            {isLoggedIn && (
+              <>
+                <Layout
+                  path="/self-service/dashboard"
+                  sidebar={sidebar}
+                  PageComponent={MyWork}
+                />
+                <Layout
+                  path="/self-service/work-items/:workItemId"
+                  sidebar={sidebar}
+                  PageComponent={WorkItems}
+                />
+                <Redirect noThrow from="/self-service/*" to="/self-service" />
+              </>
+            )}
+            <Account path="/self-service/account" />
+            <Home path="/self-service" />
+            <SupportPage path="/self-service/support" />
+          </ScrollToTop>
+        </Router>
+      </div>
+    </ProfileProvider>
   );
 };
 
