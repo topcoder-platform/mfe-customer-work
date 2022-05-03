@@ -37,10 +37,9 @@ export const getUserProfile = () => async (dispatch, getState) => {
  *
  * @returns {() => Promise}
  */
- export const updateBasicInfoAndPassword =
+export const updateBasicInfoAndPassword =
   (handle, firstName, lastName, currentPassword, password) =>
   async (dispatch, getState) => {
-
     const state = getState();
     const userId = userSelectors.getUserId(state);
 

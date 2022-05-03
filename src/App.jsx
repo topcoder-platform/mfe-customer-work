@@ -60,31 +60,31 @@ const App = () => {
   }
 
   return (
-      <div className={styles["topcoder-mfe-customer-work"]}>
-        <Router primary={false}>
-          <ScrollToTop path="/">
-            <IntakeForm path="/self-service/*" />
-            {isLoggedIn && (
-              <>
-                <Layout
-                  path="/self-service/dashboard"
-                  sidebar={sidebar}
-                  PageComponent={MyWork}
-                />
-                <Layout
-                  path="/self-service/work-items/:workItemId"
-                  sidebar={sidebar}
-                  PageComponent={WorkItems}
-                />
-                <Redirect noThrow from="/self-service/*" to="/self-service" />
-              </>
-            )}
-            <Account path="/self-service/account" />
-            <Home path="/self-service" />
-            <SupportPage path="/self-service/support" />
-          </ScrollToTop>
-        </Router>
-      </div>
+    <div className={styles["topcoder-mfe-customer-work"]}>
+      <Router primary={false}>
+        <ScrollToTop path="/">
+          <IntakeForm path="/self-service/*" />
+          {isLoggedIn && (
+            <>
+              <Layout
+                path="/self-service/dashboard"
+                sidebar={sidebar}
+                PageComponent={MyWork}
+              />
+              <Layout
+                path="/self-service/work-items/:workItemId"
+                sidebar={sidebar}
+                PageComponent={WorkItems}
+              />
+              <Redirect noThrow from="/self-service/*" to="/self-service" />
+            </>
+          )}
+          <Profile path="/self-service/profile" />
+          <Home path="/self-service" />
+          <SupportPage path="/self-service/support" />
+        </ScrollToTop>
+      </Router>
+    </div>
   );
 };
 

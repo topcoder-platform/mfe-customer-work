@@ -106,7 +106,6 @@ const SelectWorkType = ({
         ></SupportModal>
       )}
       <Page>
-        
         <PageContent>
           <PageH2>SELECT WORK TYPE</PageH2>
           {featuredWorkTypes.map((featuredWorkType) => (

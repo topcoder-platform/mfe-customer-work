@@ -18,18 +18,18 @@ export default function Root() {
   return (
     <LocationProvider history={history}>
       <Provider store={store}>
-          <App />
-          <ReduxToastr
-            timeOut={3000}
-            newestOnTop={false}
-            preventDuplicates
-            position="top-right"
-            getState={(state) => state.toastr}
-            transitionIn="fadeIn"
-            transitionOut="fadeOut"
-            progressBar
-            closeOnToastrClick
-          />
+        <App />
+        <ReduxToastr
+          timeOut={5000}
+          newestOnTop={false}
+          preventDuplicates
+          position="top-right"
+          getState={(state) => state.toastr}
+          transitionIn="fadeIn"
+          transitionOut="fadeOut"
+          progressBar
+          closeOnToastrClick
+        />
       </Provider>
     </LocationProvider>
   );

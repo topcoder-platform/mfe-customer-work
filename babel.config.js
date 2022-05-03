@@ -26,6 +26,7 @@ module.exports = function (api) {
           generateScopedName,
         },
       ],
+      "inline-react-svg",
     ],
     env: {
       test: {

@@ -1,8 +1,5 @@
 import React, { useCallback } from "react";
-import React, { useCallback, useContext } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { connect, useDispatch } from "react-redux";
-import { navigate } from "@reach/router";
 import { navigate } from "@reach/router";
 import Header from "../Header";
 import WorkList from "../WorkList";
@@ -13,8 +10,8 @@ import styles from "./styles.module.scss";
 import {
   clearAutoSavedForm,
   clearCachedChallengeId,
-} from "../../../../autoSaveBeforeLogin";
-import { resetIntakeForm } from "../../../../actions/form";
+} from "../../../../../src/autoSaveBeforeLogin";
+import { resetIntakeForm } from "../../../../../src/actions/form";
 
 /**
  * Displays My Work Dashboard with work item list.
