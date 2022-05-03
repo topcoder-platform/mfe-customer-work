@@ -1,7 +1,7 @@
 version: "3"
 services:
-  micro-frontends-self-service-app:
-    image: micro-frontends-self-service-app:latest
+  mfe-customer-work:
+    image: mfe-customer-work:latest
     build:
       context: ../
       dockerfile: docker/Dockerfile

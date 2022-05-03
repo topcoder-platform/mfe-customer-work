@@ -1,0 +1,118 @@
+@import "breakpoints";
+@import "fonts";
+@import "layout";
+
+body {
+    margin: 0;
+    padding: 0;
+    @include font-roboto;
+    @include font-black-100;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0;
+    min-width: $xxs-max;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    @include font-barlow-condensed;
+    @include font-weight-semi-bold;
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 0;
+    padding: 0;
+    border: 0 none;
+    &.details {
+        @include font-barlow;
+    }
+}
+
+h1 {
+    font-size: 34px;
+    line-height: 32px;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 28px;
+}
+
+h3 {
+    font-size: 22px;
+    line-height: 26px;
+}
+
+h4 {
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.medium-subtitle {
+    @include font-weight-medium;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: .5px;
+}
+
+.large-tab {
+    @include font-barlow-condensed;
+    font-size: 20px;
+    line-height: 16px;
+    text-transform: uppercase;
+    @include font-weight-medium;
+}
+
+.body-main {
+    @include font-roboto;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.body-large {
+    @include font-roboto;
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.body-small {
+    font-size: 14px !important;
+    line-height: 22px !important;
+    @include font-weight-less-bold;
+}
+
+.body-medium-bold {
+    @include font-weight-semi-bold;
+    @include font-barlow;
+    padding: 0;
+    font-size: 20px;
+    line-height: 22px;
+}
+
+.ultra-small,
+.ultra-small-medium,
+.ultra-small-bold {
+    @include font-roboto; 
+    font-size: 11px;
+    line-height: 16px;
+}
+
+.ultra-small {
+    @include font-weight-less-bold;
+}
+
+.ultra-small-medium {
+    @include font-weight-medium;
+}
+
+.ultra-small-bold {
+    @include font-weight-bold;
+}
+
+.small-tab {
+    @include font-barlow; 
+    @include font-weight-medium;
+    font-size: 11px;
+    line-height: 14px;
+}

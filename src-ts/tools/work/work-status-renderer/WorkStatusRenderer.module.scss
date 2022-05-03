@@ -1,0 +1,42 @@
+@import '../../../lib/styles';
+
+.status-container {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    .active,
+    .done,
+    .draft,
+    .ready,
+    .transferred {
+        position: relative;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin-right: $pad-xs;
+        border-radius: 50px;
+        border: 2px solid transparent;
+    }
+
+    .active {
+        border-color: $turq-120;
+    }
+
+    .done {
+        border-color: $black-80;
+    }
+
+    .draft {
+        border-color: $black-80;
+    }
+    
+    .ready {
+        border-color: $black-80;
+    }
+
+    .transferred {
+        border-color: $legacy-120;
+    }
+}

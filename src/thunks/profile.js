@@ -1,7 +1,7 @@
 import {
   getAuthUserProfile,
   updateUserProfile,
-} from "@topcoder/micro-frontends-navbar-app";
+} from "@topcoder/mfe-header";
 import * as actions from "actions/profile";
 import _ from "lodash";
 import { toastr } from "react-redux-toastr";
@@ -37,9 +37,8 @@ export const getUserProfile = () => async (dispatch, getState) => {
  *
  * @returns {() => Promise}
  */
-export const updateBasicInfoAndPassword =
-  (handle, firstName, lastName, currentPassword, password) =>
-  async (dispatch, getState) => {
+export const updateBasicInfoAndPassword = (handle, firstName, lastName, currentPassword, password) => async (dispatch, getState) => {
+
     const state = getState();
     const userId = userSelectors.getUserId(state);
 
@@ -70,6 +69,7 @@ export const updateBasicInfoAndPassword =
           "Profile and Password both successfully updated"
         );
       }
+
       if (
         results[0].status === "fulfilled" &&
         results[1].status === "rejected"
@@ -106,6 +106,8 @@ export const updateBasicInfoAndPassword =
           "There was an error during updating user info and password"
         );
       }
+
+      
     } else {
       services
         .updateBasicInfo(handle, firstName, lastName)
