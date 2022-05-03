@@ -4,6 +4,10 @@
 .logo-link {
     display: flex;
 
+    a {
+        display: flex;
+    }
+
     svg {
         width: calc($pad-xxl + $pad-xxxxl);
         height: $pad-xl;
@@ -17,10 +21,12 @@
             padding: 0;
         }
     }  
+    @include ltemd {
+        margin: 0 auto;
+    }
 }
 
 .logo-no-link {
-
     a {
         cursor: default;
     }

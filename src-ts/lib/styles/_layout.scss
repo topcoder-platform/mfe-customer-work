@@ -1,6 +1,8 @@
 @import 'palette';
 
 $header-height: 80px;
+$header-height-md: 64px;
+$header-height-sm: 48px;
 
 /* Left Col includes the header logo link and the sections container */
 $left-col-width-md: $header-height;
@@ -23,6 +25,14 @@ $pad-xxxxl: calc(8 * $pad-xs); // 32
 
 @mixin content-height {
     height: calc(100vh - $header-height);
+
+    @include ltemd {
+        height: calc(100vh - $header-height-md);
+    }
+
+    @include ltesm {
+        height: calc(100vh - $header-height-sm);
+    }
 }
 
 

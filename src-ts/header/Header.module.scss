@@ -16,7 +16,12 @@
     grid-template-columns: 78px 1fr auto;
 
     @include ltemd {
+        height: $header-height-md;
         grid-template-columns: $header-height 1fr $header-height;
         align-items: center;
+    }
+
+    @include ltesm {
+        height: $header-height-sm;
     }
 }
