@@ -43,7 +43,7 @@ import SupportModal from "../../components/Modal/SupportModal";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
 
-import { Breadcrumb, TabsNavbar } from '../../../src-ts/lib'
+import { Breadcrumb, TabsNavbar, WorkStatusItem } from '../../../src-ts/lib'
 import { WorkDetailHeader, WorkDetailSummary } from '../../../src-ts/tools/work'
 
 import "./styles.module.scss";
@@ -219,13 +219,20 @@ const WorkItem = ({
             markAsDone={() => setShowSurvey(true)}
           />
 
+          {work && (
+            <div styleName="status-line">
+              {work.tags[0] && <div styleName="status-label">{work.tags[0]}</div>}
+              <WorkStatusItem work={work} />
+            </div>
+          )}
+
           <TabsNavbar
             tabs={navTabs}
             defaultActive="summary"
             onChange={setSelectedTab}
           ></TabsNavbar>
 
-          <div>
+          <div styleName="tabs-contents">
             <TabPane value={selectedTab} tab="summary">
               {summary && (
                 <WorkDetailSummary challenge={work} />

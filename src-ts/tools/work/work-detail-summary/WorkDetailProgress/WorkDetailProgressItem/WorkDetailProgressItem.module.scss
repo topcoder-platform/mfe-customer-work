@@ -16,18 +16,15 @@ $dot-size: calc($pad-lg + $pad-xxl);
         margin-left: calc(-1 * $dot-size);
         width: calc(4 * $pad-xxxxl);
         text-align: center;
+        color: $black-60;
 
         span {
             display: block;
         }
 
-        .name {
-            display: block;
-            margin-bottom: $pad-xs;
-        }
-
         .date {
             display: block;
+            margin-top: $pad-xs;
         }
     }
 

@@ -17,6 +17,7 @@ h1,
 h2,
 h3,
 h4 {
+    @include font-barlow;
     @include font-weight-semi-bold;
     text-transform: uppercase;
     letter-spacing: 0;

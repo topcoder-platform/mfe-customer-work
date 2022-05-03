@@ -37,6 +37,7 @@ $icon-size: calc($pad-xxl * 2);
 
         .info {
             @extend .body-large-medium;
+            color: $black-100;
         }
     }
 }

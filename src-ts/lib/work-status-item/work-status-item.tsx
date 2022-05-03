@@ -1,9 +1,12 @@
-
 import { Work, WorkStatus } from '../work-provider'
 
-import styles from './WorkStatusRenderer.module.scss'
+import styles from './WorkStatusItem.module.scss'
 
-function WorkStatusRenderer(work: Work): JSX.Element {
+export interface WorkStatusItemProps {
+    work: Work
+}
+
+function WorkStatusItem({work}: WorkStatusItemProps): JSX.Element {
 
     const statusKey: (keyof typeof WorkStatus) | undefined = Object.entries(WorkStatus)
         .find(([key, value]) => value === work.status)
@@ -17,4 +20,4 @@ function WorkStatusRenderer(work: Work): JSX.Element {
     )
 }
 
-export default WorkStatusRenderer
+export default WorkStatusItem
