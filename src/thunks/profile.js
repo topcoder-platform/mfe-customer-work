@@ -1,6 +1,6 @@
 import {
   getAuthUserProfile,
-} from "@topcoder/micro-frontends-navbar-app";
+} from "@topcoder/mfe-header";
 import * as actions from "actions/profile";
 import _ from "lodash";
 
