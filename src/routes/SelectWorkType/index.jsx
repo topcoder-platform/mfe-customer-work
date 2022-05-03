@@ -21,7 +21,6 @@ import PageContent from "../../components/PageContent";
 import PageDivider from "../../components/PageDivider";
 import PageFoot from "../../components/PageElements/PageFoot";
 import PageH2 from "../../components/PageElements/PageH2";
-import Breadcrumb from "../../components/Breadcrumb";
 import {
   BUTTON_SIZE,
   BUTTON_TYPE,
@@ -95,12 +94,7 @@ const SelectWorkType = ({
       challenge?.id,
       challenge?.legacy?.selfService
     );
-  
-  const breadcrumb = [
-    {url:'/self-service/dashboard', name:"My work"},
-    {url:'/self-service/wizard', name:"Start work"}
-  ];
-  
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -111,7 +105,6 @@ const SelectWorkType = ({
           onSubmit={onSubmitSupportRequest}
         ></SupportModal>
       )}
-      <Breadcrumb breadcrumbItems={breadcrumb} />
       <Page>
         
         <PageContent>

@@ -9,6 +9,7 @@ import { menuItems, UNDER_MAINTENANCE, GA_ID } from "./constants";
 import IntakeForm from "./IntakeForm";
 import Home from "./routes/Home";
 import MyWork from "./routes/MyWork";
+import Profile from "./routes/Profile";
 import WorkItems from "./routes/WorkItems";
 import Layout from "components/Layout";
 import TagManager from "react-gtm-module";
@@ -19,8 +20,6 @@ import "react-responsive-modal/styles.css";
 import styles from "./styles/main.module.scss";
 import SupportPage from "./routes/SupportPage";
 import UnderMaintenance from "./routes/UnderMaintenance";
-import { Account } from "../src-ts/utils/account";
-import { WorkProvider } from "../src-ts/lib";
 
 const sidebar = <Sidebar menus={menuItems} />;
 
@@ -61,7 +60,6 @@ const App = () => {
   }
 
   return (
-    <WorkProvider>
       <div className={styles["topcoder-mfe-customer-work"]}>
         <Router primary={false}>
           <ScrollToTop path="/">
@@ -87,7 +85,6 @@ const App = () => {
           </ScrollToTop>
         </Router>
       </div>
-    </WorkProvider>
   );
 };
 

@@ -37,7 +37,9 @@ export const getUserProfile = () => async (dispatch, getState) => {
  *
  * @returns {() => Promise}
  */
-export const updateBasicInfoAndPassword = (handle, firstName, lastName, currentPassword, password) => async (dispatch, getState) => {
+ export const updateBasicInfoAndPassword =
+  (handle, firstName, lastName, currentPassword, password) =>
+  async (dispatch, getState) => {
 
     const state = getState();
     const userId = userSelectors.getUserId(state);
@@ -69,7 +71,6 @@ export const updateBasicInfoAndPassword = (handle, firstName, lastName, currentP
           "Profile and Password both successfully updated"
         );
       }
-
       if (
         results[0].status === "fulfilled" &&
         results[1].status === "rejected"
@@ -106,8 +107,6 @@ export const updateBasicInfoAndPassword = (handle, firstName, lastName, currentP
           "There was an error during updating user info and password"
         );
       }
-
-      
     } else {
       services
         .updateBasicInfo(handle, firstName, lastName)

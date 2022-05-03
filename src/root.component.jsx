@@ -3,9 +3,6 @@ import { disableSidebarForRoute } from "@topcoder/mfe-header";
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import ReduxToastr from "react-redux-toastr";
-import { toast, ToastContainer } from 'react-toastify'
-
-import { ProfileProvider } from '../src-ts/lib'
 import App from "./App";
 import store from "./store";
 
@@ -21,7 +18,6 @@ export default function Root() {
   return (
     <LocationProvider history={history}>
       <Provider store={store}>
-        <ProfileProvider>
           <App />
           <ReduxToastr
             timeOut={3000}
@@ -34,18 +30,6 @@ export default function Root() {
             progressBar
             closeOnToastrClick
           />
-          <ToastContainer
-            position={toast.POSITION.TOP_RIGHT}
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-        </ProfileProvider>
       </Provider>
     </LocationProvider>
   );
