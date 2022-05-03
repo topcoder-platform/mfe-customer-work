@@ -5,7 +5,6 @@ import PT from "prop-types";
  * Block Layout
  */
 const Layout = ({ sidebar, PageComponent, ...routeProps }) => {
-  
   return (
     <div>
       <main>
