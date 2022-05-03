@@ -1,5 +1,5 @@
 import { createHistory, LocationProvider } from "@reach/router";
-import { disableSidebarForRoute } from "@topcoder/micro-frontends-navbar-app";
+import { disableSidebarForRoute } from "@topcoder/mfe-header";
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import ReduxToastr from "react-redux-toastr";

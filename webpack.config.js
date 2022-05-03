@@ -15,14 +15,14 @@ const cssLocalIdent =
 module.exports = (webpackConfigEnv) => {
   const defaultConfig = singleSpaDefaults({
     orgName: "topcoder",
-    projectName: "micro-frontends-self-service-app",
+    projectName: "mfe-customer-work",
     webpackConfigEnv,
   });
 
   return webpackMerge.smart(defaultConfig, {
     // to reduce size of bundle
     externals: {
-      "@topcoder/micro-frontends-navbar-app": "@topcoder/micro-frontends-navbar-app",
+      "@topcoder/mfe-header": "@topcoder/mfe-header",
       "react": "react",
       "react-dom": "react-dom",
     },
