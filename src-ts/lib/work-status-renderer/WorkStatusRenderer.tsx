@@ -1,4 +1,5 @@
-import { IconOutline, Work, WorkStatus } from '../../../../lib'
+
+import { Work, WorkStatus } from '../work-provider'
 
 import styles from './WorkStatusRenderer.module.scss'
 
