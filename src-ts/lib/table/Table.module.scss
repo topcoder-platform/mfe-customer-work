@@ -1,8 +1,14 @@
 @import '../styles';
 
+.table-wrap {
+    width: 100%;
+    overflow: auto;
+}
+
 .table {
     border-collapse: separate;
     border-spacing: 0;
+    width: 100%;
 
     .tr {
 
