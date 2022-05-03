@@ -19,7 +19,6 @@ import "./styles.module.scss";
  * @returns {JSX.Element}
  */
 const MyWork = () => {
-
   const isLoggedIn = useSelector(getIsLoggedIn);
   const isLoggingIn = useSelector(getIsLoggingIn);
   const worksIsLoading = useSelector(getWorksIsLoading);
@@ -39,7 +38,7 @@ const MyWork = () => {
     if (isLoggedIn && !worksIsLoading) {
       dispatch(loadForumNotifications());
     }
-  }, [isLoggedIn, worksIsLoading, dispatch])
+  }, [isLoggedIn, worksIsLoading, dispatch]);
 
   useEffect(() => {
     if (!isLoggingIn && !isLoggedIn) {
