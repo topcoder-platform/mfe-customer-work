@@ -86,6 +86,14 @@ module.exports = (webpackConfigEnv) => {
             outputPath: "icons",
           },
         },
+        {
+          test: /\.(js|jsx|ts|tsx)$/,
+          exclude: /(node_modules|bower_components)/,
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env", "@babel/preset-react", "@babel/preset-typescript"]
+          }
+        },
       ],
     },
     resolve: {
@@ -102,6 +110,7 @@ module.exports = (webpackConfigEnv) => {
         thunks: path.resolve(__dirname, "src/thunks"),
         hoc: path.resolve(__dirname, "src/hoc"),
       },
+      extensions: [".ts", ".tsx", ".js", ".jsx"]
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -114,6 +123,9 @@ module.exports = (webpackConfigEnv) => {
       // ignore moment locales to reduce bundle size by 64kb gzipped
       // see solution details https://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.ProvidePlugin({
+        "React": "react",
+     }),
     ],
   });
 };
