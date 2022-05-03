@@ -11,7 +11,7 @@ import styles from "./styles.module.scss";
 import IconCross from "../../assets/images/icon-cross.svg";
 
 // TODO: figure out why this export is needed
-// https://github.com/topcoder-platform/micro-frontends-self-service-app/issues/74
+// https://github.com/topcoder-platform/mfe-customer-work/issues/74
 export const Modal = ({
   children,
   fullWidth,

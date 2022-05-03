@@ -3,9 +3,6 @@
 .content {
     @include content-height;
     padding: 0 $pad-xxxxl;
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-content: center;
 
     @include md {
         padding: 0 $pad-xxl;
@@ -16,10 +13,9 @@
     }
 
     .content-outer {
-        display: flex;
-        justify-content: center;
-
+        margin: 0 auto;
         .content-inner {
+            margin: 0 auto;
             flex: 1;
             max-width: $xxl-min;
             padding: 0;

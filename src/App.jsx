@@ -2,7 +2,7 @@ import { Redirect, Router } from "@reach/router";
 import {
   getAuthUserTokens,
   disableNavigationForRoute,
-} from "@topcoder/micro-frontends-navbar-app";
+} from "@topcoder/mfe-header";
 import React, { useLayoutEffect, useState } from "react";
 import { UNDER_MAINTENANCE, GA_ID } from "./constants";
 import IntakeForm from "./IntakeForm";
@@ -48,14 +48,14 @@ const App = () => {
 
   if (UNDER_MAINTENANCE) {
     return (
-      <div className={styles["topcoder-micro-frontends-self-service-app"]}>
+      <div className={styles["topcoder-mfe-customer-work"]}>
         <UnderMaintenance />
       </div>
     );
   }
 
   return (
-    <div className={styles["topcoder-micro-frontends-self-service-app"]}>
+    <div className={styles["topcoder-mfe-customer-work"]}>
       <Router primary={false}>
         <ScrollToTop path="/">
           <IntakeForm path="/self-service/*" />

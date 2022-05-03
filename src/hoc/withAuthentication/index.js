@@ -10,7 +10,7 @@
  *   - we need to know user `roles` to check if user user has Topcoder Roles
  */
 import { useParams } from "@reach/router";
-import { getAuthUserTokens, login } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserTokens, login } from "@topcoder/mfe-header";
 import _ from "lodash";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
