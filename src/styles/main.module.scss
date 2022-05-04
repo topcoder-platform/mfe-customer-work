@@ -6,12 +6,13 @@
 .topcoder-mfe-customer-work {
   @include font-barlow;
   color: #555;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 :global {
   #single-spa-main {
-    max-width: 1920px;
-    margin: 0 auto !important;
+    margin: 0 auto;
   }
 }
 

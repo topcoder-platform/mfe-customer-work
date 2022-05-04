@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 
 import { ComponentVisible, useHideClickOutside } from '../functions'
-import { IconOutline } from '../svgs'
+import { IconOutline, TooltipArrowIcon } from '../svgs'
 
 import styles from './Tooltip.module.scss'
 
@@ -45,10 +45,7 @@ const Tooltip: FC<TooltipProps> = (props: TooltipProps) => {
                     ref={ref}
                 >
                     <div className={styles['tooltip-arrow']}>
-                        <svg width='37' height='9' viewBox='0 0 37 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                            <path fill-rule='evenodd' clip-rule='evenodd' d='M13.875 3.53787L15.8535 1.25575C17.2816 -0.391461 19.6241 -0.422124 21.0857 1.18727C21.1062 1.20983 21.1265 1.23266 21.1465 1.25575L23.125 3.53787C26.0826 6.94936 29.2109 9 34.368 9H37L0 9H2.63195C7.78907 9 10.9174 6.94936 13.875 3.53787Z' fill='#2A2A2A'/>
-                            <path fill-rule='evenodd' clip-rule='evenodd' d='M13.875 3.53787L15.8535 1.25575C17.2816 -0.391461 19.6241 -0.422124 21.0857 1.18727C21.1062 1.20983 21.1265 1.23266 21.1465 1.25575L23.125 3.53787C26.0826 6.94936 29.2109 9 34.368 9H37L0 9H2.63195C7.78907 9 10.9174 6.94936 13.875 3.53787Z' fill='black' fill-opacity='0.2'/>
-                        </svg>
+                        <TooltipArrowIcon />
                     </div>
                     <div className={styles['tooltip-content']}>
                         {props.tooltip}
