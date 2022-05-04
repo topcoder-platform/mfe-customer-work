@@ -4,7 +4,7 @@ import PT from "prop-types";
 /**
  * Block Layout
  */
-const Layout = ({  PageComponent, ...routeProps }) => {
+const Layout = ({ PageComponent, ...routeProps }) => {
   return (
     <div>
       <main>
