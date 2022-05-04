@@ -11,13 +11,13 @@ $border-size-xl: $pad-xs;
     border-radius: 50%;
 
     &.sm {
-        height: calc($avatar-size-sm);
-        width: calc($avatar-size-sm);
+        height: $avatar-size-sm;
+        width: $avatar-size-sm;
     }
 
     &.xl {
-        height: calc($avatar-size-xl);
-        width: calc($avatar-size-xl);
+        height: $avatar-size-xl;
+        width: $avatar-size-xl;
     }
 
     .avatar {

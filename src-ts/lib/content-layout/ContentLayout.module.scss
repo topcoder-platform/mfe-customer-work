@@ -13,6 +13,8 @@
     }
 
     .content-outer {
+        max-width: $xxl-min;
+        @include pagePaddings;
         margin: 0 auto;
         .content-inner {
             margin: 0 auto;
@@ -20,6 +22,7 @@
             max-width: $xxl-min;
             display: flex;
             flex-direction: column;
+            overflow: auto;
 
             .page-header {
                 display: flex;
