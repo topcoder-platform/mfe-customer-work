@@ -20,7 +20,7 @@ import styles from "./styles/main.module.scss";
 import SupportPage from "./routes/SupportPage";
 import UnderMaintenance from "./routes/UnderMaintenance";
 
-import { Account, EnvironmentConfig, logInitialize, v } from "../src-ts";
+import { Account, EnvironmentConfig, logInitialize, ProfileProvider } from "../src-ts";
 
 logInitialize(EnvironmentConfig);
 
