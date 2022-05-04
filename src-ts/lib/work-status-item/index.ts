@@ -1,1 +1,1 @@
-export { default as WorkStatusItem } from './work-status-item'
+export { default as WorkStatusItem } from './WorkStatusItem'

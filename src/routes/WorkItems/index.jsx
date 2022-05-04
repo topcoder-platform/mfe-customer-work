@@ -1,30 +1,19 @@
-import React, { useEffect, useMemo, useState, useLayoutEffect } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import _ from "lodash";
 import PT from "prop-types";
 import { navigate } from "@reach/router";
 import { connect, useSelector, useDispatch } from "react-redux";
-import Button from "components/Button";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
-import PageH3 from "components/PageElements/PageH3";
 import {
-  BUTTON_SIZE,
-  BUTTON_TYPE,
-  tabNames,
-  WORK_STATUSES,
   ROUTES,
 } from "constants/";
-import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import Tabs from "./components/Tabs";
-import Tab from "./components/Tab";
 import TabPane from "./components/TabPane";
-import Summary from "./components/Summary";
 import Details from "./components/Details";
 import Solutions from "./components/Solutions";
 import FinalSurvey from "./components/Solutions/FinalSurvey";
 import workUtil from "utils/work";
-import { padStart } from "utils";
 import { Modal } from "react-responsive-modal";
 import Forum from "../Forum";
 
@@ -43,7 +32,7 @@ import SupportModal from "../../components/Modal/SupportModal";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
 
-import { Breadcrumb, TabsNavbar, WorkStatusItem } from '../../../src-ts/lib'
+import { Breadcrumb, TabsNavbar, workContext, WorkStatusItem } from '../../../src-ts/lib'
 import { WorkDetailHeader, WorkDetailSummary } from '../../../src-ts/tools/work'
 
 import "./styles.module.scss";
@@ -74,6 +63,9 @@ const WorkItem = ({
   const [showSurvey, setShowSurvey] = useState(false);
   const [showSupportModal, setShowSupportModal] = useState(false);
   const profileData = useSelector(getProfile);
+
+  const workContextData = useContext(workContext)
+  const workStatus = !!work ? workContextData.getStatusFromChallenge(work) : undefined
 
   useEffect(() => {
     getWork(workItemId);
@@ -222,7 +214,7 @@ const WorkItem = ({
           {work && (
             <div styleName="status-line">
               {work.tags[0] && <div styleName="status-label">{work.tags[0]}</div>}
-              <WorkStatusItem work={work} />
+              <WorkStatusItem workStatus={workStatus} />
             </div>
           )}
 

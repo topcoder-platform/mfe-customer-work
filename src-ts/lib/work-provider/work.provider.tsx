@@ -4,7 +4,7 @@ import { Page } from '../pagination'
 import { profileContext, ProfileContextData, UserProfile } from '../profile-provider'
 
 import { WorkContextData } from './work-context-data.model'
-import { Work, workDeleteAsync, workFactoryCreate, workGetAsync } from './work-functions'
+import { Work, workDeleteAsync, workFactoryCreate, workFactoryGetStatus, workGetAsync } from './work-functions'
 import { default as workContext, defaultWorkContextData } from './work.context'
 
 export const WorkProvider: FC<{ children: ReactNode }> = ({ children }: { children: ReactNode }) => {
@@ -37,6 +37,7 @@ export const WorkProvider: FC<{ children: ReactNode }> = ({ children }: { childr
             const contextData: WorkContextData = {
                 createFromChallenge: workFactoryCreate,
                 deleteWorkAsync,
+                getStatusFromChallenge: workFactoryGetStatus,
                 hasWork: !!work.length,
                 initialized: true,
                 work,
@@ -48,6 +49,7 @@ export const WorkProvider: FC<{ children: ReactNode }> = ({ children }: { childr
                 createFromChallenge: workFactoryCreate,
                 deleteWorkAsync,
                 error: error.response?.data?.result?.content || error.message || error,
+                getStatusFromChallenge: workFactoryGetStatus,
                 hasWork: false,
                 initialized: true,
                 work: [],

@@ -9,6 +9,7 @@ export {
     WorkStatus,
     WorkType,
     workFactoryCreate,
+    workFactoryGetStatus,
 } from './work-factory'
 export {
     type Challenge,
