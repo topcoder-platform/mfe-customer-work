@@ -118,6 +118,12 @@ h4 {
     @include font-weight-less-bold;
 }
 
+.body-ultra-small {
+    font-size: 12px;
+    line-height: 18px;
+    @include font-weight-less-bold;
+}
+
 .body-medium-bold {
     @include font-weight-semi-bold;
     @include font-barlow;

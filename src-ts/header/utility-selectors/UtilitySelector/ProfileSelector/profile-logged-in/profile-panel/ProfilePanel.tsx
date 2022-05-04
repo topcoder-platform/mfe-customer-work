@@ -1,12 +1,15 @@
+import classNames from 'classnames'
 import { FC, useContext } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 import {
     authUrlLogout,
+    IconOutline,
     profileContext,
     ProfileContextData,
     routeContext,
     RouteContextData,
+    TooltipArrowIcon,
 } from '../../../../../../lib'
 
 import styles from './ProfilePanel.module.scss'
@@ -37,21 +40,35 @@ const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
 
     return (
         <div className={styles['profile-panel']}>
+            <div className={styles['arrow-tip']}>
+                <TooltipArrowIcon />
+            </div>
             <div className={styles.handle}>
                 {name}
             </div>
-            <div
-                className={styles.profile}
-                onClick={goToAccount}
-            >
-                {props.settingsTitle}
+            <hr />
+            <div className='nav-items'>
+                <div
+                    className={classNames(styles.profile, styles['nav-item'])}
+                    onClick={goToAccount}
+                >
+                    <span className={styles.icon}>
+                        <IconOutline.CogIcon />
+                    </span>
+                    <span>
+                        {props.settingsTitle}
+                    </span>
+                </div>
+                <a
+                    href={authUrlLogout}
+                    className={classNames(styles.logout, styles['nav-item'])}
+                >
+                    <span className={styles.icon}>
+                        <IconOutline.LogoutIcon />
+                    </span>
+                    <span>Log Out</span>
+                </a>
             </div>
-            <a
-                href={authUrlLogout}
-                className={styles.logout}
-            >
-                Log Out
-            </a>
         </div>
     )
 }

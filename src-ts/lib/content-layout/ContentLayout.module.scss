@@ -2,25 +2,19 @@
 
 .content {
     @include content-height;
-    padding: 0 $pad-xxxxl;
-
-    @include md {
-        padding: 0 $pad-xxl;
-    }
-
-    @include ltesm {
-        padding: 0;
-    }
+    padding-top: 0;
 
     .content-outer {
+        max-width: $xxl-min;
+        @include pagePaddings;
         margin: 0 auto;
         .content-inner {
             margin: 0 auto;
             flex: 1;
             max-width: $xxl-min;
-            padding: 0;
             display: flex;
             flex-direction: column;
+            overflow: auto;
 
             .page-header {
                 display: flex;
