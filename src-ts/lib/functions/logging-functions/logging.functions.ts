@@ -4,8 +4,6 @@ import { GlobalConfig } from '../../global-config.model'
 
 export function initialize(config: GlobalConfig): void {
 
-    console.debug('loggign', config)
-
     // if we don't have a token and service,
     // logging isn't supported in this environment,
     // so don't initialize anything
