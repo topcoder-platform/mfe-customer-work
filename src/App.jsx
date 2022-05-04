@@ -19,10 +19,8 @@ import "react-responsive-modal/styles.css";
 import styles from "./styles/main.module.scss";
 import SupportPage from "./routes/SupportPage";
 import UnderMaintenance from "./routes/UnderMaintenance";
-import { Account } from "../src-ts/utils/account";
-import { ProfileProvider } from "../src-ts/lib/profile-provider";
 
-import { EnvironmentConfig, logInitialize } from "../src-ts";
+import { Account, EnvironmentConfig, logInitialize, v } from "../src-ts";
 
 logInitialize(EnvironmentConfig);
 

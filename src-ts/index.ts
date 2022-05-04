@@ -1,2 +1,3 @@
 export { EnvironmentConfig } from './config'
-export { logInitialize } from './lib'
+export { logInitialize, ProfileProvider } from './lib'
+export { Account } from './utils/account'
