@@ -1,5 +1,5 @@
 import { navigate, Router, Redirect } from "@reach/router";
-import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserTokens } from "@topcoder/mfe-header";
 import LoadingSpinner from "components/LoadingSpinner";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";

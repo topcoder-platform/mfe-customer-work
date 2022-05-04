@@ -1,5 +1,5 @@
 import pick from "lodash/pick";
-import { getAuthUserTokens, login } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserTokens, login } from "@topcoder/mfe-header";
 import { decodeToken } from "tc-auth-lib";
 import { getIsLoggedIn } from "../selectors";
 import { authUserError, authUserSuccess } from "../actions";
