@@ -10,7 +10,7 @@ export const EnvironmentConfigDefault: GlobalConfig = {
     ENV: AppHostEnvironment.default,
     LOGGING: {
         PUBLIC_TOKEN: 'puba0825671e469d16f940c5a30dc738f11',
-        SERVICE: 'platform-ui',
+        SERVICE: 'mfe-customer-work',
     },
     REAUTH_OFFSET: 55,
     TAG_MANAGER_ID: undefined,
