@@ -36,4 +36,5 @@ module.exports = {
    */
   AUTO_SAVED_COOKIE_EXPIRED_IN: 24 * 60,
   TIME_ZONE: "Europe/London",
+  REACT_APP_HOST_ENV: 'prod',
 };
