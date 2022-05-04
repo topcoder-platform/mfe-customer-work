@@ -5,16 +5,12 @@ import { Provider } from "react-redux";
 import ReduxToastr from "react-redux-toastr";
 import { toast, ToastContainer } from 'react-toastify'
 
-import { EnvironmentConfig, logInitialize } from "../src-ts";
-
 import App from "./App";
 import store from "./store";
 
 import "./styles/main.vendor.scss";
 
 const history = createHistory(window);
-
-logInitialize(EnvironmentConfig);
 
 export default function Root() {
   useEffect(() => {

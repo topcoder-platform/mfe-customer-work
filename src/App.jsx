@@ -22,6 +22,10 @@ import UnderMaintenance from "./routes/UnderMaintenance";
 import { Account } from "../src-ts/utils/account";
 import { ProfileProvider } from "../src-ts/lib/profile-provider";
 
+import { EnvironmentConfig, logInitialize } from "../src-ts";
+
+logInitialize(EnvironmentConfig);
+
 const sidebar = <Sidebar menus={menuItems} />;
 
 if (process.env.APPMODE === "production") {
