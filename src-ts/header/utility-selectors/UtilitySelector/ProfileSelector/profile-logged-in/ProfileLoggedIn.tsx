@@ -2,12 +2,10 @@ import { Dispatch, FC, SetStateAction, useContext, useState } from 'react'
 
 import {
     Avatar,
-    ComponentVisible,
     IconOutline,
     logInfo,
     profileContext,
     ProfileContextData,
-    useHideClickOutside,
 } from '../../../../../lib'
 
 import { ProfilePanel } from './profile-panel'
@@ -22,12 +20,6 @@ const ProfileLoggedIn: FC<ProfileLoggedInProps> = (props: ProfileLoggedInProps) 
     const { profile }: ProfileContextData = useContext(profileContext)
     const [profilePanelOpen, setProfilePanelOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
-    const {
-        isComponentVisible,
-        ref,
-        setIsComponentVisible,
-    }: ComponentVisible = useHideClickOutside(false)
-
     if (!profile) {
         logInfo('tried to render the logged in profile w/out a profile')
         return <></>
@@ -36,11 +28,6 @@ const ProfileLoggedIn: FC<ProfileLoggedInProps> = (props: ProfileLoggedInProps) 
     function toggleProfilePanel(): void {
         const toggleTo: boolean = !profilePanelOpen
         setProfilePanelOpen(toggleTo)
-        setIsComponentVisible(toggleTo)
-    }
-
-    if (!isComponentVisible && profilePanelOpen) {
-        setProfilePanelOpen(isComponentVisible)
     }
 
     return (
@@ -62,7 +49,6 @@ const ProfileLoggedIn: FC<ProfileLoggedInProps> = (props: ProfileLoggedInProps) 
                             <IconOutline.XIcon />
                         </div>
                         <ProfilePanel
-                            refObject={ref}
                             settingsTitle={props.settingsTitle}
                             toggleProfilePanel={toggleProfilePanel}
                         />

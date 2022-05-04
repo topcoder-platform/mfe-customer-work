@@ -8,13 +8,12 @@ export {
     authUrlLogin,
     authUrlLogout,
     authUrlSignup,
-    type ComponentVisible,
     logInfo,
-    useHideClickOutside,
 } from './functions'
 export * from './modals'
 export * from './profile-provider'
 export * from './route-provider'
 export * from './svgs'
 export * from './table'
+export * from './tooltip'
 export * from './work-provider'
