@@ -1,5 +1,5 @@
 import { navigate, Router, Redirect } from "@reach/router";
-import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserTokens } from "@topcoder/mfe-header";
 import LoadingSpinner from "components/LoadingSpinner";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
@@ -64,6 +64,11 @@ export default function IntakeForm() {
       .catch((e) => {
         dispatch(autoSaveInitErrored(e));
       });
+
+      window.addEventListener("beforeunload", onReload);
+    return () => {
+      window.removeEventListener("beforeunload", onReload);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

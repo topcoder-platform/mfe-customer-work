@@ -29,6 +29,9 @@ h1 {
     @include font-barlow-condensed;
     font-size: 34px;
     line-height: 32px;
+    &.details {
+        @include font-barlow;
+    }
 }
 
 h2 {
@@ -44,24 +47,6 @@ h3 {
 h4 {
     font-size: 18px;
     line-height: 22px;
-}
-
-p {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-
-    &:not(:last-child) {
-        margin-bottom: 16px;
-    }
-}
-
-hr {
-    color: $black-10;
-    background-color: $black-10;
-    border-radius: 1px;
-    margin: 16px 0px;
-    width: 100%;
 }
 
 /* Tabs */
@@ -159,8 +144,15 @@ hr {
     @include font-weight-bold;
 }
 
-/* Ultra small */
+.body-medium-bold {
+    @include font-weight-semi-bold;
+    @include font-barlow;
+    padding: 0;
+    font-size: 20px;
+    line-height: 22px;
+}
 
+/* Ultra small */
 .ultra-small,
 .ultra-small-medium,
 .ultra-small-bold {

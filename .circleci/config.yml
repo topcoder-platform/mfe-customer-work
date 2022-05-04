@@ -11,7 +11,7 @@ install_dependency: &install_dependency
 install_deploysuite: &install_deploysuite
   name: Installation of install_deploysuite.
   command: |
-    git clone --branch v1.4.2 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+    git clone --branch v1.4.8 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
     cp ./../buildscript/master_deploy.sh .
     cp ./../buildscript/buildenv.sh .
     cp ./../buildscript/awsconfiguration.sh .
@@ -54,7 +54,7 @@ jobs:
     environment:
       DEPLOY_ENV: "DEV"
       LOGICAL_ENV: "dev"
-      APPNAME: "micro-frontends-self-service-app"
+      APPNAME: "mfe-customer-work"
     steps: *builddeploy_steps
 
   "build-prod":
@@ -62,7 +62,7 @@ jobs:
     environment:
       DEPLOY_ENV: "PROD"
       LOGICAL_ENV: "prod"
-      APPNAME: "micro-frontends-self-service-app"
+      APPNAME: "mfe-customer-work"
     steps: *builddeploy_steps
 
 workflows:

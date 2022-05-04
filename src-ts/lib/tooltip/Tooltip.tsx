@@ -1,54 +1,80 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import classNames from 'classnames'
+import {
+    Dispatch,
+    FC,
+    MutableRefObject,
+    ReactNode,
+    SetStateAction,
+    useCallback,
+    useRef,
+    useState,
+} from 'react'
 
-import { ComponentVisible, useHideClickOutside } from '../functions'
-import { IconOutline, TooltipArrowIcon } from '../svgs'
+import { useClickOutside, UseHoverElementValue, useOnHoverElement } from '../functions'
+import { TooltipArrowIcon } from '../svgs'
 
 import styles from './Tooltip.module.scss'
 
 interface TooltipProps {
-    tooltip?: string
+    content?: string
+    positionX?: 'start' | 'middle' | 'end'
+    positionY?: 'start' | 'middle' | 'end'
+    trigger: ReactNode
+    triggerOn?: 'click' | 'hover'
 }
 
-const Tooltip: FC<TooltipProps> = (props: TooltipProps) => {
+interface ClickHandlersValue {
+    onClick: (ev: any) => void
+}
 
-    const [tooltipOpen, setTooltipOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
+function useClickHandlers(trigger: MutableRefObject<any>, toggle: (ev: any) => void): ClickHandlersValue {
+    useClickOutside(trigger.current, () => toggle(false))
+
+    return {
+        onClick: toggle,
+    }
+}
+
+const Tooltip: FC<TooltipProps> = ({
+    content,
+    trigger,
+    triggerOn = 'click',
+    positionX = 'middle',
+    positionY = 'end',
+}: TooltipProps) => {
 
     // if we didn't get a tooltip, just return an empty fragment
-    if (!props.tooltip) {
+    if (!content) {
         return <></>
     }
 
-    const {
-        isComponentVisible,
-        ref,
-        setIsComponentVisible,
-    }: ComponentVisible = useHideClickOutside(false)
+    const triggerRef: MutableRefObject<any> = useRef(undefined)
+    const [tooltipOpen, setTooltipOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
-    function toggleOpen(): void {
-        const toggleTo: boolean = !tooltipOpen
-        setTooltipOpen(toggleTo)
-        setIsComponentVisible(toggleTo)
-    }
+    const toggleOpen: (toggleValue?: boolean) => void = useCallback((toggleValue?: boolean) => {
+        setTooltipOpen(currentTooltipOpen => typeof toggleValue === 'boolean' ? toggleValue : !currentTooltipOpen)
+    }, [])
 
-    if (!isComponentVisible && tooltipOpen) {
-        setTooltipOpen(isComponentVisible)
-    }
+    const revealHandlers: ClickHandlersValue | UseHoverElementValue = triggerOn === 'click'
+        ? useClickHandlers(triggerRef, toggleOpen)
+        : useOnHoverElement(triggerRef.current, toggleOpen)
 
     return (
         <div className={styles.tooltip}>
-            <div className={styles['tooltip-icon']} onClick={toggleOpen}>
-                <IconOutline.InformationCircleIcon />
+            <div
+                className={classNames('tooltip-icon', styles['tooltip-icon'])}
+                ref={triggerRef}
+                {...revealHandlers}
+            >
+                {trigger}
             </div>
             {tooltipOpen && (
-                <div
-                    className={styles['tooltip-open']}
-                    ref={ref}
-                >
+                <div className={classNames(styles['tooltip-open'], `posy-${positionY}`, `posx-${positionX}`)}>
                     <div className={styles['tooltip-arrow']}>
                         <TooltipArrowIcon />
                     </div>
                     <div className={styles['tooltip-content']}>
-                        {props.tooltip}
+                        {content}
                     </div>
                 </div>
             )}

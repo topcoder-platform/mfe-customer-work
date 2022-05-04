@@ -2,10 +2,9 @@ import { Redirect, Router } from "@reach/router";
 import {
   getAuthUserTokens,
   disableNavigationForRoute,
-} from "@topcoder/micro-frontends-navbar-app";
-import Sidebar from "components/Sidebar";
+} from "@topcoder/mfe-header";
 import React, { useLayoutEffect, useState } from "react";
-import { menuItems, UNDER_MAINTENANCE, GA_ID } from "./constants";
+import { UNDER_MAINTENANCE, GA_ID } from "./constants";
 import IntakeForm from "./IntakeForm";
 import Home from "./routes/Home";
 import WorkItems from "./routes/WorkItems";
@@ -18,8 +17,6 @@ import "react-responsive-modal/styles.css";
 import styles from "./styles/main.module.scss";
 import SupportPage from "./routes/SupportPage";
 import UnderMaintenance from "./routes/UnderMaintenance";
-
-const sidebar = <Sidebar menus={menuItems} />;
 
 if (process.env.APPMODE === "production") {
   TagManager.initialize({
@@ -51,23 +48,21 @@ const App = () => {
 
   if (UNDER_MAINTENANCE) {
     return (
-      <div className={styles["topcoder-micro-frontends-self-service-app"]}>
+      <div className={styles["topcoder-mfe-customer-work"]}>
         <UnderMaintenance />
       </div>
     );
   }
 
   return (
-    <div className={styles["topcoder-micro-frontends-self-service-app"]}>
+    <div className={styles["topcoder-mfe-customer-work"]}>
       <Router primary={false}>
         <ScrollToTop path="/">
-          {/* TODO: change the src-ts routes so that this wildcard route doesn't match */}
           <IntakeForm path="/self-service/*" />
           {isLoggedIn && (
             <>
               <Layout
                 path="/self-service/work-items/:workItemId"
-                sidebar={sidebar}
                 PageComponent={WorkItems}
               />
               <Redirect noThrow from="/self-service/*" to="/self-service" />

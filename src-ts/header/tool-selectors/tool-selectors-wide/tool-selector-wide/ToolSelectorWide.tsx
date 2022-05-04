@@ -1,8 +1,8 @@
 import classNames from 'classnames'
 import { FC } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import { PlatformRoute, routeIsActive } from '../../../../lib'
+import { PlatformRoute } from '../../../../lib'
 import '../../../../lib/styles/index.scss'
 
 import styles from './ToolSelectorWide.module.scss'
@@ -14,8 +14,7 @@ interface ToolSelectorWideProps {
 const ToolSelectorWide: FC<ToolSelectorWideProps> = (props: ToolSelectorWideProps) => {
 
     const { route, title }: PlatformRoute = props.route
-
-    const isActive: boolean = routeIsActive(useLocation().pathname, route)
+    const isActive: boolean = true // TODO: test the actual route routeIsActive(useLocation().pathname, route)
     const activeIndicaterClass: string = `tool-selector-wide-${isActive ? '' : 'in'}active`
 
     return (

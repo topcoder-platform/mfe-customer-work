@@ -13,10 +13,9 @@
     }
 
     .content-outer {
-        display: flex;
-        justify-content: center;
-
+        margin: 0 auto;
         .content-inner {
+            margin: 0 auto;
             flex: 1;
             max-width: $xxl-min;
             display: flex;
