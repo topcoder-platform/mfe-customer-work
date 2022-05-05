@@ -21,14 +21,16 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
             .map(col => (
                 <th className={styles.th}>
                     {col.label}
-                    <div className={styles.tooltip}>
-                        <Tooltip
-                            content={col.tooltip}
-                            positionX='end'
-                            positionY='end'
-                            trigger={<IconOutline.InformationCircleIcon />}
-                        />
-                    </div>
+                    {!!col.tooltip && (
+                        <div className={styles.tooltip}>
+                            <Tooltip
+                                content={col.tooltip}
+                                positionX='end'
+                                positionY='end'
+                                trigger={<IconOutline.InformationCircleIcon />}
+                            />
+                        </div>
+                    )}
                 </th>
             ))
 

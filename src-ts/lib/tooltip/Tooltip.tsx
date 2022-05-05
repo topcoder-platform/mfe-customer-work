@@ -33,6 +33,7 @@ const Tooltip: FC<TooltipProps> = ({
     positionX = 'middle',
     positionY = 'end',
 }: TooltipProps) => {
+
     // if we didn't get a tooltip, just return an empty fragment
     if (!content) {
         return <></>
