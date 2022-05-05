@@ -53,10 +53,7 @@ const ProfileLoggedIn: FC<ProfileLoggedInProps> = (props: ProfileLoggedInProps) 
                         <div className={styles.overlay}>
                             <IconOutline.XIcon />
                         </div>
-                        <ProfilePanel
-                            settingsTitle={props.settingsTitle}
-                            toggleProfilePanel={toggleProfilePanel}
-                        />
+                        <ProfilePanel settingsTitle={props.settingsTitle} />
                     </>
                 )}
             </div>
