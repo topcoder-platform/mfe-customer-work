@@ -9,6 +9,8 @@ export {
     authUrlLogout,
     authUrlSignup,
     logInfo,
+    useClickOutside,
+    useOnHoverElement,
 } from './functions'
 export * from './modals'
 export * from './profile-provider'

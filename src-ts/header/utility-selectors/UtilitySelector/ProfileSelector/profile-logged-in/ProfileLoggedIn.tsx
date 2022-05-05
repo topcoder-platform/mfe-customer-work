@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useContext, useState } from 'react'
+import { Dispatch, FC, MutableRefObject, SetStateAction, useCallback, useContext, useRef, useState } from 'react'
 
 import {
     Avatar,
@@ -6,6 +6,7 @@ import {
     logInfo,
     profileContext,
     ProfileContextData,
+    useClickOutside,
 } from '../../../../../lib'
 
 import { ProfilePanel } from './profile-panel'
@@ -18,22 +19,26 @@ interface ProfileLoggedInProps {
 const ProfileLoggedIn: FC<ProfileLoggedInProps> = (props: ProfileLoggedInProps) => {
 
     const { profile }: ProfileContextData = useContext(profileContext)
-    const [profilePanelOpen, setProfilePanelOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
     if (!profile) {
         logInfo('tried to render the logged in profile w/out a profile')
         return <></>
     }
 
-    function toggleProfilePanel(): void {
-        const toggleTo: boolean = !profilePanelOpen
-        setProfilePanelOpen(toggleTo)
-    }
+    const triggerRef: MutableRefObject<any> = useRef(undefined)
+    const [profilePanelOpen, setProfilePanelOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
+
+    const toggleProfilePanel: () => void = useCallback(() => {
+        setProfilePanelOpen((isOpen: boolean) => !isOpen)
+    }, [])
+
+    useClickOutside(triggerRef.current, () => setProfilePanelOpen(false))
 
     return (
         <>
             <div
                 className={styles['profile-avatar']}
+                ref={triggerRef}
                 onClick={toggleProfilePanel}
             >
                 <Avatar
