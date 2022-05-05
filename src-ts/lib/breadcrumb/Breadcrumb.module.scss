@@ -1,8 +1,15 @@
 @import '../styles';
 
-.breadcrumb {
-    padding: $pad-md $pad-xxl;
+.breadcrumb-wrap {
+    width: 100%;
     background: $black-5;
+}
+
+.breadcrumb {
+    padding: $pad-md 0;
+    max-width: $xxl-min;
+    margin: 0 auto;
+    @include pagePaddings;
 
     ol {
         display: flex;
@@ -18,6 +25,10 @@
                 padding: $pad-md;
                 color: $black-80;
                 cursor: pointer;
+            }
+
+            &:first-child a {
+                padding-left: 0;
             }
 
             &:not(:last-child)::after {

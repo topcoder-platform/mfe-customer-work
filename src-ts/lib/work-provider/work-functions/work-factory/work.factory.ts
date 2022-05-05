@@ -34,6 +34,32 @@ export function create(challenge: Challenge): Work {
     }
 }
 
+export function getStatus(challenge: Challenge): WorkStatus {
+
+    switch (challenge.status) {
+
+        case ChallengeStatus.new:
+            return WorkStatus.draft
+
+        case ChallengeStatus.active:
+        case ChallengeStatus.approved:
+        case ChallengeStatus.draft:
+            return WorkStatus.active
+
+        case ChallengeStatus.completed:
+            const customerFeedback: ChallengeMetadata | undefined = findMetadata(challenge, 'customerFeedback')
+            return !customerFeedback ? WorkStatus.ready : WorkStatus.done
+
+        case ChallengeStatus.cancelled:
+        case ChallengeStatus.cancelledPaymentFailed:
+        case ChallengeStatus.cancelledRequirementsInfeasible:
+            return WorkStatus.transferred
+
+        default:
+            return WorkStatus.deleted
+    }
+}
+
 function findMetadata(challenge: Challenge, metadataName: string): ChallengeMetadata | undefined {
     return challenge.metadata?.find((item: ChallengeMetadata) => item.name === metadataName)
 }
@@ -165,32 +191,6 @@ function getProgressStepDateStart(challenge: Challenge, phases: Array<string>): 
 
 function getSolutionsReadyDate(challenge: Challenge): Date | undefined {
     return getProgressStepDateEnd(challenge, [ChallengePhaseName.approval, ChallengePhaseName.appealsResponse])
-}
-
-function getStatus(challenge: Challenge): WorkStatus {
-
-    switch (challenge.status) {
-
-        case ChallengeStatus.new:
-            return WorkStatus.draft
-
-        case ChallengeStatus.active:
-        case ChallengeStatus.approved:
-        case ChallengeStatus.draft:
-            return WorkStatus.active
-
-        case ChallengeStatus.completed:
-            const customerFeedback: ChallengeMetadata | undefined = findMetadata(challenge, 'customerFeedback')
-            return !customerFeedback ? WorkStatus.ready : WorkStatus.done
-
-        case ChallengeStatus.cancelled:
-        case ChallengeStatus.cancelledPaymentFailed:
-        case ChallengeStatus.cancelledRequirementsInfeasible:
-            return WorkStatus.transferred
-
-        default:
-            return WorkStatus.deleted
-    }
 }
 
 function getSubmittedDate(challenge: Challenge): Date {

@@ -1,30 +1,19 @@
-import React, { useEffect, useMemo, useState, useLayoutEffect } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import _ from "lodash";
 import PT from "prop-types";
 import { navigate } from "@reach/router";
 import { connect, useSelector, useDispatch } from "react-redux";
-import Button from "components/Button";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
-import PageH3 from "components/PageElements/PageH3";
 import {
-  BUTTON_SIZE,
-  BUTTON_TYPE,
-  tabNames,
-  WORK_STATUSES,
   ROUTES,
 } from "constants/";
-import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import Tabs from "./components/Tabs";
-import Tab from "./components/Tab";
 import TabPane from "./components/TabPane";
-import Summary from "./components/Summary";
 import Details from "./components/Details";
 import Solutions from "./components/Solutions";
 import FinalSurvey from "./components/Solutions/FinalSurvey";
 import workUtil from "utils/work";
-import { padStart } from "utils";
 import { Modal } from "react-responsive-modal";
 import Forum from "../Forum";
 
@@ -43,7 +32,7 @@ import SupportModal from "../../components/Modal/SupportModal";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
 
-import { Breadcrumb } from '../../../src-ts/lib'
+import { Breadcrumb, TabsNavbar, workContext, WorkStatusItem } from '../../../src-ts/lib'
 import { WorkDetailHeader, WorkDetailSummary } from '../../../src-ts/tools/work'
 
 import "./styles.module.scss";
@@ -75,21 +64,8 @@ const WorkItem = ({
   const [showSupportModal, setShowSupportModal] = useState(false);
   const profileData = useSelector(getProfile);
 
-  useLayoutEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const initialTab = query.get("tab");
-    if (initialTab && tabNames.indexOf(initialTab) !== -1) {
-      setSelectedTab(initialTab);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.history.replaceState(
-      window.history.state,
-      "",
-      `?tab=${selectedTab}`
-    );
-  }, [selectedTab]);
+  const workContextData = useContext(workContext)
+  const workStatus = !!work ? workContextData.getStatusFromChallenge(work) : undefined
 
   useEffect(() => {
     getWork(workItemId);
@@ -200,6 +176,22 @@ const WorkItem = ({
     }
   ];
 
+  const navTabs = useMemo(() => [
+    {id: 'summary', title: 'Summary'},
+    {id: 'details', title: 'Details'},
+    work && !workUtil.isMessagesDisabled(work) && {
+      id: 'messaging',
+      title: 'Messages',
+      badges: [
+        forumNotifications?.unreadNotifications && {
+          count: +forumNotifications?.unreadNotifications,
+          type: 'info'
+        }
+      ].filter(Boolean)
+    },
+    {id: 'solutions', title: 'Solutions'},
+  ].filter(Boolean), [work]);
+
   return (
     <>
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
@@ -219,50 +211,20 @@ const WorkItem = ({
             markAsDone={() => setShowSurvey(true)}
           />
 
-          <Tabs>
-            <Tab
-              active={selectedTab === "summary"}
-              onClick={() => {
-                setSelectedTab("summary");
-              }}
-            >
-              SUMMARY
-            </Tab>
-            <Tab
-              active={selectedTab === "details"}
-              onClick={() => {
-                setSelectedTab("details");
-              }}
-            >
-              DETAILS
-            </Tab>
-            {work && !workUtil.isMessagesDisabled(work) ? (
-              <Tab
-                active={selectedTab === "messaging"}
-                onClick={() => {
-                  setSelectedTab("messaging");
-                }}
-              >
-                MESSAGES
-                {forumNotifications &&
-                  forumNotifications.unreadNotifications ? (
-                  <span styleName="message-count">
-                    {padStart(forumNotifications.unreadNotifications)}
-                  </span>
-                ) : null}
-              </Tab>
-            ) : null}
-            <Tab
-              active={selectedTab === "solutions"}
-              onClick={() => {
-                setSelectedTab("solutions");
-              }}
-            >
-              SOLUTIONS
-            </Tab>
-          </Tabs>
+          {work && (
+            <div styleName="status-line">
+              {work.tags[0] && <div styleName="status-label">{work.tags[0]}</div>}
+              <WorkStatusItem workStatus={workStatus} />
+            </div>
+          )}
 
-          <div>
+          <TabsNavbar
+            tabs={navTabs}
+            defaultActive="summary"
+            onChange={setSelectedTab}
+          ></TabsNavbar>
+
+          <div styleName="tabs-contents">
             <TabPane value={selectedTab} tab="summary">
               {summary && (
                 <WorkDetailSummary challenge={work} />

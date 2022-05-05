@@ -2,12 +2,21 @@
 
 .content {
     @include content-height;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
     padding-top: 0;
+    @include pagePaddings;
+
+    @include ltesm {
+        padding: 0;
+    }
 
     .content-outer {
         max-width: $xxl-min;
         @include pagePaddings;
         margin: 0 auto;
+        width: 100%;
         .content-inner {
             margin: 0 auto;
             flex: 1;

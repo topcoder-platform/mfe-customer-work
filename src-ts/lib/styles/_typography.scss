@@ -17,20 +17,21 @@ h1,
 h2,
 h3,
 h4 {
-    @include font-barlow-condensed;
+    @include font-barlow;
     @include font-weight-semi-bold;
     text-transform: uppercase;
     letter-spacing: 0;
+    margin: 0;
     padding: 0;
-    border: 0 none;
-    &.details {
-        @include font-barlow;
-    }
 }
 
 h1 {
+    @include font-barlow-condensed;
     font-size: 34px;
     line-height: 32px;
+    &.details {
+        @include font-barlow;
+    }
 }
 
 h2 {
@@ -55,6 +56,14 @@ h4 {
     line-height: 16px;
     text-transform: uppercase;
     @include font-weight-medium;
+}
+
+.medium-tab {
+    @include font-barlow; 
+    @include font-weight-semi-bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 .small-tab {
@@ -118,10 +127,21 @@ h4 {
     @include font-weight-less-bold;
 }
 
-.body-ultra-small {
+.body-small-medium {
+    @extend .body-small;
+    @include font-weight-medium;
+    letter-spacing: 0;
+}
+
+.body-ultra-small,
+.body-ultra-small-medium {
     font-size: 12px;
     line-height: 18px;
     @include font-weight-less-bold;
+}
+
+.body-ultra-small-medium {
+    @include font-weight-bold;
 }
 
 .body-medium-bold {
@@ -132,6 +152,7 @@ h4 {
     line-height: 22px;
 }
 
+/* Ultra small */
 .ultra-small,
 .ultra-small-medium,
 .ultra-small-bold {
