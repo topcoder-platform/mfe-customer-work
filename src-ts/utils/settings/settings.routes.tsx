@@ -17,7 +17,8 @@ export const settingsRoutes: Array<PlatformRoute> = [
         ],
         element: <Settings />,
         enabled: true,
-        route: '/work/account',
+        requireAuth: true,
+        route: '/account',
         title: ToolTitle.settings,
     },
 ]

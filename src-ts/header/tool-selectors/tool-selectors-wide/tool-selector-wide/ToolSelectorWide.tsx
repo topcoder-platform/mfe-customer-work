@@ -1,8 +1,9 @@
 import classNames from 'classnames'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-import { PlatformRoute } from '../../../../lib'
+import { ToolTitle } from '../../../../config'
+import { PlatformRoute, routeContext, RouteContextData } from '../../../../lib'
 import '../../../../lib/styles/index.scss'
 
 import styles from './ToolSelectorWide.module.scss'
@@ -13,8 +14,10 @@ interface ToolSelectorWideProps {
 
 const ToolSelectorWide: FC<ToolSelectorWideProps> = (props: ToolSelectorWideProps) => {
 
-    const { route, title }: PlatformRoute = props.route
-    const isActive: boolean = useLocation().pathname !== '/work/account' // TODO: test the actual route routeIsActive(useLocation().pathname, route)
+    const { getPath, getPathFromRoute }: RouteContextData = useContext(routeContext)
+
+    // for now, the work tool should be active for all pages except the account
+    const isActive: boolean = !useLocation().pathname.startsWith(getPath(ToolTitle.settings))
     const activeIndicaterClass: string = `tool-selector-wide-${isActive ? '' : 'in'}active`
 
     return (
@@ -22,9 +25,9 @@ const ToolSelectorWide: FC<ToolSelectorWideProps> = (props: ToolSelectorWideProp
             <Link
                 className='large-tab'
                 tabIndex={-1}
-                to={route}
+                to={getPathFromRoute(props.route)}
             >
-                {title}
+                {props.route.title}
             </Link>
             <div className={styles['active-indicator']}></div>
         </div>

@@ -1,5 +1,5 @@
 import { FC, ReactElement, useContext } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Routes } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 
 import { Header } from './header'
@@ -7,14 +7,10 @@ import { ProfileProvider, routeContext, RouteContextData } from './lib'
 
 const App: FC<{}> = () => {
 
-    const { allRoutes }: RouteContextData = useContext(routeContext)
+    const { allRoutes, getRouteElement }: RouteContextData = useContext(routeContext)
 
     const routeElements: Array<ReactElement> = allRoutes
-        .map(route => {
-            // if the route has children, add the wildcard to the path
-            const path: string = `${route.route}${!route.children ? '' : '/*'}`
-            return (<Route path={path} element={route.element} key={route.title} />)
-        })
+        .map(route => getRouteElement(route))
 
     return (
         <ProfileProvider>
