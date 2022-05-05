@@ -16,6 +16,7 @@
         max-width: $xxl-min;
         @include pagePaddings;
         margin: 0 auto;
+        width: 100%;
         .content-inner {
             margin: 0 auto;
             flex: 1;
