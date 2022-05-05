@@ -10,6 +10,7 @@ export {
     authUrlLogout,
     authUrlSignup,
 } from './functions'
+export * from './portal'
 export * from './svgs'
 export * from './table'
 export * from './tooltip'
