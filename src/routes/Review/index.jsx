@@ -31,6 +31,7 @@ import "./styles.module.scss";
 import {
   getDynamicPriceAndTimelineEstimate,
   getDataExplorationPriceAndTimelineEstimate,
+  getFindMeDataPriceAndTimelineEstimate,
   currencyFormat,
 } from "utils/";
 import OrderContract from "../../components/Modal/OrderContract";
@@ -60,6 +61,7 @@ const Review = ({
   showIcon,
   enableEdit = true,
   secondaryBanner,
+  bannerData,
 }) => {
   const dispatch = useDispatch();
   const [paymentFailed, setPaymentFailed] = useState(false);
@@ -74,6 +76,7 @@ const Review = ({
     zipCode: null,
   });
   const [checked, setChecked] = useState(false);
+  const isDataExploration = bannerData.title === "Data Exploration";
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
@@ -84,7 +87,9 @@ const Review = ({
   const estimate =
     workType?.selectedWorkType === "Website Design"
       ? getDynamicPriceAndTimelineEstimate(fullState)
-      : getDataExplorationPriceAndTimelineEstimate();
+      : isDataExploration
+      ? getDataExplorationPriceAndTimelineEstimate()
+      : getFindMeDataPriceAndTimelineEstimate();
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useMemo, useState, useLayoutEffect } from "react";
 import _ from "lodash";
 import PT from "prop-types";
@@ -118,6 +120,7 @@ const WorkItem = ({
         getDetails(work);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     work,
     selectedTab,

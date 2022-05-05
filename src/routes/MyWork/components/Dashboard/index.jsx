@@ -29,6 +29,7 @@ const Dashboard = () => {
     clearAutoSavedForm();
     dispatch(resetIntakeForm(true));
     navigate(`/self-service/wizard`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
