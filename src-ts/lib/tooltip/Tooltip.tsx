@@ -2,15 +2,17 @@ import classNames from 'classnames'
 import { Dispatch, FC, MutableRefObject, ReactNode, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { useClickOutside, UseHoverElementValue, useOnHoverElement } from '../functions'
+import { Portal } from '../portal'
+import { TooltipArrowIcon } from '../svgs'
 
 import styles from './Tooltip.module.scss'
 
 interface TooltipProps {
     content?: string
-    positionX?: 'start'|'middle'|'end'
-    positionY?: 'start'|'middle'|'end'
+    positionX?: 'start' | 'middle' | 'end'
+    positionY?: 'start' | 'middle' | 'end'
     trigger: ReactNode
-    triggerOn?: 'click'|'hover'
+    triggerOn?: 'click' | 'hover'
 }
 
 interface ClickHandlersValue {
@@ -37,16 +39,34 @@ const Tooltip: FC<TooltipProps> = ({
         return <></>
     }
 
+    const portalRef: MutableRefObject<any> = useRef(undefined)
     const triggerRef: MutableRefObject<any> = useRef(undefined)
     const [tooltipOpen, setTooltipOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
     const toggleOpen: (toggleValue?: boolean) => void = useCallback((toggleValue?: boolean) => {
-      setTooltipOpen(currentTooltipOpen => typeof toggleValue === 'boolean' ? toggleValue : !currentTooltipOpen)
+        setTooltipOpen(currentTooltipOpen => typeof toggleValue === 'boolean' ? toggleValue : !currentTooltipOpen)
     }, [])
 
-    const revealHandlers: ClickHandlersValue|UseHoverElementValue = triggerOn === 'click'
+    const revealHandlers: ClickHandlersValue | UseHoverElementValue = triggerOn === 'click'
         ? useClickHandlers(triggerRef, toggleOpen)
         : useOnHoverElement(triggerRef.current, toggleOpen)
+
+    useEffect(() => {
+        if (!tooltipOpen || !portalRef?.current) {
+            return
+        }
+
+        const triggerEl: HTMLElement = triggerRef.current
+        const box: DOMRect = triggerEl.getBoundingClientRect()
+        Object.assign(portalRef.current.style, {
+            height: `${box.width}px`,
+            left: `${box.left}px`,
+            pointerEvents: 'none',
+            position: 'absolute',
+            top: `${box.top + window.scrollY}px`,
+            width: `${box.width + window.scrollX}px`,
+        })
+    }, [tooltipOpen])
 
     return (
         <div className={styles.tooltip}>
@@ -58,18 +78,16 @@ const Tooltip: FC<TooltipProps> = ({
                 {trigger}
             </div>
             {tooltipOpen && (
-                <div className={classNames(styles['tooltip-open'], `posy-${positionY}`, `posx-${positionX}`)}>
-                    <div className={styles['tooltip-arrow']}>
-                        {/* TODO: convert this to a .svg file and import from /svgs */}
-                        <svg width='37' height='9' viewBox='0 0 37 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                            <path fill-rule='evenodd' clip-rule='evenodd' d='M13.875 3.53787L15.8535 1.25575C17.2816 -0.391461 19.6241 -0.422124 21.0857 1.18727C21.1062 1.20983 21.1265 1.23266 21.1465 1.25575L23.125 3.53787C26.0826 6.94936 29.2109 9 34.368 9H37L0 9H2.63195C7.78907 9 10.9174 6.94936 13.875 3.53787Z' fill='#2A2A2A'/>
-                            <path fill-rule='evenodd' clip-rule='evenodd' d='M13.875 3.53787L15.8535 1.25575C17.2816 -0.391461 19.6241 -0.422124 21.0857 1.18727C21.1062 1.20983 21.1265 1.23266 21.1465 1.25575L23.125 3.53787C26.0826 6.94936 29.2109 9 34.368 9H37L0 9H2.63195C7.78907 9 10.9174 6.94936 13.875 3.53787Z' fill='black' fill-opacity='0.2'/>
-                        </svg>
+                <Portal portalRef={portalRef}>
+                    <div className={classNames(styles['tooltip-open'], `posy-${positionY}`, `posx-${positionX}`)}>
+                        <div className={styles['tooltip-arrow']}>
+                            <TooltipArrowIcon />
+                        </div>
+                        <div className={styles['tooltip-content']}>
+                            {content}
+                        </div>
                     </div>
-                    <div className={styles['tooltip-content']}>
-                        {content}
-                    </div>
-                </div>
+                </Portal>
             )}
         </div>
     )
