@@ -17,7 +17,7 @@ export const settingsRoutes: Array<PlatformRoute> = [
         ],
         element: <Settings />,
         enabled: true,
-        route: '/self-service/account',
+        route: '/work/account',
         title: ToolTitle.settings,
     },
 ]
