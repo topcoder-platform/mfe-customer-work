@@ -7,6 +7,8 @@ export interface RouteContextData {
     getChildren: (parent: string) => Array<PlatformRoute>
     getChildRoutes: (parent: string) => Array<ReactElement>
     getPath: (routeTitle: string) => string
+    getPathFromRoute: (route: PlatformRoute) => string
+    getRouteElement: (route: PlatformRoute) => JSX.Element
     toolsRoutes: Array<PlatformRoute>
     utilsRoutes: Array<PlatformRoute>
 }

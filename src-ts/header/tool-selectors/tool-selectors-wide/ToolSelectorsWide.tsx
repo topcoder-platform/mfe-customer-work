@@ -10,7 +10,12 @@ const ToolSelectorsWide: FC<{}> = () => {
     const { toolsRoutes }: RouteContextData = useContext(routeContext)
 
     const selectors: Array<JSX.Element> = toolsRoutes
-        .map(route => <ToolSelectorWide key={route.title} route={route} />)
+        .map(route => (
+            <ToolSelectorWide
+                key={route.title}
+                route={route}
+            />
+        ))
 
     return (
         <div className={styles['tool-selectors-wide']}>

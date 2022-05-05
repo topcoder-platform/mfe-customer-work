@@ -7,6 +7,8 @@ export const defaultRouteContextData: RouteContextData = {
     getChildRoutes: () => [],
     getChildren: () => [],
     getPath: () => '',
+    getPathFromRoute: () => '',
+    getRouteElement: () => <></>,
     toolsRoutes: [],
     utilsRoutes: [],
 }
