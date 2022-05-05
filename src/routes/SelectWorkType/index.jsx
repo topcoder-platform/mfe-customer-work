@@ -95,12 +95,14 @@ const SelectWorkType = ({
       challenge?.id,
       challenge?.legacy?.selfService
     );
-  
+
   const breadcrumb = [
-    {url:'/self-service/dashboard', name:"My work"},
-    {url:'/self-service/wizard', name:"Start work"}
+    { url: "/self-service/dashboard", name: "My work" },
+    { url: "/self-service/wizard", name: "Start work" },
   ];
-  
+
+  const workTypeClassName = (title) => title.toLowerCase().split(" ").join("-");
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -113,16 +115,17 @@ const SelectWorkType = ({
       )}
       <Breadcrumb breadcrumbItems={breadcrumb} />
       <Page>
-        
         <PageContent>
           <PageH2>SELECT WORK TYPE</PageH2>
           {featuredWorkTypes.map((featuredWorkType) => (
-            <div className={styles.heroContainer}>
+            <div
+              className={`${styles.heroContainer} ${
+                styles[workTypeClassName(featuredWorkType.title)]
+              }`}
+            >
               <div
                 className={`${styles.heroBackgroundContainer} ${
-                  styles[
-                    featuredWorkType.title.toLowerCase().split(" ").join("-")
-                  ]
+                  styles[workTypeClassName(featuredWorkType.title)]
                 }`}
               ></div>
               <div className={styles.heroContent}>

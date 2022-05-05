@@ -42,6 +42,7 @@ function RadioButton({ options, onChange, size, errorMsg }) {
       }
       setInternalOptions(newOptions);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
   return (

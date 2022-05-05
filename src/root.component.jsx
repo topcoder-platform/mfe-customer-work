@@ -3,7 +3,7 @@ import { disableSidebarForRoute } from "@topcoder/mfe-header";
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import ReduxToastr from "react-redux-toastr";
-import { toast, ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from "react-toastify";
 
 import App from "./App";
 import store from "./store";

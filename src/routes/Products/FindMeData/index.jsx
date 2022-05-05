@@ -5,31 +5,29 @@ import ThankYou from "../../ThankYou";
 import LoginPrompt from "../../LoginPrompt";
 import BasicInfo from "../components/BasicInfo";
 import config from "../../../../config";
-import DataExplorationIcon from "../../../assets/images/data-exploration-icon.svg";
+import FindMeDataIcon from "../../../assets/images/find-me-data-icon.svg";
 import HelpBanner from "components/HelpBanner";
-import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
 import { webWorkTypes } from "../../../constants/index";
+import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
 
-export default function DataExploration({ isLoggedIn }) {
-  const dataExploration = webWorkTypes.find(
-    (type) => type.title === "Data Exploration"
-  );
+export default function FindMeData({ isLoggedIn }) {
+  const findMeData = webWorkTypes.find((type) => type.title === "Find Me Data");
 
   const { title, subTitle, helperBannerTitle, helperBannerContent } =
-    dataExploration;
+    findMeData;
 
   return (
     <Router>
       <BasicInfo
         path="/basic-info"
         isLoggedIn={isLoggedIn}
-        bannerData={dataExploration}
+        bannerData={findMeData}
       />
       <LoginPrompt
         path="/login-prompt"
         isLoggedIn={isLoggedIn}
-        previousPageUrl="/self-service/work/new/data-exploration/basic-info"
-        nextPageUrl="/self-service/work/new/data-exploration/review"
+        previousPageUrl="/self-service/work/new/find-me-data/basic-info"
+        nextPageUrl="/self-service/work/new/find-me-data/review"
       />
       <Review
         banner={<FeaturedWorkTypeBanner title={title} subTitle={subTitle} />}
@@ -39,15 +37,15 @@ export default function DataExploration({ isLoggedIn }) {
           </HelpBanner>
         }
         path="/review"
-        previousPageUrl="/self-service/work/new/data-exploration/basic-info"
+        previousPageUrl="/self-service/work/new/find-me-data/basic-info"
         nextPageUrl={
           isLoggedIn
-            ? "/self-service/work/new/data-exploration/thank-you"
+            ? "/self-service/work/new/find-me-data/thank-you"
             : config.SIGN_IN_URL
         }
-        icon={<DataExplorationIcon />}
+        icon={<FindMeDataIcon />}
         showIcon
-        bannerData={dataExploration}
+        bannerData={findMeData}
       />
       <ThankYou path="/thank-you" />
     </Router>

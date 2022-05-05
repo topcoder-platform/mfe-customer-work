@@ -1,7 +1,4 @@
-import {
-  getAuthUserProfile,
-  updateUserProfile,
-} from "@topcoder/mfe-header";
+import { getAuthUserProfile, updateUserProfile } from "@topcoder/mfe-header";
 import * as actions from "actions/profile";
 import _ from "lodash";
 import { toastr } from "react-redux-toastr";
@@ -37,8 +34,9 @@ export const getUserProfile = () => async (dispatch, getState) => {
  *
  * @returns {() => Promise}
  */
-export const updateBasicInfoAndPassword = (handle, firstName, lastName, currentPassword, password) => async (dispatch, getState) => {
-
+export const updateBasicInfoAndPassword =
+  (handle, firstName, lastName, currentPassword, password) =>
+  async (dispatch, getState) => {
     const state = getState();
     const userId = userSelectors.getUserId(state);
 
@@ -106,8 +104,6 @@ export const updateBasicInfoAndPassword = (handle, firstName, lastName, currentP
           "There was an error during updating user info and password"
         );
       }
-
-      
     } else {
       services
         .updateBasicInfo(handle, firstName, lastName)

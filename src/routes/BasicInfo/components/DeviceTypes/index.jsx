@@ -44,6 +44,7 @@ const DeviceTypes = ({ numOfPages, selectedOptions, onSelect }) => {
   useEffect(() => {
     // backward compatible with old version.
     if (typeof selectedOptions == "number") {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       selectedOptions = [selectedOptions];
     }
     setSelectedIndexes(
