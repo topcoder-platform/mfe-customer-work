@@ -47,6 +47,19 @@
             &:first-child {
                 padding-left: 0;
             }
+            .tooltip {
+                display: inline-block;
+                margin-left: $pad-xs;
+                position: relative;
+                top: 2px;
+
+                :global(.tooltip-icon) {
+
+                    svg {
+                        @include icon-md;
+                    }
+                }
+            }
         }
     
         &:nth-child(2n + 1) {
