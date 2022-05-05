@@ -8,5 +8,6 @@ export {
     authUrlLogin,
     authUrlLogout,
     authUrlSignup,
+    logInitialize,
 } from './functions'
 export * from './svgs'
