@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import { MouseEvent } from 'react'
 
+import { IconOutline } from '../svgs'
 import { Tooltip } from '../tooltip'
 
 import { TableCell } from './table-cell'
@@ -20,7 +21,14 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
             .map(col => (
                 <th className={styles.th}>
                     {col.label}
-                    <Tooltip tooltip={col.tooltip} />
+                    <div className={styles.tooltip}>
+                        <Tooltip
+                            content={col.tooltip}
+                            positionX='end'
+                            positionY='end'
+                            trigger={<IconOutline.InformationCircleIcon />}
+                        />
+                    </div>
                 </th>
             ))
 

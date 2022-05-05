@@ -15,9 +15,7 @@ import {
 import styles from './ProfilePanel.module.scss'
 
 interface ProfilePanelProps {
-    refObject: MutableRefObject<any>
     settingsTitle: string
-    toggleProfilePanel: () => void
 }
 
 const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
@@ -33,7 +31,6 @@ const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
     }
 
     function goToAccount(): void {
-        props.toggleProfilePanel()
         navigate(getPath(props.settingsTitle))
     }
 
@@ -42,7 +39,6 @@ const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
     return (
         <div
             className={styles['profile-panel']}
-            ref={props.refObject}
         >
             <div className={styles['arrow-tip']}>
                 <TooltipArrowIcon />
