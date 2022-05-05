@@ -19,7 +19,7 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
 
         const headerRow: Array<JSX.Element> = props.columns
             .map(col => (
-                <th className={styles.th}>
+                <th className={classNames(styles.th, styles[col.type])}>
                     {col.label}
                     {!!col.tooltip && (
                         <div className={styles.tooltip}>
