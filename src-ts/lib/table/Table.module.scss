@@ -61,6 +61,10 @@
                     }
                 }
             }
+
+            &.money {
+                text-align: right;
+            }
         }
     
         &:nth-child(2n + 1) {
