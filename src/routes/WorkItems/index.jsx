@@ -227,7 +227,7 @@ const WorkItem = ({
           <div styleName="tabs-contents">
             <TabPane value={selectedTab} tab="summary">
               {summary && (
-                <WorkDetailSummary challenge={work} />
+                <WorkDetailSummary challenge={work} status={workStatus} />
               )}
             </TabPane>
 
