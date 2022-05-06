@@ -1,8 +1,7 @@
 @import 'palette';
 
-$header-height: 80px;
-$header-height-md: 64px;
-$header-height-sm: 48px;
+$header-height: var(--header-height, 80px);
+$footer-height: var(--footer-height, 51px);
 
 /* Left Col includes the header logo link and the sections container */
 $left-col-width-md: $header-height;
@@ -23,15 +22,17 @@ $pad-xxl: calc(6 * $pad-xs); // 24
 $pad-xxxl: calc(7 * $pad-xs); // 28
 $pad-xxxxl: calc(8 * $pad-xs); // 32
 
-@mixin content-height {
-    height: calc(100vh - $header-height);
+body {
+    --header-height: 80px;
+    --footer-height: 51px;
 
     @include ltemd {
-        height: calc(100vh - $header-height-md);
+        --header-height: 64px;
     }
 
     @include ltesm {
-        height: calc(100vh - $header-height-sm);
+        --header-height: 48px;
+        --footer-height: 101px;
     }
 }
 

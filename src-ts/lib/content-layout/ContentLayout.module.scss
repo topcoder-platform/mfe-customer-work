@@ -1,16 +1,10 @@
 @import '../styles/';
 
 .content {
-    @include content-height;
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-content: center;
     padding-top: 0;
-    @include pagePaddings;
-
-    @include ltesm {
-        padding: 0;
-    }
+    padding-bottom: $pad-lg;
+    
+    flex: 1 1 auto;
 
     .content-outer {
         max-width: $xxl-min;

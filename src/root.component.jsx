@@ -9,6 +9,7 @@ import {
   RouteProvider,
   ToolsRoutes,
   UtilsRoutes,
+  PageFooter,
 } from '../src-ts'
 
 import App from "./App";
@@ -48,6 +49,7 @@ export default function Root() {
         />
       </LocationProvider>
 
+      <PageFooter />
     </Provider>
   );
 }
