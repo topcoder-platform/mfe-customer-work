@@ -2,37 +2,36 @@
 
 .content {
     @include content-height;
-    padding: 0 $pad-xxxxl;
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-content: center;
-
-    @include md {
-        padding: 0 $pad-xxl;
-    }
-
-    @include ltesm {
-        padding: 0;
-    }
+    padding-top: 0;
+    position: relative;
 
     .content-outer {
-        display: flex;
-        justify-content: center;
-
+        max-width: $xxl-min;
+        @include pagePaddings;
+        margin: 0 auto;
+        height: 100%;
         .content-inner {
+            margin: 0 auto;
             flex: 1;
             max-width: $xxl-min;
-            padding: 0;
             display: flex;
             flex-direction: column;
+            overflow: auto;
+            min-height: 100%;
 
             .page-header {
+                display: flex;
+                align-items: center;
+                border-bottom: $border solid $black-5;
+                margin-top: $pad-sm;
+                padding: $pad-xxl 0;
 
                 h1 {
-                    border-bottom: $border solid $black-5;
+                    flex: 1;
                     color: $black-100;
                 }
             }
         }
     }
 }
+

@@ -67,7 +67,7 @@ export default function IntakeForm() {
         dispatch(autoSaveInitErrored(e));
       });
 
-    window.addEventListener("beforeunload", onReload);
+      window.addEventListener("beforeunload", onReload);
     return () => {
       window.removeEventListener("beforeunload", onReload);
     };
