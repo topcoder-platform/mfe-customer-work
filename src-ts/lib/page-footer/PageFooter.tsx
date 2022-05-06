@@ -1,7 +1,8 @@
 
 import { FC } from 'react'
 
-import { SocialIconFacebook, SocialIconInstagram, SocialIconLinkedin, SocialIconTwitter, SocialIconYoutube } from '../svgs'
+import { FooterSocialConfig, FooterTCYear } from '../../config'
+import { SocialLink, SocialLinkIcons } from '../social-links'
 
 import styles from './PageFooter.module.scss'
 
@@ -15,7 +16,7 @@ const PageFooter: FC<PageFooterProps> = ({
             <div className={styles['footer-inner']}>
                 <div className={styles.utils}>
                     <div>
-                        <span>© 2022 Topcoder</span>
+                        <span>© {FooterTCYear} Topcoder</span>
                         <a href='#'>Support</a>
                         <a href='#'>See a Bug?</a>
                     </div>
@@ -25,21 +26,9 @@ const PageFooter: FC<PageFooterProps> = ({
                     </div>
                 </div>
                 <div className={styles.social}>
-                    <a href='https://www.facebook.com/topcoder' target='_blank'>
-                        <SocialIconFacebook />
-                    </a>
-                    <a href='https://www.youtube.com/channel/UCFv29ANLT2FQmtvS9DRixNA ' target='_blank'>
-                        <SocialIconYoutube />
-                    </a>
-                    <a href='https://www.linkedin.com/company/topcoder' target='_blank'>
-                        <SocialIconLinkedin />
-                    </a>
-                    <a href='https://twitter.com/topcoder ' target='_blank'>
-                        <SocialIconTwitter />
-                    </a>
-                    <a href='https://www.instagram.com/topcoder' target='_blank'>
-                        <SocialIconInstagram />
-                    </a>
+                    {Object.entries(FooterSocialConfig).map(([platform, url]: [string, string]) => (
+                        <SocialLink icon={platform as keyof typeof SocialLinkIcons} url={url} />
+                    ))}
                 </div>
             </div>
         </div>
