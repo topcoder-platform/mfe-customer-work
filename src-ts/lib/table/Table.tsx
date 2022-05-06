@@ -23,6 +23,7 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
                     {col.label}
                     <div className={styles.tooltip}>
                         <Tooltip
+                            className={styles.tootlipBody}
                             content={col.tooltip}
                             positionX='end'
                             positionY='end'

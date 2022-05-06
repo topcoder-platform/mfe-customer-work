@@ -28,12 +28,13 @@
     
     .tooltip-arrow {
         position: absolute;
+        display: flex;
     }
 
     &:global(.posy-end) {
-        top: calc(100% + 9px);
+        top: calc(100% + 11px);
         .tooltip-arrow {
-            top: -11px;
+            top: -9px;
         }
     }
 
