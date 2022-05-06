@@ -12,6 +12,7 @@ export {
     useClickOutside,
     useOnHoverElement,
 } from './functions'
+export * from './loading-spinner'
 export * from './modals'
 export * from './portal'
 export * from './profile-provider'
