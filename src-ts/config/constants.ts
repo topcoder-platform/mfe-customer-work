@@ -3,8 +3,6 @@ export enum ToolTitle {
     work = 'Work',
 }
 
-export const FooterTCYear: string = '2022'
-
 export enum FooterSocialConfig {
     facebook = 'https://www.facebook.com/topcoder',
     youtube = 'https://www.youtube.com/channel/UCFv29ANLT2FQmtvS9DRixNA',

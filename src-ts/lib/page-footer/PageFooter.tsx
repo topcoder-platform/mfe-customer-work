@@ -1,10 +1,12 @@
 
 import { FC } from 'react'
 
-import { FooterSocialConfig, FooterTCYear } from '../../config'
+import { FooterSocialConfig } from '../../config'
 import { SocialLink, SocialLinkIcons } from '../social-links'
 
 import styles from './PageFooter.module.scss'
+
+const todayYear: number = (new Date()).getFullYear()
 
 export interface PageFooterProps {
 }
@@ -16,7 +18,7 @@ const PageFooter: FC<PageFooterProps> = ({
             <div className={styles['footer-inner']}>
                 <div className={styles.utils}>
                     <div>
-                        <span>© {FooterTCYear} Topcoder</span>
+                        <span>© {todayYear} Topcoder</span>
                         <a href='#'>Support</a>
                         <a href='#'>See a Bug?</a>
                     </div>
