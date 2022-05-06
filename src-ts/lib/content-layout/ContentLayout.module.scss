@@ -3,6 +3,7 @@
 .content {
     @include content-height;
     padding-top: 0;
+    position: relative;
 
     .content-outer {
         max-width: $xxl-min;
