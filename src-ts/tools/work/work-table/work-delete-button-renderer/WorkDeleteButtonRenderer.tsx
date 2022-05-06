@@ -63,7 +63,6 @@ function WorkDeleteButtonRenderer(work: Work): JSX.Element | undefined {
                 This action can not be undone and will permanently remove your work.
             </ConfirmModal>
         </>
-
     )
 }
 
