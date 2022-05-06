@@ -166,8 +166,9 @@ const BrandingForm = ({
           <PageP styleName="description">
             What ideas do you have for the overall style and theme of your
             website? For example, modern and minimalist, bold and colorful, or
-            muted and masculine. Describe the vibe and personality you have in mind. For example:
-            friendly, approachable, upscale, exclusive, high-tech, handcrafted.
+            muted and masculine. Describe the vibe and personality you have in
+            mind. For example: friendly, approachable, upscale, exclusive,
+            high-tech, handcrafted.
           </PageP>
         </div>
 

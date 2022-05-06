@@ -21,6 +21,7 @@ const ThankYou = () => {
 
   useEffect(() => {
     clearPreviousForm();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const clearPreviousForm = () => {
