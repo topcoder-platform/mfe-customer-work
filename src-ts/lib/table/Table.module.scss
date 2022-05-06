@@ -47,6 +47,7 @@
             &:first-child {
                 padding-left: 0;
             }
+
             .tooltip {
                 display: inline-block;
                 margin-left: $pad-xs;
@@ -65,7 +66,7 @@
         &:nth-child(2n + 1) {
 
             td {
-                background: $tc-white;
+                background-color: $tc-white;
             }
         }
     }

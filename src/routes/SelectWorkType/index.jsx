@@ -26,6 +26,7 @@ import {
   BUTTON_SIZE,
   BUTTON_TYPE,
   HELP_BANNER,
+  ROUTES,
   webWorkTypes,
   workTypes,
 } from "../../constants/";
@@ -98,14 +99,8 @@ const SelectWorkType = ({
 
   // TODO: get routes from a provider
   const breadcrumb = [
-    {
-      name: "My work",
-      url: '/self-service/dashboard',
-    },
-    {
-      name: "Start work",
-      url: '/self-service/wizard',
-    }
+    {url: ROUTES.DASHBOARD_PAGE, name:"My work"},
+    {url:'/self-service/wizard', name:"Start work"}
   ];
 
   return (
