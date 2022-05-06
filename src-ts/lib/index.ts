@@ -11,6 +11,7 @@ export {
     logInfo,
     useClickOutside,
     useOnHoverElement,
+    logInitialize,
 } from './functions'
 export * from './loading-spinner'
 export * from './modals'
