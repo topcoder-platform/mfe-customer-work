@@ -3,7 +3,7 @@
 .tooltip {
     display: inline-block;
     position: relative;
-    
+
     &-icon {
         cursor: pointer;
     }
@@ -12,6 +12,7 @@
         @extend .body-small;
         @include font-roboto;
         text-transform: none;
+        white-space: nowrap;
     }
 }
 
@@ -24,20 +25,24 @@
     padding: $pad-sm;
     pointer-events: none;
     min-width: 62px;
-    
+    text-align: center;
+
     .tooltip-arrow {
         position: absolute;
+        display: flex;
     }
 
     &:global(.posy-end) {
-        top: calc(100% + 9px);
+        top: calc(100% + 11px);
+
         .tooltip-arrow {
-            top: -11px;
+            top: -9px;
         }
     }
 
     &:global(.posx-end) {
         right: -24px;
+
         .tooltip-arrow {
             right: 11px;
         }

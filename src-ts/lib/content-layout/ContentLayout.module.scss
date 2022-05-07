@@ -2,21 +2,15 @@
 
 .content {
     @include content-height;
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-content: center;
     padding-top: 0;
-    @include pagePaddings;
-
-    @include ltesm {
-        padding: 0;
-    }
+    position: relative;
 
     .content-outer {
         max-width: $xxl-min;
         @include pagePaddings;
         margin: 0 auto;
-        width: 100%;
+        height: 100%;
+
         .content-inner {
             margin: 0 auto;
             flex: 1;
@@ -24,6 +18,7 @@
             display: flex;
             flex-direction: column;
             overflow: auto;
+            min-height: 100%;
 
             .page-header {
                 display: flex;
@@ -40,3 +35,4 @@
         }
     }
 }
+

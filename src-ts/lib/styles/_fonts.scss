@@ -59,6 +59,10 @@
 .font-tc-white {
     @include font-tc-white;
 }
+.bg-black-100 {
+    background-color: $black-100;
+}
+
 
 /* RED FONTS */
 @mixin font-red-120 {

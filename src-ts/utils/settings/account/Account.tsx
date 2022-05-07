@@ -2,7 +2,6 @@ import { Dispatch, FC, SetStateAction, useContext, useState } from 'react'
 import Modal from 'react-responsive-modal'
 
 import {
-    authUrlLogin,
     Button,
     Card,
     formOnReset,
@@ -17,18 +16,13 @@ import { EditName, editNameFormDef } from './edit-name'
 const Account: FC<{}> = () => {
 
     const profileContextData: ProfileContextData = useContext(profileContext)
-    const { profile, initialized }: ProfileContextData = profileContextData
+    const { profile }: ProfileContextData = profileContextData
 
     const [editProfileOpen, setEditNameOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
     const [changePasswordOpen, setChangePasswordOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
-    // TODO: create an auth provider
-    // if we don't have a profile, don't show the page until it's initialized
+    // if we don't have a profile, don't show the page
     if (!profile) {
-        // if we're already initialized, navigate to the login page
-        if (initialized) {
-            window.location.href = authUrlLogin('/self-service')
-        }
         return <></>
     }
 

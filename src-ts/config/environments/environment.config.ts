@@ -8,7 +8,7 @@ import { EnvironmentConfigProd } from './environment.prod.config'
 
 function getEnvironmentConfig(): GlobalConfig {
 
-    switch (process.env.REACT_APP_HOST_ENV) {
+    switch (process.env.APPENV) {
 
         case AppHostEnvironment.bsouza:
             return EnvironmentConfigBsouza

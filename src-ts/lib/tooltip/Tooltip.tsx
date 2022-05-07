@@ -1,21 +1,15 @@
 import classNames from 'classnames'
-import {
-    Dispatch,
-    FC,
-    MutableRefObject,
-    ReactNode,
-    SetStateAction,
-    useCallback,
-    useRef,
-    useState,
-} from 'react'
+import { Dispatch, FC, MutableRefObject, ReactNode, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 
 import { useClickOutside, UseHoverElementValue, useOnHoverElement } from '../functions'
+import { useWindowSize, WindowSize } from '../hooks/use-window-size.hook'
+import { Portal } from '../portal'
 import { TooltipArrowIcon } from '../svgs'
 
 import styles from './Tooltip.module.scss'
 
 interface TooltipProps {
+    className?: string
     content?: string
     positionX?: 'start' | 'middle' | 'end'
     positionY?: 'start' | 'middle' | 'end'
@@ -36,6 +30,7 @@ function useClickHandlers(trigger: MutableRefObject<any>, toggle: (ev: any) => v
 }
 
 const Tooltip: FC<TooltipProps> = ({
+    className,
     content,
     trigger,
     triggerOn = 'click',
@@ -48,8 +43,10 @@ const Tooltip: FC<TooltipProps> = ({
         return <></>
     }
 
+    const portalRef: MutableRefObject<any> = useRef(undefined)
     const triggerRef: MutableRefObject<any> = useRef(undefined)
     const [tooltipOpen, setTooltipOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
+    const { width: windowWidth, height: windowHeight }: WindowSize = useWindowSize()
 
     const toggleOpen: (toggleValue?: boolean) => void = useCallback((toggleValue?: boolean) => {
         setTooltipOpen(currentTooltipOpen => typeof toggleValue === 'boolean' ? toggleValue : !currentTooltipOpen)
@@ -58,6 +55,23 @@ const Tooltip: FC<TooltipProps> = ({
     const revealHandlers: ClickHandlersValue | UseHoverElementValue = triggerOn === 'click'
         ? useClickHandlers(triggerRef, toggleOpen)
         : useOnHoverElement(triggerRef.current, toggleOpen)
+
+    useEffect(() => {
+        if (!tooltipOpen || !portalRef?.current) {
+            return
+        }
+
+        const triggerEl: HTMLElement = triggerRef.current
+        const box: DOMRect = triggerEl.getBoundingClientRect()
+        Object.assign(portalRef.current.style, {
+            height: `${box.width}px`,
+            left: `${box.left}px`,
+            pointerEvents: 'none',
+            position: 'absolute',
+            top: `${box.top + window.scrollY}px`,
+            width: `${box.width + window.scrollX}px`,
+        })
+    }, [tooltipOpen, windowWidth, windowHeight])
 
     return (
         <div className={styles.tooltip}>
@@ -69,14 +83,16 @@ const Tooltip: FC<TooltipProps> = ({
                 {trigger}
             </div>
             {tooltipOpen && (
-                <div className={classNames(styles['tooltip-open'], `posy-${positionY}`, `posx-${positionX}`)}>
-                    <div className={styles['tooltip-arrow']}>
-                        <TooltipArrowIcon />
+                <Portal portalRef={portalRef}>
+                    <div className={classNames(styles['tooltip-open'], `posy-${positionY}`, `posx-${positionX}`, className)}>
+                        <div className={styles['tooltip-arrow']}>
+                            <TooltipArrowIcon />
+                        </div>
+                        <div className={styles['tooltip-content']}>
+                            {content}
+                        </div>
                     </div>
-                    <div className={styles['tooltip-content']}>
-                        {content}
-                    </div>
-                </div>
+                </Portal>
             )}
         </div>
     )
