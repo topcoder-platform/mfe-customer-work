@@ -2,12 +2,12 @@ import _ from "lodash";
 import PropType from "prop-types";
 import React, { useState } from "react";
 
-import { Button } from "../Button";
-import { FormField } from "../FormElements/FormField";
-import { FormInputText } from "../FormElements/FormInputText";
-import { FormInputTextArea } from "../FormElements/FormInputTextArea";
+import Button from "components/Button";
+import FormField from "components/FormElements/FormField";
+import FormInputText from "components/FormElements/FormInputText";
+import FormInputTextArea from "components/FormElements/FormInputTextArea";
 
-import { Modal } from ".";
+import Modal from "components/Modal";
 import styles from "./styles.module.scss";
 
 const SupportModal = ({ profileData, handleClose, onSubmit }) => {
