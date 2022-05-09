@@ -13,7 +13,7 @@ $dot-size: calc($pad-lg + $pad-xxl);
     .label {
         display: block;
         margin-top: $pad-sm;
-        margin-left: calc(-1 * $dot-size);
+        margin-left: calc(-1 * calc($dot-size + 3px));
         width: calc(4 * $pad-xxxxl);
         text-align: center;
         color: $black-60;

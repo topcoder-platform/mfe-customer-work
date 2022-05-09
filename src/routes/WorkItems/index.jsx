@@ -169,7 +169,7 @@ const WorkItem = ({
   const breadcrumb = [
     {
       name: "My work",
-      url: '/self-service/dashboard',
+      url: ROUTES.DASHBOARD_PAGE,
     },
     {
       name: work?.name,
