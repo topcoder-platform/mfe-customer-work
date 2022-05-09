@@ -27,7 +27,7 @@ const FinalSurvey = ({ saveSurvey, onCancel, customerFeedback }) => {
     <div styleName="final-servey">
 
       <p styleName="subtitle">
-        To mark this work as done, please provide feedback on your experience.
+        To mark this work as done, please provide feedback on your experience
       </p>
 
       <ul styleName="question-list">
@@ -56,7 +56,7 @@ const FinalSurvey = ({ saveSurvey, onCancel, customerFeedback }) => {
             labelStyle="label"
           >
             <Textarea
-              placeholder="Add here your comments..."
+              placeholder="Add your comments here..."
               rows={8}
               value={q.value}
               
