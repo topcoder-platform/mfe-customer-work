@@ -31,9 +31,13 @@ a {
     // extend ultra small bold and override it
     @extend .ultra-small-bold;
     line-height: 24px;
-    
-    &:focus {
-        outline: $border solid $turq-140;
+
+    &.primary,
+    &.secondary {
+
+        &:focus {
+            outline: $border solid $turq-140;
+        }
     }
 
     &.button-sm {
@@ -133,10 +137,6 @@ a {
         outline: none;
         border-radius: 0;
 
-        &:focus {
-            outline: $border solid $turq-140;
-        }
-        
         &:hover {
             color: $turq-120;
         }
