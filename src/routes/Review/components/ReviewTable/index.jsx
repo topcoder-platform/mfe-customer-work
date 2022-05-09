@@ -55,7 +55,18 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
   };
 
   const renderDetails = (step) => {
-    const items = formData[step.value] || {};
+    let items = formData[step.value] || {};
+    if (formData?.workType?.selectedWorkType === "Find Me Data") {
+      items = _.omit(items, ["projectTitle", "assetsUrl", "goals"]);
+    } else {
+      items = _.omit(items, [
+        "findMeProjectTitle",
+        "analysis",
+        "primaryDataChallenge",
+        "primaryDataChallengeOther",
+        "sampleData",
+      ]);
+    }
     return Object.keys(items).map((key) => {
       if (_.isArray(items[key]))
         return _.map(items[key], (item, i) => (
@@ -113,9 +124,15 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
           return !!formData[s.value];
         })
         .map((step, index) => {
-          const redirectPage = ProgressLevels.find(
+          let redirectPage = ProgressLevels.find(
             (item) => item.label === step.label
           );
+          if (formData?.workType?.selectedWorkType === "Find Me Data") {
+            redirectPage.url = redirectPage?.url.replace(
+              "data-exploration",
+              "find-me-data"
+            );
+          }
           return (
             <>
               <div

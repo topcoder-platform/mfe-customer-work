@@ -2,7 +2,7 @@ import { FC, useContext } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 import { cacheChallengeId } from '../../../../src/autoSaveBeforeLogin' // TODO: move to src-ts
-import { Table, Work, workContext, WorkContextData, WorkStatus } from '../../../lib'
+import { LoadingSpinner, Table, Work, workContext, WorkContextData, WorkStatus } from '../../../lib'
 
 import { workListColumns } from './work-table.config'
 import styles from './WorkTable.module.scss'
@@ -13,7 +13,11 @@ const WorkTable: FC<{}> = () => {
     const { hasWork, work, initialized }: WorkContextData = workContextData
 
     if (!initialized) {
-        return <></>
+        return (
+            <div className={styles.loader}>
+                <LoadingSpinner />
+            </div>
+        )
     }
 
     const navigate: NavigateFunction = useNavigate()

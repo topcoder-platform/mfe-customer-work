@@ -1,4 +1,5 @@
 export { default as AppNextGen } from './App'
-export { RouteProvider, PageFooter } from './lib'
+export { EnvironmentConfig } from './config'
+export { logInitialize, PageFooter, ProfileProvider, RouteProvider } from './lib'
 export * from './utils'
 export * from './tools'

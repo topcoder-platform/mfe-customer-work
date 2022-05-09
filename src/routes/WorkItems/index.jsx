@@ -97,6 +97,7 @@ const WorkItem = ({
         getDetails(work);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     work,
     selectedTab,

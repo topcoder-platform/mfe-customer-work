@@ -10,13 +10,16 @@ export {
     authUrlLogout,
     authUrlSignup,
     logInfo,
-    useClickOutside,
-    useOnHoverElement,
+    logInitialize,
     textFormatDateLocaleShortString,
     textFormatMoneyLocaleString,
+    useClickOutside,
+    useOnHoverElement,
 } from './functions'
+export * from './loading-spinner'
 export * from './modals'
 export * from './page-footer'
+export * from './portal'
 export * from './profile-provider'
 export * from './route-provider'
 export * from './svgs'

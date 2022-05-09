@@ -1,16 +1,18 @@
 @import '../styles/';
 
 .content {
+    position: relative;
+    @include content-height;
     padding-top: 0;
     padding-bottom: $pad-lg;
-    
     flex: 1 1 auto;
 
     .content-outer {
         max-width: $xxl-min;
         @include pagePaddings;
         margin: 0 auto;
-        width: 100%;
+        height: 100%;
+
         .content-inner {
             margin: 0 auto;
             flex: 1;
@@ -18,6 +20,7 @@
             display: flex;
             flex-direction: column;
             overflow: auto;
+            min-height: 100%;
 
             .page-header {
                 display: flex;
@@ -34,3 +37,4 @@
         }
     }
 }
+

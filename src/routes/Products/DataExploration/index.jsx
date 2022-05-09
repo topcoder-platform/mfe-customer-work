@@ -3,17 +3,28 @@ import React from "react";
 import Review from "../../Review";
 import ThankYou from "../../ThankYou";
 import LoginPrompt from "../../LoginPrompt";
-import BasicInfo from "./Routes/BasicInfo";
-import DataExplorationBanner from "../../../components/Banners/DataExplorationBanner";
+import BasicInfo from "../components/BasicInfo";
 import config from "../../../../config";
 import DataExplorationIcon from "../../../assets/images/data-exploration-icon.svg";
 import HelpBanner from "components/HelpBanner";
-import PageUl from "components/PageElements/PageUl";
+import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
+import { webWorkTypes } from "../../../constants/index";
 
 export default function DataExploration({ isLoggedIn }) {
+  const dataExploration = webWorkTypes.find(
+    (type) => type.title === "Data Exploration"
+  );
+
+  const { title, subTitle, helperBannerTitle, helperBannerContent } =
+    dataExploration;
+
   return (
     <Router>
-      <BasicInfo path="/basic-info" isLoggedIn={isLoggedIn} />
+      <BasicInfo
+        path="/basic-info"
+        isLoggedIn={isLoggedIn}
+        bannerData={dataExploration}
+      />
       <LoginPrompt
         path="/login-prompt"
         isLoggedIn={isLoggedIn}
@@ -21,22 +32,10 @@ export default function DataExploration({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/data-exploration/review"
       />
       <Review
-        banner={<DataExplorationBanner />}
+        banner={<FeaturedWorkTypeBanner title={title} subTitle={subTitle} />}
         secondaryBanner={
-          <HelpBanner defaultOpen title="WHAT WILL I GET?" styles={["gray"]}>
-            <br />
-            Topcoder data experts will create a custom report for you with:
-            <PageUl>
-              <li>Clear written analysis of your data and key findings</li>
-              <li>
-                Visuals of the most compelling relationships and patterns in
-                your data
-              </li>
-              <li>
-                Expert commentary on the relevance of findings to your goals and
-                recommendations for further analysis
-              </li>
-            </PageUl>
+          <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
+            {helperBannerContent}
           </HelpBanner>
         }
         path="/review"
@@ -48,6 +47,7 @@ export default function DataExploration({ isLoggedIn }) {
         }
         icon={<DataExplorationIcon />}
         showIcon
+        bannerData={dataExploration}
       />
       <ThankYou path="/thank-you" />
     </Router>

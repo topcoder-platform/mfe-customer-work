@@ -19,6 +19,10 @@
         grid-template-columns: $header-height 1fr $header-height;
         align-items: center;
     }
+
+    @include ltesm {
+        height: $header-height;
+    }
 }
 
 .subheader {

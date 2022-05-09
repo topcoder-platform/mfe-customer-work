@@ -5,6 +5,7 @@ export interface PlatformRoute {
     element: JSX.Element
     enabled: boolean
     icon?: FC<SVGProps<SVGSVGElement>>
+    requireAuth?: boolean
     route: string
     title: string
 }

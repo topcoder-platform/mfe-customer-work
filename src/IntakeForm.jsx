@@ -17,6 +17,7 @@ import {
 } from "./autoSaveBeforeLogin";
 import { INTAKE_FORM_ROUTES, MAX_COMPLETED_STEP } from "./constants";
 import { INTAKE_FORM_ROUTES as DATA_EXPLORATION_INTAKE_FORM_ROUTES } from "./constants/products/DataExploration";
+import { INTAKE_FORM_ROUTES as FIND_ME_DATA_INTAKE_FORM_ROUTES } from "./constants/products/FindMeData";
 import {
   authUserError,
   authUserSuccess,
@@ -33,6 +34,7 @@ import WebsitePurpose from "./routes/WebsitePurpose";
 import LoginPrompt from "./routes/LoginPrompt";
 import DataExploration from "./routes/Products/DataExploration";
 import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
+import FindMeData from "./routes/Products/FindMeData";
 
 export default function IntakeForm() {
   const dispatch = useDispatch();
@@ -77,7 +79,11 @@ export default function IntakeForm() {
       if (workType === "Website Design") {
         navigate(INTAKE_FORM_ROUTES[currentStep - 1]);
       } else {
-        navigate(DATA_EXPLORATION_INTAKE_FORM_ROUTES[currentStep - 1]);
+        if (workType === "Data Exploration") {
+          navigate(DATA_EXPLORATION_INTAKE_FORM_ROUTES[currentStep - 1]);
+        } else {
+          navigate(FIND_ME_DATA_INTAKE_FORM_ROUTES[currentStep - 1]);
+        }
       }
     }
   };
@@ -177,6 +183,8 @@ export default function IntakeForm() {
             path="/work/new/data-exploration/*"
             isLoggedIn={isLoggedIn}
           />
+          {/* Find Me Data */}
+          <FindMeData path="/work/new/find-me-data/*" isLoggedIn={isLoggedIn} />
           {/* Web Design */}
           <BasicInfo path="/basic-info" />
           <WebsitePurpose path="/website-purpose" />
