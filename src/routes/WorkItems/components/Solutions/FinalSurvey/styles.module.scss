@@ -6,32 +6,18 @@
   font-size: 16px;
   line-height: 26px;
   color: $grey-text;
-
   position: relative;
-  padding: 28px 32px 32px;
-  max-width: 794px;
-  background-color: $tc-white;
-  border-radius: 8px;
-  box-shadow: 0 4px 4px rgba($black, .25);
 
   .header { margin-bottom: 24px; }
-  .question-list { margin-bottom: 20px; }
-  .textarea-container { margin-bottom: 40px; }
+  .question-list { margin-bottom: 32px; }
+  .textarea-field { margin-bottom: 32px; }
 }
 
-.header {
-  padding-right: 24px;
-
-  .title {
-    @include font-barlow-condensed;
-    font-weight: 500;
-    font-size: 34px;
-    line-height: 32px;
-
-    margin-bottom: 8px;
-  }
-
-  .subtitle {}
+.subtitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: capitalize;
 }
 
 .close-btn {
@@ -68,27 +54,31 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 0;
+    margin-top: 32px;
+    padding: 0;
 
     span {
       margin-right: 16px;
+      font-size: 16px;
+      line-height: 24px;
     }
   }
 }
 
-.textarea-container {
-  border: 1px solid $gui-kit-gray-30;
-  border-radius: 4px;
-
-  .textarea {
-    display: block;
-    height: auto;
-    padding: 8px 10px !important;
-    margin: 0;
+.textarea-field {
+  :global(.label.label) {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 11px;
+    top: 8px;
   }
-}
 
-.markAsDone-btn {
-  margin-left: auto;
-  cursor: pointer;
+  :global(textarea) {
+    margin-top: 2px;
+    &::placeholder {
+      color: $black-60 !important;
+      font-size: 14px !important;
+      line-height: 22px;
+    }
+  }
 }

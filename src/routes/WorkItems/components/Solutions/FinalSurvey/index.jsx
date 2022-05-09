@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PT from "prop-types";
 import _ from "lodash";
-import Button from "components/Button";
-import { BUTTON_TYPE, BUTTON_SIZE, SURVEY_QUESTIONS } from "constants";
+import { BUTTON_SIZE, SURVEY_QUESTIONS } from "constants";
 import Textarea from "components/FormElements/FormInputTextArea";
 import Rating from "./Rating";
 import IconClose from "../../../../../assets/images/icon-close.svg";
 
 import "./styles.module.scss";
+import FormField from "../../../../../components/FormElements/FormField";
+import { Button } from "../../../../../../src-ts/lib";
 
 const FinalSurvey = ({ saveSurvey, onCancel, customerFeedback }) => {
   const [questions, updateQuestions] = useState(_.cloneDeep(SURVEY_QUESTIONS));
@@ -24,21 +25,10 @@ const FinalSurvey = ({ saveSurvey, onCancel, customerFeedback }) => {
 
   return (
     <div styleName="final-servey">
-      <div styleName="header">
-        <h4 styleName="title">HOW DID WE DO?</h4>
-        <p styleName="subtitle">
-          To mark this work as done, please provide feedback on your experience.
-        </p>
-        <Button
-          type={BUTTON_TYPE.ROUNDED}
-          styleName="close-btn"
-          onClick={() => onCancel(questions)}
-        >
-          <IconClose />
-        </Button>
-      </div>
 
-      <hr styleName="divider" />
+      <p styleName="subtitle">
+        To mark this work as done, please provide feedback on your experience.
+      </p>
 
       <ul styleName="question-list">
         {questions.map((q) =>
@@ -60,32 +50,35 @@ const FinalSurvey = ({ saveSurvey, onCancel, customerFeedback }) => {
 
       {questions.map((q) =>
         typeof q.value === "string" ? (
-          <div styleName="textarea-container">
+          <FormField
+            label="What can we do to make your experience better?"
+            styleName="textarea-field"
+            labelStyle="label"
+          >
             <Textarea
-              placeholder={q.name}
-              styleName="textarea"
+              placeholder="Add here your comments..."
               rows={8}
               value={q.value}
+              
               onChange={(event) => {
                 const index = questions.indexOf(q);
                 questions.splice(index, 1, { ...q, value: event.target.value });
                 updateQuestions([...questions]);
               }}
             />
-          </div>
+          </FormField>
         ) : null
       )}
 
-      <hr styleName="divider" />
-
-      <Button
-        styleName="markAsDone-btn"
-        size={BUTTON_SIZE.LARGE}
-        onClick={() => saveSurvey(questions)}
-        disabled={questions.some((q) => !q.value || /^\s+$/.test(q.value))}
-      >
-        Mark as done
-      </Button>
+      <div className="button-container">
+        <Button
+          buttonStyle="primary"
+          size="xl"
+          onClick={() => saveSurvey(questions)}
+          disable={questions.some((q) => !q.value || /^\s+$/.test(q.value))}
+          label="Mark as done"
+        />
+      </div>
     </div>
   );
 };
