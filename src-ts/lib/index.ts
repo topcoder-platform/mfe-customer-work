@@ -10,10 +10,11 @@ export {
     authUrlLogout,
     authUrlSignup,
     logInfo,
-    useClickOutside,
-    useOnHoverElement,
+    logInitialize,
     textFormatDateLocaleShortString,
     textFormatMoneyLocaleString,
+    useClickOutside,
+    useOnHoverElement,
 } from './functions'
 export * from './loading-spinner'
 export * from './modals'

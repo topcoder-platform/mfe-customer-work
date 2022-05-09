@@ -18,6 +18,10 @@ import styles from "./styles/main.module.scss";
 import SupportPage from "./routes/SupportPage";
 import UnderMaintenance from "./routes/UnderMaintenance";
 
+import { EnvironmentConfig, logInitialize } from "../src-ts";
+
+logInitialize(EnvironmentConfig);
+
 if (process.env.APPMODE === "production") {
   TagManager.initialize({
     gtmId: GA_ID,

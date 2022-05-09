@@ -97,11 +97,12 @@ const SelectWorkType = ({
       challenge?.legacy?.selfService
     );
 
-  // TODO: get routes from a provider
   const breadcrumb = [
-    {url: ROUTES.DASHBOARD_PAGE, name:"My work"},
-    {url:'/self-service/wizard', name:"Start work"}
+    { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+    { url: '/self-service/wizard', name: "Start work" }
   ];
+
+  const workTypeClassName = (title) => title.toLowerCase().split(" ").join("-");
 
   return (
     <>
@@ -118,13 +119,13 @@ const SelectWorkType = ({
         <PageContent>
           <PageH2>SELECT WORK TYPE</PageH2>
           {featuredWorkTypes.map((featuredWorkType) => (
-            <div className={styles.heroContainer}>
-              <div
-                className={`${styles.heroBackgroundContainer} ${
-                  styles[
-                    featuredWorkType.title.toLowerCase().split(" ").join("-")
-                  ]
+            <div
+              className={`${styles.heroContainer} ${styles[workTypeClassName(featuredWorkType.title)]
                 }`}
+            >
+              <div
+                className={`${styles.heroBackgroundContainer} ${styles[workTypeClassName(featuredWorkType.title)]
+                  }`}
               ></div>
               <div className={styles.heroContent}>
                 <div className={styles.heroHeader}>

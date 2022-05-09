@@ -13,7 +13,11 @@ const WorkTable: FC<{}> = () => {
     const { hasWork, work, initialized }: WorkContextData = workContextData
 
     if (!initialized) {
-        return <LoadingSpinner />
+        return (
+            <div className={styles.loader}>
+                <LoadingSpinner />
+            </div>
+        )
     }
 
     const navigate: NavigateFunction = useNavigate()

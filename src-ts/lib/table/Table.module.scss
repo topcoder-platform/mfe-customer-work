@@ -61,6 +61,10 @@
                     }
                 }
             }
+
+            &.money {
+                text-align: right;
+            }
         }
     
         &:nth-child(2n + 1) {
@@ -70,4 +74,8 @@
             }
         }
     }
+}
+
+.tootlipBody {
+    min-width: 200px;
 }
