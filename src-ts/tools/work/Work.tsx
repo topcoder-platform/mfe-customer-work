@@ -7,16 +7,29 @@ import {
     clearAutoSavedForm,
     clearCachedChallengeId
 } from '../../../src/autoSaveBeforeLogin'
-import { ButtonProps, ContentLayout, routeContext, RouteContextData, WorkProvider } from '../../lib'
+import {
+    ButtonProps,
+    ContentLayout,
+    profileContext,
+    ProfileContextData,
+    routeContext,
+    RouteContextData,
+    WorkProvider,
+} from '../../lib'
 
 export const toolTitle: string = 'Work'
 
 const Work: FC<{}> = () => {
 
     const { getChildRoutes }: RouteContextData = useContext(routeContext)
+    const { profile }: ProfileContextData = useContext(profileContext)
     const dispatch: Dispatch<any> = useDispatch()
-
     const navigate: NavigateFunction = useNavigate()
+
+    // if we don't have a user, don't show anything
+    if (!profile) {
+        return <></>
+    }
 
     function startWork(): void {
         clearCachedChallengeId()
