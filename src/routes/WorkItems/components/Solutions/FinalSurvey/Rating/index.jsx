@@ -27,7 +27,7 @@ const Rating = ({ max, value, onChange }) => {
           styleName="star-btn"
           onClick={() => onChange(i)}
         >
-          <IconStar styleName="unrated" />
+          <IconStar />
         </Button>
       );
     }
