@@ -11,12 +11,7 @@ import PageFoot from "components/PageElements/PageFoot";
 import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { WebsiteDesignBanner } from "components/Banners/WebsiteDesignBanner";
-import {
-  BUTTON_SIZE,
-  BUTTON_TYPE,
-  DeviceOptions,
-  PageOptions,
-} from "constants/";
+import { BUTTON_SIZE, BUTTON_TYPE, PageOptions } from "constants/";
 import {
   saveBasicInfo,
   toggleSupportModal,
@@ -48,7 +43,7 @@ const BasicInfo = ({
   savePageDetails,
   toggleSupportModal,
   createNewSupportTicket,
-  saveWorkType
+  saveWorkType,
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
@@ -120,8 +115,8 @@ const BasicInfo = ({
 
     if (currentStep === 0) {
       saveWorkType({
-        selectedWorkType: 'Website Design',
-        selectedWorkTypeDetail: 'Website Design',
+        selectedWorkType: "Website Design",
+        selectedWorkTypeDetail: "Website Design",
       });
       dispatch(triggerAutoSave(true));
     }
@@ -135,6 +130,7 @@ const BasicInfo = ({
     return () => {
       dispatch(triggerAutoSave(true));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [basicInfo, currentStep, dispatch, setProgressItem, firstMounted]);
 
   useEffect(() => {
@@ -238,7 +234,7 @@ const mapDispatchToProps = {
   savePageDetails,
   toggleSupportModal,
   createNewSupportTicket,
-  saveWorkType
+  saveWorkType,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);

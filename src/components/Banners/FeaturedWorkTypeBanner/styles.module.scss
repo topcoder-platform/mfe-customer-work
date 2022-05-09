@@ -10,7 +10,16 @@
   display: grid;
   grid-template-columns: 1fr 359px;
   
-  background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
+  &.website-design {
+    background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
+  }
+  &.data-exploration {
+    background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
+  }
+  &.find-me-data {
+    background: linear-gradient(84.92deg, #723390 2.08%, #8C384F 97.43%);
+  }
+
   border-radius: 8px;
   margin-bottom: -35px;
   border-bottom-left-radius: 0;
@@ -36,12 +45,19 @@
     align-self: stretch;
     flex-grow: 0;
 
-    background: url("../../../assets/images/data-exploration.png");
-    background-size: cover;
     border-radius: 0 8px 8px 0;
 
     @include mobile {
       width: 200px;
+    }
+
+    &.data-exploration {
+      background: url("../../../assets/images/data-exploration.png");
+      background-size: cover;
+    }
+    &.find-me-data {
+      background: url("../../../assets/images/find-me-data.png");
+      background-size: cover;
     }
   }
 
@@ -119,6 +135,7 @@
 
         .heroHeaderTitle {
           display: flex;
+          text-transform: uppercase;
         }
 
         .heroHeaderSubtitle {

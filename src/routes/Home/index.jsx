@@ -46,6 +46,7 @@ const Home = () => {
     clearAutoSavedForm();
     dispatch(resetIntakeForm(true));
     navigate(ROUTES.INTAKE_FORM);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
