@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
 
-import { BaseModal, Challenge, Form, FormInputModel } from '../../../../lib'
+import { BaseModal, Challenge, Form, FormDefinition, FormInputModel, formOnReset } from '../../../../lib'
 
 import { workFeedbackFormDef } from './work-feedback-form.config'
 
@@ -18,6 +18,8 @@ interface Feedback {
 
 const WorkFeedback: FC<WorkFeedbackProps> = (props: WorkFeedbackProps) => {
 
+    const [formDef, setFormDef]: [FormDefinition, Dispatch<SetStateAction<FormDefinition>>] = useState<FormDefinition>({ ...workFeedbackFormDef })
+
     function requestGenerator(inputs: ReadonlyArray<FormInputModel>): Array<Feedback> {
         return inputs
             .map(input => ({
@@ -28,18 +30,25 @@ const WorkFeedback: FC<WorkFeedbackProps> = (props: WorkFeedbackProps) => {
 
     async function saveAsync(feedback: Array<Feedback>): Promise<void> {
         props.saveSurvey(feedback)
+        onClose()
+    }
+
+    function onClose(): void {
+        const updatedForm: FormDefinition = {...formDef}
+        formOnReset(updatedForm.inputs)
+        setFormDef(updatedForm)
         props.onClose()
     }
 
     return (
         <BaseModal
             open={props.showSurvey}
-            onClose={props.onClose}
+            onClose={onClose}
             size='lg'
             title='How did we do?'
         >
             <Form
-                formDef={workFeedbackFormDef}
+                formDef={formDef}
                 requestGenerator={requestGenerator}
                 save={saveAsync}
             />

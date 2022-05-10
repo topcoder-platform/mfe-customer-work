@@ -48,7 +48,6 @@ const WorkDetailHighlights: FC<WorkDetailHighlightsProps> = (props: WorkDetailHi
                 info: work.id,
                 name: 'Work id',
             },
-
         ]
 
     const higlightElements: Array<JSX.Element> = highlights

@@ -61,7 +61,7 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
         }
 
         function onReset(): void {
-            formOnReset(props.formDef.inputs, props.formValues)
+            formOnReset(formDef.inputs, props.formValues)
             setFormDef({ ...formDef })
             setFormKey(Date.now())
         }

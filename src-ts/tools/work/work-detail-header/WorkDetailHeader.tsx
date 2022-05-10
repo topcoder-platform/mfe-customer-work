@@ -27,13 +27,13 @@ const WorkDetailHeader: FC<WorkDetailHeaderProps> = (props: WorkDetailHeaderProp
                 {work.title}
             </h1>
 
-            {/* {work.status === WorkStatus.ready && ( */}
+            {work.status === WorkStatus.ready && (
                 <Button
                     onClick={props.markAsDone}
                     label={'Mark as Done'}
                     size='md'
                 />
-            {/* )} */}
+            )}
 
         </div>
     )
