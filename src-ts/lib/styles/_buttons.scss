@@ -54,6 +54,10 @@ a {
     &.button-xl {
         padding: $pad-md $pad-xxl;
         font-size: 16px;
+
+        svg {
+            @include icon-xxl;
+        }
     }
 
     &.primary {
@@ -174,6 +178,18 @@ a {
         &:hover {
             background-color: $black-10;
             color: $turq-100;
+
+            &.black-20 {
+                color: $orange-100;
+            }
+        }
+
+        &.black-20 {
+            color: $black-20;
+        }
+
+        &.orange-100 {
+            color: $orange-100;
         }
 
         &:focus {

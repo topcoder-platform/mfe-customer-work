@@ -57,6 +57,7 @@ const Tooltip: FC<TooltipProps> = ({
         : useOnHoverElement(triggerRef.current, toggleOpen)
 
     useEffect(() => {
+
         if (!tooltipOpen || !portalRef?.current) {
             return
         }
@@ -71,7 +72,11 @@ const Tooltip: FC<TooltipProps> = ({
             top: `${box.top + window.scrollY}px`,
             width: `${box.width + window.scrollX}px`,
         })
-    }, [tooltipOpen, windowWidth, windowHeight])
+    }, [
+        tooltipOpen,
+        windowWidth,
+        windowHeight,
+    ])
 
     return (
         <div className={styles.tooltip}>

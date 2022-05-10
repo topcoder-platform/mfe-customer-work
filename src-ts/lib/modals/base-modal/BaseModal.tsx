@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
 import Modal, { ModalProps } from 'react-responsive-modal'
 
 import { IconOutline } from '../../svgs'
@@ -6,6 +6,7 @@ import { IconOutline } from '../../svgs'
 import styles from './BaseModal.module.scss'
 
 export interface BaseModalProps extends ModalProps {
+    size?: 'lg' | 'md'
     title: string
 }
 
@@ -14,9 +15,11 @@ const BaseModal: FC<BaseModalProps> = ({
     title,
     ...props
 }: BaseModalProps) => {
+
     return (
         <Modal
             {...props}
+            classNames={{ modal: `modal-${props.size || 'md'}` }}
             closeIcon={<IconOutline.XIcon width={28} height={28} />}
         >
             <div className={styles['modal-header']}>

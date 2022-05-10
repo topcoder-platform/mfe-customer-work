@@ -2,7 +2,13 @@ import moment from 'moment'
 
 import * as DesignPrices from '../../../../../src/constants'
 import * as DataPrices from '../../../../../src/constants/products/DataExploration'
-import { Challenge, ChallengeMetadata, ChallengePhase, ChallengePhaseName } from '../work-store'
+import {
+    Challenge,
+    ChallengeMetadata,
+    ChallengeMetadataName,
+    ChallengePhase,
+    ChallengePhaseName,
+} from '../work-store'
 
 import { ChallengeStatus } from './challenge-status.enum'
 import { WorkProgressStep } from './work-progress-step.model'
@@ -47,7 +53,7 @@ export function getStatus(challenge: Challenge): WorkStatus {
             return WorkStatus.active
 
         case ChallengeStatus.completed:
-            const customerFeedback: ChallengeMetadata | undefined = findMetadata(challenge, 'customerFeedback')
+            const customerFeedback: ChallengeMetadata | undefined = findMetadata(challenge, ChallengeMetadataName.feedback)
             return !customerFeedback ? WorkStatus.ready : WorkStatus.done
 
         case ChallengeStatus.cancelled:
@@ -60,7 +66,7 @@ export function getStatus(challenge: Challenge): WorkStatus {
     }
 }
 
-function findMetadata(challenge: Challenge, metadataName: string): ChallengeMetadata | undefined {
+function findMetadata(challenge: Challenge, metadataName: ChallengeMetadataName): ChallengeMetadata | undefined {
     return challenge.metadata?.find((item: ChallengeMetadata) => item.name === metadataName)
 }
 
@@ -86,8 +92,8 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
             return DataPrices.PROMOTIONAL_PRODUCT_PRICE || DataPrices.BASE_PRODUCT_PRICE
 
         case WorkType.design:
-            const pageCount: number = getCountFromString(findMetadata(challenge, 'basicInfo.numberOfPages')?.value)
-            const deviceCount: number = getCountFromString(findMetadata(challenge, 'basicInfo.numberOfDevices')?.value)
+            const pageCount: number = getCountFromString(findMetadata(challenge, ChallengeMetadataName.pageCount)?.value)
+            const deviceCount: number = getCountFromString(findMetadata(challenge, ChallengeMetadataName.deviceCount)?.value)
             return DesignPrices.BASE_PRODUCT_PRICE +
                 pageCount * DesignPrices.PER_PAGE_COST +
                 pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
@@ -99,10 +105,10 @@ function getDescription(challenge: Challenge, type: WorkType): string | undefine
     switch (type) {
 
         case WorkType.data:
-            return findMetadata(challenge, 'goals')?.value
+            return findMetadata(challenge, ChallengeMetadataName.goals)?.value
 
         case WorkType.design:
-            return findMetadata(challenge, 'websitePurpose.description')?.value
+            return findMetadata(challenge, ChallengeMetadataName.description)?.value
     }
 }
 
@@ -200,7 +206,7 @@ function getSubmittedDate(challenge: Challenge): Date {
 function getType(challenge: Challenge): WorkType {
 
     // get the intake form from the metadata
-    const intakeForm: ChallengeMetadata | undefined = findMetadata(challenge, 'intake-form')
+    const intakeForm: ChallengeMetadata | undefined = findMetadata(challenge, ChallengeMetadataName.intakeForm)
     if (!intakeForm?.value) {
         return WorkType.unknown
     }

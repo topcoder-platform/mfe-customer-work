@@ -19,9 +19,9 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
     return (
         <BaseModal
             {...props}
-            styles={{modal: {maxWidth: '450px'}}}
+            styles={{ modal: { maxWidth: '450px' } }}
         >
-                {children}
+            {children}
             <div className='button-container'>
                 <Button
                     label='Cancel'

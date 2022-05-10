@@ -14,7 +14,8 @@ interface InputWrapperProps {
     readonly error?: string
     readonly hint?: string
     readonly label: string
-    readonly name: string
+    readonly tabIndex: number
+    readonly type: 'password' | 'rating' | 'text' | 'textarea'
 }
 
 const InputWrapper: FC<InputWrapperProps> = (props: InputWrapperProps) => {
@@ -24,13 +25,17 @@ const InputWrapper: FC<InputWrapperProps> = (props: InputWrapperProps) => {
     const showError: boolean = !!props.error && !!props.dirty
     const formFieldClasses: string = classNames(
         styles.input,
+        styles[props.type],
         props.disabled ? styles.disabled : undefined,
         focusStyle,
         showError ? styles['input-error'] : undefined
     )
 
     return (
-        <div className={styles['input-wrapper']}>
+        <div
+            className={classNames(styles['input-wrapper'], styles[props.type])}
+            tabIndex={props.type === 'rating' ? props.tabIndex : -1}
+        >
 
             <div
                 className={formFieldClasses}
