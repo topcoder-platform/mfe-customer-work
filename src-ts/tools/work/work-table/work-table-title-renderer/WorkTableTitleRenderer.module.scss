@@ -9,9 +9,16 @@
         margin-right: $pad-lg;
     }
 
+    .work-table-title {
+        flex: 1 1 auto;
+        overflow: hidden;
+    }
+    
     .title {
         @extend .medium-subtitle;
         @include font-black-100;
+
+        @include text-ellipsis;
     }
     
     .description {
