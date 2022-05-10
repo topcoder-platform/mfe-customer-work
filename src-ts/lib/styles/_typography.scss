@@ -122,3 +122,17 @@ h4 {
     font-size: 11px;
     line-height: 14px;
 }
+
+@mixin text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin text-clamp($noOfLines: 1) {
+    display: -webkit-box;
+    -webkit-line-clamp: $noOfLines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
