@@ -40,7 +40,7 @@ import { getUserProfile } from "../../thunks/profile";
 
 import PaymentForm from "./components/PaymentForm";
 import "./styles.module.scss";
-import OrderContract from "../../components/Modal/OrderContract";
+import { OrderContractModal } from "../../../src-ts/lib";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
@@ -179,13 +179,7 @@ const Payment = ({
 
   return (
     <>
-      <Modal
-        fullWidth
-        show={isOrderContractModalOpen}
-        handleClose={() => setIsOrderContractModalOpen(false)}
-      >
-        <OrderContract />
-      </Modal>
+      <OrderContractModal isOpen={isOrderContractModalOpen} onClose={() => setIsOrderContractModalOpen(false)} />
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>
