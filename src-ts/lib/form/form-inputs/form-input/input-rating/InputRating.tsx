@@ -43,7 +43,7 @@ const InputRating: FC<InputRatingProps> = (props: InputRatingProps) => {
         const className: string = !!rating && rating >= index ? 'orange-100' : 'black-20'
         const element: JSX.Element = (
             <Tooltip
-                content='Delete'
+                content={`${index / 2}`}
                 positionX='middle'
                 positionY='end'
                 triggerOn='hover'
