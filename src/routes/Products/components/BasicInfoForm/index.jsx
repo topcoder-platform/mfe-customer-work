@@ -4,6 +4,7 @@
  */
 import FormField from "components/FormElements/FormField";
 import FormInputText from "components/FormElements/FormInputText";
+import Button from "components/Button";
 import HelpBanner from "components/HelpBanner";
 import PageDivider from "components/PageDivider";
 import PageP from "components/PageElements/PageP";
@@ -11,14 +12,23 @@ import PageRow from "components/PageElements/PageRow";
 import RadioButton from "components/RadioButton";
 import FormInputTextArea from "components/FormElements/FormInputTextArea";
 import ServicePrice from "components/ServicePrice";
+// TODO: Move this component to /components
+import ColorOptions from "../../../Branding/components/ColorOptions";
 import { HELP_BANNER } from "constants/";
 import PT from "prop-types";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import DataExplorationIcon from "../../../../assets/images/data-exploration-icon.svg";
 import FindMeDataIcon from "../../../../assets/images/find-me-data-icon.svg";
+import WebsiteDesignIcon from "../../../../assets/images/website-design-icon.svg";
 import "./styles.module.scss";
-import { PrimaryDataChallengeOptions } from "../../../../constants";
+import {
+  PrimaryDataChallengeOptions,
+  BUTTON_SIZE,
+  BUTTON_TYPE,
+  ColorOptionsItems,
+} from "../../../../constants";
+import StyleOptions from "../StyleOptions";
 
 const BasicInfoForm = ({
   formData,
@@ -34,6 +44,7 @@ const BasicInfoForm = ({
   const [primaryDataChallenge, setPrimaryDataChallenge] = useState(
     PrimaryDataChallengeOptions
   );
+  const [selectedColor, setSelectedColor] = useState({});
 
   const {
     title,
@@ -44,7 +55,62 @@ const BasicInfoForm = ({
   } = bannerData;
 
   const isDataExploration = title === "Data Exploration";
+  const isFindMeData = title === "Find Me Data";
+  const isWebsiteDesign = title === "Website Design";
   const isOtherOptionSelected = formData?.primaryDataChallenge?.value !== 3;
+
+  const handleArrayInputChange = (index, name, key, value, option = null) => {
+    onFormUpdate((formData) => {
+      const newFormData = {
+        ...formData,
+      };
+
+      if (!newFormData[name]) {
+        newFormData[name] = [
+          {
+            website: { name, value, option: option ? option : value },
+            feedback: { name, value, option: option ? option : value },
+          },
+        ];
+      }
+
+      newFormData[name][index][key] = {
+        name,
+        value,
+        option: option ? option : value,
+      };
+
+      return newFormData;
+    });
+  };
+
+  const addWebsite = () => {
+    onFormUpdate((formData) => {
+      const newFormData = {
+        ...formData,
+        inspiration: [
+          ...(formData.inspiration || []),
+          {
+            website: { name: "Website", value: "", option: "" },
+            feedback: { name: "Feedback", value: "", option: "" },
+          },
+        ],
+      };
+
+      return newFormData;
+    });
+  };
+
+  const removeWebsite = (index) => {
+    onFormUpdate((formData) => {
+      const newFormData = {
+        ...formData,
+      };
+      newFormData.inspiration.splice(index, 1);
+
+      return newFormData;
+    });
+  };
 
   useEffect(() => {
     const itemSelected = formData?.primaryDataChallenge;
@@ -71,6 +137,42 @@ const BasicInfoForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [primaryDataChallenge, setPrimaryDataChallenge]);
 
+  let servicePriceIcon;
+  switch (title) {
+    case "Data Exploration":
+      servicePriceIcon = <DataExplorationIcon />;
+      break;
+    case "Finde Me Data":
+      servicePriceIcon = <FindMeDataIcon />;
+      break;
+    case "Website Design":
+      servicePriceIcon = <WebsiteDesignIcon />;
+      break;
+    default:
+      break;
+  }
+
+  let titleValue;
+  switch (title) {
+    case "Data Exploration":
+      titleValue = formData.projectTitle.value;
+      break;
+    case "Find Me Data":
+      titleValue = formData.findMeProjectTitle.value;
+      break;
+    case "Website Design":
+      titleValue = formData.projectTitle.value;
+    default:
+      break;
+  }
+
+  let dataName;
+  if (isDataExploration || isWebsiteDesign) {
+    dataName = "projectTitle";
+  } else if (isFindMeData) {
+    dataName = "findMeProjectTitle";
+  }
+
   return (
     <div styleName="basicInfoForm">
       <ServicePrice
@@ -80,13 +182,7 @@ const BasicInfoForm = ({
         serviceType={serviceType}
         hideTitle
         showIcon
-        icon={
-          title === "Data Exploration" ? (
-            <DataExplorationIcon />
-          ) : (
-            <FindMeDataIcon />
-          )
-        }
+        icon={servicePriceIcon}
       />
       <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
         {helperBannerContent}
@@ -111,12 +207,8 @@ const BasicInfoForm = ({
           <FormField label={"Project Title"}>
             <FormInputText
               placeholder={"Enter a descriptive title"}
-              value={
-                isDataExploration
-                  ? formData.projectTitle.value
-                  : formData.findMeProjectTitle.value
-              }
-              name={isDataExploration ? "projectTitle" : "findMeProjectTitle"}
+              value={titleValue}
+              name={dataName}
               onChange={(e) =>
                 handleInputChange(e.target.name, e.target.value, e.target.value)
               }
@@ -157,7 +249,7 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
-      {!isDataExploration && (
+      {isFindMeData && (
         <PageRow styleName="form-row">
           <div>
             <PageP styleName="title">{"What Data Do You Need?"}</PageP>
@@ -223,6 +315,89 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
+      {isWebsiteDesign && (
+        <PageRow styleName="form-row">
+          <div>
+            <PageP styleName="description">
+              What is the purpose of your website? What do you want visitors to
+              be able to do, e.g., see your work? contact you? You should
+              include a general description as well as goals of the website. You
+              You may also describe your audience and what you would like them
+              to do at your website.{" "}
+            </PageP>
+            <HelpBanner title="Example" styles={["gray"]}>
+              <br />
+              <PageP>
+                <PageP>
+                  I would like a design for a dog walking website that allows
+                  visitors to select dog walkers and schedule dog walking
+                  appointments.
+                </PageP>
+                <PageP>
+                  The audience for my website will be dog owners. As a dog
+                  owner, I want someone trustworthy to walk my dog, so he feels
+                  loved while I’m at work.
+                </PageP>
+                <PageP>
+                  Home Page:
+                  <br />I would like to see a landing screen to welcome our
+                  customers and make them feel welcome and warm. We love their
+                  dog and we want them to feel it! We really want our audience
+                  to do one core action and that’s to get started finding their
+                  perfect “Walkie” which is what we call our professional dog
+                  walkers.
+                </PageP>
+                <PageP>
+                  Information Pages:
+                  <br />
+                  Our customers should be able to reach information about: Our
+                  Services, Our Walkies, and Locations We Serve. Also, a user
+                  must be able to Create an Account.
+                </PageP>
+                <PageP>
+                  Our Services include: dog walking, doggie day care, dog
+                  feeding, basic grooming.
+                </PageP>
+                <PageP>
+                  Our Walkies information should show a photo of the Walkie,
+                  their name and a little bit about them. It’s important for
+                  customers to see a badge of some sort that indicates all of
+                  our dog walkers are insured.
+                </PageP>
+                <PageP>
+                  Locations We Serve: We have 3 locations in the greater Seattle
+                  area.
+                </PageP>
+                <PageP>
+                  Each page should include a testimonial from one of our users.
+                  For example: “WalkieDoggie is perfect. They are always
+                  professional and they take amazing care of our dog, Beefcake.
+                  - Victoria B. from Tacoma, Washington”
+                </PageP>
+              </PageP>
+            </HelpBanner>
+          </div>
+
+          <div styleName="formFieldWrapper">
+            <FormField label={"Description"}>
+              <FormInputTextArea
+                value={formData?.analysis?.value}
+                onChange={(e) =>
+                  handleInputChange(
+                    e.target.name,
+                    e.target.value,
+                    e.target.value
+                  )
+                }
+                styleName={"text-area"}
+                name="analysis"
+                placeholder={"Describe your website"}
+              />
+            </FormField>
+          </div>
+        </PageRow>
+      )}
+
       <PageDivider />
 
       {isDataExploration && (
@@ -267,7 +442,7 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
-      {!isDataExploration && (
+      {isFindMeData && (
         <PageRow styleName="form-row">
           <div>
             <PageP styleName="title">{"Primary Data Challenge"}</PageP>
@@ -313,9 +488,42 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
+      {isWebsiteDesign && (
+        <PageRow styleName="form-row">
+          <div>
+            <PageP styleName="title">Your industry</PageP>
+            <PageP styleName="description">
+              Knowing your industry will help our designers understand you and
+              For example, some common industries are: Business & Consulting,
+              Construction, Entertainment & Arts, Healthcare, Retail, and
+              Technology.
+            </PageP>
+          </div>
+
+          <div styleName="formFieldWrapper">
+            <div>
+              <FormField label={"Your Industry"}>
+                <FormInputText
+                  placeholder={"Enter your industry"}
+                  value={formData?.yourIndustry?.value}
+                  name="yourIndustry"
+                  onChange={(e) =>
+                    handleInputChange(
+                      e.target.name,
+                      e.target.value,
+                      e.target.value
+                    )
+                  }
+                />
+              </FormField>
+            </div>
+          </div>
+        </PageRow>
+      )}
+
       <PageDivider />
 
-      {!isDataExploration && (
+      {isFindMeData && (
         <PageRow styleName="form-row">
           <div>
             <PageP styleName="title">Sample Data</PageP>
@@ -348,7 +556,226 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
-      {!isDataExploration && <PageDivider />}
+      {isFindMeData && <PageDivider />}
+
+      {isWebsiteDesign && (
+        <PageRow styleName="form-row">
+          <div>
+            <PageP styleName="title">inspiration</PageP>
+            <PageP styleName="description">
+              Are there websites that you love, from which our designers may
+              draw inspiration? Share the website URLs and tell us what you like
+              about them.
+            </PageP>
+          </div>
+
+          <div styleName="formFieldWrapper">
+            {_.map(_.get(formData, "inspiration", []), (entry, index) => (
+              <div key={index}>
+                {index ? (
+                  <div
+                    role="button"
+                    tabIndex="0"
+                    styleName="remove-website"
+                    onClick={() => removeWebsite(index)}
+                  >
+                    Remove Website
+                  </div>
+                ) : null}
+                <FormField label={"Website Address (optional)"}>
+                  <FormInputText
+                    placeholder={"Enter website url. e.g. www.acme.com"}
+                    value={entry.website.value}
+                    name="website"
+                    onChange={(e) =>
+                      handleArrayInputChange(
+                        index,
+                        "inspiration",
+                        e.target.name,
+                        e.target.value
+                      )
+                    }
+                  />
+                </FormField>
+                <FormField label={"What Do You Like (optional)"}>
+                  <FormInputTextArea
+                    value={entry.feedback.value}
+                    onChange={(e) =>
+                      handleArrayInputChange(
+                        index,
+                        "inspiration",
+                        e.target.name,
+                        e.target.value
+                      )
+                    }
+                    styleName={"text-area"}
+                    name="feedback"
+                    placeholder={"Describe what you like about this website"}
+                  />
+                </FormField>
+              </div>
+            ))}
+            <Button
+              type={BUTTON_TYPE.SECONDARY}
+              size={BUTTON_SIZE.MEDIUM}
+              onClick={addWebsite}
+            >
+              ADD ANOTHER WEBSITE
+            </Button>
+          </div>
+        </PageRow>
+      )}
+      {isWebsiteDesign && <PageDivider />}
+      {isWebsiteDesign && (
+        <PageRow styleName="form-row">
+          <PageP styleName="title">STYLE &amp; THEME</PageP>
+        </PageRow>
+      )}
+      {isWebsiteDesign && (
+        <PageRow styleName="form-row">
+          <div styleName="formFieldWrapper style-picker">
+            <PageP styleName="label">
+              Let us know the visual styles you like or dislike (optional):
+            </PageP>
+            <div styleName="styles">
+              <StyleOptions
+                likes={formData?.likedStyles?.value}
+                dislikes={formData?.dislikedStyles?.value}
+                onLike={(likes) => {
+                  handleInputChange("likedStyles", likes, likes);
+                }}
+                onDislike={(dislikes) => {
+                  handleInputChange("dislikedStyles", dislikes, dislikes);
+                }}
+              />
+            </div>
+            <PageRow styleName="form-row">
+              <div>
+                <PageP styleName="label">
+                  Additional details about your look & feel preferences:
+                </PageP>
+              </div>
+              <div styleName="formFieldWrapper">
+                <FormField label={`Style Preferences (optional)`}>
+                  <FormInputTextArea
+                    value={formData?.stylePreferences?.value}
+                    onChange={(e) =>
+                      handleInputChange(e.target.name, e.target.value)
+                    }
+                    styleName={"text-area"}
+                    name="stylePreferences"
+                    placeholder={"Describe your ideal look & feel"}
+                  />
+                </FormField>
+              </div>
+            </PageRow>
+          </div>
+        </PageRow>
+      )}
+
+      {isWebsiteDesign && (
+        <PageRow styleName="form-row">
+          <div styleName="formFieldWrapper color-picker">
+            <PageP styleName="label">
+              Choose colors you would like our designers to use in your site
+              design:
+            </PageP>
+            <div styleName="colors">
+              <ColorOptions
+                colors={ColorOptionsItems}
+                selectedColor={selectedColor}
+                onSelect={(index, colorName) => {
+                  setSelectedColor({ value: index });
+                  handleInputChange("colorOption", index, colorName);
+                }}
+              />
+            </div>
+            <PageRow styleName="form-row">
+              <div>
+                <PageP styleName="label">
+                  List any specific colors you would like used in your design:
+                </PageP>
+              </div>
+              <div styleName="formFieldWrapper">
+                <FormField
+                  label={`List Specific Colors ${
+                    selectedColor?.value?.length > 0 ? "(optional)" : ""
+                  }`}
+                >
+                  <FormInputText
+                    value={formData?.specificColor?.value}
+                    onChange={(e) =>
+                      handleInputChange(e.target.name, e.target.value)
+                    }
+                    styleName={"text-area"}
+                    name="specificColor"
+                    placeholder={
+                      "Specify colors using their value in RGB, CMYK, or Hex"
+                    }
+                  />
+                </FormField>
+              </div>
+            </PageRow>
+          </div>
+        </PageRow>
+      )}
+
+      <PageDivider />
+
+      {isWebsiteDesign && (
+        <PageRow styleName="form-row">
+          <div>
+            <PageP styleName="title">share your brand or style assets</PageP>
+            <PageP styleName="description">
+              If you have them, gather and upload any assets that you think
+              might be helpful for our designers. Let us know if there is
+              anything you would like to communicate about these items. <br />
+              Assets could be:
+              <ul styleName="list">
+                <li>your logo</li>
+                <li>your brand guide</li>
+                <li>mood boards</li>
+                <li>font files</li>
+                <li>sketches or other inspiration</li>
+              </ul>
+            </PageP>
+          </div>
+
+          <div styleName="formFieldWrapper">
+            <div styleName="assets">
+              <FormField label={"Shareable URL Link(s)"}>
+                <FormInputText
+                  placeholder={"www.example-share-link.com"}
+                  value={formData?.assetsUrl?.value}
+                  name="assetsUrl"
+                  onChange={(e) =>
+                    handleInputChange(
+                      e.target.name,
+                      e.target.value,
+                      e.target.value
+                    )
+                  }
+                />
+              </FormField>
+              <FormField label={"About Your Assets (optional)"}>
+                <FormInputTextArea
+                  value={formData?.assetsDescription?.value}
+                  onChange={(e) =>
+                    handleInputChange(
+                      e.target.name,
+                      e.target.value,
+                      e.target.value
+                    )
+                  }
+                  styleName={"text-area"}
+                  name="assetsDescription"
+                  placeholder={"Describe what you would like us to know"}
+                />
+              </FormField>
+            </div>
+          </div>
+        </PageRow>
+      )}
 
       <HelpBanner
         title={HELP_BANNER.title}

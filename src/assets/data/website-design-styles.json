@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Dark / Saturated",
+        "className": "dark-saturated"
+    },
+    {
+        "name": "Light / Airy",
+        "className": "light-airy"
+    },
+    {
+        "name": "Fun / Playful",
+        "className": "fun-playful"
+    },
+    {
+        "name": "Mature / Serious",
+        "className": "mature-serious"
+    },
+    {
+        "name": "Simple / Minimalist",
+        "className": "simple-minimalist"
+    },
+    {
+        "name": "Vibrant / Colorful",
+        "className": "vibrant-colorful"
+    },
+    {
+        "name": "Soft / Organic",
+        "className": "soft-organic"
+    },
+    {
+        "name": "Bold / Rugged",
+        "className": "bold-rugged"
+    }
+]

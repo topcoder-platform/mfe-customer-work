@@ -29,7 +29,7 @@ import { getUserProfile } from "../../thunks/profile";
 import { activateChallenge } from "../../services/challenge";
 import "./styles.module.scss";
 import {
-  getDynamicPriceAndTimelineEstimate,
+  getWebsiteDesignPriceAndTimelineEstimate,
   getDataExplorationPriceAndTimelineEstimate,
   getFindMeDataPriceAndTimelineEstimate,
   currencyFormat,
@@ -86,7 +86,7 @@ const Review = ({
     useState(false);
   const estimate =
     workType?.selectedWorkType === "Website Design"
-      ? getDynamicPriceAndTimelineEstimate(fullState)
+      ? getWebsiteDesignPriceAndTimelineEstimate(fullState)
       : isDataExploration
       ? getDataExplorationPriceAndTimelineEstimate()
       : getFindMeDataPriceAndTimelineEstimate();
@@ -148,10 +148,10 @@ const Review = ({
       "form.basicInfo.selectedDevice.option.length",
       1
     );
-    const additionalPaymentInfo =
-      workType?.selectedWorkType === "Website Design"
-        ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
-        : "";
+    const additionalPaymentInfo = "";
+      // workType?.selectedWorkType === "Website Design"
+      //   ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
+      //   : "";
 
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,

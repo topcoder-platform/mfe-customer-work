@@ -18,6 +18,7 @@ import {
 import { INTAKE_FORM_ROUTES, MAX_COMPLETED_STEP } from "./constants";
 import { INTAKE_FORM_ROUTES as DATA_EXPLORATION_INTAKE_FORM_ROUTES } from "./constants/products/DataExploration";
 import { INTAKE_FORM_ROUTES as FIND_ME_DATA_INTAKE_FORM_ROUTES } from "./constants/products/FindMeData";
+import { INTAKE_FORM_ROUTES as WEBSITE_DESIGN_INTAKE_FORM_ROUTES } from "./constants/products/WebsiteDesign";
 import {
   authUserError,
   authUserSuccess,
@@ -35,6 +36,7 @@ import LoginPrompt from "./routes/LoginPrompt";
 import DataExploration from "./routes/Products/DataExploration";
 import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
 import FindMeData from "./routes/Products/FindMeData";
+import WebsiteDesign from "./routes/Products/WebsiteDesign";
 
 export default function IntakeForm() {
   const dispatch = useDispatch();
@@ -76,14 +78,21 @@ export default function IntakeForm() {
 
   const goToUnfinishedStep = (currentStep, workType) => {
     if (currentStep - 1 >= 0) {
-      if (workType === "Website Design") {
-        navigate(INTAKE_FORM_ROUTES[currentStep - 1]);
-      } else {
-        if (workType === "Data Exploration") {
+      switch (workType) {
+        case "Website Design Legacy":
+          navigate(INTAKE_FORM_ROUTES[currentStep - 1]);
+          break;
+        case "Data Exploration":
           navigate(DATA_EXPLORATION_INTAKE_FORM_ROUTES[currentStep - 1]);
-        } else {
+          break;
+        case "Find Me Data":
           navigate(FIND_ME_DATA_INTAKE_FORM_ROUTES[currentStep - 1]);
-        }
+          break;
+        case "Website Design":
+          navigate(WEBSITE_DESIGN_INTAKE_FORM_ROUTES[currentStep - 1]);
+          break;
+        default:
+          return;
       }
     }
   };
@@ -185,6 +194,7 @@ export default function IntakeForm() {
           />
           {/* Find Me Data */}
           <FindMeData path="/work/new/find-me-data/*" isLoggedIn={isLoggedIn} />
+          <WebsiteDesign path="/work/new/website-design/*" isLoggedIn={isLoggedIn} />
           {/* Web Design */}
           <BasicInfo path="/basic-info" />
           <WebsitePurpose path="/website-purpose" />

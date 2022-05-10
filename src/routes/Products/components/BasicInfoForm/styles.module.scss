@@ -9,6 +9,18 @@
     text-transform: uppercase;
   }
 
+  .remove-website {
+    color: $green1;
+    cursor: pointer;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-end;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .description {
     @include font-roboto;
     font-size: 16px;
@@ -46,4 +58,29 @@
 .list {
   list-style-type: disc;
   padding-left: 20px;
+}
+
+.color-picker,
+.style-picker {
+  width: 100% !important;
+  padding-right: inherit !important;
+  border: 2px solid $divider-color;
+  border-radius: 20px;
+  padding: 20px;
+
+  .colors,
+  .styles {
+    padding: 20px;
+  }
+
+  .formFieldWrapper {
+    padding-right: 20px;
+    margin-top: 0;
+  }
+}
+
+.label {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
 }

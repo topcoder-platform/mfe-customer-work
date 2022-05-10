@@ -3,8 +3,11 @@ import moment from "moment";
 import React from "react";
 
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
+import exampleImage1 from "../assets/images/design-example-image1.png"
+import exampleImage2 from "../assets/images/design-example-image2.png"
 import MyWorkIcon from "../assets/images/icon-my-work.svg";
 import PageUl from "../components/PageElements/PageUl";
+import PageP from "../components/PageElements/PageP";
 import workUtil from "../utils/work";
 
 import countries from "./countries";
@@ -344,20 +347,56 @@ export const webWorkTypes = [
             Note, we also offer data anonymization services to convert your
             existing data into secure and shareable form
           </li>
+          <img src="Design-11.png"/>
         </PageUl>
       </>
     ),
   },
   {
     title: "Website Design",
-    duration: "4-6 Days",
-    subTitle:
-      "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    price: 199,
-    stickerPrice: 398,
+    subTitle: "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    price: 499,
+    // stickerPrice: 499,
+    duration: "2 Days",
     featured: true,
-    startRoute: "/self-service/basic-info",
+    startRoute: "/self-service/work/new/website-design/basic-info",
+    helperBannerTitle: "WHAT WILL I RECEIVE?",
+    helperBannerContent: (
+      <>
+        <br />
+        <div style={{ display: "flex" }}>
+          <PageP>
+            You will receive up to five unique visual designs for the main page of your website, in an industry-standard format.
+            Visual designs are the first step in creating a functional website. Topcoder can help you with launching your website once you have approved your design.
+          </PageP>
+          <div style={{ display: "flex", paddingRight: "218px", marginTop: "-30px",  }}>
+            <img style={{ marginRight: "16px", marginLeft: "16px"}} src={exampleImage1}/>
+            &nbsp;
+            <img src={exampleImage2}/>
+          </div>
+        </div>
+      </>
+    ),
+    aboutBannerTitle: "ABOUT WEBSITE DESIGN",
+    aboutBannerContent: (
+      <>
+        <p>
+          Topcoder design experts will take all of the information you provide below, and create visual designs for your website that fit your industry and match your desired look & feel.
+          We've done this for hundreds of customers and will work with you to create your ideal design.
+        </p>
+      </>
+    ),
   },
+  // {
+  //   title: "Website Design",
+  //   duration: "4-6 Days",
+  //   subTitle:
+  //     "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+  //   price: 199,
+  //   stickerPrice: 398,
+  //   featured: true,
+  //   startRoute: "/self-service/basic-info",
+  // },
   {
     title: "Website Development",
     subTitle: "Information to help understand what this category would include",

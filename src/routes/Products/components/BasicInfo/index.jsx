@@ -31,6 +31,7 @@ import {
   currencyFormat,
   getDataExplorationPriceAndTimelineEstimate,
   getFindMeDataPriceAndTimelineEstimate,
+  getWebsiteDesignPriceAndTimelineEstimate,
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
@@ -49,9 +50,17 @@ const BasicInfo = ({
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
     findMeProjectTitle: { title: "Project Title", option: "", value: "" },
+    description: { title: "Description", option: "", value: "" },
     assetsUrl: { title: "Shareable URL Link(s)", value: "" },
+    assetsDescription: { title: "About Your Assets", value: "" },
     goals: { title: "Goals & Data Description", option: "", value: null },
     analysis: { title: "What Data Do You Need?", option: "", value: "" },
+    feedback: { title: "What Data Do You like?", option: "", value: "" },
+    yourIndustry: { title: "Your Industry", option: "", value: "" },
+    colorOption: { title: "Color Option", value: [], option: [] },
+    likedStyles: { title: "Liked Styles", value: [], option: [] },
+    dislikedStyles: { title: "Disliked Styles", value: [], option: [] },
+    specificColor: { title: "Custom Color", option: "", value: "" },
     primaryDataChallenge: {
       title: "Primary Data Challenge",
       option: "",
@@ -62,8 +71,17 @@ const BasicInfo = ({
       option: "",
       value: "",
     },
+    inspiration: [
+      {
+        website: { title: "Website Address", value: "", option: "" },
+        feedback: { title: "What Do You Like", value: "", option: "" },
+      },
+    ],
     sampleData: { title: "Sample Data", option: "", value: "" },
   });
+  const isFindMeData = bannerData.title === "Find Me Data";
+  const isWebsiteDesign = bannerData.title === "Website Design";
+  const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
   const isDataExploration = bannerData.title === "Data Exploration";
   const isDataExplorationFormValid =
     formData?.projectTitle?.value?.trim().length &&
@@ -76,9 +94,19 @@ const BasicInfo = ({
       (formData?.primaryDataChallenge?.value === 3 &&
         formData?.primaryDataChallengeOther?.value?.trim().length)) &&
     formData?.sampleData?.value?.trim().length;
-  const isFormValid = isDataExploration
-    ? isDataExplorationFormValid
-    : isFindMeDataFormValid;
+  // const isFormValid = isDataExploration
+  //   ? isDataExplorationFormValid
+  //   : isFindMeDataFormValid;
+
+  let isFormValid;
+  if (isDataExploration) {
+    isFormValid = isDataExplorationFormValid;
+  } else if (isFindMeData) {
+    isFormValid = isFindMeDataFormValid;
+  } else if (isWebsiteDesign) {
+    isFormValid = isWebsiteDesignFormValid;
+  }
+
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const workType = useSelector((state) => state.form.workType);
@@ -92,7 +120,7 @@ const BasicInfo = ({
 
   const estimate =
     workType === "Website Design"
-      ? getDynamicPriceAndTimelineEstimate(fullState)
+      ? getWebsiteDesignPriceAndTimelineEstimate(fullState)
       : isDataExploration
       ? getDataExplorationPriceAndTimelineEstimate()
       : getFindMeDataPriceAndTimelineEstimate();
@@ -101,9 +129,16 @@ const BasicInfo = ({
     navigate("/self-service/wizard");
   };
 
-  const baseUrl = `/self-service/work/new/${
-    isDataExploration ? "data-exploration" : "find-me-data"
-  }`;
+  let basePath;
+  if (isDataExploration) {
+    basePath = "data-exploration";
+  } else if (isFindMeData) {
+    basePath = "find-me-data";
+  } else if (isWebsiteDesign) {
+    basePath = "website-design";
+  }
+
+  const baseUrl = `/self-service/work/new/${basePath}`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);

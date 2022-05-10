@@ -133,6 +133,12 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
               "find-me-data"
             );
           }
+          if (formData?.workType?.selectedWorkType === "Website Design") {
+            redirectPage.url = redirectPage?.url.replace(
+              "data-exploration",
+              "website-design"
+            );
+          }
           return (
             <>
               <div
