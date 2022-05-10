@@ -2,7 +2,6 @@
 
 .content {
     position: relative;
-    @include content-height;
     padding-top: 0;
     padding-bottom: $pad-lg;
     flex: 1 1 auto;
