@@ -18,16 +18,12 @@
         @extend .medium-subtitle;
         @include font-black-100;
 
-        @include text-ellipsis;
+        @include text-clamp;
     }
     
     .description {
         @extend .ultra-small;
         margin-top: 6px;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        @include text-clamp(3);
     }
 }

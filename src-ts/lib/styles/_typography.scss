@@ -128,3 +128,11 @@ h4 {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@mixin text-clamp($noOfLines: 1) {
+    display: -webkit-box;
+    -webkit-line-clamp: $noOfLines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
