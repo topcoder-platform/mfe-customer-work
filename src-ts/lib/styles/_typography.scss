@@ -74,10 +74,18 @@ h4 {
 }
 
 /* Subtitles */
+.large-subtitle,
 .large-subtitle-bold {
-    @include font-weight-bold;
     font-size: 16px;
     line-height: 20px;
+}
+
+.large-subtitle {
+    @include font-weight-medium;
+}
+
+.large-subtitle-bold {
+    @include font-weight-bold;
 }
 
 .medium-subtitle {

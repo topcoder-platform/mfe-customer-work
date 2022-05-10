@@ -12,9 +12,7 @@ import {
 import TabPane from "./components/TabPane";
 import Details from "./components/Details";
 import Solutions from "./components/Solutions";
-import FinalSurvey from "./components/Solutions/FinalSurvey";
 import workUtil from "utils/work";
-import { Modal } from "react-responsive-modal";
 import Forum from "../Forum";
 
 import {
@@ -32,8 +30,16 @@ import SupportModal from "../../components/Modal/SupportModal";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
 
-import { BaseModal, Breadcrumb, TabsNavbar, workContext, WorkStatusItem } from '../../../src-ts/lib'
-import { WorkDetailHeader, WorkDetailSummary } from '../../../src-ts/tools/work'
+import {
+  Breadcrumb,
+  ChallengeMetadataName,
+  TabsNavbar,
+  workContext,
+  WorkDetailHeader,
+  WorkDetailSummary,
+  WorkFeedback,
+  WorkStatusItem,
+} from '../../../src-ts'
 
 import "./styles.module.scss";
 
@@ -139,14 +145,6 @@ const WorkItem = ({
     }
   }, [work]);
 
-  const [customerFeedback, setCustomerFeedback] = useState();
-  useEffect(() => {
-    if (work && work.metadata) {
-      const item = work.metadata.find((i) => i.name === "customerFeedback");
-      setCustomerFeedback(item && JSON.parse(item.value));
-    }
-  }, [work]);
-
   const onShowSupportModal = () => {
     setShowSupportModal(true);
   };
@@ -178,8 +176,8 @@ const WorkItem = ({
   ];
 
   const navTabs = useMemo(() => [
-    {id: 'summary', title: 'Summary'},
-    {id: 'details', title: 'Details'},
+    { id: 'summary', title: 'Summary' },
+    { id: 'details', title: 'Details' },
     work && !workUtil.isMessagesDisabled(work) && {
       id: 'messaging',
       title: 'Messages',
@@ -190,8 +188,22 @@ const WorkItem = ({
         }
       ].filter(Boolean)
     },
-    {id: 'solutions', title: 'Solutions'},
+    { id: 'solutions', title: 'Solutions' },
   ].filter(Boolean), [work]);
+
+  function saveFeedback(updatedCustomerFeedback) {
+
+    const metadata = (work.metadata || [])
+      .filter(item => item.name !== ChallengeMetadataName.feedback);
+
+    metadata.push({
+      name: ChallengeMetadataName.feedback,
+      value: JSON.stringify(updatedCustomerFeedback),
+    });
+
+    saveSurvey(work.id, metadata);
+    setShowSurvey(false);
+  }
 
   return (
     <>
@@ -261,31 +273,12 @@ const WorkItem = ({
         </PageContent>
       </Page>
 
-      <BaseModal
-        open={showSurvey}
+      <WorkFeedback
+        challenge={work}
         onClose={() => setShowSurvey(false)}
-        title="How did we do?"
-      >
-        <FinalSurvey
-          saveSurvey={(updatedCustomerFeedback) => {
-            let metadata = work.metadata || [];
-
-            metadata = metadata.filter((i) => i.name !== "customerFeedback");
-            metadata.push({
-              name: "customerFeedback",
-              value: JSON.stringify(updatedCustomerFeedback),
-            });
-
-            saveSurvey(work.id, metadata);
-            setShowSurvey(false);
-          }}
-          onCancel={(tempData) => {
-            setShowSurvey(false);
-            setCustomerFeedback(tempData);
-          }}
-          customerFeedback={customerFeedback}
-        />
-      </BaseModal>
+        saveSurvey={saveFeedback}
+        showSurvey={showSurvey}
+      />
     </>
   );
 };

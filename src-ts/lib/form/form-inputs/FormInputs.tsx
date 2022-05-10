@@ -1,16 +1,16 @@
-import { FocusEvent } from 'react'
+import { ChangeEvent, FocusEvent } from 'react'
 
 import { FormDefinition } from '../form-definition.model'
 import { formGetInputModel } from '../form-functions'
 
-import { InputText, InputTextarea } from './form-input'
+import { InputRating, InputText, InputTextarea } from './form-input'
 import { FormInputRow } from './form-input-row'
 import styles from './FormInputs.module.scss'
 
 interface FormInputsProps {
     formDef: FormDefinition
     onBlur: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-    onChange: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
 const FormInputs: (props: FormInputsProps) => JSX.Element = (props: FormInputsProps) => {
@@ -25,6 +25,17 @@ const FormInputs: (props: FormInputsProps) => JSX.Element = (props: FormInputsPr
 
             let inputElement: JSX.Element
             switch (inputModel.type) {
+
+                case 'rating':
+                    inputElement = (
+                        <InputRating
+                            {...inputModel}
+                            onChange={onChange}
+                            tabIndex={tabIndex}
+                            value={inputModel.value}
+                        />
+                    )
+                    break
 
                 case 'textarea':
                     inputElement = (

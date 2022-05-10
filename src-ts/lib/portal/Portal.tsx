@@ -15,6 +15,7 @@ const Portal: FC<PortalProps> = (
     children,
     portalRef,
 }: PortalProps) => {
+
     const defaultPortalNode: HTMLElement = useMemo(() => {
         if (portalNode) {
             return

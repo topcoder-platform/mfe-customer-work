@@ -23,6 +23,16 @@ const WorkDetailHighlights: FC<WorkDetailHighlightsProps> = (props: WorkDetailHi
         name: string
     }> = [
             {
+                icon: <IconOutline.CalendarIcon />,
+                info: textFormatDateLocaleShortString(work.submittedDate),
+                name: 'Submitted',
+            },
+            {
+                icon: <IconOutline.CurrencyDollarIcon />,
+                info: textFormatMoneyLocaleString(work.cost),
+                name: 'Cost (USD)',
+            },
+            {
                 icon: <IconOutline.UserGroupIcon />,
                 info: work.participantsCount,
                 name: 'Participants',
@@ -33,19 +43,9 @@ const WorkDetailHighlights: FC<WorkDetailHighlightsProps> = (props: WorkDetailHi
                 name: 'Solutions Received',
             },
             {
-                icon: <IconOutline.CalendarIcon />,
-                info: textFormatDateLocaleShortString(work.submittedDate),
-                name: 'Submitted',
-            },
-            {
                 icon: <IconOutline.IdentificationIcon />,
                 info: work.id,
                 name: 'Work id',
-            },
-            {
-                icon: <IconOutline.CurrencyDollarIcon />,
-                info: textFormatMoneyLocaleString(work.cost),
-                name: 'Cost (USD)',
             },
         ]
 

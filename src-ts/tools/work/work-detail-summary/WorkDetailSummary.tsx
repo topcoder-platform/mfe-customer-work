@@ -1,4 +1,4 @@
-import { FC, ReactNode, useContext } from 'react'
+import { FC, useContext } from 'react'
 
 import { Work, workContext, WorkContextData, WorkStatus } from '../../../lib'
 
@@ -16,13 +16,13 @@ const WorkDetailSummary: FC<WorkDetailSummaryProps> = (props: WorkDetailSummaryP
     const workContextData: WorkContextData = useContext(workContext)
     const work: Work = workContextData.createFromChallenge(props.challenge)
 
+    const progressElement: JSX.Element = props.status === WorkStatus.transferred
+        ? <WorkTransferredStatus />
+        : <WorkDetailProgress {...work.progress} />
+
     return (
         <>
-            {props.status === WorkStatus.transferred ? (
-                <WorkTransferredStatus />
-            ) : (
-                <WorkDetailProgress {...work.progress} />
-            )}
+            {progressElement}
             <WorkDetailHighlights work={work} />
         </>
     )

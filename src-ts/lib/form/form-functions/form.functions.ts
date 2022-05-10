@@ -1,4 +1,4 @@
-import { FormEvent } from 'react'
+import { ChangeEvent, FormEvent } from 'react'
 import { toast } from 'react-toastify'
 
 import { FormInputModel } from '../form-input.model'
@@ -33,7 +33,7 @@ export function onBlur<T>(event: FormEvent<HTMLInputElement | HTMLTextAreaElemen
     handleFieldEvent<T>(event.target as HTMLInputElement | HTMLTextAreaElement, inputs, 'blur', formValues)
 }
 
-export function onChange<T>(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>, inputs: ReadonlyArray<FormInputModel>, formValues?: T): void {
+export function onChange<T>(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, inputs: ReadonlyArray<FormInputModel>, formValues?: T): void {
     handleFieldEvent<T>(event.target as HTMLInputElement | HTMLTextAreaElement, inputs, 'change', formValues)
 }
 
