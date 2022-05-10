@@ -42,7 +42,6 @@ const WorkDetailHighlights: FC<WorkDetailHighlightsProps> = (props: WorkDetailHi
                 info: work.solutionsCount,
                 name: 'Solutions Received',
             },
-
             {
                 icon: <IconOutline.IdentificationIcon />,
                 info: work.id,
