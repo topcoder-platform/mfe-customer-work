@@ -19,7 +19,9 @@ function WorkStatusItem({ workStatus }: WorkStatusItemProps): JSX.Element {
     return (
         <div className={styles['status-container']}>
             <div className={styles[statusKey]}></div>
-            <div className='small-tab'>{workStatus}</div>
+            <div className={styles['small-tab']}>
+                {workStatus}
+            </div>
         </div>
     )
 }
