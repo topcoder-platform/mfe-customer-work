@@ -39,6 +39,8 @@ const InputRating: FC<InputRatingProps> = (props: InputRatingProps) => {
     }
 
     const stars: Array<JSX.Element> = []
+    // ratings are base 10, but we're only showing 5 stars,
+    // so only display buttons for 2, 4, 6, 8, and 10
     for (let index: number = 2; index <= 10; index++) {
         const className: string = !!rating && rating >= index ? 'orange-100' : 'black-20'
         const element: JSX.Element = (
