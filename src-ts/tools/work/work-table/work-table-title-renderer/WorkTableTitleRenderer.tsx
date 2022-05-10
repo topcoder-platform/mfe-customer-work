@@ -31,7 +31,7 @@ function WorkTableTitleRenderer(data: Work): JSX.Element {
     return (
         <div className={styles['work-table-title-container']}>
             <Icon />
-            <div>
+            <div className={styles['work-table-title']}>
                 <div className={styles.title}>
                     {data.title}
                 </div>
