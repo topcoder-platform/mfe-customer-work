@@ -6,6 +6,11 @@
     text-transform: uppercase;
     white-space: nowrap;
 
+    .small-tab {
+        @extend .small-tab;
+        line-height: 17px;
+    }
+
     .active,
     .done,
     .draft,

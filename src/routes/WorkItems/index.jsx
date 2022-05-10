@@ -32,7 +32,7 @@ import SupportModal from "../../components/Modal/SupportModal";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
 
-import { Breadcrumb, TabsNavbar, workContext, WorkStatusItem } from '../../../src-ts/lib'
+import { BaseModal, Breadcrumb, TabsNavbar, workContext, WorkStatusItem } from '../../../src-ts/lib'
 import { WorkDetailHeader, WorkDetailSummary } from '../../../src-ts/tools/work'
 
 import "./styles.module.scss";
@@ -169,7 +169,7 @@ const WorkItem = ({
   const breadcrumb = [
     {
       name: "My work",
-      url: '/self-service/dashboard',
+      url: ROUTES.DASHBOARD_PAGE,
     },
     {
       name: work?.name,
@@ -261,20 +261,10 @@ const WorkItem = ({
         </PageContent>
       </Page>
 
-      <Modal
+      <BaseModal
         open={showSurvey}
-        center
-        showCloseIcon={false}
-        focusTrapped={false}
         onClose={() => setShowSurvey(false)}
-        styles={{
-          modal: {
-            maxWidth: "100%",
-            padding: 0,
-            margin: 0,
-            background: "none",
-          },
-        }}
+        title="How did we do?"
       >
         <FinalSurvey
           saveSurvey={(updatedCustomerFeedback) => {
@@ -295,7 +285,7 @@ const WorkItem = ({
           }}
           customerFeedback={customerFeedback}
         />
-      </Modal>
+      </BaseModal>
     </>
   );
 };
