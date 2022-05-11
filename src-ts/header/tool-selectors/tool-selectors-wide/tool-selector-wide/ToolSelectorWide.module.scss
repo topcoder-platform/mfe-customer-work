@@ -19,6 +19,13 @@
         height: 2px;
     }
 
+    &.tool-selector-wide-is-link {
+
+        a {
+            cursor: pointer !important;
+        }
+    }
+
     &.tool-selector-wide-active {
 
         a {

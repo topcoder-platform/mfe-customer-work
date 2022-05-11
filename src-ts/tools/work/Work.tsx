@@ -1,6 +1,6 @@
 import { Dispatch, FC, useContext } from 'react'
 import { useDispatch } from 'react-redux'
-import { NavigateFunction, Outlet, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, NavigateFunction, Outlet, Routes, useNavigate } from 'react-router-dom'
 
 import { resetIntakeForm } from '../../../src/actions/form'
 import {
@@ -10,6 +10,7 @@ import {
 import {
     ButtonProps,
     ContentLayout,
+    LoadingSpinner,
     profileContext,
     ProfileContextData,
     routeContext,
@@ -22,13 +23,20 @@ export const toolTitle: string = 'Work'
 const Work: FC<{}> = () => {
 
     const { getChildRoutes }: RouteContextData = useContext(routeContext)
-    const { profile }: ProfileContextData = useContext(profileContext)
+    const { profile, initialized }: ProfileContextData = useContext(profileContext)
     const dispatch: Dispatch<any> = useDispatch()
     const navigate: NavigateFunction = useNavigate()
 
-    // if we don't have a user, don't show anything
+    // if a user arrives here who is not logged in, don't let them get to the page
     if (!profile) {
-        return <></>
+
+        // if the profile isn't initialized, wait with the spinner
+        if (!initialized) {
+            return <LoadingSpinner />
+        }
+
+        // if the profile is initialized, go to the self-service login
+        return <Navigate to='/self-service' />
     }
 
     function startWork(): void {
