@@ -1,8 +1,9 @@
 export { default as AppNextGen } from './App'
 export { EnvironmentConfig } from './config'
 export {
-     ChallengeMetadataName,
      Breadcrumb,
+     ChallengeMetadataName,
+     ContactSupportModal,
      logInitialize,
      PageFooter,
      ProfileProvider,
