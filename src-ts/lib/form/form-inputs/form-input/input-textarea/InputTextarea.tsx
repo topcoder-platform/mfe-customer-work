@@ -37,7 +37,7 @@ const InputTextarea: FC<InputTextareaProps> = (props: InputTextareaProps) => {
                 disabled={!!props.disabled}
                 name={props.name}
                 onBlur={props.onBlur}
-                onFocus={props.onChange}
+                onChange={props.onChange}
                 placeholder={props.placeholder}
                 spellCheck={!!props.spellCheck}
                 tabIndex={props.tabIndex}

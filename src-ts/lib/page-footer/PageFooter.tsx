@@ -1,39 +1,71 @@
-
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { Dispatch, FC, MouseEvent, SetStateAction, useState } from 'react'
 
 import { FooterSocialConfig } from '../../config'
-import { OrderContractModal, PrivacyPolicyModal, TermsModal } from '../modals'
+import { ContactSupportModal, OrderContractModal, PrivacyPolicyModal, TermsModal } from '../modals'
+import { ProfileProvider } from '../profile-provider'
 import { SocialLink, SocialLinkIcons } from '../social-links'
 
 import styles from './PageFooter.module.scss'
 
-const todayYear: number = (new Date()).getFullYear()
+const PageFooter: FC<{}> = () => {
 
-export interface PageFooterProps {
-}
-
-const PageFooter: FC<PageFooterProps> = ({
-}: PageFooterProps) => {
+    const [isContactSupportModalOpen, setIsContactSupportModalOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
     const [isOrderContractModalOpen, setIsOrderContractModalOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
     const [isPrivacyModalOpen, setIsPrivacyModalOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
     const [isTermsModalOpen, setIsTermsModalOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
+    function handleClick(event: MouseEvent<HTMLAnchorElement>, setter: Dispatch<SetStateAction<boolean>>): void {
+        event.preventDefault()
+        setter(true)
+    }
+
     return (
         <div className={styles['footer-wrap']}>
-            <OrderContractModal isOpen={isOrderContractModalOpen} onClose={() => setIsOrderContractModalOpen(false)} />
-            <PrivacyPolicyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
-            <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />
+
+            <ProfileProvider>
+                <ContactSupportModal
+                    isOpen={isContactSupportModalOpen}
+                    onClose={() => setIsContactSupportModalOpen(false)}
+                />
+            </ProfileProvider>
+
+            <OrderContractModal
+                isOpen={isOrderContractModalOpen}
+                onClose={() => setIsOrderContractModalOpen(false)}
+            />
+
+            <PrivacyPolicyModal
+                isOpen={isPrivacyModalOpen}
+                onClose={() => setIsPrivacyModalOpen(false)}
+            />
+
+            <TermsModal
+                isOpen={isTermsModalOpen}
+                onClose={() => setIsTermsModalOpen(false)}
+            />
 
             <div className={styles['footer-inner']}>
                 <div className={styles.utils}>
                     <div>
-                        <span>© {todayYear} Topcoder</span>
-                        <a href='#'>Support</a>
+                        <span>© {(new Date()).getFullYear()} Topcoder</span>
+                        <a
+                            href='#'
+                            onClick={(e) => handleClick(e, setIsContactSupportModalOpen)}>
+                            Support
+                        </a>
                         <a href='#'>See a Bug?</a>
                     </div>
                     <div>
-                        <a href='#' onClick={(e) => {e.preventDefault(); setIsTermsModalOpen(true)}}>Terms</a>
-                        <a href='#' onClick={(e) => {e.preventDefault(); setIsPrivacyModalOpen(true)}}>Privacy Policy</a>
+                        <a
+                            href='#'
+                            onClick={(e) => handleClick(e, setIsTermsModalOpen)}>
+                            Terms
+                        </a>
+                        <a
+                            href='#'
+                            onClick={(e) => handleClick(e, setIsPrivacyModalOpen)}>
+                            Privacy Policy
+                        </a>
                     </div>
                 </div>
                 <div className={styles.social}>

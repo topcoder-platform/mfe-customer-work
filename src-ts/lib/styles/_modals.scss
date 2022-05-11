@@ -12,18 +12,21 @@
         border-radius: 0;
         padding: $pad-xxl $pad-xxxxl $pad-xxxxl;
 
+        &.modal-md {
+            width: 450px;
+        }
+
         &.modal-lg {
             width: 700px;
+        }
 
-            @include ltemd {
-                max-width: 450px;
-            }
+        @include ltemd {
+            max-width: 450px;
         }
 
         @include gtemd {
             width: auto;
             height: auto;
-            margin: 0 auto;
             border-radius: $pad-sm;
             max-height: 93vh;
             min-width: 450px;
