@@ -46,7 +46,7 @@ const FormInputRow: (props: FormInputRowProps) => JSX.Element = (props: FormInpu
         )
 
     return (
-        <div>
+        <div className={styles['row-wrap']}>
             {title}
             {inputRow}
         </div>

@@ -1,10 +1,12 @@
 @import '../../../../lib/styles';
 
-h4 {
-    border-top: $border-xs solid $black-10;
-
-    &.input-title-0 {
-        border: none;
+.row-wrap {
+    h4 {
+        border-top: $border-xs solid $black-10;
+    
+        &.input-title-0 {
+            border: none;
+        }
     }
 }
 

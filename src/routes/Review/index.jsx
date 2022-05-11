@@ -34,7 +34,6 @@ import {
   getFindMeDataPriceAndTimelineEstimate,
   currencyFormat,
 } from "utils/";
-import OrderContract from "../../components/Modal/OrderContract";
 import _ from "lodash";
 import {
   loadChallengeId,
@@ -42,6 +41,7 @@ import {
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
 import HelpBanner from "components/HelpBanner";
+import { OrderContractModal } from "../../../src-ts/lib";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
@@ -202,13 +202,7 @@ const Review = ({
 
   return (
     <>
-      <Modal
-        fullWidth
-        show={isOrderContractModalOpen}
-        handleClose={() => setIsOrderContractModalOpen(false)}
-      >
-        <OrderContract />
-      </Modal>
+      <OrderContractModal isOpen={isOrderContractModalOpen} onClose={() => setIsOrderContractModalOpen(false)} />
       <LoadingSpinner show={isLoading} />
       <Page>
         {banner}
