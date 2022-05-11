@@ -1,5 +1,15 @@
 export { default as AppNextGen } from './App'
 export { EnvironmentConfig } from './config'
-export { logInitialize, PageFooter, ProfileProvider, RouteProvider } from './lib'
+export {
+     ChallengeMetadataName,
+     Breadcrumb,
+     logInitialize,
+     PageFooter,
+     ProfileProvider,
+     RouteProvider,
+     TabsNavbar,
+     workContext,
+     WorkStatusItem,
+} from './lib'
 export * from './utils'
 export * from './tools'

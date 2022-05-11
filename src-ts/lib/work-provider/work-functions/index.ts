@@ -13,4 +13,5 @@ export {
 } from './work-factory'
 export {
     type Challenge,
+    ChallengeMetadataName,
 } from './work-store'

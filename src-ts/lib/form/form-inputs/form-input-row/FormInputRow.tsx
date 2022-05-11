@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { ReactNode } from 'react'
 
 import '../../../../lib/styles/index.scss'
@@ -32,16 +33,25 @@ const FormInputRow: (props: FormInputRowProps) => JSX.Element = (props: FormInpu
             </h4>
         )
 
-    const inputElement: JSX.Element = <div>{children}</div>
-
     const inputRow: JSX.Element = !input.instructions
-        ? inputElement
+        ? (
+            <div>
+                {children}
+            </div>
+        )
         : (
             <div className={styles['input-row']}>
-                <div className={'body-small font-black-40'}>
+                <div className={classNames(
+                    styles['input-instructions'],
+                    styles[input.type],
+                    'body-small',
+                    'font-black-40'
+                )}>
                     {input.instructions}
                 </div>
-                {inputElement}
+                <div className={styles.input}>
+                    {children}
+                </div>
             </div>
         )
 

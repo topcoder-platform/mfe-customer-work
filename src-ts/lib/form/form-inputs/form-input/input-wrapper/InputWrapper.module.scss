@@ -7,7 +7,13 @@ $error-line-height: 14px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-bottom: $pad-md;
+
+    &.rating {
+
+        &:focus {
+            outline: none;
+        }
+    }
 
     .input {
         flex: 1;
@@ -22,12 +28,23 @@ $error-line-height: 14px;
         border-radius: $pad-xs;
         margin-bottom: calc($error-line-height + $pad-xs);
 
-        &:hover,
-        &.focus {
-            border-color: $turq-160;
+        &.rating {
+            border-color: transparent;
+        }
 
-            &.input-error {
-                border-color: $red-100;
+        &:not(.rating) {
+
+            &:hover,
+            &.focus {
+                border-color: $turq-160;
+    
+                &.input-error {
+                    border-color: $red-100;
+                }
+    
+                textarea {
+                    box-shadow: none;
+                }
             }
         }
 

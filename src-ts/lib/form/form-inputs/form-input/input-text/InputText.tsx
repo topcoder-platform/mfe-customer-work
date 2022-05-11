@@ -26,12 +26,10 @@ const InputText: FC<InputTextProps> = (props: InputTextProps) => {
 
     return (
         <InputWrapper
+            {...props}
             dirty={!!props.dirty}
             disabled={!!props.disabled}
-            error={props.error}
-            hint={props.hint}
             label={props.label || props.name}
-            name={props.name}
         >
             <input
                 autoComplete={props.autocomplete}
