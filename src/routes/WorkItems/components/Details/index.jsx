@@ -46,14 +46,15 @@ const Details = ({ challenge, formData }) => {
         <TermsModal />
       </Modal>
       <div styleName="reviewTable">
-        <PageDivider />
         <ReviewTable
           formData={_.get(formData, "intake-form.form", {})}
           enableEdit={false}
+          enableStepsToggle={false}
         />
       </div>
 
       <div styleName="invoiceWrapper">
+        <h3>supporting information</h3>
         <a
           styleName="link"
           role="button"

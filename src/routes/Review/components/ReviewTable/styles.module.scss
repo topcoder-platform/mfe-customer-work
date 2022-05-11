@@ -51,23 +51,25 @@
 .detail {
   margin-top: 16px;
   white-space: pre-wrap;
+  color: $black-100;
 
   .itemWrapper {
     display: flex;
 
     .item {
-      text-transform: capitalize;
-      @include font-roboto;
-      font-weight: 700;
-      font-size: 16px;
-      line-height: 26px;
+      text-transform: uppercase;
+      @include font-barlow;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 22px;
     }
   }
 
   .key {
     @include font-roboto;
     font-size: 16px;
-    line-height: 26px;
+    line-height: 24px;
+    margin-top: 8px;
 
     .detail {
       padding-left: 20px;

@@ -10,7 +10,7 @@ import "./styles.module.scss";
 /**
  * Review Table Component
  */
-const ReviewTable = ({ formData, enableEdit = true }) => {
+const ReviewTable = ({ formData, enableEdit = true, enableStepsToggle = true }) => {
   const [steps, setSteps] = useState([
     {
       id: 0,
@@ -139,7 +139,7 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
                 styleName="header"
                 role="button"
                 tabIndex={0}
-                onClick={() => setStepToggler(index)}
+                onClick={() => enableStepsToggle && setStepToggler(index)}
               >
                 <p styleName="stepLabel">
                   {step.label}
@@ -149,11 +149,13 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
                     </Link>
                   )}
                 </p>
-                <div
-                  styleName={classNames("icon", step.isOpen ? "open" : null)}
-                >
-                  <ArrowIcon />
-                </div>
+                {enableStepsToggle && (
+                  <div
+                    styleName={classNames("icon", step.isOpen ? "open" : null)}
+                  >
+                    <ArrowIcon />
+                  </div>
+                )}
               </div>
 
               {step.isOpen
@@ -162,7 +164,7 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
                   : renderDetails(step)
                 : null}
 
-              <PageDivider />
+              <PageDivider className="table-bottom-divider" />
             </>
           );
         })}
