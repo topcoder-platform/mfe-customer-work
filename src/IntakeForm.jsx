@@ -38,6 +38,10 @@ import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
 import FindMeData from "./routes/Products/FindMeData";
 import WebsiteDesign from "./routes/Products/WebsiteDesign";
 
+import { webWorkTypes } from "./constants";
+
+import { WorkType } from '../src-ts/lib'
+
 export default function IntakeForm() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -69,7 +73,7 @@ export default function IntakeForm() {
         dispatch(autoSaveInitErrored(e));
       });
 
-      window.addEventListener("beforeunload", onReload);
+    window.addEventListener("beforeunload", onReload);
     return () => {
       window.removeEventListener("beforeunload", onReload);
     };
@@ -182,6 +186,9 @@ export default function IntakeForm() {
     return auth;
   };
 
+  const webDesignBannerData = webWorkTypes
+    .find((type) => type.title === WorkType.design);
+
   return (
     <div>
       <LoadingSpinner show={isLoading} />
@@ -206,6 +213,7 @@ export default function IntakeForm() {
             introText="Your Website Design project includes up to 5 unique Visual Design solutions. Each solution will match your specified scope and device types. You will receive industry-standard source files to take take forward to further design and/or development. Design deliverables will NOT include functional code."
             path="/review"
             banner={<WebsiteDesignBanner />}
+            bannerData={webDesignBannerData}
             showProgress
           />
           <Payment path="/payment" showProgress />
