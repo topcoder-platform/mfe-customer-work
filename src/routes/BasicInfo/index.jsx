@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { navigate, redirectTo } from "@reach/router";
+import { navigate } from "@reach/router";
 import _ from "lodash";
 import Button from "components/Button";
 import LoadingSpinner from "components/LoadingSpinner";
@@ -15,17 +15,12 @@ import { BUTTON_SIZE, BUTTON_TYPE, PageOptions } from "constants/";
 import {
   saveBasicInfo,
   toggleSupportModal,
-  createNewSupportTicket,
   savePageDetails,
   saveWorkType,
 } from "../../actions/form";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import SupportModal from "../../components/Modal/SupportModal";
-import { getProfile } from "../../selectors/profile";
-import { getUserProfile } from "../../thunks/profile";
-
 import BasicInfoForm from "./components/BasicInfoForm";
 import "./styles.module.scss";
 import {
@@ -33,6 +28,8 @@ import {
   getDynamicPriceAndTimelineEstimate,
   currencyFormat,
 } from "utils/";
+
+import { ContactSupportModal } from '../../../src-ts'
 
 /**
  * Basic Info Page
@@ -42,7 +39,6 @@ const BasicInfo = ({
   setProgressItem,
   savePageDetails,
   toggleSupportModal,
-  createNewSupportTicket,
   saveWorkType,
 }) => {
   const [formData, setFormData] = useState({
@@ -62,7 +58,6 @@ const BasicInfo = ({
   const currentStep = useSelector((state) => state.progress.currentStep);
   const pageDetails = useSelector((state) => state.form.pageDetails);
   const showSupportModal = useSelector((state) => state.form.showSupportModal);
-  const profileData = useSelector(getProfile);
   const challenge = useSelector((state) => state.challenge);
   const fullState = useSelector((state) => state);
   const estimate = getDynamicPriceAndTimelineEstimate(fullState);
@@ -146,27 +141,14 @@ const BasicInfo = ({
     toggleSupportModal(false);
   };
 
-  useEffect(() => {
-    dispatch(getUserProfile());
-  }, [dispatch]);
-
-  const onSubmitSupportRequest = (submittedSupportRequest) =>
-    createNewSupportTicket(
-      submittedSupportRequest,
-      challenge?.id,
-      challenge?.legacy?.selfService
-    );
-
   return (
     <>
       <LoadingSpinner show={isLoading} />
-      {showSupportModal && (
-        <SupportModal
-          profileData={profileData}
-          handleClose={onHideSupportModal}
-          onSubmit={onSubmitSupportRequest}
-        ></SupportModal>
-      )}
+      <ContactSupportModal
+        workId={challenge?.id}
+        isOpen={showSupportModal}
+        onClose={onHideSupportModal}
+      />
       <Page>
         <WebsiteDesignBanner />
         <PageContent styleName="container">
@@ -233,7 +215,6 @@ const mapDispatchToProps = {
   setProgressItem,
   savePageDetails,
   toggleSupportModal,
-  createNewSupportTicket,
   saveWorkType,
 };
 

@@ -15,7 +15,6 @@ import { ScrollToTop } from "./ScrollToTop";
 import "react-responsive-modal/styles.css";
 
 import styles from "./styles/main.module.scss";
-import SupportPage from "./routes/SupportPage";
 import UnderMaintenance from "./routes/UnderMaintenance";
 
 import { EnvironmentConfig, logInitialize } from "../src-ts";
@@ -73,7 +72,6 @@ const App = () => {
             </>
           )}
           <Home path="/self-service" />
-          <SupportPage path="/self-service/support" />
         </ScrollToTop>
       </Router>
     </div>
