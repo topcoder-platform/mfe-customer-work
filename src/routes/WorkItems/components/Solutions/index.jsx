@@ -32,9 +32,14 @@ const Solutions = ({
 
   return (
     <div styleName="solutions">
-      <h6 styleName="title">
-        THE FOLLOWING SOLUTIONS HAVE MET YOUR DETAILED CRITERIA
-      </h6>
+      <div styleName="header">
+        <h6 styleName="title">
+          Solutions Available for Download
+        </h6>
+        <p>
+          The solutions listed below have met your detailed criteria. They are ranked based on the best solution as determined by Topcoder expert reviewers.
+        </p>
+      </div>
 
       <SolutionList>
         {solutions.map((solution) => (
