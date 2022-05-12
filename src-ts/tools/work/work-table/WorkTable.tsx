@@ -37,24 +37,28 @@ const WorkTable: FC<{}> = () => {
     // to return non-table results, but just another joy of react
     useEffect(() => {
 
-        // if we have a status filter, remove the status column
-        if (!!workStatusFilter && workStatusFilter !== WorkStatusFilter.all) {
-            const filteredColumns: Array<TableColumn<Work>> = [...columns]
-            filteredColumns.splice(columns.findIndex(c => c.label === WorkListColumnField.status), 1)
-            setColumns(filteredColumns)
-
-        } else {
-            // set the columns to the original
-            setColumns([...workListColumns])
+        // if we don't have a status filter, we have a problem,
+        // so don't do anything
+        if (!workStatusFilter) {
+            return
         }
+
+        // if we have the status filter is all, just set the default columns
+        if (workStatusFilter === WorkStatusFilter.all) {
+            setColumns([...workListColumns])
+            return
+        }
+
+        const filteredColumns: Array<TableColumn<Work>> = [...columns]
+        filteredColumns.splice(columns.findIndex(c => c.label === WorkListColumnField.status), 1)
+        setColumns(filteredColumns)
     }, [
         workStatusFilter,
     ])
 
-    // if there was a statuskey passed
-    // but we couldn't find a corresponding workstatusfilter,
+    // if we couldn't find a workstatusfilter,
     // redirect to the dashboard
-    if (!!statusKey && !workStatusFilter) {
+    if (!workStatusFilter) {
         navigate(routeRoot)
         return <></>
     }
@@ -68,7 +72,7 @@ const WorkTable: FC<{}> = () => {
         )
     }
 
-    // if we don't have any work at all, render the future work UI
+    // if we don't have any work at all, render no results
     if (!hasWork) {
         return <WorkNoResults filtered={false} />
     }
@@ -79,7 +83,7 @@ const WorkTable: FC<{}> = () => {
         // which is descending by created date
         .sort((a: Work, b: Work) => b.created.getTime() - a.created.getTime())
 
-    // if we don't have any work after filtering, render the empty results
+    // if we don't have any work after filtering, render no results
     if (!workList.length) {
         return <WorkNoResults filtered={true} />
     }

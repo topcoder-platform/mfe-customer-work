@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import '../../../../lib/styles/index.scss'
+
 import styles from './WorkNoResults.module.scss'
 
 interface WorkNoResultsProps {
