@@ -137,7 +137,7 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
                     onChange={onChange}
                 />
 
-                <div className={styles['form-footer']}>
+                <div className={classNames(styles['form-footer'], 'form-footer')}>
                     {!!formError && (
                         <div
                             className={styles['form-error']}

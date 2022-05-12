@@ -130,8 +130,8 @@ h4 {
 }
 
 .body-small {
-    font-size: 14px !important;
-    line-height: 22px !important;
+    font-size: 14px;
+    line-height: 22px;
     @include font-weight-less-bold;
 }
 

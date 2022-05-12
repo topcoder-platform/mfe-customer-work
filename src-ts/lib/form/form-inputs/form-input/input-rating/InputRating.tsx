@@ -58,6 +58,7 @@ const InputRating: FC<InputRatingProps> = (props: InputRatingProps) => {
                         onClick={onClick}
                         size='xl'
                         tabIndex={-1}
+                        elementType='div'
                     />
                 )}
             />
@@ -82,6 +83,7 @@ const InputRating: FC<InputRatingProps> = (props: InputRatingProps) => {
             hint={''}
             label={''}
             type='rating'
+            className={styles['rating-input-wrapper']}
         >
             <div className={styles['ratings-container']}>
                 {stars}
