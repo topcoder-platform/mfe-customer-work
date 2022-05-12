@@ -165,7 +165,7 @@ function initializeStatusGroups(
     setTabs: Dispatch<SetStateAction<ReadonlyArray<TabsNavItem>>>
 ): void {
 
-    // if we're not initialized or we have a status groups,
+    // if we're not initialized or we already have status groups,
     // nothing else to do
     if (!initialized || !!statusGroups) {
         return
