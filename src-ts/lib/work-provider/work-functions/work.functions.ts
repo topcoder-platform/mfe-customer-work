@@ -1,6 +1,7 @@
 // import { messageGetAndSetForWorkItemsAsync } from '../../functions'
 import { Page } from '../../pagination'
 
+import { WorkByStatus } from './work-by-status.model'
 import { Work, workFactoryCreate, WorkStatus, WorkType } from './work-factory'
 import { Challenge, WorkStatusFilter, workStoreDeleteAsync, workStoreGetAsync, workStoreGetFilteredByStatus } from './work-store'
 
@@ -29,8 +30,19 @@ export async function getAsync(handle: string, page: Page): Promise<Array<Work>>
     */
 }
 
-export function getFilteredByStatus(work: ReadonlyArray<Work>, workStatusFilter?: WorkStatusFilter): Array<Work> {
-    return workStoreGetFilteredByStatus(work, workStatusFilter)
+export function getGroupedByStatus(work: ReadonlyArray<Work>): { [status: string]: WorkByStatus } {
+
+    const output: { [status: string]: WorkByStatus } = {}
+    Object.entries(WorkStatusFilter)
+        .forEach(([key, value]) => {
+            const results: ReadonlyArray<Work> = workStoreGetFilteredByStatus(work, WorkStatusFilter[key as keyof typeof WorkStatusFilter])
+            output[key] = {
+                count: results.length,
+                results,
+            }
+        })
+
+    return output
 }
 
 export function getStatusFilter(filterKey?: string): WorkStatusFilter | undefined {
