@@ -20,7 +20,7 @@ const TableSort: FC<TableSortProps> = (props: TableSortProps) => {
 
     // if this isn't the currently sorted field,
     // use the disambiguated icon
-    const icon: FC<SVGProps<SVGSVGElement>> = props.isCurrentlySorted
+    const icon: FC<SVGProps<SVGSVGElement>> = !props.isCurrentlySorted
         ? IconOutline.SwitchVerticalIcon
         : props.sort.direction === 'asc' ? IconOutline.SortAscendingIcon : IconOutline.SortDescendingIcon
 
