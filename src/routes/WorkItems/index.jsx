@@ -66,7 +66,6 @@ const WorkItem = ({
   const dispatch = useDispatch();
   const [selectedTab, setSelectedTab] = useState("summary");
   const [showSurvey, setShowSurvey] = useState(false);
-  const [showSupportModal, setShowSupportModal] = useState(false);
   const profileData = useSelector(getProfile);
 
   const workContextData = useContext(workContext)
@@ -144,13 +143,6 @@ const WorkItem = ({
     }
   }, [work]);
 
-  const onShowSupportModal = () => {
-    setShowSupportModal(true);
-  };
-  const onHideSupportModal = () => {
-    setShowSupportModal(false);
-  };
-
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
@@ -200,11 +192,6 @@ const WorkItem = ({
   return (
     <>
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
-      <ContactSupportModal
-        workId={work?.id}
-        isOpen={showSupportModal}
-        onClose={onHideSupportModal}
-      />
       <Page styleName="page">
         <PageContent styleName="pageContent">
 
@@ -246,11 +233,6 @@ const WorkItem = ({
                 reviewPhaseEndedDate={reviewPhaseEndedDate}
                 work={work}
               />
-              <div styleName="solution-tab-footer">
-                <a onClick={onShowSupportModal} styleName="need-help-link">
-                  Need Help?
-                </a>
-              </div>
             </TabPane>
 
             <TabPane value={selectedTab} tab="messaging">
