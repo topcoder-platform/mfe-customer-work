@@ -195,10 +195,9 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                         <br />
                                     </ul>
                                 </li>
-                                <li>
-                                    <strong>3. WHAT DEVICE AND USAGE DATA DO WE PROCESS?</strong>
-                                </li>
-                                <br />
+                            </ol>
+                            <h4>3. WHAT DEVICE AND USAGE DATA DO WE PROCESS?</h4>
+                            <ol>
                                 <li>
                                     We use common information-gathering tools, such as tools for
                                     collecting usage data, cookies, web beacons, pixels, and similar
@@ -314,14 +313,11 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                     sign-up form. Your interactions with Social Media Features are
                                     governed by the privacy policies of the companies providing them.
                                 </li>
-                                <br />
-                                <li>
-                                    <strong>
-                                        4. PURPOSES FOR WHICH WE PROCESS PERSONAL DATA AND THE LEGAL BASES
-                                        ON WHICH WE RELY
-                                    </strong>
-                                </li>
-                                <br />
+                            </ol>
+                            <h4> 4. PURPOSES FOR WHICH WE PROCESS PERSONAL DATA AND THE LEGAL BASES
+                                ON WHICH WE RELY
+                            </h4>
+                            <ol>
                                 <li>
                                     We collect and process your Personal Data for the following
                                     purposes. Where required by law, we obtain your consent to use and
@@ -488,14 +484,11 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                             provide the required Personal Data when requested, we may not be
                                             able to perform our contract with you.
                                         </li>
-                                        <br />
                                     </ul>
                                 </li>
-                                <li>
-                                    <strong>5. WHO DO WE SHARE PERSONAL DATA WITH?</strong>
-                                    <br />
-                                    <br />
-                                </li>
+                            </ol>
+                            <h4>5. WHO DO WE SHARE PERSONAL DATA WITH?</h4>
+                            <ol>
                                 <li>
                                     Topcoder does not sell Personal Data to marketers or unaffiliated
                                     third parties. We may share your Personal Data as follows:
@@ -586,12 +579,9 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                     rooms on our websites may read any Personal Data or other
                                     information you choose to submit and post.
                                 </li>
-                                <br />
-                                <li>
-                                    <strong>6. INTERNATIONAL TRANSFER OF PERSONAL DATA</strong>
-                                    <br />
-                                    <br />
-                                </li>
+                            </ol>
+                            <h4>6. INTERNATIONAL TRANSFER OF PERSONAL DATA</h4>
+                            <ol>
                                 <li>
                                     We are a global business. Personal Data may be stored and processed
                                     in any country where we have operations or where we engage service
@@ -611,11 +601,9 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                     regulatory agencies or security authorities in those other countries
                                     may be entitled to access your Personal Data.
                                 </li>
-                                <br />
-                                <li>
-                                    <strong>7. CHILDREN</strong>
-                                </li>
-                                <br />
+                            </ol>
+                            <h4>7. CHILDREN</h4>
+                            <ol>
                                 <li>
                                     Topcoder recognizes the privacy interests of children and we
                                     encourage parents and guardians to take an active role in their
@@ -625,22 +613,18 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                     does not knowingly collect personal information from children under
                                     the age of 13.
                                 </li>
-                                <br />
-                                <li>
-                                    <strong>8. HOW LONG DO WE KEEP YOUR PERSONAL DATA?</strong>
-                                </li>
-                                <br />
+                            </ol>
+                            <h4>8. HOW LONG DO WE KEEP YOUR PERSONAL DATA?</h4>
+                            <ol>
                                 <li>
                                     We store the information we collect for as long as it is necessary
                                     for the purpose(s) for which we originally collected it. We may
                                     retain certain information for legitimate business purposes or as
                                     required by law.
                                 </li>
-                                <br />
-                                <li>
-                                    <strong>9. YOUR CHOICES</strong>
-                                </li>
-                                <br />
+                            </ol>
+                            <h4>9. YOUR CHOICES</h4>
+                            <ol>
                                 <li>
                                     As a Topcoder user you have choices about how to protect and limit
                                     the collection, use, and disclosure of information about you.
@@ -740,9 +724,9 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                     certain information about you as required by law or for legitimate
                                     business purposes after you delete your account.
                                 </li>
+                                <br />
                                 <li>
                                     <strong>9.3 CONTROLLING THE USE OF COOKIES</strong>
-                                    <br />
                                 </li>
                                 <br />
                                 <li>
@@ -812,12 +796,9 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                     may still send you non-promotional communications, such as
                                     information about your account or your use of the Services.
                                 </li>
-                                <br />
-                                <li>
-                                    <strong>10. HOW WE SECURE YOUR PERSONAL DATA</strong>
-                                    <br />
-                                    <br />
-                                </li>
+                            </ol>
+                            <h4>10. HOW WE SECURE YOUR PERSONAL DATA</h4>
+                            <ol>
                                 <li>
                                     We take appropriate precautions including organizational, technical,
                                     and physical measures to help safeguard against accidental or
@@ -832,11 +813,9 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                     security of our websites, please contact us by using the information
                                     in the “Contact us” section, below.
                                 </li>
-                                <br />
-                                <li>
-                                    <strong>11. CHANGES TO THIS POLICY</strong>
-                                </li>
-                                <br />
+                            </ol>
+                            <h4>11. CHANGES TO THIS POLICY</h4>
+                            <ol>
                                 <li>
                                     We may change this Privacy Policy from time to time to reflect new
                                     services, changes in our Personal Data practices or relevant laws.
@@ -847,11 +826,9 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                     Policy or Personal Data collected by posting them on our website
                                     and, if you are a User, by contacting you through our services.
                                 </li>
-                                <br />
-                                <li>
-                                    <strong>12. HOW TO CONTACT US</strong>
-                                </li>
-                                <br />
+                            </ol>
+                            <h4>12. HOW TO CONTACT US</h4>
+                            <ol>
                                 <li>
                                     To exercise your rights regarding your Personal Data, or if you have
                                     questions regarding this Privacy Statement or our privacy practices
@@ -870,11 +847,9 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                     Attention: Topcoder Legal 201 South Capitol Avenue, Ste. 1100
                                     Indianapolis, IN 46225
                                 </li>
-                                <br />
-                                <li>
-                                    <strong>13. CCPA RIGHTS AND CHOICES</strong>
-                                </li>
-                                <br />
+                            </ol>
+                            <h4>13. CCPA RIGHTS AND CHOICES</h4>
+                            <ol>
                                 <li>
                                     Section 13 of this Privacy Policy applies solely to visitors, users,
                                     and others who reside in the State of California (“consumers” or
@@ -890,9 +865,8 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                     our contractual limitations as to their retention, use, and
                                     disclosure of such Personal Data, or if you use Topcoder sites or
                                     Services to interact with third parties or direct us to disclose
-                                    your Personal Data to third parties
+                                    your Personal Data to third parties.
                                 </li>
-                                \
                                 <br />
                                 <li>
                                     We collect information that identifies, relates to, describes,
@@ -1001,14 +975,11 @@ const PrivacyPolicyModal: FC<PrivacyPolicyModal> = ({ isOpen, onClose }: Privacy
                                             <br />
                                             <li>
                                                 We may need to verify your identity and place of residence
-                                                before completing your
+                                                before completing your rights request.
                                             </li>
                                             <br />
-                                            <br />
-                                            <br />
                                             <li>
-                                                rights request. Effective Date May 31, 2017 – Updated Jan 27,
-                                                2022
+                                                Effective Date May 31, 2017 – Updated Jan 27, 2022
                                             </li>
                                         </ol>
                                     </li>
