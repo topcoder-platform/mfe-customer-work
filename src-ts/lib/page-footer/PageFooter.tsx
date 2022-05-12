@@ -53,7 +53,9 @@ const PageFooter: FC<{}> = () => {
                             onClick={(e) => handleClick(e, setIsContactSupportModalOpen)}>
                             Support
                         </a>
-                        <a href='#'>See a Bug?</a>
+                        {/* TODO: add Report a bug functionality to send to zendesk
+                        https://topcoder.atlassian.net/browse/PROD-1864
+                        <a href='#'>See a Bug?</a> */}
                     </div>
                     <div>
                         <a
