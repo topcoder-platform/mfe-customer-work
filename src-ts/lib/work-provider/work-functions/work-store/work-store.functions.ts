@@ -1,7 +1,9 @@
 import { xhrDeleteAsync, xhrGetAsync } from '../../../functions'
 import { Page } from '../../../pagination'
+import { Work, WorkStatus } from '../work-factory'
 
 import { Challenge } from './challenge.model'
+import { WorkStatusFilter } from './work-status-filter.enum'
 import { deleteUrl, getUrl } from './work-url.config'
 
 export async function deleteAsync(workId: string): Promise<void> {
@@ -10,4 +12,12 @@ export async function deleteAsync(workId: string): Promise<void> {
 
 export async function getAsync(handle: string, page: Page): Promise<Array<Challenge>> {
     return xhrGetAsync<Array<Challenge>>(getUrl(handle, page))
+}
+
+export function getFilteredByStatus(work: ReadonlyArray<Work>, workStatusFilter?: WorkStatusFilter): Array<Work> {
+    return work
+        // if there is a workstatusfilter, filter the results;
+        .filter(w => !!workStatusFilter
+            && (workStatusFilter === WorkStatusFilter.all
+                || w.status === WorkStatus[workStatusFilter as keyof typeof WorkStatus]))
 }

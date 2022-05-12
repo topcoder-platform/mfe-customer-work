@@ -2,7 +2,7 @@
 import { Page } from '../../pagination'
 
 import { Work, workFactoryCreate, WorkStatus, WorkType } from './work-factory'
-import { Challenge, workStoreDeleteAsync, workStoreGetAsync } from './work-store'
+import { Challenge, WorkStatusFilter, workStoreDeleteAsync, workStoreGetAsync, workStoreGetFilteredByStatus } from './work-store'
 
 export async function deleteAsync(workId: string): Promise<void> {
     return workStoreDeleteAsync(workId)
@@ -27,4 +27,25 @@ export async function getAsync(handle: string, page: Page): Promise<Array<Work>>
     // get and set the messages counts and return
     return messageGetAndSetForWorkItemsAsync(workItems, handle)
     */
+}
+
+export function getFilteredByStatus(work: ReadonlyArray<Work>, workStatusFilter?: WorkStatusFilter): Array<Work> {
+    return workStoreGetFilteredByStatus(work, workStatusFilter)
+}
+
+export function getStatusFilter(filterKey?: string): WorkStatusFilter | undefined {
+
+    // if there is no filter, default to active status
+    if (!filterKey) {
+        return WorkStatusFilter.active
+    }
+
+    // get the filter key from the passed in key
+    const workStatusFilter: keyof typeof WorkStatusFilter | undefined = Object.entries(WorkStatusFilter)
+        .find(([key, value]) => key === filterKey)
+        ?.[0] as keyof typeof WorkStatusFilter
+
+    // if the passed in key doesn't match any filter, return undefined;
+    // otherwise, return the filter defined by the key
+    return !workStatusFilter ? undefined : WorkStatusFilter[workStatusFilter]
 }
