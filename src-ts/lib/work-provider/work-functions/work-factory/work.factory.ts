@@ -66,6 +66,29 @@ export function getStatus(challenge: Challenge): WorkStatus {
     }
 }
 
+export function getStatusFilter(statusKey?: string): WorkStatus | undefined {
+
+    // if there is no filter, default to active status
+    if (!statusKey) {
+        return WorkStatus.active
+    }
+
+    // if the status is 'all', there is no filter
+    // so don't return any status
+    if (statusKey === 'all') {
+        return undefined
+    }
+
+    // get the WorkStatus item from the passed in key
+    const workStatusKey: keyof typeof WorkStatus | undefined = Object.entries(WorkStatus)
+        .find(([key, value]) => key === statusKey)
+        ?.[0] as keyof typeof WorkStatus
+
+    // if the passed in key doesn't match any status, return undefined;
+    // otherwise, return the status defined by the key
+    return !workStatusKey ? undefined : WorkStatus[workStatusKey]
+}
+
 function findMetadata(challenge: Challenge, metadataName: ChallengeMetadataName): ChallengeMetadata | undefined {
     return challenge.metadata?.find((item: ChallengeMetadata) => item.name === metadataName)
 }

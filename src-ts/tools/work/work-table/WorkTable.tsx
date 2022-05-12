@@ -1,8 +1,16 @@
 import { FC, useContext } from 'react'
-import { NavigateFunction, useNavigate } from 'react-router-dom'
+import { NavigateFunction, Params, useNavigate, useParams } from 'react-router-dom'
 
 import { cacheChallengeId } from '../../../../src/autoSaveBeforeLogin' // TODO: move to src-ts
-import { LoadingSpinner, Table, Work, workContext, WorkContextData, WorkStatus } from '../../../lib'
+import {
+    LoadingSpinner,
+    routeRoot,
+    Table, Work,
+    workContext,
+    WorkContextData,
+    workFactoryGetStatusFilter,
+    WorkStatus,
+} from '../../../lib'
 
 import { workListColumns } from './work-table.config'
 import styles from './WorkTable.module.scss'
@@ -11,6 +19,19 @@ const WorkTable: FC<{}> = () => {
 
     const workContextData: WorkContextData = useContext(workContext)
     const { hasWork, work, initialized }: WorkContextData = workContextData
+    const { statusKey }: Readonly<Params<string>> = useParams()
+    const navigate: NavigateFunction = useNavigate()
+
+    // get the selected status filter
+    const workStatusFilter: WorkStatus | undefined = workFactoryGetStatusFilter(statusKey)
+
+    // if there was a statuskey passed
+    // but we couldn't find a corresponding workstatus,
+    // redirect to the dashboard
+    if (!!statusKey && !workStatusFilter) {
+        navigate(routeRoot)
+        return <></>
+    }
 
     if (!initialized) {
         return (
@@ -19,8 +40,6 @@ const WorkTable: FC<{}> = () => {
             </div>
         )
     }
-
-    const navigate: NavigateFunction = useNavigate()
 
     function viewWorkDetails(selectedWork: Work): void {
 
@@ -38,9 +57,11 @@ const WorkTable: FC<{}> = () => {
         navigate(url)
     }
 
+    // if there is a workstatusfilter, filter the results;
     // sort by the default sort,
     // which is descending by created date
     const workList: Array<Work> = work
+        .filter(w => !!workStatusFilter && w.status === workStatusFilter)
         .sort((a: Work, b: Work) => b.created.getTime() - a.created.getTime())
 
     return hasWork ? (

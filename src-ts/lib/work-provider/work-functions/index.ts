@@ -10,6 +10,7 @@ export {
     WorkType,
     workFactoryCreate,
     workFactoryGetStatus,
+    workFactoryGetStatusFilter,
 } from './work-factory'
 export {
     type Challenge,
