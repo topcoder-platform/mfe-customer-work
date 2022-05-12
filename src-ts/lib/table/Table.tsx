@@ -90,6 +90,7 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
                             <TableSort
                                 iconClass={colorClass}
                                 isCurrentlySorted={isCurrentlySorted}
+                                propertyName={col.propertyName}
                                 sort={sort}
                                 toggleSort={toggleSort} />
                         </div>
