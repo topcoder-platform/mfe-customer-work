@@ -43,12 +43,17 @@ export const workListColumns: Array<TableColumn<Work>> = [
         propertyName: 'cost',
         type: 'money',
     },
+    /*
+        TODO: add this column back when the bug is fixed:
+        https://topcoder.atlassian.net/browse/PROD-1860
+        Unread Messages count from API don't match embedded forum widget
     {
         label: 'Messages',
         renderer: messageBadgeRenderer,
         tooltip: 'Messages pending response',
         type: 'element',
     },
+    */
     {
         renderer: WorkDeleteButtonRenderer,
         type: 'action',
