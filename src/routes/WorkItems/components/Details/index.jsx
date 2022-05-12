@@ -1,15 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
-import PageDivider from "components/PageDivider";
 import ReviewTable from "../../../Review/components/ReviewTable";
-import config from "../../../../../config";
-import ArrowRightIcon from "../../../../assets/images/arrow-right.svg";
 
 import "./styles.module.scss";
 import _ from "lodash";
-import { OrderContractModal, PrivacyPolicyModal, TermsModal } from "../../../../../src-ts/lib";
+import { OrderContractModal, PrivacyPolicyModal, TermsModal } from "../../../../../src-ts";
 
-const Details = ({ challenge, formData }) => {
+const Details = ({ formData }) => {
+
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
   const [isPrivacyPolicyModalOpen, setIsPrivacyPolicyModalOpen] =

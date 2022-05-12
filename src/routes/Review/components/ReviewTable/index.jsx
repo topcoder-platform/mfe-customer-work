@@ -141,14 +141,13 @@ const ReviewTable = ({ formData, enableEdit = true, enableStepsToggle = true }) 
                 tabIndex={0}
                 onClick={() => enableStepsToggle && setStepToggler(index)}
               >
-                <p styleName="stepLabel">
-                  {step.label}
-                  {enableEdit && (
+                {enableEdit && (
+                  <p styleName="stepLabel">
                     <Link styleName="link" to={redirectPage?.url}>
                       edit
                     </Link>
-                  )}
-                </p>
+                  </p>
+                )}
                 {enableStepsToggle && (
                   <div
                     styleName={classNames("icon", step.isOpen ? "open" : null)}
