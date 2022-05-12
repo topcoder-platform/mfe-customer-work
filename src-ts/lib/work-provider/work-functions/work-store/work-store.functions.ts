@@ -15,6 +15,9 @@ export async function getAsync(handle: string, page: Page): Promise<Array<Challe
 }
 
 export function getFilteredByStatus(work: ReadonlyArray<Work>, workStatusFilter?: WorkStatusFilter): Array<Work> {
+    // this is implemented in the work store
+    // bc in the future we might actually want
+    // to make an api call to filter
     return work
         // if there is a workstatusfilter, filter the results;
         .filter(w => !!workStatusFilter
