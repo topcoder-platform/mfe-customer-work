@@ -73,9 +73,10 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
             .map(col => {
                 const isCurrentlySorted: boolean = col.propertyName === sort.fieldName
                 const colorClass: string = isCurrentlySorted ? 'black-100' : 'black-60'
+                const sortableClass: string | undefined = !!col.propertyName ? styles.sortable : undefined
                 return (
                     <th className={styles.th}>
-                        <div className={classNames(styles['header-container'], styles[col.type], colorClass)}>
+                        <div className={classNames(styles['header-container'], styles[col.type], colorClass, sortableClass)}>
                             {col.label}
                             {!!col.tooltip && (
                                 <div className={styles.tooltip}>

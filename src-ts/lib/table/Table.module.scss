@@ -55,7 +55,10 @@
                 &.money {
                     text-align: right;
                     justify-content: flex-end;
-                    margin-right: -29px;
+
+                    &.sortable {
+                        margin-right: -29px;
+                    }
                 }
             }
 
