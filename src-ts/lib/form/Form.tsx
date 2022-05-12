@@ -1,4 +1,6 @@
+import classNames from 'classnames'
 import {
+    ChangeEvent,
     createRef,
     Dispatch,
     FocusEvent,
@@ -53,13 +55,13 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
             setFormDef({ ...formDef })
         }
 
-        function onChange(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>): void {
+        function onChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
             formOnChange(event, formDef.inputs, props.formValues)
             setFormDef({ ...formDef })
         }
 
         function onReset(): void {
-            formOnReset(props.formDef.inputs, props.formValues)
+            formOnReset(formDef.inputs, props.formValues)
             setFormDef({ ...formDef })
             setFormKey(Date.now())
         }
@@ -120,9 +122,13 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
             >
 
                 {!!props.formDef.title && (
-                    <>
-                        <h2>{props.formDef.title}</h2>
-                    </>
+                    <h2>{props.formDef.title}</h2>
+                )}
+
+                {!!props.formDef.subtitle && (
+                    <div className={classNames('large-subtitle', styles.subtitle)}>
+                        {props.formDef.subtitle}
+                    </div>
                 )}
 
                 <FormInputs

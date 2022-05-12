@@ -9,9 +9,25 @@ $black-10: #E9E9E9;
 $black-5: #F4F4F4;
 $black-2: #FBFBFB;
 
+.bg-black-5 {
+    background-color: $black-5;
+}
+.bg-black-10 {
+    background-color: $black-10;
+}
+.bg-black-20 {
+    background-color: $black-20;
+}
+.bg-black-100 {
+    background-color: $black-100;
+}
+
+
 /* WHITE */
 $tc-white: #FFFFFF;
-
+.bg-tc-white {
+    background-color: $tc-white;
+}
 
 /* RED */
 $red-100: #EF3A3A;
@@ -100,6 +116,10 @@ $purple-25: #E6CFF1;
 $purple-120: #8231A9;
 $purple-140: #652385;
 
+.bg-purple-100 {
+    background-color: $purple-100;
+}
+
 
 /* ORANGE LEGACY */
 $legacy-100: #FD7D01;
@@ -115,7 +135,7 @@ $handle-grey: $black-100;
 $handle-green: #2D7E2D;
 $handle-blue: #616BD5;
 $handle-yellow: #F2C900;
-$handle-red: #EF3A3A;      
+$handle-red: #EF3A3A;
 
 
 /* GOLD  */
@@ -132,7 +152,7 @@ $silver-3: #554E48;
 
 /* BRONZE */
 $bronze-1: #D98F64;
-$bronze-2: #854E29; 
+$bronze-2: #854E29;
 $bronze-3: #733D17;
 
 

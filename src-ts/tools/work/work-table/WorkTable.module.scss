@@ -1,15 +1,3 @@
-@import '../../../lib/styles/fonts';
-@import '../../../lib/styles/palette';
-
-.start-message {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: $black-100;
-}
-
 .loader {
     position: relative;
     flex: 1 1 auto;

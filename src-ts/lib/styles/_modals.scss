@@ -7,7 +7,6 @@
     height: auto !important;
     
     @include gtemd {
-        max-width: 450px;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -20,9 +19,20 @@
         height: 100vh;
         margin: 0;
         border-radius: 0;
+        padding: $pad-xxl $pad-xxxxl $pad-xxxxl;
 
+        &.modal-lg {
+            width: 700px;
+
+            @include ltemd {
+                max-width: 450px;
+            }
+        }
+        
         @include gtemd {
-            max-width: 450px;
+            width: auto;
+            min-width: 450px;
+            margin: 0 auto;
             height: auto;
             border-radius: $pad-sm;
         }

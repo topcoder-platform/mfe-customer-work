@@ -15,6 +15,7 @@ export interface ButtonProps {
     readonly disable?: boolean
     readonly icon?: FC<SVGProps<SVGSVGElement>>
     readonly label?: string
+    readonly name?: string
     readonly onClick?: (event?: any) => void
     readonly route?: string
     readonly size?: ButtonSize
@@ -62,6 +63,7 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
     return (
         <button
             className={classes}
+            name={props.name}
             onClick={clickHandler}
             tabIndex={props.tabIndex}
             title={props.title}

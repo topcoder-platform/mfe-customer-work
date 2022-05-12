@@ -9,7 +9,7 @@ import { TableColumn } from './table-column.model'
 import styles from './Table.module.scss'
 
 interface TableProps<T> {
-    readonly columns: Array<TableColumn<T>>
+    readonly columns: ReadonlyArray<TableColumn<T>>
     readonly data: Array<T>
     readonly onRowClick?: (data: T) => void
 }

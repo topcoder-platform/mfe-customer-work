@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { Dispatch, FC, MutableRefObject, ReactNode, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Dispatch, FC, MutableRefObject, ReactNode, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 
 import { useClickOutside, UseHoverElementValue, useOnHoverElement } from '../functions'
 import { useWindowSize, WindowSize } from '../hooks/use-window-size.hook'
@@ -57,6 +57,7 @@ const Tooltip: FC<TooltipProps> = ({
         : useOnHoverElement(triggerRef.current, toggleOpen)
 
     useEffect(() => {
+
         if (!tooltipOpen || !portalRef?.current) {
             return
         }
@@ -71,7 +72,11 @@ const Tooltip: FC<TooltipProps> = ({
             top: `${box.top + window.scrollY}px`,
             width: `${box.width + window.scrollX}px`,
         })
-    }, [tooltipOpen, windowWidth, windowHeight])
+    }, [
+        tooltipOpen,
+        windowWidth,
+        windowHeight,
+    ])
 
     return (
         <div className={styles.tooltip}>
