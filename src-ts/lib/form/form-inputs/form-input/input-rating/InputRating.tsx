@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import {
     ChangeEvent,
     createRef,
@@ -52,7 +53,7 @@ const InputRating: FC<InputRatingProps> = (props: InputRatingProps) => {
                 trigger={(
                     <Button
                         buttonStyle='icon'
-                        className={className}
+                        className={classNames(className, 'hover-orange-100')}
                         icon={IconSolid.StarIcon}
                         name={`${index}`}
                         onClick={onClick}

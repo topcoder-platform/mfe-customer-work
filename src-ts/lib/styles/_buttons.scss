@@ -179,17 +179,9 @@ a {
             background-color: $black-10;
             color: $turq-100;
 
-            &.black-20 {
-                color: $orange-100;
+            &.hover-orange-100 {
+                @extend .orange-100;
             }
-        }
-
-        &.black-20 {
-            color: $black-20;
-        }
-
-        &.orange-100 {
-            color: $orange-100;
         }
 
         &:focus {
