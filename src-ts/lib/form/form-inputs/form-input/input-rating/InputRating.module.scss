@@ -1,7 +1,10 @@
 @import '../../../../styles';
 
 .rating-input-wrapper {
-    padding: 0;
+    &.rating-input-wrapper {
+        padding: 0;
+        border: 0 none;
+    }
     > label {
         margin-bottom: 0;
     }
