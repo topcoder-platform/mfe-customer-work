@@ -9,6 +9,7 @@ export const optional: string = '(optional)'
 
 interface InputWrapperProps {
     readonly children: ReactNode
+    readonly className?: string
     readonly dirty?: boolean
     readonly disabled: boolean
     readonly error?: string
@@ -28,7 +29,8 @@ const InputWrapper: FC<InputWrapperProps> = (props: InputWrapperProps) => {
         styles[props.type],
         props.disabled ? styles.disabled : undefined,
         focusStyle,
-        showError ? styles['input-error'] : undefined
+        showError ? styles['input-error'] : undefined,
+        props.className
     )
 
     return (

@@ -3,6 +3,7 @@ import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { BaseModal, Challenge, Form, FormDefinition, FormInputModel, formOnReset } from '../../../../lib'
 
 import { workFeedbackFormDef } from './work-feedback-form.config'
+import styles from './WorkFeedback.module.scss'
 
 interface WorkFeedbackProps {
     challenge: Challenge
@@ -47,11 +48,13 @@ const WorkFeedback: FC<WorkFeedbackProps> = (props: WorkFeedbackProps) => {
             size='lg'
             title='How did we do?'
         >
-            <Form
-                formDef={formDef}
-                requestGenerator={requestGenerator}
-                save={saveAsync}
-            />
+            <div className={styles['form-wrapper']}>
+                <Form
+                    formDef={formDef}
+                    requestGenerator={requestGenerator}
+                    save={saveAsync}
+                />
+            </div>
         </BaseModal>
     )
 }
