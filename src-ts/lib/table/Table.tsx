@@ -10,6 +10,7 @@ import { Tooltip } from '../tooltip'
 import { TableCell } from './table-cell'
 import { TableColumn } from './table-column.model'
 import { tableGetSorted } from './table-functions'
+import { TableSort } from './table-sort'
 import styles from './Table.module.scss'
 
 interface TableProps<T> {
@@ -68,29 +69,6 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
             setSort(newSort)
         }
 
-        function getSortButton(iconClass: string, isCurrentlySorted: boolean, propertyName?: string): JSX.Element {
-
-            if (!propertyName) {
-                return <></>
-            }
-
-            // if this isn't the currently sorted field,
-            // use the disambiguated icon
-            const icon: FC<SVGProps<SVGSVGElement>> = isCurrentlySorted
-                ? sort.direction === 'asc' ? IconOutline.SortAscendingIcon : IconOutline.SortDescendingIcon
-                : IconOutline.SwitchVerticalIcon
-
-            return (
-                <Button
-                    buttonStyle='icon'
-                    className={iconClass}
-                    icon={icon}
-                    onClick={() => toggleSort(propertyName as string)}
-                    size='sm'
-                />
-            )
-        }
-
         const headerRow: Array<JSX.Element> = props.columns
             .map(col => {
                 const isCurrentlySorted: boolean = col.propertyName === sort.fieldName
@@ -109,7 +87,11 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
                                     />
                                 </div>
                             )}
-                            {getSortButton(colorClass, isCurrentlySorted, col.propertyName)}
+                            <TableSort
+                                iconClass={colorClass}
+                                isCurrentlySorted={isCurrentlySorted}
+                                sort={sort}
+                                toggleSort={toggleSort} />
                         </div>
                     </th>
                 )
