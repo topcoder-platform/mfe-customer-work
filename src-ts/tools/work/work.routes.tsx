@@ -14,6 +14,16 @@ export const workRoutes: Array<PlatformRoute> = [
                 route: '',
                 title: toolTitle,
             },
+            // there doesn't seem to be support for optional path params
+            // in react-router-dom v6, so duplicating route
+            // https://reactrouter.com/docs/en/v6/getting-started/overview
+            {
+                children: [ ],
+                element: <WorkTable />,
+                enabled: true,
+                route: ':statusKey',
+                title: toolTitle,
+            },
         ],
         element: <Work />,
         enabled: true,
