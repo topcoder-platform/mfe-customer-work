@@ -124,7 +124,7 @@ const WorkTable: FC<{}> = () => {
         return <WorkNoResults filtered={false} />
     }
 
-    // get the filtered/sorted list
+    // get the filtered list
     const filteredResults: ReadonlyArray<Work> | undefined = statusGroups?.[workStatusFilter].results
 
     // if we don't have any work after filtering, render no results
@@ -177,6 +177,7 @@ function initializeStatusGroups(
     // set the count tab badges
     const badgedTabs: ReadonlyArray<TabsNavItem> = [...tabs]
     badgedTabs
+        // don't add badges for done or all
         .filter(tab => ![WorkStatusFilter.all, WorkStatusFilter.done]
             .includes(WorkStatusFilter[tab.id as keyof typeof WorkStatusFilter]))
         .forEach(tab => {
