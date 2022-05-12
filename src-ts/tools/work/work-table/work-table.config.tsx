@@ -35,7 +35,7 @@ export const workListColumns: Array<TableColumn<Work>> = [
     },
     {
         label: 'Solutions Ready',
-        propertyName: 'solutionsReady',
+        propertyName: 'solutionsReadyDate',
         type: 'date',
     },
     {

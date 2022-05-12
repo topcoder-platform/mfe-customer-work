@@ -14,6 +14,7 @@ const Header: FC<{}> = () => {
                 <ToolSelectors isWide={true} />
                 <UtilitySelectors />
             </header>
+            <div id='page-subheader-portal-el' className={styles.subheader}></div>
         </div>
     )
 }

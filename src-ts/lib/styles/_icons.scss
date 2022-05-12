@@ -15,6 +15,11 @@
     width: $pad-lg;
 }
 
+@mixin icon-xl {
+    height: $pad-xl;
+    width: $pad-xl;
+}
+
 @mixin icon-xxl {
     height: $pad-xxl;
     width: $pad-xxl;

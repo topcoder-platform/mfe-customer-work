@@ -8,5 +8,7 @@
     border: none;
     outline: none;
     resize: vertical;
-    margin-left: calc(-1 * $border)
+    margin-left: calc(-1 * $border);
+    overflow: hidden;
+    padding: $border;
 }
