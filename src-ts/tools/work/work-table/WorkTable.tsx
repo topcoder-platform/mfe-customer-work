@@ -43,7 +43,7 @@ const WorkTable: FC<{}> = () => {
             return
         }
 
-        // if we have the status filter is all, just set the default columns
+        // if the status filter is all, just set the default columns
         if (workStatusFilter === WorkStatusFilter.all) {
             setColumns([...workListColumns])
             return
