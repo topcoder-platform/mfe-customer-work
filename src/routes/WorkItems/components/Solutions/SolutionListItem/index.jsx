@@ -7,13 +7,13 @@ import "./styles.module.scss";
 const SolutionListItem = ({ solution, onDownload }) => {
   return (
     <li styleName="solution-list-item">
-      <div styleName="name">Solution {solution.id}</div>
+      <div styleName="name">Submitted by: {solution.createdBy}</div>
       <Button
         onClick={onDownload}
         type={BUTTON_TYPE.SECONDARY}
-        size={BUTTON_SIZE.TINY}
+        size={BUTTON_SIZE.SMALL}
       >
-        DOWNLOAD SOLUTION
+        DOWNLOAD
       </Button>
     </li>
   );

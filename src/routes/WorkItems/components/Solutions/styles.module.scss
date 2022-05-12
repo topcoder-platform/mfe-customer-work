@@ -4,16 +4,26 @@
   min-height: 415px;
 }
 
+.header {
+  color: $black-100;
+  margin-bottom: 16px;
+  p {
+    @include font-roboto;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 8px 0 0;
+  }
+}
+
 .title {
   @include font-barlow;
   font-weight: 600;
-  font-size: 16px;
-  line-height: 20px;
-  color: $black;
+  font-size: 22px;
+  line-height: 26px;
 
   display: flex;
   align-items: center;
-  margin-bottom: 14px;
+  text-transform: uppercase;
 
   .help-icon {
     display: inline-block;
