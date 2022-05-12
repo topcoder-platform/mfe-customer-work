@@ -7,10 +7,7 @@ import ArrowRightIcon from "../../../../assets/images/arrow-right.svg";
 
 import "./styles.module.scss";
 import _ from "lodash";
-import Modal from "components/Modal";
-import OrderContract from "components/Modal/OrderContract";
-import PrivacyPolicyModal from "components/Modal/PrivacyPolicyModal";
-import TermsModal from "components/Modal/TermsModal";
+import { OrderContractModal, PrivacyPolicyModal, TermsModal } from "../../../../../src-ts/lib";
 
 const Details = ({ challenge, formData }) => {
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
@@ -21,30 +18,9 @@ const Details = ({ challenge, formData }) => {
 
   return (
     <div styleName="details">
-      <Modal
-        fullWidth
-        show={isOrderContractModalOpen}
-        styleName="link"
-        handleClose={() => setIsOrderContractModalOpen(false)}
-      >
-        <OrderContract />
-      </Modal>
-      <Modal
-        fullWidth
-        show={isPrivacyPolicyModalOpen}
-        styleName="link"
-        handleClose={() => setIsPrivacyPolicyModalOpen(false)}
-      >
-        <PrivacyPolicyModal />
-      </Modal>
-      <Modal
-        fullWidth
-        show={isTermsModalOpne}
-        styleName="link"
-        handleClose={() => setIsTermsModalOpen(false)}
-      >
-        <TermsModal />
-      </Modal>
+      <OrderContractModal isOpen={isOrderContractModalOpen} onClose={() => setIsOrderContractModalOpen(false)} />
+      <PrivacyPolicyModal isOpen={isPrivacyPolicyModalOpen} onClose={() => setIsPrivacyPolicyModalOpen(false)} />
+      <TermsModal isOpen={isTermsModalOpne} onClose={() => setIsTermsModalOpen(false)} />
       <div styleName="reviewTable">
         <ReviewTable
           formData={_.get(formData, "intake-form.form", {})}

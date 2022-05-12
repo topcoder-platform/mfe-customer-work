@@ -9,6 +9,8 @@ import {
   RouteProvider,
   ToolsRoutes,
   UtilsRoutes,
+  PageFooter,
+  ProfileProvider,
 } from '../src-ts'
 
 import App from "./App";
@@ -21,33 +23,38 @@ const history = createHistory(window);
 export default function Root() {
   return (
     <Provider store={store}>
+      <ProfileProvider>
 
-      <BrowserRouter>
-        <RouteProvider
-          toolsRoutes={[...ToolsRoutes]}
-          utilsRoutes={[...UtilsRoutes]}
-        >
-          <StrictMode>
-            <AppNextGen />
-          </StrictMode>
-        </RouteProvider>
-      </BrowserRouter>
 
-      <LocationProvider history={history}>
-        <App />
-        <ReduxToastr
-          timeOut={3000}
-          newestOnTop={false}
-          preventDuplicates
-          position="top-right"
-          getState={(state) => state.toastr}
-          transitionIn="fadeIn"
-          transitionOut="fadeOut"
-          progressBar
-          closeOnToastrClick
-        />
-      </LocationProvider>
+        <BrowserRouter>
+          <RouteProvider
+            toolsRoutes={[...ToolsRoutes]}
+            utilsRoutes={[...UtilsRoutes]}
+          >
+            <StrictMode>
+              <AppNextGen />
+            </StrictMode>
+          </RouteProvider>
+        </BrowserRouter>
 
+        <LocationProvider history={history}>
+          <App />
+          <ReduxToastr
+            timeOut={3000}
+            newestOnTop={false}
+            preventDuplicates
+            position="top-right"
+            getState={(state) => state.toastr}
+            transitionIn="fadeIn"
+            transitionOut="fadeOut"
+            progressBar
+            closeOnToastrClick
+          />
+        </LocationProvider>
+
+        <PageFooter />
+
+      </ProfileProvider>
     </Provider>
   );
 }

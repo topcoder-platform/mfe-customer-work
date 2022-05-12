@@ -25,14 +25,14 @@ import {
   setIsSavingSurveyDone,
   getForumNotifications,
 } from "../../actions/work";
-import { toggleSupportModal, createNewSupportTicket } from "../../actions/form";
-import SupportModal from "../../components/Modal/SupportModal";
+import { toggleSupportModal } from "../../actions/form";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
 
 import {
   Breadcrumb,
   ChallengeMetadataName,
+  ContactSupportModal,
   TabsNavbar,
   workContext,
   WorkDetailHeader,
@@ -62,7 +62,6 @@ const WorkItem = ({
   saveSurvey,
   setIsSavingSurveyDone,
   getForumNotifications,
-  createNewSupportTicket,
 }) => {
   const dispatch = useDispatch();
   const [selectedTab, setSelectedTab] = useState("summary");
@@ -156,13 +155,6 @@ const WorkItem = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const onSubmitSupportRequest = (submittedSupportRequest) =>
-    createNewSupportTicket(
-      submittedSupportRequest,
-      work?.id,
-      work?.legacy?.selfService
-    );
-
   // TODO: get routes from a provider
   const breadcrumb = [
     {
@@ -208,13 +200,11 @@ const WorkItem = ({
   return (
     <>
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
-      {showSupportModal && (
-        <SupportModal
-          profileData={profileData}
-          handleClose={onHideSupportModal}
-          onSubmit={onSubmitSupportRequest}
-        ></SupportModal>
-      )}
+      <ContactSupportModal
+        workId={work?.id}
+        isOpen={showSupportModal}
+        onClose={onHideSupportModal}
+      />
       <Page styleName="page">
         <PageContent styleName="pageContent">
 
@@ -329,7 +319,6 @@ const mapDispatchToProps = {
   setIsSavingSurveyDone,
   getForumNotifications,
   toggleSupportModal,
-  createNewSupportTicket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkItem);

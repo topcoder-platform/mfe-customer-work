@@ -1,46 +1,35 @@
 @import '~react-responsive-modal/styles.css';
 
 .react-responsive-modal-container {
-    position: fixed;
     display: flex;
-    justify-content: center;
-    height: auto !important;
-    
-    @include gtemd {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
 
     .react-responsive-modal-modal {
         display: flex;
         flex-direction: column;
         width: 100vw;
         height: 100vh;
-        margin: 0;
+        margin: auto;
         border-radius: 0;
         padding: $pad-xxl $pad-xxxxl $pad-xxxxl;
 
+        &.modal-md {
+            width: 450px;
+        }
+
         &.modal-lg {
             width: 700px;
-
-            @include ltemd {
-                max-width: 450px;
-            }
         }
-        
+
+        @include ltemd {
+            max-width: 450px;
+        }
+
         @include gtemd {
             width: auto;
-            min-width: 450px;
-            margin: 0 auto;
             height: auto;
             border-radius: $pad-sm;
-        }
-    
-        h2 {
-            margin-bottom: $pad-xxl;
-            padding: 0 0 $pad-xxl;
-            border-bottom: 1px solid $black-10;
+            max-height: 93vh;
+            min-width: 450px;
         }
 
         .react-responsive-modal-closeButton {
@@ -50,11 +39,12 @@
 
             svg {
                 fill: $turq-160;
+
                 @include gtemd {
                     fill: $black-100;
                 }
             }
-            
+
             &:focus {
                 background-color: $black-10;
                 outline: 0;
