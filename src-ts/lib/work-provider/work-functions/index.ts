@@ -1,6 +1,8 @@
 export {
     deleteAsync as workDeleteAsync,
     getAsync as workGetAsync,
+    getFilteredByStatus as workGetFilteredByStatus,
+    getStatusFilter as workGetStatusFilter,
 } from './work.functions'
 export {
     type Work,
@@ -14,4 +16,5 @@ export {
 export {
     type Challenge,
     ChallengeMetadataName,
+    WorkStatusFilter,
 } from './work-store'
