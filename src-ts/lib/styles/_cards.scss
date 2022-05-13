@@ -1,6 +1,5 @@
-@import 'buttons';
-@import 'fonts';
-@import 'layout';
+@import 'variables/palette';
+@import 'variables/spacing';
 
 .card {
     display: flex;
