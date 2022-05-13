@@ -1,10 +1,12 @@
 @import '../../../../lib/styles';
 
-h4 {
-    border-top: $border-xs solid $black-10;
-
-    &.input-title-0 {
-        border: none;
+.row-wrap {
+    h4 {
+        border-top: $border-xs solid $black-10;
+    
+        &.input-title-0 {
+            border: none;
+        }
     }
 }
 
@@ -19,7 +21,9 @@ h4 {
         flex: 1;
 
         &.rating {
-            margin-top: calc(-1 * $pad-xxl);
+            color: $black-100;
+            @extend .body-main;
+            margin-bottom: calc($pad-lg + 2px);
         }
     }
 

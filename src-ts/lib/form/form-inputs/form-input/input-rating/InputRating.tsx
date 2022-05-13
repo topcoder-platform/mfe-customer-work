@@ -13,7 +13,6 @@ import {
 import { Button } from '../../../../button'
 import '../../../../styles/index.scss'
 import { IconSolid } from '../../../../svgs'
-import { Tooltip } from '../../../../tooltip'
 import { InputWrapper } from '../input-wrapper'
 
 import styles from './InputRating.module.scss'
@@ -34,32 +33,21 @@ const InputRating: FC<InputRatingProps> = (props: InputRatingProps) => {
 
     const inputRef: RefObject<HTMLInputElement> = createRef<HTMLInputElement>()
 
-    function onClick(event: MouseEvent<HTMLButtonElement>): void {
-        setRating(+event.currentTarget.name)
-    }
-
     const stars: Array<JSX.Element> = []
     // ratings are base 10, but we're only showing 5 stars,
     // so only display buttons for 2, 4, 6, 8, and 10
     for (let index: number = 2; index <= 10; index++) {
         const className: string = !!rating && rating >= index ? 'orange-100' : 'black-20'
         const element: JSX.Element = (
-            <Tooltip
-                content={`${index / 2}`}
-                positionX='middle'
-                positionY='end'
-                triggerOn='hover'
-                trigger={(
-                    <Button
-                        buttonStyle='icon'
-                        className={className}
-                        icon={IconSolid.StarIcon}
-                        name={`${index}`}
-                        onClick={onClick}
-                        size='xl'
-                        tabIndex={-1}
-                    />
-                )}
+            <Button
+                buttonStyle='icon'
+                className={className}
+                icon={IconSolid.StarIcon}
+                name={`${index}`}
+                onClick={() => setRating(index)}
+                size='xl'
+                tabIndex={-1}
+                elementType='div'
             />
         )
         stars.push(element)
@@ -82,6 +70,7 @@ const InputRating: FC<InputRatingProps> = (props: InputRatingProps) => {
             hint={''}
             label={''}
             type='rating'
+            className={styles['rating-input-wrapper']}
         >
             <div className={styles['ratings-container']}>
                 {stars}
