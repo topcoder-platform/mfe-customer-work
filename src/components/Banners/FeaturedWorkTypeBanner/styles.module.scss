@@ -11,7 +11,7 @@
   grid-template-columns: 1fr 359px;
   
   &.website-design,
-  &.website-design-v2 {
+  &.website-design {
     background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
   }
   &.data-exploration {
@@ -60,7 +60,7 @@
       background: url("../../../assets/images/find-me-data.png");
       background-size: cover;
     }
-    &.website-design-v2 {
+    &.website-design {
       background: url("../../../assets/images/website-design-v2.png");
       background-size: cover;
     }
