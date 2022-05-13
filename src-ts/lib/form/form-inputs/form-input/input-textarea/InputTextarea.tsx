@@ -16,7 +16,7 @@ interface InputTextareaProps {
     readonly onBlur: (event: FocusEvent<HTMLTextAreaElement>) => void
     readonly onChange: (event: FocusEvent<HTMLTextAreaElement>) => void
     readonly placeholder?: string
-    readonly spellCheck?: string
+    readonly spellCheck?: boolean
     readonly tabIndex: number
     readonly value?: string | number
 }
@@ -24,12 +24,11 @@ interface InputTextareaProps {
 const InputTextarea: FC<InputTextareaProps> = (props: InputTextareaProps) => {
     return (
         <InputWrapper
+            {...props}
             dirty={!!props.dirty}
             disabled={!!props.disabled}
-            error={props.error}
-            hint={props.hint}
             label={props.label || props.name}
-            name={props.name}
+            type='textarea'
         >
             <textarea
                 autoComplete={props.autocomplete}
@@ -38,7 +37,7 @@ const InputTextarea: FC<InputTextareaProps> = (props: InputTextareaProps) => {
                 disabled={!!props.disabled}
                 name={props.name}
                 onBlur={props.onBlur}
-                onFocus={props.onChange}
+                onChange={props.onChange}
                 placeholder={props.placeholder}
                 spellCheck={!!props.spellCheck}
                 tabIndex={props.tabIndex}

@@ -50,7 +50,7 @@ $border-size-xl: $pad-xs;
         align-items: center;
         color: $tc-white;
         background-color: $blue-100;
-        @include font-weight-medium;
+        font-weight: $font-weight-medium;
 
         &.sm {
             @extend .medium-subtitle;

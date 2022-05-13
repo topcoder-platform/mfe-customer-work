@@ -1,11 +1,8 @@
-import classNames from 'classnames'
 import { FC } from 'react'
-import Modal, { ModalProps } from 'react-responsive-modal'
+import { ModalProps } from 'react-responsive-modal'
 
 import { Button } from '../../button'
-import { IconOutline } from '../../svgs'
-
-import styles from './ConfirmModal.module.scss'
+import { BaseModal } from '../base-modal'
 
 export interface ConfirmModalProps extends ModalProps {
     action?: string
@@ -15,27 +12,17 @@ export interface ConfirmModalProps extends ModalProps {
 
 const ConfirmModal: FC<ConfirmModalProps> = ({
     children,
-    title,
     onConfirm,
     action = 'Confirm',
     ...props
 }: ConfirmModalProps) => {
     return (
-        <Modal
+        <BaseModal
             {...props}
-            closeIcon={<IconOutline.XIcon width={28} height={28} />}
+            styles={{ modal: { maxWidth: '450px' } }}
         >
-            <div className={styles['modal-header']}>
-                <h4 className='details'>{title}</h4>
-            </div>
-
-            <hr className={styles['spacer']} />
-
-            <div className={classNames(styles['modal-body'], 'modal-body')}>
-                {children}
-            </div>
-
-            <div className={styles['button-container']}>
+            {children}
+            <div className='button-container'>
                 <Button
                     label='Cancel'
                     onClick={props.onClose}
@@ -51,8 +38,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
                     size='lg'
                 />
             </div>
-
-        </Modal>
+        </BaseModal>
     )
 }
 

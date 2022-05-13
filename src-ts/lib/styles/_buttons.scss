@@ -24,6 +24,7 @@
     white-space: nowrap;
     cursor: pointer;
     font-family: $font-roboto; 
+    font-weight: $font-weight-bold;
     font-size: 11px;
     line-height: 24px;
 
@@ -53,6 +54,10 @@
     &.button-xl {
         padding: $pad-md $pad-xxl;
         font-size: 16px;
+
+        svg {
+            @include icon-xxl;
+        }
     }
 
     &.primary {
@@ -169,6 +174,10 @@
         &:hover {
             background-color: $black-10;
             color: $turq-100;
+
+            &.hover-orange-100 {
+                @extend .orange-100;
+            }
         }
 
         &:focus {

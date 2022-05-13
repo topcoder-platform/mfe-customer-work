@@ -47,6 +47,7 @@ function WorkDeleteButtonRenderer(work: Work): JSX.Element | undefined {
                         buttonStyle='icon'
                         icon={IconOutline.TrashIcon}
                         onClick={toggleConfirmation}
+                        tabIndex={-1}
                     />
                 )}
             />
