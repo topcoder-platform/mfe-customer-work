@@ -22,6 +22,7 @@ import React, { useEffect, useState } from "react";
 import DataExplorationIcon from "../../../../assets/images/data-exploration-icon.svg";
 import FindMeDataIcon from "../../../../assets/images/find-me-data-icon.svg";
 import WebsiteDesignIcon from "../../../../assets/images/website-design-icon.svg";
+import AddWebsiteIcon from "../../../../assets/images/add-website-icon.svg";
 import "./styles.module.scss";
 import {
   PrimaryDataChallengeOptions,
@@ -739,13 +740,7 @@ const BasicInfoForm = ({
                 </FormField>
               </div>
             ))}
-            <Button
-              type={BUTTON_TYPE.SECONDARY}
-              size={BUTTON_SIZE.MEDIUM}
-              onClick={addWebsite}
-            >
-              ADD ANOTHER WEBSITE
-            </Button>
+            <button styleName="addWebsiteButton" onClick={addWebsite}> <AddWebsiteIcon />Add Another Website</button>
           </div>
         </PageRow>
       )}

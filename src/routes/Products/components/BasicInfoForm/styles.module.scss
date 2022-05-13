@@ -21,6 +21,22 @@
     }
   }
 
+  .addWebsiteButton {
+    background-color: white;
+    border: 0px;
+    color: #229174;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    
+    svg {
+      width: 13.33px;
+      height: 13.33px;
+      margin-right: 2px;
+    }
+  }
+
   .description {
     @include font-roboto;
     font-size: 16px;
