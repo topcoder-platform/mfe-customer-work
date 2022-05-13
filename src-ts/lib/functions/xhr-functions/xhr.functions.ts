@@ -43,6 +43,11 @@ export async function patchAsync<T, R>(url: string, data: T): Promise<R> {
     return output.data
 }
 
+export async function postAsync<T, R>(url: string, data: T): Promise<R> {
+    const output: AxiosResponse<R> = await xhrInstance.post(url, data)
+    return output.data
+}
+
 export async function putAsync<T, R>(url: string, data: T): Promise<R> {
     const output: AxiosResponse<R> = await xhrInstance.put(url, data)
     return output.data

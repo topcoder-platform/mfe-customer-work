@@ -26,13 +26,5 @@
         z-index: 100;
         background-color: $black-100;
         padding: $pad-xxl;
-
-        @include ltemd {
-            top: $header-height-md;
-        }
-
-        @include ltesm {
-            top: $header-height-sm;
-        }
     }
 }

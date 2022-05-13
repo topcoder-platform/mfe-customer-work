@@ -52,21 +52,16 @@ const TabsNavbar: FC<TabsNavbarProps> = (props: TabsNavbarProps) => {
     ])
 
     useLayoutEffect(() => {
+
         const query: URLSearchParams = new URLSearchParams(window.location.search)
-        const initialTab: string | null = query.get('tab')
+        const initialTab: string|null = query.get('tab')
+
         if (initialTab && props.tabs.find(tab => tab.id === initialTab)) {
             handleActivateTab(initialTab)
+        } else if (props.defaultActive) {
+            updateOffset(props.defaultActive)
         }
-    }, [
-        handleActivateTab,
-    ])
-
-    useEffect(() => {
-        updateOffset(props.defaultActive)
-    }, [
-        props.defaultActive,
-        updateOffset,
-    ])
+    }, [handleActivateTab, props.defaultActive])
 
     return (
         <div className={styles['tabs-wrapper']}>

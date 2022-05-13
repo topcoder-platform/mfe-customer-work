@@ -71,6 +71,7 @@ const Tooltip: FC<TooltipProps> = ({
             position: 'absolute',
             top: `${box.top + window.scrollY}px`,
             width: `${box.width + window.scrollX}px`,
+            zIndex: 1000,
         })
     }, [
         tooltipOpen,

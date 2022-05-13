@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { FC } from 'react'
 import Modal, { ModalProps } from 'react-responsive-modal'
 
@@ -28,7 +29,7 @@ const BaseModal: FC<BaseModalProps> = ({
 
             <hr className={styles['spacer']} />
 
-            <div className={styles['modal-body']}>
+            <div className={classNames(styles['modal-body'], 'modal-body')}>
                 {children}
             </div>
         </Modal>
