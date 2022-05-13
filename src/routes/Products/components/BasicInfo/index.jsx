@@ -12,15 +12,12 @@ import { BUTTON_SIZE, BUTTON_TYPE, PageOptions } from "constants/";
 import {
   saveBasicInfo,
   toggleSupportModal,
-  createNewSupportTicket,
   savePageDetails,
   saveWorkType,
 } from "../../../../actions/form";
 import { triggerAutoSave } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
-import SupportModal from "../../../../components/Modal/SupportModal";
-import { getProfile } from "../../../../selectors/profile";
 import { getUserProfile } from "../../../../thunks/profile";
 
 import BasicInfoForm from "../BasicInfoForm";
@@ -34,6 +31,8 @@ import {
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
+import { ContactSupportModal } from "../../../../../src-ts";
+
 /**
  * Basic Info Page
  */
@@ -42,7 +41,6 @@ const BasicInfo = ({
   saveWorkType,
   setProgressItem,
   toggleSupportModal,
-  createNewSupportTicket,
   bannerData,
   isLoggedIn,
 }) => {
@@ -86,7 +84,6 @@ const BasicInfo = ({
   const currentStep = useSelector((state) => state.progress.currentStep);
   const pageDetails = useSelector((state) => state.form.pageDetails);
   const showSupportModal = useSelector((state) => state.form.showSupportModal);
-  const profileData = useSelector(getProfile);
   const challenge = useSelector((state) => state.challenge);
   const fullState = useSelector((state) => state);
 
@@ -175,23 +172,14 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const onSubmitSupportRequest = (submittedSupportRequest) =>
-    createNewSupportTicket(
-      submittedSupportRequest,
-      challenge?.id,
-      challenge?.legacy?.selfService
-    );
-
   return (
     <>
       <LoadingSpinner show={isLoading} />
-      {showSupportModal && (
-        <SupportModal
-          profileData={profileData}
-          handleClose={onHideSupportModal}
-          onSubmit={onSubmitSupportRequest}
-        ></SupportModal>
-      )}
+      <ContactSupportModal
+        challengeId={challenge?.id}
+        isOpen={showSupportModal}
+        onClose={onHideSupportModal}
+      />
       <Page>
         <FeaturedWorkTypeBanner
           title={bannerData.title}
@@ -256,7 +244,6 @@ const mapDispatchToProps = {
   setProgressItem,
   savePageDetails,
   toggleSupportModal,
-  createNewSupportTicket,
   saveWorkType,
 };
 

@@ -2,35 +2,40 @@
 
 .details {
   display: flex;
+  padding-bottom: 32px;
 
   .reviewTable {
     flex-grow: 2;
+    :global(.table-bottom-divider) {
+      display: none;
+    }
   }
 
   .invoiceWrapper {
-    padding: 16px;
-    width: 264px;
-    min-width: 264px;
-    background-color: $tc-white;
-    border-radius: 8px;
-    border: 2px solid $gray-10;
-    margin-left: 24px;
-    margin-top: 32px;
+    min-width: 323px;
+    padding-left: 32px;
 
-    button {
-      margin-left: 16px;
-      margin-top: 18px;
+    border-left: 1px solid #E9E9E9;
+    margin-left: 32px;
+    
+    h3 {
+      @include font-barlow;
+      font-size: 18px;
+      line-height: 22px;
+      text-transform: uppercase;
+      color: $black-100;
     }
-
+    
     .link {
       @include font-roboto;
       display: block;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 14px;
-      color: $grey-text;
-      line-height: 10px;
-      margin-bottom: 12px;
+      line-height: 14px;
+      color: $green1;
+      margin-top: 16px;
       cursor: pointer;
+      text-transform: uppercase;
     }
   }
 }

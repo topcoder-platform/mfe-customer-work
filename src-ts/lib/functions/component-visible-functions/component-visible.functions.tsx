@@ -39,9 +39,9 @@ export function useOnHoverElement(el: HTMLElement | null, cb: (isVisible: boolea
     const counter: MutableRefObject<number> = useRef(0)
 
     const handleHover: (ev: RMouseEvent<Element, MouseEvent>) => void = useCallback((ev: RMouseEvent<Element, MouseEvent>) => {
-        const nextVal: number = counter.current + (ev.type === 'mouseenter' ? 1 : -1)
+        const nextVal: number = Math.max(0, counter.current + (ev.type === 'mouseenter' ? 1 : -1))
         if (!!nextVal !== !!counter.current) {
-            cb(!!nextVal)
+            cb(nextVal > 0)
         }
         counter.current = nextVal
     }, [cb, el])
