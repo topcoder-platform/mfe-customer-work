@@ -5,10 +5,13 @@ export {
      ChallengeMetadataName,
      ContactSupportModal,
      logInitialize,
+     OrderContractModal,
      PageFooter,
+     PrivacyPolicyModal,
      ProfileProvider,
      RouteProvider,
      TabsNavbar,
+     TermsModal,
      workContext,
      WorkStatusItem,
 } from './lib'
