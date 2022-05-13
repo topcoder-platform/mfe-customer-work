@@ -59,6 +59,7 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
         },
             [
                 sort,
+                props.data,
             ])
 
         function toggleSort(fieldName: string): void {
