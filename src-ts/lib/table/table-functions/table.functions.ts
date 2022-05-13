@@ -1,5 +1,4 @@
 import { Sort } from '../../pagination'
-import { TableCellType } from '../table-cell.type'
 import { TableColumn } from '../table-column.model'
 
 export function getSorted<T extends { [propertyName: string]: any }>(
