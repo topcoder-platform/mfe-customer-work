@@ -197,10 +197,24 @@ const BasicInfoForm = ({
       <PageRow styleName="form-row">
         <div>
           <PageP styleName="title">PROJECT TITLE</PageP>
-          <PageP styleName="description">
-            Give your project a descriptive title. This is what the data
-            scientists will see when looking for your work.
-          </PageP>
+          {isWebsiteDesign && (
+            <PageP styleName="description">
+              Give your project a descriptive title. This is the name
+              designers will see when looking for your work.
+            </PageP>
+          )}
+          {isDataExploration && (
+            <PageP styleName="description">
+              Give your project a descriptive title. This is what the data
+              scientists will see when looking for your work.
+            </PageP>
+          )}
+          {isFindMeData && (
+            <PageP styleName="description">
+              Give your project a descriptive title. This is what the data
+              scientists will see when looking for your work.
+            </PageP>
+          )}
         </div>
 
         <div styleName="formFieldWrapper">
@@ -315,15 +329,16 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
+      <PageDivider />
+
       {isWebsiteDesign && (
         <PageRow styleName="form-row">
           <div>
+            <PageP styleName="title">{"Description"}</PageP>
             <PageP styleName="description">
-              What is the purpose of your website? What do you want visitors to
-              be able to do, e.g., see your work? contact you? You should
-              include a general description as well as goals of the website. You
-              You may also describe your audience and what you would like them
-              to do at your website.{" "}
+              What is the purpose of your website? What do you want visitors to be able to do, e.g.,
+              see your work? contact you? You should include a general description as well as goals of the website.
+              You may also describe your audience and what you would like them to do at your website.{" "}
             </PageP>
             <HelpBanner title="Example" styles={["gray"]}>
               <br />
@@ -493,10 +508,8 @@ const BasicInfoForm = ({
           <div>
             <PageP styleName="title">Your industry</PageP>
             <PageP styleName="description">
-              Knowing your industry will help our designers understand you and
-              For example, some common industries are: Business & Consulting,
-              Construction, Entertainment & Arts, Healthcare, Retail, and
-              Technology.
+              Knowing your industry will help our designers understand you and your audience.
+              For example, some common industries are: Business & Consulting, Construction, Entertainment & Arts, Healthcare, Retail, and Technology.
             </PageP>
           </div>
 
