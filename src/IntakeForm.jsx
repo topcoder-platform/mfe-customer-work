@@ -37,6 +37,7 @@ import DataExploration from "./routes/Products/DataExploration";
 import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
 import FindMeData from "./routes/Products/FindMeData";
 import WebsiteDesign from "./routes/Products/WebsiteDesign";
+import DataAdvisory from "./routes/Products/DataAdvisory";
 
 import { webWorkTypes } from "./constants";
 
@@ -197,6 +198,11 @@ export default function IntakeForm() {
           {/* Data Exploration */}
           <DataExploration
             path="/work/new/data-exploration/*"
+            isLoggedIn={isLoggedIn}
+          />
+          {/* Data Advisory */}
+          <DataAdvisory
+            path="/work/new/data-advisory/*"
             isLoggedIn={isLoggedIn}
           />
           {/* Find Me Data */}

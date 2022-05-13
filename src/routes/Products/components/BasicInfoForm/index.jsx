@@ -6,6 +6,7 @@ import FormField from "components/FormElements/FormField";
 import FormInputText from "components/FormElements/FormInputText";
 import Button from "components/Button";
 import HelpBanner from "components/HelpBanner";
+import HelpIcon from "components/HelpIcon";
 import PageDivider from "components/PageDivider";
 import PageP from "components/PageElements/PageP";
 import PageRow from "components/PageElements/PageRow";
@@ -55,6 +56,7 @@ const BasicInfoForm = ({
   } = bannerData;
 
   const isDataExploration = title === "Data Exploration";
+  const isDataAdvisory = title === "Problem Statement & Data Advisory";
   const isFindMeData = title === "Find Me Data";
   const isWebsiteDesign = title === "Website Design";
   const isOtherOptionSelected = formData?.primaryDataChallenge?.value !== 3;
@@ -140,6 +142,7 @@ const BasicInfoForm = ({
   let servicePriceIcon;
   switch (title) {
     case "Data Exploration":
+    case "Problem Statement & Data Advisory":
       servicePriceIcon = <DataExplorationIcon />;
       break;
     case "Finde Me Data":
@@ -155,19 +158,19 @@ const BasicInfoForm = ({
   let titleValue;
   switch (title) {
     case "Data Exploration":
+    case "Website Design":
+    case "Problem Statement & Data Advisory":
       titleValue = formData.projectTitle.value;
       break;
     case "Find Me Data":
       titleValue = formData.findMeProjectTitle.value;
       break;
-    case "Website Design":
-      titleValue = formData.projectTitle.value;
     default:
       break;
   }
 
   let dataName;
-  if (isDataExploration || isWebsiteDesign) {
+  if (isDataExploration || isWebsiteDesign || isDataAdvisory) {
     dataName = "projectTitle";
   } else if (isFindMeData) {
     dataName = "findMeProjectTitle";
@@ -203,13 +206,7 @@ const BasicInfoForm = ({
               designers will see when looking for your work.
             </PageP>
           )}
-          {isDataExploration && (
-            <PageP styleName="description">
-              Give your project a descriptive title. This is what the data
-              scientists will see when looking for your work.
-            </PageP>
-          )}
-          {isFindMeData && (
+          {(isDataExploration || isFindMeData || isDataAdvisory) && (
             <PageP styleName="description">
               Give your project a descriptive title. This is what the data
               scientists will see when looking for your work.
@@ -413,7 +410,7 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
-      <PageDivider />
+      {isDataExploration && <PageDivider />}
 
       {isDataExploration && (
         <PageRow styleName="form-row">
@@ -451,6 +448,54 @@ const BasicInfoForm = ({
                 styleName={"text-area"}
                 name="goals"
                 placeholder={"Enter your goals and descriptions here"}
+              />
+            </FormField>
+          </div>
+        </PageRow>
+      )}
+
+      {isDataAdvisory && (
+        <PageRow styleName="form-row">
+          <div>
+            <PageP styleName="title">{"what’s your goal?"}</PageP>
+            <PageP styleName="description">
+              Describe what you want to do or learn with the help of data
+              science. What will this information or ability help improve? Keep
+              in mind that data science typically answers a question. Good
+              questions are specific, measurable and clarify important context.
+              This ensures that when your question is answered, you learn
+              something valuable and actionable.
+            </PageP>
+            <HelpBanner title="Example" styles={["gray"]}>
+              <br />
+              <PageP>
+                How can I increase profit? How can I get more customers? How can
+                I do computer vision? These questions alone are too vague. Which
+                piece of equipment is going to fail first? Which of my marketing
+                channels produces the most customers per dollar? How can I
+                automatically review pictures or documents to for specific
+                content? These questions along with relevant data and/or context
+                enable our experts to shape your question into something
+                actionable. Don't worry, we'll help you along the way. So let's
+                get started!
+              </PageP>
+            </HelpBanner>
+          </div>
+
+          <div styleName="formFieldWrapper">
+            <FormField label={"Your Goal"}>
+              <FormInputTextArea
+                value={formData?.goals?.value}
+                onChange={(e) =>
+                  handleInputChange(
+                    e.target.name,
+                    e.target.value,
+                    e.target.value
+                  )
+                }
+                styleName={"text-area"}
+                name="goals"
+                placeholder={"Describe your goal"}
               />
             </FormField>
           </div>
@@ -565,6 +610,72 @@ const BasicInfoForm = ({
                 />
               </FormField>
             </div>
+          </div>
+        </PageRow>
+      )}
+
+      {isDataAdvisory && (
+        <PageRow styleName="form-row">
+          <div>
+            <PageP styleName="title">What data do you have?</PageP>
+            <PageP styleName="description">
+              The data you have available helps determine your data science
+              approach. Briefly describe the data you have in mind for your
+              project. What is it and how do you use it today? How much do you
+              have, and how/how often do you get more? Once you've described the
+              data, please upload a sample.
+              <br />
+              <div styleName="helpText">
+                No data?&nbsp;
+                <HelpIcon>
+                  No problem. Based on your goals we'll recommend the type(s) of
+                  data you need.
+                </HelpIcon>
+              </div>
+              <div styleName="helpText">
+                Can't share/upload?&nbsp;
+                <HelpIcon>
+                  Try sharing a sample. Samples can be just the headers, labels
+                  or titles of your data set. Our experts need to understand the
+                  type, volume and structure of your data, not the contents
+                  themselves.
+                </HelpIcon>
+              </div>
+            </PageP>
+          </div>
+
+          <div styleName="formFieldWrapper">
+            <div styleName="assets">
+              <FormField label={"Shareable URL Link(s)"}>
+                <FormInputText
+                  placeholder={"www.example-share-link.com"}
+                  value={formData?.sampleData?.value}
+                  name="sampleData"
+                  onChange={(e) =>
+                    handleInputChange(
+                      e.target.name,
+                      e.target.value,
+                      e.target.value
+                    )
+                  }
+                />
+              </FormField>
+            </div>
+            <FormField label={"Data Description"}>
+              <FormInputTextArea
+                value={formData?.assetsDescription?.value}
+                onChange={(e) =>
+                  handleInputChange(
+                    e.target.name,
+                    e.target.value,
+                    e.target.value
+                  )
+                }
+                styleName={"text-area"}
+                name="assetsDescription"
+                placeholder={"Describe your data"}
+              />
+            </FormField>
           </div>
         </PageRow>
       )}

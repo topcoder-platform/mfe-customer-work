@@ -28,6 +28,7 @@ import "./styles.module.scss";
 import {
   getDynamicPriceAndTimeline,
   getDynamicPriceAndTimelineEstimate,
+  getDataAdvisoryPriceAndTimelineEstimate,
   currencyFormat,
   getDataExplorationPriceAndTimelineEstimate,
   getFindMeDataPriceAndTimelineEstimate,
@@ -83,7 +84,11 @@ const BasicInfo = ({
   const isWebsiteDesign = bannerData.title === "Website Design";
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
   const isDataExploration = bannerData.title === "Data Exploration";
+  const isDataAdvisory = bannerData.title === "Problem Statement & Data Advisory";
   const isDataExplorationFormValid =
+    formData?.projectTitle?.value?.trim().length &&
+    formData?.goals?.value?.trim().length;
+  const isDataAdvisoryFormValid =
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;
   const isFindMeDataFormValid =
@@ -105,6 +110,8 @@ const BasicInfo = ({
     isFormValid = isFindMeDataFormValid;
   } else if (isWebsiteDesign) {
     isFormValid = isWebsiteDesignFormValid;
+  } else if (isDataAdvisory) {
+    isFormValid = isDataAdvisoryFormValid;
   }
 
   const dispatch = useDispatch();
@@ -123,6 +130,8 @@ const BasicInfo = ({
       ? getWebsiteDesignPriceAndTimelineEstimate(fullState)
       : isDataExploration
       ? getDataExplorationPriceAndTimelineEstimate()
+      : isDataAdvisory
+      ? getDataAdvisoryPriceAndTimelineEstimate()
       : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
@@ -136,6 +145,8 @@ const BasicInfo = ({
     basePath = "find-me-data";
   } else if (isWebsiteDesign) {
     basePath = "website-design";
+  } else if (isDataAdvisory) {
+    basePath = "data-advisory";
   }
 
   const baseUrl = `/self-service/work/new/${basePath}`;

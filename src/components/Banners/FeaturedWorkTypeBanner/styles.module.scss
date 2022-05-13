@@ -17,7 +17,8 @@
   &.data-exploration {
     background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
   }
-  &.find-me-data {
+  &.find-me-data,
+  &.problem-statement--data-advisory  {
     background: linear-gradient(84.92deg, #723390 2.08%, #8C384F 97.43%);
   }
 
@@ -56,7 +57,8 @@
       background: url("../../../assets/images/data-exploration.png");
       background-size: cover;
     }
-    &.find-me-data {
+    &.find-me-data,
+    &.problem-statement--data-advisory  {
       background: url("../../../assets/images/find-me-data.png");
       background-size: cover;
     }

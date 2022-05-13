@@ -32,6 +32,7 @@ import {
   getWebsiteDesignPriceAndTimelineEstimate,
   getDataExplorationPriceAndTimelineEstimate,
   getFindMeDataPriceAndTimelineEstimate,
+  getDataAdvisoryPriceAndTimelineEstimate,
   currencyFormat,
 } from "utils/";
 import OrderContract from "../../components/Modal/OrderContract";
@@ -77,6 +78,8 @@ const Review = ({
   });
   const [checked, setChecked] = useState(false);
   const isDataExploration = bannerData.title === "Data Exploration";
+  const isDataAdvisory =
+    bannerData.title === "Problem Statement & Data Advisory";
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
@@ -89,6 +92,8 @@ const Review = ({
       ? getWebsiteDesignPriceAndTimelineEstimate(fullState)
       : isDataExploration
       ? getDataExplorationPriceAndTimelineEstimate()
+      : isDataAdvisory
+      ? getDataAdvisoryPriceAndTimelineEstimate()
       : getFindMeDataPriceAndTimelineEstimate();
 
   const [firstMounted, setFirstMounted] = useState(true);
@@ -149,9 +154,9 @@ const Review = ({
       1
     );
     const additionalPaymentInfo = "";
-      // workType?.selectedWorkType === "Website Design"
-      //   ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
-      //   : "";
+    // workType?.selectedWorkType === "Website Design"
+    //   ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
+    //   : "";
 
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,

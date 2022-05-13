@@ -301,6 +301,37 @@ export const webWorkTypes = [
     ),
   },
   {
+    title: "Problem Statement & Data Advisory",
+    subTitle: "Translate your data science idea into an actionable data science approach.",
+    price: 799,
+    stickerPrice: 999,
+    duration: "5 Days",
+    featured: true,
+    startRoute: "/self-service/work/new/data-advisory/basic-info",
+    helperBannerTitle: "WHAT WILL I RECEIVE??",
+    helperBannerContent: (
+      <>
+        <br />
+        <PageUl>
+          <li>Detailed feedback on your business question and/or problem statement</li>
+          <li>Recommendations or refinement of your problem statement</li>
+          <li>Recommendations on the amount and type of data that should be used</li>
+          <li>Assessment of the quality of your data and recommendations on how to improve or augment the data set</li>
+          <li>Scoring and evaluation recommendations for future data science solutions</li>
+        </PageUl>
+      </>
+    ),
+    aboutBannerTitle: "ABOUT DATA EXPLORATION",
+    aboutBannerContent: (
+      <p>
+        In Data Exploration, multiple data science experts uncover the most
+        significant patterns and relationships in your data. Unlock the full
+        potential of your data with expert insights presented in an
+        easy-to-understand format.
+      </p>
+    ),
+  },
+  {
     title: "Find Me Data",
     subTitle: "Get the data you need to meet your analysis goals.",
     price: 299,
