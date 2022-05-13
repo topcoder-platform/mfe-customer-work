@@ -1,40 +1,105 @@
 import classNames from 'classnames'
-import { MouseEvent } from 'react'
+import { Dispatch, FC, MouseEvent, SetStateAction, SVGProps, useEffect, useState } from 'react'
 
+import { Button } from '../button'
+import { Sort } from '../pagination'
+import '../styles/_palette.scss'
 import { IconOutline } from '../svgs'
 import { Tooltip } from '../tooltip'
 
 import { TableCell } from './table-cell'
 import { TableColumn } from './table-column.model'
+import { tableGetSorted } from './table-functions'
+import { TableSort } from './table-sort'
 import styles from './Table.module.scss'
 
 interface TableProps<T> {
     readonly columns: ReadonlyArray<TableColumn<T>>
-    readonly data: Array<T>
+    readonly data: ReadonlyArray<T>
+    readonly defaultSort: Sort
     readonly onRowClick?: (data: T) => void
 }
 
 const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) => JSX.Element
     = <T extends { [propertyName: string]: any }>(props: TableProps<T>) => {
 
-        const headerRow: Array<JSX.Element> = props.columns
-            .map(col => (
-                <th className={classNames(styles.th, styles[col.type])}>
-                    {col.label}
-                    {!!col.tooltip && (
-                        <div className={styles.tooltip}>
-                            <Tooltip
-                                content={col.tooltip}
-                                positionX='end'
-                                positionY='end'
-                                trigger={<IconOutline.InformationCircleIcon />}
-                            />
-                        </div>
-                    )}
-                </th>
-            ))
+        const [sort, setSort]: [Sort, Dispatch<SetStateAction<Sort>>] = useState<Sort>(props.defaultSort)
+        const [sortMap, setSortMap]: [{ [fieldame: string]: boolean }, Dispatch<SetStateAction<{ [fieldame: string]: boolean }>>]
+            = useState<{ [fieldame: string]: boolean }>({})
+        const [sortedData, setSortData]: [ReadonlyArray<T>, Dispatch<SetStateAction<ReadonlyArray<T>>>]
+            = useState<ReadonlyArray<T>>(props.data)
 
-        const rowCells: Array<JSX.Element> = props.data
+        useEffect(() => {
+
+            // sort the data
+            setSortData(tableGetSorted(props.data, sort, props.columns))
+
+            // create the sortmap to remember the last
+            // sort direction of a column that is not
+            // the currently sorted column
+            const map: { [fieldame: string]: boolean } = {
+                [sort.fieldName]: sort.direction === 'asc',
+            }
+
+            // A) if column X is sorted in one direction,
+            // then column Y is sorted,
+            // then column X is sorted again,
+            // the 2nd sort of column X will toggle its sort
+            // direction
+            // B) all columns default to sorting ascending, so if there
+            // not a last known sort for a column, set it to descending
+            // so the next toggle toggles it ascending.
+            props.columns
+                .filter(col => !!col.propertyName && col.propertyName !== sort.fieldName)
+                .forEach(col => {
+                    const currentAscending: boolean | undefined = sortMap[col.propertyName as string]
+                    map[col.propertyName as string] = !!currentAscending
+                })
+            setSortMap(map)
+        },
+            [
+                sort,
+            ])
+
+        function toggleSort(fieldName: string): void {
+            const newSort: Sort = {
+                direction: sortMap[fieldName] ? 'desc' : 'asc',
+                fieldName,
+            }
+            setSort(newSort)
+        }
+
+        const headerRow: Array<JSX.Element> = props.columns
+            .map(col => {
+                const isCurrentlySorted: boolean = col.propertyName === sort.fieldName
+                const colorClass: string = isCurrentlySorted ? 'black-100' : 'black-60'
+                const sortableClass: string | undefined = !!col.propertyName ? styles.sortable : undefined
+                return (
+                    <th className={styles.th}>
+                        <div className={classNames(styles['header-container'], styles[col.type], colorClass, sortableClass)}>
+                            {col.label}
+                            {!!col.tooltip && (
+                                <div className={styles.tooltip}>
+                                    <Tooltip
+                                        content={col.tooltip}
+                                        positionX='end'
+                                        positionY='end'
+                                        trigger={<IconOutline.InformationCircleIcon />}
+                                    />
+                                </div>
+                            )}
+                            <TableSort
+                                iconClass={colorClass}
+                                isCurrentlySorted={isCurrentlySorted}
+                                propertyName={col.propertyName}
+                                sort={sort}
+                                toggleSort={toggleSort} />
+                        </div>
+                    </th>
+                )
+            })
+
+        const rowCells: Array<JSX.Element> = sortedData
             .map((data, index) => {
 
                 function onRowClick(event: MouseEvent<HTMLTableRowElement>): void {

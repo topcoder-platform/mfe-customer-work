@@ -19,11 +19,13 @@ export enum WorkListColumnField {
 export const workListColumns: ReadonlyArray<TableColumn<Work>> = [
     {
         label: 'Title',
+        propertyName: 'title',
         renderer: WorkTableTitleRenderer,
         type: 'element',
     },
     {
         label: WorkListColumnField.status,
+        propertyName: 'status',
         renderer: WorkStatusRenderer,
         type: 'element',
     },
