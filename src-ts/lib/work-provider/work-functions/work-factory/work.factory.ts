@@ -2,6 +2,7 @@ import moment from 'moment'
 
 import * as DesignPrices from '../../../../../src/constants'
 import * as DataPrices from '../../../../../src/constants/products/DataExploration'
+import * as FindDataPrices from '../../../../../src/constants/products/FindMeData'
 import {
     Challenge,
     ChallengeMetadata,
@@ -97,6 +98,9 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
             return DesignPrices.BASE_PRODUCT_PRICE +
                 pageCount * DesignPrices.PER_PAGE_COST +
                 pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
+
+        case WorkType.findData:
+            return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE
     }
 }
 
