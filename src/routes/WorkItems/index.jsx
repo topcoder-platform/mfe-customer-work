@@ -183,6 +183,11 @@ const WorkItem = ({
     { id: 'solutions', title: 'Solutions' },
   ].filter(Boolean), [work]);
 
+  function onTabChange(tabId) {
+    window.history.replaceState(window.history.state, '', `?tab=${tabId}`)
+    setSelectedTab(tabId)
+  }
+
   function saveFeedback(updatedCustomerFeedback) {
 
     const metadata = (work.metadata || [])
@@ -224,8 +229,8 @@ const WorkItem = ({
           <TabsNavbar
             tabs={navTabs}
             defaultActive="summary"
-            onChange={setSelectedTab}
-          ></TabsNavbar>
+            onChange={onTabChange}
+          />
 
           <div styleName="tabs-contents">
             <TabPane value={selectedTab} tab="summary">

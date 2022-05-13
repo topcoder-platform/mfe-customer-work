@@ -1,10 +1,4 @@
 export {
-    deleteAsync as workDeleteAsync,
-    getAsync as workGetAsync,
-    getFilteredByStatus as workGetFilteredByStatus,
-    getStatusFilter as workGetStatusFilter,
-} from './work.functions'
-export {
     type Work,
     type WorkProgress,
     type WorkProgressStep,
@@ -18,3 +12,10 @@ export {
     ChallengeMetadataName,
     WorkStatusFilter,
 } from './work-store'
+export * from './work-by-status.model'
+export {
+    deleteAsync as workDeleteAsync,
+    getAsync as workGetAsync,
+    getGroupedByStatus as workGetGroupedByStatus,
+    getStatusFilter as workGetStatusFilter,
+} from './work.functions'

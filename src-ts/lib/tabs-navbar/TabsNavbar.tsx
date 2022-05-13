@@ -1,33 +1,36 @@
 import classNames from 'classnames'
-import { Dispatch, FC, MutableRefObject, SetStateAction, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import {
+    Dispatch,
+    FC,
+    MutableRefObject,
+    SetStateAction,
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from 'react'
 
 import { ActiveTabTipIcon } from '../svgs'
 
+import { TabsNavItem } from './tabs-nav-item.model'
 import styles from './TabsNavbar.module.scss'
-
-export interface TabsNavItem {
-    badges?: Array<{count: number, type: 'info'|'important'}>
-    id: string
-    title: string
-}
 
 export interface TabsNavbarProps {
     defaultActive: string
     onChange: (active: string) => void
-    tabs: Array<TabsNavItem>
+    tabs: ReadonlyArray<TabsNavItem>
 }
 
-const TabsNavbar: FC<TabsNavbarProps> = ({
-    defaultActive,
-    onChange,
-    tabs,
-}: TabsNavbarProps) => {
+const TabsNavbar: FC<TabsNavbarProps> = (props: TabsNavbarProps) => {
+
     const tabRefs: MutableRefObject<Array<HTMLElement>> = useRef([] as Array<HTMLElement>)
-    const [tabOpened, setTabOpened]: [string|undefined, Dispatch<SetStateAction<string|undefined>>] = useState<string|undefined>(defaultActive)
+    const [tabOpened, setTabOpened]: [string | undefined, Dispatch<SetStateAction<string | undefined>>] = useState<string | undefined>(props.defaultActive)
     const [offset, setOffset]: [number, Dispatch<SetStateAction<number>>] = useState<number>(0)
 
     const updateOffset: (tabId: string) => void = useCallback((tabId: string) => {
-        const index: number = tabs.findIndex(tab => tab.id === tabId)
+
+        const index: number = props.tabs.findIndex(tab => tab.id === tabId)
         if (index === -1) {
             setOffset(0)
             return
@@ -35,29 +38,34 @@ const TabsNavbar: FC<TabsNavbarProps> = ({
 
         const activeTab: HTMLElement = tabRefs.current[index]
         setOffset(activeTab.offsetLeft + activeTab.offsetWidth / 2)
-    }, [tabs])
+    }, [
+        props.tabs,
+    ])
 
     const handleActivateTab: (tabId: string) => void = useCallback((tabId: string) => {
-      setTabOpened(tabId)
-      onChange(tabId)
-      window.history.replaceState(window.history.state, '', `?tab=${tabId}`)
-      updateOffset(tabId)
-    }, [onChange, updateOffset])
+        setTabOpened(tabId)
+        props.onChange(tabId)
+        updateOffset(tabId)
+    }, [
+        props.onChange,
+        updateOffset,
+    ])
 
     useLayoutEffect(() => {
+
         const query: URLSearchParams = new URLSearchParams(window.location.search)
         const initialTab: string|null = query.get('tab')
 
-        if (initialTab && tabs.find(tab => tab.id === initialTab)) {
+        if (initialTab && props.tabs.find(tab => tab.id === initialTab)) {
             handleActivateTab(initialTab)
-        } else if (defaultActive) {
-            updateOffset(defaultActive)
+        } else if (props.defaultActive) {
+            updateOffset(props.defaultActive)
         }
-    }, [handleActivateTab, defaultActive])
+    }, [handleActivateTab, props.defaultActive])
 
     return (
         <div className={styles['tabs-wrapper']}>
-            {tabs.map((tab, i) => (
+            {props.tabs.map((tab, i) => (
                 <div
                     ref={el => tabRefs.current[i] = el as HTMLElement}
                     className={classNames(styles['tab-item'], tabOpened === tab.id && 'active')}
@@ -74,7 +82,10 @@ const TabsNavbar: FC<TabsNavbarProps> = ({
                     ))}
                 </div>
             ))}
-            <div className={styles['active-icon']} style={{left: `${offset}px`}}>
+            <div
+                className={styles['active-icon']}
+                style={{ left: `${offset}px` }}
+            >
                 <ActiveTabTipIcon />
             </div>
         </div>
