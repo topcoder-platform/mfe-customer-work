@@ -1,18 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
-import PageDivider from "components/PageDivider";
 import ReviewTable from "../../../Review/components/ReviewTable";
-import config from "../../../../../config";
-import ArrowRightIcon from "../../../../assets/images/arrow-right.svg";
 
 import "./styles.module.scss";
 import _ from "lodash";
-import Modal from "components/Modal";
-import OrderContract from "components/Modal/OrderContract";
-import PrivacyPolicyModal from "components/Modal/PrivacyPolicyModal";
-import TermsModal from "components/Modal/TermsModal";
+import { OrderContractModal, PrivacyPolicyModal, TermsModal } from "../../../../../src-ts";
 
-const Details = ({ challenge, formData }) => {
+const Details = ({ formData }) => {
+
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
   const [isPrivacyPolicyModalOpen, setIsPrivacyPolicyModalOpen] =
@@ -21,39 +16,19 @@ const Details = ({ challenge, formData }) => {
 
   return (
     <div styleName="details">
-      <Modal
-        fullWidth
-        show={isOrderContractModalOpen}
-        styleName="link"
-        handleClose={() => setIsOrderContractModalOpen(false)}
-      >
-        <OrderContract />
-      </Modal>
-      <Modal
-        fullWidth
-        show={isPrivacyPolicyModalOpen}
-        styleName="link"
-        handleClose={() => setIsPrivacyPolicyModalOpen(false)}
-      >
-        <PrivacyPolicyModal />
-      </Modal>
-      <Modal
-        fullWidth
-        show={isTermsModalOpne}
-        styleName="link"
-        handleClose={() => setIsTermsModalOpen(false)}
-      >
-        <TermsModal />
-      </Modal>
+      <OrderContractModal isOpen={isOrderContractModalOpen} onClose={() => setIsOrderContractModalOpen(false)} />
+      <PrivacyPolicyModal isOpen={isPrivacyPolicyModalOpen} onClose={() => setIsPrivacyPolicyModalOpen(false)} />
+      <TermsModal isOpen={isTermsModalOpne} onClose={() => setIsTermsModalOpen(false)} />
       <div styleName="reviewTable">
-        <PageDivider />
         <ReviewTable
           formData={_.get(formData, "intake-form.form", {})}
           enableEdit={false}
+          enableStepsToggle={false}
         />
       </div>
 
       <div styleName="invoiceWrapper">
+        <h3>supporting information</h3>
         <a
           styleName="link"
           role="button"

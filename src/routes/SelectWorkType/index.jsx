@@ -7,14 +7,12 @@ import { triggerAutoSave } from "../../actions/autoSave";
 import {
   saveWorkType,
   toggleSupportModal,
-  createNewSupportTicket,
 } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import IconWebsiteTools from "../../assets/images/design-tools.svg";
 import Button from "../../components/Button";
 import HelpBanner from "../../components/HelpBanner";
-import SupportModal from "../../components/Modal/SupportModal";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Page from "../../components/Page";
 import PageContent from "../../components/PageContent";
@@ -30,11 +28,11 @@ import {
   webWorkTypes,
   workTypes,
 } from "../../constants/";
-import { getProfile } from "../../selectors/profile";
-import { getUserProfile } from "../../thunks/profile";
 
 import styles from "./styles.module.scss";
 import { currencyFormat } from "utils/";
+
+import { ContactSupportModal } from "../../../src-ts";
 
 /**
  * Select Work Type Page
@@ -43,13 +41,11 @@ const SelectWorkType = ({
   saveWorkType,
   setProgressItem,
   toggleSupportModal,
-  createNewSupportTicket,
 }) => {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const showSupportModal = useSelector((state) => state.form.showSupportModal);
   const challenge = useSelector((state) => state.challenge);
-  const profileData = useSelector(getProfile);
 
   const allWorkTypes = [...workTypes, ...webWorkTypes];
   const workTypesComingSoon = allWorkTypes.filter((wt) => wt.comingSoon);
@@ -86,17 +82,6 @@ const SelectWorkType = ({
     toggleSupportModal(false);
   };
 
-  useEffect(() => {
-    dispatch(getUserProfile());
-  }, [dispatch]);
-
-  const onSubmitSupportRequest = (submittedSupportRequest) =>
-    createNewSupportTicket(
-      submittedSupportRequest,
-      challenge?.id,
-      challenge?.legacy?.selfService
-    );
-
   const breadcrumb = [
     { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
     { url: '/self-service/wizard', name: "Start work" }
@@ -107,13 +92,11 @@ const SelectWorkType = ({
   return (
     <>
       <LoadingSpinner show={isLoading} />
-      {showSupportModal && (
-        <SupportModal
-          profileData={profileData}
-          handleClose={onHideSupportModal}
-          onSubmit={onSubmitSupportRequest}
-        ></SupportModal>
-      )}
+      <ContactSupportModal
+        workId={challenge?.id}
+        isOpen={showSupportModal}
+        onClose={onHideSupportModal}
+      />
       <Breadcrumb items={breadcrumb} />
       <Page>
         <PageContent>
@@ -210,7 +193,6 @@ const mapDispatchToProps = {
   saveWorkType,
   setProgressItem,
   toggleSupportModal,
-  createNewSupportTicket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectWorkType);

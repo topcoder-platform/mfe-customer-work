@@ -9,6 +9,11 @@
 }
 
 .modal-body {
+    flex: 1 1 auto;
+    overflow: auto;
+    margin: 0 -1*$pad-xxxxl -1*$pad-xxxxl;
+    padding: 0 $pad-xxxxl $pad-xxxxl;
+
     @extend .body-main;
     & :global(.button-container) {
         display: flex;

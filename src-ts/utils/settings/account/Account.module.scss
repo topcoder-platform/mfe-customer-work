@@ -1,5 +1,14 @@
 @import '../../../lib/styles';
 
+:global(.account-settings-modal) {
+    h2 {
+        margin-bottom: $pad-xxl;
+        padding: 0 0 $pad-xxl;
+        border-bottom: 1px solid $black-10;
+    }
+
+}
+
 .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
