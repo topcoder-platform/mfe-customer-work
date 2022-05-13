@@ -183,7 +183,7 @@ function initializeStatusGroups(
                 tab.badges = [
                     {
                         count: info.count,
-                        type: 'important',
+                        type: 'info',
                     },
                 ]
             }
