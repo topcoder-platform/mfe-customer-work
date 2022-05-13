@@ -21,7 +21,9 @@
         flex: 1;
 
         &.rating {
-            margin-top: calc(-1 * $pad-xxl);
+            color: $black-100;
+            @extend .body-main;
+            margin-bottom: calc($pad-lg + 2px);
         }
     }
 
