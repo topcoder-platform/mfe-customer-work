@@ -131,18 +131,6 @@ const WorkItem = ({
     }
   }, [work, isSavingSurveyDone, setIsSavingSurveyDone, getSummary]);
 
-  const isReviewPhaseEnded = useMemo(() => {
-    if (work) {
-      return workUtil.isReviewPhaseEnded(work);
-    }
-  }, [work]);
-
-  const reviewPhaseEndedDate = useMemo(() => {
-    if (work) {
-      return workUtil.getReviewPhaseEndedDate(work);
-    }
-  }, [work]);
-
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
