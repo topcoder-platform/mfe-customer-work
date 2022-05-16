@@ -9,6 +9,7 @@ import { v4 as uuidV4 } from "uuid";
 import LikeIcon from "../../../../assets/images/thumbsup.svg";
 import DislikeIcon from "../../../../assets/images/thumbsdown.svg";
 import styles from "../../../../assets/data/website-design-styles.json";
+import HelpIcon from "../../../../components/HelpIcon"
 import "./styles.module.scss";
 
 const StyleOptions = ({ likes = [], dislikes = [], onLike, onDislike }) => {
@@ -26,7 +27,10 @@ const StyleOptions = ({ likes = [], dislikes = [], onLike, onDislike }) => {
             )}
           >
             <div styleName="name">
-              {style.name}
+              <span>{style.name}</span> &nbsp;
+              <HelpIcon textColor="#f4f4f4" inverted backgroundColor="#000" arrowColor="#000">
+              {style.description}
+              </HelpIcon>
             </div>
             <div styleName="box">
               <div styleName="preview" />

@@ -104,6 +104,8 @@
 
     .name {
       @include font-roboto;
+      display: flex;
+      justify-content: center;
       style: $black;
       font-size: 16px;
       font-weight: 600;
@@ -111,6 +113,10 @@
       text-align: center;
       margin-top: 8px;
       margin-bottom: 8px;
+
+      .toolTip {
+        margin-left: 2px;
+      }
     }
   }
 }
