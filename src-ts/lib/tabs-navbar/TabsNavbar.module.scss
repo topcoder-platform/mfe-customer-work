@@ -15,18 +15,23 @@
     gap: 4px;
 
     padding: $pad-md $pad-lg calc($pad-md - 2px);
-    cursor: pointer;
-
+    color: $black-80;
+    
     &:global(.active) {
+        color: $black-100;
         .tab-label {
-            color: $black-100;
+            @include font-weight-bold;
         }
+    }
+    &:not(:global(.active)):hover {
+        cursor: pointer;
+        color: $black-100;
+        background-color: $blue-25;
     }
 }
 
 .tab-label {
     @extend .medium-tab;
-    color: $black-80;
 }
 
 .tab-badge {
