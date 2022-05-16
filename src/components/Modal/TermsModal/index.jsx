@@ -192,6 +192,21 @@ const TermsModal = () => (
                 of this Agreement, and any such document shall be for
                 administrative purposes
               </li>
+              <li>
+                <PageH3>GENERAL ELIGIBILITY</PageH3>
+              </li>
+              <li>
+                Unless otherwise stated in the rules of a Competition, you are not
+                eligible to participate in such
+                any Competition if you are a resident of in the Quebec province of Canada, Iran, Cuba, North Korea,
+                Crimea, Donetsk, and Luhansk Regions of Ukraine, Sudan or Syria. In addition,
+                you are not eligible to participate in any Competition
+                if you are on the Specially Designated Nationals (SDN) list promulgated and amended,
+                from time to time, by the United States Department of the Treasury.
+                <br />
+                <br />
+                Residents of Russia or Belarus are ineligible to participate in any paid competitions (i.e., those not deemed “fun challenges”).
+              </li>
             </li>
           </ol>
         </li>
