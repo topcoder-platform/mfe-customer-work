@@ -227,6 +227,11 @@ const BasicInfo = ({
       challenge?.id,
       challenge?.legacy?.selfService
     );
+  
+  const saveForLater = () => {
+    saveBasicInfo(formData);
+    navigate("/self-service");
+  }
 
   return (
     <>
@@ -279,6 +284,15 @@ const BasicInfo = ({
                 </Button>
               </div>
               <div styleName="footer-right">
+                {isLoggedIn &&
+                  <Button
+                    size={BUTTON_SIZE.MEDIUM}
+                    type={BUTTON_TYPE.SECONDARY}
+                    onClick={saveForLater}
+                  >
+                    SAVE FOR LATER
+                  </Button>
+                }
                 <Button
                   disabled={!isFormValid}
                   size={BUTTON_SIZE.MEDIUM}
