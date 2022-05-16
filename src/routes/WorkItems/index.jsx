@@ -11,7 +11,6 @@ import {
 } from "constants/";
 import TabPane from "./components/TabPane";
 import Details from "./components/Details";
-import Solutions from "./components/Solutions";
 import workUtil from "utils/work";
 import Forum from "../Forum";
 
@@ -39,6 +38,7 @@ import {
   WorkDetailSummary,
   WorkFeedback,
   WorkStatusItem,
+  WorkDetailSolutions,
 } from '../../../src-ts'
 
 import "./styles.module.scss";
@@ -226,13 +226,13 @@ const WorkItem = ({
             </TabPane>
 
             <TabPane value={selectedTab} tab="solutions">
-              <Solutions
-                solutions={solutions}
-                onDownload={downloadSolution}
-                isReviewPhaseEnded={isReviewPhaseEnded}
-                reviewPhaseEndedDate={reviewPhaseEndedDate}
-                work={work}
-              />
+              {work && (
+                <WorkDetailSolutions
+                  challenge={work}
+                  solutions={solutions}
+                  onDownload={downloadSolution}
+                />
+              )}
             </TabPane>
 
             <TabPane value={selectedTab} tab="messaging">

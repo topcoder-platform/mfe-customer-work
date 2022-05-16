@@ -6,6 +6,7 @@ export {
     type Work,
     type WorkProgress,
     type WorkProgressStep,
+    type WorkSolution,
     WorkStatus,
     WorkType,
     workFactoryCreate,
