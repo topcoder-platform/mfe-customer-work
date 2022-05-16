@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import { FC, useContext, useMemo } from 'react'
 
 import { Work, workContext, WorkContextData, WorkSolution, WorkStatus } from '../../../lib'
 
@@ -16,17 +16,24 @@ const WorkDetailSolutions: FC<WorkDetailSolutionsProps> = (props: WorkDetailSolu
     const workContextData: WorkContextData = useContext(workContext)
     const work: Work = workContextData.createFromChallenge(props.challenge)
 
+    const isSolutionsReady: boolean = useMemo(() => {
+        const activeStepName: string = work.progress.steps[work.progress.activeStepIndex]?.name
+        return (activeStepName === WorkStatus.ready || activeStepName === WorkStatus.done) && props.solutions?.length > 0
+    }, [work, props.solutions])
+
     return (
         <div className={styles.wrap}>
-            <div className={styles.header}>
-                <h3>
-                    Solutions Available for Download
-                </h3>
-                <p className={'body-small'}>
-                    The solutions listed below have met your detailed criteria. They are ranked based on the best solution as determined by Topcoder expert reviewers.
-                </p>
-            </div>
-            <WorkSolutionsList work={work} solutions={props.solutions} onDownload={props.onDownload} />
+            {isSolutionsReady && (
+                <div className={styles.header}>
+                    <h3>
+                        Solutions Available for Download
+                    </h3>
+                    <p className={'body-small'}>
+                        The solutions listed below have met your detailed criteria. They are ranked based on the best solution as determined by Topcoder expert reviewers.
+                    </p>
+                </div>
+            )}
+            <WorkSolutionsList isSolutionsReady={isSolutionsReady} work={work} solutions={props.solutions} onDownload={props.onDownload} />
         </div>
     )
 }

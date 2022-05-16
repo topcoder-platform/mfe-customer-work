@@ -1,10 +1,29 @@
-import { WORK_STATUSES, CHALLENGE_STATUS } from "constants";
+import { WORK_STATUS_ORDER, WORK_STATUSES, CHALLENGE_STATUS } from "constants";
 import _ from "lodash";
 import moment from "moment";
 
 export const getStatus = (work) => {
   const workStatus = _.find(WORK_STATUSES, { value: work.status });
   return workStatus ? workStatus.name : work.status;
+};
+
+export const isReviewPhaseEnded = (work) => {
+  const allPhases = work.phases || [];
+
+  for (let i = allPhases.length - 1; i >= 0; i -= 1) {
+    const phase = allPhases[i];
+    if (
+      (phase.name === "Review" || phase.name === "Iterative Review") &&
+      !phase.isOpen &&
+      moment(phase.scheduledStartDate).isBefore() &&
+      WORK_STATUS_ORDER[work.status] >=
+        WORK_STATUS_ORDER[WORK_STATUSES.InProgress.value]
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 };
 
 export const phaseEndDate = (phase) => {
@@ -35,6 +54,7 @@ export const isMessagesDisabled = (work) => {
 
 export default {
   getStatus,
+  isReviewPhaseEnded,
   phaseEndDate,
   phaseStartDate,
   isMessagesDisabled,

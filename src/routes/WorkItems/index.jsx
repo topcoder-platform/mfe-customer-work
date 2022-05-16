@@ -77,6 +77,12 @@ const WorkItem = ({
 
   const { summary, details, solutions } = useMemo(() => workItem, [workItem]);
 
+  const isReviewPhaseEnded = useMemo(() => {
+    if (work) {
+      return workUtil.isReviewPhaseEnded(work);
+    }
+  }, [work]);
+  
   useEffect(() => {
     if (!work) {
       return;
@@ -94,6 +100,7 @@ const WorkItem = ({
       }
     } else if (selectedTab === "solutions") {
       if (!solutions) {
+        console.log({workId: work.id});
         isReviewPhaseEnded && getSolutions(work.id);
       }
     } else if (selectedTab === "details") {
@@ -204,7 +211,7 @@ const WorkItem = ({
 
           <div styleName="tabs-contents">
             <TabPane value={selectedTab} tab="summary">
-              {summary && (
+              {work && summary && (
                 <WorkDetailSummary challenge={work} status={workStatus} />
               )}
             </TabPane>
@@ -214,7 +221,7 @@ const WorkItem = ({
             </TabPane>
 
             <TabPane value={selectedTab} tab="solutions">
-              {work && (
+              {work && solutions && (
                 <WorkDetailSolutions
                   challenge={work}
                   solutions={solutions}
