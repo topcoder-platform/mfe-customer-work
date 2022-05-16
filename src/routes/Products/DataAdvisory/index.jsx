@@ -32,7 +32,7 @@ export default function DataAdvsisory({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/data-advisory/review"
       />
       <Review
-        banner={<FeaturedWorkTypeBanner title={title} subTitle={subTitle} />}
+        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} />}
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}

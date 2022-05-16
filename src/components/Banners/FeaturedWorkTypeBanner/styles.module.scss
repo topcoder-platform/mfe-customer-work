@@ -11,14 +11,16 @@
   grid-template-columns: 1fr 359px;
   
   &.website-design,
-  &.website-design {
+  &.review--payment {
     background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
   }
-  &.data-exploration {
+  &.data-exploration,
+  &.review--payment {
     background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
   }
   &.find-me-data,
-  &.problem-statement--data-advisory  {
+  &.problem-statement--data-advisory,
+  &.review--payment  {
     background: linear-gradient(84.92deg, #723390 2.08%, #8C384F 97.43%);
   }
 
@@ -62,7 +64,8 @@
       background: url("../../../assets/images/find-me-data.png");
       background-size: cover;
     }
-    &.website-design {
+    &.website-design,
+    &.review--payment {
       background: url("../../../assets/images/website-design-v2.png");
       background-size: cover;
     }

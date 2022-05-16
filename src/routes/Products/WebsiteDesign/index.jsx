@@ -32,7 +32,7 @@ export default function WebsiteDesign({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/website-design/review"
       />
       <Review
-        banner={<FeaturedWorkTypeBanner title={title} subTitle={subTitle} />}
+        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} />}
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}
