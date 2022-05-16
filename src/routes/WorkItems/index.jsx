@@ -100,7 +100,6 @@ const WorkItem = ({
       }
     } else if (selectedTab === "solutions") {
       if (!solutions) {
-        console.log({workId: work.id});
         isReviewPhaseEnded && getSolutions(work.id);
       }
     } else if (selectedTab === "details") {
