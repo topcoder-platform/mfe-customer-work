@@ -128,28 +128,25 @@ const WorkTable: FC<{}> = () => {
     const filteredResults: ReadonlyArray<Work> | undefined = statusGroups?.[workStatusFilter].results
 
     // if we don't have any work after filtering, render no results
-    if (!filteredResults?.length) {
-        return (
-            <>
-                {tabsElement}
-                <WorkNoResults filtered={true} />
-            </>
+    // otherwise, render the table
+    const resultsElement: JSX.Element = !filteredResults?.length
+        ? <WorkNoResults filtered={true} />
+        : (
+            <Table
+                columns={columns}
+                data={filteredResults}
+                defaultSort={{
+                    direction: 'desc',
+                    fieldName: 'created',
+                }}
+                onRowClick={viewWorkDetails}
+            />
         )
-    }
-
-    const workList: Array<Work> = [...filteredResults]
-        // sort by the default sort,
-        // which is descending by created date
-        .sort((a: Work, b: Work) => b.created.getTime() - a.created.getTime())
 
     return (
         <>
             {tabsElement}
-            <Table
-                columns={columns}
-                data={workList}
-                onRowClick={viewWorkDetails}
-            />
+            {resultsElement}
         </>
     )
 }

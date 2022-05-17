@@ -1,12 +1,7 @@
-@import './icons';
-@import './layout';
-@import './palette';
-
-// TODO: add reset and have it take care of this
-a {
-    color: inherit;
-    text-decoration: none;
-}
+@import 'mixins/icons.mixins';
+@import 'variables/fonts';
+@import 'variables/spacing';
+@import 'variables/palette';
 
 .button-primary-hover {
     background-color: $turq-140;
@@ -28,8 +23,9 @@ a {
     border: solid $border;
     white-space: nowrap;
     cursor: pointer;
-    // extend ultra small bold and override it
-    @extend .ultra-small-bold;
+    font-family: $font-roboto; 
+    font-weight: $font-weight-bold;
+    font-size: 11px;
     line-height: 24px;
 
     &.primary,
@@ -178,14 +174,10 @@ a {
         &:hover {
             background-color: $black-10;
             color: $turq-100;
-        }
 
-        &.black-20 {
-            color: $black-20;
-        }
-
-        &.orange-100 {
-            color: $orange-100;
+            &.hover-orange-100 {
+                @extend .orange-100;
+            }
         }
 
         &:focus {

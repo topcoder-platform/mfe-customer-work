@@ -1,76 +1,76 @@
-@import '../../styles/palette';
+@import '../../styles/includes';
 
 .container {
-  line-height: 20px;
+    line-height: 20px;
 
-  ol {
-    padding: 0;
-  }
-
-  h4 {
-    margin: 20px 0;
-  }
-  
-  p {
-    margin-bottom: 20px;
-
-    &.sm {
-      font-size: 14px;
+    ol {
+        padding: 0;
     }
-  }
-  
-  ul.a {
-    list-style-type: disc;
-    list-style: disc;
 
-    li {
-      padding-left: 0;
-      margin-left: 20px;
+    h4 {
+        margin: 20px 0;
     }
-  }
 
-  ul.b {
-    list-style-type: disc;
-    list-style: disc;
+    p {
+        margin-bottom: 20px;
 
-    li {
-      padding-left: 0;
-      margin-left: 20px;
+        &.sm {
+            font-size: 14px;
+        }
     }
-  }
 
-  ul.c{
-    list-style-type: disc;
-    list-style: disc;
+    ul.a {
+        list-style-type: disc;
+        list-style: disc;
 
-    li {
-      padding-left: 0;
-      margin-left: 20px;
+        li {
+            padding-left: 0;
+            margin-left: 20px;
+        }
     }
-  }
 
-  ul.d{
-    list-style-type: disc;
-    list-style: disc;
+    ul.b {
+        list-style-type: disc;
+        list-style: disc;
 
-    li {
-      padding-left: 0;
-      margin-left: 20px;
+        li {
+            padding-left: 0;
+            margin-left: 20px;
+        }
     }
-  }
 
-  ul.e{
-    list-style-type: disc;
-    list-style: disc;
+    ul.c {
+        list-style-type: disc;
+        list-style: disc;
 
-    li {
-      padding-left: 0;
-      margin-left: 20px;
+        li {
+            padding-left: 0;
+            margin-left: 20px;
+        }
     }
-  }
 
-  a {
-    text-decoration: underline;
-    color: $link-blue-light;
-  }
+    ul.d {
+        list-style-type: disc;
+        list-style: disc;
+
+        li {
+            padding-left: 0;
+            margin-left: 20px;
+        }
+    }
+
+    ul.e {
+        list-style-type: disc;
+        list-style: disc;
+
+        li {
+            padding-left: 0;
+            margin-left: 20px;
+        }
+    }
+
+    a {
+        text-decoration: underline;
+        color: $link-blue-light;
+    }
 }
