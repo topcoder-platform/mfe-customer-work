@@ -123,11 +123,10 @@ const BasicInfo = ({
   const showSupportModal = useSelector((state) => state.form.showSupportModal);
   const profileData = useSelector(getProfile);
   const challenge = useSelector((state) => state.challenge);
-  const fullState = useSelector((state) => state);
 
   const estimate =
-    workType === "Website Design"
-      ? getWebsiteDesignPriceAndTimelineEstimate(fullState)
+    workType?.selectedWorkType === "Website Design"
+      ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
       ? getDataExplorationPriceAndTimelineEstimate()
       : isDataAdvisory

@@ -89,7 +89,7 @@ const Review = ({
     useState(false);
   const estimate =
     workType?.selectedWorkType === "Website Design"
-      ? getWebsiteDesignPriceAndTimelineEstimate(fullState)
+      ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
       ? getDataExplorationPriceAndTimelineEstimate()
       : isDataAdvisory
