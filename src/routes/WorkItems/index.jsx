@@ -10,7 +10,6 @@ import {
   ROUTES,
 } from "constants/";
 import TabPane from "./components/TabPane";
-import Details from "./components/Details";
 import Solutions from "./components/Solutions";
 import workUtil from "utils/work";
 import Forum from "../Forum";
@@ -35,6 +34,7 @@ import {
   ContactSupportModal,
   TabsNavbar,
   workContext,
+  WorkDetailDetails,
   WorkDetailHeader,
   WorkDetailSummary,
   WorkFeedback,
@@ -42,6 +42,7 @@ import {
 } from '../../../src-ts'
 
 import "./styles.module.scss";
+import ReviewTable from "../Review/components/ReviewTable";
 
 /**
  * Work Item Page
@@ -222,7 +223,13 @@ const WorkItem = ({
             </TabPane>
 
             <TabPane value={selectedTab} tab="details">
-              <Details challenge={work} formData={details} />
+              <WorkDetailDetails>
+                <ReviewTable
+                  formData={_.get(details, "intake-form.form", {})}
+                  enableEdit={false}
+                  enableStepsToggle={false}
+                />
+              </WorkDetailDetails>
             </TabPane>
 
             <TabPane value={selectedTab} tab="solutions">

@@ -1,0 +1,10 @@
+@import "../../../lib/styles";
+
+.wrap {
+  display: flex;
+  padding-bottom: 32px;
+}
+
+.details-content {
+  flex-grow: 2;
+}
