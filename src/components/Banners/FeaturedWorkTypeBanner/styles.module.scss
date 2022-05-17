@@ -146,6 +146,10 @@
         .heroHeaderTitle {
           display: flex;
           text-transform: uppercase;
+          @include mobile {
+            font-size: 28px;
+            line-height: 32px;
+          }
         }
 
         .heroHeaderSubtitle {
@@ -153,6 +157,10 @@
           max-width: 713px;
           line-height: 24px;
           font-weight: 500;
+          @include mobile {
+            font-size: 14px;
+            line-height: 20px;
+          }
         }
       }
     }
