@@ -385,7 +385,6 @@ export const webWorkTypes = [
   },
   {
     title: "Website Design",
-    reviewAndPaymentTitle: "REVIEW & PAYMENT",
     subTitle: "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
     price: 499,
     // stickerPrice: 499,
