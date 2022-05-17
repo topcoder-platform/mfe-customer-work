@@ -388,7 +388,7 @@ export const webWorkTypes = [
     subTitle: "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
     price: 499,
     // stickerPrice: 499,
-    duration: "2 Days",
+    duration: "4 Days",
     featured: true,
     startRoute: "/self-service/work/new/website-design/basic-info",
     helperBannerTitle: "WHAT WILL I RECEIVE?",
