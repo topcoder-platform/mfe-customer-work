@@ -285,6 +285,7 @@ const BasicInfo = ({
               <div styleName="footer-right">
                 {isLoggedIn &&
                   <Button
+                    disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
                     onClick={saveForLater}
