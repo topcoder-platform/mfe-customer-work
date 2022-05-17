@@ -6,12 +6,7 @@ import { connect, useSelector, useDispatch } from "react-redux";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
-import {
-  ROUTES,
-} from "constants/";
-import TabPane from "./components/TabPane";
-import Details from "./components/Details";
-import Solutions from "./components/Solutions";
+import { ROUTES } from "constants/";
 import workUtil from "utils/work";
 import Forum from "../Forum";
 
@@ -32,13 +27,13 @@ import { getProfile } from "../../selectors/profile";
 import {
   Breadcrumb,
   ChallengeMetadataName,
-  ContactSupportModal,
   TabsNavbar,
   workContext,
   WorkDetailHeader,
   WorkDetailSummary,
   WorkFeedback,
   WorkStatusItem,
+  WorkDetailSolutions,
 } from '../../../src-ts'
 
 import "./styles.module.scss";
@@ -66,7 +61,6 @@ const WorkItem = ({
   const dispatch = useDispatch();
   const [selectedTab, setSelectedTab] = useState("summary");
   const [showSurvey, setShowSurvey] = useState(false);
-  const [showSupportModal, setShowSupportModal] = useState(false);
   const profileData = useSelector(getProfile);
 
   const workContextData = useContext(workContext)
@@ -78,6 +72,12 @@ const WorkItem = ({
 
   const { summary, details, solutions } = useMemo(() => workItem, [workItem]);
 
+  const isReviewPhaseEnded = useMemo(() => {
+    if (work) {
+      return workUtil.isReviewPhaseEnded(work);
+    }
+  }, [work]);
+  
   useEffect(() => {
     if (!work) {
       return;
@@ -131,25 +131,6 @@ const WorkItem = ({
       setIsSavingSurveyDone(false);
     }
   }, [work, isSavingSurveyDone, setIsSavingSurveyDone, getSummary]);
-
-  const isReviewPhaseEnded = useMemo(() => {
-    if (work) {
-      return workUtil.isReviewPhaseEnded(work);
-    }
-  }, [work]);
-
-  const reviewPhaseEndedDate = useMemo(() => {
-    if (work) {
-      return workUtil.getReviewPhaseEndedDate(work);
-    }
-  }, [work]);
-
-  const onShowSupportModal = () => {
-    setShowSupportModal(true);
-  };
-  const onHideSupportModal = () => {
-    setShowSupportModal(false);
-  };
 
   useEffect(() => {
     dispatch(getUserProfile());
@@ -205,11 +186,6 @@ const WorkItem = ({
   return (
     <>
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
-      <ContactSupportModal
-        workId={work?.id}
-        isOpen={showSupportModal}
-        onClose={onHideSupportModal}
-      />
       <Page styleName="page">
         <PageContent styleName="pageContent">
 
@@ -233,37 +209,39 @@ const WorkItem = ({
           />
 
           <div styleName="tabs-contents">
-            <TabPane value={selectedTab} tab="summary">
-              {summary && (
-                <WorkDetailSummary challenge={work} status={workStatus} />
-              )}
-            </TabPane>
-
-            <TabPane value={selectedTab} tab="details">
-              <Details challenge={work} formData={details} />
-            </TabPane>
-
-            <TabPane value={selectedTab} tab="solutions">
-              <Solutions
-                solutions={solutions}
-                onDownload={downloadSolution}
-                isReviewPhaseEnded={isReviewPhaseEnded}
-                reviewPhaseEndedDate={reviewPhaseEndedDate}
-                work={work}
-              />
-              <div styleName="solution-tab-footer">
-                <a onClick={onShowSupportModal} styleName="need-help-link">
-                  Need Help?
-                </a>
+            {selectedTab === 'summary' && (
+              <div>
+                {summary && (
+                  <WorkDetailSummary challenge={work} status={workStatus} />
+                )}
               </div>
-            </TabPane>
+            )}
 
-            <TabPane value={selectedTab} tab="messaging">
-              {work && <Forum challengeId={work.id} />}
-            </TabPane>
+            {selectedTab === 'details' && (
+              <div>
+                <WorkDetailDetails challenge={work} formData={details} />
+              </div>
+            )}
 
-            <TabPane value={selectedTab} tab="history">
-            </TabPane>
+            {selectedTab === 'solutions' && (
+              <div>
+                <WorkDetailSolutions
+                  challenge={work}
+                  onDownload={downloadSolution}
+                  solutions={solutions}
+                />
+              </div>
+            )}
+
+            {selectedTab === 'messaging' && (
+              <div>
+                {work && <Forum challengeId={work.id} />}
+              </div>
+            )}
+
+            {selectedTab === 'history' && (
+              <div />
+            )}
           </div>
         </PageContent>
       </Page>
