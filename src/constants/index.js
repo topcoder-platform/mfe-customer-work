@@ -1,6 +1,7 @@
 import _ from "lodash";
 import moment from "moment";
 import React from "react";
+import "./styles.module.scss";
 
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
 import exampleImage1 from "../assets/images/design-example-image1.png"
@@ -395,13 +396,13 @@ export const webWorkTypes = [
     helperBannerContent: (
       <>
         <br />
-        <div style={{ display: "flex" }}>
+        <div styleName="helpBanner">
           <PageP>
             You will receive up to five unique visual designs for the main page of your website, in an industry-standard format.
             Visual designs are the first step in creating a functional website. Topcoder can help you with launching your website once you have approved your design.
           </PageP>
-          <div style={{ display: "flex", paddingRight: "218px", marginTop: "-30px",  }}>
-            <img style={{ marginRight: "16px", marginLeft: "16px"}} src={exampleImage1}/>
+          <div styleName="sampleImages" >
+            <img styleName="imgBanner" src={exampleImage1}/>
             &nbsp;
             <img src={exampleImage2}/>
           </div>
