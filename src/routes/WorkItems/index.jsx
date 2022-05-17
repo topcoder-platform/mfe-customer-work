@@ -6,10 +6,7 @@ import { connect, useSelector, useDispatch } from "react-redux";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
-import {
-  ROUTES,
-} from "constants/";
-import Details from "./components/Details";
+import { ROUTES } from "constants/";
 import workUtil from "utils/work";
 import Forum from "../Forum";
 
@@ -30,7 +27,6 @@ import { getProfile } from "../../selectors/profile";
 import {
   Breadcrumb,
   ChallengeMetadataName,
-  ContactSupportModal,
   TabsNavbar,
   workContext,
   WorkDetailHeader,
@@ -218,18 +214,16 @@ const WorkItem = ({
 
             {selectedTab === 'details' && (
               <div>
-                <Details challenge={work} formData={details} />
+                <WorkDetailDetails challenge={work} formData={details} />
               </div>
             )}
 
             {selectedTab === 'solutions' && (
               <div>
-                <Solutions
-                  solutions={solutions}
+                <WorkDetailSolutions
+                  challenge={work}
                   onDownload={downloadSolution}
-                  isReviewPhaseEnded={isReviewPhaseEnded}
-                  reviewPhaseEndedDate={reviewPhaseEndedDate}
-                  work={work}
+                  solutions={solutions}
                 />
               </div>
             )}
