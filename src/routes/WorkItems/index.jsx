@@ -10,7 +10,6 @@ import {
   ROUTES,
 } from "constants/";
 import TabPane from "./components/TabPane";
-import Details from "./components/Details";
 import Solutions from "./components/Solutions";
 import workUtil from "utils/work";
 import Forum from "../Forum";
@@ -35,6 +34,7 @@ import {
   ContactSupportModal,
   TabsNavbar,
   workContext,
+  WorkDetailDetails,
   WorkDetailHeader,
   WorkDetailSummary,
   WorkFeedback,
@@ -42,6 +42,7 @@ import {
 } from '../../../src-ts'
 
 import "./styles.module.scss";
+import ReviewTable from "../Review/components/ReviewTable";
 
 /**
  * Work Item Page
@@ -66,7 +67,6 @@ const WorkItem = ({
   const dispatch = useDispatch();
   const [selectedTab, setSelectedTab] = useState("summary");
   const [showSurvey, setShowSurvey] = useState(false);
-  const [showSupportModal, setShowSupportModal] = useState(false);
   const profileData = useSelector(getProfile);
 
   const workContextData = useContext(workContext)
@@ -144,13 +144,6 @@ const WorkItem = ({
     }
   }, [work]);
 
-  const onShowSupportModal = () => {
-    setShowSupportModal(true);
-  };
-  const onHideSupportModal = () => {
-    setShowSupportModal(false);
-  };
-
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
@@ -200,11 +193,6 @@ const WorkItem = ({
   return (
     <>
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
-      <ContactSupportModal
-        workId={work?.id}
-        isOpen={showSupportModal}
-        onClose={onHideSupportModal}
-      />
       <Page styleName="page">
         <PageContent styleName="pageContent">
 
@@ -235,7 +223,13 @@ const WorkItem = ({
             </TabPane>
 
             <TabPane value={selectedTab} tab="details">
-              <Details challenge={work} formData={details} />
+              <WorkDetailDetails>
+                <ReviewTable
+                  formData={_.get(details, "intake-form.form", {})}
+                  enableEdit={false}
+                  enableStepsToggle={false}
+                />
+              </WorkDetailDetails>
             </TabPane>
 
             <TabPane value={selectedTab} tab="solutions">
@@ -246,11 +240,6 @@ const WorkItem = ({
                 reviewPhaseEndedDate={reviewPhaseEndedDate}
                 work={work}
               />
-              <div styleName="solution-tab-footer">
-                <a onClick={onShowSupportModal} styleName="need-help-link">
-                  Need Help?
-                </a>
-              </div>
             </TabPane>
 
             <TabPane value={selectedTab} tab="messaging">
