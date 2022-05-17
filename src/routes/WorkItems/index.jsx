@@ -10,7 +10,6 @@ import {
   ROUTES,
 } from "constants/";
 import Details from "./components/Details";
-import Solutions from "./components/Solutions";
 import workUtil from "utils/work";
 import Forum from "../Forum";
 
@@ -38,6 +37,7 @@ import {
   WorkDetailSummary,
   WorkFeedback,
   WorkStatusItem,
+  WorkDetailSolutions,
 } from '../../../src-ts'
 
 import "./styles.module.scss";
@@ -76,6 +76,12 @@ const WorkItem = ({
 
   const { summary, details, solutions } = useMemo(() => workItem, [workItem]);
 
+  const isReviewPhaseEnded = useMemo(() => {
+    if (work) {
+      return workUtil.isReviewPhaseEnded(work);
+    }
+  }, [work]);
+  
   useEffect(() => {
     if (!work) {
       return;
@@ -129,18 +135,6 @@ const WorkItem = ({
       setIsSavingSurveyDone(false);
     }
   }, [work, isSavingSurveyDone, setIsSavingSurveyDone, getSummary]);
-
-  const isReviewPhaseEnded = useMemo(() => {
-    if (work) {
-      return workUtil.isReviewPhaseEnded(work);
-    }
-  }, [work]);
-
-  const reviewPhaseEndedDate = useMemo(() => {
-    if (work) {
-      return workUtil.getReviewPhaseEndedDate(work);
-    }
-  }, [work]);
 
   useEffect(() => {
     dispatch(getUserProfile());
