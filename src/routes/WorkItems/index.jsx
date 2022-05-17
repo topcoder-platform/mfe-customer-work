@@ -9,7 +9,6 @@ import PageContent from "components/PageContent";
 import {
   ROUTES,
 } from "constants/";
-import TabPane from "./components/TabPane";
 import Details from "./components/Details";
 import Solutions from "./components/Solutions";
 import workUtil from "utils/work";
@@ -215,32 +214,41 @@ const WorkItem = ({
           ></TabsNavbar>
 
           <div styleName="tabs-contents">
-            <TabPane value={selectedTab} tab="summary">
-              {summary && (
-                <WorkDetailSummary challenge={work} status={workStatus} />
-              )}
-            </TabPane>
+            {selectedTab === 'summary' && (
+              <div>
+                {summary && (
+                  <WorkDetailSummary challenge={work} status={workStatus} />
+                )}
+              </div>
+            )}
 
-            <TabPane value={selectedTab} tab="details">
-              <Details challenge={work} formData={details} />
-            </TabPane>
+            {selectedTab === 'details' && (
+              <div>
+                <Details challenge={work} formData={details} />
+              </div>
+            )}
 
-            <TabPane value={selectedTab} tab="solutions">
-              <Solutions
-                solutions={solutions}
-                onDownload={downloadSolution}
-                isReviewPhaseEnded={isReviewPhaseEnded}
-                reviewPhaseEndedDate={reviewPhaseEndedDate}
-                work={work}
-              />
-            </TabPane>
+            {selectedTab === 'solutions' && (
+              <div>
+                <Solutions
+                  solutions={solutions}
+                  onDownload={downloadSolution}
+                  isReviewPhaseEnded={isReviewPhaseEnded}
+                  reviewPhaseEndedDate={reviewPhaseEndedDate}
+                  work={work}
+                />
+              </div>
+            )}
 
-            <TabPane value={selectedTab} tab="messaging">
-              {work && <Forum challengeId={work.id} />}
-            </TabPane>
+            {selectedTab === 'messaging' && (
+              <div>
+                {work && <Forum challengeId={work.id} />}
+              </div>
+            )}
 
-            <TabPane value={selectedTab} tab="history">
-            </TabPane>
+            {selectedTab === 'history' && (
+              <div />
+            )}
           </div>
         </PageContent>
       </Page>
