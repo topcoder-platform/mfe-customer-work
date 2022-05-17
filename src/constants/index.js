@@ -1,6 +1,8 @@
 import _ from "lodash";
 import moment from "moment";
 import React from "react";
+import WebsiteDesignPdf1 from "../assets/pdf/WebDesign-1.pdf"
+import WebsiteDesignPdf2 from "../assets/pdf/WebDesign-2.pdf"
 import "./styles.module.scss";
 
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
@@ -402,9 +404,13 @@ export const webWorkTypes = [
             Visual designs are the first step in creating a functional website. Topcoder can help you with launching your website once you have approved your design.
           </PageP>
           <div styleName="sampleImages" >
-            <img styleName="imgBanner" src={exampleImage1}/>
+            <a href={WebsiteDesignPdf1} target="_blank">
+              <img styleName="imgBanner" src={exampleImage1}/>
+            </a>
             &nbsp;
-            <img src={exampleImage2}/>
+            <a href={WebsiteDesignPdf2} target="_blank">
+              <img src={exampleImage2}/>
+            </a>
           </div>
         </div>
       </>
