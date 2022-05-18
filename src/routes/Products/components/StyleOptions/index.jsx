@@ -12,7 +12,7 @@ import styles from "../../../../assets/data/website-design-styles.json";
 import HelpIcon from "../../../../components/HelpIcon"
 import "./styles.module.scss";
 
-const StyleOptions = ({ likes = [], dislikes = [], onLike, onDislike }) => {
+const StyleOptions = ({ likes = [], dislikes = [], onLike, onDislike, onSelect }) => {
   return (
     <div styleName="styleOptions">
       {styles.map((style, index) => (
@@ -33,7 +33,7 @@ const StyleOptions = ({ likes = [], dislikes = [], onLike, onDislike }) => {
               </HelpIcon>
             </div>
             <div styleName="box">
-              <div styleName="preview" />
+              <div styleName="preview" role="button" onClick={() => onSelect(style)} />
               <div styleName="actions">
                 <LikeIcon
                   role="button"

@@ -23,6 +23,7 @@ import DataExplorationIcon from "../../../../assets/images/data-exploration-icon
 import FindMeDataIcon from "../../../../assets/images/find-me-data-icon.svg";
 import WebsiteDesignIcon from "../../../../assets/images/website-design-icon.svg";
 import AddWebsiteIcon from "../../../../assets/images/add-website-icon.svg";
+import StylesOptionsModal from "../StyleOptionsModal"
 import "./styles.module.scss";
 import {
   PrimaryDataChallengeOptions,
@@ -31,6 +32,7 @@ import {
   ColorOptionsItems,
 } from "../../../../constants";
 import StyleOptions from "../StyleOptions";
+import styles from "../../../../assets/data/website-design-styles.json";
 
 const BasicInfoForm = ({
   formData,
@@ -47,6 +49,7 @@ const BasicInfoForm = ({
     PrimaryDataChallengeOptions
   );
   const [selectedColor, setSelectedColor] = useState({});
+  const [selectedStyleOption, setSelectedStyleOption] = useState(null);
 
   const {
     title,
@@ -760,6 +763,7 @@ const BasicInfoForm = ({
               <StyleOptions
                 likes={formData?.likedStyles?.value}
                 dislikes={formData?.dislikedStyles?.value}
+                onSelect={(style) => setSelectedStyleOption(style)}
                 onLike={(likes) => {
                   handleInputChange("likedStyles", likes, likes);
                 }}
@@ -790,6 +794,20 @@ const BasicInfoForm = ({
             </PageRow>
           </div>
         </PageRow>
+      )}
+      {isWebsiteDesign && selectedStyleOption && (
+        <StylesOptionsModal
+          style={selectedStyleOption}
+          likes={formData?.likedStyles?.value}
+          dislikes={formData?.dislikedStyles?.value}
+          onLike={(likes) => {
+            handleInputChange("likedStyles", likes, likes);
+          }}
+          onDislike={(dislikes) => {
+            handleInputChange("dislikedStyles", dislikes, dislikes);
+          }}
+          onDismiss={() => setSelectedStyleOption(null)}
+        />
       )}
 
       {isWebsiteDesign && (
