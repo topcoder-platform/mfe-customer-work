@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import _ from "lodash";
 import PT from "prop-types";
 import { navigate } from "@reach/router";
@@ -164,10 +164,10 @@ const WorkItem = ({
     { id: 'solutions', title: 'Solutions' },
   ].filter(Boolean), [work]);
 
-  function onTabChange(tabId) {
+  const onTabChange = useCallback((tabId) => {
     window.history.replaceState(window.history.state, '', `?tab=${tabId}`)
     setSelectedTab(tabId)
-  }
+  }, [])
 
   function saveFeedback(updatedCustomerFeedback) {
 
