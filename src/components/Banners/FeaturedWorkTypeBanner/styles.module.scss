@@ -11,16 +11,13 @@
   grid-template-columns: 1fr 359px;
   
   &.website-design,
-  &.review--payment {
-    background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
-  }
   &.data-exploration,
   &.review--payment {
     background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
   }
+
   &.find-me-data,
-  &.problem-statement--data-advisory,
-  &.review--payment  {
+  &.problem-statement--data-advisory {
     background: linear-gradient(84.92deg, #723390 2.08%, #8C384F 97.43%);
   }
 
