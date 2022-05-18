@@ -14,7 +14,7 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
   const [steps, setSteps] = useState([
     {
       id: 0,
-      label: "Review Your Project Details",
+      label: "REVIEW REQUIREMENTS",
       value: "basicInfo",
       isOpen: true,
     },
