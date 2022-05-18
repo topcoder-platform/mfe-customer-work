@@ -231,7 +231,7 @@ const WorkItem = ({
               </div>
             )}
 
-            {selectedTab === 'solutions' && (
+            {selectedTab === 'solutions' && work && (
               <div>
                 <WorkDetailSolutions
                   challenge={work}
