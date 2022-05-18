@@ -5,6 +5,9 @@ import { cacheChallengeId } from '../../../../src/autoSaveBeforeLogin' // TODO: 
 import {
     LoadingSpinner,
     routeRoot,
+    routeSelfServiceRoot,
+    routeSelfServiceStart,
+    routeWorkDetails,
     Table,
     TableColumn,
     TabsNavbar,
@@ -92,8 +95,8 @@ const WorkTable: FC<{}> = () => {
 
         // TODO: get these routes from an object/function that's not hard-coded
         const url: string = isDraft
-            ? '/self-service/wizard'
-            : `/self-service/work-items/${selectedWork.id}`
+            ? routeSelfServiceStart
+            : routeWorkDetails(selectedWork.id)
 
         navigate(url)
     }
