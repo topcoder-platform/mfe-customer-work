@@ -34,9 +34,11 @@ import {
   WorkFeedback,
   WorkStatusItem,
   WorkDetailSolutions,
+  WorkDetailDetails,
 } from '../../../src-ts'
 
 import "./styles.module.scss";
+import ReviewTable from "../Review/components/ReviewTable";
 
 /**
  * Work Item Page
@@ -219,7 +221,13 @@ const WorkItem = ({
 
             {selectedTab === 'details' && (
               <div>
-                <WorkDetailDetails challenge={work} formData={details} />
+                <WorkDetailDetails>
+                  <ReviewTable
+                    formData={_.get(details, "intake-form.form", {})}
+                    enableEdit={false}
+                    enableStepsToggle={false}
+                  />
+                </WorkDetailDetails>
               </div>
             )}
 
