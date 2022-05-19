@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 
 interface PortalProps {
     children: ReactNode
+    className?: string,
     portalId?: string
     portalNode?: HTMLElement
     portalRef?: MutableRefObject<HTMLElement>,
@@ -13,6 +14,7 @@ const Portal: FC<PortalProps> = (
     portalId,
     portalNode,
     children,
+    className,
     portalRef,
 }: PortalProps) => {
 
@@ -26,9 +28,12 @@ const Portal: FC<PortalProps> = (
         }
 
         const backupHtmlNode: HTMLElement = document.createElement('div')
+        if (className) {
+            backupHtmlNode.classList.add(className)
+        }
         document.body.appendChild(backupHtmlNode)
         return backupHtmlNode
-    }, [portalNode]) as HTMLElement
+    }, [portalNode, className]) as HTMLElement
 
     useEffect(() => {
         return () => {
@@ -41,6 +46,7 @@ const Portal: FC<PortalProps> = (
     if (portalRef) {
         portalRef.current = portalNode ?? defaultPortalNode
     }
+
     return createPortal(children, portalNode ?? defaultPortalNode)
 }
 
