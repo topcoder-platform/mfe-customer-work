@@ -451,7 +451,7 @@ export const webWorkTypes = [
  * Color Options
  */
 export const ColorOptionsItems = [
-  { name: "Any Colors", className: "angularGradient" },
+  { name: "Any Colors", className: "angularGradient", isAny: true },
   { name: "Blues", className: "blues" },
   { name: "Aquas", className: "aquas" },
   { name: "Greens", className: "greens" },

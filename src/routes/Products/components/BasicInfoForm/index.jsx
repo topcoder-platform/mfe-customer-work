@@ -48,8 +48,9 @@ const BasicInfoForm = ({
   const [primaryDataChallenge, setPrimaryDataChallenge] = useState(
     PrimaryDataChallengeOptions
   );
-  const [selectedColor, setSelectedColor] = useState({});
   const [selectedStyleOption, setSelectedStyleOption] = useState(null);
+
+  let selectedColor = formData.colorOption;
 
   const {
     title,
@@ -822,7 +823,6 @@ const BasicInfoForm = ({
                 colors={ColorOptionsItems}
                 selectedColor={selectedColor}
                 onSelect={(index, colorName) => {
-                  setSelectedColor({ value: index });
                   handleInputChange("colorOption", index, colorName);
                 }}
               />
