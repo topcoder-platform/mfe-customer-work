@@ -6,12 +6,20 @@
   flex-wrap: wrap;
   gap: 24px;
   margin-bottom: 34px;
+  @include mobile {
+    justify-content: flex-start;
+    //margin-left: -6px;
+  }
   .colorWrapper {
     .color {
       position: relative;
       width: 120px;
       height: 80px;
       padding: 16px;
+      @include mobile {
+        width: 74px;
+        height: 64px;
+      }
       cursor: pointer;
 
       border: 1px solid $gui-kit-gray-90;
@@ -74,6 +82,9 @@
       line-height: 26px;
       text-align: center;
       margin-top: 8px;
+      @include mobile {
+        font-size: 14px;
+      }
     }
   }
 }

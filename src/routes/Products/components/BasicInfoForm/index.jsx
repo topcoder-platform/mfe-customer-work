@@ -315,8 +315,6 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
-      <PageDivider />
-
       {!isDataExploration && (
         <PageRow styleName="form-row">
           <div>

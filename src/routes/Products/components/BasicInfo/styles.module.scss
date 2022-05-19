@@ -15,6 +15,9 @@
   .footer-right {
     display: flex;
     gap: 16px;
+    @include mobile {
+      flex-direction: column;
+    }
 
     .rotated {
       transform: rotate(-90deg);
