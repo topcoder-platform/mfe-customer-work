@@ -18,7 +18,7 @@ const WorkDetailSolutions: FC<WorkDetailSolutionsProps> = (props: WorkDetailSolu
 
     const isSolutionsReady: boolean = useMemo(() => {
         const activeStepName: string = work.progress.steps[work.progress.activeStepIndex]?.name
-        return (activeStepName === WorkStatus.ready || activeStepName === WorkStatus.done) && props.solutions?.length > 0
+        return (activeStepName === WorkStatus.ready || activeStepName === WorkStatus.done)
     }, [work, props.solutions])
 
     return (

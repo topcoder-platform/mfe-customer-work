@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import _ from "lodash";
 import PT from "prop-types";
 import { navigate } from "@reach/router";
@@ -35,9 +35,11 @@ import {
   WorkFeedback,
   WorkStatusItem,
   WorkDetailSolutions,
+  WorkDetailDetails,
 } from '../../../src-ts'
 
 import "./styles.module.scss";
+import ReviewTable from "../Review/components/ReviewTable";
 
 /**
  * Work Item Page
@@ -185,10 +187,10 @@ const WorkItem = ({
     },
   ].filter(Boolean), [work, solutionsCount, isReviewPhaseEnded]);
 
-  function onTabChange(tabId) {
+  const onTabChange = useCallback((tabId) => {
     window.history.replaceState(window.history.state, '', `?tab=${tabId}`)
     setSelectedTab(tabId)
-  }
+  }, [])
 
   function saveFeedback(updatedCustomerFeedback) {
 
@@ -240,11 +242,17 @@ const WorkItem = ({
 
             {selectedTab === 'details' && (
               <div>
-                <WorkDetailDetails challenge={work} formData={details} />
+                <WorkDetailDetails>
+                  <ReviewTable
+                    formData={_.get(details, "intake-form.form", {})}
+                    enableEdit={false}
+                    enableStepsToggle={false}
+                  />
+                </WorkDetailDetails>
               </div>
             )}
 
-            {selectedTab === 'solutions' && (
+            {selectedTab === 'solutions' && work && (
               <div>
                 <WorkDetailSolutions
                   challenge={work}
