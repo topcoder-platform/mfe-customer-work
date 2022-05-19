@@ -138,7 +138,7 @@ export const ProgressLevels = [
     visibleInProgressIndicator: true,
   },
   {
-    label: "Review Your Project Details",
+    label: "REVIEW REQUIREMENTS",
     url: "/self-service/work/new/data-exploration/basic-info",
     trueIndex: 2,
     showIndex: 1,
