@@ -1,6 +1,14 @@
 @use '../styles/typography';
 @import '../styles/includes';
 
+.tooltip-portal {
+    position: absolute;
+    top: -100vh;
+    left: -100vw;
+    z-index: 1000;
+    pointer-events: none;
+}
+
 .tooltip {
     display: inline-block;
     position: relative;
