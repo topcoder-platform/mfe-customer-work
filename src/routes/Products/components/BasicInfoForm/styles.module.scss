@@ -55,6 +55,9 @@
 
   .formFieldWrapper {
     margin-top: 48px;
+    @include mobile {
+      margin-top: 24px;
+    }
   }
 }
 
@@ -92,6 +95,10 @@
   .colors,
   .styles {
     padding: 20px;
+    @include mobile {
+      margin-bottom: -30px;
+      padding: 0px;
+    }
   }
 
   .formFieldWrapper {
@@ -104,4 +111,7 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 26px;
+  @include mobile {
+    font-size: 16px;
+  }
 }

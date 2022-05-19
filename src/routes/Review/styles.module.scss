@@ -11,6 +11,11 @@
     gap: 16px;
   }
 }
+.mobileHidden {
+  @include mobile {
+    display: none;
+  }
+}
 
 .container {
   border-top-left-radius: 0;
