@@ -24,12 +24,14 @@ import {
 import { toggleSupportModal } from "../../actions/form";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
+import ReviewTable from "../Review/components/ReviewTable";
 
 import {
   Breadcrumb,
   ChallengeMetadataName,
   TabsNavbar,
   workContext,
+  WorkDetailDetails,
   WorkDetailHeader,
   WorkDetailSummary,
   WorkFeedback,
@@ -179,7 +181,7 @@ const WorkItem = ({
       id: 'solutions',
       title: 'Solutions',
       badges: [
-        isReviewPhaseEnded && {
+        isReviewPhaseEnded && !!solutionsCount && {
           count: solutionsCount,
           type: 'info'
         }
