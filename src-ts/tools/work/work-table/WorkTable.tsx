@@ -5,6 +5,8 @@ import { cacheChallengeId } from '../../../../src/autoSaveBeforeLogin' // TODO: 
 import {
     LoadingSpinner,
     routeRoot,
+    routeSelfServiceStart,
+    routeWorkDetails,
     Table,
     TableColumn,
     TabsNavbar,
@@ -68,7 +70,6 @@ const WorkTable: FC<{}> = () => {
         setColumns(filteredColumns)
     }, [
         initialized,
-        work,
         workStatusFilter,
     ])
 
@@ -93,8 +94,8 @@ const WorkTable: FC<{}> = () => {
 
         // TODO: get these routes from an object/function that's not hard-coded
         const url: string = isDraft
-            ? '/self-service/wizard'
-            : `/self-service/work-items/${selectedWork.id}`
+            ? routeSelfServiceStart
+            : routeWorkDetails(selectedWork.id)
 
         navigate(url)
     }
@@ -162,8 +163,7 @@ function initializeStatusGroups(
     setTabs: Dispatch<SetStateAction<ReadonlyArray<TabsNavItem>>>
 ): void {
 
-    // if we're not initialized or we already have status groups,
-    // nothing else to do
+    // if we're not initialized, nothing else to do
     if (!initialized) {
         return
     }
