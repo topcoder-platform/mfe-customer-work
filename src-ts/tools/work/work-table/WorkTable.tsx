@@ -5,6 +5,8 @@ import { cacheChallengeId } from '../../../../src/autoSaveBeforeLogin' // TODO: 
 import {
     LoadingSpinner,
     routeRoot,
+    routeSelfServiceStart,
+    routeWorkDetails,
     Table,
     TableColumn,
     TabsNavbar,
@@ -55,7 +57,7 @@ const WorkTable: FC<{}> = () => {
         }
 
         // init the status groups and set the tab badges
-        initializeStatusGroups(initialized, work, setStatusGroups, tabs, setTabs)
+        initializeStatusGroups(initialized, work, statusGroups, setStatusGroups, tabs, setTabs)
 
         // if the status filter is all, just set the default columns
         if (workStatusFilter === WorkStatusFilter.all) {
@@ -68,7 +70,6 @@ const WorkTable: FC<{}> = () => {
         setColumns(filteredColumns)
     }, [
         initialized,
-        work,
         workStatusFilter,
     ])
 
@@ -93,8 +94,8 @@ const WorkTable: FC<{}> = () => {
 
         // TODO: get these routes from an object/function that's not hard-coded
         const url: string = isDraft
-            ? '/self-service/wizard'
-            : `/self-service/work-items/${selectedWork.id}`
+            ? routeSelfServiceStart
+            : routeWorkDetails(selectedWork.id)
 
         navigate(url)
     }
@@ -157,6 +158,7 @@ export default WorkTable
 function initializeStatusGroups(
     initialized: boolean,
     work: ReadonlyArray<Work>,
+    statusGroups: { [status: string]: WorkByStatus } | undefined,
     setStatusGroups: Dispatch<SetStateAction<{ [status: string]: WorkByStatus } | undefined>>,
     tabs: ReadonlyArray<TabsNavItem>,
     setTabs: Dispatch<SetStateAction<ReadonlyArray<TabsNavItem>>>
@@ -164,7 +166,7 @@ function initializeStatusGroups(
 
     // if we're not initialized or we already have status groups,
     // nothing else to do
-    if (!initialized) {
+    if (!initialized || !!statusGroups) {
         return
     }
 
