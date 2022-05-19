@@ -57,7 +57,7 @@ const WorkTable: FC<{}> = () => {
         }
 
         // init the status groups and set the tab badges
-        initializeStatusGroups(initialized, work, statusGroups, setStatusGroups, tabs, setTabs)
+        initializeStatusGroups(initialized, work, setStatusGroups, tabs, setTabs)
 
         // if the status filter is all, just set the default columns
         if (workStatusFilter === WorkStatusFilter.all) {
@@ -158,15 +158,13 @@ export default WorkTable
 function initializeStatusGroups(
     initialized: boolean,
     work: ReadonlyArray<Work>,
-    statusGroups: { [status: string]: WorkByStatus } | undefined,
     setStatusGroups: Dispatch<SetStateAction<{ [status: string]: WorkByStatus } | undefined>>,
     tabs: ReadonlyArray<TabsNavItem>,
     setTabs: Dispatch<SetStateAction<ReadonlyArray<TabsNavItem>>>
 ): void {
 
-    // if we're not initialized or we already have status groups,
-    // nothing else to do
-    if (!initialized || !!statusGroups) {
+    // if we're not initialized, nothing else to do
+    if (!initialized) {
         return
     }
 
