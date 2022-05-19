@@ -23,6 +23,7 @@ export const workRoutes: Array<PlatformRoute> = [
                 enabled: true,
                 route: ':statusKey',
                 title: toolTitle,
+                uiHidden: true,
             },
         ],
         element: <Work />,

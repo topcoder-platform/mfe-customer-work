@@ -20,7 +20,7 @@ const ToolSelectorNarrow: FC<ToolSelectorNarrowProps> = (props: ToolSelectorNarr
     const baseClass: string = 'tool-selector-narrow'
     const isActive: boolean = routeIsActive(useLocation().pathname, path)
     const activeIndicaterClass: string = `${baseClass}-${isActive ? '' : 'in'}active`
-    const hasChildren: boolean = !!route.children.some(child => !!child.route && !isParamRoute(child.route))
+    const hasChildren: boolean = !!route.children.some(child => !!child.route && !child.uiHidden)
 
     return (
         <div className={styles[baseClass]}>
