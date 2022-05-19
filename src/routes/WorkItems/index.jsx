@@ -15,6 +15,7 @@ import {
   getSummary,
   getDetails,
   getSolutions,
+  getSolutionsCount,
   downloadSolution,
   saveSurvey,
   setIsSavingSurveyDone,
@@ -53,6 +54,7 @@ const WorkItem = ({
   getSummary,
   getDetails,
   getSolutions,
+  getSolutionsCount,
   downloadSolution,
   saveSurvey,
   setIsSavingSurveyDone,
@@ -70,7 +72,7 @@ const WorkItem = ({
     getWork(workItemId);
   }, [workItemId, getWork]);
 
-  const { summary, details, solutions } = useMemo(() => workItem, [workItem]);
+  const { summary, details, solutions, solutionsCount } = useMemo(() => workItem, [workItem]);
 
   const isReviewPhaseEnded = useMemo(() => {
     if (work) {
@@ -119,11 +121,21 @@ const WorkItem = ({
     if (!work) {
       return;
     }
-
+    
     if (work || selectedTab === "messaging") {
       getForumNotifications(work.id);
     }
   }, [work, selectedTab, getForumNotifications]);
+
+  useEffect(() => {
+    if (!work) {
+      return;
+    }
+    
+    if (isReviewPhaseEnded) {
+      getSolutionsCount(work.id);
+    }
+  }, [isReviewPhaseEnded, getSolutionsCount, work])
 
   useEffect(() => {
     if (isSavingSurveyDone) {
@@ -161,8 +173,17 @@ const WorkItem = ({
         }
       ].filter(Boolean)
     },
-    { id: 'solutions', title: 'Solutions' },
-  ].filter(Boolean), [work]);
+    {
+      id: 'solutions',
+      title: 'Solutions',
+      badges: [
+        isReviewPhaseEnded && {
+          count: solutionsCount,
+          type: 'info'
+        }
+      ].filter(Boolean)
+    },
+  ].filter(Boolean), [work, solutionsCount, isReviewPhaseEnded]);
 
   function saveFeedback(updatedCustomerFeedback) {
 
@@ -292,6 +313,7 @@ const mapDispatchToProps = {
   getSummary,
   getDetails,
   getSolutions,
+  getSolutionsCount,
   downloadSolution,
   saveSurvey,
   setIsSavingSurveyDone,
