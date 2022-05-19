@@ -10,6 +10,8 @@ interface ToolSelectorNarrowProps {
     route: PlatformRoute
 }
 
+const isParamRoute: (route: string) => boolean = (route: string) => !!route.match(/^:[^/]+$/)
+
 const ToolSelectorNarrow: FC<ToolSelectorNarrowProps> = (props: ToolSelectorNarrowProps) => {
 
     const route: PlatformRoute = props.route
@@ -18,7 +20,7 @@ const ToolSelectorNarrow: FC<ToolSelectorNarrowProps> = (props: ToolSelectorNarr
     const baseClass: string = 'tool-selector-narrow'
     const isActive: boolean = routeIsActive(useLocation().pathname, path)
     const activeIndicaterClass: string = `${baseClass}-${isActive ? '' : 'in'}active`
-    const hasChildren: boolean = !!route.children.some(child => !!child.route)
+    const hasChildren: boolean = !!route.children.some(child => !!child.route && !isParamRoute(child.route))
 
     return (
         <div className={styles[baseClass]}>
