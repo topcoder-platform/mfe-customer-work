@@ -156,6 +156,7 @@ const BasicInfo = ({
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
     saveBasicInfo(formData);
+    dispatch(triggerAutoSave(true));
     navigate(isLoggedIn ? `${baseUrl}/review` : `${baseUrl}/login-prompt`);
   };
 
@@ -184,7 +185,7 @@ const BasicInfo = ({
       setFormData(basicInfo);
     }
 
-    setFirstMounted(true);
+    setFirstMounted(false);
 
     return () => {
       dispatch(triggerAutoSave(true));
@@ -232,6 +233,7 @@ const BasicInfo = ({
   
   const saveForLater = () => {
     saveBasicInfo(formData);
+    dispatch(triggerAutoSave(true));
     navigate("/self-service");
   }
 

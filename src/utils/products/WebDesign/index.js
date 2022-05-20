@@ -381,7 +381,7 @@ export function formatChallengeUpdateBody(intakeForm) {
 
   intakeMetadata.push({
     name: "branding.fontUsageDescription",
-    value: fontUsage,
+    value: _.get(jsonData, "form.branding.fontUsageDescription.option", "None"),
   });
 
   const assetsUrl = _.get(jsonData, "form.branding.assetsUrl.option");
