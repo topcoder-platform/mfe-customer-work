@@ -2,6 +2,7 @@ import moment from 'moment'
 
 // TODO: return prices from the api rather than hard-coding in the UI
 import * as DesignPrices from '../../../../../src/constants'
+import * as ProblemPrices from '../../../../../src/constants/products/DataAdvisory'
 import * as DataPrices from '../../../../../src/constants/products/DataExploration'
 import * as FindDataPrices from '../../../../../src/constants/products/FindMeData'
 import { Challenge, ChallengeMetadata } from '../work-store'
@@ -33,6 +34,8 @@ function findMetadata(challenge: Challenge, metadataName: string): ChallengeMeta
     return challenge.metadata?.find((item: ChallengeMetadata) => item.name === metadataName)
 }
 
+// the switch statement shouldn't count against cyclomatic complexity
+// tslint:disable-next-line: cyclomatic-complexity
 function getCost(challenge: Challenge, type: WorkType): number | undefined {
 
     function getCountFromString(raw: string | undefined): number {
@@ -53,6 +56,9 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
 
         case WorkType.findData:
             return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE
+
+        case WorkType.problem:
+            return ProblemPrices.PROMOTIONAL_PRODUCT_PRICE || ProblemPrices.BASE_PRODUCT_PRICE
     }
 }
 
