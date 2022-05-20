@@ -242,13 +242,6 @@ const WorkItem = ({
 
             {selectedTab === 'details' && (
               <div>
-                {/* <WorkDetailDetails>
-                  <ReviewTable
-                    formData={_.get(details, "intake-form.form", {})}
-                    enableEdit={false}
-                    enableStepsToggle={false}
-                  />
-                </WorkDetailDetails> */}
                 <WorkDetailDetails formData={_.get(details, "intake-form.form", {})} />
               </div>
             )}
