@@ -2,6 +2,7 @@
   "name": "@topcoder/mfe-customer-work",
   "scripts": {
     "start": "node server.js",
+    "start-local": "sh start-local.sh",
     "dev": "cross-env webpack-dev-server --port 8519 --host 0.0.0.0",
     "dev-https": "cross-env webpack-dev-server --https --port 8519 --host 0.0.0.0",
     "build": "cross-env APPENV=${APPENV:-prod} APPMODE=${APPMODE:-production} webpack --mode=${APPMODE:-production}",
