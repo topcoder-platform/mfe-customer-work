@@ -22,7 +22,7 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
     let challengeId = loadChallengeId() || challenge?.id;
     const dataToSave = { progress, form };
     const currentStep = _.get(dataToSave, "progress.currentStep", 1);
-    if (authUser?.isLoggedIn && currentStep >= 3) {
+    if (authUser?.isLoggedIn && currentStep >= 2) {
       const triggerSave = () => {
         challengeId = loadChallengeId() || challenge?.id;
         if (!challengeId) {
