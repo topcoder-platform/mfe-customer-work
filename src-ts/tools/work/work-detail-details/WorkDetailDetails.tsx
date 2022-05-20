@@ -5,7 +5,6 @@ import { WorkDetailDetailsSidebar } from './work-detail-details-sidebar'
 import styles from './WorkDetailDetails.module.scss'
 
 interface WorkDetailDetailsProps {
-    children: JSX.Element,
     formData: {}
 }
 
