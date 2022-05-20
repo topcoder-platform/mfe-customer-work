@@ -5,7 +5,6 @@ import { cacheChallengeId } from '../../../../src/autoSaveBeforeLogin' // TODO: 
 import {
     LoadingSpinner,
     routeRoot,
-    routeSelfServiceRoot,
     routeSelfServiceStart,
     routeWorkDetails,
     Table,
@@ -71,7 +70,6 @@ const WorkTable: FC<{}> = () => {
         setColumns(filteredColumns)
     }, [
         initialized,
-        work,
         workStatusFilter,
     ])
 
@@ -165,8 +163,7 @@ function initializeStatusGroups(
     setTabs: Dispatch<SetStateAction<ReadonlyArray<TabsNavItem>>>
 ): void {
 
-    // if we're not initialized or we already have status groups,
-    // nothing else to do
+    // if we're not initialized, nothing else to do
     if (!initialized) {
         return
     }
