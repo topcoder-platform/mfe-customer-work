@@ -8,6 +8,7 @@ import { Challenge, ChallengeMetadata } from '../work-store'
 
 import { ChallengeStatus } from './challenge-status.enum'
 import { WorkStatus } from './work-status.enum'
+import { WorkTypeCategory } from './work-type-category.enum'
 import { WorkType } from './work-type.enum'
 import { Work } from './work.model'
 
@@ -26,6 +27,7 @@ export function create(challenge: Challenge): Work {
         status,
         title: challenge.name,
         type,
+        typeCategory: getTypeCategory(type),
     }
 }
 
@@ -137,4 +139,21 @@ function getType(challenge: Challenge): WorkType {
 
     const output: WorkType = !!workTypeKey ? WorkType[workTypeKey] : WorkType.unknown
     return output
+}
+
+function getTypeCategory(type: WorkType): WorkTypeCategory {
+
+    switch (type) {
+
+        case WorkType.data:
+        case WorkType.findData:
+            return WorkTypeCategory.data
+
+        case WorkType.design:
+            return WorkTypeCategory.design
+
+        // TOOD: other categories: qa and dev
+        default:
+            return WorkTypeCategory.unknown
+    }
 }

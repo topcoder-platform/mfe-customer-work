@@ -2,10 +2,10 @@ import { FC, SVGProps } from 'react'
 
 import {
     Work,
-    WorkType,
-    WorkTypeDataExplorationIcon,
-    WorkTypeUnknownIcon,
-    WorkTypeWebsiteDesignIcon,
+    WorkTypeCategory,
+    WorkTypeCategoryDataIcon,
+    WorkTypeCategoryDesignIcon,
+    WorkTypeCategoryUnknownIcon,
 } from '../../../../lib'
 
 import styles from './WorkTableTitleRenderer.module.scss'
@@ -13,18 +13,19 @@ import styles from './WorkTableTitleRenderer.module.scss'
 function WorkTableTitleRenderer(data: Work): JSX.Element {
 
     let Icon: FC<SVGProps<SVGSVGElement>>
-    switch (data.type) {
+    switch (data.typeCategory) {
 
-        case WorkType.design:
-            Icon = WorkTypeWebsiteDesignIcon
+        case WorkTypeCategory.data:
+            Icon = WorkTypeCategoryDataIcon
             break
 
-        case WorkType.data:
-            Icon = WorkTypeDataExplorationIcon
+        case WorkTypeCategory.design:
+            Icon = WorkTypeCategoryDesignIcon
             break
 
+        // TODO: qa and dev work categories
         default:
-            Icon = WorkTypeUnknownIcon
+            Icon = WorkTypeCategoryUnknownIcon
             break
     }
 

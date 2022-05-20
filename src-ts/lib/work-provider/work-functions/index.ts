@@ -6,4 +6,5 @@ export {
     type Work,
     WorkStatus,
     WorkType,
+    WorkTypeCategory,
 } from './work-factory'
