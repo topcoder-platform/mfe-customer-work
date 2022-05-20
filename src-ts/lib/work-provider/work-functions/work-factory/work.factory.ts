@@ -153,6 +153,7 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
 
         case WorkType.data:
         case WorkType.findData:
+        case WorkType.problem:
             return WorkTypeCategory.data
 
         case WorkType.design:
