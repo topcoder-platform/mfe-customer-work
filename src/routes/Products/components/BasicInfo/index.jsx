@@ -48,7 +48,7 @@ const BasicInfo = ({
   bannerData,
   isLoggedIn,
 }) => {
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     projectTitle: { title: "Project Title", option: "", value: "" },
     findMeProjectTitle: { title: "Project Title", option: "", value: "" },
     description: { title: "Description", option: "", value: "" },
@@ -79,7 +79,9 @@ const BasicInfo = ({
       },
     ],
     sampleData: { title: "Sample Data", option: "", value: "" },
-  });
+  };
+
+  const [formData, setFormData] = useState(defaultFormData);
   const isFindMeData = bannerData.title === "Find Me Data";
   const isWebsiteDesign = bannerData.title === "Website Design";
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
@@ -134,6 +136,7 @@ const BasicInfo = ({
       : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
+    saveBasicInfo(defaultFormData);
     navigate("/self-service/wizard");
   };
 
@@ -153,6 +156,7 @@ const BasicInfo = ({
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
     saveBasicInfo(formData);
+    dispatch(triggerAutoSave(true));
     navigate(isLoggedIn ? `${baseUrl}/review` : `${baseUrl}/login-prompt`);
   };
 
@@ -181,7 +185,7 @@ const BasicInfo = ({
       setFormData(basicInfo);
     }
 
-    setFirstMounted(true);
+    setFirstMounted(false);
 
     return () => {
       dispatch(triggerAutoSave(true));
@@ -229,6 +233,7 @@ const BasicInfo = ({
   
   const saveForLater = () => {
     saveBasicInfo(formData);
+    dispatch(triggerAutoSave(true));
     navigate("/self-service");
   }
 
