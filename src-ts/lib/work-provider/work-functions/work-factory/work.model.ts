@@ -1,4 +1,5 @@
 import { WorkStatus } from './work-status.enum'
+import { WorkTypeCategory } from './work-type-category.enum'
 import { WorkType } from './work-type.enum'
 
 export interface Work {
@@ -11,4 +12,5 @@ export interface Work {
     status: WorkStatus
     title: string
     type: WorkType
+    typeCategory: WorkTypeCategory
 }
