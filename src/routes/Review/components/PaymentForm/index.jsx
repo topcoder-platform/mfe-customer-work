@@ -157,12 +157,6 @@ const PaymentForm = ({ formData, setFormData }) => {
           ></FormInputText>
         </div>
       </FormField>
-      <div styleName="infoBox">
-        <div styleName="confirmationBox">
-          A hold will be placed on your card for the full amount of the project.
-          Once your work is live on the Topcoder platform, you will be charged.
-        </div>
-      </div>
     </div>
   );
 };

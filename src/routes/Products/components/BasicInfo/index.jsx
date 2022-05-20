@@ -48,7 +48,7 @@ const BasicInfo = ({
   bannerData,
   isLoggedIn,
 }) => {
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     projectTitle: { title: "Project Title", option: "", value: "" },
     findMeProjectTitle: { title: "Project Title", option: "", value: "" },
     description: { title: "Description", option: "", value: "" },
@@ -79,7 +79,9 @@ const BasicInfo = ({
       },
     ],
     sampleData: { title: "Sample Data", option: "", value: "" },
-  });
+  };
+
+  const [formData, setFormData] = useState(defaultFormData);
   const isFindMeData = bannerData.title === "Find Me Data";
   const isWebsiteDesign = bannerData.title === "Website Design";
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
@@ -134,6 +136,7 @@ const BasicInfo = ({
       : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
+    saveBasicInfo(defaultFormData);
     navigate("/self-service/wizard");
   };
 
