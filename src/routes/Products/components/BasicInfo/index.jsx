@@ -19,6 +19,9 @@ import { triggerAutoSave } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
+import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
+import SupportModal from "../../../../components/Modal/SupportModal";
+import { getProfile } from "../../../../selectors/profile";
 import { getUserProfile } from "../../../../thunks/profile";
 
 import BasicInfoForm from "../BasicInfoForm";
@@ -45,7 +48,7 @@ const BasicInfo = ({
   bannerData,
   isLoggedIn,
 }) => {
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     projectTitle: { title: "Project Title", option: "", value: "" },
     assetsUrl: { title: "Shareable URL Link(s)", value: "" },
     goals: { title: "Goals & Data Description", option: "", value: null },
@@ -95,6 +98,7 @@ const BasicInfo = ({
         : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
+    saveBasicInfo(defaultFormData);
     navigate("/self-service/wizard");
   };
 
@@ -223,7 +227,10 @@ const BasicInfo = ({
                     type={BUTTON_TYPE.SECONDARY}
                     onClick={() => saveForm(true)}
                   >
-                    <span>SAVE FOR LATER</span>
+                    <SaveForLaterIcon />
+                    <span>
+                      SAVE FOR LATER
+                    </span>
                   </Button>
                 )}
                 <Button

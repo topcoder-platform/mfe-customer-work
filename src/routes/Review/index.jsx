@@ -271,6 +271,7 @@ const Review = ({
               <AboutYourProject />
             </div>
           </div>
+          <PageDivider />
 
           <PageFoot>
             <div styleName="footerContent">
