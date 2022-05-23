@@ -1,7 +1,17 @@
-import { Dispatch, FC, ReactElement, ReactNode, SetStateAction, useEffect, useState } from 'react'
+import {
+    Dispatch,
+    FC,
+    ReactElement,
+    ReactNode,
+    SetStateAction,
+    useContext,
+    useEffect,
+    useState,
+} from 'react'
 import { Route } from 'react-router-dom'
 
 import { authUrlLogin } from '../functions'
+import { profileContext, ProfileContextData } from '../profile-provider'
 
 import { PlatformRoute } from './platform-route.model'
 import { RequireAuthProvider } from './require-auth-provider'
@@ -17,6 +27,9 @@ interface RouteProviderProps {
 
 export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps) => {
 
+    const profileContextData: ProfileContextData = useContext(profileContext)
+    const { profile, initialized }: ProfileContextData = profileContextData
+
     const [routeContextData, setRouteContextData]: [RouteContextData, Dispatch<SetStateAction<RouteContextData>>]
         = useState<RouteContextData>(defaultRouteContextData)
 
@@ -24,9 +37,15 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
 
     const getAndSetRoutes: () => void = () => {
 
-        // TODO: try to make these prop names configurable instead of hard-codded
-        const toolsRoutes: Array<PlatformRoute> = props.toolsRoutes.filter(route => route.enabled)
-        const utilsRoutes: Array<PlatformRoute> = props.utilsRoutes.filter(route => route.enabled)
+        // TODO: try to make these prop names configurable instead of hard-coded
+        const toolsRoutes: Array<PlatformRoute> = props.toolsRoutes
+            .filter(route => initialized
+                && route.enabled
+                && (!route.customerOnly || !!profile?.isCustomer)
+                && (!route.memberOnly || !!profile?.isMember)
+            )
+        const utilsRoutes: Array<PlatformRoute> = props.utilsRoutes
+            .filter(route => route.enabled)
         allRoutes = [
             ...toolsRoutes,
             ...utilsRoutes,
@@ -93,6 +112,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
     useEffect(() => {
         getAndSetRoutes()
     }, [
+        initialized,
         props.toolsRoutes,
         props.utilsRoutes,
     ])

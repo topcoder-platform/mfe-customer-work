@@ -25,6 +25,7 @@ export const workRoutes: Array<PlatformRoute> = [
                 title: toolTitle,
             },
         ],
+        customerOnly: true,
         element: <Work />,
         enabled: true,
         requireAuth: true,

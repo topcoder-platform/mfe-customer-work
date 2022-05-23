@@ -1,10 +1,10 @@
 
 import { PlatformRoute } from '../../lib'
 
-import Academy, { toolTitle } from './Academy'
 import { FreeCodeCamp } from './free-code-camp'
+import Learn, { toolTitle } from './Learn'
 
-export const academyRoutes: Array<PlatformRoute> = [
+export const learnRoutes: Array<PlatformRoute> = [
     {
         children: [
             {
@@ -15,9 +15,10 @@ export const academyRoutes: Array<PlatformRoute> = [
                 title: toolTitle,
             },
         ],
-        element: <Academy />,
+        element: <Learn />,
         enabled: true,
-        route: '/academy',
+        memberOnly: true,
+        route: '/learn',
         title: toolTitle,
     },
 ]

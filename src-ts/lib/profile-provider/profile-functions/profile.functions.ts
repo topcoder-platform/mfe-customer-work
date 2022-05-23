@@ -9,7 +9,13 @@ import { profileStoreGet, profileStorePatchName } from './profile-store'
 
 export async function getAsync(handle?: string): Promise<UserProfile | undefined> {
     handle = handle || (await tokenGetAsync())?.handle
-    return !handle ? Promise.resolve(undefined) : profileStoreGet(handle)
+    const output: UserProfile | undefined = !handle ? await Promise.resolve(undefined) : await profileStoreGet(handle);
+    // TODO: get real roles in PROD-2037
+    // For now, these are hard-coded so everyone can see both tools.
+    // Devs can toggle these on/off for dev as necessary.
+    (output as UserProfile).isCustomer = true;
+    (output as UserProfile).isMember = true
+    return output
 }
 
 export async function editNameAsync(handle: string, profile: EditNameRequest): Promise<any> {
