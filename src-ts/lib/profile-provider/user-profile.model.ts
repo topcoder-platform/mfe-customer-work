@@ -6,6 +6,9 @@ export interface UserProfile {
     handle: string
     handleLower: string
     homeCountryCode: string
+    // TODO: figure out how determine role in PROD-2037
+    isCustomer?: boolean
+    isMember?: boolean
     lastName: string
     photoURL?: string
     status: string

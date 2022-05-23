@@ -7,14 +7,14 @@ import {
     RouteContextData,
 } from '../../lib'
 
-export const toolTitle: string = 'Academy'
+export const toolTitle: string = 'Learn'
 
-const Academy: FC<{}> = () => {
+const Learn: FC<{}> = () => {
 
     const { getChildRoutes }: RouteContextData = useContext(routeContext)
 
     return (
-        <ContentLayout title={`Topcoder ${toolTitle}`}>
+        <ContentLayout title={`Topcoder Academy`}>
             <Outlet />
             <Routes>
                 {getChildRoutes(toolTitle)}
@@ -23,4 +23,4 @@ const Academy: FC<{}> = () => {
     )
 }
 
-export default Academy
+export default Learn
