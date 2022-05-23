@@ -230,7 +230,6 @@ const Review = ({
           <br styleName="mobileHidden" />
           <br styleName="mobileHidden" />
           {secondaryBanner}
-          <PageDivider />
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
             <div styleName="reviewContainer">
@@ -298,7 +297,7 @@ const Review = ({
                     label="Yes, I understand and agree to Topcoder's&nbsp;"
                     checked={checked}
                     onChange={(e) => setChecked(e.target.checked)}
-                    inline
+                    //inline
                   />
                   <span
                     role="button"
@@ -308,6 +307,14 @@ const Review = ({
                   >
                     Order Contract
                   </span>
+                </div>
+
+                <div styleName="infoBox">
+                  <div styleName="confirmationBox">
+                    A hold will be placed on your card for the full amount of
+                    the project. Once your work is live on the Topcoder
+                    platform, you will be charged.
+                  </div>
                 </div>
 
                 <div styleName="paymentButtonContainer">
@@ -323,6 +330,7 @@ const Review = ({
               </div>
             </div>
           </div>
+          <PageDivider />
 
           <PageFoot>
             <div styleName="footerContent">

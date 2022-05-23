@@ -59,5 +59,10 @@
 
   svg {
     margin-left: 9px;
+    @include mobile {
+      margin-left: 100px;
+      width: 20px;
+      height: 20px;
+    }
   }
 }

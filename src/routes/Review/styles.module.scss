@@ -137,6 +137,9 @@
   color: $link-blue;
   text-decoration: underline;
   cursor: pointer;
+  @include mobile {
+    flex: none;
+  }
 }
 
 .error {

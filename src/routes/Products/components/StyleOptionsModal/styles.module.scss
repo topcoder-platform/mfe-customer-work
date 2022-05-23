@@ -9,6 +9,10 @@
     flex-direction: column;
     justify-content: center;
     font-size: 22px;
+    @include mobile {
+      width: 250px;
+      padding: 0px;
+    }
 
     .box {
       border: 1px solid $black-20;
@@ -18,6 +22,9 @@
     .preview {
       width: 100%;
       height: 450px;
+      @include mobile {
+        height: 200px;
+      }
     }
 
     .actions {

@@ -10,7 +10,21 @@
     display: flex;
     gap: 16px;
     @include mobile {
-      flex-direction: column; 
+      flex-direction: column;
+    }
+    button {
+      svg {
+        display: none;
+        @include mobile {
+          display: inline-block;
+        }
+      }
+
+      span {
+        @include mobile {
+          display: none;
+        }
+      }
     }
   }
 }

@@ -86,6 +86,9 @@
 
 .color-picker,
 .style-picker {
+  @include mobile {
+    padding: 29px;
+  }
   width: 100% !important;
   padding-right: inherit !important;
   border: 2px solid $divider-color;
@@ -104,6 +107,9 @@
   .formFieldWrapper {
     padding-right: 20px;
     margin-top: 0;
+    @include mobile {
+      padding-right: 30px;
+    }
   }
 }
 

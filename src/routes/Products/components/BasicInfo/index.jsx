@@ -19,6 +19,7 @@ import {
 import { triggerAutoSave } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
+import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
 import SupportModal from "../../../../components/Modal/SupportModal";
 import { getProfile } from "../../../../selectors/profile";
 import { getUserProfile } from "../../../../thunks/profile";
@@ -48,7 +49,7 @@ const BasicInfo = ({
   bannerData,
   isLoggedIn,
 }) => {
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     projectTitle: { title: "Project Title", option: "", value: "" },
     findMeProjectTitle: { title: "Project Title", option: "", value: "" },
     description: { title: "Description", option: "", value: "" },
@@ -79,7 +80,9 @@ const BasicInfo = ({
       },
     ],
     sampleData: { title: "Sample Data", option: "", value: "" },
-  });
+  };
+
+  const [formData, setFormData] = useState(defaultFormData);
   const isFindMeData = bannerData.title === "Find Me Data";
   const isWebsiteDesign = bannerData.title === "Website Design";
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
@@ -134,6 +137,7 @@ const BasicInfo = ({
       : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
+    saveBasicInfo(defaultFormData);
     navigate("/self-service/wizard");
   };
 
@@ -290,7 +294,10 @@ const BasicInfo = ({
                     type={BUTTON_TYPE.SECONDARY}
                     onClick={saveForLater}
                   >
-                    SAVE FOR LATER
+                    <SaveForLaterIcon />
+                    <span>
+                      SAVE FOR LATER
+                    </span>
                   </Button>
                 }
                 <Button
