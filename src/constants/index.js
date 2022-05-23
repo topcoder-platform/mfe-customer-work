@@ -1,19 +1,26 @@
 import _ from "lodash";
 import moment from "moment";
 import React from "react";
-import WebsiteDesignPdf1 from "../assets/pdf/WebDesign-1.pdf"
-import WebsiteDesignPdf2 from "../assets/pdf/WebDesign-2.pdf"
+import WebsiteDesignPdf1 from "../assets/pdf/WebDesign-1.pdf";
+import WebsiteDesignPdf2 from "../assets/pdf/WebDesign-2.pdf";
 import "./styles.module.scss";
 
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
-import exampleImage1 from "../assets/images/design-example-image1.png"
-import exampleImage2 from "../assets/images/design-example-image2.png"
+import exampleImage1 from "../assets/images/design-example-image1.png";
+import exampleImage2 from "../assets/images/design-example-image2.png";
 import MyWorkIcon from "../assets/images/icon-my-work.svg";
 import PageUl from "../components/PageElements/PageUl";
 import PageP from "../components/PageElements/PageP";
+import copyFileIcon from "../assets/images/icon-copy-file.svg";
 import workUtil from "../utils/work";
 
 import countries from "./countries";
+
+import imgProductDataExploration from "../assets/images/products/product-main-photos/data-exploration.jpeg";
+import imgProductProblemStatement from "../assets/images/products/product-main-photos/problem-statements-and-data.jpeg";
+import imgProductFindMeData from "../assets/images/products/product-main-photos/find-me-data.jpeg";
+import imgProductWebsiteDesign from "../assets/images/products/product-main-photos/web-design.jpeg";
+import imgRedBlueGradient from "../assets/images/products/product-main-photos/reb-blue-gradient-background.jpeg";
 
 export const UNDER_MAINTENANCE = false;
 
@@ -264,167 +271,222 @@ export const workTypes = [
 ];
 
 /**
+ * Project & professional service content
+ */
+export const projectAndProfessionalWork = {
+  title: "Projects & Professional Services",
+  shortDescription:
+    "Have a more complex need or project to discuss? We do it all and do it well. Start with confidence right here.",
+  bgImage: imgRedBlueGradient,
+  svgIcon: copyFileIcon,
+  ctaText: "Let's talk",
+};
+
+/**
  * Web Work Types
  */
-export const webWorkTypes = [
-  {
-    title: "Data Exploration",
-    subTitle: "Get insights about your data from Topcoder experts.",
-    price: 599,
-    stickerPrice: 799,
-    duration: "5 Days",
-    featured: true,
-    startRoute: "/self-service/work/new/data-exploration/basic-info",
-    helperBannerTitle: "WHAT WILL I GET?",
-    helperBannerContent: (
-      <>
-        <br />
-        Topcoder data experts will create a custom report for you with:
-        <PageUl>
-          <li>Clear written analysis of your data and key findings</li>
-          <li>
-            Visuals of the most compelling relationships and patterns in your
-            data
-          </li>
-          <li>
-            Expert commentary on the relevance of findings to your goals and
-            recommendations for further analysis
-          </li>
-        </PageUl>
-      </>
-    ),
-    aboutBannerTitle: "ABOUT DATA EXPLORATION",
-    aboutBannerContent: (
+
+const webWorkDataExploraation = {
+  title: "Data Exploration",
+  subTitle: "Get insights about your data from Topcoder experts.",
+  shortDescription: "Uncover What's Interesting About Your Data",
+  description:
+    "We accumulate data every day in the course of life and business, yet rarely have the time to give it a closer look. Get multiple fresh, expert perspectives to identify the patterns and relationships in your data. They might just be the key to your next 'Aha' moment.",
+  price: 599,
+  stickerPrice: 799,
+  duration: "5 Days",
+  featured: true,
+  startRoute: "/self-service/work/new/data-exploration/basic-info",
+  helperBannerTitle: "WHAT WILL I GET?",
+  bgImage: imgProductDataExploration,
+  helperBannerContent: (
+    <>
+      <br />
+      Topcoder data experts will create a custom report for you with:
+      <PageUl>
+        <li>Clear written analysis of your data and key findings</li>
+        <li>
+          Visuals of the most compelling relationships and patterns in your data
+        </li>
+        <li>
+          Expert commentary on the relevance of findings to your goals and
+          recommendations for further analysis
+        </li>
+      </PageUl>
+    </>
+  ),
+  aboutBannerTitle: "ABOUT DATA EXPLORATION",
+  aboutBannerContent: (
+    <p>
+      In Data Exploration, multiple data science experts uncover the most
+      significant patterns and relationships in your data. Unlock the full
+      potential of your data with expert insights presented in an
+      easy-to-understand format.
+    </p>
+  ),
+};
+
+const webWorkProblemStatement = {
+  title: "Problem Statement & Data Advisory",
+  subTitle:
+    "Translate your data science idea into an actionable data science approach.",
+  shortDescription: "The easiest way to get started in data science",
+  description:
+    "Problem Statement & Data Advisory is for those asking themselves: How can I apply data science to this idea or goal? How will I interpret solutions, and how will that help me take action? What data do I need?",
+  price: 799,
+  stickerPrice: 999,
+  duration: "5 Days",
+  featured: true,
+  startRoute: "/self-service/work/new/data-advisory/basic-info",
+  helperBannerTitle: "WHAT WILL I RECEIVE??",
+  bgImage: imgProductProblemStatement,
+  helperBannerContent: (
+    <>
+      <br />
+      <PageUl>
+        <li>
+          Detailed feedback on your business question and/or problem statement
+        </li>
+        <li>Recommendations or refinement of your problem statement</li>
+        <li>
+          Recommendations on the amount and type of data that should be used
+        </li>
+        <li>
+          Assessment of the quality of your data and recommendations on how to
+          improve or augment the data set
+        </li>
+        <li>
+          Scoring and evaluation recommendations for future data science
+          solutions
+        </li>
+      </PageUl>
+    </>
+  ),
+  aboutBannerTitle: "ABOUT DATA EXPLORATION",
+  aboutBannerContent: (
+    <p>
+      In Data Exploration, multiple data science experts uncover the most
+      significant patterns and relationships in your data. Unlock the full
+      potential of your data with expert insights presented in an
+      easy-to-understand format.
+    </p>
+  ),
+};
+
+const webWorkProblemFindMeData = {
+  title: "Find Me Data",
+  subTitle: "Get the data you need to meet your analysis goals.",
+  shortDescription: "Our Experts Source Useful Data Sets For You",
+  description:
+    "Sometimes data is the only thing standing between you and something great. Tell us what you're solving for, and let our experts find the data to get you started now.",
+  price: 299,
+  stickerPrice: 399,
+  duration: "2 Days",
+  featured: true,
+  startRoute: "/self-service/work/new/find-me-data/basic-info",
+  helperBannerTitle: "WHAT WILL I RECEIVE?",
+  bgImage: imgProductFindMeData,
+  helperBannerContent: (
+    <>
+      <br />
+      <PageUl>
+        <li>
+          You get all of the free public data options that meet your goals.
+        </li>
+        <li>
+          Where public data isn't available, you get a listing of the best paid
+          data options and how to use them.
+        </li>
+        <li>
+          For the trickiest of data requirements, you get expert advice on how
+          to create the data you need.
+        </li>
+      </PageUl>
+    </>
+  ),
+  aboutBannerTitle: "ABOUT FIND ME DATA",
+  aboutBannerContent: (
+    <>
       <p>
-        In Data Exploration, multiple data science experts uncover the most
-        significant patterns and relationships in your data. Unlock the full
-        potential of your data with expert insights presented in an
-        easy-to-understand format.
+        Find Me Data is designed for business leaders, researchers or any
+        individual who has a data question and is struggling to find the data to
+        answer it.
       </p>
-    ),
-  },
-  {
-    title: "Problem Statement & Data Advisory",
-    subTitle: "Translate your data science idea into an actionable data science approach.",
-    price: 799,
-    stickerPrice: 999,
-    duration: "5 Days",
-    featured: true,
-    startRoute: "/self-service/work/new/data-advisory/basic-info",
-    helperBannerTitle: "WHAT WILL I RECEIVE??",
-    helperBannerContent: (
-      <>
-        <br />
-        <PageUl>
-          <li>Detailed feedback on your business question and/or problem statement</li>
-          <li>Recommendations or refinement of your problem statement</li>
-          <li>Recommendations on the amount and type of data that should be used</li>
-          <li>Assessment of the quality of your data and recommendations on how to improve or augment the data set</li>
-          <li>Scoring and evaluation recommendations for future data science solutions</li>
-        </PageUl>
-      </>
-    ),
-    aboutBannerTitle: "ABOUT DATA EXPLORATION",
-    aboutBannerContent: (
-      <p>
-        In Data Exploration, multiple data science experts uncover the most
-        significant patterns and relationships in your data. Unlock the full
-        potential of your data with expert insights presented in an
-        easy-to-understand format.
-      </p>
-    ),
-  },
-  {
-    title: "Find Me Data",
-    subTitle: "Get the data you need to meet your analysis goals.",
-    price: 299,
-    stickerPrice: 399,
-    duration: "2 Days",
-    featured: true,
-    startRoute: "/self-service/work/new/find-me-data/basic-info",
-    helperBannerTitle: "WHAT WILL I RECEIVE?",
-    helperBannerContent: (
-      <>
-        <br />
-        <PageUl>
-          <li>
-            You get all of the free public data options that meet your goals.
-          </li>
-          <li>
-            Where public data isn't available, you get a listing of the best
-            paid data options and how to use them.
-          </li>
-          <li>
-            For the trickiest of data requirements, you get expert advice on how
-            to create the data you need.
-          </li>
-        </PageUl>
-      </>
-    ),
-    aboutBannerTitle: "ABOUT FIND ME DATA",
-    aboutBannerContent: (
-      <>
-        <p>
-          Find Me Data is designed for business leaders, researchers or any
-          individual who has a data question and is struggling to find the data
-          to answer it.
-        </p>
-        <br />
-        <p>Use Find Me Data if you:</p>
-        <PageUl>
-          <li>
-            Want to better understand how to find and use open-source/public
-            data in your projects
-          </li>
-          <li>Need data that you can share with others.</li>
-          <li>
-            Note, we also offer data anonymization services to convert your
-            existing data into secure and shareable form
-          </li>
-          <img src="Design-11.png"/>
-        </PageUl>
-      </>
-    ),
-  },
-  {
-    title: "Website Design",
-    subTitle: "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    price: 499,
-    // stickerPrice: 499,
-    duration: "4 Days",
-    featured: true,
-    startRoute: "/self-service/work/new/website-design/basic-info",
-    helperBannerTitle: "WHAT WILL I RECEIVE?",
-    helperBannerContent: (
-      <>
-        <br />
-        <div styleName="helpBanner">
-          <PageP>
-            You will receive up to five unique visual designs for the main page of your website, in an industry-standard format.
-            Visual designs are the first step in creating a functional website. Topcoder can help you with launching your website once you have approved your design.
-          </PageP>
-          <div styleName="sampleImages" >
-            <a href={WebsiteDesignPdf1} target="_blank">
-              <img styleName="imgBanner" src={exampleImage1}/>
-            </a>
-            &nbsp;
-            <a href={WebsiteDesignPdf2} target="_blank">
-              <img src={exampleImage2}/>
-            </a>
-          </div>
+      <br />
+      <p>Use Find Me Data if you:</p>
+      <PageUl>
+        <li>
+          Want to better understand how to find and use open-source/public data
+          in your projects
+        </li>
+        <li>Need data that you can share with others.</li>
+        <li>
+          Note, we also offer data anonymization services to convert your
+          existing data into secure and shareable form
+        </li>
+        <img src="Design-11.png" />
+      </PageUl>
+    </>
+  ),
+};
+
+const webWorkProblemWebDesign = {
+  title: "Website Design",
+  subTitle:
+    "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+  shortDescription: "Create Custom Website Designs that Wow",
+  shortDescriptionMobile: "Design your business",
+  description:
+    "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+  descriptionMobile:
+    "Sometimes data is the only thing standing between you and something great. Tell us what you're solving for, and let our experts find the data to get you started now. ",
+  price: 499,
+  // stickerPrice: 499,
+  duration: "4 Days",
+  featured: true,
+  startRoute: "/self-service/work/new/website-design/basic-info",
+  helperBannerTitle: "WHAT WILL I RECEIVE?",
+  bgImage: imgProductWebsiteDesign,
+  helperBannerContent: (
+    <>
+      <br />
+      <div styleName="helpBanner">
+        <PageP>
+          You will receive up to five unique visual designs for the main page of
+          your website, in an industry-standard format. Visual designs are the
+          first step in creating a functional website. Topcoder can help you
+          with launching your website once you have approved your design.
+        </PageP>
+        <div styleName="sampleImages">
+          <a href={WebsiteDesignPdf1} target="_blank">
+            <img styleName="imgBanner" src={exampleImage1} />
+          </a>
+          &nbsp;
+          <a href={WebsiteDesignPdf2} target="_blank">
+            <img src={exampleImage2} />
+          </a>
         </div>
-      </>
-    ),
-    aboutBannerTitle: "ABOUT WEBSITE DESIGN",
-    aboutBannerContent: (
-      <>
-        <p>
-          Topcoder design experts will take all of the information you provide below, and create visual designs for your website that fit your industry and match your desired look & feel.
-          We've done this for hundreds of customers and will work with you to create your ideal design.
-        </p>
-      </>
-    ),
-  },
+      </div>
+    </>
+  ),
+  aboutBannerTitle: "ABOUT WEBSITE DESIGN",
+  aboutBannerContent: (
+    <>
+      <p>
+        Topcoder design experts will take all of the information you provide
+        below, and create visual designs for your website that fit your industry
+        and match your desired look & feel. We've done this for hundreds of
+        customers and will work with you to create your ideal design.
+      </p>
+    </>
+  ),
+};
+
+export const webWorkTypes = [
+  webWorkProblemWebDesign,
+  webWorkDataExploraation,
+  webWorkProblemStatement,
+  webWorkProblemFindMeData,
   // {
   //   title: "Website Design",
   //   duration: "4-6 Days",
