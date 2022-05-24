@@ -15,6 +15,8 @@ import {
     ProfileContextData,
     routeContext,
     RouteContextData,
+    routeSelfServiceRoot,
+    routeSelfServiceStart,
     WorkProvider,
 } from '../../lib'
 
@@ -36,7 +38,7 @@ const Work: FC<{}> = () => {
         }
 
         // if the profile is initialized, go to the self-service login
-        return <Navigate to='/self-service' />
+        return <Navigate to={routeSelfServiceRoot} />
     }
 
     function startWork(): void {
@@ -44,7 +46,7 @@ const Work: FC<{}> = () => {
         clearAutoSavedForm()
         dispatch(resetIntakeForm(true))
         // TODO: add the start work page to the route provider context
-        navigate('/self-service/wizard')
+        navigate(routeSelfServiceStart)
     }
 
     const buttonConfig: ButtonProps = {

@@ -12,14 +12,20 @@ function messageBadgeRenderer(work: Work): JSX.Element {
     })
 }
 
-export const workListColumns: Array<TableColumn<Work>> = [
+export enum WorkListColumnField {
+    status = 'Status',
+}
+
+export const workListColumns: ReadonlyArray<TableColumn<Work>> = [
     {
         label: 'Title',
+        propertyName: 'title',
         renderer: WorkTableTitleRenderer,
         type: 'element',
     },
     {
-        label: 'Status',
+        label: WorkListColumnField.status,
+        propertyName: 'status',
         renderer: WorkStatusRenderer,
         type: 'element',
     },

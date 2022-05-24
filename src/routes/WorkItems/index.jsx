@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import _ from "lodash";
 import PT from "prop-types";
 import { navigate } from "@reach/router";
@@ -187,6 +187,11 @@ const WorkItem = ({
     },
   ].filter(Boolean), [work, solutionsCount, isReviewPhaseEnded]);
 
+  const onTabChange = useCallback((tabId) => {
+    window.history.replaceState(window.history.state, '', `?tab=${tabId}`)
+    setSelectedTab(tabId)
+  }, [])
+
   function saveFeedback(updatedCustomerFeedback) {
 
     const metadata = (work.metadata || [])
@@ -223,8 +228,8 @@ const WorkItem = ({
           <TabsNavbar
             tabs={navTabs}
             defaultActive="summary"
-            onChange={setSelectedTab}
-          ></TabsNavbar>
+            onChange={onTabChange}
+          />
 
           <div styleName="tabs-contents">
             {selectedTab === 'summary' && (
@@ -247,7 +252,7 @@ const WorkItem = ({
               </div>
             )}
 
-            {selectedTab === 'solutions' && (
+            {selectedTab === 'solutions' && work && (
               <div>
                 <WorkDetailSolutions
                   challenge={work}

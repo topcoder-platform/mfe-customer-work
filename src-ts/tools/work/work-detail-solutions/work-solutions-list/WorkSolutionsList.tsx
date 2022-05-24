@@ -15,7 +15,7 @@ interface WorkSolutionsListProps {
 
 const WorkSolutionsList: FC<WorkSolutionsListProps> = (props: WorkSolutionsListProps) => {
 
-    if (!props.isSolutionsReady || !props.solutions?.length) {
+    if (!props.isSolutionsReady) {
         return (
             <div className={styles['solutions-not-available']}>
                 YOUR SOLUTIONS WILL BE AVAILABLE FOR DOWNLOAD ON:
@@ -23,6 +23,10 @@ const WorkSolutionsList: FC<WorkSolutionsListProps> = (props: WorkSolutionsListP
                 {moment(props.work.solutionsReadyDate).format('MM/DD/YY')}
             </div>
         )
+    }
+
+    if (!props.solutions?.length) {
+        return <></>
     }
 
     return (

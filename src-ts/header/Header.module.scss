@@ -1,4 +1,4 @@
-@import '../lib/styles';
+@import '../lib/styles/includes';
 
 .header-wrap {
     display: block;
@@ -18,10 +18,6 @@
     @include ltemd {
         grid-template-columns: $header-height 1fr $header-height;
         align-items: center;
-    }
-
-    @include ltesm {
-        height: $header-height;
     }
 }
 

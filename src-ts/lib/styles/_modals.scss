@@ -1,4 +1,7 @@
 @import '~react-responsive-modal/styles.css';
+@import 'mixins/breakpoints.mixins';
+@import 'variables/palette';
+@import 'variables/spacing';
 
 .react-responsive-modal-container {
     display: flex;

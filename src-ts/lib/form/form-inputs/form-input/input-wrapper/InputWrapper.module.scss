@@ -1,4 +1,5 @@
-@import '../../../../styles';
+@use '../../../../styles/typography';
+@import '../../../../styles/includes';
 
 $form-pad-top: calc($pad-md - $border);
 $error-line-height: 14px;
@@ -65,9 +66,36 @@ $error-line-height: 14px;
     &.input-error {
         border-color: $red-100;
         margin-bottom: 0;
+        color: $red-100;
 
         .label {
-            color: $red-100;
+            display: flex;
+            flex-direction: column;
+            top: calc(50% - $form-pad-top/2);
+            color: $turq-160;
+            margin-bottom: $pad-xs;
+            width: 100%;
+            // extend ultra-small and override some properties
+            @extend .ultra-small;
+            font-weight: $font-weight-medium;
+            line-height: calc($pad-md - $border);
+            font-style: normal;
+            white-space: nowrap;
+
+            .label-and-hint {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+
+                .hint {
+                    color: $black-60;
+                    padding-left: $border;
+                    font-weight: $font-weight-normal;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
         }
     }
 
@@ -80,7 +108,7 @@ $error-line-height: 14px;
         width: 100%;
         // extend ultra-small and override some properties
         @extend .ultra-small;
-        @include font-weight-medium;
+        font-weight: $font-weight-medium;
         line-height: calc($pad-md - $border);
         font-style: normal;
         white-space: nowrap;
@@ -93,7 +121,7 @@ $error-line-height: 14px;
             .hint {
                 color: $black-60;
                 padding-left: $border;
-                @include font-weight-less-bold;
+                font-weight: $font-weight-normal;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;

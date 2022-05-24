@@ -1,10 +1,11 @@
-@import '../styles';
+@import '../styles/includes';
+@import '../styles/typography';
 
 .tabs-wrapper {
     display: flex;
-    align-items: center;
-    background: $blue-15;
+    background: $blue-10;
     border-bottom: 1px solid $black-20;
+    margin-bottom: $pad-md;
 
     position: relative;
 }
@@ -20,17 +21,20 @@
     
     &:global(.active) {
         color: $black-100;
+        background-color: $blue-25;
+
         .tab-label {
             @include font-weight-bold;
         }
     }
 
-    &:hover {
+    &:global(.active) ~ .active-icon > svg path:last-child {
+        fill: $blue-25;
+    }
+
+    &:hover:not(:global(.active)) {
         color: $black-100;
-        background-color: $blue-25;
-        &:global(.active) ~ .active-icon > svg path:last-child {
-            fill: $blue-25;
-        }
+        background-color: $blue-15;
     }
 }
 
