@@ -303,7 +303,6 @@ export const webWorkTypes = [
     price: 299,
     stickerPrice: 399,
     duration: "2 Days",
-    featured: true,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
     helperBannerTitle: "WHAT WILL I RECEIVE?",
     helperBannerContent: (
