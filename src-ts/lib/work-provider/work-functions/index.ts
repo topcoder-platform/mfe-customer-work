@@ -4,7 +4,15 @@ export {
 } from './work.functions'
 export {
     type Work,
+    workFactoryCreate,
+    workFactoryGetStatus,
+    type WorkProgress,
+    type WorkProgressStep,
     WorkStatus,
     WorkType,
     WorkTypeCategory,
 } from './work-factory'
+export {
+    type Challenge,
+    ChallengeMetadataName,
+} from './work-store'

@@ -10,7 +10,24 @@ h4 {
 
 
 .input-row {
-    display: grid;
-    grid-template-columns: repeat(2, .5fr);
+    display: flex;
+    align-items: center;
     column-gap: $pad-xxl;
+    padding: 0;
+
+    .input-instructions {
+        flex: 1;
+
+        &.rating {
+            color: $black-100;
+            @extend .body-main;
+            margin-bottom: calc($pad-lg + 2px);
+        }
+    }
+
+    @include ltemd {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
 }
