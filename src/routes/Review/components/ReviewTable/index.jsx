@@ -127,16 +127,23 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
           let redirectPage = ProgressLevels.find(
             (item) => item.label === step.label
           );
+          let redirectUrl = redirectPage?.url;
           if (formData?.workType?.selectedWorkType === "Find Me Data") {
-            redirectPage.url = redirectPage?.url.replace(
+            redirectUrl = redirectPage?.url.replace(
               "data-exploration",
               "find-me-data"
             );
           }
           if (formData?.workType?.selectedWorkType === "Website Design") {
-            redirectPage.url = redirectPage?.url.replace(
+            redirectUrl = redirectPage?.url.replace(
               "data-exploration",
               "website-design"
+            );
+          }
+          if (formData?.workType?.selectedWorkType === "Problem Statement & Data Advisory") {
+            redirectUrl = redirectPage?.url.replace(
+              "data-exploration",
+              "data-advisory"
             );
           }
           return (
@@ -150,7 +157,7 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
                 <p styleName="stepLabel">
                   {step.label}
                   {enableEdit && (
-                    <Link styleName="link" to={redirectPage?.url}>
+                    <Link styleName="link" to={redirectUrl}>
                       edit
                     </Link>
                   )}
