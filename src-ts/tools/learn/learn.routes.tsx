@@ -1,17 +1,33 @@
 
 import { PlatformRoute } from '../../lib'
 
+import { CourseDetailsPage } from './course-details'
 import { FreeCodeCamp } from './free-code-camp'
 import Learn, { toolTitle } from './Learn'
+import { WelcomePage } from './welcome'
 
 export const learnRoutes: Array<PlatformRoute> = [
     {
         children: [
             {
                 children: [],
-                element: <FreeCodeCamp />,
+                element: <WelcomePage />,
                 enabled: true,
                 route: '',
+                title: toolTitle,
+            },
+            {
+                children: [],
+                element: <CourseDetailsPage />,
+                enabled: true,
+                route: 'course',
+                title: toolTitle,
+            },
+            {
+                children: [],
+                element: <FreeCodeCamp />,
+                enabled: true,
+                route: 'fcc',
                 title: toolTitle,
             },
         ],

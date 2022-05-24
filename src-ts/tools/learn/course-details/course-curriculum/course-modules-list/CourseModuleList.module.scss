@@ -1,0 +1,9 @@
+@use '../../../../../lib/styles/typography';
+@import '../../../../../lib/styles/includes';
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+
+    gap: $pad-xxl;
+}

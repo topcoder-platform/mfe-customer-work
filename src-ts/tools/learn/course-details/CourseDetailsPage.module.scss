@@ -1,0 +1,28 @@
+@use '../../../lib/styles/typography';
+@import '../../../lib/styles/includes';
+
+.wrap {
+    padding: $pad-mx 0;
+    display: flex;
+    gap: $pad-xxxxl;
+}
+
+.main {
+    flex: 1 1 auto;
+}
+
+.aside {
+    flex: 0 0 auto;
+    width: 560px;
+}
+
+.description {
+    .text {
+        @extend .body-main;
+        margin-top: $pad-xxl;
+    }
+    
+    h3 {
+        margin-top: $pad-xxxxl;
+    }
+}

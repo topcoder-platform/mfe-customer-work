@@ -1,0 +1,18 @@
+@use '../../../../lib/styles/typography';
+@import '../../../../lib/styles/includes';
+
+.wrap {
+    background: $tc-grad15;
+    padding: $pad-xxxxl;
+    border-radius: $pad-sm;
+
+    color: $tc-white;
+
+    display: flex;
+    flex-direction: column;
+    gap: $pad-xxl;
+}
+
+.title {
+
+}

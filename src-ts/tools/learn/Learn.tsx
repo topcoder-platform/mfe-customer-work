@@ -14,7 +14,7 @@ const Learn: FC<{}> = () => {
     const { getChildRoutes }: RouteContextData = useContext(routeContext)
 
     return (
-        <ContentLayout title={`Topcoder Academy`}>
+        <ContentLayout>
             <Outlet />
             <Routes>
                 {getChildRoutes(toolTitle)}

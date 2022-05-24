@@ -3,6 +3,8 @@ import * as IconOutline from '@heroicons/react/outline'
 import * as IconSolid from '@heroicons/react/solid'
 
 import { ReactComponent as ActiveTabTipIcon } from './activetab-tip-icon.svg'
+import { ReactComponent as LearnChallengeBadgeIcon } from './learn-challenge-badge-icon.svg'
+import { ReactComponent as LearningHat } from './learning-hat.svg'
 import { ReactComponent as LogoIcon } from './logo.svg'
 import { ReactComponent as SocialIconFacebook } from './social-fb-icon.svg'
 import { ReactComponent as SocialIconInstagram } from './social-insta-icon.svg'
@@ -17,6 +19,8 @@ import { ReactComponent as WorkTypeWebsiteDesignIcon } from './work-type-website
 export { ActiveTabTipIcon }
 export { IconOutline }
 export { IconSolid }
+export { LearnChallengeBadgeIcon }
+export { LearningHat }
 export { LogoIcon }
 export { SocialIconFacebook }
 export { SocialIconInstagram }
