@@ -7,22 +7,6 @@ export const getStatus = (work) => {
   return workStatus ? workStatus.name : work.status;
 };
 
-/**
- * @internal
- */
-const getCurrentPhase = (work) => {
-  const status = work.status;
-  let currentPhase;
-
-  if (status === "Active") {
-    currentPhase = work.currentPhase
-      ? work.currentPhase
-      : work.phases.filter((phase) => phase.isOpen).pop();
-  }
-
-  return currentPhase;
-};
-
 export const isReviewPhaseEnded = (work) => {
   const allPhases = work.phases || [];
 
@@ -40,20 +24,6 @@ export const isReviewPhaseEnded = (work) => {
   }
 
   return false;
-};
-
-export const getReviewPhaseEndedDate = (work) => {
-  const allPhases = work.phases || [];
-  let phase = _.findLast(
-    allPhases,
-    (p) => p.name === "Review" || p.name === "Iterative Review"
-  );
-
-  if (isReviewPhaseEnded(work)) {
-    return phase.actualEndDate;
-  }
-
-  return phase.scheduledEndDate;
 };
 
 export const phaseEndDate = (phase) => {
@@ -85,7 +55,6 @@ export const isMessagesDisabled = (work) => {
 export default {
   getStatus,
   isReviewPhaseEnded,
-  getReviewPhaseEndedDate,
   phaseEndDate,
   phaseStartDate,
   isMessagesDisabled,

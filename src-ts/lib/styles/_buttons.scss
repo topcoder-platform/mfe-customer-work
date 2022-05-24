@@ -1,11 +1,7 @@
-@import './palette';
-@import './layout';
-
-// TODO: add reset and have it take care of this
-a {
-    color: inherit;
-    text-decoration: none;
-}
+@import 'mixins/icons.mixins';
+@import 'variables/fonts';
+@import 'variables/spacing';
+@import 'variables/palette';
 
 .button-primary-hover {
     background-color: $turq-140;
@@ -27,13 +23,17 @@ a {
     border: solid $border;
     white-space: nowrap;
     cursor: pointer;
-    margin: $pad-md;
-    // extend ultra small bold and override it
-    @extend .ultra-small-bold;
+    font-family: $font-roboto; 
+    font-weight: $font-weight-bold;
+    font-size: 11px;
     line-height: 24px;
-    
-    &:focus {
-        outline: $border solid $turq-140;
+
+    &.primary,
+    &.secondary {
+
+        &:focus {
+            outline: $border solid $turq-140;
+        }
     }
 
     &.button-sm {
@@ -42,7 +42,7 @@ a {
     }
     
     &.button-md {
-        padding: $pad-xs $pad-xl;
+        padding: 3*$border $pad-xl;
         font-size: 13px;
     }
 
@@ -54,6 +54,10 @@ a {
     &.button-xl {
         padding: $pad-md $pad-xxl;
         font-size: 16px;
+
+        svg {
+            @include icon-xxl;
+        }
     }
 
     &.primary {
@@ -117,6 +121,10 @@ a {
         }
     }
 
+    svg {
+        @include icon-lg;
+    }
+
     &.link {
         margin: 0;
         padding: 0;
@@ -129,10 +137,6 @@ a {
         outline: none;
         border-radius: 0;
 
-        &:focus {
-            outline: $border solid $turq-140;
-        }
-        
         &:hover {
             color: $turq-120;
         }
@@ -155,6 +159,29 @@ a {
     }
 
     &.text {
+        color: $tc-white;
         border-color: transparent;
+        font-size: 12px;
+    }
+
+    &.icon {
+        margin: 0;
+        padding: $pad-sm calc($pad-sm - $border-xs) $pad-xs $pad-sm;
+        border: 0;
+        background: none;
+        color: $turq-160;
+
+        &:hover {
+            background-color: $black-10;
+            color: $turq-100;
+
+            &.hover-orange-100 {
+                @extend .orange-100;
+            }
+        }
+
+        &:focus {
+            outline: none;
+        }
     }
 }

@@ -1,6 +1,5 @@
-@import 'buttons';
-@import 'fonts';
-@import 'layout';
+@import 'variables/palette';
+@import 'variables/spacing';
 
 .card {
     display: flex;
@@ -37,9 +36,9 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: $pad-sm;
+
         svg {
-            height: $pad-xl;
-            width: $pad-xl;
+            @include icon-xl;
         }
     }
 
@@ -50,6 +49,7 @@
 
     p {
         word-break: break-all;
+
         &:last-of-type {
             margin-bottom: $pad-xl;
         }

@@ -6,6 +6,7 @@ import {
   DURATION_MAPPING,
 } from "constants/";
 import * as dataExplorationConfigs from "constants/products/DataExploration";
+import * as findMeDataConfigs from "constants/products/FindMeData";
 import _ from "lodash";
 
 /**
@@ -72,6 +73,40 @@ export function getDataExplorationPriceAndTimelineEstimate() {
       {
         prizes: [
           ..._.map(dataExplorationConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Reviewer Payment",
+        type: "reviewer",
+      },
+    ],
+  };
+}
+
+export function getFindMeDataPriceAndTimelineEstimate() {
+  const total =
+    findMeDataConfigs.PROMOTIONAL_PRODUCT_PRICE ||
+    findMeDataConfigs.BASE_PRODUCT_PRICE;
+  return {
+    total,
+    stickerPrice: findMeDataConfigs.BASE_PRODUCT_PRICE,
+    submissionDuration: 3,
+    totalDuration: findMeDataConfigs.DEFAULT_DURATION,
+    prizeSets: [
+      {
+        prizes: [
+          ..._.map(findMeDataConfigs.PRIZES_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Challenge Prizes",
+        type: "placement",
+      },
+      {
+        prizes: [
+          ..._.map(findMeDataConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
             type: "USD",
             value: _.round(p * total),
           })),

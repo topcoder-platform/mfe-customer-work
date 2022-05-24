@@ -127,6 +127,19 @@ export const getDetails = (work) => {
   return formData;
 };
 
+export const getSolutionsCount = async (workId) => {
+  const response = await axios.get(
+    `${config.API.V5}/submissions?challengeId=${workId}&perPage=500`
+  );
+  const submissions = response.data;
+  return submissions.length;
+  
+  // const response = await axios.head(
+  //   `${config.API.V5}/submissions?challengeId=${workId}`
+  // );
+  // return parseInt(_.get(response.headers, 'X-Total'), 10);
+};
+
 export const getSolutions = async (workId) => {
   const challenge = await getChallengeDetails(workId);
   if (!challenge?.winners || challenge?.winners?.length === 0) return [];
@@ -184,6 +197,7 @@ export default {
   getSummary,
   getDetails,
   getSolutions,
+  getSolutionsCount,
   downloadSolution,
   saveSurvey,
 };
