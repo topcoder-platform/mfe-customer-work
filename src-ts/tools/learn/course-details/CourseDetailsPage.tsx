@@ -5,7 +5,7 @@ import { Breadcrumb, BreadcrumbItemModel, IconOutline } from '../../../lib'
 import { CourseCurriculum } from './course-curriculum'
 import { CourseTitle } from './course-title'
 import styles from './CourseDetailsPage.module.scss'
-import PromoCourse from './promo-course/PromoCourse'
+import { PromoCourse } from './promo-course'
 
 interface CourseDetailsPageProps {
 }
