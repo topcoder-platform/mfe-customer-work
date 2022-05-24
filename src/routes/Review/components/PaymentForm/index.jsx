@@ -8,9 +8,9 @@ import PT from "prop-types";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
-import { FormField } from "../../../../components/FormElements/FormField";
-import { FormInputText } from "../../../../components/FormElements/FormInputText";
-import { ReactSelect } from "../../../../components/ReactSelect";
+import FormField from "components/FormElements/FormField";
+import FormInputText from "components/FormElements/FormInputText";
+import ReactSelect from "components/ReactSelect";
 import { COUNTRY_OPTIONS } from "../../../../constants";
 import { getProfile } from "../../../../selectors/profile";
 
@@ -157,12 +157,6 @@ const PaymentForm = ({ formData, setFormData }) => {
           ></FormInputText>
         </div>
       </FormField>
-      <div styleName="infoBox">
-        <div styleName="confirmationBox">
-          A hold will be placed on your card for the full amount of the project.
-          Once your work is live on the Topcoder platform, you will be charged.
-        </div>
-      </div>
     </div>
   );
 };

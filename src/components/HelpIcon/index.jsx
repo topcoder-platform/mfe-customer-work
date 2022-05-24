@@ -5,16 +5,17 @@ import { v4 as uuidv4 } from "uuid";
 
 import "./styles.module.scss";
 
-const HelpIcon = ({ children }) => {
+const HelpIcon = ({ children, inverted, arrowColor = "#f4f4f4", backgroundColor = "#f4f4f4", textColor = "#00000" }) => {
   const tooltipId = useRef(uuidv4());
 
   return (
     <div styleName="help-icon">
       <HintIcon data-tip data-for={tooltipId.current} />
       <ReactTooltip
-        arrowColor="#f4f4f4"
-        backgroundColor="#f4f4f4"
-        styleName="tooltip"
+        arrowColor={arrowColor}
+        backgroundColor={backgroundColor}
+        textColor={textColor}
+        styleName={["tooltip", inverted ? "inverted" : ""].join(" ")}
         id={tooltipId.current}
         aria-haspopup="true"
         place="bottom"

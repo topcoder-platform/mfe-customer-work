@@ -25,9 +25,11 @@ import "./styles.module.scss";
 import {
   getDynamicPriceAndTimeline,
   getDynamicPriceAndTimelineEstimate,
+  getDataAdvisoryPriceAndTimelineEstimate,
   currencyFormat,
   getDataExplorationPriceAndTimelineEstimate,
   getFindMeDataPriceAndTimelineEstimate,
+  getWebsiteDesignPriceAndTimelineEstimate,
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
@@ -44,12 +46,20 @@ const BasicInfo = ({
   bannerData,
   isLoggedIn,
 }) => {
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     projectTitle: { title: "Project Title", option: "", value: "" },
     findMeProjectTitle: { title: "Project Title", option: "", value: "" },
+    description: { title: "Description", option: "", value: "" },
     assetsUrl: { title: "Shareable URL Link(s)", value: "" },
+    assetsDescription: { title: "About Your Assets", value: "" },
     goals: { title: "Goals & Data Description", option: "", value: null },
     analysis: { title: "What Data Do You Need?", option: "", value: "" },
+    feedback: { title: "What Data Do You like?", option: "", value: "" },
+    yourIndustry: { title: "Your Industry", option: "", value: "" },
+    colorOption: { title: "Color Option", value: [], option: [] },
+    likedStyles: { title: "Liked Styles", value: [], option: [] },
+    dislikedStyles: { title: "Disliked Styles", value: [], option: [] },
+    specificColor: { title: "Custom Color", option: "", value: "" },
     primaryDataChallenge: {
       title: "Primary Data Challenge",
       option: "",
@@ -60,10 +70,25 @@ const BasicInfo = ({
       option: "",
       value: "",
     },
+    inspiration: [
+      {
+        website: { title: "Website Address", value: "", option: "" },
+        feedback: { title: "What Do You Like", value: "", option: "" },
+      },
+    ],
     sampleData: { title: "Sample Data", option: "", value: "" },
-  });
+  };
+
+  const [formData, setFormData] = useState(defaultFormData);
+  const isFindMeData = bannerData.title === "Find Me Data";
+  const isWebsiteDesign = bannerData.title === "Website Design";
+  const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
   const isDataExploration = bannerData.title === "Data Exploration";
+  const isDataAdvisory = bannerData.title === "Problem Statement & Data Advisory";
   const isDataExplorationFormValid =
+    formData?.projectTitle?.value?.trim().length &&
+    formData?.goals?.value?.trim().length;
+  const isDataAdvisoryFormValid =
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;
   const isFindMeDataFormValid =
@@ -74,9 +99,21 @@ const BasicInfo = ({
       (formData?.primaryDataChallenge?.value === 3 &&
         formData?.primaryDataChallengeOther?.value?.trim().length)) &&
     formData?.sampleData?.value?.trim().length;
-  const isFormValid = isDataExploration
-    ? isDataExplorationFormValid
-    : isFindMeDataFormValid;
+  // const isFormValid = isDataExploration
+  //   ? isDataExplorationFormValid
+  //   : isFindMeDataFormValid;
+
+  let isFormValid;
+  if (isDataExploration) {
+    isFormValid = isDataExplorationFormValid;
+  } else if (isFindMeData) {
+    isFormValid = isFindMeDataFormValid;
+  } else if (isWebsiteDesign) {
+    isFormValid = isWebsiteDesignFormValid;
+  } else if (isDataAdvisory) {
+    isFormValid = isDataAdvisoryFormValid;
+  }
+
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const workType = useSelector((state) => state.form.workType);
@@ -85,26 +122,38 @@ const BasicInfo = ({
   const pageDetails = useSelector((state) => state.form.pageDetails);
   const showSupportModal = useSelector((state) => state.form.showSupportModal);
   const challenge = useSelector((state) => state.challenge);
-  const fullState = useSelector((state) => state);
 
   const estimate =
-    workType === "Website Design"
-      ? getDynamicPriceAndTimelineEstimate(fullState)
+    workType?.selectedWorkType === "Website Design"
+      ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : isDataAdvisory
+          ? getDataAdvisoryPriceAndTimelineEstimate()
+          : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
+    saveBasicInfo(defaultFormData);
     navigate("/self-service/wizard");
   };
 
-  const baseUrl = `/self-service/work/new/${
-    isDataExploration ? "data-exploration" : "find-me-data"
-  }`;
+  let basePath;
+  if (isDataExploration) {
+    basePath = "data-exploration";
+  } else if (isFindMeData) {
+    basePath = "find-me-data";
+  } else if (isWebsiteDesign) {
+    basePath = "website-design";
+  } else if (isDataAdvisory) {
+    basePath = "data-advisory";
+  }
+
+  const baseUrl = `/self-service/work/new/${basePath}`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
     saveBasicInfo(formData);
+    dispatch(triggerAutoSave(true));
     navigate(isLoggedIn ? `${baseUrl}/review` : `${baseUrl}/login-prompt`);
   };
 
@@ -133,7 +182,7 @@ const BasicInfo = ({
       setFormData(basicInfo);
     }
 
-    setFirstMounted(true);
+    setFirstMounted(false);
 
     return () => {
       dispatch(triggerAutoSave(true));
@@ -171,6 +220,19 @@ const BasicInfo = ({
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
+
+  const onSubmitSupportRequest = (submittedSupportRequest) =>
+    createNewSupportTicket(
+      submittedSupportRequest,
+      challenge?.id,
+      challenge?.legacy?.selfService
+    );
+
+  const saveForLater = () => {
+    saveBasicInfo(formData);
+    dispatch(triggerAutoSave(true));
+    navigate("/self-service");
+  }
 
   return (
     <>
@@ -221,6 +283,16 @@ const BasicInfo = ({
                 </Button>
               </div>
               <div styleName="footer-right">
+                {isLoggedIn &&
+                  <Button
+                    disabled={!isFormValid}
+                    size={BUTTON_SIZE.MEDIUM}
+                    type={BUTTON_TYPE.SECONDARY}
+                    onClick={saveForLater}
+                  >
+                    SAVE FOR LATER
+                  </Button>
+                }
                 <Button
                   disabled={!isFormValid}
                   size={BUTTON_SIZE.MEDIUM}

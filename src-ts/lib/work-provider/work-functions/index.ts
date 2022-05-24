@@ -5,6 +5,7 @@ export {
     type WorkSolution,
     WorkStatus,
     WorkType,
+    WorkTypeCategory,
     workFactoryCreate,
     workFactoryGetStatus,
 } from './work-factory'

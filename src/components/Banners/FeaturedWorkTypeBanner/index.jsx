@@ -7,7 +7,12 @@ import PT from "prop-types";
 import styles from "./styles.module.scss";
 
 export const FeaturedWorkTypeBanner = ({ title, subTitle }) => {
-  const styleType = title.toLowerCase().split(" ").join("-");
+  const styleType = title
+    .toLowerCase()
+    .split(" ")
+    .join("-")
+    .split("&")
+    .join("");
   return (
     <div className={`${styles.heroContainer} ${styles[styleType]}`}>
       <div
