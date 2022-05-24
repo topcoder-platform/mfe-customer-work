@@ -64,25 +64,3 @@
   line-height: 16px;
   text-transform: uppercase;
 }
-
-.solution-tab-footer {
-  display: flex;
-  align-items: center;
-  flex-direction: row-reverse;
-  margin-top: 16px;
-  cursor: pointer;
-
-  .need-help-link {
-    @include font-roboto;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1;
-    color: $link-blue-dark;
-
-    margin-right: 15px;
-  }
-
-  .markAsDoneBtn {
-    margin: 0;
-  }
-}

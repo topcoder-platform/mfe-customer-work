@@ -1,8 +1,24 @@
-@import "styles/include";
+@import "../../styles/palette";
 
 .container {
   line-height: 20px;
 
+  ol {
+    padding: 0;
+  }
+
+  h4 {
+    margin-top: 20px;
+  }
+  
+  p {
+    margin-bottom: 20px;
+
+    &.sm {
+      font-size: 14px;
+    }
+  }
+  
   ul.a {
     list-style-type: circle;
     list-style: circle;
@@ -15,6 +31,6 @@
   
   a {
     text-decoration: underline;
-    color: $link-blue;
+    color: $link-blue-light;
   }
 }

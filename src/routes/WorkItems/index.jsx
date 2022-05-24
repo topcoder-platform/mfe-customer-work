@@ -10,7 +10,6 @@ import {
   ROUTES,
 } from "constants/";
 import TabPane from "./components/TabPane";
-import Details from "./components/Details";
 import Solutions from "./components/Solutions";
 import workUtil from "utils/work";
 import Forum from "../Forum";
@@ -25,16 +24,17 @@ import {
   setIsSavingSurveyDone,
   getForumNotifications,
 } from "../../actions/work";
-import { toggleSupportModal, createNewSupportTicket } from "../../actions/form";
-import SupportModal from "../../components/Modal/SupportModal";
+import { toggleSupportModal } from "../../actions/form";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
 
 import {
   Breadcrumb,
   ChallengeMetadataName,
+  ContactSupportModal,
   TabsNavbar,
   workContext,
+  WorkDetailDetails,
   WorkDetailHeader,
   WorkDetailSummary,
   WorkFeedback,
@@ -42,6 +42,7 @@ import {
 } from '../../../src-ts'
 
 import "./styles.module.scss";
+import ReviewTable from "../Review/components/ReviewTable";
 
 /**
  * Work Item Page
@@ -62,12 +63,10 @@ const WorkItem = ({
   saveSurvey,
   setIsSavingSurveyDone,
   getForumNotifications,
-  createNewSupportTicket,
 }) => {
   const dispatch = useDispatch();
   const [selectedTab, setSelectedTab] = useState("summary");
   const [showSurvey, setShowSurvey] = useState(false);
-  const [showSupportModal, setShowSupportModal] = useState(false);
   const profileData = useSelector(getProfile);
 
   const workContextData = useContext(workContext)
@@ -145,23 +144,9 @@ const WorkItem = ({
     }
   }, [work]);
 
-  const onShowSupportModal = () => {
-    setShowSupportModal(true);
-  };
-  const onHideSupportModal = () => {
-    setShowSupportModal(false);
-  };
-
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
-
-  const onSubmitSupportRequest = (submittedSupportRequest) =>
-    createNewSupportTicket(
-      submittedSupportRequest,
-      work?.id,
-      work?.legacy?.selfService
-    );
 
   // TODO: get routes from a provider
   const breadcrumb = [
@@ -208,13 +193,6 @@ const WorkItem = ({
   return (
     <>
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
-      {showSupportModal && (
-        <SupportModal
-          profileData={profileData}
-          handleClose={onHideSupportModal}
-          onSubmit={onSubmitSupportRequest}
-        ></SupportModal>
-      )}
       <Page styleName="page">
         <PageContent styleName="pageContent">
 
@@ -245,7 +223,13 @@ const WorkItem = ({
             </TabPane>
 
             <TabPane value={selectedTab} tab="details">
-              <Details challenge={work} formData={details} />
+              <WorkDetailDetails>
+                <ReviewTable
+                  formData={_.get(details, "intake-form.form", {})}
+                  enableEdit={false}
+                  enableStepsToggle={false}
+                />
+              </WorkDetailDetails>
             </TabPane>
 
             <TabPane value={selectedTab} tab="solutions">
@@ -256,11 +240,6 @@ const WorkItem = ({
                 reviewPhaseEndedDate={reviewPhaseEndedDate}
                 work={work}
               />
-              <div styleName="solution-tab-footer">
-                <a onClick={onShowSupportModal} styleName="need-help-link">
-                  Need Help?
-                </a>
-              </div>
             </TabPane>
 
             <TabPane value={selectedTab} tab="messaging">
@@ -329,7 +308,6 @@ const mapDispatchToProps = {
   setIsSavingSurveyDone,
   getForumNotifications,
   toggleSupportModal,
-  createNewSupportTicket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkItem);

@@ -18,6 +18,7 @@ export {
 } from './functions'
 export * from './loading-spinner'
 export * from './modals'
+export * from './page-footer'
 export * from './portal'
 export * from './profile-provider'
 export * from './route-provider'

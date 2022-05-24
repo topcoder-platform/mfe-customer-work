@@ -68,7 +68,7 @@ const Form: <ValueType extends any, RequestType extends any>(props: FormProps<Va
 
         async function onSubmitAsync(event: FormEvent<HTMLFormElement>): Promise<void> {
             const values: RequestType = props.requestGenerator(formDef.inputs)
-            formOnSubmitAsync<RequestType>(event, formDef.inputs, props.formDef.shortName || 'data', values, props.save, props.onSuccess)
+            formOnSubmitAsync<RequestType>(event, formDef, values, props.save, props.onSuccess)
                 .then(() => {
                     setFormKey(Date.now())
                     formOnReset(formDef.inputs, props.formValues)

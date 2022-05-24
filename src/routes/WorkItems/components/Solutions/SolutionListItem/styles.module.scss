@@ -5,18 +5,23 @@
 
   @include font-roboto;
   font-size: 16px;
-  color: $black;
+  line-height: 24px;
+  color: $black-100;
 
   position: relative;
-  padding: 15px 16px 15px 56px;
-  border-top: 1px solid $gray-10;
-  border-bottom: 1px solid $gray-10;
+  padding: 16px 0;
+  border-top: 1px solid $divider-color;
+
+  &:last-child {
+    border-bottom: 1px solid $divider-color;
+  }
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
 
   &::before {
-    content: counter(solutionListItem, decimal-leading-zero);
-    position: absolute;
-    top: 16px;
-    left: 0;
+    content: counter(solutionListItem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,8 +32,8 @@
     border-radius: 50%;
   }
 
-  + .solution-list-item {
-    margin-top: -1px;
+  .name {
+    margin-right: auto;
   }
 }
 

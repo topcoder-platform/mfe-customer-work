@@ -62,6 +62,7 @@ const Account: FC<{}> = () => {
             <Modal
                 open={editProfileOpen}
                 onClose={toggleEditName}
+                classNames={{modal: 'account-settings-modal'}}
             >
                 <EditName onClose={toggleEditName} />
             </Modal>
@@ -84,6 +85,7 @@ const Account: FC<{}> = () => {
             <Modal
                 open={changePasswordOpen}
                 onClose={toggleChangePassword}
+                classNames={{modal: 'account-settings-modal'}}
             >
                 <ChangePassword onClose={toggleChangePassword} />
             </Modal>
