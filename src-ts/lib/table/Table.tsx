@@ -8,62 +8,64 @@ import { Tooltip } from '../tooltip'
 
 import { TableCell } from './table-cell'
 import { TableColumn } from './table-column.model'
-import { tableGetSorted } from './table-functions'
+import { tableGetDefaultSort, tableGetSorted } from './table-functions'
 import { TableSort } from './table-sort'
 import styles from './Table.module.scss'
 
 interface TableProps<T> {
     readonly columns: ReadonlyArray<TableColumn<T>>
     readonly data: ReadonlyArray<T>
-    readonly defaultSort: Sort
     readonly onRowClick?: (data: T) => void
+}
+
+interface DefaultSortDirectionMap {
+    [columnProperty: string]: 'asc' | 'desc'
 }
 
 const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) => JSX.Element
     = <T extends { [propertyName: string]: any }>(props: TableProps<T>) => {
 
-        const [sort, setSort]: [Sort, Dispatch<SetStateAction<Sort>>] = useState<Sort>(props.defaultSort)
-        const [sortMap, setSortMap]: [{ [fieldame: string]: boolean }, Dispatch<SetStateAction<{ [fieldame: string]: boolean }>>]
-            = useState<{ [fieldame: string]: boolean }>({})
+        const [sort, setSort]: [Sort | undefined, Dispatch<SetStateAction<Sort | undefined>>]
+            = useState<Sort | undefined>(tableGetDefaultSort(props.columns))
+        const [defaultSortDirectionMap, setDefaultSortDirectionMap]: [DefaultSortDirectionMap | undefined, Dispatch<SetStateAction<DefaultSortDirectionMap | undefined>>]
+            = useState<DefaultSortDirectionMap | undefined>()
         const [sortedData, setSortData]: [ReadonlyArray<T>, Dispatch<SetStateAction<ReadonlyArray<T>>>]
             = useState<ReadonlyArray<T>>(props.data)
 
         useEffect(() => {
 
-            // sort the data
-            setSortData(tableGetSorted(props.data, sort, props.columns))
-
-            // create the sortmap to remember the last
-            // sort direction of a column that is not
-            // the currently sorted column
-            const map: { [fieldame: string]: boolean } = {
-                [sort.fieldName]: sort.direction === 'asc',
+            if (!defaultSortDirectionMap) {
+                const map: DefaultSortDirectionMap = {}
+                props.columns
+                    .filter(col => !!col.propertyName)
+                    .forEach(col => map[col.propertyName as string] = col.defaultSortDirection || 'asc')
+                setDefaultSortDirectionMap(map)
             }
 
-            // A) if column X is sorted in one direction,
-            // then column Y is sorted,
-            // then column X is sorted again,
-            // the 2nd sort of column X will toggle its sort
-            // direction
-            // B) all columns default to sorting ascending, so if there
-            // not a last known sort for a column, set it to descending
-            // so the next toggle toggles it ascending.
-            props.columns
-                .filter(col => !!col.propertyName && col.propertyName !== sort.fieldName)
-                .forEach(col => {
-                    const currentAscending: boolean | undefined = sortMap[col.propertyName as string]
-                    map[col.propertyName as string] = !!currentAscending
-                })
-            setSortMap(map)
+            setSortData(tableGetSorted(props.data, props.columns, sort))
         },
             [
+                defaultSortDirectionMap,
                 sort,
                 props.data,
             ])
 
         function toggleSort(fieldName: string): void {
+
+            // if we don't have anything to sort by, we shouldn't be here
+            if (!sort) {
+                return
+            }
+
+            // get the sort direction
+            const direction: 'asc' | 'desc' = fieldName === sort.fieldName
+                // this is the current sort, so just toggle it
+                ? sort.direction === 'asc' ? 'desc' : 'asc'
+                // get the default sort for the field... this will never be undefined
+                : (defaultSortDirectionMap as DefaultSortDirectionMap)[fieldName]
+
             const newSort: Sort = {
-                direction: sortMap[fieldName] ? 'desc' : 'asc',
+                direction,
                 fieldName,
             }
             setSort(newSort)
@@ -71,9 +73,10 @@ const Table: <T extends { [propertyName: string]: any }>(props: TableProps<T>) =
 
         const headerRow: Array<JSX.Element> = props.columns
             .map(col => {
-                const isCurrentlySorted: boolean = col.propertyName === sort.fieldName
+                const isSortable: boolean = !!col.propertyName
+                const isCurrentlySorted: boolean = isSortable && col.propertyName === sort?.fieldName
                 const colorClass: string = isCurrentlySorted ? 'black-100' : 'black-60'
-                const sortableClass: string | undefined = !!col.propertyName ? styles.sortable : undefined
+                const sortableClass: string | undefined = isSortable ? styles.sortable : undefined
                 return (
                     <th className={styles.th}>
                         <div className={classNames(styles['header-container'], styles[col.type], colorClass, sortableClass)}>

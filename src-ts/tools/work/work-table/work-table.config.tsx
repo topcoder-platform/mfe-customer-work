@@ -35,6 +35,8 @@ export const workListColumns: ReadonlyArray<TableColumn<Work>> = [
         type: 'text',
     },
     {
+        defaultSortDirection: 'desc',
+        isDefaultSort: true,
         label: 'Created',
         propertyName: 'created',
         type: 'date',
