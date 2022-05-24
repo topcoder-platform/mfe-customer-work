@@ -59,6 +59,7 @@ const TabsNavbar: FC<TabsNavbarProps> = (props: TabsNavbarProps) => {
         if (initialTab && props.tabs.find(tab => tab.id === initialTab)) {
             handleActivateTab(initialTab)
         } else if (props.defaultActive) {
+            setTabOpened(props.defaultActive)
             updateOffset(props.defaultActive)
         }
     }, [handleActivateTab, props.defaultActive])
