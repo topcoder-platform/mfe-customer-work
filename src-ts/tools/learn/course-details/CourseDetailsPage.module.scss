@@ -2,7 +2,7 @@
 @import '../../../lib/styles/includes';
 
 .wrap {
-    padding: $pad-mx 0;
+    padding: $pad-mx 0 $pad-xxxxl;
     display: flex;
     gap: $pad-xxxxl;
 }
@@ -24,5 +24,26 @@
     
     h3 {
         margin-top: $pad-xxxxl;
+    }
+}
+
+.coming-soon {
+    margin-top: $pad-xxxxl;
+}
+
+.credits-link {
+    padding-bottom: $pad-xxl;
+
+    a {
+        @extend .quote-small;
+        color: $link-blue-dark;
+        font-style: italic;
+
+        display: inline-flex;
+        align-items: center;
+    }
+    svg {
+        @include icon-md;
+        margin-left: $pad-xs;
     }
 }

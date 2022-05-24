@@ -1,10 +1,11 @@
 import { FC, useMemo } from 'react'
 
-import { Breadcrumb, BreadcrumbItemModel } from '../../../lib'
+import { Breadcrumb, BreadcrumbItemModel, IconOutline } from '../../../lib'
 
 import { CourseCurriculum } from './course-curriculum'
 import { CourseTitle } from './course-title'
 import styles from './CourseDetailsPage.module.scss'
+import PromoCourse from './promo-course/PromoCourse'
 
 interface CourseDetailsPageProps {
 }
@@ -44,10 +45,20 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
                             sollicitudin nibh sit amet commodo. Orci a scelerisque purus semper eget duis at tellus at.
                         </div>
                     </div>
+
+                    <div className={styles['coming-soon']}>
+                        <PromoCourse />
+                    </div>
                 </div>
                 <div className={styles['aside']}>
                     <CourseCurriculum />
                 </div>
+            </div>
+            <div className={styles['credits-link']}>
+                <a href='https://freecodecamp.org/' target='_blank' referrerPolicy='no-referrer'>
+                    This course was created by the freeCodeCamp.org community.
+                    <IconOutline.ExternalLinkIcon />
+                </a>
             </div>
         </>
     )

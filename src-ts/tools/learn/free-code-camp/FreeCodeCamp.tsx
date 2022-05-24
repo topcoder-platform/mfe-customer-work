@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react'
 
-import { Breadcrumb, BreadcrumbItemModel } from '../../../lib'
+import { Breadcrumb, BreadcrumbItemModel, Portal } from '../../../lib'
 
 import styles from './FreeCodeCamp.module.scss'
 
@@ -16,10 +16,14 @@ const FreeCodeCamp: FC<{}> = () => {
         <>
             <Breadcrumb items={breadcrumb} />
 
-            <iframe
-                className={styles.iframe}
-                src='http://localhost:8000/learn/2022/responsive-web-design/learn-html-by-building-a-cat-photo-app/step-1'
-            />
+            <Portal portalId='page-subheader-portal-el'>
+                <div className={styles['iframe-wrap']}>
+                    <iframe
+                        className={styles.iframe}
+                        src='http://localhost:8000/learn/2022/responsive-web-design/learn-html-by-building-a-cat-photo-app/step-1'
+                    />
+                </div>
+            </Portal>
         </>
     )
 }

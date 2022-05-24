@@ -4,6 +4,7 @@ import * as IconSolid from '@heroicons/react/solid'
 
 import { ReactComponent as ActiveTabTipIcon } from './activetab-tip-icon.svg'
 import { ReactComponent as LearnChallengeBadgeIcon } from './learn-challenge-badge-icon.svg'
+import { ReactComponent as LearnGetCertified } from './learn-get-certified.svg'
 import { ReactComponent as LearningHat } from './learning-hat.svg'
 import { ReactComponent as LogoIcon } from './logo.svg'
 import { ReactComponent as SocialIconFacebook } from './social-fb-icon.svg'
@@ -20,6 +21,7 @@ export { ActiveTabTipIcon }
 export { IconOutline }
 export { IconSolid }
 export { LearnChallengeBadgeIcon }
+export { LearnGetCertified }
 export { LearningHat }
 export { LogoIcon }
 export { SocialIconFacebook }
