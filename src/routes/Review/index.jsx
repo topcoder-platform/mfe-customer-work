@@ -29,9 +29,10 @@ import { getUserProfile } from "../../thunks/profile";
 import { activateChallenge } from "../../services/challenge";
 import "./styles.module.scss";
 import {
-  getDynamicPriceAndTimelineEstimate,
+  getWebsiteDesignPriceAndTimelineEstimate,
   getDataExplorationPriceAndTimelineEstimate,
   getFindMeDataPriceAndTimelineEstimate,
+  getDataAdvisoryPriceAndTimelineEstimate,
   currencyFormat,
 } from "utils/";
 import _ from "lodash";
@@ -77,6 +78,8 @@ const Review = ({
   });
   const [checked, setChecked] = useState(false);
   const isDataExploration = bannerData.title === "Data Exploration";
+  const isDataAdvisory =
+    bannerData.title === "Problem Statement & Data Advisory";
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
@@ -86,9 +89,11 @@ const Review = ({
     useState(false);
   const estimate =
     workType?.selectedWorkType === "Website Design"
-      ? getDynamicPriceAndTimelineEstimate(fullState)
+      ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
       ? getDataExplorationPriceAndTimelineEstimate()
+      : isDataAdvisory
+      ? getDataAdvisoryPriceAndTimelineEstimate()
       : getFindMeDataPriceAndTimelineEstimate();
 
   const [firstMounted, setFirstMounted] = useState(true);
@@ -148,10 +153,10 @@ const Review = ({
       "form.basicInfo.selectedDevice.option.length",
       1
     );
-    const additionalPaymentInfo =
-      workType?.selectedWorkType === "Website Design"
-        ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
-        : "";
+    const additionalPaymentInfo = "";
+    // workType?.selectedWorkType === "Website Design"
+    //   ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
+    //   : "";
 
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,
@@ -219,7 +224,6 @@ const Review = ({
           <br />
           <br />
           {secondaryBanner}
-          <PageDivider />
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
             <div styleName="reviewContainer">
@@ -299,6 +303,14 @@ const Review = ({
                   </span>
                 </div>
 
+                <div styleName="infoBox">
+                  <div styleName="confirmationBox">
+                    A hold will be placed on your card for the full amount of
+                    the project. Once your work is live on the Topcoder
+                    platform, you will be charged.
+                  </div>
+                </div>
+
                 <div styleName="paymentButtonContainer">
                   <Button
                     disabled={!isFormValid || isLoading}
@@ -312,6 +324,7 @@ const Review = ({
               </div>
             </div>
           </div>
+          <PageDivider />
 
           <PageFoot>
             <div styleName="footerContent">

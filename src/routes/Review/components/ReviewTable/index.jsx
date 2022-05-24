@@ -14,7 +14,7 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
   const [steps, setSteps] = useState([
     {
       id: 0,
-      label: "Review Your Project Details",
+      label: "REVIEW REQUIREMENTS",
       value: "basicInfo",
       isOpen: true,
     },
@@ -131,6 +131,12 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
             redirectPage.url = redirectPage?.url.replace(
               "data-exploration",
               "find-me-data"
+            );
+          }
+          if (formData?.workType?.selectedWorkType === "Website Design") {
+            redirectPage.url = redirectPage?.url.replace(
+              "data-exploration",
+              "website-design"
             );
           }
           return (

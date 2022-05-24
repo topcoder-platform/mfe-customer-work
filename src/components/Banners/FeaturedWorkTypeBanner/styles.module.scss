@@ -10,13 +10,14 @@
   display: grid;
   grid-template-columns: 1fr 359px;
   
-  &.website-design {
+  &.website-design,
+  &.data-exploration,
+  &.review--payment {
     background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
   }
-  &.data-exploration {
-    background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
-  }
-  &.find-me-data {
+
+  &.find-me-data,
+  &.problem-statement--data-advisory {
     background: linear-gradient(84.92deg, #723390 2.08%, #8C384F 97.43%);
   }
 
@@ -55,8 +56,14 @@
       background: url("../../../assets/images/data-exploration.png");
       background-size: cover;
     }
-    &.find-me-data {
+    &.find-me-data,
+    &.problem-statement--data-advisory  {
       background: url("../../../assets/images/find-me-data.png");
+      background-size: cover;
+    }
+    &.website-design,
+    &.review--payment {
+      background: url("../../../assets/images/website-design-v2.png");
       background-size: cover;
     }
   }
@@ -136,6 +143,10 @@
         .heroHeaderTitle {
           display: flex;
           text-transform: uppercase;
+          @include mobile {
+            font-size: 28px;
+            line-height: 32px;
+          }
         }
 
         .heroHeaderSubtitle {
@@ -143,6 +154,10 @@
           max-width: 713px;
           line-height: 24px;
           font-weight: 500;
+          @include mobile {
+            font-size: 14px;
+            line-height: 20px;
+          }
         }
       }
     }

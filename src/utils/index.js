@@ -7,6 +7,8 @@ import {
 } from "constants/";
 import * as dataExplorationConfigs from "constants/products/DataExploration";
 import * as findMeDataConfigs from "constants/products/FindMeData";
+import * as websiteDesignConfigs from "constants/products/WebsiteDesign";
+import * as dataAdvisoryConfigs from "constants/products/DataAdvisory";
 import _ from "lodash";
 
 /**
@@ -50,6 +52,40 @@ export function padStart(target, targetLength = 2) {
   return String.prototype.padStart.call(target, targetLength, "0");
 }
 
+export function getDataAdvisoryPriceAndTimelineEstimate() {
+  const total =
+    dataAdvisoryConfigs.PROMOTIONAL_PRODUCT_PRICE ||
+    dataAdvisoryConfigs.BASE_PRODUCT_PRICE;
+  return {
+    total,
+    stickerPrice: dataAdvisoryConfigs.BASE_PRODUCT_PRICE,
+    submissionDuration: 3,
+    totalDuration: dataAdvisoryConfigs.DEFAULT_DURATION,
+    prizeSets: [
+      {
+        prizes: [
+          ..._.map(dataAdvisoryConfigs.PRIZES_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Challenge Prizes",
+        type: "placement",
+      },
+      {
+        prizes: [
+          ..._.map(dataAdvisoryConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Reviewer Payment",
+        type: "reviewer",
+      },
+    ],
+  };
+}
+
 export function getDataExplorationPriceAndTimelineEstimate() {
   const total =
     dataExplorationConfigs.PROMOTIONAL_PRODUCT_PRICE ||
@@ -73,6 +109,40 @@ export function getDataExplorationPriceAndTimelineEstimate() {
       {
         prizes: [
           ..._.map(dataExplorationConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Reviewer Payment",
+        type: "reviewer",
+      },
+    ],
+  };
+}
+
+export function getWebsiteDesignPriceAndTimelineEstimate() {
+  const total =
+    websiteDesignConfigs.PROMOTIONAL_PRODUCT_PRICE ||
+    websiteDesignConfigs.BASE_PRODUCT_PRICE;
+  return {
+    total,
+    // stickerPrice: websiteDesignConfigs.BASE_PRODUCT_PRICE,
+    submissionDuration: 4,
+    totalDuration: websiteDesignConfigs.DEFAULT_DURATION,
+    prizeSets: [
+      {
+        prizes: [
+          ..._.map(websiteDesignConfigs.PRIZES_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Challenge Prizes",
+        type: "placement",
+      },
+      {
+        prizes: [
+          ..._.map(websiteDesignConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
             type: "USD",
             value: _.round(p * total),
           })),
