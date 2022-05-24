@@ -70,6 +70,7 @@ const WorkTable: FC<{}> = () => {
         setColumns(filteredColumns)
     }, [
         initialized,
+        work,
         workStatusFilter,
     ])
 
