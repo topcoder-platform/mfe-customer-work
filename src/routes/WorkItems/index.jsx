@@ -6,11 +6,7 @@ import { connect, useSelector, useDispatch } from "react-redux";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
-import {
-  ROUTES,
-} from "constants/";
-import TabPane from "./components/TabPane";
-import Solutions from "./components/Solutions";
+import { ROUTES } from "constants/";
 import workUtil from "utils/work";
 import Forum from "../Forum";
 
@@ -19,6 +15,7 @@ import {
   getSummary,
   getDetails,
   getSolutions,
+  getSolutionsCount,
   downloadSolution,
   saveSurvey,
   setIsSavingSurveyDone,
@@ -27,11 +24,11 @@ import {
 import { toggleSupportModal } from "../../actions/form";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
+import ReviewTable from "../Review/components/ReviewTable";
 
 import {
   Breadcrumb,
   ChallengeMetadataName,
-  ContactSupportModal,
   TabsNavbar,
   workContext,
   WorkDetailDetails,
@@ -39,10 +36,10 @@ import {
   WorkDetailSummary,
   WorkFeedback,
   WorkStatusItem,
+  WorkDetailSolutions,
 } from '../../../src-ts'
 
 import "./styles.module.scss";
-import ReviewTable from "../Review/components/ReviewTable";
 
 /**
  * Work Item Page
@@ -59,6 +56,7 @@ const WorkItem = ({
   getSummary,
   getDetails,
   getSolutions,
+  getSolutionsCount,
   downloadSolution,
   saveSurvey,
   setIsSavingSurveyDone,
@@ -76,8 +74,14 @@ const WorkItem = ({
     getWork(workItemId);
   }, [workItemId, getWork]);
 
-  const { summary, details, solutions } = useMemo(() => workItem, [workItem]);
+  const { summary, details, solutions, solutionsCount } = useMemo(() => workItem, [workItem]);
 
+  const isReviewPhaseEnded = useMemo(() => {
+    if (work) {
+      return workUtil.isReviewPhaseEnded(work);
+    }
+  }, [work]);
+  
   useEffect(() => {
     if (!work) {
       return;
@@ -119,11 +123,21 @@ const WorkItem = ({
     if (!work) {
       return;
     }
-
+    
     if (work || selectedTab === "messaging") {
       getForumNotifications(work.id);
     }
   }, [work, selectedTab, getForumNotifications]);
+
+  useEffect(() => {
+    if (!work) {
+      return;
+    }
+    
+    if (isReviewPhaseEnded) {
+      getSolutionsCount(work.id);
+    }
+  }, [isReviewPhaseEnded, getSolutionsCount, work])
 
   useEffect(() => {
     if (isSavingSurveyDone) {
@@ -131,18 +145,6 @@ const WorkItem = ({
       setIsSavingSurveyDone(false);
     }
   }, [work, isSavingSurveyDone, setIsSavingSurveyDone, getSummary]);
-
-  const isReviewPhaseEnded = useMemo(() => {
-    if (work) {
-      return workUtil.isReviewPhaseEnded(work);
-    }
-  }, [work]);
-
-  const reviewPhaseEndedDate = useMemo(() => {
-    if (work) {
-      return workUtil.getReviewPhaseEndedDate(work);
-    }
-  }, [work]);
 
   useEffect(() => {
     dispatch(getUserProfile());
@@ -173,8 +175,17 @@ const WorkItem = ({
         }
       ].filter(Boolean)
     },
-    { id: 'solutions', title: 'Solutions' },
-  ].filter(Boolean), [work]);
+    {
+      id: 'solutions',
+      title: 'Solutions',
+      badges: [
+        isReviewPhaseEnded && !!solutionsCount && {
+          count: solutionsCount,
+          type: 'info'
+        }
+      ].filter(Boolean)
+    },
+  ].filter(Boolean), [work, solutionsCount, isReviewPhaseEnded]);
 
   function saveFeedback(updatedCustomerFeedback) {
 
@@ -216,38 +227,45 @@ const WorkItem = ({
           ></TabsNavbar>
 
           <div styleName="tabs-contents">
-            <TabPane value={selectedTab} tab="summary">
-              {summary && (
-                <WorkDetailSummary challenge={work} status={workStatus} />
-              )}
-            </TabPane>
+            {selectedTab === 'summary' && (
+              <div>
+                {summary && (
+                  <WorkDetailSummary challenge={work} status={workStatus} />
+                )}
+              </div>
+            )}
 
-            <TabPane value={selectedTab} tab="details">
-              <WorkDetailDetails>
-                <ReviewTable
-                  formData={_.get(details, "intake-form.form", {})}
-                  enableEdit={false}
-                  enableStepsToggle={false}
+            {selectedTab === 'details' && (
+              <div>
+                <WorkDetailDetails>
+                  <ReviewTable
+                    formData={_.get(details, "intake-form.form", {})}
+                    enableEdit={false}
+                    enableStepsToggle={false}
+                  />
+                </WorkDetailDetails>
+              </div>
+            )}
+
+            {selectedTab === 'solutions' && (
+              <div>
+                <WorkDetailSolutions
+                  challenge={work}
+                  onDownload={downloadSolution}
+                  solutions={solutions}
                 />
-              </WorkDetailDetails>
-            </TabPane>
+              </div>
+            )}
 
-            <TabPane value={selectedTab} tab="solutions">
-              <Solutions
-                solutions={solutions}
-                onDownload={downloadSolution}
-                isReviewPhaseEnded={isReviewPhaseEnded}
-                reviewPhaseEndedDate={reviewPhaseEndedDate}
-                work={work}
-              />
-            </TabPane>
+            {selectedTab === 'messaging' && (
+              <div>
+                {work && <Forum challengeId={work.id} />}
+              </div>
+            )}
 
-            <TabPane value={selectedTab} tab="messaging">
-              {work && <Forum challengeId={work.id} />}
-            </TabPane>
-
-            <TabPane value={selectedTab} tab="history">
-            </TabPane>
+            {selectedTab === 'history' && (
+              <div />
+            )}
           </div>
         </PageContent>
       </Page>
@@ -303,6 +321,7 @@ const mapDispatchToProps = {
   getSummary,
   getDetails,
   getSolutions,
+  getSolutionsCount,
   downloadSolution,
   saveSurvey,
   setIsSavingSurveyDone,

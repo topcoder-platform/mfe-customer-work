@@ -8,6 +8,7 @@ export {
     workFactoryGetStatus,
     type WorkProgress,
     type WorkProgressStep,
+    type WorkSolution,
     WorkStatus,
     WorkType,
     WorkTypeCategory,

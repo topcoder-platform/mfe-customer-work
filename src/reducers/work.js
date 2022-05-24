@@ -76,6 +76,31 @@ const workReducer = (state = initialState, action) => {
         isLoadingSolutions: false,
         error: action.payload,
       };
+    case ACTIONS.WORK.GET_SOLUTIONS_COUNT_PENDING:
+      return {
+        ...state,
+        isLoadingSolutions: true,
+        error: null,
+        workItem: {
+          ...state.workItem,
+          solutionsCount: undefined,
+        },
+      };
+    case ACTIONS.WORK.GET_SOLUTIONS_COUNT_SUCCESS:
+      return {
+        ...state,
+        isLoadingSolutions: false,
+        workItem: {
+          ...state.workItem,
+          solutionsCount: action.payload,
+        },
+      };
+    case ACTIONS.WORK.GET_SOLUTIONS_COUNT_ERROR:
+      return {
+        ...state,
+        isLoadingSolutions: false,
+        error: action.payload,
+      };
     case ACTIONS.WORK.SAVE_SURVEY_SUCCESS:
       return {
         ...state,
