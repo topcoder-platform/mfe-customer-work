@@ -1,5 +1,6 @@
 import { WorkProgress } from './work-progress.model'
 import { WorkStatus } from './work-status.enum'
+import { WorkTypeCategory } from './work-type-category.enum'
 import { WorkType } from './work-type.enum'
 
 export interface Work {
@@ -16,4 +17,5 @@ export interface Work {
     submittedDate?: Date
     title: string
     type: WorkType
+    typeCategory: WorkTypeCategory
 }
