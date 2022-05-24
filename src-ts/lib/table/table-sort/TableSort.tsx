@@ -30,7 +30,7 @@ const TableSort: FC<TableSortProps> = (props: TableSortProps) => {
             className={props.iconClass}
             icon={icon}
             onClick={() => props.toggleSort(props.propertyName as string)}
-            size='sm'
+            size='xs'
         />
     )
 }

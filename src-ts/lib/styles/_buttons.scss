@@ -27,6 +27,7 @@
     font-weight: $font-weight-bold;
     font-size: 11px;
     line-height: 24px;
+    display: inline-block;
 
     &.primary,
     &.secondary {
@@ -36,9 +37,14 @@
         }
     }
 
-    &.button-sm {
+    &.button-xs {
         padding: 0 $pad-lg;
         font-size: 12px;
+    }
+
+    &.button-sm {
+        padding: $border $pad-xl;
+        font-size: 13px;
     }
     
     &.button-md {
