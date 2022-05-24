@@ -101,8 +101,8 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
                 pageCount * DesignPrices.PER_PAGE_COST +
                 pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
 
-        case WorkType.findData:
-            return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE
+        // case WorkType.findData:
+            // return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE
     }
 }
 
@@ -239,7 +239,7 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
     switch (type) {
 
         case WorkType.data:
-        case WorkType.findData:
+        // case WorkType.findData:
             return WorkTypeCategory.data
 
         case WorkType.design:
