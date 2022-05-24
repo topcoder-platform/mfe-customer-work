@@ -297,16 +297,16 @@ const Review = ({
                     label="Yes, I understand and agree to Topcoder's&nbsp;"
                     checked={checked}
                     onChange={(e) => setChecked(e.target.checked)}
-                    //inline
+                    inline
+                    additionalContent={<span
+                      role="button"
+                      tabIndex={0}
+                      styleName="link"
+                      onClick={() => setIsOrderContractModalOpen(true)}
+                    >
+                      Order Contract
+                    </span>}
                   />
-                  <span
-                    role="button"
-                    tabIndex={0}
-                    styleName="link"
-                    onClick={() => setIsOrderContractModalOpen(true)}
-                  >
-                    Order Contract
-                  </span>
                 </div>
 
                 <div styleName="infoBox">

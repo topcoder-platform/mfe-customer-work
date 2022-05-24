@@ -20,6 +20,7 @@ import { triggerAutoSave } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
+import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import SupportModal from "../../../../components/Modal/SupportModal";
 import { getProfile } from "../../../../selectors/profile";
 import { getUserProfile } from "../../../../thunks/profile";
@@ -307,7 +308,10 @@ const BasicInfo = ({
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
-                  REVIEW &amp; SUBMIT
+                  <ArrowRightIcon styleName="rotated" />
+                  <span>
+                    REVIEW &amp; SUBMIT
+                  </span>
                 </Button>
               </div>
             </div>
