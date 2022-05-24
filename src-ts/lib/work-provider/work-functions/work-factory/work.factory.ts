@@ -5,6 +5,8 @@ import * as DesignPrices from '../../../../../src/constants'
 import * as ProblemPrices from '../../../../../src/constants/products/DataAdvisory'
 import * as DataPrices from '../../../../../src/constants/products/DataExploration'
 import * as FindDataPrices from '../../../../../src/constants/products/FindMeData'
+import * as WebsitePrices from '../../../../../src/constants/products/WebsiteDesign'
+
 import { Challenge, ChallengeMetadata } from '../work-store'
 
 import { ChallengeStatus } from './challenge-status.enum'
@@ -50,11 +52,8 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
             return DataPrices.PROMOTIONAL_PRODUCT_PRICE || DataPrices.BASE_PRODUCT_PRICE
 
         case WorkType.design:
-            const pageCount: number = getCountFromString(findMetadata(challenge, 'basicInfo.numberOfPages')?.value)
-            const deviceCount: number = getCountFromString(findMetadata(challenge, 'basicInfo.numberOfDevices')?.value)
-            return DesignPrices.BASE_PRODUCT_PRICE +
-                pageCount * DesignPrices.PER_PAGE_COST +
-                pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
+            return WebsitePrices.BASE_PRODUCT_PRICE
+
 
         case WorkType.findData:
             return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE

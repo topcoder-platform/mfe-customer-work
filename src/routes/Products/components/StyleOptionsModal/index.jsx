@@ -10,12 +10,15 @@ import DislikeIcon from "../../../../assets/images/thumbsdown.svg";
 import PageDivider from "../../../../components/PageDivider"
 import "./styles.module.scss";
 import Modal from "components/Modal"
+import useCheckMobileScreen from "../../../../hooks/useCheckMobileScreen";
 
 const StylesOptionsModal = ({ onDismiss, style, likes = [], dislikes = [], onLike, onDislike }) => {
+  const isMobile = useCheckMobileScreen();
+  const modalWidth = isMobile ? { fullWidth: true } : { halfWidth: true };
   return (
     <Modal
       show={true}
-      halfWidth
+      {...modalWidth}
       handleClose={onDismiss}
     >
       <div styleName="styleWrapper">

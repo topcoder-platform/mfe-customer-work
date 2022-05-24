@@ -1,7 +1,7 @@
 @import "styles/include";
+@import '../../../../../src-ts/lib/styles';
 
 .styleWrapper {
-  min-width:500px;
   .style {
     position: relative;
     padding: 16px;
@@ -18,6 +18,11 @@
     .preview {
       width: 100%;
       height: 450px;
+      max-height: calc(100vh - 450px);
+
+      @include ltemd {
+        max-height: calc(100vh - 550px);
+      }
     }
 
     .actions {
