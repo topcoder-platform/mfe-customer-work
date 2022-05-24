@@ -1,5 +1,6 @@
-@import './palette';
+@import './icons';
 @import './layout';
+@import './palette';
 
 // TODO: add reset and have it take care of this
 a {
@@ -27,13 +28,16 @@ a {
     border: solid $border;
     white-space: nowrap;
     cursor: pointer;
-    margin: $pad-md;
     // extend ultra small bold and override it
     @extend .ultra-small-bold;
     line-height: 24px;
-    
-    &:focus {
-        outline: $border solid $turq-140;
+
+    &.primary,
+    &.secondary {
+
+        &:focus {
+            outline: $border solid $turq-140;
+        }
     }
 
     &.button-sm {
@@ -42,7 +46,7 @@ a {
     }
     
     &.button-md {
-        padding: $pad-xs $pad-xl;
+        padding: 3*$border $pad-xl;
         font-size: 13px;
     }
 
@@ -117,6 +121,10 @@ a {
         }
     }
 
+    svg {
+        @include icon-lg;
+    }
+
     &.link {
         margin: 0;
         padding: 0;
@@ -129,10 +137,6 @@ a {
         outline: none;
         border-radius: 0;
 
-        &:focus {
-            outline: $border solid $turq-140;
-        }
-        
         &:hover {
             color: $turq-120;
         }
@@ -155,6 +159,25 @@ a {
     }
 
     &.text {
+        color: $tc-white;
         border-color: transparent;
+        font-size: 12px;
+    }
+
+    &.icon {
+        margin: 0;
+        padding: $pad-sm calc($pad-sm - $border-xs) $pad-xs $pad-sm;
+        border: 0;
+        background: none;
+        color: $turq-160;
+
+        &:hover {
+            background-color: $black-10;
+            color: $turq-100;
+        }
+
+        &:focus {
+            outline: none;
+        }
     }
 }

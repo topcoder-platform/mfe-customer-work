@@ -8,10 +8,6 @@ import { EnvironmentConfigProd } from './environment.prod.config'
 
 function getEnvironmentConfig(): GlobalConfig {
 
-    // switch (process.env.REACT_APP_HOST_ENV) {
-    // TODO: allow the use of a separate
-    // process var (REACT_APP_HOST_ENV)
-    // so that we can have more than just local/dev/prod
     switch (process.env.APPENV) {
 
         case AppHostEnvironment.bsouza:

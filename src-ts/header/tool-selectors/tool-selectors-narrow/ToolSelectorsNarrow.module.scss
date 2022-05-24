@@ -1,0 +1,38 @@
+@import '../../../lib/styles';
+
+.tool-selectors-narrow {
+    display: none;
+
+    @include ltemd {
+        display: flex;
+    }
+
+    svg {
+        @include icon-xxxxl;
+        fill: none;
+
+        path {
+            stroke: $tc-white;
+            stroke-width: $border;
+        }
+    }
+
+    .tool-selectors-narrow-container {
+        position: absolute;
+        top: $header-height;
+        left: 0;
+        bottom: 0;
+        width: calc(100% - calc(2 * $pad-xxl));
+        z-index: 100;
+        background-color: $black-100;
+        padding: $pad-xxl;
+
+        @include ltemd {
+            top: $header-height-md;
+        }
+
+        @include ltesm {
+            top: $header-height-sm;
+        }
+    }
+}

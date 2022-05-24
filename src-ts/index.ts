@@ -1,3 +1,5 @@
+export { default as AppNextGen } from './App'
 export { EnvironmentConfig } from './config'
-export { logInitialize, ProfileProvider } from './lib'
-export { Account } from './utils/account'
+export { logInitialize, ProfileProvider, RouteProvider } from './lib'
+export * from './utils'
+export * from './tools'
