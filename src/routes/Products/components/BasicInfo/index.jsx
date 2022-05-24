@@ -20,6 +20,7 @@ import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
+import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import SupportModal from "../../../../components/Modal/SupportModal";
 import { getProfile } from "../../../../selectors/profile";
 import { getUserProfile } from "../../../../thunks/profile";
@@ -241,7 +242,7 @@ const BasicInfo = ({
                 >
                   <ArrowRightIcon styleName="rotated" />
                   <span>
-                    <span styleName="desktop">REVIEW &amp;</span> SUBMIT
+                    REVIEW &amp; SUBMIT
                   </span>
                 </Button>
               </div>
