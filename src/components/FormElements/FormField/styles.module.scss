@@ -6,6 +6,9 @@
   flex-direction: column;
   justify-content: flex-start;
   margin-bottom: 18px;
+  @include mobile {
+    margin-bottom: 0px;
+  }
 
   &.helper {
     margin-bottom: 35px !important;

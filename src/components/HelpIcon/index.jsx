@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import ReactTooltip from "react-tooltip";
-import HintIcon from "../../assets/images/icon-hint.svg";
+import HintIcon from "../../assets/images/icon-hint-green.svg";
 import { v4 as uuidv4 } from "uuid";
 
 import "./styles.module.scss";
