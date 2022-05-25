@@ -1,0 +1,48 @@
+@use '../../../../../lib/styles/typography';
+@import '../../../../../lib/styles/includes';
+
+.wrap {
+    display: flex;
+    padding: $pad-xxl;
+    gap: $pad-lg;
+    align-items: center;
+
+    border-radius: $pad-sm;
+
+    background: $tc-white;
+}
+
+.icon {
+    color: $black-60;
+    svg {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+.count {
+    color: $blue-140;
+    font-size: 48px;
+    line-height: 50px;
+    @include font-weight-medium;
+}
+
+.count-label {
+    @extend .body-main;
+    color: $black-100;
+}
+
+.stat-item {
+    display: flex;
+    gap: $pad-xs;
+    align-items: center;
+    > :global(.sub) {
+        display: flex;
+        gap: $pad-xs;
+        align-items: flex-end;
+    }
+}
+
+.button {
+    margin-left: auto;
+}

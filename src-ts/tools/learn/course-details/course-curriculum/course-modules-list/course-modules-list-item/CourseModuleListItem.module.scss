@@ -1,0 +1,47 @@
+@use '../../../../../../lib/styles/typography';
+@import '../../../../../../lib/styles/includes';
+
+.wrap {
+    display: flex;
+    gap: calc($pad-lg + $border);
+}
+
+.checkmark {
+    border-radius: 50%;
+    border: 2px solid $black-20;
+
+    width: 26px;
+    height: 26px;
+    flex: 0 0 auto;
+
+    margin-top: $border;
+}
+
+.summary {
+    display: flex;
+    color: $tc-white;
+    margin-top: $border-xs;
+    
+    > * + * {
+        &:before {
+            content: "";
+            display: block;
+            width: 1px;
+            height: 14px;
+            background: $tc-white;
+            margin: 0 calc($pad-sm + $border);
+        }
+    }
+
+    &-item {
+        @extend .body-small;
+        display: flex;
+        align-items: center;
+
+        svg {
+            width: 14px;
+            height: 14px;
+            margin-right: calc($pad-xs + $border);
+        }
+    }
+}

@@ -1,0 +1,42 @@
+@use '../../../../lib/styles/typography';
+@import '../../../../lib/styles/includes';
+
+.wrap {
+    background: $black-5;
+    border-radius: $pad-sm;
+    padding: $pad-xxl;
+
+    gap: $pad-lg;
+    display: flex;
+    flex-direction: column;
+
+    width: 332px;
+
+    :global(.overline) {
+        color: $black-60;
+    }
+
+    &:global(.soon) {
+        .badge-icon {
+            opacity: 0.5;
+        }
+    }
+}
+
+.content {
+    display: flex;
+    gap: $pad-lg;
+    align-items: center;
+}
+
+.text {
+    color: $black-100;
+    :global(.quote-small) {
+        color: #767676;
+    }
+}
+
+.bottom {
+    color: $blue-140;
+    margin-top: auto;
+}

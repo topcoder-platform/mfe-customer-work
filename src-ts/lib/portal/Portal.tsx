@@ -38,7 +38,9 @@ const Portal: FC<PortalProps> = (
     useEffect(() => {
         return () => {
             if (defaultPortalNode) {
-                document.body.removeChild(defaultPortalNode)
+                try {
+                    document.body.removeChild(defaultPortalNode)
+                } catch {}
             }
         }
     }, [])
