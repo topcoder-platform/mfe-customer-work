@@ -338,7 +338,7 @@ const webWorkProblemStatement = {
   duration: "5 Days",
   featured: true,
   startRoute: "/self-service/work/new/data-advisory/basic-info",
-  helperBannerTitle: "WHAT WILL I RECEIVE??",
+  helperBannerTitle: "WHAT WILL I RECEIVE?",
   bgImage: imgProductProblemStatement,
   helperBannerContent: (
     <>
