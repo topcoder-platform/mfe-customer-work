@@ -31,6 +31,13 @@ export const getSolutions = (workId) => {
   };
 };
 
+export const getSolutionsCount = (workId) => {
+  return {
+    type: ACTIONS.WORK.GET_SOLUTIONS_COUNT,
+    payload: workService.getSolutionsCount(workId),
+  };
+};
+
 export const downloadSolution = (solutionId) => {
   return {
     type: ACTIONS.WORK.DOWNLOAD_SOLUTION,

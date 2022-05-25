@@ -122,7 +122,7 @@ export function getDataExplorationPriceAndTimelineEstimate() {
 
 export function getWebsiteDesignPriceAndTimelineEstimate() {
   const total =
-    websiteDesignConfigs.PROMOTIONAL_PRODUCT_PRICE ||
+    // websiteDesignConfigs.PROMOTIONAL_PRODUCT_PRICE ||
     websiteDesignConfigs.BASE_PRODUCT_PRICE;
   return {
     total,

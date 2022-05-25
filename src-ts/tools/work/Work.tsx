@@ -7,8 +7,18 @@ import {
     clearAutoSavedForm,
     clearCachedChallengeId
 } from '../../../src/autoSaveBeforeLogin'
-import { ButtonProps, ContentLayout, profileContext, ProfileContextData, routeContext, RouteContextData, WorkProvider } from '../../lib'
-import { LoadingSpinner } from '../../lib/loading-spinner'
+import {
+    ButtonProps,
+    ContentLayout,
+    LoadingSpinner,
+    profileContext,
+    ProfileContextData,
+    routeContext,
+    RouteContextData,
+    routeSelfServiceRoot,
+    routeSelfServiceStart,
+    WorkProvider,
+} from '../../lib'
 
 export const toolTitle: string = 'Work'
 
@@ -28,7 +38,7 @@ const Work: FC<{}> = () => {
         }
 
         // if the profile is initialized, go to the self-service login
-        return <Navigate to='/self-service' />
+        return <Navigate to={routeSelfServiceRoot} />
     }
 
     function startWork(): void {
@@ -36,7 +46,7 @@ const Work: FC<{}> = () => {
         clearAutoSavedForm()
         dispatch(resetIntakeForm(true))
         // TODO: add the start work page to the route provider context
-        navigate('/self-service/wizard')
+        navigate(routeSelfServiceStart)
     }
 
     const buttonConfig: ButtonProps = {

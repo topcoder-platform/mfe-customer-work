@@ -22,13 +22,13 @@
     button {
       svg {
         display: none;
-        @include mobile {
+        @include gtelg {
           display: inline-block;
         }
       }
 
       span {
-        @include mobile {
+        @include ltemd {
           display: none;
         }
       }
