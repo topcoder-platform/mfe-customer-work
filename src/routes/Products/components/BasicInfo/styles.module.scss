@@ -1,10 +1,15 @@
-@import "styles/include";
+@import '../../../../../src-ts/lib/styles';
 
 .footerContent {
   display: flex;
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
+
+  @include ltemd {
+    flex-direction: column;
+    gap: 16px;
+  }
 
   .footer-right {
     display: flex;
