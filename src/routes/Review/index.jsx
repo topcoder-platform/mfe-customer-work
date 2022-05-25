@@ -221,8 +221,8 @@ const Review = ({
             stickerPrice={estimate?.stickerPrice}
             serviceType={workType?.selectedWorkTypeDetail}
           />
-          <br />
-          <br />
+          <br styleName="mobileHidden" />
+          <br styleName="mobileHidden" />
           {secondaryBanner}
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
@@ -292,15 +292,15 @@ const Review = ({
                     checked={checked}
                     onChange={(e) => setChecked(e.target.checked)}
                     inline
+                    additionalContent={<span
+                      role="button"
+                      tabIndex={0}
+                      styleName="link"
+                      onClick={() => setIsOrderContractModalOpen(true)}
+                    >
+                      Order Contract
+                    </span>}
                   />
-                  <span
-                    role="button"
-                    tabIndex={0}
-                    styleName="link"
-                    onClick={() => setIsOrderContractModalOpen(true)}
-                  >
-                    Order Contract
-                  </span>
                 </div>
 
                 <div styleName="infoBox">

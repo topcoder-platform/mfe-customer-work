@@ -5,6 +5,22 @@
   svg {
     margin-right: 16px;
   }
+
+  .inline {
+    display: flex;
+    flex-direction: row;
+  }
+  @include mobile {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.filler {
+  display: flex;
+  @include mobile {
+    flex: 1;
+  }
 }
 
 .serviceTitle {
@@ -43,5 +59,10 @@
 
   svg {
     margin-left: 9px;
+    @include mobile {
+      margin-left: 100px;
+      width: 20px;
+      height: 20px;
+    }
   }
 }

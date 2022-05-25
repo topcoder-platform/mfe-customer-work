@@ -70,6 +70,7 @@ const WorkTable: FC<{}> = () => {
         setColumns(filteredColumns)
     }, [
         initialized,
+        work,
         workStatusFilter,
     ])
 
@@ -137,10 +138,6 @@ const WorkTable: FC<{}> = () => {
             <Table
                 columns={columns}
                 data={filteredResults}
-                defaultSort={{
-                    direction: 'desc',
-                    fieldName: 'created',
-                }}
                 onRowClick={viewWorkDetails}
             />
         )
