@@ -4,9 +4,8 @@ import { NavigateFunction, Params, useNavigate, useParams } from 'react-router-d
 import { cacheChallengeId } from '../../../../src/autoSaveBeforeLogin' // TODO: move to src-ts
 import {
     LoadingSpinner,
-    routeRoot,
-    routeSelfServiceStart,
-    routeWorkDetails,
+    routeContext,
+    RouteContextData,
     Table,
     TableColumn,
     TabsNavbar,
@@ -20,6 +19,7 @@ import {
     WorkStatus,
     WorkStatusFilter,
 } from '../../../lib'
+import { selfServiceStartRoute, workDetailRoute } from '../work.routes'
 
 import { workDashboardTabs } from './work-nav.config'
 import { WorkNoResults } from './work-no-results'
@@ -30,6 +30,8 @@ const WorkTable: FC<{}> = () => {
 
     const workContextData: WorkContextData = useContext(workContext)
     const { hasWork, work, initialized }: WorkContextData = workContextData
+
+    const { rootLoggedInRoute }: RouteContextData = useContext(routeContext)
 
     const [statusGroups, setStatusGroups]: [{ [status: string]: WorkByStatus } | undefined,
         Dispatch<SetStateAction<{ [status: string]: WorkByStatus } | undefined>>]
@@ -77,12 +79,12 @@ const WorkTable: FC<{}> = () => {
     // if we couldn't find a workstatusfilter,
     // redirect to the dashboard
     if (!workStatusFilter) {
-        navigate(routeRoot)
+        navigate(rootLoggedInRoute)
         return <></>
     }
 
     function onChangeTab(active: string): void {
-        navigate(`${routeRoot}/${active}`)
+        navigate(`${rootLoggedInRoute}/${active}`)
     }
 
     function viewWorkDetails(selectedWork: Work): void {
@@ -95,8 +97,10 @@ const WorkTable: FC<{}> = () => {
 
         // TODO: get these routes from an object/function that's not hard-coded
         const url: string = isDraft
-            ? routeSelfServiceStart
-            : routeWorkDetails(selectedWork.id)
+            ? selfServiceStartRoute
+            // TODO: move the tabs definition to src-ts
+            // so we don't have to hard-code this tab id
+            : workDetailRoute(selectedWork.id, selectedWork.status === WorkStatus.ready ? 'solutions' : undefined)
 
         navigate(url)
     }
