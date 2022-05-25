@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { Dispatch, FC, MutableRefObject, ReactNode, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Dispatch, FC, MutableRefObject, ReactNode, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 
 import { useClickOutside, UseHoverElementValue, useOnHoverElement } from '../functions'
 import { useWindowSize, WindowSize } from '../hooks/use-window-size.hook'
@@ -45,6 +45,7 @@ const Tooltip: FC<TooltipProps> = ({
 
     const portalRef: MutableRefObject<any> = useRef(undefined)
     const triggerRef: MutableRefObject<any> = useRef(undefined)
+    const tooltipRef: MutableRefObject<any> = useRef(undefined)
     const [tooltipOpen, setTooltipOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
     const { width: windowWidth, height: windowHeight }: WindowSize = useWindowSize()
 
@@ -57,21 +58,26 @@ const Tooltip: FC<TooltipProps> = ({
         : useOnHoverElement(triggerRef.current, toggleOpen)
 
     useEffect(() => {
-        if (!tooltipOpen || !portalRef?.current) {
+
+        if (!tooltipOpen || !portalRef?.current || !tooltipRef?.current) {
             return
         }
 
         const triggerEl: HTMLElement = triggerRef.current
         const box: DOMRect = triggerEl.getBoundingClientRect()
+        const left: number = Math.max(box.left, windowWidth - (box.left + tooltipRef.current.getBoundingClientRect().width))
+
         Object.assign(portalRef.current.style, {
             height: `${box.width}px`,
-            left: `${box.left}px`,
-            pointerEvents: 'none',
-            position: 'absolute',
+            left: `${left}px`,
             top: `${box.top + window.scrollY}px`,
             width: `${box.width + window.scrollX}px`,
         })
-    }, [tooltipOpen, windowWidth, windowHeight])
+    }, [
+        tooltipOpen,
+        windowWidth,
+        windowHeight,
+    ])
 
     return (
         <div className={styles.tooltip}>
@@ -83,8 +89,8 @@ const Tooltip: FC<TooltipProps> = ({
                 {trigger}
             </div>
             {tooltipOpen && (
-                <Portal portalRef={portalRef}>
-                    <div className={classNames(styles['tooltip-open'], `posy-${positionY}`, `posx-${positionX}`, className)}>
+                <Portal portalRef={portalRef} className={styles['tooltip-portal']}>
+                    <div className={classNames(styles['tooltip-open'], `posy-${positionY}`, `posx-${positionX}`, className)} ref={tooltipRef}>
                         <div className={styles['tooltip-arrow']}>
                             <TooltipArrowIcon />
                         </div>

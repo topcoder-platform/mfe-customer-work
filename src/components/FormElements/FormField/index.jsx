@@ -43,6 +43,7 @@ const FormField = ({
         {...props}
       >
         <div
+          className={cn(props.labelStyle)}
           styleName={cn("label", props.labelStyle ? props.labelStyle : null)}
           onClick={handleClick}
           role="presentation"

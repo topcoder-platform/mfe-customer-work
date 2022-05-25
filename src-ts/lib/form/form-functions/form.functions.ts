@@ -1,6 +1,7 @@
-import { FormEvent } from 'react'
+import { ChangeEvent, FormEvent } from 'react'
 import { toast } from 'react-toastify'
 
+import { FormDefinition } from '../form-definition.model'
 import { FormInputModel } from '../form-input.model'
 
 export function getInputElement(formElements: HTMLFormControlsCollection, fieldName: string): HTMLInputElement {
@@ -33,7 +34,7 @@ export function onBlur<T>(event: FormEvent<HTMLInputElement | HTMLTextAreaElemen
     handleFieldEvent<T>(event.target as HTMLInputElement | HTMLTextAreaElement, inputs, 'blur', formValues)
 }
 
-export function onChange<T>(event: FormEvent<HTMLInputElement | HTMLTextAreaElement>, inputs: ReadonlyArray<FormInputModel>, formValues?: T): void {
+export function onChange<T>(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, inputs: ReadonlyArray<FormInputModel>, formValues?: T): void {
     handleFieldEvent<T>(event.target as HTMLInputElement | HTMLTextAreaElement, inputs, 'change', formValues)
 }
 
@@ -49,14 +50,15 @@ export function onReset(inputs: ReadonlyArray<FormInputModel>, formValue?: any):
 
 export async function onSubmitAsync<T>(
     event: FormEvent<HTMLFormElement>,
-    inputs: ReadonlyArray<FormInputModel>,
-    formName: string,
+    formDef: FormDefinition,
     formValue: T,
     save: (value: T) => Promise<void>,
     onSuccess?: () => void,
 ): Promise<void> {
 
     event.preventDefault()
+
+    const { inputs, shortName, successMessage }: FormDefinition = formDef
 
     // get the dirty fields before we validate b/c validation marks them dirty on submit
     const dirty: FormInputModel | undefined = inputs.find(fieldDef => !!fieldDef.dirty)
@@ -79,7 +81,10 @@ export async function onSubmitAsync<T>(
 
     return savePromise
         .then(() => {
-            toast.success(`Your ${formName} has been saved.`)
+            const safeSuccessMessage: string = !!successMessage
+                ? successMessage as string
+                : `Your ${shortName || 'data'} has been saved.`
+            toast.success(safeSuccessMessage)
             onSuccess?.()
         })
         .catch(error => {

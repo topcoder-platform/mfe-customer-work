@@ -3,7 +3,7 @@ import { Routes } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 
 import { Header } from './header'
-import { ProfileProvider, routeContext, RouteContextData } from './lib'
+import { routeContext, RouteContextData } from './lib'
 
 const App: FC<{}> = () => {
 
@@ -13,7 +13,7 @@ const App: FC<{}> = () => {
         .map(route => getRouteElement(route))
 
     return (
-        <ProfileProvider>
+        <>
             <Header />
             <Routes>
                 {routeElements}
@@ -29,7 +29,7 @@ const App: FC<{}> = () => {
                 draggable
                 pauseOnHover
             />
-        </ProfileProvider>
+        </>
     )
 }
 

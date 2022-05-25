@@ -1,4 +1,4 @@
-@import '../../../lib/styles';
+@import '../../../lib/styles/includes';
 
 .tool-selectors-narrow {
     display: none;
@@ -22,17 +22,10 @@
         top: $header-height;
         left: 0;
         bottom: 0;
+        height: $content-height;
         width: calc(100% - calc(2 * $pad-xxl));
         z-index: 100;
         background-color: $black-100;
         padding: $pad-xxl;
-
-        @include ltemd {
-            top: $header-height-md;
-        }
-
-        @include ltesm {
-            top: $header-height-sm;
-        }
     }
 }

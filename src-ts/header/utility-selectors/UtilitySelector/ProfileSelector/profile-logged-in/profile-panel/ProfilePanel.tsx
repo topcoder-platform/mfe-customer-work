@@ -1,6 +1,6 @@
 import classNames from 'classnames'
-import { FC, MutableRefObject, useContext } from 'react'
-import { Link, NavigateFunction, useNavigate } from 'react-router-dom'
+import { FC, useContext } from 'react'
+import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 import {
     authUrlLogout,
@@ -37,9 +37,7 @@ const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
     const name: string = `${profile.firstName} ${profile.lastName?.substring(0, 1)}${!!profile.lastName ? '.' : undefined}`
 
     return (
-        <div
-            className={styles['profile-panel']}
-        >
+        <div className={styles['profile-panel']}>
             <div className={styles['arrow-tip']}>
                 <TooltipArrowIcon />
             </div>

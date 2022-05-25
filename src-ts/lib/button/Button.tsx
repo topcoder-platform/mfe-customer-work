@@ -13,8 +13,10 @@ export interface ButtonProps {
     readonly buttonStyle?: ButtonStyle
     readonly className?: string
     readonly disable?: boolean
+    readonly elementType?: string
     readonly icon?: FC<SVGProps<SVGSVGElement>>
     readonly label?: string
+    readonly name?: string
     readonly onClick?: (event?: any) => void
     readonly route?: string
     readonly size?: ButtonSize
@@ -29,6 +31,7 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
     const classes: string = getButtonClasses(props)
     const clickHandler: (event?: any) => void = getClickHandler(props)
     const content: JSX.Element = getButtonContent(props)
+    const ButtonElement: keyof JSX.IntrinsicElements = (props.elementType ?? 'button') as keyof JSX.IntrinsicElements
 
     // if there is a url, this is a link button
     if (!!props.url) {
@@ -60,15 +63,16 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
     }
 
     return (
-        <button
+        <ButtonElement
             className={classes}
+            name={props.name}
             onClick={clickHandler}
             tabIndex={props.tabIndex}
             title={props.title}
             type={props.type || 'button'}
         >
             {content}
-        </button>
+        </ButtonElement>
     )
 }
 

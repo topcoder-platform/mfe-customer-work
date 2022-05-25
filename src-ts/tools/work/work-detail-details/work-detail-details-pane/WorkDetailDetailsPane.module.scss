@@ -1,0 +1,25 @@
+@import '../../../../lib/styles';
+
+.paneContent {
+    flex-grow: 2;
+}
+
+.detail {
+    margin-bottom: $pad-xxl;
+    white-space: pre-wrap;
+    @include font-black-100;
+
+    .header {
+        @include font-barlow;
+        display: flex;
+        padding-bottom: $pad-sm;
+    }
+
+    .content {
+        @extend .body-main;
+
+        .detail {
+            padding-left: $pad-xl;
+        }
+    }
+}
