@@ -362,13 +362,11 @@ const webWorkProblemStatement = {
       </PageUl>
     </>
   ),
-  aboutBannerTitle: "ABOUT DATA EXPLORATION",
+  aboutBannerTitle: "ABOUT PROBLEM STATEMENT & DATA ADVISORY",
   aboutBannerContent: (
     <p>
-      In Data Exploration, multiple data science experts uncover the most
-      significant patterns and relationships in your data. Unlock the full
-      potential of your data with expert insights presented in an
-      easy-to-understand format.
+      Problem Statement &amp; Data Advisory is for those asking themselves: How can I apply data science to this idea or goal?
+      How will I interpret solutions, and how will that help me take action? What data do I need?
     </p>
   ),
 };
