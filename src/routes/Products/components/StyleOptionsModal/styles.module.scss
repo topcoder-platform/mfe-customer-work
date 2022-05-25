@@ -2,6 +2,7 @@
 @import '../../../../../src-ts/lib/styles';
 
 .styleWrapper {
+  min-width:500px;
   .style {
     position: relative;
     padding: 16px;
@@ -9,6 +10,10 @@
     flex-direction: column;
     justify-content: center;
     font-size: 22px;
+    @include mobile {
+      width: 250px;
+      padding: 0px;
+    }
 
     .box {
       border: 1px solid $black-20;

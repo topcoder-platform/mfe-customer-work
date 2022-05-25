@@ -14,6 +14,25 @@
   .footer-right {
     display: flex;
     gap: 16px;
+
+    .rotated {
+      transform: rotate(-90deg);
+    }
+
+    button {
+      svg {
+        display: none;
+        @include mobile {
+          display: inline-block;
+        }
+      }
+
+      span {
+        @include mobile {
+          display: none;
+        }
+      }
+    }
   }
 }
 
