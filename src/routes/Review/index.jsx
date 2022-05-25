@@ -91,10 +91,10 @@ const Review = ({
     workType?.selectedWorkType === "Website Design"
       ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : isDataAdvisory
-      ? getDataAdvisoryPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : isDataAdvisory
+          ? getDataAdvisoryPriceAndTimelineEstimate()
+          : getFindMeDataPriceAndTimelineEstimate();
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -235,9 +235,9 @@ const Review = ({
                 <PageUl>
                   <li>
                     <strong>
-                      Your Dashboard is your go-to hub for managing your work.
+                      Your Dashboard is your go-to-hub for managing your work.
                     </strong>
-                    &nbsp; From here you can view timelines, details, and a more
+                    &nbsp;From here you can view timelines, details, and a lot more
                     important information tied to your work submissions.
                   </li>
                   <li>
