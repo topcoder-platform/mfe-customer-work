@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 
-import { ContactSupportForm, contactSupportFormDef } from '../../contact-support'
+import { ContactSupportForm, contactSupportFormDef } from '../../contact-support-form'
 import { FormDefinition, formOnReset } from '../../form'
 import { BaseModal } from '../base-modal'
 
