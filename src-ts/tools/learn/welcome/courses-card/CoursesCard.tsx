@@ -9,11 +9,11 @@ interface CoursesCardProps {
     credits?: string
     link?: string
     title: string
-    type: 'webdev'
+    type: string
 }
 
 enum COURSES_TYPES_MAP {
-    webdev = 'Web Development',
+    'Web Development' = 'Web Development',
 }
 
 const CoursesCard: FC<CoursesCardProps> = (props: CoursesCardProps) => {
@@ -21,7 +21,7 @@ const CoursesCard: FC<CoursesCardProps> = (props: CoursesCardProps) => {
     return (
         <div className={classNames(styles['wrap'], !props.link && 'soon')}>
             <div className='overline'>
-                {COURSES_TYPES_MAP[props.type]}
+                {COURSES_TYPES_MAP[props.type as keyof typeof COURSES_TYPES_MAP]}
             </div>
             <div className={styles['content']}>
                 <div className={styles['badge-icon']}>

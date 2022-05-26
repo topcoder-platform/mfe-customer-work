@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
-import { Portal } from '../../../lib'
+import { LoadingSpinner, Portal, useCertificationsProvider } from '../../../lib'
+import { CertificationsProviderData } from '../../../lib/learn-provider/providers'
 
 import { CoursesCard } from './courses-card'
 import { ProgressCard } from './progress-card'
@@ -10,6 +11,10 @@ interface WelcomePageProps {
 }
 
 const WelcomePage: FC<WelcomePageProps> = (props: WelcomePageProps) => {
+    const {
+        certifications,
+        ready,
+    }: CertificationsProviderData = useCertificationsProvider()
 
     return (
         <div className={styles.wrap}>
@@ -38,26 +43,23 @@ const WelcomePage: FC<WelcomePageProps> = (props: WelcomePageProps) => {
 
             <div className={styles['courses-section']}>
                 <h3 className='details'>Courses Available</h3>
-                <div className={styles['courses-list']}>
-                    <CoursesCard
-                        title='Responsive Web Design'
-                        credits='freeCodeCamp'
-                        type='webdev'
-                        link='/learn/course'
-                    />
-                    <CoursesCard
-                        title='Javascript Alrhorithms & Data Structures'
-                        type='webdev'
-                    />
-                    <CoursesCard
-                        title='Front End Development Libraries'
-                        type='webdev'
-                    />
-                    <CoursesCard
-                        title='Back End Development APIs'
-                        type='webdev'
-                    />
-                </div>
+                {!ready && (
+                    <LoadingSpinner />
+                )}
+
+                {ready && (
+                    <div className={styles['courses-list']}>
+                        {certifications.map((certification) => (
+                            <CoursesCard
+                                title={certification.title}
+                                type={certification.category}
+                                link={certification.state === 'active' ? certification.certification : undefined}
+                                credits={certification.providerName}
+                                key={certification.key}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     )

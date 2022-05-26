@@ -1,10 +1,11 @@
 import { FC } from 'react'
 
-import { Button, IconOutline } from '../../../../../lib'
+import { Button, IconOutline, LearnCourse } from '../../../../../lib'
 
 import styles from './CurriculumSummary.module.scss'
 
 interface CurriculumSummaryProps {
+    course: LearnCourse
     onStartCourse: () => void
 }
 
@@ -18,10 +19,10 @@ const CurriculumSummary: FC<CurriculumSummaryProps> = (props: CurriculumSummaryP
                 </div>
                 <div className='sub'>
                     <h3 className={styles['count']}>
-                        5
+                        {props.course.moduleCount}
                     </h3>
                     <div className={styles['count-label']}>
-                        Courses
+                        Modules
                     </div>
                 </div>
             </div>
@@ -31,7 +32,7 @@ const CurriculumSummary: FC<CurriculumSummaryProps> = (props: CurriculumSummaryP
                 </div>
                 <div className='sub'>
                     <h3 className={styles['count']}>
-                        80
+                        {props.course.completionHours}
                     </h3>
                     <div className={styles['count-label']}>
                         Hours

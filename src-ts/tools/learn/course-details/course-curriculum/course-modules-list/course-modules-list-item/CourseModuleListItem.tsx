@@ -1,15 +1,15 @@
 import { FC } from 'react'
 
-import { IconOutline } from '../../../../../../lib'
+import { IconOutline, LearnModule } from '../../../../../../lib'
 
 import styles from './CourseModuleListItem.module.scss'
 
 interface CourseModuleListItemProps {
     completed?: boolean
-    duration: number
+    duration: LearnModule['meta']['estimatedCompletionTime']
     lessonsCount: number
     name: string
-    shortDescription: string
+    shortDescription: Array<string>
 }
 
 const CourseModuleListItem: FC<CourseModuleListItemProps> = (props: CourseModuleListItemProps) => {
@@ -22,7 +22,7 @@ const CourseModuleListItem: FC<CourseModuleListItemProps> = (props: CourseModule
                     {props.name}
                 </div>
                 <div className='body-main'>
-                    {props.shortDescription}
+                    <span dangerouslySetInnerHTML={{ __html: props.shortDescription.join('<br/>') }}></span>
                 </div>
                 <div className={styles['summary']}>
                     <span className={styles['summary-item']}>
@@ -31,7 +31,7 @@ const CourseModuleListItem: FC<CourseModuleListItemProps> = (props: CourseModule
                     </span>
                     <span className={styles['summary-item']}>
                         <IconOutline.ClockIcon />
-                        {props.duration} hours
+                        {props.duration.value} {props.duration.units}
                     </span>
                 </div>
             </div>
