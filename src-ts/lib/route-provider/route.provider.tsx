@@ -17,10 +17,11 @@ import { PlatformRoute } from './platform-route.model'
 import { RequireAuthProvider } from './require-auth-provider'
 import { RouteContextData } from './route-context-data.model'
 import { default as routeContext, defaultRouteContextData } from './route.context'
-import { routeIsActive, routeRoot } from './route.utils'
 
 interface RouteProviderProps {
     children: ReactNode
+    rootLoggedIn: string
+    rootLoggedOut: string
     toolsRoutes: Array<PlatformRoute>
     utilsRoutes: Array<PlatformRoute>
 }
@@ -54,6 +55,10 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
             getPathFromRoute,
             getRouteElement,
             getRoutesForRole,
+            isActiveRoute: isActiveRoute(props.rootLoggedIn, props.rootLoggedOut),
+            isRootRoute: isRootRoute(props.rootLoggedIn, props.rootLoggedOut),
+            rootLoggedInRoute: props.rootLoggedIn,
+            rootLoggedOutRoute: props.rootLoggedOut,
             toolsRoutes,
             utilsRoutes,
         }
@@ -88,7 +93,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
         const routeElement: JSX.Element = !route.requireAuth
             ? route.element
             : (
-                <RequireAuthProvider loginUrl={authUrlLogin(routeRoot)}>
+                <RequireAuthProvider loginUrl={authUrlLogin(props.rootLoggedIn)}>
                     {route.element}
                 </RequireAuthProvider>
             )
@@ -109,7 +114,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
     function getRoutesForRole(toolsRoutes: Array<PlatformRoute>, activePath: string): Array<PlatformRoute> {
         return toolsRoutes
             // tslint:disable-next-line: cyclomatic-complexity
-            .filter(route => routeIsActive(activePath, route.route)
+            .filter(route => isActivePath(activePath, route.route)
                 || (
                     initialized
                     && (
@@ -136,4 +141,34 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
             {props.children}
         </routeContext.Provider>
     )
+}
+
+function isActivePath(activePath: string, pathName: string, rootPath?: string): boolean {
+    return activePath?.startsWith(pathName)
+        && (pathName !== rootPath || activePath === rootPath)
+}
+
+function isActiveRoute(rootLoggedIn: string, rootLoggedOut: string):
+    (activePath: string, pathName: string, rootPath?: string) => boolean {
+
+    return (activePath: string, pathName: string, rootPath?: string) => {
+
+        let isActive: boolean = isActivePath(activePath, pathName, rootPath)
+
+        // if this is the root logged in route,
+        // also check the root logged out route
+        if (!isActive && pathName.startsWith(rootLoggedIn)) {
+            isActive = isActivePath(activePath, rootLoggedOut)
+        }
+
+        return isActive
+    }
+}
+
+function isRootRoute(rootLoggedIn: string, rootLoggedOut: string):
+    (activePath: string) => boolean {
+
+    return (activePath: string) => {
+        return [rootLoggedIn, rootLoggedOut].some(route => activePath === route)
+    }
 }

@@ -1,2 +1,10 @@
 export { default as ToolsRoutes } from './tools.routes'
-export { WorkFeedback, WorkDetailDetails, WorkDetailHeader, WorkDetailSummary, WorkDetailSolutions } from './work'
+export {
+    selfServiceRootRoute as routeRootLoggedOut,
+    WorkFeedback,
+    WorkDetailDetails,
+    WorkDetailHeader,
+    WorkDetailSummary,
+    WorkDetailSolutions,
+    workRootRoute as routeRootLoggedIn,
+} from './work'

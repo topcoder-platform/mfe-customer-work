@@ -1,12 +1,13 @@
 export {
     type Work,
+    workFactoryCreate,
+    workFactoryGetStatus,
     type WorkProgress,
     type WorkProgressStep,
     type WorkSolution,
     WorkStatus,
     WorkType,
-    workFactoryCreate,
-    workFactoryGetStatus,
+    WorkTypeCategory,
 } from './work-factory'
 export {
     type Challenge,

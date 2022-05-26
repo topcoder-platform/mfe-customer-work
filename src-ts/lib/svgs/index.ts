@@ -13,9 +13,9 @@ import { ReactComponent as SocialIconLinkedin } from './social-linkedin-icon.svg
 import { ReactComponent as SocialIconTwitter } from './social-tw-icon.svg'
 import { ReactComponent as SocialIconYoutube } from './social-yt-icon.svg'
 import { ReactComponent as TooltipArrowIcon } from './tooltip-arrow.svg'
-import { ReactComponent as WorkTypeDataExplorationIcon } from './work-type-data-exploration.svg'
-import { ReactComponent as WorkTypeUnknownIcon } from './work-type-unknown.svg'
-import { ReactComponent as WorkTypeWebsiteDesignIcon } from './work-type-website-design.svg'
+import { ReactComponent as WorkTypeCategoryDataIcon } from './work-type-category-data.svg'
+import { ReactComponent as WorkTypeCategoryDesignIcon } from './work-type-category-design.svg'
+import { ReactComponent as WorkTypeCategoryUnknownIcon } from './work-type-category-unknown.svg'
 
 export { ActiveTabTipIcon }
 export { IconOutline }
@@ -30,6 +30,6 @@ export { SocialIconLinkedin }
 export { SocialIconTwitter }
 export { SocialIconYoutube }
 export { TooltipArrowIcon }
-export { WorkTypeDataExplorationIcon }
-export { WorkTypeUnknownIcon }
-export { WorkTypeWebsiteDesignIcon }
+export { WorkTypeCategoryDataIcon }
+export { WorkTypeCategoryDesignIcon }
+export { WorkTypeCategoryUnknownIcon }

@@ -10,6 +10,10 @@ export interface RouteContextData {
     getPathFromRoute: (route: PlatformRoute) => string
     getRouteElement: (route: PlatformRoute) => JSX.Element
     getRoutesForRole: (toolsRoutes: Array<PlatformRoute>, activePath: string) => Array<PlatformRoute>
+    isActiveRoute: (activePath: string, pathName: string, rootPath?: string) => boolean
+    isRootRoute: (activePath: string) => boolean
+    rootLoggedInRoute: string
+    rootLoggedOutRoute: string
     toolsRoutes: Array<PlatformRoute>
     utilsRoutes: Array<PlatformRoute>
 }

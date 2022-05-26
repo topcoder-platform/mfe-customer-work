@@ -10,6 +10,10 @@ export const defaultRouteContextData: RouteContextData = {
     getPathFromRoute: () => '',
     getRouteElement: () => <></>,
     getRoutesForRole: () => [],
+    isActiveRoute: () => false,
+    isRootRoute: () => false,
+    rootLoggedInRoute: '',
+    rootLoggedOutRoute: '',
     toolsRoutes: [],
     utilsRoutes: [],
 }
