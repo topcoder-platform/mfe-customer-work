@@ -49,7 +49,7 @@ export const useLessonProvider: (
 
             const lessonUrl: string = [
                 'learn',
-                course,
+                courseData?.key ?? course,
                 module,
                 lesson,
             ].filter(Boolean).join('/')
