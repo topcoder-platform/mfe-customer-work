@@ -81,7 +81,7 @@ const WorkItem = ({
       return workUtil.isReviewPhaseEnded(work);
     }
   }, [work]);
-  
+
   useEffect(() => {
     if (!work) {
       return;
@@ -123,7 +123,7 @@ const WorkItem = ({
     if (!work) {
       return;
     }
-    
+
     if (work || selectedTab === "messaging") {
       getForumNotifications(work.id);
     }
@@ -133,7 +133,7 @@ const WorkItem = ({
     if (!work) {
       return;
     }
-    
+
     if (isReviewPhaseEnded) {
       getSolutionsCount(work.id);
     }
@@ -242,13 +242,7 @@ const WorkItem = ({
 
             {selectedTab === 'details' && (
               <div>
-                <WorkDetailDetails>
-                  <ReviewTable
-                    formData={_.get(details, "intake-form.form", {})}
-                    enableEdit={false}
-                    enableStepsToggle={false}
-                  />
-                </WorkDetailDetails>
+                <WorkDetailDetails formData={_.get(details, "intake-form.form", {})} />
               </div>
             )}
 

@@ -1,1 +1,4 @@
-export { getSorted as tableGetSorted } from './table.functions'
+export {
+    getDefaultSort as tableGetDefaultSort,
+    getSorted as tableGetSorted,
+} from './table.functions'

@@ -1,4 +1,4 @@
-@import "styles/include";
+@import '../../../../../src-ts/lib/styles';
 
 .footerContent {
   display: flex;
@@ -6,9 +6,33 @@
   flex-direction: row;
   justify-content: space-between;
 
+  @include ltemd {
+    flex-direction: column;
+    gap: 16px;
+  }
+
   .footer-right {
     display: flex;
     gap: 16px;
+
+    .rotated {
+      transform: rotate(-90deg);
+    }
+
+    button {
+      svg {
+        display: none;
+        @include gtelg {
+          display: inline-block;
+        }
+      }
+
+      span {
+        @include ltemd {
+          display: none;
+        }
+      }
+    }
   }
 }
 

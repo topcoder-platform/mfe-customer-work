@@ -13,15 +13,14 @@ import { setProgressItem } from "../../actions/progress";
 // import BackIcon from "../../assets/images/icon-back-arrow.svg";
 // import IconWebsiteTools from "../../assets/images/design-tools.svg";
 import Button from "../../components/Button";
-import HelpBanner from "../../components/HelpBanner";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Page from "../../components/Page";
 import PageContent from "../../components/PageContent";
 import PageDivider from "../../components/PageDivider";
 // import PageFoot from "../../components/PageElements/PageFoot";
 import PageH2 from "../../components/PageElements/PageH2";
+import Slider from '../../components/Slider'
 import { Breadcrumb } from "../../../src-ts/lib";
-import Slider from "../../components/Slider";
 import {
   BUTTON_SIZE,
   // BUTTON_TYPE,

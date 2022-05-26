@@ -18,6 +18,8 @@ import {
 import { triggerAutoSave } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
+import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
+import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import { getUserProfile } from "../../../../thunks/profile";
 
 import BasicInfoForm from "../BasicInfoForm";
@@ -221,13 +223,6 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const onSubmitSupportRequest = (submittedSupportRequest) =>
-    createNewSupportTicket(
-      submittedSupportRequest,
-      challenge?.id,
-      challenge?.legacy?.selfService
-    );
-
   const saveForLater = () => {
     saveBasicInfo(formData);
     dispatch(triggerAutoSave(true));
@@ -290,7 +285,10 @@ const BasicInfo = ({
                     type={BUTTON_TYPE.SECONDARY}
                     onClick={saveForLater}
                   >
-                    SAVE FOR LATER
+                    <SaveForLaterIcon />
+                    <span>
+                      SAVE FOR LATER
+                    </span>
                   </Button>
                 }
                 <Button
@@ -298,7 +296,10 @@ const BasicInfo = ({
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
-                  REVIEW &amp; SUBMIT
+                  <ArrowRightIcon styleName="rotated" />
+                  <span>
+                    REVIEW &amp; SUBMIT
+                  </span>
                 </Button>
               </div>
             </div>
