@@ -1,5 +1,5 @@
-import { EnvironmentConfig } from '../../../../../config'
-import { xhrPostAsync } from '../../../../functions'
+import { EnvironmentConfig } from '../../../../config'
+import { xhrPostAsync } from '../../../functions'
 
 import { ContactSupportRequest } from './contact-support-request.model'
 
