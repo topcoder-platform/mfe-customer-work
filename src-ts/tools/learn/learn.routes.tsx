@@ -20,7 +20,7 @@ export const learnRoutes: Array<PlatformRoute> = [
                 children: [],
                 element: <CourseDetailsPage />,
                 enabled: true,
-                route: 'course',
+                route: ':certification',
                 title: toolTitle,
             },
             {

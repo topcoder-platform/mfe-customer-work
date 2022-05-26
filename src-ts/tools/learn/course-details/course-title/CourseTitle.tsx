@@ -7,7 +7,7 @@ import styles from './CourseTitle.module.scss'
 interface CourseTitleProps {
     credits?: string
     title: string
-    type: 'webdev'
+    type: string
 }
 
 const CourseTitle: FC<CourseTitleProps> = (props: CourseTitleProps) => {
