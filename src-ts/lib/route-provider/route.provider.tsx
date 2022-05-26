@@ -17,7 +17,7 @@ import { PlatformRoute } from './platform-route.model'
 import { RequireAuthProvider } from './require-auth-provider'
 import { RouteContextData } from './route-context-data.model'
 import { default as routeContext, defaultRouteContextData } from './route.context'
-import { routeRoot } from './route.utils'
+import { routeIsActive, routeRoot } from './route.utils'
 
 interface RouteProviderProps {
     children: ReactNode
@@ -39,11 +39,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
 
         // TODO: try to make these prop names configurable instead of hard-coded
         const toolsRoutes: Array<PlatformRoute> = props.toolsRoutes
-            .filter(route => initialized
-                && route.enabled
-                && (!route.customerOnly || !!profile?.isCustomer)
-                && (!route.memberOnly || !!profile?.isMember)
-            )
+            .filter(route => route.enabled)
         const utilsRoutes: Array<PlatformRoute> = props.utilsRoutes
             .filter(route => route.enabled)
         allRoutes = [
@@ -57,6 +53,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
             getPath,
             getPathFromRoute,
             getRouteElement,
+            getRoutesForRole,
             toolsRoutes,
             utilsRoutes,
         }
@@ -107,6 +104,23 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
                 path={path}
             />
         )
+    }
+
+    function getRoutesForRole(toolsRoutes: Array<PlatformRoute>, activePath: string): Array<PlatformRoute> {
+        return toolsRoutes
+            // tslint:disable-next-line: cyclomatic-complexity
+            .filter(route => routeIsActive(activePath, route.route)
+                || (
+                    initialized
+                    && (
+                        (!route.customerOnly && !route.memberOnly)
+                        || (
+                            (route.customerOnly && !!profile?.isCustomer)
+                            || (route.memberOnly && !!profile?.isMember)
+                        )
+                    )
+                )
+            )
     }
 
     useEffect(() => {

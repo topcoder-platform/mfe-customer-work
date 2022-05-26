@@ -9,6 +9,7 @@ export interface RouteContextData {
     getPath: (routeTitle: string) => string
     getPathFromRoute: (route: PlatformRoute) => string
     getRouteElement: (route: PlatformRoute) => JSX.Element
+    getRoutesForRole: (toolsRoutes: Array<PlatformRoute>, activePath: string) => Array<PlatformRoute>
     toolsRoutes: Array<PlatformRoute>
     utilsRoutes: Array<PlatformRoute>
 }
