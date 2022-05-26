@@ -15,6 +15,7 @@ import { ChallengeStatus } from './challenge-status.enum'
 import { WorkProgressStep } from './work-progress-step.model'
 import { WorkProgress } from './work-progress.model'
 import { WorkStatus } from './work-status.enum'
+import { WorkTypeCategory } from './work-type-category.enum'
 import { WorkType } from './work-type.enum'
 import { Work } from './work.model'
 
@@ -38,6 +39,7 @@ export function create(challenge: Challenge): Work {
         submittedDate,
         title: challenge.name,
         type,
+        typeCategory: getTypeCategory(type),
     }
 }
 
@@ -99,8 +101,8 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
                 pageCount * DesignPrices.PER_PAGE_COST +
                 pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
 
-        case WorkType.findData:
-            return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE
+        // case WorkType.findData:
+            // return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE
     }
 }
 
@@ -230,4 +232,21 @@ function getType(challenge: Challenge): WorkType {
 
     const output: WorkType = !!workTypeKey ? WorkType[workTypeKey] : WorkType.unknown
     return output
+}
+
+function getTypeCategory(type: WorkType): WorkTypeCategory {
+
+    switch (type) {
+
+        case WorkType.data:
+        // case WorkType.findData:
+            return WorkTypeCategory.data
+
+        case WorkType.design:
+            return WorkTypeCategory.design
+
+        // TOOD: other categories: qa and dev
+        default:
+            return WorkTypeCategory.unknown
+    }
 }

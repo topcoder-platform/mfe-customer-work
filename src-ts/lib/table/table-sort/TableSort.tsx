@@ -8,13 +8,13 @@ interface TableSortProps {
     iconClass: string
     isCurrentlySorted: boolean
     propertyName?: string
-    sort: Sort
+    sort?: Sort
     toggleSort: (fieldName: string) => void
 }
 
 const TableSort: FC<TableSortProps> = (props: TableSortProps) => {
 
-    if (!props.propertyName) {
+    if (!props.propertyName || !props.sort) {
         return <></>
     }
 
