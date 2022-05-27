@@ -13,6 +13,7 @@ import styles from "./styles.module.scss";
 
 const FormInputCheckbox = ({
   label,
+  additionalContent,
   onChange = (f) => f,
   styleName,
   inline,
@@ -28,8 +29,7 @@ const FormInputCheckbox = ({
         />
         <span
           styleName="styles.label"
-          dangerouslySetInnerHTML={{ __html: label }}
-        ></span>
+        >{label} {additionalContent}</span>
       </label>
     </div>
   ) : (
@@ -42,8 +42,7 @@ const FormInputCheckbox = ({
       />
       <span
         styleName="styles.label"
-        dangerouslySetInnerHTML={{ __html: label }}
-      ></span>
+      >{label} {additionalContent}</span>
     </label>
   );
 };

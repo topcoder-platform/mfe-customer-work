@@ -11,6 +11,11 @@
     gap: 16px;
   }
 }
+.mobileHidden {
+  @include mobile {
+    display: none;
+  }
+}
 
 .container {
   border-top-left-radius: 0;
@@ -132,6 +137,9 @@
   color: $link-blue;
   text-decoration: underline;
   cursor: pointer;
+  @include mobile {
+    flex: none;
+  }
 }
 
 .error {

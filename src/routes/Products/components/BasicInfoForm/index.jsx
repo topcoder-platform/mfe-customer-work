@@ -555,6 +555,9 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
+      {isWebsiteDesign && <PageDivider />}
+
+
       {isWebsiteDesign && (
         <PageRow styleName="form-row">
           <div>
@@ -840,7 +843,7 @@ const BasicInfoForm = ({
                   label={`List Specific Colors ${selectedColor?.value?.length > 0 ? "(optional)" : ""
                     }`}
                 >
-                  <FormInputText
+                  <FormInputTextArea
                     value={formData?.specificColor?.value}
                     onChange={(e) =>
                       handleInputChange(e.target.name, e.target.value)
