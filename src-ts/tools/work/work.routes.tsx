@@ -45,6 +45,7 @@ export const workRoutes: Array<PlatformRoute> = [
         children: [],
         element: <Navigate to={workRootRoute} />,
         enabled: true,
+        hide: true,
         route: `${selfServiceRootRoute}/dashboard`,
         title: 'Obsolete Self Service Dashboard',
     },
