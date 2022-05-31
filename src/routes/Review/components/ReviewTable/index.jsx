@@ -7,10 +7,63 @@ import _ from "lodash";
 import ArrowIcon from "../../../../assets/images/icon-arrow.svg";
 import "./styles.module.scss";
 
+const mapData = (workType, formData) => {
+  switch (workType) {
+    case ("Problem Statement & Data Advisory"):
+      return {
+        projectTitle: formData.projectTitle,
+        goal: { title: "What's Your Goal?", option: formData.goals.value },
+        data: {
+          title: "What Data Do You Have?", option: [
+            { title: "Shareable URL Link(s)", option: formData.sampleData.value },
+            { title: "Data Description", option: formData.assetsDescription.value }
+          ]
+        }
+      }
+    case ("Data Exploration"):
+      return {
+        projectTitle: formData.projectTitle,
+        data: { title: "Share Your Data (Optional)", option: formData.assetsUrl.value },
+        goal: { title: "What Would You Like To Learn?", option: formData.goals.value },
+      }
+    case ("Find Me Data"):
+      return {
+        projectTitle: formData.findMeProjectTitle,
+        data: formData.analysis,
+        primaryDataChallenge: {
+          title: formData.primaryDataChallenge.title,
+          option: formData.primaryDataChallenge.value === 3 ?
+            formData.primaryDataChallengeOther.value : formData.primaryDataChallenge.option
+        },
+        sampleData: formData.sampleData
+      }
+    case ("Website Design"):
+      const styleInfo = [
+        `Like: ${formData.likedStyles.value.join(", ")}`,
+        `Dislike: ${formData.dislikedStyles.value.join(", ")}`,
+        `Additional Details: ${formData.stylePreferences.value}`
+      ];
+      formData.colorOption.value?.length > 0 && styleInfo.push(`Color Selections: ${formData.colorOption.value.join(", ")}`);
+      formData.specificColor.value && formData.specificColor.value !== '' && styleInfo.push(`Specific Colors: ${formData.specificColor.value}`);
+
+      return {
+        projectTitle: formData.projectTitle,
+        description: { title: "Description", option: formData.analysis.value },
+        industry: formData.yourIndustry,
+        inspiration: { title: "Inspiration", option: formData.inspiration.map(item => `${item.website.value} ${item.feedback.value}`) },
+        style: { title: "Style & Theme", option: styleInfo },
+        assets: { title: "Share Your Brand or Style Assets", option: [formData.assetsUrl.value, formData.assetsDescription.value] }
+      };
+    default:
+      return formData;
+  }
+};
+
 /**
  * Review Table Component
  */
 const ReviewTable = ({ formData, enableEdit = true }) => {
+  console.log("Review table data", formData);
   const [steps, setSteps] = useState([
     {
       id: 0,
@@ -55,18 +108,18 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
   };
 
   const renderDetails = (step) => {
-    let items = formData[step.value] || {};
-    if (formData?.workType?.selectedWorkType === "Find Me Data") {
-      items = _.omit(items, ["projectTitle", "assetsUrl", "goals"]);
-    } else {
-      items = _.omit(items, [
-        "findMeProjectTitle",
-        "analysis",
-        "primaryDataChallenge",
-        "primaryDataChallengeOther",
-        "sampleData",
-      ]);
-    }
+    let items = step.id === 0 ? mapData(formData?.workType?.selectedWorkType, formData[step.value] || {}) : formData[step.value];
+    // if (formData?.workType?.selectedWorkType === "Find Me Data") {
+    //   items = _.omit(items, ["projectTitle", "assetsUrl", "goals"]);
+    // } else {
+    //   items = _.omit(items, [
+    //     "findMeProjectTitle",
+    //     "analysis",
+    //     "primaryDataChallenge",
+    //     "primaryDataChallengeOther",
+    //     "sampleData",
+    //   ]);
+    // }
     return Object.keys(items).map((key) => {
       if (_.isArray(items[key]))
         return _.map(items[key], (item, i) => (
@@ -88,7 +141,8 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
   };
 
   const renderPageDetails = (step) => {
-    const items = formData[step.value] || {};
+    //const items = formData[step.value] || {};
+    let items = step.id === 0 ? mapData(formData?.workType?.selectedWorkType, formData[step.value] || {}) : formData[step.value];
     const pages = items?.pages || [];
 
     return pages.map((page, index) => {
