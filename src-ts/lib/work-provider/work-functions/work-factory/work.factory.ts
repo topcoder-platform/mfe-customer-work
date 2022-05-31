@@ -75,17 +75,20 @@ function findMetadata(challenge: Challenge, metadataName: ChallengeMetadataName)
 
 function findOpenPhase(challenge: Challenge): ChallengePhase | undefined {
 
+    // sort the phases descending by start date
+    const sortedPhases: Array<ChallengePhase> = challenge.phases
+        .sort((a, b) => new Date(b.actualStartDate).getTime() - new Date(a.actualStartDate).getTime())
+
     const now: Date = new Date()
     // if we have an open phase, just use that
-    const openPhase: ChallengePhase | undefined = challenge.phases.find(phase => phase.isOpen)
+    const openPhase: ChallengePhase | undefined = sortedPhases.find(phase => phase.isOpen)
         // otherwise, find the phase that _should_ be open now based on its start/end datetimes
-        || challenge.phases
+        || sortedPhases
             .find(phase => {
                 return new Date(phase.actualEndDate) > now && new Date(phase.actualStartDate) < now
             })
         // otherwise, find the most recently started phase that's in the past
-        || challenge.phases
-            .sort((a, b) => new Date(b.actualStartDate).getTime() - new Date(a.actualStartDate).getTime())
+        || sortedPhases
             .find(phase => {
                 return new Date(phase.actualStartDate) < now
             })
