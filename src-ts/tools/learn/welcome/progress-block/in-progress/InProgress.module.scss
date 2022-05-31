@@ -1,0 +1,15 @@
+@import '../../../../../lib/styles/includes';
+
+.wrap {
+    background: $tc-white;
+    padding: $pad-lg $pad-xxl;
+    border-radius: $pad-sm;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: $pad-lg;
+}
