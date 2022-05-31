@@ -64,7 +64,7 @@ export const useLessonProvider: (
                     },
                     lessonUrl,
                     module: {
-                        dashbedName: moduleData?.meta.dashedName ?? '',
+                        dashedName: moduleData?.meta.dashedName ?? '',
                         title: moduleData?.meta.name ?? '',
                     },
                 },
@@ -74,7 +74,7 @@ export const useLessonProvider: (
         }, 350)
 
         return () => clearTimeout(t)
-    }, [course])
+    }, [course, module, lesson])
 
     return state
 }

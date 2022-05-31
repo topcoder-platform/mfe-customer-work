@@ -6,7 +6,7 @@ export interface LearnLessonMeta {
     dashedName: string
     lessonUrl: string
     module: {
-        dashbedName: string
+        dashedName: string
         title: string
     }
     title: string
