@@ -3,6 +3,7 @@ import { Outlet, Routes } from 'react-router-dom'
 
 import {
     ContentLayout,
+    LearnProviderContextProvider,
     routeContext,
     RouteContextData,
 } from '../../lib'
@@ -15,10 +16,12 @@ const Learn: FC<{}> = () => {
 
     return (
         <ContentLayout>
-            <Outlet />
-            <Routes>
-                {getChildRoutes(toolTitle)}
-            </Routes>
+            <LearnProviderContextProvider>
+                <Outlet />
+                <Routes>
+                    {getChildRoutes(toolTitle)}
+                </Routes>
+            </LearnProviderContextProvider>
         </ContentLayout>
     )
 }
