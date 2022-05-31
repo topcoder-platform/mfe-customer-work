@@ -1,0 +1,76 @@
+@use '../../../../../lib/styles/typography';
+@import '../../../../../lib/styles/includes';
+
+.wrap {
+    color: $black-10;
+}
+
+.title-row {
+    display: flex;
+    gap: $pad-xs;
+    cursor: pointer;
+
+    > span {
+        @extend .body-small-bold;
+        line-height: 24px;
+    }
+
+    :global(.status-checkbox) {
+        margin-top: 0;
+        width: $pad-xxl;
+        height: $pad-xxl;
+    }
+}
+
+.chevron {
+    margin-left: auto;
+    width: $pad-xxl;
+    flex: 0 0 auto;
+    svg {
+        @include icon-xxl;
+    }
+
+    
+    .wrap:global(.collapsed) & svg {
+        transform: rotate(180deg);
+    }
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: $pad-sm;
+
+    margin-top: $pad-xs;
+
+    li {
+        padding-left: 5px;
+    }
+
+    .item-wrap {
+        display: flex;
+        gap: $pad-sm;
+        align-items: center;
+        @extend .body-small-medium;
+
+        &:global(.active) {
+            color: $tc-white;
+            .item-icon {
+                background: $tc-white;
+            }
+        }
+    }
+}
+
+.item-icon {
+    @include icon-size(14);
+    display: block;
+    border-radius: $pad-sm;
+        
+    svg {
+        @include icon-size(14);
+        path {
+            fill: $turq-75;
+        }
+    }
+}

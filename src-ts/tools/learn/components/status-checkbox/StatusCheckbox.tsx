@@ -13,6 +13,7 @@ interface StatusCheckboxProps {
 const StatusCheckbox: FC<StatusCheckboxProps> = (props: StatusCheckboxProps) => {
     const classes = classNames(
         styles['checkmark'],
+        'status-checkbox',
         props.completed && 'completed',
         props.partial && 'partial',
     )

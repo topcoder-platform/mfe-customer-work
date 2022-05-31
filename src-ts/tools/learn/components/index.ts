@@ -1,3 +1,5 @@
+export * from './collapsible-pane'
+export * from './course-outline'
 export * from './course-title'
 export * from './status-checkbox'
 export * from './tc-academy-policy-modal'

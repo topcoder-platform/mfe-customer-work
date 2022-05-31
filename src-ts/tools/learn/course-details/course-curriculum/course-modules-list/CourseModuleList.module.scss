@@ -9,21 +9,6 @@
 
     max-height: 650px;
     overflow: auto;
-    
-    &::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    &::-webkit-scrollbar {
-        width: 5px;
-        height: 5px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba($tc-white, 0.4);
-        border-radius: 4px;
-        
-        &:hover {
-            background-color: $tc-white;
-        }
-    }
+
+    @include scrollbar;
 }

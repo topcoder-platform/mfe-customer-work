@@ -151,14 +151,20 @@ h4 {
 }
 
 .body-small {
-    font-size: 14px !important;
-    line-height: 22px !important;
+    font-size: 14px;
+    line-height: 22px;
     font-weight: $font-weight-normal;
 }
 
 .body-small-medium {
     @extend .body-small;
     font-weight: $font-weight-medium;
+    letter-spacing: 0;
+}
+
+.body-small-bold {
+    @extend .body-small;
+    font-weight: $font-weight-bold;
     letter-spacing: 0;
 }
 
