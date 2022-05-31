@@ -14,6 +14,11 @@ interface WorkDetailSummaryProps {
 const WorkDetailSummary: FC<WorkDetailSummaryProps> = (props: WorkDetailSummaryProps) => {
 
     const workContextData: WorkContextData = useContext(workContext)
+
+    if (!props.challenge) {
+        return <></>
+    }
+
     const work: Work = workContextData.createFromChallenge(props.challenge)
 
     const progressElement: JSX.Element = props.status === WorkStatus.transferred
