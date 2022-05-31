@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 import { Button, LearnCourse, LearningHat, LearnLesson, LearnModule } from '../../../../lib'
-import { TcAcademyPolicyModal } from '../../tc-academy-policy-modal'
+import { TcAcademyPolicyModal } from '../../components'
 
 import { CourseModuleList } from './course-modules-list'
 import styles from './CourseCurriculum.module.scss'
@@ -34,8 +34,8 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
     const inProgress = progress > 0.35;
     const completed = progress > 0.65;
 
-    const isCompleted = (module: LearnModule) => (
-        completed ? true : (!inProgress) ? false : Math.random() > 0.5
+    const getProgress = (module: LearnModule) => (
+        completed ? 1 : (!inProgress) ? 0 : Math.random()
     )
 
     return (
@@ -60,7 +60,8 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
 
                 <CourseModuleList
                     modules={props.course.modules}
-                    isCompleted={isCompleted}
+                    completed={completed}
+                    getProgress={getProgress}
                 />
             </div>
             {completed && (

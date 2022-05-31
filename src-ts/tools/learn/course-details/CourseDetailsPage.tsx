@@ -1,10 +1,10 @@
-import { FC, useEffect, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { Params, useParams } from 'react-router-dom'
 
 import { Breadcrumb, BreadcrumbItemModel, CoursesProviderData, IconOutline, LearnProviderContextValue, LoadingSpinner, useCoursesProvider, useLearnProvider } from '../../../lib'
 
 import { CourseCurriculum } from './course-curriculum'
-import { CourseTitle } from './course-title'
+import { CourseTitle } from '../components'
 import styles from './CourseDetailsPage.module.scss'
 import { PromoCourse } from './promo-course'
 
@@ -37,7 +37,7 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
                     <div className={styles['wrap']}>
                         <div className={styles['main']}>
                             <div className={styles['description']}>
-                                <CourseTitle title={course.title} credits={course?.provider} type='webdev' />
+                                <CourseTitle size='lg' title={course.title} credits={course?.provider} type='webdev' />
 
                                 <div
                                     className={styles['text']}

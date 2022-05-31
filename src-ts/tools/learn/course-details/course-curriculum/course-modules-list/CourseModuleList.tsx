@@ -6,8 +6,9 @@ import { CourseModuleListItem } from './course-modules-list-item'
 import styles from './CourseModuleList.module.scss'
 
 interface CourseModuleListProps {
+    completed?: boolean
+    getProgress: (m: LearnModule) => number
     modules: Array<LearnModule>
-    isCompleted: (m: LearnModule) => boolean
 }
 
 const CourseModuleList: FC<CourseModuleListProps> = (props: CourseModuleListProps) => {
@@ -20,7 +21,8 @@ const CourseModuleList: FC<CourseModuleListProps> = (props: CourseModuleListProp
                     shortDescription={module.meta.introCopy}
                     lessonsCount={module.meta.lessonCount}
                     duration={module.meta.estimatedCompletionTime}
-                    completed={props.isCompleted(module)}
+                    completed={props.completed}
+                    progress={props.getProgress(module)}
                     key={module.key}
                 />
             ))}

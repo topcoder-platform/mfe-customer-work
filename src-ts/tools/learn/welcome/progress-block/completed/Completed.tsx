@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import styles from './Completed.module.scss'
 import { Button, LearnCertification, textFormatDateLocaleShortString } from '../../../../../lib'
-import { CourseTitle } from '../../course-title'
+import { CourseTitle } from '../../../components'
 
 interface CompletedProps {
     course: LearnCertification

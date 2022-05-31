@@ -1,7 +1,8 @@
 import classNames from 'classnames'
 import { FC } from 'react'
 
-import { IconOutline, IconSolid, LearnModule } from '../../../../../../lib'
+import { IconOutline, LearnModule } from '../../../../../../lib'
+import { StatusCheckbox } from '../../../../components'
 
 import styles from './CourseModuleListItem.module.scss'
 
@@ -10,6 +11,7 @@ interface CourseModuleListItemProps {
     duration: LearnModule['meta']['estimatedCompletionTime']
     lessonsCount: number
     name: string
+    progress?: number
     shortDescription: Array<string>
 }
 
@@ -17,11 +19,7 @@ const CourseModuleListItem: FC<CourseModuleListItemProps> = (props: CourseModule
 
     return (
         <div className={styles['wrap']}>
-            <div className={classNames(styles['checkmark'], props.completed && 'completed')}>
-                {props.completed && (
-                    <IconSolid.CheckCircleIcon />
-                )}
-            </div>
+            <StatusCheckbox completed={props.completed} partial={!props.completed && !!props.progress} />
             <div className={styles['content']}>
                 <div className='body-main-bold'>
                     {props.name}

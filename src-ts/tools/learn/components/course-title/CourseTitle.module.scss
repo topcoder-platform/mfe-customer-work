@@ -21,7 +21,11 @@
 
 .badge-icon {
     svg {
-        width: 72px;
-        height: 72px;
+        @include icon-size(60);
+    }
+    &:global(.lg) {
+        svg {
+            @include icon-size(72);
+        }
     }
 }
