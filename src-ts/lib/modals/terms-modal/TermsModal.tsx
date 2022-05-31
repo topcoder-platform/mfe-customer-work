@@ -25,7 +25,7 @@ const TermsModal: FC<TermsModal> = ({ isOpen, onClose }: TermsModal) => (
                         This User Agreement (the "<strong>Agreement</strong>") is a contract
                         between you (referred to herein as "User") and Topcoder LLC.
                         ("Topcoder") and applies to User's use and viewing of
-                        <a href='www.topcoder.com/' target='_blank'>
+                        <a href='https://www.topcoder.com/' target='_blank'>
                             {' '}
                             topcoder.com
                         </a>

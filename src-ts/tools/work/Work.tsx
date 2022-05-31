@@ -15,10 +15,10 @@ import {
     ProfileContextData,
     routeContext,
     RouteContextData,
-    routeSelfServiceRoot,
-    routeSelfServiceStart,
     WorkProvider,
 } from '../../lib'
+
+import { selfServiceRootRoute, selfServiceStartRoute } from './work.routes'
 
 export const toolTitle: string = 'Work'
 
@@ -38,15 +38,14 @@ const Work: FC<{}> = () => {
         }
 
         // if the profile is initialized, go to the self-service login
-        return <Navigate to={routeSelfServiceRoot} />
+        return <Navigate to={selfServiceRootRoute} />
     }
 
     function startWork(): void {
         clearCachedChallengeId()
         clearAutoSavedForm()
         dispatch(resetIntakeForm(true))
-        // TODO: add the start work page to the route provider context
-        navigate(routeSelfServiceStart)
+        navigate(selfServiceStartRoute)
     }
 
     const buttonConfig: ButtonProps = {

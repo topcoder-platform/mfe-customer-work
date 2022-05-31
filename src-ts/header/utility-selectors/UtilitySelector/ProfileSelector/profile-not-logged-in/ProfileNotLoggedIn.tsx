@@ -1,11 +1,13 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 
-import { authUrlLogin, authUrlSignup, Button, routeRoot } from '../../../../../lib'
+import { authUrlLogin, authUrlSignup, Button, routeContext, RouteContextData } from '../../../../../lib'
 import '../../../../../lib/styles/index.scss'
 
 import styles from './ProfileNotLoggedIn.module.scss'
 
 const ProfileNotLoggedIn: FC<{}> = () => {
+
+    const { rootLoggedInRoute }: RouteContextData = useContext(routeContext)
 
     return (
         <>
@@ -15,7 +17,7 @@ const ProfileNotLoggedIn: FC<{}> = () => {
                 label='Log In'
                 size='md'
                 tabIndex={-1}
-                url={authUrlLogin(routeRoot)}
+                url={authUrlLogin(rootLoggedInRoute)}
             />
             <Button
                 buttonStyle='tertiary'
@@ -23,7 +25,7 @@ const ProfileNotLoggedIn: FC<{}> = () => {
                 label='Sign Up'
                 size='md'
                 tabIndex={-1}
-                url={authUrlSignup(routeRoot)}
+                url={authUrlSignup(rootLoggedInRoute)}
             />
         </>
     )
