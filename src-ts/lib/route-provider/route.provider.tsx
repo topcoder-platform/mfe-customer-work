@@ -7,10 +7,11 @@ import { PlatformRoute } from './platform-route.model'
 import { RequireAuthProvider } from './require-auth-provider'
 import { RouteContextData } from './route-context-data.model'
 import { default as routeContext, defaultRouteContextData } from './route.context'
-import { routeRoot } from './route.utils'
 
 interface RouteProviderProps {
     children: ReactNode
+    rootLoggedIn: string
+    rootLoggedOut: string
     toolsRoutes: Array<PlatformRoute>
     utilsRoutes: Array<PlatformRoute>
 }
@@ -26,6 +27,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
 
         // TODO: try to make these prop names configurable instead of hard-codded
         const toolsRoutes: Array<PlatformRoute> = props.toolsRoutes.filter(route => route.enabled)
+        const toolsRoutesForNav: Array<PlatformRoute> = toolsRoutes.filter(route => !route.hide)
         const utilsRoutes: Array<PlatformRoute> = props.utilsRoutes.filter(route => route.enabled)
         allRoutes = [
             ...toolsRoutes,
@@ -38,7 +40,12 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
             getPath,
             getPathFromRoute,
             getRouteElement,
+            isActiveRoute: isActiveRoute(props.rootLoggedIn, props.rootLoggedOut),
+            isRootRoute: isRootRoute(props.rootLoggedIn, props.rootLoggedOut),
+            rootLoggedInRoute: props.rootLoggedIn,
+            rootLoggedOutRoute: props.rootLoggedOut,
             toolsRoutes,
+            toolsRoutesForNav,
             utilsRoutes,
         }
         setRouteContextData(contextData)
@@ -72,7 +79,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
         const routeElement: JSX.Element = !route.requireAuth
             ? route.element
             : (
-                <RequireAuthProvider loginUrl={authUrlLogin(routeRoot)}>
+                <RequireAuthProvider loginUrl={authUrlLogin(props.rootLoggedIn)}>
                     {route.element}
                 </RequireAuthProvider>
             )
@@ -102,4 +109,34 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
             {props.children}
         </routeContext.Provider>
     )
+}
+
+function isActivePath(activePath: string, pathName: string, rootPath?: string): boolean {
+    return activePath?.startsWith(pathName)
+        && (pathName !== rootPath || activePath === rootPath)
+}
+
+function isActiveRoute(rootLoggedIn: string, rootLoggedOut: string):
+    (activePath: string, pathName: string, rootPath?: string) => boolean {
+
+    return (activePath: string, pathName: string, rootPath?: string) => {
+
+        let isActive: boolean = isActivePath(activePath, pathName, rootPath)
+
+        // if this is the root logged in route,
+        // also check the root logged out route
+        if (!isActive && pathName.startsWith(rootLoggedIn)) {
+            isActive = isActivePath(activePath, rootLoggedOut)
+        }
+
+        return isActive
+    }
+}
+
+function isRootRoute(rootLoggedIn: string, rootLoggedOut: string):
+    (activePath: string) => boolean {
+
+    return (activePath: string) => {
+        return [rootLoggedIn, rootLoggedOut].some(route => activePath === route)
+    }
 }

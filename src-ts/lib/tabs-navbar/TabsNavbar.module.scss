@@ -8,6 +8,10 @@
     margin-bottom: $pad-md;
 
     position: relative;
+
+    @include ltemd {
+        flex-direction: column;
+    }
 }
 
 .tab-item {
@@ -71,4 +75,7 @@
     transform: translateX(-50%);
     
     transition: left 0.15s ease-in-out;
+    @include ltemd {
+        display: none;
+    }
 }
