@@ -14,6 +14,7 @@ export const defaultRouteContextData: RouteContextData = {
     rootLoggedInRoute: '',
     rootLoggedOutRoute: '',
     toolsRoutes: [],
+    toolsRoutesForNav: [],
     utilsRoutes: [],
 }
 
