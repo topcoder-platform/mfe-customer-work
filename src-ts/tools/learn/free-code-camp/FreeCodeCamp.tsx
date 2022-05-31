@@ -31,7 +31,7 @@ const FreeCodeCamp: FC<{}> = () => {
                     <div className={styles['iframe-wrap']}>
                         <iframe
                             className={styles.iframe}
-                            src={`http://localhost:8000/${lesson.lessonUrl}`}
+                            src={`https://local.topcoder-dev.com:4431/${lesson.lessonUrl}`}
                         />
                     </div>
                 </Portal>
