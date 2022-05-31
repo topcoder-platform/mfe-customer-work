@@ -21,7 +21,10 @@ interface ProfilePanelProps {
 const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
 
     const { profile }: ProfileContextData = useContext(profileContext)
-    const { getPath }: RouteContextData = useContext(routeContext)
+    const {
+        getPath,
+        rootLoggedOutRoute,
+    }: RouteContextData = useContext(routeContext)
 
     const navigate: NavigateFunction = useNavigate()
 
@@ -58,7 +61,7 @@ const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
                     </span>
                 </div>
                 <a
-                    href={authUrlLogout}
+                    href={authUrlLogout(rootLoggedOutRoute)}
                     className={classNames(styles.logout, styles['nav-item'])}
                 >
                     <span className={styles.icon}>
