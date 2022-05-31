@@ -1,7 +1,15 @@
 import { FC, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { Breadcrumb, BreadcrumbItemModel, LessonProviderData, LoadingSpinner, Portal, useLessonProvider } from '../../../lib'
+import { EnvironmentConfig } from '../../../config'
+import {
+    Breadcrumb,
+    BreadcrumbItemModel,
+    LessonProviderData,
+    LoadingSpinner,
+    Portal,
+    useLessonProvider,
+} from '../../../lib'
 
 import styles from './FreeCodeCamp.module.scss'
 
@@ -20,7 +28,6 @@ const FreeCodeCamp: FC<{}> = () => {
         { url: '/learn/fcc', name: lesson?.module.title ?? '' },
     ], [lesson])
 
-    // TODO: environment-specific URLS
     return (
         <>
             {!ready && <LoadingSpinner />}
@@ -31,7 +38,7 @@ const FreeCodeCamp: FC<{}> = () => {
                     <div className={styles['iframe-wrap']}>
                         <iframe
                             className={styles.iframe}
-                            src={`https://local.topcoder-dev.com:4431/${lesson.lessonUrl}`}
+                            src={`${EnvironmentConfig.LEARN_SRC}/${lesson.lessonUrl}`}
                         />
                     </div>
                 </Portal>
