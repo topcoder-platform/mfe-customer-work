@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
-import { LearnCourse, LearnLesson, LearnModule } from '../../../../lib'
+import { Button, LearnCourse, LearningHat, LearnLesson, LearnModule } from '../../../../lib'
 import { TcAcademyPolicyModal } from '../../tc-academy-policy-modal'
 
 import { CourseModuleList } from './course-modules-list'
@@ -30,15 +30,47 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
         navigate(`/learn/fcc?${coursePath}`)
     }, [props.course])
 
+    const progress = Math.random()
+    const inProgress = progress > 0.35;
+    const completed = progress > 0.65;
+
+    const isCompleted = (module: LearnModule) => (
+        completed ? true : (!inProgress) ? false : Math.random() > 0.5
+    )
+
     return (
         <>
             <div className={styles['wrap']}>
-                <h4 className='details'>Course Curriculum</h4>
+                <div className={styles['title']}>
+                    {completed && (
+                        <>
+                            <LearningHat />
+                            <h2 className="details">Congratulations!</h2>
+                        </>
+                    )}
+                    {!completed && (<h4 className='details'>Course Curriculum</h4>)}
+                </div>
 
-                <CurriculumSummary course={props.course} onStartCourse={() => setIsTcAcademyPolicyModal(true)} />
+                <CurriculumSummary
+                    course={props.course}
+                    onClickMainBtn={() => setIsTcAcademyPolicyModal(true)}
+                    progress={inProgress ? progress : 0}
+                    completed={completed}
+                />
 
-                <CourseModuleList modules={props.course.modules} />
+                <CourseModuleList
+                    modules={props.course.modules}
+                    isCompleted={isCompleted}
+                />
             </div>
+            {completed && (
+                <div className={styles['bottom-link']}>
+                    <Button
+                        buttonStyle='link'
+                        label='See all my learning'
+                    />
+                </div>
+            )}
 
             <TcAcademyPolicyModal
                 isOpen={isTcAcademyPolicyModal}

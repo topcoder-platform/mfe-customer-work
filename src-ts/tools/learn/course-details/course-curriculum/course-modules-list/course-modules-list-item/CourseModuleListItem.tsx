@@ -1,6 +1,7 @@
+import classNames from 'classnames'
 import { FC } from 'react'
 
-import { IconOutline, LearnModule } from '../../../../../../lib'
+import { IconOutline, IconSolid, LearnModule } from '../../../../../../lib'
 
 import styles from './CourseModuleListItem.module.scss'
 
@@ -16,14 +17,20 @@ const CourseModuleListItem: FC<CourseModuleListItemProps> = (props: CourseModule
 
     return (
         <div className={styles['wrap']}>
-            <div className={styles['checkmark']}></div>
+            <div className={classNames(styles['checkmark'], props.completed && 'completed')}>
+                {props.completed && (
+                    <IconSolid.CheckCircleIcon />
+                )}
+            </div>
             <div className={styles['content']}>
                 <div className='body-main-bold'>
                     {props.name}
                 </div>
-                <div className='body-main'>
-                    <span dangerouslySetInnerHTML={{ __html: props.shortDescription.join('<br/>') }}></span>
-                </div>
+                {!props.completed && (
+                    <div className='body-main'>
+                        <span dangerouslySetInnerHTML={{ __html: props.shortDescription.join('<br/>') }}></span>
+                    </div>
+                )}
                 <div className={styles['summary']}>
                     <span className={styles['summary-item']}>
                         <IconOutline.DocumentTextIcon />

@@ -1,4 +1,3 @@
-@use '../../../../lib/styles/typography';
 @import '../../../../lib/styles/includes';
 
 .wrap {
@@ -14,5 +13,18 @@
 }
 
 .title {
+    display: flex;
+    align-items: center;
 
+    svg {
+        @include icon-size(60);
+        margin-right: $pad-sm;
+        path {
+            fill: url(#lh-paint-02);
+        }
+    }
+}
+
+.bottom-link {
+    margin-top: $pad-xxxxl;
 }

@@ -7,6 +7,7 @@ import styles from './CourseModuleList.module.scss'
 
 interface CourseModuleListProps {
     modules: Array<LearnModule>
+    isCompleted: (m: LearnModule) => boolean
 }
 
 const CourseModuleList: FC<CourseModuleListProps> = (props: CourseModuleListProps) => {
@@ -19,7 +20,7 @@ const CourseModuleList: FC<CourseModuleListProps> = (props: CourseModuleListProp
                     shortDescription={module.meta.introCopy}
                     lessonsCount={module.meta.lessonCount}
                     duration={module.meta.estimatedCompletionTime}
-                    completed={false}
+                    completed={props.isCompleted(module)}
                     key={module.key}
                 />
             ))}

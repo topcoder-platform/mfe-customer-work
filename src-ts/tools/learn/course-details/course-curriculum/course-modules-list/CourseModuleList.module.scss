@@ -6,4 +6,24 @@
     flex-direction: column;
 
     gap: $pad-xxl;
+
+    max-height: 650px;
+    overflow: auto;
+    
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: $tc-white;
+        border-radius: 4px;
+        
+        &:hover {
+            background-color: $black-5;
+        }
+    }
 }

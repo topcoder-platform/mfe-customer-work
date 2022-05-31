@@ -2,14 +2,28 @@
 @import '../../../../../lib/styles/includes';
 
 .wrap {
-    display: flex;
     padding: $pad-xxl;
+    border-radius: $pad-sm;
+    background: $tc-white;
+
+    display: flex;
+    flex-direction: column;
+    gap: $pad-lg;
+}
+
+.title {
+    @extend .body-main-bold;
+    color: $blue-140;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.summary {
+    display: flex;
     gap: $pad-lg;
     align-items: center;
-
-    border-radius: $pad-sm;
-
-    background: $tc-white;
 }
 
 .icon {
