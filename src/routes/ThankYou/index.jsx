@@ -52,7 +52,7 @@ const ThankYou = () => {
                 </p>
 
                 <p>
-                  If your changes do not appear immediately, reload the page.
+                  If your changes do not appear immediately, please reload the page.
                 </p>
 
               </div>
