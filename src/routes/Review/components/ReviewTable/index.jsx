@@ -15,8 +15,8 @@ const mapData = (workType, formData) => {
         goal: { title: "What's Your Goal?", option: formData.goals.value },
         data: {
           title: "What Data Do You Have?", option: [
-            { title: "Shareable URL Link(s)", option: formData.sampleData.value },
-            { title: "Data Description", option: formData.assetsDescription.value }
+            formData.sampleData.value,
+            formData.assetsDescription.value
           ]
         }
       }
@@ -39,9 +39,9 @@ const mapData = (workType, formData) => {
       }
     case ("Website Design"):
       const styleInfo = [
-        `Like: ${formData.likedStyles.value.join(", ")}`,
-        `Dislike: ${formData.dislikedStyles.value.join(", ")}`,
-        `Additional Details: ${formData.stylePreferences.value}`
+        `Like: ${formData.likedStyles.value?.join(", ")}`,
+        `Dislike: ${formData.dislikedStyles.value?.join(", ")}`,
+        `Additional Details: ${formData.stylePreferences?.value || ""}`
       ];
       formData.colorOption.value?.length > 0 && styleInfo.push(`Color Selections: ${formData.colorOption.value.join(", ")}`);
       formData.specificColor.value && formData.specificColor.value !== '' && styleInfo.push(`Specific Colors: ${formData.specificColor.value}`);
@@ -85,7 +85,8 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
   };
 
   const formatOption = (option) => {
-    if (_.isArray(option)) return option.join(", ");
+    //if (_.isArray(option)) return option.join(", ");
+    if (_.isArray(option)) return option.map((opt, index) => (<div id={index}>{opt}</div>));
     if (_.isObject(option)) {
       return formatOption(_.get(option, "option", option));
     }

@@ -253,3 +253,79 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
             return WorkTypeCategory.unknown
     }
 }
+
+function mapData(type: WorkType, formData: any): any {
+    switch (type) {
+        case (WorkType.problem):
+            return buildFormDataPSDA(formData)
+        case (WorkType.data):
+            return buildFormDataDE(formData)
+        case (WorkType.findData):
+            return buildFormDataFindMe(formData)
+        case (WorkType.design):
+            return buildFormDataWebsite(formData)
+        default:
+            return formData
+    }
+}
+
+function buildFormDataPSDA(formData: any): any {
+    return {
+        projectTitle: formData.projectTitle,
+        // tslint:disable-next-line: object-literal-sort-keys
+        goal: { title: 'What\'s Your Goal?', value: formData.goals.value },
+        data: {
+            title: 'What Data Do You Have?', value: [
+                formData.sampleData.value,
+                formData.assetsDescription.value,
+            ],
+        },
+    }
+}
+
+function buildFormDataDE(formData: any): any {
+    return {
+        projectTitle: formData.projectTitle,
+        // tslint:disable-next-line: object-literal-sort-keys
+        data: { title: 'Share Your Data (Optional)', value: formData.assetsUrl.value },
+        goal: { title: 'What Would You Like To Learn?', value: formData.goals.value },
+    }
+}
+
+function buildFormDataFindMe(formData: any): any {
+    return {
+        projectTitle: formData.findMeProjectTitle,
+        // tslint:disable-next-line: object-literal-sort-keys
+        data: formData.analysis,
+        primaryDataChallenge: {
+            title: formData.primaryDataChallenge.title,
+            value: formData.primaryDataChallenge.value === 3 ?
+                formData.primaryDataChallengeOther.value : formData.primaryDataChallenge.option,
+        },
+        sampleData: formData.sampleData,
+    }
+}
+
+function buildFormDataWebsite(formData: any): any {
+    const styleInfo: Array<string> = [
+        `Like: ${formData.likedStyles.value?.join(', ')}`,
+        `Dislike: ${formData.dislikedStyles.value?.join(', ')}`,
+        `Additional Details: ${formData.stylePreferences?.value || ''}`,
+    ]
+    if (formData.colorOption.value?.length > 0) {
+        styleInfo.push(`Color Selections: ${formData.colorOption.value.join(', ')}`)
+    }
+    if (formData.specificColor.value && formData.specificColor.value !== '') {
+        styleInfo.push(`Specific Colors: ${formData.specificColor.value}`)
+    }
+
+    return {
+        projectTitle: formData.projectTitle,
+        // tslint:disable-next-line: object-literal-sort-keys
+        description: { title: 'Description', value: formData.analysis.value },
+        industry: formData.yourIndustry,
+        inspiration: { title: 'Inspiration', value: formData.inspiration.map((item: any) => `${item.website.value} ${item.feedback.value}`) },
+        style: { title: 'Style & Theme', value: styleInfo },
+        assets: { title: 'Share Your Brand or Style Assets', value: [formData.assetsUrl.value, formData.assetsDescription.value] },
+    }
+}
