@@ -41,6 +41,7 @@ const BasicInfoForm = ({
   onShowSupportModal,
   estimate,
   bannerData,
+  saveForm
 }) => {
   const handleInputChange = (name, value, option = "") => {
     onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
@@ -228,6 +229,7 @@ const BasicInfoForm = ({
               onChange={(e) =>
                 handleInputChange(e.target.name, e.target.value, e.target.value)
               }
+              onBlur={() => saveForm(false)}
             />
           </FormField>
         </div>
