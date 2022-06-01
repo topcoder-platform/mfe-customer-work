@@ -18,6 +18,7 @@ import {
 import { INTAKE_FORM_ROUTES, MAX_COMPLETED_STEP } from "./constants";
 import { INTAKE_FORM_ROUTES as DATA_EXPLORATION_INTAKE_FORM_ROUTES } from "./constants/products/DataExploration";
 import { INTAKE_FORM_ROUTES as FIND_ME_DATA_INTAKE_FORM_ROUTES } from "./constants/products/FindMeData";
+import { INTAKE_FORM_ROUTES as DATA_ADVISORY_INTAKE_FORM_ROUTES } from "./constants/products/DataAdvisory";
 import { INTAKE_FORM_ROUTES as WEBSITE_DESIGN_INTAKE_FORM_ROUTES } from "./constants/products/WebsiteDesign";
 import {
   authUserError,
@@ -92,6 +93,9 @@ export default function IntakeForm() {
           break;
         case "Find Me Data":
           navigate(FIND_ME_DATA_INTAKE_FORM_ROUTES[currentStep - 1]);
+          break;
+        case "Problem Statement & Data Advisory":
+          navigate(DATA_ADVISORY_INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
         case "Website Design":
           navigate(WEBSITE_DESIGN_INTAKE_FORM_ROUTES[currentStep - 1]);

@@ -41,6 +41,7 @@ const BasicInfoForm = ({
   onShowSupportModal,
   estimate,
   bannerData,
+  saveForm
 }) => {
   const handleInputChange = (name, value, option = "") => {
     onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
@@ -228,6 +229,7 @@ const BasicInfoForm = ({
               onChange={(e) =>
                 handleInputChange(e.target.name, e.target.value, e.target.value)
               }
+              onBlur={() => saveForm(false)}
             />
           </FormField>
         </div>
@@ -838,9 +840,8 @@ const BasicInfoForm = ({
               </div>
               <div styleName="formFieldWrapper">
                 <FormField
-                  label={`List Specific Colors ${
-                    selectedColor?.value?.length > 0 ? "(optional)" : ""
-                  }`}
+                  label={`List Specific Colors ${selectedColor?.value?.length > 0 ? "(optional)" : ""
+                    }`}
                 >
                   <FormInputTextArea
                     value={formData?.specificColor?.value}
