@@ -51,5 +51,5 @@ export const workFeedbackFormDef: FormDefinition = {
         },
     ],
     subtitle: 'To mark this work as done, please provide feedback on your experience.',
-    successMessage: 'Your feedback has been submitted. If your changes do not appear immediately, reload the page.',
+    successMessage: 'Your feedback has been submitted. If your changes do not appear immediately, please reload the page.',
 }
