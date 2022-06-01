@@ -3,9 +3,8 @@ import Button from "components/Button";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
-import PageDivider from "components/PageDivider";
 import PageH2 from "components/PageElements/PageH2";
-import { BUTTON_SIZE, MAX_COMPLETED_STEP, webWorkTypes } from "constants/";
+import { BUTTON_SIZE, MAX_COMPLETED_STEP } from "constants/";
 import React, { useEffect, useState } from "react";
 import { useDispatch, connect } from "react-redux";
 import "./styles.module.scss";
@@ -21,6 +20,7 @@ const ThankYou = () => {
 
   useEffect(() => {
     clearPreviousForm();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const clearPreviousForm = () => {
@@ -40,11 +40,22 @@ const ThankYou = () => {
           <div styleName="container">
             <div styleName="content">
               <PageH2>THANK YOU</PageH2>
-              <p>
-                Your payment has been processed successfully. You will now be
-                taken to your work Dashboard where you can manage the work
-                you’ve submitted.
-              </p>
+          
+              <div styleName='content-container'>
+
+                <p>
+                  Your payment has been processed successfully.
+                </p>
+
+                <p>
+                  You can now go to the Dashboard to manage the work you've submitted.
+                </p>
+
+                <p>
+                  If your changes do not appear immediately, please reload the page.
+                </p>
+
+              </div>
 
               <div styleName="btn">
                 <Button size={BUTTON_SIZE.MEDIUM} onClick={onDone}>

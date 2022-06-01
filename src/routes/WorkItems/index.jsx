@@ -1,31 +1,13 @@
-import React, { useEffect, useMemo, useState, useLayoutEffect } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import _ from "lodash";
 import PT from "prop-types";
 import { navigate } from "@reach/router";
 import { connect, useSelector, useDispatch } from "react-redux";
-import Button from "components/Button";
 import LoadingSpinner from "components/LoadingSpinner";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
-import PageH3 from "components/PageElements/PageH3";
-import {
-  BUTTON_SIZE,
-  BUTTON_TYPE,
-  tabNames,
-  WORK_STATUSES,
-  ROUTES,
-} from "constants/";
-import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import Tabs from "./components/Tabs";
-import Tab from "./components/Tab";
-import TabPane from "./components/TabPane";
-import Summary from "./components/Summary";
-import Details from "./components/Details";
-import Solutions from "./components/Solutions";
-import FinalSurvey from "./components/Solutions/FinalSurvey";
+import { ROUTES } from "constants/";
 import workUtil from "utils/work";
-import { padStart } from "utils";
-import { Modal } from "react-responsive-modal";
 import Forum from "../Forum";
 
 import {
@@ -33,15 +15,29 @@ import {
   getSummary,
   getDetails,
   getSolutions,
+  getSolutionsCount,
   downloadSolution,
   saveSurvey,
   setIsSavingSurveyDone,
   getForumNotifications,
 } from "../../actions/work";
-import { toggleSupportModal, createNewSupportTicket } from "../../actions/form";
-import SupportModal from "../../components/Modal/SupportModal";
+import { toggleSupportModal } from "../../actions/form";
 import { getUserProfile } from "../../thunks/profile";
 import { getProfile } from "../../selectors/profile";
+import ReviewTable from "../Review/components/ReviewTable";
+
+import {
+  Breadcrumb,
+  ChallengeMetadataName,
+  TabsNavbar,
+  workContext,
+  WorkDetailDetails,
+  WorkDetailHeader,
+  WorkDetailSummary,
+  WorkFeedback,
+  WorkStatusItem,
+  WorkDetailSolutions,
+} from '../../../src-ts'
 
 import "./styles.module.scss";
 
@@ -60,39 +56,31 @@ const WorkItem = ({
   getSummary,
   getDetails,
   getSolutions,
+  getSolutionsCount,
   downloadSolution,
   saveSurvey,
   setIsSavingSurveyDone,
   getForumNotifications,
-  createNewSupportTicket,
 }) => {
   const dispatch = useDispatch();
   const [selectedTab, setSelectedTab] = useState("summary");
   const [showSurvey, setShowSurvey] = useState(false);
-  const [showSupportModal, setShowSupportModal] = useState(false);
   const profileData = useSelector(getProfile);
 
-  useLayoutEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const initialTab = query.get("tab");
-    if (initialTab && tabNames.indexOf(initialTab) !== -1) {
-      setSelectedTab(initialTab);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.history.replaceState(
-      window.history.state,
-      "",
-      `?tab=${selectedTab}`
-    );
-  }, [selectedTab]);
+  const workContextData = useContext(workContext)
+  const workStatus = !!work ? workContextData.getStatusFromChallenge(work) : undefined
 
   useEffect(() => {
     getWork(workItemId);
   }, [workItemId, getWork]);
 
-  const { summary, details, solutions } = useMemo(() => workItem, [workItem]);
+  const { summary, details, solutions, solutionsCount } = useMemo(() => workItem, [workItem]);
+
+  const isReviewPhaseEnded = useMemo(() => {
+    if (work) {
+      return workUtil.isReviewPhaseEnded(work);
+    }
+  }, [work]);
 
   useEffect(() => {
     if (!work) {
@@ -118,6 +106,7 @@ const WorkItem = ({
         getDetails(work);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     work,
     selectedTab,
@@ -141,217 +130,151 @@ const WorkItem = ({
   }, [work, selectedTab, getForumNotifications]);
 
   useEffect(() => {
+    if (!work) {
+      return;
+    }
+
+    if (isReviewPhaseEnded) {
+      getSolutionsCount(work.id);
+    }
+  }, [isReviewPhaseEnded, getSolutionsCount, work])
+
+  useEffect(() => {
     if (isSavingSurveyDone) {
       getSummary(work);
       setIsSavingSurveyDone(false);
     }
   }, [work, isSavingSurveyDone, setIsSavingSurveyDone, getSummary]);
 
-  const isReviewPhaseEnded = useMemo(() => {
-    if (work) {
-      return workUtil.isReviewPhaseEnded(work);
-    }
-  }, [work]);
-
-  const reviewPhaseEndedDate = useMemo(() => {
-    if (work) {
-      return workUtil.getReviewPhaseEndedDate(work);
-    }
-  }, [work]);
-
-  const markAsDoneButton = useMemo(() => {
-    if (work) {
-      if (
-        work.status === WORK_STATUSES.Completed.value &&
-        _.find(work.metadata, { name: "customerFeedback" }) == null
-      ) {
-        return (
-          <Button
-            styleName="markAsDoneBtn"
-            onClick={() => setShowSurvey(true)}
-            size={BUTTON_SIZE.MEDIUM}
-          >
-            MARK AS DONE
-          </Button>
-        );
-      }
-    }
-  }, [work]);
-
-  const [customerFeedback, setCustomerFeedback] = useState();
-  useEffect(() => {
-    if (work && work.metadata) {
-      const item = work.metadata.find((i) => i.name === "customerFeedback");
-      setCustomerFeedback(item && JSON.parse(item.value));
-    }
-  }, [work]);
-
-  const onShowSupportModal = () => {
-    setShowSupportModal(true);
-  };
-  const onHideSupportModal = () => {
-    setShowSupportModal(false);
-  };
-
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const onSubmitSupportRequest = (submittedSupportRequest) =>
-    createNewSupportTicket(
-      submittedSupportRequest,
-      work?.id,
-      work?.legacy?.selfService
-    );
+  // TODO: get routes from a provider
+  const breadcrumb = [
+    {
+      name: "My work",
+      url: ROUTES.DASHBOARD_PAGE,
+    },
+    {
+      name: work?.name,
+      url: '', // this isn't necessary bc it's not a link
+    }
+  ];
+
+  const navTabs = useMemo(() => [
+    { id: 'summary', title: 'Summary' },
+    { id: 'details', title: 'Details' },
+    work && !workUtil.isMessagesDisabled(work) && {
+      id: 'messaging',
+      title: 'Messages',
+      badges: [
+        forumNotifications?.unreadNotifications && {
+          count: +forumNotifications?.unreadNotifications,
+          type: 'info'
+        }
+      ].filter(Boolean)
+    },
+    {
+      id: 'solutions',
+      title: 'Solutions',
+      badges: [
+        isReviewPhaseEnded && !!solutionsCount && {
+          count: solutionsCount,
+          type: 'info'
+        }
+      ].filter(Boolean)
+    },
+  ].filter(Boolean), [work, solutionsCount, isReviewPhaseEnded]);
+
+  const onTabChange = useCallback((tabId) => {
+    window.history.replaceState(window.history.state, '', `?tab=${tabId}`)
+    setSelectedTab(tabId)
+  }, [])
+
+  function saveFeedback(updatedCustomerFeedback) {
+
+    const metadata = (work.metadata || [])
+      .filter(item => item.name !== ChallengeMetadataName.feedback);
+
+    metadata.push({
+      name: ChallengeMetadataName.feedback,
+      value: JSON.stringify(updatedCustomerFeedback),
+    });
+
+    saveSurvey(work.id, metadata);
+    setShowSurvey(false);
+  }
 
   return (
     <>
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
-      {showSupportModal && (
-        <SupportModal
-          profileData={profileData}
-          handleClose={onHideSupportModal}
-          onSubmit={onSubmitSupportRequest}
-        ></SupportModal>
-      )}
       <Page styleName="page">
         <PageContent styleName="pageContent">
-          <PageH3 styleName="pageTitle">
-            <Button
-              size={BUTTON_SIZE.MEDIUM}
-              type={BUTTON_TYPE.ROUNDED}
-              onClick={() => {
-                navigate("/self-service");
-              }}
-            >
-              <BackIcon />
-            </Button>
-            {work && work.name}
-          </PageH3>
 
-          <Tabs>
-            <Tab
-              active={selectedTab === "summary"}
-              onClick={() => {
-                setSelectedTab("summary");
-              }}
-            >
-              SUMMARY
-            </Tab>
-            <Tab
-              active={selectedTab === "details"}
-              onClick={() => {
-                setSelectedTab("details");
-              }}
-            >
-              DETAILS
-            </Tab>
-            {work && !workUtil.isMessagesDisabled(work) ? (
-              <Tab
-                active={selectedTab === "messaging"}
-                onClick={() => {
-                  setSelectedTab("messaging");
-                }}
-              >
-                MESSAGES
-                {forumNotifications &&
-                forumNotifications.unreadNotifications ? (
-                  <span styleName="message-count">
-                    {padStart(forumNotifications.unreadNotifications)}
-                  </span>
-                ) : null}
-              </Tab>
-            ) : null}
-            <Tab
-              active={selectedTab === "solutions"}
-              onClick={() => {
-                setSelectedTab("solutions");
-              }}
-            >
-              SOLUTIONS
-            </Tab>
-          </Tabs>
+          <Breadcrumb items={breadcrumb} />
+          <WorkDetailHeader
+            challenge={work}
+            markAsDone={() => setShowSurvey(true)}
+          />
 
-          <div>
-            <TabPane value={selectedTab} tab="summary">
-              {summary && (
-                <Summary
-                  summary={summary}
-                  setSelectedTab={setSelectedTab}
-                  setShowSurvey={setShowSurvey}
-                />
-              )}
-              {markAsDoneButton}
-            </TabPane>
+          {work && (
+            <div styleName="status-line">
+              {work.tags[0] && <div styleName="status-label">{work.tags[0]}</div>}
+              <WorkStatusItem workStatus={workStatus} />
+            </div>
+          )}
 
-            <TabPane value={selectedTab} tab="details">
-              <Details challenge={work} formData={details} />
-              {markAsDoneButton}
-            </TabPane>
+          <TabsNavbar
+            tabs={navTabs}
+            defaultActive="summary"
+            onChange={onTabChange}
+          />
 
-            <TabPane value={selectedTab} tab="solutions">
-              <Solutions
-                solutions={solutions}
-                onDownload={downloadSolution}
-                isReviewPhaseEnded={isReviewPhaseEnded}
-                reviewPhaseEndedDate={reviewPhaseEndedDate}
-                work={work}
-              />
-              <div styleName="solution-tab-footer">
-                {markAsDoneButton}
-                <a onClick={onShowSupportModal} styleName="need-help-link">
-                  Need Help?
-                </a>
+          <div styleName="tabs-contents">
+            {selectedTab === 'summary' && (
+              <div>
+                {summary && (
+                  <WorkDetailSummary challenge={work} status={workStatus} />
+                )}
               </div>
-            </TabPane>
+            )}
 
-            <TabPane value={selectedTab} tab="messaging">
-              {work && <Forum challengeId={work.id} />}
-              {markAsDoneButton}
-            </TabPane>
+            {selectedTab === 'details' && (
+              <div>
+                <WorkDetailDetails formData={_.get(details, "intake-form.form", {})} />
+              </div>
+            )}
 
-            <TabPane value={selectedTab} tab="history">
-              {markAsDoneButton}
-            </TabPane>
+            {selectedTab === 'solutions' && work && (
+              <div>
+                <WorkDetailSolutions
+                  challenge={work}
+                  onDownload={downloadSolution}
+                  solutions={solutions}
+                />
+              </div>
+            )}
+
+            {selectedTab === 'messaging' && (
+              <div>
+                {work && <Forum challengeId={work.id} />}
+              </div>
+            )}
+
+            {selectedTab === 'history' && (
+              <div />
+            )}
           </div>
         </PageContent>
       </Page>
 
-      <Modal
-        open={showSurvey}
-        center
-        showCloseIcon={false}
-        focusTrapped={false}
+      <WorkFeedback
+        challenge={work}
         onClose={() => setShowSurvey(false)}
-        styles={{
-          modal: {
-            maxWidth: "100%",
-            padding: 0,
-            margin: 0,
-            background: "none",
-          },
-        }}
-      >
-        <FinalSurvey
-          saveSurvey={(updatedCustomerFeedback) => {
-            let metadata = work.metadata || [];
-
-            metadata = metadata.filter((i) => i.name !== "customerFeedback");
-            metadata.push({
-              name: "customerFeedback",
-              value: JSON.stringify(updatedCustomerFeedback),
-            });
-
-            saveSurvey(work.id, metadata);
-            setShowSurvey(false);
-          }}
-          onCancel={(tempData) => {
-            setShowSurvey(false);
-            setCustomerFeedback(tempData);
-          }}
-          customerFeedback={customerFeedback}
-        />
-      </Modal>
+        saveSurvey={saveFeedback}
+        showSurvey={showSurvey}
+      />
     </>
   );
 };
@@ -397,12 +320,12 @@ const mapDispatchToProps = {
   getSummary,
   getDetails,
   getSolutions,
+  getSolutionsCount,
   downloadSolution,
   saveSurvey,
   setIsSavingSurveyDone,
   getForumNotifications,
   toggleSupportModal,
-  createNewSupportTicket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkItem);

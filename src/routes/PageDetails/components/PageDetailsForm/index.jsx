@@ -127,9 +127,8 @@ const PageDetailsForm = ({
               <br />
               <PageP>
                 Main Body:
-                <br />
-                I want to see amazing imagery choice/design here and
-                a large tagline that reads, “We Love Your Dog, Too” with a main
+                <br />I want to see amazing imagery choice/design here and a
+                large tagline that reads, “We Love Your Dog, Too” with a main
                 button that says “Find Your Walkie”.
               </PageP>
               <br />

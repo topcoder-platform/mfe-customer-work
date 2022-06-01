@@ -30,6 +30,7 @@ const LoginPrompt = ({
       navigate(nextPageUrl || "/self-service/branding");
       setProgressItem(5);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
   const onLogin = () => {

@@ -20,8 +20,8 @@ export const WebsiteDesignBanner = () => {
               WEBSITE DESIGN
             </div>
             <div styleName="heroHeaderSubtitle">
-              Create a beautiful custom visual design for your website.
-              and device types, your vision, and receive up to 5 modern modern
+              Create a beautiful custom visual design for your website. and
+              device types, your vision, and receive up to 5 modern modern
               modern designs.
             </div>
           </div>
