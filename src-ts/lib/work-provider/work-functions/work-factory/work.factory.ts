@@ -290,17 +290,22 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
     }
 }
 
-function mapData(type: WorkType, formData: any): any {
+export function mapFormData(type: string, formData: any): any {
     switch (type) {
         case (WorkType.problem):
+            console.log('problem')
             return buildFormDataPSDA(formData)
         case (WorkType.data):
+            console.log('data')
             return buildFormDataDE(formData)
         case (WorkType.findData):
+            console.log('findData')
             return buildFormDataFindMe(formData)
         case (WorkType.design):
+            console.log('design')
             return buildFormDataWebsite(formData)
         default:
+            console.log('none')
             return formData
     }
 }
@@ -343,18 +348,21 @@ function buildFormDataFindMe(formData: any): any {
 }
 
 function buildFormDataWebsite(formData: any): any {
+    console.log('here 1')
     const styleInfo: Array<string> = [
         `Like: ${formData.likedStyles.value?.join(', ')}`,
         `Dislike: ${formData.dislikedStyles.value?.join(', ')}`,
         `Additional Details: ${formData.stylePreferences?.value || ''}`,
     ]
+    console.log('here 2')
     if (formData.colorOption.value?.length > 0) {
         styleInfo.push(`Color Selections: ${formData.colorOption.value.join(', ')}`)
     }
+    console.log('here 3')
     if (formData.specificColor.value && formData.specificColor.value !== '') {
         styleInfo.push(`Specific Colors: ${formData.specificColor.value}`)
     }
-
+    console.log('here 4')
     return {
         projectTitle: formData.projectTitle,
         // tslint:disable-next-line: object-literal-sort-keys
