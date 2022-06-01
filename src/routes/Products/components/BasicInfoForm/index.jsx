@@ -41,6 +41,7 @@ const BasicInfoForm = ({
   onShowSupportModal,
   estimate,
   bannerData,
+  saveForm
 }) => {
   const handleInputChange = (name, value, option = "") => {
     onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
@@ -228,6 +229,7 @@ const BasicInfoForm = ({
               onChange={(e) =>
                 handleInputChange(e.target.name, e.target.value, e.target.value)
               }
+              onBlur={() => saveForm(false)}
             />
           </FormField>
         </div>
@@ -471,7 +473,7 @@ const BasicInfoForm = ({
               This ensures that when your question is answered, you learn
               something valuable and actionable.
             </PageP>
-            <HelpBanner title="Example" styles={["gray"]}>
+            <HelpBanner title="Description Tips" styles={["gray"]}>
               <br />
               <PageP>
                 How can I increase profit? How can I get more customers? How can
@@ -838,9 +840,8 @@ const BasicInfoForm = ({
               </div>
               <div styleName="formFieldWrapper">
                 <FormField
-                  label={`List Specific Colors ${
-                    selectedColor?.value?.length > 0 ? "(optional)" : ""
-                  }`}
+                  label={`List Specific Colors ${selectedColor?.value?.length > 0 ? "(optional)" : ""
+                    }`}
                 >
                   <FormInputTextArea
                     value={formData?.specificColor?.value}
