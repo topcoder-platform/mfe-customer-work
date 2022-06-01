@@ -7,6 +7,8 @@ import ReduxToastr from "react-redux-toastr";
 import {
   AppNextGen,
   RouteProvider,
+  routeRootLoggedIn,
+  routeRootLoggedOut,
   ToolsRoutes,
   UtilsRoutes,
   PageFooter,
@@ -25,9 +27,10 @@ export default function Root() {
     <Provider store={store}>
       <ProfileProvider>
 
-
         <BrowserRouter>
           <RouteProvider
+            rootLoggedIn={routeRootLoggedIn}
+            rootLoggedOut={routeRootLoggedOut}
             toolsRoutes={[...ToolsRoutes]}
             utilsRoutes={[...UtilsRoutes]}
           >

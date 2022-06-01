@@ -6,8 +6,6 @@ import {
     PlatformRoute,
     routeContext,
     RouteContextData,
-    routeIsActive,
-    routeIsHome,
 } from '../../../../lib'
 import '../../../../lib/styles/index.scss'
 
@@ -19,17 +17,21 @@ interface ToolSelectorWideProps {
 
 const ToolSelectorWide: FC<ToolSelectorWideProps> = (props: ToolSelectorWideProps) => {
 
-    const { getPathFromRoute }: RouteContextData = useContext(routeContext)
+    const {
+        getPathFromRoute,
+        isActiveRoute,
+        isRootRoute,
+    }: RouteContextData = useContext(routeContext)
     const activePath: string = useLocation().pathname
     const toolRoute: PlatformRoute = props.route
     const toolPath: string = getPathFromRoute(toolRoute)
 
-    const isActive: boolean = routeIsActive(activePath, toolPath)
+    const isActive: boolean = isActiveRoute(activePath, toolPath)
 
     const activeIndicatorClass: string = `tool-selector-wide-${isActive ? '' : 'in'}active`
 
     // the tool link should be usable for all active routes except the home page
-    const isLink: boolean = isActive && !routeIsHome(activePath)
+    const isLink: boolean = isActive && !isRootRoute(activePath)
 
     return (
         <div className={classNames(
