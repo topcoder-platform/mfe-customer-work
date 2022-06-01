@@ -30,11 +30,11 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
         navigate(`/learn/fcc?${coursePath}`)
     }, [props.course])
 
-    const progress = Math.random()
-    const inProgress = progress > 0.35;
-    const completed = progress > 0.65;
+    const progress: number = Math.random()
+    const inProgress: boolean = progress > 0.35
+    const completed: boolean = progress > 0.65
 
-    const getProgress = (module: LearnModule) => (
+    const getProgress: (module: LearnModule) => number = (module: LearnModule) => (
         completed ? 1 : (!inProgress) ? 0 : Math.random()
     )
 
@@ -45,7 +45,7 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
                     {completed && (
                         <>
                             <LearningHat />
-                            <h2 className="details">Congratulations!</h2>
+                            <h2 className='details'>Congratulations!</h2>
                         </>
                     )}
                     {!completed && (<h4 className='details'>Course Curriculum</h4>)}

@@ -1,21 +1,19 @@
 import { FC, useCallback } from 'react'
+
 import { LearnCourse, LearnLesson, LearnModule, LoadingSpinner } from '../../../../lib'
 
 import { CollapsibleItem } from './collapsible-item'
 import styles from './CourseOutline.module.scss'
 
 interface CourseOutlineProps {
-    ready?: boolean
     course?: LearnCourse
-    currentStep?: string;
+    currentStep?: string
+    ready?: boolean
 }
 
 const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
- 
-    
-    const lessonPath: (module: LearnModule, lesson: LearnLesson) => string = useCallback((module: LearnModule, lesson: LearnLesson) => {
-        const course: LearnCourse = props.course!
 
+    const lessonPath: (course: LearnCourse, module: LearnModule, lesson: LearnLesson) => string = useCallback((course: LearnCourse, module: LearnModule, lesson: LearnLesson) => {
         const path: string = [
             course && `course=${encodeURIComponent(course.certification)}`,
             module && `module=${encodeURIComponent(module.meta.dashedName)}`,
@@ -24,11 +22,11 @@ const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
 
         return `/learn/fcc?${path}`
     }, [props.course])
-    
+
     return (
         <div className={styles['wrap']}>
             {!props.ready && <LoadingSpinner />}
-            
+
             {props.course && (
                 <>
                     <div className={styles['title']}>
@@ -41,7 +39,7 @@ const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
                                 items={module.lessons}
                                 active={props.currentStep}
                                 id={(it: any) => `${module.meta.dashedName}/${it.dashedName}`}
-                                path={(it: any) => lessonPath(module, it)}
+                                path={(it: any) => lessonPath(props.course, module, it)}
                             />
                         ))}
                     </div>

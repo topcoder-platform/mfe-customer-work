@@ -2,9 +2,9 @@ import { FC, useMemo } from 'react'
 import { Params, useParams } from 'react-router-dom'
 
 import { Breadcrumb, BreadcrumbItemModel, CoursesProviderData, IconOutline, LearnProviderContextValue, LoadingSpinner, useCoursesProvider, useLearnProvider } from '../../../lib'
+import { CourseTitle } from '../components'
 
 import { CourseCurriculum } from './course-curriculum'
-import { CourseTitle } from '../components'
 import styles from './CourseDetailsPage.module.scss'
 import { PromoCourse } from './promo-course'
 

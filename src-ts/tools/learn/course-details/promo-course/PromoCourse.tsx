@@ -4,7 +4,6 @@ import { LearnGetCertified } from '../../../../lib'
 
 import styles from './PromoCourse.module.scss'
 
-
 interface PromoCourseProps {
 }
 

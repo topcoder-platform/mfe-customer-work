@@ -1,31 +1,36 @@
 import classNames from 'classnames'
-import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
+import { Dispatch, FC, ReactNode, SetStateAction, useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { IconSolid } from '../../../../../lib'
 
+import { IconSolid } from '../../../../../lib'
 import { StatusCheckbox } from '../../status-checkbox'
 
 import styles from './CollapsibleItem.module.scss'
 
-interface CollapsibleItemProps {
+interface CollapsibleListItem {
+    completed?: boolean
     title: string
-    items: {title: string; completed?: boolean}[]
+}
+
+interface CollapsibleItemProps {
+    active?: string
     id?: (item: any) => string
-    active?: string;
-    path?: (item: any) => string;
+    items: Array<CollapsibleListItem>
+    path?: (item: any) => string
+    title: string
 }
 
 const CollapsibleItem: FC<CollapsibleItemProps> = (props: CollapsibleItemProps) => {
-    const [isOpen, setIsOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false);
+    const [isOpen, setIsOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
-    const toggle = useCallback(() => {
+    const toggle: () => void = useCallback(() => {
       setIsOpen(open => !open)
-    }, []);
-    
-    const completed = props.items.every(it => it.completed)
-    const partial = props.items.some(it => it.completed)
+    }, [])
 
-    const listItem = (item: any) => (
+    const completed: boolean = props.items.every(it => it.completed)
+    const partial: boolean = props.items.some(it => it.completed)
+
+    const listItem: (item: any) => ReactNode = (item: any) => (
         <>
             <span className={styles['item-icon']}>
                 {item.completed && (

@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { Button, LearnCertification, ProgressBar } from '../../../../../lib'
 import { CourseTitle } from '../../../components'
 
@@ -19,7 +20,7 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
                     type={props.course.category}
                     credits={props.course.providerName}
                 />
-                <Button size="md" buttonStyle='primary' label='resume' />
+                <Button size='md' buttonStyle='primary' label='resume' />
             </div>
 
             <ProgressBar progress={props.progress} />

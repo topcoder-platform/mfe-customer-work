@@ -14,7 +14,7 @@ const FreeCodeCamp: FC<{}> = () => {
         course: courseData,
         ready: courseDataReady,
     }: CoursesProviderData = useCoursesProvider(searchParams.get('course'))
-    
+
     const { lesson, ready }: LessonProviderData = useLessonProvider(
         searchParams.get('course'),
         searchParams.get('module'),
@@ -29,11 +29,11 @@ const FreeCodeCamp: FC<{}> = () => {
 
     useEffect(() => {
         if (!frameRef.current || !lesson) {
-            return;
+            return
         }
 
-        Object.assign(frameRef.current, {src: `http://localhost:8000/${lesson.lessonUrl}`});
-    }, [lesson?.lessonUrl]);
+        Object.assign(frameRef.current, {src: `http://localhost:8000/${lesson.lessonUrl}`})
+    }, [lesson?.lessonUrl])
 
     // TODO: environment-specific URLS
     return (

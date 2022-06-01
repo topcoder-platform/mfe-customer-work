@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import { LearnChallengeBadgeIcon } from '../../../../lib'
 
@@ -7,14 +7,14 @@ import styles from './CourseTitle.module.scss'
 
 interface CourseTitleProps {
     credits?: string
+    size?: 'md'|'lg'
     title: string
     type: string
-    size?: 'md'|'lg'
 }
 
 const CourseTitle: FC<CourseTitleProps> = (props: CourseTitleProps) => {
 
-    const title = props.size === 'lg' ? (
+    const title: ReactNode = props.size === 'lg' ? (
         <h1 className='details'>
             {props.title}
         </h1>

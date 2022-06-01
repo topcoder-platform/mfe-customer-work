@@ -5,17 +5,17 @@ import { Button, IconOutline, LearnCourse, ProgressBar, textFormatDateLocaleShor
 import styles from './CurriculumSummary.module.scss'
 
 interface CurriculumSummaryProps {
-    course: LearnCourse
     completed?: boolean
-    onClickMainBtn: () => void
+    course: LearnCourse
     onClickCertificateBtn?: () => void
+    onClickMainBtn: () => void
     progress?: number
 }
 
 const CurriculumSummary: FC<CurriculumSummaryProps> = (props: CurriculumSummaryProps) => {
-    const progress = props.progress
-    const inProgress = !!progress;
-    const completed = props.completed;
+    const progress: number|undefined = props.progress
+    const inProgress: boolean = !!progress
+    const completed: boolean|undefined = props.completed
 
     return (
         <div className={styles['wrap']}>
@@ -35,12 +35,12 @@ const CurriculumSummary: FC<CurriculumSummaryProps> = (props: CurriculumSummaryP
                                     onClick={props.onClickCertificateBtn}
                                 />
                             </>
-                        ): ('In Progress')}
+                        ) : ('In Progress')}
                     </div>
-                    <ProgressBar progress={completed ? 1 : progress} />
+                    <ProgressBar progress={completed ? 1 : (progress ?? 0)} />
                 </>
             )}
-            
+
             <div className={styles['summary']}>
                 <div className={styles['stat-item']}>
                     <div className={styles['icon']}>
