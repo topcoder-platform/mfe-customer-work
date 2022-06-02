@@ -14,12 +14,20 @@ interface WorkDetailSolutionsProps {
 const WorkDetailSolutions: FC<WorkDetailSolutionsProps> = (props: WorkDetailSolutionsProps) => {
 
     const workContextData: WorkContextData = useContext(workContext)
+
+    if (!props.challenge) {
+        return <></>
+    }
+
     const work: Work = workContextData.createFromChallenge(props.challenge)
 
     const isSolutionsReady: boolean = useMemo(() => {
         const activeStepName: string = work.progress.steps[work.progress.activeStepIndex]?.name
         return (activeStepName === WorkStatus.ready || activeStepName === WorkStatus.done)
-    }, [work, props.solutions])
+    }, [
+        work,
+        props.solutions,
+    ])
 
     return (
         <div className={styles.wrap}>
@@ -33,7 +41,12 @@ const WorkDetailSolutions: FC<WorkDetailSolutionsProps> = (props: WorkDetailSolu
                     </p>
                 </div>
             )}
-            <WorkSolutionsList isSolutionsReady={isSolutionsReady} work={work} solutions={props.solutions} onDownload={props.onDownload} />
+            <WorkSolutionsList
+                isSolutionsReady={isSolutionsReady}
+                onDownload={props.onDownload}
+                solutions={props.solutions}
+                work={work}
+            />
         </div>
     )
 }

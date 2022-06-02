@@ -8,10 +8,10 @@ import styles from './ToolSelectorsNarrow.module.scss'
 
 const ToolSelectorsNarrow: FC<{}> = () => {
 
-    const { toolsRoutes }: RouteContextData = useContext(routeContext)
+    const { toolsRoutesForNav }: RouteContextData = useContext(routeContext)
     const [isOpen, setIsOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
-    const toolSelectors: Array<JSX.Element> = toolsRoutes
+    const toolSelectors: Array<JSX.Element> = toolsRoutesForNav
         .map(route => (
             <ToolSelectorNarrow
                 key={route.title}

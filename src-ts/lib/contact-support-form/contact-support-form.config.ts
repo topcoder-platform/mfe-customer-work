@@ -1,4 +1,4 @@
-import { FormDefinition, validatorEmail, validatorRequired } from '../../form'
+import { FormDefinition, validatorEmail, validatorRequired } from '../form'
 
 export enum ContactSupportFormField {
     email = 'email',

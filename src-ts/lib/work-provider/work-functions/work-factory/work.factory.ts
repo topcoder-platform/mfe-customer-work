@@ -73,6 +73,29 @@ function findMetadata(challenge: Challenge, metadataName: ChallengeMetadataName)
     return challenge.metadata?.find((item: ChallengeMetadata) => item.name === metadataName)
 }
 
+function findOpenPhase(challenge: Challenge): ChallengePhase | undefined {
+
+    // sort the phases descending by start date
+    const sortedPhases: Array<ChallengePhase> = challenge.phases
+        .sort((a, b) => new Date(b.actualStartDate).getTime() - new Date(a.actualStartDate).getTime())
+
+    const now: Date = new Date()
+    // if we have an open phase, just use that
+    const openPhase: ChallengePhase | undefined = sortedPhases.find(phase => phase.isOpen)
+        // otherwise, find the phase that _should_ be open now based on its start/end datetimes
+        || sortedPhases
+            .find(phase => {
+                return new Date(phase.actualEndDate) > now && new Date(phase.actualStartDate) < now
+            })
+        // otherwise, find the most recently started phase that's in the past
+        || sortedPhases
+            .find(phase => {
+                return new Date(phase.actualStartDate) < now
+            })
+
+    return openPhase
+}
+
 function findPhase(challenge: Challenge, phases: Array<string>): ChallengePhase | undefined {
     let phase: ChallengePhase | undefined
     let index: number = 0
@@ -102,7 +125,7 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
                 pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
 
         // case WorkType.findData:
-            // return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE
+        // return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE
     }
 }
 
@@ -161,9 +184,22 @@ function getProgressStepActive(challenge: Challenge, workStatus: WorkStatus): nu
     switch (challenge.status) {
 
         case ChallengeStatus.active:
-            const submissionIsOpen: boolean = !!findPhase(challenge, [ChallengePhaseName.submission])?.isOpen
-            const submissionEndDate: Date | undefined = getProgressStepDateEnd(challenge, [ChallengePhaseName.submission])
-            return submissionIsOpen && new Date() > (submissionEndDate as Date) ? 1 : 2
+        case ChallengeStatus.approved:
+
+            const openPhase: ChallengePhase | undefined = findOpenPhase(challenge)
+            // if we don't have an open phase, just return submitted
+            if (!openPhase) {
+                return 0
+            }
+
+            switch (openPhase.name) {
+                case ChallengePhaseName.registration:
+                    return 0
+                case ChallengePhaseName.submission:
+                    return 1
+                default:
+                    return 2
+            }
 
         case ChallengeStatus.completed:
             return workStatus === WorkStatus.ready ? 3 : 4
@@ -239,7 +275,7 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
     switch (type) {
 
         case WorkType.data:
-        // case WorkType.findData:
+            // case WorkType.findData:
             return WorkTypeCategory.data
 
         case WorkType.design:
