@@ -1,44 +1,43 @@
-import { FC } from 'react'
+import { FC, ReactNode, useCallback } from 'react'
+import { NavigateFunction, useNavigate } from 'react-router-dom'
 
-import { Button, LearnCertification, LearningHat } from '../../../../lib';
+import { Button } from '../../../../lib'
+import { LearningHat } from '../../components'
+import { LearnMyCertificationProgress, MyCertificationsProviderData, useMyCertifications } from '../../services'
 
-import { Completed } from './completed';
-import { InProgress } from './in-progress';
-import InitState from './init-state/InitState';
-
+import { Completed } from './completed'
+import { InProgress } from './in-progress'
+import InitState from './init-state/InitState'
 import styles from './ProgressBlock.module.scss'
 
 interface ProgressBlockProps {
 }
 
 const ProgressBlock: FC<ProgressBlockProps> = (props: ProgressBlockProps) => {
-    const inProgress: LearnCertification[] = [{
-        category: "Web Development",
-        certification: "responsive-web-design",
-        id: "abcd-1234-e0987-6543",
-        key: "responsive-web-design-certification",
-        providerId: "561add10cb82ac38a17513bc",
-        providerName: "freeCodeCamp",
-        state: "active",
-        title: "Responsive Web Design Certification",
-    } as any]
-    const completed: LearnCertification[] = [{
-        category: "Web Development",
-        certification: "responsive-web-design",
-        id: "abcd-1234-e0987-6543",
-        key: "responsive-web-design-certification",
-        providerId: "561add10cb82ac38a17513bc",
-        providerName: "freeCodeCamp",
-        state: "active",
-        title: "Web Design Certification",
-    } as any]
+    const navigate: NavigateFunction = useNavigate()
+    const { completed, inProgress }: MyCertificationsProviderData = useMyCertifications()
     const isInit: boolean = !inProgress.length && !completed.length
 
-    const allMyLearningLink = (
+    const allMyLearningsLink: ReactNode = (
         <span className={styles['title-link']}>
             <Button buttonStyle='link' label='See all my learning' />
         </span>
     )
+
+    const resumeCourse: (certification: string, progress: LearnMyCertificationProgress) => void = useCallback((certification: string, progress: LearnMyCertificationProgress) => {
+        if (!progress.currentLesson) {
+            return
+        }
+
+        const [module, lesson]: Array<string> = (progress.currentLesson ?? '').split('/')
+
+        const coursePath: string = [
+            `course=${encodeURIComponent(certification)}`,
+            `module=${encodeURIComponent(module)}`,
+            `lesson=${encodeURIComponent(lesson)}`,
+        ].filter(Boolean).join('&')
+        navigate(`/learn/fcc?${coursePath}`)
+    }, [])
 
     return (
         <div className={styles['wrap']}>
@@ -48,21 +47,26 @@ const ProgressBlock: FC<ProgressBlockProps> = (props: ProgressBlockProps) => {
                     {!!inProgress.length && (
                         <div className={styles['title-line']}>
                             <h4 className='details'>In progress</h4>
-                            {allMyLearningLink}
+                            {allMyLearningsLink}
                         </div>
                     )}
                     {inProgress.map((certif) => (
-                        <InProgress course={certif} key={certif.key} progress={Math.random()} />
+                        <InProgress
+                            course={certif}
+                            key={certif.key}
+                            progress={certif.progress}
+                            onClick={resumeCourse}
+                        />
                     ))}
                     {!!completed.length && (
                         <div className={styles['title-line']}>
                             <LearningHat />
                             <h4 className='details'>Congratulations!</h4>
-                            {!inProgress.length && allMyLearningLink}
+                            {!inProgress.length && allMyLearningsLink}
                         </div>
                     )}
                     {completed.map((certif) => (
-                        <Completed course={certif} key={certif.key} completed={new Date('2022-06-24')} />
+                        <Completed course={certif} key={certif.key} completed={certif.progress.completedDate!} />
                     ))}
                 </>
             )}

@@ -6,17 +6,6 @@
     gap: calc($pad-lg + $border);
 }
 
-.checkmark {
-    border-radius: 50%;
-    border: 2px solid $black-20;
-
-    width: 26px;
-    height: 26px;
-    flex: 0 0 auto;
-
-    margin-top: $border;
-}
-
 .summary {
     display: flex;
     color: $tc-white;

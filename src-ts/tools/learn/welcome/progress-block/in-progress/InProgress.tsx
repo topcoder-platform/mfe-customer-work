@@ -1,12 +1,15 @@
 import { FC } from 'react'
-import { Button, LearnCertification, ProgressBar } from '../../../../../lib'
-import { CourseTitle } from '../../course-title'
+
+import { Button, ProgressBar } from '../../../../../lib'
+import { CourseTitle } from '../../../components'
+import { LearnCertification, LearnMyCertificationProgress } from '../../../services'
 
 import styles from './InProgress.module.scss'
 
 interface InProgressProps {
     course: LearnCertification
-    progress: number
+    onClick: (c: string, p: LearnMyCertificationProgress) => void
+    progress: LearnMyCertificationProgress
 }
 
 const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
@@ -19,10 +22,15 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
                     type={props.course.category}
                     credits={props.course.providerName}
                 />
-                <Button size="md" buttonStyle='primary' label='resume' />
+                <Button
+                    size='md'
+                    buttonStyle='primary'
+                    label='resume'
+                    onClick={() => props.onClick(props.course.certification, props.progress)}
+                />
             </div>
 
-            <ProgressBar progress={props.progress} />
+            <ProgressBar progress={props.progress.completed} />
         </div>
     )
 }

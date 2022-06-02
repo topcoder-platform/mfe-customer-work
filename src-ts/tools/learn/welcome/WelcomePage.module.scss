@@ -3,7 +3,7 @@
 
 .hero {
     &-wrap {
-        background: url('../../../lib/svgs/learn-welcome-bg-curve.png') repeat-x center bottom , $tc-grad15;
+        background: url('../components/svgs/learn-welcome-bg-curve.png') repeat-x center bottom , $tc-grad15;
         background-size: 1440px 60px, auto;
         overflow: hidden;
         padding-bottom: 60px;
@@ -19,7 +19,6 @@
         gap: 80px;
 
         color: $tc-white;
-        padding: 0 calc($pad-xxxxl + $pad-lg);
     }
     
     &-col {
@@ -46,4 +45,8 @@
         flex-wrap: wrap;
         gap: $pad-lg;
     }
+}
+
+.progress-col {
+    max-width: 600px;
 }

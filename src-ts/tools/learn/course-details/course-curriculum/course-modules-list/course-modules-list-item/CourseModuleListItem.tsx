@@ -1,12 +1,16 @@
+import classNames from 'classnames'
 import { FC } from 'react'
 
-import { IconOutline, LearnModule } from '../../../../../../lib'
+import { IconOutline } from '../../../../../../lib'
+import { StatusCheckbox } from '../../../../components'
+import { LearnModule } from '../../../../services'
 
 import styles from './CourseModuleListItem.module.scss'
 
 interface CourseModuleListItemProps {
     completed?: boolean
     duration: LearnModule['meta']['estimatedCompletionTime']
+    hasProgress?: boolean
     lessonsCount: number
     name: string
     shortDescription: Array<string>
@@ -16,14 +20,16 @@ const CourseModuleListItem: FC<CourseModuleListItemProps> = (props: CourseModule
 
     return (
         <div className={styles['wrap']}>
-            <div className={styles['checkmark']}></div>
+            <StatusCheckbox completed={props.completed} partial={!props.completed && !!props.hasProgress} />
             <div className={styles['content']}>
                 <div className='body-main-bold'>
                     {props.name}
                 </div>
-                <div className='body-main'>
-                    <span dangerouslySetInnerHTML={{ __html: props.shortDescription.join('<br/>') }}></span>
-                </div>
+                {!props.completed && (
+                    <div className='body-main'>
+                        <span dangerouslySetInnerHTML={{ __html: props.shortDescription.join('<br/>') }}></span>
+                    </div>
+                )}
                 <div className={styles['summary']}>
                     <span className={styles['summary-item']}>
                         <IconOutline.DocumentTextIcon />

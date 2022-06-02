@@ -9,10 +9,13 @@
     width: 100%;
     margin-bottom: -$pad-lg;
     background: $tc-white;
+
+    display: flex;
 }
 
 .iframe {
     width: 100%;
     padding: 0;
     height: 100%;
+    flex: 1 1 auto;
 }

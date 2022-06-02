@@ -1,20 +1,31 @@
-import { FC, useMemo } from 'react'
+import { FC, MutableRefObject, useEffect, useMemo, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { EnvironmentConfig } from '../../../config'
 import {
     Breadcrumb,
     BreadcrumbItemModel,
-    LessonProviderData,
     LoadingSpinner,
     Portal,
-    useLessonProvider,
 } from '../../../lib'
+import { CollapsiblePane, CourseOutline } from '../components'
+import {
+    CoursesProviderData,
+    LessonProviderData,
+    useCoursesProvider,
+    useLessonProvider,
+} from '../services'
 
 import styles from './FreeCodeCamp.module.scss'
 
 const FreeCodeCamp: FC<{}> = () => {
+    const frameRef: MutableRefObject<HTMLElement|any> = useRef()
     const [searchParams]: any = useSearchParams()
+
+    const {
+        course: courseData,
+        ready: courseDataReady,
+    }: CoursesProviderData = useCoursesProvider(searchParams.get('course'))
 
     const { lesson, ready }: LessonProviderData = useLessonProvider(
         searchParams.get('course'),
@@ -28,6 +39,14 @@ const FreeCodeCamp: FC<{}> = () => {
         { url: '/learn/fcc', name: lesson?.module.title ?? '' },
     ], [lesson])
 
+    useEffect(() => {
+        if (!frameRef.current || !lesson) {
+            return
+        }
+
+        Object.assign(frameRef.current, {src: `${EnvironmentConfig.LEARN_SRC}/${lesson.lessonUrl}`})
+    }, [lesson?.lessonUrl])
+
     return (
         <>
             {!ready && <LoadingSpinner />}
@@ -36,9 +55,16 @@ const FreeCodeCamp: FC<{}> = () => {
             {lesson && (
                 <Portal portalId='page-subheader-portal-el'>
                     <div className={styles['iframe-wrap']}>
+                        <CollapsiblePane title='Course Outline'>
+                            <CourseOutline
+                                course={courseData}
+                                ready={courseDataReady}
+                                currentStep={`${searchParams.get('module')}/${searchParams.get('lesson')}`}
+                            />
+                        </CollapsiblePane>
                         <iframe
                             className={styles.iframe}
-                            src={`${EnvironmentConfig.LEARN_SRC}/${lesson.lessonUrl}`}
+                            ref={frameRef}
                         />
                     </div>
                 </Portal>

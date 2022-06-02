@@ -1,10 +1,21 @@
-import { FC, useEffect, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { Params, useParams } from 'react-router-dom'
 
-import { Breadcrumb, BreadcrumbItemModel, CoursesProviderData, IconOutline, LearnProviderContextValue, LoadingSpinner, useCoursesProvider, useLearnProvider } from '../../../lib'
+import {
+    Breadcrumb,
+    BreadcrumbItemModel,
+    IconOutline,
+    LoadingSpinner,
+} from '../../../lib'
+import { CourseTitle } from '../components'
+import {
+    CoursesProviderData,
+    MyCertificationProgressProviderData,
+    useCoursesProvider,
+    useMyCertificationProgress,
+} from '../services'
 
 import { CourseCurriculum } from './course-curriculum'
-import { CourseTitle } from './course-title'
 import styles from './CourseDetailsPage.module.scss'
 import { PromoCourse } from './promo-course'
 
@@ -18,6 +29,8 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
         course,
         ready,
     }: CoursesProviderData = useCoursesProvider(routeParams.certification)
+
+    const { progress }: MyCertificationProgressProviderData = useMyCertificationProgress(routeParams.certification)
 
     const breadcrumb: Array<BreadcrumbItemModel> = useMemo(() => [
         { url: '/learn', name: 'Topcoder Academy' },
@@ -37,7 +50,7 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
                     <div className={styles['wrap']}>
                         <div className={styles['main']}>
                             <div className={styles['description']}>
-                                <CourseTitle title={course.title} credits={course?.provider} type='webdev' />
+                                <CourseTitle size='lg' title={course.title} credits={course?.provider} type='webdev' />
 
                                 <div
                                     className={styles['text']}
@@ -61,7 +74,7 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
                             </div>
                         </div>
                         <div className={styles['aside']}>
-                            <CourseCurriculum course={course} />
+                            <CourseCurriculum course={course} progress={progress} />
                         </div>
                     </div>
                     {course?.provider === 'freeCodeCamp' && (

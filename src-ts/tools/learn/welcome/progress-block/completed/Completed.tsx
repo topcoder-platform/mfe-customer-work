@@ -1,12 +1,14 @@
 import { FC } from 'react'
 
+import { Button, textFormatDateLocaleShortString } from '../../../../../lib'
+import { CourseTitle } from '../../../components'
+import { LearnCertification } from '../../../services'
+
 import styles from './Completed.module.scss'
-import { Button, LearnCertification, textFormatDateLocaleShortString } from '../../../../../lib'
-import { CourseTitle } from '../../course-title'
 
 interface CompletedProps {
+    completed: string
     course: LearnCertification
-    completed: Date|number
 }
 
 const Completed: FC<CompletedProps> = (props: CompletedProps) => {

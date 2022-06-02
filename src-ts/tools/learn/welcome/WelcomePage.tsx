@@ -1,7 +1,8 @@
+import classNames from 'classnames'
 import { FC } from 'react'
 
-import { LoadingSpinner, Portal, useCertificationsProvider } from '../../../lib'
-import { CertificationsProviderData } from '../../../lib/learn-provider/providers'
+import { LoadingSpinner, Portal } from '../../../lib'
+import { CertificationsProviderData, useCertificationsProvider } from '../services'
 
 import { CoursesCard } from './courses-card'
 import { ProgressBlock } from './progress-block'
@@ -33,7 +34,7 @@ const WelcomePage: FC<WelcomePageProps> = (props: WelcomePageProps) => {
                                     Tortor pretium viverra suspendisse potenti nullam ac.
                                 </p>
                             </div>
-                            <div className={styles['hero-col']}>
+                            <div className={classNames(styles['hero-col'], styles['progress-col'])}>
                                 <ProgressBlock />
                             </div>
                         </div>

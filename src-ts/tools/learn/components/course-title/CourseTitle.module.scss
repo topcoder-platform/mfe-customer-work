@@ -1,0 +1,30 @@
+@use '../../../../lib/styles/typography';
+@import '../../../../lib/styles/includes';
+
+.wrap {
+    display: flex;
+    gap: $pad-lg;
+}
+
+.text {
+    color: $black-100;
+    h1 {
+        text-transform: none;
+    }
+    :global(.quote-small) {
+        color: #767676;
+        margin-top: $pad-sm;
+        display: block;
+    }
+}
+
+.badge-icon {
+    svg {
+        @include icon-size(60);
+    }
+    &:global(.lg) {
+        svg {
+            @include icon-size(72);
+        }
+    }
+}
