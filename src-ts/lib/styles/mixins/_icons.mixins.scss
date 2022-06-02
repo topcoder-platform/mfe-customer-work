@@ -29,3 +29,8 @@
     height: $pad-xxxxl;
     width: $pad-xxxxl;
 }
+
+@mixin icon-mx {
+    height: $pad-mx;
+    width: $pad-mx;
+}

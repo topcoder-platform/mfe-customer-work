@@ -1,14 +1,12 @@
 import { FC } from 'react'
+import { LearningHat } from '../../../../../lib'
 
-import { LearningHat } from '../../../../lib'
+import styles from './InitState.module.scss'
 
-import styles from './ProgressCard.module.scss'
-
-interface ProgressCardProps {
+interface InitStateProps {
 }
 
-const ProgressCard: FC<ProgressCardProps> = (props: ProgressCardProps) => {
-
+const InitState: FC<InitStateProps> = (props: InitStateProps) => {
     return (
         <div className={styles['wrap']}>
             <div className={styles['icon']}>
@@ -24,4 +22,4 @@ const ProgressCard: FC<ProgressCardProps> = (props: ProgressCardProps) => {
     )
 }
 
-export default ProgressCard
+export default InitState

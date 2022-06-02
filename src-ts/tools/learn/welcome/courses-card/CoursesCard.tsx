@@ -1,7 +1,8 @@
 import classNames from 'classnames'
 import { FC } from 'react'
 
-import { Button, LearnChallengeBadgeIcon } from '../../../../lib'
+import { Button } from '../../../../lib'
+import { CourseTitle } from '../course-title'
 
 import styles from './CoursesCard.module.scss'
 
@@ -23,21 +24,7 @@ const CoursesCard: FC<CoursesCardProps> = (props: CoursesCardProps) => {
             <div className='overline'>
                 {COURSES_TYPES_MAP[props.type as keyof typeof COURSES_TYPES_MAP]}
             </div>
-            <div className={styles['content']}>
-                <div className={styles['badge-icon']}>
-                    <LearnChallengeBadgeIcon />
-                </div>
-                <div className={styles['text']}>
-                    <div className='body-main-bold'>
-                        {props.title}
-                    </div>
-                    {props.credits && (
-                        <em className='quote-small'>
-                            by {props.credits}
-                        </em>
-                    )}
-                </div>
-            </div>
+            <CourseTitle title={props.title} type={props.type} credits={props.credits} />
             <div className={styles['bottom']}>
                 {props.link && (
                     <Button

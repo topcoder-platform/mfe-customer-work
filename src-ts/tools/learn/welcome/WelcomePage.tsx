@@ -4,7 +4,7 @@ import { LoadingSpinner, Portal, useCertificationsProvider } from '../../../lib'
 import { CertificationsProviderData } from '../../../lib/learn-provider/providers'
 
 import { CoursesCard } from './courses-card'
-import { ProgressCard } from './progress-card'
+import { ProgressBlock } from './progress-block'
 import styles from './WelcomePage.module.scss'
 
 interface WelcomePageProps {
@@ -34,7 +34,7 @@ const WelcomePage: FC<WelcomePageProps> = (props: WelcomePageProps) => {
                                 </p>
                             </div>
                             <div className={styles['hero-col']}>
-                                <ProgressCard />
+                                <ProgressBlock />
                             </div>
                         </div>
                     </div>
