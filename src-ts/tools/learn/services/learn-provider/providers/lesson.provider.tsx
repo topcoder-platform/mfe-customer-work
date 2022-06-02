@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
 
-import coursesJSON from '../../../../../assets/data/courses.json'
+import coursesJSON from '../../../assets/data/courses.json'
 
 import { LearnCourse } from './learn-course.model'
 import { LearnLessonMeta } from './learn-lesson-meta.model'
