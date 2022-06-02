@@ -18,7 +18,7 @@ const ProgressBlock: FC<ProgressBlockProps> = (props: ProgressBlockProps) => {
     const { completed, inProgress }: MyCertificationsProviderData = useMyCertifications()
     const isInit: boolean = !inProgress.length && !completed.length
 
-    const allLearnMyingLink: ReactNode = (
+    const allMyLearningsLink: ReactNode = (
         <span className={styles['title-link']}>
             <Button buttonStyle='link' label='See all my learning' />
         </span>
@@ -47,7 +47,7 @@ const ProgressBlock: FC<ProgressBlockProps> = (props: ProgressBlockProps) => {
                     {!!inProgress.length && (
                         <div className={styles['title-line']}>
                             <h4 className='details'>In progress</h4>
-                            {allLearnMyingLink}
+                            {allMyLearningsLink}
                         </div>
                     )}
                     {inProgress.map((certif) => (
@@ -62,7 +62,7 @@ const ProgressBlock: FC<ProgressBlockProps> = (props: ProgressBlockProps) => {
                         <div className={styles['title-line']}>
                             <LearningHat />
                             <h4 className='details'>Congratulations!</h4>
-                            {!inProgress.length && allLearnMyingLink}
+                            {!inProgress.length && allMyLearningsLink}
                         </div>
                     )}
                     {completed.map((certif) => (
