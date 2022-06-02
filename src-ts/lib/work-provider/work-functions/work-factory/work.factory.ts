@@ -330,7 +330,7 @@ function buildFormDataData(formData: any): any {
 
 function buildFormDataFindData(formData: any): any {
     return {
-        projectTitle: formData.findMeProjectTitle,
+        projectTitle: formData.projectTitle,
         // tslint:disable-next-line: object-literal-sort-keys
         data: formData.analysis,
         primaryDataChallenge: {

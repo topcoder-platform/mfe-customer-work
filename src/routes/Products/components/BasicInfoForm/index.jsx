@@ -161,27 +161,6 @@ const BasicInfoForm = ({
       break;
   }
 
-  let titleValue;
-  switch (title) {
-    case "Data Exploration":
-    case "Website Design":
-    case "Problem Statement & Data Advisory":
-      titleValue = formData.projectTitle.value;
-      break;
-    case "Find Me Data":
-      titleValue = formData.findMeProjectTitle.value;
-      break;
-    default:
-      break;
-  }
-
-  let dataName;
-  if (isDataExploration || isWebsiteDesign || isDataAdvisory) {
-    dataName = "projectTitle";
-  } else if (isFindMeData) {
-    dataName = "findMeProjectTitle";
-  }
-
   return (
     <div styleName="basicInfoForm">
       <ServicePrice
@@ -224,8 +203,8 @@ const BasicInfoForm = ({
           <FormField label={"Project Title"}>
             <FormInputText
               placeholder={"Enter a descriptive title"}
-              value={titleValue}
-              name={dataName}
+              value={formData.projectTitle.value}
+              name="projectTitle"
               onChange={(e) =>
                 handleInputChange(e.target.name, e.target.value, e.target.value)
               }
