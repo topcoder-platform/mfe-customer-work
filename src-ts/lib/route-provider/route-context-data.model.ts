@@ -15,5 +15,6 @@ export interface RouteContextData {
     rootLoggedInRoute: string
     rootLoggedOutRoute: string
     toolsRoutes: Array<PlatformRoute>
+    toolsRoutesForNav: Array<PlatformRoute>
     utilsRoutes: Array<PlatformRoute>
 }
