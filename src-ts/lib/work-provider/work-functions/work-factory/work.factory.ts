@@ -293,83 +293,71 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
 export function mapFormData(type: string, formData: any): any {
     switch (type) {
         case (WorkType.problem):
-            console.log('problem')
-            return buildFormDataPSDA(formData)
+            return buildFormDataProblem(formData)
         case (WorkType.data):
-            console.log('data')
-            return buildFormDataDE(formData)
+            return buildFormDataData(formData)
         case (WorkType.findData):
-            console.log('findData')
-            return buildFormDataFindMe(formData)
+            return buildFormDataFindData(formData)
         case (WorkType.design):
-            console.log('design')
-            return buildFormDataWebsite(formData)
+            return buildFormDataDesign(formData)
         default:
-            console.log('none')
             return formData
     }
 }
 
-function buildFormDataPSDA(formData: any): any {
+function buildFormDataProblem(formData: any): any {
     return {
         projectTitle: formData.projectTitle,
         // tslint:disable-next-line: object-literal-sort-keys
-        goal: { title: 'What\'s Your Goal?', value: formData.goals.value },
+        goal: { title: 'What\'s Your Goal?', value: formData.goals?.value },
         data: {
             title: 'What Data Do You Have?', value: [
-                formData.sampleData.value,
-                formData.assetsDescription.value,
+                formData.sampleData?.value,
+                formData.assetsDescription?.value,
             ],
         },
     }
 }
 
-function buildFormDataDE(formData: any): any {
+function buildFormDataData(formData: any): any {
     return {
         projectTitle: formData.projectTitle,
         // tslint:disable-next-line: object-literal-sort-keys
-        data: { title: 'Share Your Data (Optional)', value: formData.assetsUrl.value },
-        goal: { title: 'What Would You Like To Learn?', value: formData.goals.value },
+        data: { title: 'Share Your Data (Optional)', value: formData.assetsUrl?.value },
+        goal: { title: 'What Would You Like To Learn?', value: formData.goals?.value },
     }
 }
 
-function buildFormDataFindMe(formData: any): any {
+function buildFormDataFindData(formData: any): any {
     return {
         projectTitle: formData.findMeProjectTitle,
         // tslint:disable-next-line: object-literal-sort-keys
         data: formData.analysis,
         primaryDataChallenge: {
-            title: formData.primaryDataChallenge.title,
-            value: formData.primaryDataChallenge.value === 3 ?
-                formData.primaryDataChallengeOther.value : formData.primaryDataChallenge.option,
+            title: formData.primaryDataChallenge?.title,
+            value: formData.primaryDataChallenge?.value === 3 ?
+                formData.primaryDataChallengeOther.value : formData.primaryDataChallenge?.option,
         },
         sampleData: formData.sampleData,
     }
 }
 
-function buildFormDataWebsite(formData: any): any {
-    console.log('here 1')
+function buildFormDataDesign(formData: any): any {
     const styleInfo: Array<string> = [
-        `Like: ${formData.likedStyles.value?.join(', ')}`,
-        `Dislike: ${formData.dislikedStyles.value?.join(', ')}`,
+        `Like: ${formData.likedStyles?.value?.join(', ') || ''}`,
+        `Dislike: ${formData.dislikedStyles?.value?.join(', ') || ''}`,
         `Additional Details: ${formData.stylePreferences?.value || ''}`,
+        `Color Selections: ${formData.colorOption?.value.join(', ') || ''}`,
+        `Specific Colors: ${formData.specificColor?.value || ''}`,
     ]
-    console.log('here 2')
-    if (formData.colorOption.value?.length > 0) {
-        styleInfo.push(`Color Selections: ${formData.colorOption.value.join(', ')}`)
-    }
-    console.log('here 3')
-    if (formData.specificColor.value && formData.specificColor.value !== '') {
-        styleInfo.push(`Specific Colors: ${formData.specificColor.value}`)
-    }
-    console.log('here 4')
+
     return {
         projectTitle: formData.projectTitle,
         // tslint:disable-next-line: object-literal-sort-keys
-        description: { title: 'Description', value: formData.analysis.value },
-        industry: formData.yourIndustry,
-        inspiration: { title: 'Inspiration', value: formData.inspiration.map((item: any) => `${item.website.value} ${item.feedback.value}`) },
+        description: { title: 'Description', value: formData.analysis?.value },
+        industry: { title: 'Your Industry', value: formData.yourIndustry?.value },
+        inspiration: { title: 'Inspiration', value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`) },
         style: { title: 'Style & Theme', value: styleInfo },
-        assets: { title: 'Share Your Brand or Style Assets', value: [formData.assetsUrl.value, formData.assetsDescription.value] },
+        assets: { title: 'Share Your Brand or Style Assets', value: [formData.assetsUrl?.value, formData.assetsDescription?.value] },
     }
 }

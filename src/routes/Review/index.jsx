@@ -60,7 +60,6 @@ const Review = ({
   banner,
   icon,
   showIcon,
-  enableEdit = true,
   secondaryBanner,
   bannerData,
 }) => {
@@ -91,10 +90,10 @@ const Review = ({
     workType?.selectedWorkType === "Website Design"
       ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : isDataAdvisory
-      ? getDataAdvisoryPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : isDataAdvisory
+          ? getDataAdvisoryPriceAndTimelineEstimate()
+          : getFindMeDataPriceAndTimelineEstimate();
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -227,7 +226,7 @@ const Review = ({
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
             <div styleName="reviewContainer">
-              <ReviewTable formData={intakeFormData} enableEdit={enableEdit} />
+              <ReviewTable formData={intakeFormData} />
               <HelpBanner
                 styles={["turqoise"]}
                 title="Important things to know about your project"

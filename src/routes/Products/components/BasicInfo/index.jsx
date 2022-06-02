@@ -8,7 +8,7 @@ import Page from "components/Page";
 import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
-import { BUTTON_SIZE, BUTTON_TYPE, PageOptions } from "constants/";
+import { BUTTON_SIZE, BUTTON_TYPE, PageOptions, PrimaryDataChallengeOptions } from "constants/";
 import {
   saveBasicInfo,
   toggleSupportModal,
@@ -64,8 +64,8 @@ const BasicInfo = ({
     specificColor: { title: "Custom Color", option: "", value: "" },
     primaryDataChallenge: {
       title: "Primary Data Challenge",
-      option: "",
-      value: "",
+      option: PrimaryDataChallengeOptions[0].label,
+      value: 0,
     },
     primaryDataChallengeOther: {
       title: "Primary Data Challenge (Other Option)",
