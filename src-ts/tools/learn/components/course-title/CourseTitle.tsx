@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { FC, ReactNode } from 'react'
 
-import { LearnChallengeBadgeIcon } from '../../../../lib'
+import { LearnChallengeBadgeIcon } from '../svgs'
 
 import styles from './CourseTitle.module.scss'
 

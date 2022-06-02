@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { LearningHat } from '../../../../../lib'
+import { LearningHat } from '../../../components'
 
 import styles from './InitState.module.scss'
 

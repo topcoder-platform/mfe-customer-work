@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { LearnGetCertified } from '../../../../lib'
+import { LearnGetCertified } from '../../components'
 
 import styles from './PromoCourse.module.scss'
 
