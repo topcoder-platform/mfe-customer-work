@@ -1,7 +1,10 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
 
 import coursesJSON from '../../../../../assets/data/courses.json'
-import { LearnCourse, LearnLesson, LearnLessonMeta, LearnModule } from '../models'
+import { LearnCourse } from './learn-course.model'
+import { LearnLessonMeta } from './learn-lesson-meta.model'
+import { LearnLesson } from './learn-lesson.model'
+import { LearnModule } from './learn-module.model'
 
 export interface LessonProviderData {
     lesson?: LearnLessonMeta

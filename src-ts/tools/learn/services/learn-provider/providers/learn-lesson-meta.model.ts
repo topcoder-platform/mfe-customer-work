@@ -11,8 +11,3 @@ export interface LearnLessonMeta {
     }
     title: string
 }
-
-export interface LearnLesson {
-    dashedName: string
-    title: string
-}
