@@ -46,7 +46,6 @@ const BasicInfo = ({
 }) => {
   const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
-    findMeProjectTitle: { title: "Project Title", option: "", value: "" },
     assetsUrl: { title: "Shareable URL Link(s)", value: "" },
     goals: { title: "Goals & Data Description", option: "", value: null },
     analysis: { title: "What Data Do You Need?", option: "", value: "" },
@@ -67,7 +66,7 @@ const BasicInfo = ({
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;
   const isFindMeDataFormValid =
-    formData?.findMeProjectTitle?.value?.trim().length &&
+    formData?.projectTitle?.value?.trim().length &&
     formData?.analysis?.value?.trim().length &&
     ((formData?.primaryDataChallenge?.value >= 0 &&
       formData?.primaryDataChallenge?.value < 3) ||
@@ -91,16 +90,15 @@ const BasicInfo = ({
     workType === "Website Design"
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     navigate("/self-service/wizard");
   };
 
-  const baseUrl = `/self-service/work/new/${
-    isDataExploration ? "data-exploration" : "find-me-data"
-  }`;
+  const baseUrl = `/self-service/work/new/${isDataExploration ? "data-exploration" : "find-me-data"
+    }`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
@@ -126,9 +124,7 @@ const BasicInfo = ({
     }
 
     if (
-      basicInfo &&
-      (basicInfo?.projectTitle?.value.length > 0 ||
-        basicInfo?.findMeProjectTitle?.value.length > 0)
+      basicInfo && basicInfo?.projectTitle?.value.length > 0
     ) {
       setFormData(basicInfo);
     }

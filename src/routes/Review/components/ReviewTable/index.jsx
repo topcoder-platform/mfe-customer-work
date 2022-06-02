@@ -57,10 +57,9 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
   const renderDetails = (step) => {
     let items = formData[step.value] || {};
     if (formData?.workType?.selectedWorkType === "Find Me Data") {
-      items = _.omit(items, ["projectTitle", "assetsUrl", "goals"]);
+      items = _.omit(items, ["assetsUrl", "goals"]);
     } else {
       items = _.omit(items, [
-        "findMeProjectTitle",
         "analysis",
         "primaryDataChallenge",
         "primaryDataChallengeOther",
