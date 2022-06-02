@@ -143,11 +143,13 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
               >
                 <p styleName="stepLabel">
                   {step.label}
+                  {/*                   
+                  TODO: temporariliy hiding this link until PROD-2083 is complete
                   {enableEdit && (
                     <Link styleName="link" to={redirectPage?.url}>
                       edit
                     </Link>
-                  )}
+                  )} */}
                 </p>
                 <div
                   styleName={classNames("icon", step.isOpen ? "open" : null)}

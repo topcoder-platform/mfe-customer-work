@@ -41,6 +41,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
         // TODO: try to make these prop names configurable instead of hard-coded
         const toolsRoutes: Array<PlatformRoute> = props.toolsRoutes
             .filter(route => route.enabled)
+        const toolsRoutesForNav: Array<PlatformRoute> = toolsRoutes.filter(route => !route.hide)
         const utilsRoutes: Array<PlatformRoute> = props.utilsRoutes
             .filter(route => route.enabled)
         allRoutes = [
@@ -60,6 +61,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
             rootLoggedInRoute: props.rootLoggedIn,
             rootLoggedOutRoute: props.rootLoggedOut,
             toolsRoutes,
+            toolsRoutesForNav,
             utilsRoutes,
         }
         setRouteContextData(contextData)
