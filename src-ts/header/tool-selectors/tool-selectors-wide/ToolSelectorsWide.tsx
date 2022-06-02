@@ -1,4 +1,5 @@
 import { FC, useContext } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { routeContext, RouteContextData } from '../../../lib'
 
@@ -7,9 +8,10 @@ import styles from './ToolSelectorsWide.module.scss'
 
 const ToolSelectorsWide: FC<{}> = () => {
 
-    const { toolsRoutes }: RouteContextData = useContext(routeContext)
+    const { toolsRoutesForNav, getRoutesForRole }: RouteContextData = useContext(routeContext)
+    const activePath: string = useLocation().pathname
 
-    const selectors: Array<JSX.Element> = toolsRoutes
+    const selectors: Array<JSX.Element> = getRoutesForRole(toolsRoutesForNav, activePath)
         .map(route => (
             <ToolSelectorWide
                 key={route.title}

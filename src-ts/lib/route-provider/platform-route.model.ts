@@ -5,6 +5,7 @@ export interface PlatformRoute {
     customerOnly?: boolean
     element: JSX.Element
     enabled: boolean
+    hide?: boolean
     icon?: FC<SVGProps<SVGSVGElement>>
     memberOnly?: boolean
     requireAuth?: boolean

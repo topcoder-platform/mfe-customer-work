@@ -1,3 +1,5 @@
+import { Navigate } from 'react-router-dom'
+
 import { PlatformRoute } from '../../lib'
 
 import Work, { toolTitle } from './Work'
@@ -39,5 +41,13 @@ export const workRoutes: Array<PlatformRoute> = [
         requireAuth: true,
         route: workRootRoute,
         title: toolTitle,
+    },
+    {
+        children: [],
+        element: <Navigate to={workRootRoute} />,
+        enabled: true,
+        hide: true,
+        route: `${selfServiceRootRoute}/dashboard`,
+        title: 'Obsolete Self Service Dashboard',
     },
 ]

@@ -9,11 +9,13 @@ export const defaultRouteContextData: RouteContextData = {
     getPath: () => '',
     getPathFromRoute: () => '',
     getRouteElement: () => <></>,
+    getRoutesForRole: () => [],
     isActiveRoute: () => false,
     isRootRoute: () => false,
     rootLoggedInRoute: '',
     rootLoggedOutRoute: '',
     toolsRoutes: [],
+    toolsRoutesForNav: [],
     utilsRoutes: [],
 }
 
