@@ -1,7 +1,17 @@
 import { FC, MutableRefObject, useEffect, useMemo, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { Breadcrumb, BreadcrumbItemModel, CoursesProviderData, LessonProviderData, LoadingSpinner, Portal, useCoursesProvider, useLessonProvider } from '../../../lib'
+import { EnvironmentConfig } from '../../../config'
+import {
+    Breadcrumb,
+    BreadcrumbItemModel,
+    CoursesProviderData,
+    LessonProviderData,
+    LoadingSpinner,
+    Portal,
+    useCoursesProvider,
+    useLessonProvider,
+} from '../../../lib'
 import { CollapsiblePane, CourseOutline } from '../components'
 
 import styles from './FreeCodeCamp.module.scss'
@@ -32,10 +42,9 @@ const FreeCodeCamp: FC<{}> = () => {
             return;
         }
 
-        Object.assign(frameRef.current, {src: `http://localhost:8000/${lesson.lessonUrl}`});
+        Object.assign(frameRef.current, {src: `${EnvironmentConfig.LEARN_SRC}/${lesson.lessonUrl}`});
     }, [lesson?.lessonUrl]);
 
-    // TODO: environment-specific URLS
     return (
         <>
             {!ready && <LoadingSpinner />}

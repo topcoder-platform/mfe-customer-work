@@ -40,11 +40,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
 
         // TODO: try to make these prop names configurable instead of hard-coded
         const toolsRoutes: Array<PlatformRoute> = props.toolsRoutes
-            .filter(route => initialized
-                && route.enabled
-                && (!route.customerOnly || !!profile?.isCustomer)
-                && (!route.memberOnly || !!profile?.isMember)
-            )
+            .filter(route => route.enabled)
         const utilsRoutes: Array<PlatformRoute> = props.utilsRoutes
             .filter(route => route.enabled)
         allRoutes = [
@@ -58,6 +54,7 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
             getPath,
             getPathFromRoute,
             getRouteElement,
+            getRoutesForRole,
             isActiveRoute: isActiveRoute(props.rootLoggedIn, props.rootLoggedOut),
             isRootRoute: isRootRoute(props.rootLoggedIn, props.rootLoggedOut),
             rootLoggedInRoute: props.rootLoggedIn,
@@ -112,6 +109,23 @@ export const RouteProvider: FC<RouteProviderProps> = (props: RouteProviderProps)
                 path={path}
             />
         )
+    }
+
+    function getRoutesForRole(toolsRoutes: Array<PlatformRoute>, activePath: string): Array<PlatformRoute> {
+        return toolsRoutes
+            // tslint:disable-next-line: cyclomatic-complexity
+            .filter(route => isActivePath(activePath, route.route)
+                || (
+                    initialized
+                    && (
+                        (!route.customerOnly && !route.memberOnly)
+                        || (
+                            (route.customerOnly && !!profile?.isCustomer)
+                            || (route.memberOnly && !!profile?.isMember)
+                        )
+                    )
+                )
+            )
     }
 
     useEffect(() => {
