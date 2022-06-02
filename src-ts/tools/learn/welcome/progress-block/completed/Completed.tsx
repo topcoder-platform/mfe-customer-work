@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
 import { Button, textFormatDateLocaleShortString } from '../../../../../lib'
-import { LearnCertification } from '../../../services'
 import { CourseTitle } from '../../../components'
+import { LearnCertification } from '../../../services'
 
 import styles from './Completed.module.scss'
 

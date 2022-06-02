@@ -2,8 +2,8 @@ import classNames from 'classnames'
 import { FC } from 'react'
 
 import { IconOutline } from '../../../../../../lib'
-import { LearnModule } from '../../../../services'
 import { StatusCheckbox } from '../../../../components'
+import { LearnModule } from '../../../../services'
 
 import styles from './CourseModuleListItem.module.scss'
 

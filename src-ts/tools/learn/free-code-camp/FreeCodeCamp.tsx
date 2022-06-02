@@ -8,13 +8,13 @@ import {
     LoadingSpinner,
     Portal,
 } from '../../../lib'
+import { CollapsiblePane, CourseOutline } from '../components'
 import {
     CoursesProviderData,
     LessonProviderData,
     useCoursesProvider,
     useLessonProvider,
 } from '../services'
-import { CollapsiblePane, CourseOutline } from '../components'
 
 import styles from './FreeCodeCamp.module.scss'
 
