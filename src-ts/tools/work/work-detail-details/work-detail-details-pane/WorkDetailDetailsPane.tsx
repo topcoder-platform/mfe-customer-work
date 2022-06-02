@@ -60,10 +60,9 @@ function renderPageDetails(formData: any, section: string): Array<JSX.Element> {
 function renderDetails(formData: any, section: string): Array<JSX.Element | Array<JSX.Element>> {
     let items: any = formData[section] || {}
     if (formData?.workType?.selectedWorkType === 'Find Me Data') {
-        items = _.omit(items, ['projectTitle', 'assetsUrl', 'goals'])
+        items = _.omit(items, ['assetsUrl', 'goals'])
     } else {
         items = _.omit(items, [
-            'findMeProjectTitle',
             'analysis',
             'primaryDataChallenge',
             'primaryDataChallengeOther',

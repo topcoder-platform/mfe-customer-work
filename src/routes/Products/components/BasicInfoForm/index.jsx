@@ -111,12 +111,8 @@ const BasicInfoForm = ({
           <FormField label={"Project Title"}>
             <FormInputText
               placeholder={"Enter a descriptive title"}
-              value={
-                isDataExploration
-                  ? formData.projectTitle.value
-                  : formData.findMeProjectTitle.value
-              }
-              name={isDataExploration ? "projectTitle" : "findMeProjectTitle"}
+              value={formData.projectTitle.value}
+              name={"projectTitle"}
               onChange={(e) =>
                 handleInputChange(e.target.name, e.target.value, e.target.value)
               }
