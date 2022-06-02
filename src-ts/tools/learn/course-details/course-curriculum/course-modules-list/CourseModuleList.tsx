@@ -1,17 +1,42 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 
-import { LearnModule } from '../../../../../lib'
+import { LearnModule, LearnMyCertificationProgress, LearnMyModuleProgress } from '../../../../../lib'
 
 import { CourseModuleListItem } from './course-modules-list-item'
 import styles from './CourseModuleList.module.scss'
 
 interface CourseModuleListProps {
-    completed?: boolean
-    getProgress: (m: LearnModule) => number
     modules: Array<LearnModule>
+    progress?: LearnMyCertificationProgress
 }
 
 const CourseModuleList: FC<CourseModuleListProps> = (props: CourseModuleListProps) => {
+
+    const hasProgress: (m: string) => boolean = (m: string) => {
+        if (!props.progress) {
+            return false
+        }
+
+        const module: LearnMyModuleProgress|undefined = props.progress.modules.find(mod => mod.module === m)
+        if (!module) {
+            return false
+        }
+
+        return module.completedLessons.length > 0
+    }
+
+    const isCompleted: (m: string) => boolean = (m: string) => {
+        if (!props.progress) {
+            return false
+        }
+
+        const module: LearnMyModuleProgress|undefined = props.progress.modules.find(mod => mod.module === m)
+        if (!module) {
+            return false
+        }
+
+        return module.lessonCount === module.completedLessons.length
+    }
 
     return (
         <div className={styles['wrap']}>
@@ -21,8 +46,8 @@ const CourseModuleList: FC<CourseModuleListProps> = (props: CourseModuleListProp
                     shortDescription={module.meta.introCopy}
                     lessonsCount={module.meta.lessonCount}
                     duration={module.meta.estimatedCompletionTime}
-                    completed={props.completed}
-                    progress={props.getProgress(module)}
+                    completed={isCompleted(module.key)}
+                    hasProgress={hasProgress(module.key)}
                     key={module.key}
                 />
             ))}

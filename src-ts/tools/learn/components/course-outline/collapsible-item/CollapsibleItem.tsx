@@ -1,22 +1,24 @@
 import classNames from 'classnames'
-import { Dispatch, FC, ReactNode, SetStateAction, useCallback, useState } from 'react'
+import { Dispatch, FC, ReactNode, SetStateAction, useCallback, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { IconSolid } from '../../../../../lib'
+import { IconSolid, LearnMyCertificationProgress, LearnMyModuleProgress } from '../../../../../lib'
 import { StatusCheckbox } from '../../status-checkbox'
 
 import styles from './CollapsibleItem.module.scss'
 
 interface CollapsibleListItem {
-    completed?: boolean
+    dashedName: string
     title: string
 }
 
 interface CollapsibleItemProps {
     active?: string
-    id?: (item: any) => string
+    id: string
+    itemId?: (item: any) => string
     items: Array<CollapsibleListItem>
     path?: (item: any) => string
+    progress?: LearnMyCertificationProgress['modules']
     title: string
 }
 
@@ -24,16 +26,29 @@ const CollapsibleItem: FC<CollapsibleItemProps> = (props: CollapsibleItemProps) 
     const [isOpen, setIsOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
     const toggle: () => void = useCallback(() => {
-      setIsOpen(open => !open)
+        setIsOpen(open => !open)
     }, [])
 
-    const completed: boolean = props.items.every(it => it.completed)
-    const partial: boolean = props.items.some(it => it.completed)
+    const progress: LearnMyModuleProgress|undefined = useMemo(() => {
+        return props.progress?.find(m => m.module === props.id)
+    }, [props.progress, props.id])
+
+    const isCompleted: boolean = useMemo(() => {
+        return !!progress && progress.lessonCount === progress?.completedLessons.length
+    }, [progress])
+
+    const isPartial: boolean = useMemo(() => {
+        return !!progress && !!progress.completedLessons.length
+    }, [progress])
+
+    const isItemCompleted: (key: string) => boolean = (key: string) => (
+        !!progress?.completedLessons.find(l => l.dashedName === key)
+    )
 
     const listItem: (item: any) => ReactNode = (item: any) => (
         <>
             <span className={styles['item-icon']}>
-                {item.completed && (
+                {isItemCompleted(item.dashedName) && (
                     <IconSolid.CheckCircleIcon />
                 )}
             </span>
@@ -46,7 +61,7 @@ const CollapsibleItem: FC<CollapsibleItemProps> = (props: CollapsibleItemProps) 
     return (
         <div className={classNames(styles['wrap'], isOpen ? 'open' : 'collapsed')}>
             <div className={styles['title-row']} onClick={toggle}>
-                <StatusCheckbox completed={completed} partial={partial} />
+                <StatusCheckbox completed={isCompleted} partial={isPartial} />
                 <span className={styles['title']}>
                     {props.title}
                 </span>
@@ -58,7 +73,7 @@ const CollapsibleItem: FC<CollapsibleItemProps> = (props: CollapsibleItemProps) 
             {isOpen && (
                 <ul className={styles['list']}>
                     {props.items.map(it => (
-                        <li key={props.id?.(it) ?? it.title} className={classNames(styles['item-wrap'], props.id?.(it) === props.active && 'active')}>
+                        <li key={props.itemId?.(it) ?? it.title} className={classNames(styles['item-wrap'], props.itemId?.(it) === props.active && 'active')}>
                             {props.path ? (
                                 <Link className={styles['item-wrap']} to={props.path(it)}>{listItem(it)}</Link>
                             ) : (listItem(it))}

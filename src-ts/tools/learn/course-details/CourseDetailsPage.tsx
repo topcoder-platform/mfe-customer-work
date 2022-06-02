@@ -1,7 +1,16 @@
 import { FC, useMemo } from 'react'
 import { Params, useParams } from 'react-router-dom'
 
-import { Breadcrumb, BreadcrumbItemModel, CoursesProviderData, IconOutline, LearnProviderContextValue, LoadingSpinner, useCoursesProvider, useLearnProvider } from '../../../lib'
+import {
+    Breadcrumb,
+    BreadcrumbItemModel,
+    CoursesProviderData,
+    IconOutline,
+    LoadingSpinner,
+    MyCertificationProgressProviderData,
+    useCoursesProvider,
+    useMyCertificationProgress,
+} from '../../../lib'
 import { CourseTitle } from '../components'
 
 import { CourseCurriculum } from './course-curriculum'
@@ -18,6 +27,8 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
         course,
         ready,
     }: CoursesProviderData = useCoursesProvider(routeParams.certification)
+
+    const { progress }: MyCertificationProgressProviderData = useMyCertificationProgress(routeParams.certification)
 
     const breadcrumb: Array<BreadcrumbItemModel> = useMemo(() => [
         { url: '/learn', name: 'Topcoder Academy' },
@@ -61,7 +72,7 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
                             </div>
                         </div>
                         <div className={styles['aside']}>
-                            <CourseCurriculum course={course} />
+                            <CourseCurriculum course={course} progress={progress} />
                         </div>
                     </div>
                     {course?.provider === 'freeCodeCamp' && (

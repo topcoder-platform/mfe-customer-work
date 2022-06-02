@@ -1,6 +1,13 @@
 import { FC, useCallback } from 'react'
 
-import { LearnCourse, LearnLesson, LearnModule, LoadingSpinner } from '../../../../lib'
+import {
+    LearnCourse,
+    LearnLesson,
+    LearnModule,
+    LoadingSpinner,
+    MyCertificationProgressProviderData,
+    useMyCertificationProgress,
+} from '../../../../lib'
 
 import { CollapsibleItem } from './collapsible-item'
 import styles from './CourseOutline.module.scss'
@@ -12,6 +19,7 @@ interface CourseOutlineProps {
 }
 
 const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
+    const { progress }: MyCertificationProgressProviderData = useMyCertificationProgress(props.course?.certification)
 
     const lessonPath: (course: LearnCourse, module: LearnModule, lesson: LearnLesson) => string = useCallback((course: LearnCourse, module: LearnModule, lesson: LearnLesson) => {
         const path: string = [
@@ -35,11 +43,14 @@ const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
                     <div className={styles['content']}>
                         {props.course.modules.map((module) => (
                             <CollapsibleItem
+                                key={module.key}
+                                id={module.key}
                                 title={module.meta.name}
                                 items={module.lessons}
                                 active={props.currentStep}
-                                id={(it: any) => `${module.meta.dashedName}/${it.dashedName}`}
+                                itemId={(it: any) => `${module.meta.dashedName}/${it.dashedName}`}
                                 path={(it: any) => lessonPath(props.course, module, it)}
+                                progress={progress?.modules}
                             />
                         ))}
                     </div>

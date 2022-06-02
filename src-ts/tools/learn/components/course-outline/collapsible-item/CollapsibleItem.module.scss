@@ -56,7 +56,21 @@
         &:global(.active) {
             color: $tc-white;
             .item-icon {
-                background: $tc-white;
+                position: relative;
+                z-index: 1;
+                &:before {
+                    position: absolute;
+                    content: "";
+                    width: $pad-md;
+                    height: $pad-md;
+                    display: block;
+                    background: $tc-white;
+                    border-radius: $pad-md;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: -1;
+                }
             }
         }
     }

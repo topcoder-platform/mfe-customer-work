@@ -9,9 +9,9 @@ import styles from './CourseModuleListItem.module.scss'
 interface CourseModuleListItemProps {
     completed?: boolean
     duration: LearnModule['meta']['estimatedCompletionTime']
+    hasProgress?: boolean
     lessonsCount: number
     name: string
-    progress?: number
     shortDescription: Array<string>
 }
 
@@ -19,7 +19,7 @@ const CourseModuleListItem: FC<CourseModuleListItemProps> = (props: CourseModule
 
     return (
         <div className={styles['wrap']}>
-            <StatusCheckbox completed={props.completed} partial={!props.completed && !!props.progress} />
+            <StatusCheckbox completed={props.completed} partial={!props.completed && !!props.hasProgress} />
             <div className={styles['content']}>
                 <div className='body-main-bold'>
                     {props.name}

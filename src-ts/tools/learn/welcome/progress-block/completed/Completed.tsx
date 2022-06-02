@@ -6,7 +6,7 @@ import { CourseTitle } from '../../../components'
 import styles from './Completed.module.scss'
 
 interface CompletedProps {
-    completed: Date|number
+    completed: string
     course: LearnCertification
 }
 

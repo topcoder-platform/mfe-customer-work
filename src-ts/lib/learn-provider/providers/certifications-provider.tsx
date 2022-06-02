@@ -10,13 +10,6 @@ export interface CertificationsProviderData {
     ready: boolean
 }
 
-export interface CertificationsProviderValue {
-    certificationsData: CertificationsProviderData
-    fetchCertifications: () => {
-        cancelFetch: () => void
-    }
-}
-
 export const useCertificationsProvider: () => CertificationsProviderData = (): CertificationsProviderData => {
     const [state, setState]: [CertificationsProviderData, Dispatch<SetStateAction<CertificationsProviderData>>] = useState<CertificationsProviderData>({
         certifications: [],
