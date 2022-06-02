@@ -1,7 +1,8 @@
 import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
-import { Button, LearnCourse, LearningHat, LearnLesson, LearnModule, LearnMyCertificationProgress } from '../../../../lib'
+import { Button, LearningHat } from '../../../../lib'
+import { LearnCourse, LearnLesson, LearnModule, LearnMyCertificationProgress } from '../../services'
 import { TcAcademyPolicyModal } from '../../components'
 
 import { CourseModuleList } from './course-modules-list'

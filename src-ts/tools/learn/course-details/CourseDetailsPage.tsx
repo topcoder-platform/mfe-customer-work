@@ -4,13 +4,15 @@ import { Params, useParams } from 'react-router-dom'
 import {
     Breadcrumb,
     BreadcrumbItemModel,
-    CoursesProviderData,
     IconOutline,
     LoadingSpinner,
+} from '../../../lib'
+import { 
+    CoursesProviderData,
     MyCertificationProgressProviderData,
     useCoursesProvider,
     useMyCertificationProgress,
-} from '../../../lib'
+} from '../services'
 import { CourseTitle } from '../components'
 
 import { CourseCurriculum } from './course-curriculum'

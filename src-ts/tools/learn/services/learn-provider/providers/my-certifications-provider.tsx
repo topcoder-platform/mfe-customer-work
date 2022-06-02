@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
 
-import myCertificationsJSON from '../../../assets/data/my-certifications.json'
+import myCertificationsJSON from '../../../../../assets/data/my-certifications.json'
 import { LearnMyCertification } from '../models'
 
 const myCertifications: Array<LearnMyCertification> = [...myCertificationsJSON.certifications] as Array<LearnMyCertification>

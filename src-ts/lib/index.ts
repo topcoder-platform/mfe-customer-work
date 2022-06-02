@@ -16,7 +16,6 @@ export {
     useClickOutside,
     useOnHoverElement,
 } from './functions'
-export * from './learn-provider'
 export * from './loading-spinner'
 export * from './modals'
 export * from './page-footer'

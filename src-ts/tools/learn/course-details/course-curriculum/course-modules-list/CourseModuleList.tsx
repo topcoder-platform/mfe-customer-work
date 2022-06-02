@@ -1,6 +1,6 @@
-import { FC, useMemo } from 'react'
+import { FC } from 'react'
 
-import { LearnModule, LearnMyCertificationProgress, LearnMyModuleProgress } from '../../../../../lib'
+import { LearnModule, LearnMyCertificationProgress, LearnMyModuleProgress } from '../../../services'
 
 import { CourseModuleListItem } from './course-modules-list-item'
 import styles from './CourseModuleList.module.scss'

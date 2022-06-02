@@ -5,13 +5,15 @@ import { EnvironmentConfig } from '../../../config'
 import {
     Breadcrumb,
     BreadcrumbItemModel,
-    CoursesProviderData,
-    LessonProviderData,
     LoadingSpinner,
     Portal,
+} from '../../../lib'
+import {
+    CoursesProviderData,
+    LessonProviderData,
     useCoursesProvider,
     useLessonProvider,
-} from '../../../lib'
+} from '../services'
 import { CollapsiblePane, CourseOutline } from '../components'
 
 import styles from './FreeCodeCamp.module.scss'

@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
-import { Button, LearnCertification, LearnMyCertificationProgress, ProgressBar } from '../../../../../lib'
+import { Button, ProgressBar } from '../../../../../lib'
+import { LearnCertification, LearnMyCertificationProgress } from '../../../services'
 import { CourseTitle } from '../../../components'
 
 import styles from './InProgress.module.scss'

@@ -1,13 +1,13 @@
 import { FC, useCallback } from 'react'
 
+import { LoadingSpinner, } from '../../../../lib'
 import {
     LearnCourse,
     LearnLesson,
     LearnModule,
-    LoadingSpinner,
     MyCertificationProgressProviderData,
     useMyCertificationProgress,
-} from '../../../../lib'
+} from '../../services'
 
 import { CollapsibleItem } from './collapsible-item'
 import styles from './CourseOutline.module.scss'

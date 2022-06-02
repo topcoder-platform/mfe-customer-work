@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
 
-import certificationsJSON from '../../../assets/data/certifications.json'
+import certificationsJSON from '../../../../../assets/data/certifications.json'
 import { LearnCertification } from '../models'
 
 export interface CertificationsProviderData {

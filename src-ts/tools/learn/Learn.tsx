@@ -3,10 +3,10 @@ import { Outlet, Routes } from 'react-router-dom'
 
 import {
     ContentLayout,
-    LearnProviderContextProvider,
     routeContext,
     RouteContextData,
 } from '../../lib'
+import { LearnProviderContextProvider } from './services'
 
 export const toolTitle: string = 'Learn'
 

@@ -2,7 +2,8 @@ import classNames from 'classnames'
 import { Dispatch, FC, ReactNode, SetStateAction, useCallback, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { IconSolid, LearnMyCertificationProgress, LearnMyModuleProgress } from '../../../../../lib'
+import { IconSolid } from '../../../../../lib'
+import { LearnMyCertificationProgress, LearnMyModuleProgress } from '../../../services'
 import { StatusCheckbox } from '../../status-checkbox'
 
 import styles from './CollapsibleItem.module.scss'

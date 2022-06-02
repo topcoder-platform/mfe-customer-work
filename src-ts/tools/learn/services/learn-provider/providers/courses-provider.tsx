@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
 
-import coursesJSON from '../../../assets/data/courses.json'
+import coursesJSON from '../../../../../assets/data/courses.json'
 import { LearnCourse } from '../models'
 
 export interface CoursesProviderData {

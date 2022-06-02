@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
-import { Button, IconOutline, LearnCourse, ProgressBar, textFormatDateLocaleShortString } from '../../../../../lib'
+import { Button, IconOutline, ProgressBar, textFormatDateLocaleShortString } from '../../../../../lib'
+import { LearnCourse } from '../../../services'
 
 import styles from './CurriculumSummary.module.scss'
 
