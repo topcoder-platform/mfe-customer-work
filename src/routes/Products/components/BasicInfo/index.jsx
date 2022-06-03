@@ -286,8 +286,8 @@ const BasicInfo = ({
                     type={BUTTON_TYPE.SECONDARY}
                     onClick={() => saveForm(true)}
                   >
-                    <SaveForLaterIcon />
-                    <span>
+                    <SaveForLaterIcon styleName="save-icon" />
+                    <span styleName="save-button-text">
                       SAVE FOR LATER
                     </span>
                   </Button>
@@ -298,7 +298,7 @@ const BasicInfo = ({
                   onClick={onNext}
                 >
                   <ArrowRightIcon styleName="rotated" />
-                  <span>
+                  <span styleName="review-button-text">
                     REVIEW &amp; SUBMIT
                   </span>
                 </Button>
