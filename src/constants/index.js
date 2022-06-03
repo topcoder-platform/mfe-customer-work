@@ -365,8 +365,9 @@ const webWorkProblemStatement = {
   aboutBannerTitle: "ABOUT PROBLEM STATEMENT & DATA ADVISORY",
   aboutBannerContent: (
     <p>
-      Problem Statement &amp; Data Advisory is for those asking themselves: How can I apply data science to this idea or goal?
-      How will I interpret solutions, and how will that help me take action? What data do I need?
+      Problem Statement &amp; Data Advisory is for those asking themselves: How
+      can I apply data science to this idea or goal? How will I interpret
+      solutions, and how will that help me take action? What data do I need?
     </p>
   ),
 };

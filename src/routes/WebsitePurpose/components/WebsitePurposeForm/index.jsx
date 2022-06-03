@@ -75,7 +75,7 @@ const WebsitePurposeForm = ({
           <PageP styleName="title">DESCRIPTION</PageP>
           <PageP styleName="description">
             What is the purpose of your website? What do you want visitors to be
-            able to do, e.g., see your work? contact you? You can include a
+            able to do, e.g., see your work? Contact you? You can include a
             general description as well as goals of the website.{" "}
           </PageP>
           <br />

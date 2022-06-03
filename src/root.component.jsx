@@ -13,7 +13,7 @@ import {
   UtilsRoutes,
   PageFooter,
   ProfileProvider,
-} from '../src-ts'
+} from "../src-ts";
 
 import App from "./App";
 import store from "./store";
@@ -26,7 +26,6 @@ export default function Root() {
   return (
     <Provider store={store}>
       <ProfileProvider>
-
         <BrowserRouter>
           <RouteProvider
             rootLoggedIn={routeRootLoggedIn}
@@ -56,7 +55,6 @@ export default function Root() {
         </LocationProvider>
 
         <PageFooter />
-
       </ProfileProvider>
     </Provider>
   );
