@@ -223,10 +223,10 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const saveForLater = () => {
+  const saveForm = (redirect) => {
     saveBasicInfo(formData);
     dispatch(triggerAutoSave(true));
-    navigate("/self-service");
+    if (redirect) navigate("/self-service");
   }
 
   return (
@@ -262,6 +262,7 @@ const BasicInfo = ({
             numOfPages={pageDetails?.pages?.length || 0}
             onShowSupportModal={onShowSupportModal}
             bannerData={bannerData}
+            saveForm={saveForm}
           />
 
           <PageDivider />
@@ -284,7 +285,7 @@ const BasicInfo = ({
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
-                    onClick={saveForLater}
+                    onClick={() => saveForm(true)}
                   >
                     <SaveForLaterIcon />
                     <span>

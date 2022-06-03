@@ -4,10 +4,8 @@ import { OrderContractModal, PrivacyPolicyModal, TermsModal } from '../../../../
 
 import styles from './WorkDetailDetailsSidebar.module.scss'
 
-interface WorkDetailDetailsSidebarProps {
-}
+const WorkDetailDetailsSidebar: FC<{}> = () => {
 
-const WorkDetailDetailsSidebar: FC<WorkDetailDetailsSidebarProps> = (props: WorkDetailDetailsSidebarProps) => {
     const [isOrderContractModalOpen, setIsOrderContractModalOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
     const [isPrivacyPolicyModalOpen, setIsPrivacyPolicyModalOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
     const [isTermsModalOpne, setIsTermsModalOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
