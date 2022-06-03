@@ -320,7 +320,7 @@ const BasicInfoForm = ({
             <PageP styleName="title">{"Description"}</PageP>
             <PageP styleName="description">
               What is the purpose of your website? What do you want visitors to
-              be able to do, e.g., see your work? contact you? You should
+              be able to do, e.g., see your work? Contact you? You should
               include a general description as well as goals of the website. You
               may also describe your audience and what you would like them to do
               at your website.{" "}
@@ -826,9 +826,8 @@ const BasicInfoForm = ({
               </div>
               <div styleName="formFieldWrapper">
                 <FormField
-                  label={`List Specific Colors ${
-                    selectedColor?.value?.length > 0 ? "(optional)" : ""
-                  }`}
+                  label={`List Specific Colors ${selectedColor?.value?.length > 0 ? "(optional)" : ""
+                    }`}
                 >
                   <FormInputTextArea
                     value={formData?.specificColor?.value}

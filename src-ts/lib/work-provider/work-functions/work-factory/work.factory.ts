@@ -329,14 +329,16 @@ function buildFormDataData(formData: any): any {
 }
 
 function buildFormDataFindData(formData: any): any {
+    const isPrimaryDataChallengeOther: boolean = formData.primaryDataChallenge?.value === 3
     return {
         projectTitle: formData.projectTitle,
         // tslint:disable-next-line: object-literal-sort-keys
         data: formData.analysis,
         primaryDataChallenge: {
             title: formData.primaryDataChallenge?.title,
-            value: formData.primaryDataChallenge?.value === 3 ?
-                formData.primaryDataChallengeOther.value : formData.primaryDataChallenge?.option,
+            value: isPrimaryDataChallengeOther
+                ? formData.primaryDataChallengeOther.value
+                : formData.primaryDataChallenge?.option,
         },
         sampleData: formData.sampleData,
     }
