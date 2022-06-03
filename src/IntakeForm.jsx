@@ -85,19 +85,19 @@ export default function IntakeForm() {
   const goToUnfinishedStep = (currentStep, workType) => {
     if (currentStep - 1 >= 0) {
       switch (workType) {
-        case "Website Design Legacy":
+        case WorkType.designLegacy:
           navigate(INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
-        case "Data Exploration":
+        case WorkType.data:
           navigate(DATA_EXPLORATION_INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
-        case "Find Me Data":
+        case WorkType.findData:
           navigate(FIND_ME_DATA_INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
-        case "Problem Statement & Data Advisory":
+        case WorkType.problem:
           navigate(DATA_ADVISORY_INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
-        case "Website Design":
+        case WorkType.design:
           navigate(WEBSITE_DESIGN_INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
         default:
