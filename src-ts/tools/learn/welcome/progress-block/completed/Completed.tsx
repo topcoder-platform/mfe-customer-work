@@ -20,15 +20,16 @@ const Completed: FC<CompletedProps> = (props: CompletedProps) => {
                     title={props.course.title}
                     type={props.course.category}
                     credits={props.course.providerName}
-                />
-                <div className={styles['completed-status']}>
-                    Completed{' '}
-                    {textFormatDateLocaleShortString(new Date(props.completed))}
-                </div>
+                >
+                    <div className={styles['completed-status']}>
+                        Completed{' '}
+                        {textFormatDateLocaleShortString(new Date(props.completed))}
+                    </div>
+                </CourseTitle>
             </div>
             <div className={styles['buttons-wrap']}>
-                <Button size='xs' buttonStyle='secondary' label='View Details' />
-                <Button size='xs' buttonStyle='secondary' label='Get your certificate' />
+                <Button size='xs' buttonStyle='secondary' label='View Course' />
+                <Button size='xs' buttonStyle='secondary' label='View certificate' />
             </div>
         </div>
     )

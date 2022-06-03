@@ -7,6 +7,7 @@ import styles from './CourseTitle.module.scss'
 
 interface CourseTitleProps {
     credits?: string
+    children?: ReactNode
     size?: 'md'|'lg'
     title: string
     type: string
@@ -30,9 +31,12 @@ const CourseTitle: FC<CourseTitleProps> = (props: CourseTitleProps) => {
                 <LearnChallengeBadgeIcon />
             </div>
             <div className={styles['text']}>
-                {title}
+                <div className={styles['title-row']}>
+                    {title}
+                    {props.children}
+                </div>
                 {props.credits && (
-                    <em className='quote-small'>
+                    <em className={classNames('quote-small', props.size)}>
                         by {props.credits}
                     </em>
                 )}
