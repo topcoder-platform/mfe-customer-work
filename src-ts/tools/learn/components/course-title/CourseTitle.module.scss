@@ -4,6 +4,12 @@
 .wrap {
     display: flex;
     gap: $pad-lg;
+    align-items: center;
+}
+
+.title-row {
+    display: flex;
+    align-items: center;
 }
 
 .text {
@@ -13,8 +19,10 @@
     }
     :global(.quote-small) {
         color: #767676;
-        margin-top: $pad-sm;
         display: block;
+        &:global(.lg) {
+            margin-top: $pad-sm;
+        }
     }
 }
 
