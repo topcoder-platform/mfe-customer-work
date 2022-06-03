@@ -56,8 +56,6 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
 
   const renderDetails = (step) => {
     let items = formData[step.value] || {};
-    console.log("ITEMS BEFORE OMIT");
-    console.log(items);
     if (formData?.workType?.selectedWorkType === "Find Me Data") {
       items = _.omit(items, ["projectTitle", "assetsUrl", "goals"]);
     } else if (formData?.workType?.selectedWorkType === "Problem Statement & Data Advisory") {
@@ -81,8 +79,6 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
         "sampleData",
       ]);
     }
-    console.log("ITEMS AFTER OMIT");
-    console.log(items);
     return Object.keys(items).map((key) => {
       if (_.isArray(items[key]))
         return _.map(items[key], (item, i) => (
