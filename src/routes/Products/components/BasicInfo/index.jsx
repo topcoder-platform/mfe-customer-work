@@ -18,6 +18,8 @@ import {
 import { triggerAutoSave } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
+import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
+import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import { getUserProfile } from "../../../../thunks/profile";
 
 import BasicInfoForm from "../BasicInfoForm";
@@ -218,12 +220,28 @@ const BasicInfo = ({
                 </Button>
               </div>
               <div styleName="footer-right">
+                {isLoggedIn &&
+                  <Button
+                    disabled={!isFormValid}
+                    size={BUTTON_SIZE.MEDIUM}
+                    type={BUTTON_TYPE.SECONDARY}
+                    onClick={() => saveForm(true)}
+                  >
+                    <SaveForLaterIcon styleName="save-icon" />
+                    <span styleName="save-button-text">
+                      SAVE FOR LATER
+                    </span>
+                  </Button>
+                }
                 <Button
                   disabled={!isFormValid}
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
-                  REVIEW &amp; SUBMIT
+                  <ArrowRightIcon styleName="rotated" />
+                  <span styleName="review-button-text">
+                    REVIEW &amp; SUBMIT
+                  </span>
                 </Button>
               </div>
             </div>
