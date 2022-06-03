@@ -37,7 +37,7 @@ const Slider = ({ children, className }) => {
 
   const breakPoints = useMemo(
     () => [
-      { width: 1, itemsToShow: 1, enableAutoPlay:true },
+      { width: 1, itemsToShow: 1, enableAutoPlay: true },
       { width: 720, itemsToShow: 2 },
       { width: 980, itemsToShow: 3 },
     ],

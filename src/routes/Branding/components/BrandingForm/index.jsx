@@ -277,7 +277,9 @@ const BrandingForm = ({
             }`}
           >
             <FormInputTextArea
-              placeholder={"Specify colors using their value in RGB, CMYK, or Hex"}
+              placeholder={
+                "Specify colors using their value in RGB, CMYK, or Hex"
+              }
               value={formData?.specificColor?.value}
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
               styleName={"text-area"}

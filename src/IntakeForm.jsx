@@ -42,7 +42,7 @@ import DataAdvisory from "./routes/Products/DataAdvisory";
 
 import { webWorkTypes } from "./constants";
 
-import { WorkType } from '../src-ts/lib'
+import { WorkType } from "../src-ts/lib";
 
 export default function IntakeForm() {
   const dispatch = useDispatch();
@@ -191,8 +191,9 @@ export default function IntakeForm() {
     return auth;
   };
 
-  const webDesignBannerData = webWorkTypes
-    .find((type) => type.title === WorkType.design);
+  const webDesignBannerData = webWorkTypes.find(
+    (type) => type.title === WorkType.design
+  );
 
   return (
     <div>
@@ -211,7 +212,10 @@ export default function IntakeForm() {
           />
           {/* Find Me Data */}
           <FindMeData path="/work/new/find-me-data/*" isLoggedIn={isLoggedIn} />
-          <WebsiteDesign path="/work/new/website-design/*" isLoggedIn={isLoggedIn} />
+          <WebsiteDesign
+            path="/work/new/website-design/*"
+            isLoggedIn={isLoggedIn}
+          />
           {/* Web Design */}
           <BasicInfo path="/basic-info" />
           <WebsitePurpose path="/website-purpose" />

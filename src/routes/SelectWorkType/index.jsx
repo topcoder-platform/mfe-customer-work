@@ -4,10 +4,7 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 
 import { triggerAutoSave } from "../../actions/autoSave";
-import {
-  saveWorkType,
-  toggleSupportModal,
-} from "../../actions/form";
+import { saveWorkType, toggleSupportModal } from "../../actions/form";
 // import { currencyFormat } from "utils/";
 import { setProgressItem } from "../../actions/progress";
 // import BackIcon from "../../assets/images/icon-back-arrow.svg";
@@ -19,7 +16,7 @@ import PageContent from "../../components/PageContent";
 import PageDivider from "../../components/PageDivider";
 // import PageFoot from "../../components/PageElements/PageFoot";
 import PageH2 from "../../components/PageElements/PageH2";
-import Slider from '../../components/Slider'
+import Slider from "../../components/Slider";
 import { Breadcrumb } from "../../../src-ts/lib";
 import {
   BUTTON_SIZE,
@@ -45,8 +42,9 @@ const WorkTypeCard = ({
 }) => {
   return (
     <div
-      className={`${styles.workTypeCard} ${styles.workTypeCardSmall}${className ? ` ${className}` : ""
-        }`}
+      className={`${styles.workTypeCard} ${styles.workTypeCardSmall}${
+        className ? ` ${className}` : ""
+      }`}
       style={{ backgroundImage: `url(${bgImage})` }}
       onClick={ctaButtonOnClick}
     >
@@ -97,8 +95,9 @@ const WorkTypeCardWide = ({
 }) => {
   return (
     <div
-      className={`${styles.workTypeCard} ${styles.workTypeCardWide}${className ? ` ${className}` : ""
-        }`}
+      className={`${styles.workTypeCard} ${styles.workTypeCardWide}${
+        className ? ` ${className}` : ""
+      }`}
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {!!SvgIcon ? <SvgIcon /> : !!icon && <img src={icon} alt="" />}
@@ -199,8 +198,9 @@ const SelectWorkType = ({
                 title={featuredWorkType.title}
                 subHeading={featuredWorkType.shortDescription}
                 subHeadingMobile={featuredWorkType.shortDescriptionMobile}
-                className={`${styles.heroBackgroundContainer} ${styles[workTypeClassName(featuredWorkType.title)]
-                  }`}
+                className={`${styles.heroBackgroundContainer} ${
+                  styles[workTypeClassName(featuredWorkType.title)]
+                }`}
                 bgImage={featuredWorkType.bgImage}
                 ctaButtonOnClick={() => handleClick(featuredWorkType)}
                 content={featuredWorkType.description}

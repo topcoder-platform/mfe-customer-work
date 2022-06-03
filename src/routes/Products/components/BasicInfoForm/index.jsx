@@ -23,7 +23,7 @@ import DataExplorationIcon from "../../../../assets/images/data-exploration-icon
 import FindMeDataIcon from "../../../../assets/images/find-me-data-icon.svg";
 import WebsiteDesignIcon from "../../../../assets/images/website-design-icon.svg";
 import AddWebsiteIcon from "../../../../assets/images/add-website-icon.svg";
-import StylesOptionsModal from "../StyleOptionsModal"
+import StylesOptionsModal from "../StyleOptionsModal";
 import "./styles.module.scss";
 import {
   PrimaryDataChallengeOptions,
@@ -41,7 +41,7 @@ const BasicInfoForm = ({
   onShowSupportModal,
   estimate,
   bannerData,
-  saveForm
+  saveForm,
 }) => {
   const handleInputChange = (name, value, option = "") => {
     onFormUpdate({ ...formData, [name]: { ...formData[name], option, value } });
@@ -187,8 +187,8 @@ const BasicInfoForm = ({
           <PageP styleName="title">PROJECT TITLE</PageP>
           {isWebsiteDesign && (
             <PageP styleName="description">
-              Give your project a descriptive title. This is the name
-              designers will see when looking for your work.
+              Give your project a descriptive title. This is the name designers
+              will see when looking for your work.
             </PageP>
           )}
           {(isDataExploration || isFindMeData || isDataAdvisory) && (
@@ -319,9 +319,11 @@ const BasicInfoForm = ({
           <div>
             <PageP styleName="title">{"Description"}</PageP>
             <PageP styleName="description">
-              What is the purpose of your website? What do you want visitors to be able to do, e.g.,
-              see your work? contact you? You should include a general description as well as goals of the website.
-              You may also describe your audience and what you would like them to do at your website.{" "}
+              What is the purpose of your website? What do you want visitors to
+              be able to do, e.g., see your work? contact you? You should
+              include a general description as well as goals of the website. You
+              may also describe your audience and what you would like them to do
+              at your website.{" "}
             </PageP>
             <HelpBanner title="Example" styles={["gray"]}>
               <br />
@@ -536,14 +538,15 @@ const BasicInfoForm = ({
 
       {isWebsiteDesign && <PageDivider />}
 
-
       {isWebsiteDesign && (
         <PageRow styleName="form-row">
           <div>
             <PageP styleName="title">Your industry</PageP>
             <PageP styleName="description">
-              Knowing your industry will help our designers understand you and your audience.
-              For example, some common industries are: Business & Consulting, Construction, Entertainment & Arts, Healthcare, Retail, and Technology.
+              Knowing your industry will help our designers understand you and
+              your audience. For example, some common industries are: Business &
+              Consulting, Construction, Entertainment & Arts, Healthcare,
+              Retail, and Technology.
             </PageP>
           </div>
 
@@ -728,7 +731,11 @@ const BasicInfoForm = ({
                 </FormField>
               </div>
             ))}
-            <button styleName="addWebsiteButton" onClick={addWebsite}> <AddWebsiteIcon />Add Another Website</button>
+            <button styleName="addWebsiteButton" onClick={addWebsite}>
+              {" "}
+              <AddWebsiteIcon />
+              Add Another Website
+            </button>
           </div>
         </PageRow>
       )}
@@ -819,8 +826,9 @@ const BasicInfoForm = ({
               </div>
               <div styleName="formFieldWrapper">
                 <FormField
-                  label={`List Specific Colors ${selectedColor?.value?.length > 0 ? "(optional)" : ""
-                    }`}
+                  label={`List Specific Colors ${
+                    selectedColor?.value?.length > 0 ? "(optional)" : ""
+                  }`}
                 >
                   <FormInputTextArea
                     value={formData?.specificColor?.value}
