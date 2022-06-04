@@ -60,7 +60,6 @@ const Review = ({
   banner,
   icon,
   showIcon,
-  enableEdit = true,
   secondaryBanner,
   bannerData,
 }) => {
@@ -207,7 +206,10 @@ const Review = ({
 
   return (
     <>
-      <OrderContractModal isOpen={isOrderContractModalOpen} onClose={() => setIsOrderContractModalOpen(false)} />
+      <OrderContractModal
+        isOpen={isOrderContractModalOpen}
+        onClose={() => setIsOrderContractModalOpen(false)}
+      />
       <LoadingSpinner show={isLoading} />
       <Page>
         {banner}
@@ -227,7 +229,7 @@ const Review = ({
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
             <div styleName="reviewContainer">
-              <ReviewTable formData={intakeFormData} enableEdit={enableEdit} />
+              <ReviewTable formData={intakeFormData} />
               <HelpBanner
                 styles={["turqoise"]}
                 title="Important things to know about your project"
@@ -292,14 +294,16 @@ const Review = ({
                     checked={checked}
                     onChange={(e) => setChecked(e.target.checked)}
                     inline
-                    additionalContent={<span
-                      role="button"
-                      tabIndex={0}
-                      styleName="link"
-                      onClick={() => setIsOrderContractModalOpen(true)}
-                    >
-                      Order Contract
-                    </span>}
+                    additionalContent={
+                      <span
+                        role="button"
+                        tabIndex={0}
+                        styleName="link"
+                        onClick={() => setIsOrderContractModalOpen(true)}
+                      >
+                        Order Contract
+                      </span>
+                    }
                   />
                 </div>
 

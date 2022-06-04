@@ -27,9 +27,9 @@ const FormInputCheckbox = ({
           onChange={onChange}
           {...props}
         />
-        <span
-          styleName="styles.label"
-        >{label} {additionalContent}</span>
+        <span styleName="styles.label">
+          {label} {additionalContent}
+        </span>
       </label>
     </div>
   ) : (
@@ -40,9 +40,9 @@ const FormInputCheckbox = ({
         onChange={onChange}
         {...props}
       />
-      <span
-        styleName="styles.label"
-      >{label} {additionalContent}</span>
+      <span styleName="styles.label">
+        {label} {additionalContent}
+      </span>
     </label>
   );
 };

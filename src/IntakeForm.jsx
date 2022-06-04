@@ -42,7 +42,7 @@ import DataAdvisory from "./routes/Products/DataAdvisory";
 
 import { webWorkTypes } from "./constants";
 
-import { WorkType } from '../src-ts/lib'
+import { WorkType } from "../src-ts/lib";
 
 export default function IntakeForm() {
   const dispatch = useDispatch();
@@ -85,19 +85,19 @@ export default function IntakeForm() {
   const goToUnfinishedStep = (currentStep, workType) => {
     if (currentStep - 1 >= 0) {
       switch (workType) {
-        case "Website Design Legacy":
+        case WorkType.designLegacy:
           navigate(INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
-        case "Data Exploration":
+        case WorkType.data:
           navigate(DATA_EXPLORATION_INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
-        case "Find Me Data":
+        case WorkType.findData:
           navigate(FIND_ME_DATA_INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
-        case "Problem Statement & Data Advisory":
+        case WorkType.problem:
           navigate(DATA_ADVISORY_INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
-        case "Website Design":
+        case WorkType.design:
           navigate(WEBSITE_DESIGN_INTAKE_FORM_ROUTES[currentStep - 1]);
           break;
         default:
@@ -191,8 +191,9 @@ export default function IntakeForm() {
     return auth;
   };
 
-  const webDesignBannerData = webWorkTypes
-    .find((type) => type.title === WorkType.design);
+  const webDesignBannerData = webWorkTypes.find(
+    (type) => type.title === WorkType.design
+  );
 
   return (
     <div>
@@ -211,7 +212,10 @@ export default function IntakeForm() {
           />
           {/* Find Me Data */}
           <FindMeData path="/work/new/find-me-data/*" isLoggedIn={isLoggedIn} />
-          <WebsiteDesign path="/work/new/website-design/*" isLoggedIn={isLoggedIn} />
+          <WebsiteDesign
+            path="/work/new/website-design/*"
+            isLoggedIn={isLoggedIn}
+          />
           {/* Web Design */}
           <BasicInfo path="/basic-info" />
           <WebsitePurpose path="/website-purpose" />
