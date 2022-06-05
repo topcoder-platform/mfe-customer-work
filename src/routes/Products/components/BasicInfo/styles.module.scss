@@ -27,6 +27,7 @@
 
     button {
       svg {
+        display: none;
         @include gtelg {
           display: inline-block;
         }
@@ -75,6 +76,26 @@
 .backButtonWrapper {
   min-width: 10px;
   margin-top: 3px;
+}
+
+@include mobile {
+
+  button {
+    svg {
+      display: block !important;
+      @include gtelg {
+        display: inline-block !important;
+      }
+    }
+  }
+
+  .save-button-text {
+    display: none;
+  }
+
+  .review-button-text {
+    display: none;
+  }
 }
 
 @include mobile {
