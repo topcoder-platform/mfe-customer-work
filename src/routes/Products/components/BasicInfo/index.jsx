@@ -222,6 +222,7 @@ const BasicInfo = ({
               <div styleName="footer-right">
                 {isLoggedIn &&
                   <Button
+                    styleName="saveForLater"
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
@@ -232,12 +233,15 @@ const BasicInfo = ({
                   </Button>
                 }
                 <Button
+                  styleName="reviewAndSubmit"
                   disabled={!isFormValid}
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
                   <ArrowRightIcon styleName="rotated" />
-                  <span styleName="review-button-text">REVIEW &amp; SUBMIT</span>
+                  <span>
+                    <span styleName="desktop">REVIEW &amp;</span> SUBMIT
+                  </span>
                 </Button>
               </div>
             </div>

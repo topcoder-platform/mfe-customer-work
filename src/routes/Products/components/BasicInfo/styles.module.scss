@@ -1,4 +1,4 @@
-@import '../../../../../src-ts/lib/styles';
+@import "../../../../../src-ts/lib/styles";
 @import "styles/include";
 
 .footerContent {
@@ -27,15 +27,40 @@
 
     button {
       svg {
-        display: none;
         @include gtelg {
           display: inline-block;
         }
       }
 
-      span {
-        @include ltemd {
-          display: none;
+      &.saveForLater {
+        span {
+          @include ltemd {
+            display: none;
+          }
+        }
+        svg {
+          @include gtelg {
+            display: none;
+          }
+        }
+      }
+
+      &.reviewAndSubmit{
+        svg {
+          @include gtelg {
+            display: none;
+          }
+        }
+        svg {
+          @include ltemd {
+            display: none;
+          }
+        }
+
+        .desktop{
+          @include ltemd {
+            display: none;
+          }
         }
       }
     }
