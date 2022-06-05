@@ -1,15 +1,11 @@
-@import '../../../../../src-ts/lib/styles';
+@import "../../../../../src-ts/lib/styles";
+@import "styles/include";
 
 .footerContent {
   display: flex;
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-
-  @include ltemd {
-    flex-direction: column;
-    gap: 16px;
-  }
 
   .footer-right {
     display: flex;
@@ -21,15 +17,40 @@
 
     button {
       svg {
-        display: none;
         @include gtelg {
           display: inline-block;
         }
       }
 
-      span {
-        @include ltemd {
-          display: none;
+      &.saveForLater {
+        span {
+          @include ltemd {
+            display: none;
+          }
+        }
+        svg {
+          @include gtelg {
+            display: none;
+          }
+        }
+      }
+
+      &.reviewAndSubmit{
+        svg {
+          @include gtelg {
+            display: none;
+          }
+        }
+        svg {
+          @include ltemd {
+            display: none;
+          }
+        }
+
+        .desktop{
+          @include ltemd {
+            display: none;
+          }
         }
       }
     }
@@ -42,6 +63,6 @@
 }
 
 .backButtonWrapper {
-  min-width: 40px;
-  margin-top: 3px;
+  @include backButtonWrapper;
+  margin-top: 0;
 }
