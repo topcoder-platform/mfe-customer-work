@@ -228,8 +228,8 @@ const BasicInfo = ({
                     type={BUTTON_TYPE.SECONDARY}
                     onClick={() => saveForm(true)}
                   >
-                    <SaveForLaterIcon styleName="save-icon" />
-                    <span styleName="save-button-text">SAVE FOR LATER</span>
+                    <SaveForLaterIcon />
+                    <span>SAVE FOR LATER</span>
                   </Button>
                 }
                 <Button

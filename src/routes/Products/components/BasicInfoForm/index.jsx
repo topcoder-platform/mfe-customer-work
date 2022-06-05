@@ -16,10 +16,10 @@ import PT from "prop-types";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import DataExplorationIcon from "../../../../assets/images/data-exploration-icon.svg";
+import FindMeDataIcon from "../../../../assets/images/data-advisory-icon.svg";
 import WebsiteDesignIcon from "../../../../assets/images/website-design-icon.svg";
 import AddWebsiteIcon from "../../../../assets/images/add-website-icon.svg";
 import StylesOptionsModal from "../StyleOptionsModal";
-import FindMeDataIcon from "../../../../assets/images/find-me-data-icon.svg";
 import "./styles.module.scss";
 import { PrimaryDataChallengeOptions } from "../../../../constants";
 

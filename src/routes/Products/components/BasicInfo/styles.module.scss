@@ -74,8 +74,8 @@
 }
 
 .backButtonWrapper {
-  min-width: 10px;
-  margin-top: 3px;
+  @include backButtonWrapper;
+  margin-top: 0;
 }
 
 @include mobile {
