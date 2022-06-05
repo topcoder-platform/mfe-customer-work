@@ -423,7 +423,6 @@ const webWorkProblemFindMeData = {
           Note, we also offer data anonymization services to convert your
           existing data into secure and shareable form
         </li>
-        <img src="Design-11.png" />
       </PageUl>
     </>
   ),
