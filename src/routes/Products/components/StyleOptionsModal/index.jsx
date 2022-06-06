@@ -7,27 +7,25 @@ import React from "react";
 import _ from "lodash";
 import LikeIcon from "../../../../assets/images/thumbsup.svg";
 import DislikeIcon from "../../../../assets/images/thumbsdown.svg";
-import PageDivider from "../../../../components/PageDivider"
+import PageDivider from "../../../../components/PageDivider";
 import "./styles.module.scss";
-import Modal from "components/Modal"
+import Modal from "components/Modal";
 import useCheckMobileScreen from "../../../../hooks/useCheckMobileScreen";
 
-const StylesOptionsModal = ({ onDismiss, style, likes = [], dislikes = [], onLike, onDislike }) => {
+const StylesOptionsModal = ({
+  onDismiss,
+  style,
+  likes = [],
+  dislikes = [],
+  onLike,
+  onDislike,
+}) => {
   const isMobile = useCheckMobileScreen();
   const modalWidth = isMobile ? { fullWidth: true } : { halfWidth: true };
   return (
-    <Modal
-      show={true}
-      {...modalWidth}
-      handleClose={onDismiss}
-    >
+    <Modal show={true} {...modalWidth} handleClose={onDismiss}>
       <div styleName="styleWrapper">
-        <div
-          styleName={classNames(
-            "style",
-            style.className
-          )}
-        >
+        <div styleName={classNames("style", style.className)}>
           <div styleName="name">
             <span>{style.name}</span> &nbsp;
           </div>
@@ -42,11 +40,11 @@ const StylesOptionsModal = ({ onDismiss, style, likes = [], dislikes = [], onLik
                 role="button"
                 onClick={() => {
                   if (likes.includes(style.name)) {
-                    onLike(likes.filter(s => s !== style.name))
+                    onLike(likes.filter((s) => s !== style.name));
                   } else {
-                    onLike([...likes, style.name])
+                    onLike([...likes, style.name]);
                     if (dislikes.includes(style.name)) {
-                      onDislike(dislikes.filter(s => s !== style.name))
+                      onDislike(dislikes.filter((s) => s !== style.name));
                     }
                   }
                 }}
@@ -56,11 +54,11 @@ const StylesOptionsModal = ({ onDismiss, style, likes = [], dislikes = [], onLik
                 role="button"
                 onClick={() => {
                   if (dislikes.includes(style.name)) {
-                    onDislike(dislikes.filter(s => s !== style.name))
+                    onDislike(dislikes.filter((s) => s !== style.name));
                   } else {
-                    onDislike([...dislikes, style.name])
+                    onDislike([...dislikes, style.name]);
                     if (likes.includes(style.name)) {
-                      onLike(likes.filter(s => s !== style.name))
+                      onLike(likes.filter((s) => s !== style.name));
                     }
                   }
                 }}
@@ -71,11 +69,10 @@ const StylesOptionsModal = ({ onDismiss, style, likes = [], dislikes = [], onLik
         </div>
       </div>
     </Modal>
-    );
-  };
-
-StylesOptionsModal.defaultProps = {
+  );
 };
+
+StylesOptionsModal.defaultProps = {};
 
 StylesOptionsModal.propTypes = {
   likes: PT.arrayOf(PT.string),

@@ -8,7 +8,12 @@ import Page from "components/Page";
 import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
-import { BUTTON_SIZE, BUTTON_TYPE, PageOptions } from "constants/";
+import {
+  BUTTON_SIZE,
+  BUTTON_TYPE,
+  PageOptions,
+  PrimaryDataChallengeOptions,
+} from "constants/";
 import {
   saveBasicInfo,
   toggleSupportModal,
@@ -50,7 +55,6 @@ const BasicInfo = ({
 }) => {
   const defaultFormData = {
     projectTitle: { title: "Project Title", option: "", value: "" },
-    findMeProjectTitle: { title: "Project Title", option: "", value: "" },
     description: { title: "Description", option: "", value: "" },
     assetsUrl: { title: "Shareable URL Link(s)", value: "" },
     assetsDescription: { title: "About Your Assets", value: "" },
@@ -64,8 +68,8 @@ const BasicInfo = ({
     specificColor: { title: "Custom Color", option: "", value: "" },
     primaryDataChallenge: {
       title: "Primary Data Challenge",
-      option: "",
-      value: "",
+      option: PrimaryDataChallengeOptions[0].label,
+      value: 0,
     },
     primaryDataChallengeOther: {
       title: "Primary Data Challenge (Other Option)",
@@ -86,7 +90,8 @@ const BasicInfo = ({
   const isWebsiteDesign = bannerData.title === "Website Design";
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
   const isDataExploration = bannerData.title === "Data Exploration";
-  const isDataAdvisory = bannerData.title === "Problem Statement & Data Advisory";
+  const isDataAdvisory =
+    bannerData.title === "Problem Statement & Data Advisory";
   const isDataExplorationFormValid =
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;
@@ -94,7 +99,7 @@ const BasicInfo = ({
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;
   const isFindMeDataFormValid =
-    formData?.findMeProjectTitle?.value?.trim().length &&
+    formData?.projectTitle?.value?.trim().length &&
     formData?.analysis?.value?.trim().length &&
     ((formData?.primaryDataChallenge?.value >= 0 &&
       formData?.primaryDataChallenge?.value < 3) ||
@@ -129,10 +134,10 @@ const BasicInfo = ({
     workType?.selectedWorkType === "Website Design"
       ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
-        ? getDataExplorationPriceAndTimelineEstimate()
-        : isDataAdvisory
-          ? getDataAdvisoryPriceAndTimelineEstimate()
-          : getFindMeDataPriceAndTimelineEstimate();
+      ? getDataExplorationPriceAndTimelineEstimate()
+      : isDataAdvisory
+      ? getDataAdvisoryPriceAndTimelineEstimate()
+      : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     saveBasicInfo(defaultFormData);
@@ -176,11 +181,7 @@ const BasicInfo = ({
       dispatch(triggerAutoSave(true));
     }
 
-    if (
-      basicInfo &&
-      (basicInfo?.projectTitle?.value.length > 0 ||
-        basicInfo?.findMeProjectTitle?.value.length > 0)
-    ) {
+    if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
       setFormData(basicInfo);
     }
 
@@ -227,7 +228,7 @@ const BasicInfo = ({
     saveBasicInfo(formData);
     dispatch(triggerAutoSave(true));
     if (redirect) navigate("/self-service");
-  }
+  };
 
   return (
     <>
@@ -280,7 +281,7 @@ const BasicInfo = ({
                 </Button>
               </div>
               <div styleName="footer-right">
-                {isLoggedIn &&
+                {isLoggedIn && (
                   <Button
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
@@ -288,20 +289,16 @@ const BasicInfo = ({
                     onClick={() => saveForm(true)}
                   >
                     <SaveForLaterIcon />
-                    <span>
-                      SAVE FOR LATER
-                    </span>
+                    <span>SAVE FOR LATER</span>
                   </Button>
-                }
+                )}
                 <Button
                   disabled={!isFormValid}
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
                   <ArrowRightIcon styleName="rotated" />
-                  <span>
-                    REVIEW &amp; SUBMIT
-                  </span>
+                  <span>REVIEW &amp; SUBMIT</span>
                 </Button>
               </div>
             </div>

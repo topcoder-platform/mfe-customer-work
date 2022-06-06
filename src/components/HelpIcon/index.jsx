@@ -5,7 +5,13 @@ import { v4 as uuidv4 } from "uuid";
 
 import "./styles.module.scss";
 
-const HelpIcon = ({ children, inverted, arrowColor = "#f4f4f4", backgroundColor = "#f4f4f4", textColor = "#00000" }) => {
+const HelpIcon = ({
+  children,
+  inverted,
+  arrowColor = "#f4f4f4",
+  backgroundColor = "#f4f4f4",
+  textColor = "#00000",
+}) => {
   const tooltipId = useRef(uuidv4());
 
   return (

@@ -4,7 +4,10 @@ import {
   DEVICE_TYPE_DETAILS,
   DEFAULT_TIMELINE,
 } from "constants";
-import { getDynamicPriceAndTimeline, getWebsiteDesignPriceAndTimelineEstimate } from "utils/";
+import {
+  getDynamicPriceAndTimeline,
+  getWebsiteDesignPriceAndTimelineEstimate,
+} from "utils/";
 import templateDataLegacy from "../../../assets/data/spec-templates/website-design-legacy.json";
 import templateData from "../../../assets/data/spec-templates/website-design.json";
 
@@ -395,7 +398,6 @@ export function formatChallengeUpdateBody(intakeForm) {
     name: "allowStockArt",
     value: "Yes, allow stock photos",
   });
-
 
   intakeMetadata.push({
     name: "submissionLimit",
