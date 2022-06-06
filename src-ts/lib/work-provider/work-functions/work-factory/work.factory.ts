@@ -314,7 +314,7 @@ function buildFormDataProblem(formData: any): any {
             title: 'What Data Do You Have?', value: [
                 formData.sampleData?.value,
                 formData.assetsDescription?.value,
-            ],
+            ].filter((item: any) => item && item.trim().length > 0),
         },
     }
 }
@@ -345,21 +345,29 @@ function buildFormDataFindData(formData: any): any {
 }
 
 function buildFormDataDesign(formData: any): any {
-    const styleInfo: Array<string> = [
-        `Like: ${formData.likedStyles?.value?.join(', ') || ''}`,
-        `Dislike: ${formData.dislikedStyles?.value?.join(', ') || ''}`,
-        `Additional Details: ${formData.stylePreferences?.value || ''}`,
-        `Color Selections: ${formData.colorOption?.value.join(', ') || ''}`,
-        `Specific Colors: ${formData.specificColor?.value || ''}`,
-    ]
+    const styleInfo: {} = {
+        'Like': formData.likedStyles?.value?.join(', '),
+        // tslint:disable-next-line: object-literal-sort-keys
+        'Dislike': formData.dislikedStyles?.value?.join(', '),
+        'Additional Details': formData.stylePreferences?.value,
+        'Color Selections': formData.colorOption?.value.join(', '),
+        'Specific Colors': formData.specificColor?.value,
+    }
 
     return {
         projectTitle: formData.projectTitle,
         // tslint:disable-next-line: object-literal-sort-keys
         description: { title: 'Description', value: formData.analysis?.value },
         industry: { title: 'Your Industry', value: formData.yourIndustry?.value },
-        inspiration: { title: 'Inspiration', value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`) },
+        inspiration: {
+            title: 'Inspiration',
+            value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`)
+                .filter((item: any) => item && item.trim().length > 0),
+        },
         style: { title: 'Style & Theme', value: styleInfo },
-        assets: { title: 'Share Your Brand or Style Assets', value: [formData.assetsUrl?.value, formData.assetsDescription?.value] },
+        assets: {
+            title: 'Share Your Brand or Style Assets',
+            value: [formData.assetsUrl?.value, formData.assetsDescription?.value].filter((item: any) => item && item.trim().length > 0),
+        },
     }
 }

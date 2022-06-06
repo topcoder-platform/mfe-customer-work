@@ -51,14 +51,29 @@ const WorkDetailDetailsPane: FC<WorkDetailDetailsPaneProps> = ({ formData, isRev
     )
 }
 
-function formatOption(detail: Array<string> | {}): string | Array<JSX.Element> {
+function formatOption(detail: Array<string> | {} | string): string | Array<JSX.Element> | JSX.Element {
+    const noInfoProvidedElement: JSX.Element = <span className={styles['no-info']}>Not provided</span>
+    const isEmpty: boolean = checkIsEmpty(detail)
+    if (isEmpty) {
+        return noInfoProvidedElement
+    }
     if (_.isArray(detail)) {
         return detail.map((val, index) => (<div key={`${index}`}>{val}</div>))
     }
     if (_.isObject(detail)) {
-        return formatOption(_.get(detail, 'value', detail))
+        return Object.keys(detail).map((key) => {
+            const value: any = detail[key as keyof typeof detail] || noInfoProvidedElement
+            return <div key={`${key}`}>{`${key}: `}{value}</div>
+        })
     }
     return detail
+}
+
+function checkIsEmpty(detail: Array<string> | {} | string): boolean {
+    return !detail ||
+        (typeof detail === 'string' && detail.trim().length === 0) ||
+        (_.isArray(detail) && detail.length === 0) ||
+        (_.isObject(detail) && Object.values(detail).filter((val) => val && val.trim().length !== 0).length === 0)
 }
 
 export default WorkDetailDetailsPane
