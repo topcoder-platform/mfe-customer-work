@@ -42,7 +42,7 @@ import {
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
 import HelpBanner from "components/HelpBanner";
-import { OrderContractModal } from "../../../src-ts/lib";
+import { OrderContractModal, WorkType } from "../../../src-ts/lib";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
@@ -76,9 +76,6 @@ const Review = ({
     zipCode: null,
   });
   const [checked, setChecked] = useState(false);
-  const isDataExploration = bannerData.title === "Data Exploration";
-  const isDataAdvisory =
-    bannerData.title === "Problem Statement & Data Advisory";
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
@@ -86,14 +83,28 @@ const Review = ({
   const fullState = useSelector((state) => state);
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
-  const estimate =
-    workType?.selectedWorkType === "Website Design"
-      ? getWebsiteDesignPriceAndTimelineEstimate()
-      : isDataExploration
-        ? getDataExplorationPriceAndTimelineEstimate()
-        : isDataAdvisory
-          ? getDataAdvisoryPriceAndTimelineEstimate()
-          : getFindMeDataPriceAndTimelineEstimate();
+  let estimate;
+  switch (workType?.selectedWorkType) {
+    case (WorkType.design):
+      console.log("design")
+      estimate = getWebsiteDesignPriceAndTimelineEstimate();
+      break;
+    case (WorkType.data):
+      console.log("data")
+      estimate = getDataExplorationPriceAndTimelineEstimate();
+      break;
+    case (WorkType.problem):
+      console.log("problem")
+      estimate = getDataAdvisoryPriceAndTimelineEstimate();
+      break;
+    case (WorkType.findData):
+      console.log("findData")
+      estimate = getFindMeDataPriceAndTimelineEstimate();
+      break;
+    default:
+      estimate = getFindMeDataPriceAndTimelineEstimate();
+      break;
+  }
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
