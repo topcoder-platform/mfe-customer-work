@@ -8,11 +8,11 @@ install_dependency: &install_dependency
     sudo apt install jq
     pip install awscli --upgrade
     pip install docker-compose
-    node -v
-    npm -v
 install_deploysuite: &install_deploysuite
   name: Installation of install_deploysuite.
   command: |
+    node -v
+    npm -v
     git clone --branch v1.4.8 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
     cp ./../buildscript/master_deploy.sh .
     cp ./../buildscript/buildenv.sh .
