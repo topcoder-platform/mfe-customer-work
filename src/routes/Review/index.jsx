@@ -86,19 +86,15 @@ const Review = ({
   let estimate;
   switch (workType?.selectedWorkType) {
     case (WorkType.design):
-      console.log("design")
       estimate = getWebsiteDesignPriceAndTimelineEstimate();
       break;
     case (WorkType.data):
-      console.log("data")
       estimate = getDataExplorationPriceAndTimelineEstimate();
       break;
     case (WorkType.problem):
-      console.log("problem")
       estimate = getDataAdvisoryPriceAndTimelineEstimate();
       break;
     case (WorkType.findData):
-      console.log("findData")
       estimate = getFindMeDataPriceAndTimelineEstimate();
       break;
     default:
