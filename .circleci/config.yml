@@ -8,6 +8,8 @@ install_dependency: &install_dependency
     sudo apt install jq
     pip install awscli --upgrade
     pip install docker-compose
+    node -v
+    npm -v
 install_deploysuite: &install_deploysuite
   name: Installation of install_deploysuite.
   command: |
