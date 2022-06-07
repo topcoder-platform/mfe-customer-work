@@ -38,7 +38,7 @@ const ServicePrice = ({
               <div styleName="filler" />
             </div>
             <HelpIcon>
-              The price and project length is dynamic and dependant on the
+              The price and project length is dynamic and dependent on the
               variables selected as you define your work.
             </HelpIcon>
           </div>
