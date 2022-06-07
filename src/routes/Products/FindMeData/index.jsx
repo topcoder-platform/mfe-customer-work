@@ -5,7 +5,7 @@ import ThankYou from "../../ThankYou";
 import LoginPrompt from "../../LoginPrompt";
 import BasicInfo from "../components/BasicInfo";
 import config from "../../../../config";
-import FindMeDataIcon from "../../../assets/images/data-advisory-icon.svg";
+import FindMeDataIcon from "../../../assets/images/find-me-data-icon.svg";
 import HelpBanner from "components/HelpBanner";
 import { webWorkTypes } from "../../../constants/index";
 import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
