@@ -32,6 +32,7 @@ import {
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
 import { ContactSupportModal } from "../../../../../src-ts";
+import { WorkType } from "../../../../../src-ts/lib";
 
 /**
  * Basic Info Page
@@ -87,7 +88,7 @@ const BasicInfo = ({
   const fullState = useSelector((state) => state);
 
   const estimate =
-    workType === "Website Design"
+    workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : isDataExploration
         ? getDataExplorationPriceAndTimelineEstimate()
