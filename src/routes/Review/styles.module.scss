@@ -95,11 +95,6 @@
         width: 100%;
       }
     }
-
-    .contract {
-      display: flex;
-      align-items: center;
-    }
   }
 }
 
@@ -126,12 +121,6 @@
 
 .inline {
   display: inline-block;
-}
-
-.link {
-  color: $link-blue;
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 .error {
