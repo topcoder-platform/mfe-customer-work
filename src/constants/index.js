@@ -7,6 +7,8 @@ import MyWorkIcon from "../assets/images/icon-my-work.svg";
 import PageUl from "../components/PageElements/PageUl";
 import workUtil from "../utils/work";
 
+import * as dataExplorationConfigs from "./products/DataExploration";
+import * as findMeDataConfigs from "./products/FindMeData";
 import countries from "./countries";
 
 export const UNDER_MAINTENANCE = false;
@@ -264,9 +266,11 @@ export const webWorkTypes = [
   {
     title: "Data Exploration",
     subTitle: "Get insights about your data from Topcoder experts.",
-    price: 599,
-    stickerPrice: 799,
-    duration: "5 Days",
+    price: dataExplorationConfigs.USING_PROMOTIONAL_PRICE
+      ? dataExplorationConfigs.PROMOTIONAL_PRODUCT_PRICE
+      : dataExplorationConfigs.BASE_PRODUCT_PRICE,
+    stickerPrice: dataExplorationConfigs.BASE_PRODUCT_PRICE,
+    duration: `${dataExplorationConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-exploration/basic-info",
     helperBannerTitle: "WHAT WILL I GET?",
@@ -300,9 +304,11 @@ export const webWorkTypes = [
   {
     title: "Find Me Data",
     subTitle: "Get the data you need to meet your analysis goals.",
-    price: 299,
-    stickerPrice: 399,
-    duration: "2 Days",
+    price: findMeDataConfigs.USING_PROMOTIONAL_PRICE
+      ? findMeDataConfigs.PROMOTIONAL_PRODUCT_PRICE
+      : findMeDataConfigs.BASE_PRODUCT_PRICE,
+    stickerPrice: findMeDataConfigs.BASE_PRODUCT_PRICE,
+    duration: `${findMeDataConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
     helperBannerTitle: "WHAT WILL I RECEIVE?",
