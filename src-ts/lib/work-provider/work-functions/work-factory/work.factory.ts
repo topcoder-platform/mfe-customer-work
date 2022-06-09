@@ -241,7 +241,9 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
                 pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
 
         case WorkType.findData:
-            return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE
+            return FindDataPrices.USING_PROMOTIONAL_PRICE
+                ? FindDataPrices.PROMOTIONAL_PRODUCT_PRICE
+                : FindDataPrices.BASE_PRODUCT_PRICE
     }
 }
 

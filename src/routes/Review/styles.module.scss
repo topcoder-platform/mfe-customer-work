@@ -95,14 +95,6 @@
         width: 100%;
       }
     }
-
-    .contract {
-      display: flex;
-
-      .checkbox {
-        padding-top: 2px;
-      }
-    }
   }
 }
 
@@ -128,12 +120,6 @@
 
 .inline {
   display: inline-block;
-}
-
-.link {
-  color: $link-blue;
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 .error {
