@@ -13,13 +13,14 @@ import { FormInputText } from "../../../../components/FormElements/FormInputText
 import { ReactSelect } from "../../../../components/ReactSelect";
 import { COUNTRY_OPTIONS } from "../../../../constants";
 import { getProfile } from "../../../../selectors/profile";
+import FormInputCheckbox from "../../../../components/FormElements/FormInputCheckbox";
 
 import styles from "./styles.module.scss";
 
 /**
  * Payment Form Page
  */
-const PaymentForm = ({ formData, setFormData }) => {
+const PaymentForm = ({ formData, setFormData, onOpenContractModal }) => {
   const handleInputChange = (name, value) =>
     setFormData((formData) => ({ ...formData, [name]: value }));
 
@@ -157,6 +158,22 @@ const PaymentForm = ({ formData, setFormData }) => {
           ></FormInputText>
         </div>
       </FormField>
+      <div styleName="contract">
+        <FormInputCheckbox
+          label="Yes, I understand and agree to Topcoder's&nbsp;"
+          checked={formData.checked}
+          onChange={(e) => handleInputChange('checked', e.target.checked)}
+          inline
+        />
+        <span
+          role="button"
+          tabIndex={0}
+          styleName="link"
+          onClick={() => onOpenContractModal(true)}
+        >
+          Order Contract
+        </span>
+      </div>
       <div styleName="infoBox">
         <div styleName="confirmationBox">
           A hold will be placed on your card for the full amount of the project.
