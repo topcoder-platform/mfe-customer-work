@@ -1,5 +1,10 @@
 @import '../../../src-ts/lib/styles/includes';
+@import "styles/include";
 
 .page {
     @include pagePaddings;
+    @include mobile {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
