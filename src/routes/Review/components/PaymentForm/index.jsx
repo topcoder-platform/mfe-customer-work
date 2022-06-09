@@ -164,7 +164,7 @@ const PaymentForm = ({ formData, setFormData, onOpenContractModal }) => {
           <FormInputCheckbox
             label=""
             checked={formData.checked}
-            onChange={(e) => handleInputChange('checked', e.target.checked)}
+            onChange={(e) => handleInputChange("checked", e.target.checked)}
             inline
           />
         </div>

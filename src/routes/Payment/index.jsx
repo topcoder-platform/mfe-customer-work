@@ -73,8 +73,8 @@ const Payment = ({
     workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : WorkType.findData
-        ? getFindMeDataPriceAndTimelineEstimate()
-        : getDataExplorationPriceAndTimelineEstimate();
+      ? getFindMeDataPriceAndTimelineEstimate()
+      : getDataExplorationPriceAndTimelineEstimate();
 
   const [formData, setFormData] = useState({
     cardName: null,
@@ -182,7 +182,10 @@ const Payment = ({
 
   return (
     <>
-      <OrderContractModal isOpen={isOrderContractModalOpen} onClose={() => setIsOrderContractModalOpen(false)} />
+      <OrderContractModal
+        isOpen={isOrderContractModalOpen}
+        onClose={() => setIsOrderContractModalOpen(false)}
+      />
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>

@@ -91,15 +91,16 @@ const BasicInfo = ({
     workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : isDataExploration
-        ? getDataExplorationPriceAndTimelineEstimate()
-        : getFindMeDataPriceAndTimelineEstimate();
+      ? getDataExplorationPriceAndTimelineEstimate()
+      : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     navigate("/self-service/wizard");
   };
 
-  const baseUrl = `/self-service/work/new/${isDataExploration ? "data-exploration" : "find-me-data"
-    }`;
+  const baseUrl = `/self-service/work/new/${
+    isDataExploration ? "data-exploration" : "find-me-data"
+  }`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
@@ -124,9 +125,7 @@ const BasicInfo = ({
       dispatch(triggerAutoSave(true));
     }
 
-    if (
-      basicInfo && basicInfo?.projectTitle?.value.length > 0
-    ) {
+    if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
       setFormData(basicInfo);
     }
 

@@ -86,8 +86,8 @@ const Review = ({
     workType?.selectedWorkType === "Website Design"
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : isDataExploration
-        ? getDataExplorationPriceAndTimelineEstimate()
-        : getFindMeDataPriceAndTimelineEstimate();
+      ? getDataExplorationPriceAndTimelineEstimate()
+      : getFindMeDataPriceAndTimelineEstimate();
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -200,7 +200,10 @@ const Review = ({
 
   return (
     <>
-      <OrderContractModal isOpen={isOrderContractModalOpen} onClose={() => setIsOrderContractModalOpen(false)} />
+      <OrderContractModal
+        isOpen={isOrderContractModalOpen}
+        onClose={() => setIsOrderContractModalOpen(false)}
+      />
       <LoadingSpinner show={isLoading} />
       <Page>
         {banner}

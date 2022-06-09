@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import _ from "lodash";
 import PT from "prop-types";
 import { navigate } from "@reach/router";
@@ -37,7 +43,7 @@ import {
   WorkFeedback,
   WorkStatusItem,
   WorkDetailSolutions,
-} from '../../../src-ts'
+} from "../../../src-ts";
 
 import "./styles.module.scss";
 
@@ -67,14 +73,19 @@ const WorkItem = ({
   const [showSurvey, setShowSurvey] = useState(false);
   const profileData = useSelector(getProfile);
 
-  const workContextData = useContext(workContext)
-  const workStatus = !!work ? workContextData.getStatusFromChallenge(work) : undefined
+  const workContextData = useContext(workContext);
+  const workStatus = !!work
+    ? workContextData.getStatusFromChallenge(work)
+    : undefined;
 
   useEffect(() => {
     getWork(workItemId);
   }, [workItemId, getWork]);
 
-  const { summary, details, solutions, solutionsCount } = useMemo(() => workItem, [workItem]);
+  const { summary, details, solutions, solutionsCount } = useMemo(
+    () => workItem,
+    [workItem]
+  );
 
   const isReviewPhaseEnded = useMemo(() => {
     if (work) {
@@ -137,7 +148,7 @@ const WorkItem = ({
     if (isReviewPhaseEnded) {
       getSolutionsCount(work.id);
     }
-  }, [isReviewPhaseEnded, getSolutionsCount, work])
+  }, [isReviewPhaseEnded, getSolutionsCount, work]);
 
   useEffect(() => {
     if (isSavingSurveyDone) {
@@ -158,44 +169,50 @@ const WorkItem = ({
     },
     {
       name: work?.name,
-      url: '', // this isn't necessary bc it's not a link
-    }
+      url: "", // this isn't necessary bc it's not a link
+    },
   ];
 
-  const navTabs = useMemo(() => [
-    { id: 'summary', title: 'Summary' },
-    { id: 'details', title: 'Details' },
-    work && !workUtil.isMessagesDisabled(work) && {
-      id: 'messaging',
-      title: 'Messages',
-      badges: [
-        forumNotifications?.unreadNotifications && {
-          count: +forumNotifications?.unreadNotifications,
-          type: 'info'
-        }
-      ].filter(Boolean)
-    },
-    {
-      id: 'solutions',
-      title: 'Solutions',
-      badges: [
-        isReviewPhaseEnded && !!solutionsCount && {
-          count: solutionsCount,
-          type: 'info'
-        }
-      ].filter(Boolean)
-    },
-  ].filter(Boolean), [work, solutionsCount, isReviewPhaseEnded]);
+  const navTabs = useMemo(
+    () =>
+      [
+        { id: "summary", title: "Summary" },
+        { id: "details", title: "Details" },
+        work &&
+          !workUtil.isMessagesDisabled(work) && {
+            id: "messaging",
+            title: "Messages",
+            badges: [
+              forumNotifications?.unreadNotifications && {
+                count: +forumNotifications?.unreadNotifications,
+                type: "info",
+              },
+            ].filter(Boolean),
+          },
+        {
+          id: "solutions",
+          title: "Solutions",
+          badges: [
+            isReviewPhaseEnded &&
+              !!solutionsCount && {
+                count: solutionsCount,
+                type: "info",
+              },
+          ].filter(Boolean),
+        },
+      ].filter(Boolean),
+    [work, solutionsCount, isReviewPhaseEnded]
+  );
 
   const onTabChange = useCallback((tabId) => {
-    window.history.replaceState(window.history.state, '', `?tab=${tabId}`)
-    setSelectedTab(tabId)
-  }, [])
+    window.history.replaceState(window.history.state, "", `?tab=${tabId}`);
+    setSelectedTab(tabId);
+  }, []);
 
   function saveFeedback(updatedCustomerFeedback) {
-
-    const metadata = (work.metadata || [])
-      .filter(item => item.name !== ChallengeMetadataName.feedback);
+    const metadata = (work.metadata || []).filter(
+      (item) => item.name !== ChallengeMetadataName.feedback
+    );
 
     metadata.push({
       name: ChallengeMetadataName.feedback,
@@ -211,7 +228,6 @@ const WorkItem = ({
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
       <Page styleName="page">
         <PageContent styleName="pageContent">
-
           <Breadcrumb items={breadcrumb} />
           <WorkDetailHeader
             challenge={work}
@@ -220,7 +236,9 @@ const WorkItem = ({
 
           {work && (
             <div styleName="status-line">
-              {work.tags[0] && <div styleName="status-label">{work.tags[0]}</div>}
+              {work.tags[0] && (
+                <div styleName="status-label">{work.tags[0]}</div>
+              )}
               <WorkStatusItem workStatus={workStatus} />
             </div>
           )}
@@ -232,7 +250,7 @@ const WorkItem = ({
           />
 
           <div styleName="tabs-contents">
-            {selectedTab === 'summary' && (
+            {selectedTab === "summary" && (
               <div>
                 {summary && (
                   <WorkDetailSummary challenge={work} status={workStatus} />
@@ -240,13 +258,15 @@ const WorkItem = ({
               </div>
             )}
 
-            {selectedTab === 'details' && (
+            {selectedTab === "details" && (
               <div>
-                <WorkDetailDetails formData={_.get(details, "intake-form.form", {})} />
+                <WorkDetailDetails
+                  formData={_.get(details, "intake-form.form", {})}
+                />
               </div>
             )}
 
-            {selectedTab === 'solutions' && work && (
+            {selectedTab === "solutions" && work && (
               <div>
                 <WorkDetailSolutions
                   challenge={work}
@@ -256,15 +276,11 @@ const WorkItem = ({
               </div>
             )}
 
-            {selectedTab === 'messaging' && (
-              <div>
-                {work && <Forum challengeId={work.id} />}
-              </div>
+            {selectedTab === "messaging" && (
+              <div>{work && <Forum challengeId={work.id} />}</div>
             )}
 
-            {selectedTab === 'history' && (
-              <div />
-            )}
+            {selectedTab === "history" && <div />}
           </div>
         </PageContent>
       </Page>

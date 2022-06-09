@@ -86,11 +86,14 @@ export function getDataExplorationPriceAndTimelineEstimate() {
 
 export function getFindMeDataPriceAndTimelineEstimate() {
   let total = 0;
-  let placementPercentages, reviewerPercentages = [];
+  let placementPercentages,
+    reviewerPercentages = [];
   if (findMeDataConfigs.USING_PROMOTIONAL_PRICE) {
     total = findMeDataConfigs.PROMOTIONAL_PRODUCT_PRICE;
-    placementPercentages = findMeDataConfigs.PROMOTIONAL_PRIZES_PAYMENT_BREAKDOWN;
-    reviewerPercentages = findMeDataConfigs.PROMOTIONAL_REVIEWER_PAYMENT_BREAKDOWN;
+    placementPercentages =
+      findMeDataConfigs.PROMOTIONAL_PRIZES_PAYMENT_BREAKDOWN;
+    reviewerPercentages =
+      findMeDataConfigs.PROMOTIONAL_REVIEWER_PAYMENT_BREAKDOWN;
   } else {
     total = findMeDataConfigs.BASE_PRODUCT_PRICE;
     placementPercentages = findMeDataConfigs.BASE_PRIZES_PAYMENT_BREAKDOWN;
