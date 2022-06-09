@@ -66,5 +66,8 @@
     display: flex;
     align-items: center;
     margin-bottom: 16px;
+    @include mobile {
+      margin-bottom: 8px;
+    }
   }
 }
