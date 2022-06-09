@@ -5,11 +5,11 @@
   min-width: 610px;
   left: 0px;
   top: 0px;
-  margin: 16px 0px;
-  
+  margin-top: 16px;
+
   display: grid;
   grid-template-columns: 1fr 359px;
-  
+
   &.website-design,
   &.data-exploration,
   &.review--payment {
@@ -17,7 +17,8 @@
   }
 
   &.find-me-data,
-  &.problem-statement--data-advisory {
+  &.problem-statement--data-advisory,
+  &.review--payment {
     background: linear-gradient(84.92deg, #723390 2.08%, #8C384F 97.43%);
   }
 
@@ -33,6 +34,9 @@
     overflow: hidden;
     flex-direction: column;
     grid-template-columns: auto;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: 0;
   }
 
   .heroBackgroundContainer {
@@ -60,12 +64,16 @@
       background-size: cover;
     }
     &.find-me-data,
-    &.problem-statement--data-advisory  {
+    &.problem-statement--data-advisory,
+    &.review--payment {
       background: url("../../../assets/images/find-me-data.png");
       background-size: cover;
+      @include mobile {
+        background: url("../../../assets/images/find-me-data-mobile.png");
+        background-size: auto 100%;
+      }
     }
-    &.website-design,
-    &.review--payment {
+    &.website-design {
       background: url("../../../assets/images/website-design-v2.png");
       background-size: cover;
 
@@ -117,7 +125,7 @@
         flex-direction: row;
         align-items: flex-start;
         margin-right: 16px;
-        
+
         position: static;
         width: 40px;
         left: 0px;
@@ -145,6 +153,7 @@
         font-weight: 400;
 
         @include mobile {
+          row-gap: 16px;
           flex: auto;
         }
 
@@ -152,6 +161,9 @@
           display: flex;
           text-transform: uppercase;
           @include mobile {
+            font-family: 'Barlow Condensed';
+            font-style: normal;
+            font-weight: 600;
             font-size: 28px;
             line-height: 32px;
           }
@@ -163,6 +175,9 @@
           line-height: 24px;
           font-weight: 500;
           @include mobile {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 700;
             font-size: 14px;
             line-height: 20px;
           }

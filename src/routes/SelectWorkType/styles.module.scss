@@ -13,6 +13,14 @@
   background: linear-gradient(263.22deg, #038664 2.65%, #075f96 98.14%), #ffffff;
   border-radius: 8px;
 
+  @include mobile {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    grid-template-columns: 1fr 200px;
+    margin-top: 0;
+  }
+
   &.website-design {
     background: linear-gradient(263.22deg, #038664 2.65%, #075f96 98.14%),
       #ffffff;
@@ -264,9 +272,7 @@
 
 .pageContent {
   margin-top: 0;
-  padding-right: 0;
-  padding-left: 0;
-  padding-top: 28px;
+  padding: 0 20px;
 }
 
 .pageHeading {
