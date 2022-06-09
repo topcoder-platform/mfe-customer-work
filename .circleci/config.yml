@@ -7,15 +7,7 @@ install_dependency: &install_dependency
   command: |
     sudo apt install jq
     pip install awscli --upgrade
-    pip install docker-compose
-install_node-version: &install_node-version
-  name: Use nvm for a specific node version...
-  command: |
-    set +e
-    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash &&  sudo /opt/circleci/.nvm/nvm.sh
-    export NVM_DIR="/opt/circleci/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    nvm install 16.15.0            
+    pip install docker-compose       
 install_deploysuite: &install_deploysuite
   name: Installation of install_deploysuite.
   command: |
@@ -35,7 +27,6 @@ builddeploy_steps: &builddeploy_steps
   - checkout
   - setup_remote_docker
   - run: *install_dependency
-  - run: *install_node-version
   - run: *install_deploysuite
   - restore_cache: *restore_cache_settings_for_build
   - run:
