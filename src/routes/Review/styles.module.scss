@@ -98,7 +98,10 @@
 
     .contract {
       display: flex;
-      align-items: center;
+
+      .checkbox {
+        padding-top: 2px;
+      }
     }
   }
 }

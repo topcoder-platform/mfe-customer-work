@@ -88,8 +88,8 @@ const Review = ({
     workType?.selectedWorkType === "Website Design"
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : getFindMeDataPriceAndTimelineEstimate();
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -283,20 +283,25 @@ const Review = ({
                 )}
 
                 <div styleName="contract">
-                  <FormInputCheckbox
-                    label="Yes, I understand and agree to Topcoder's&nbsp;"
-                    checked={checked}
-                    onChange={(e) => setChecked(e.target.checked)}
-                    inline
-                  />
-                  <span
-                    role="button"
-                    tabIndex={0}
-                    styleName="link"
-                    onClick={() => setIsOrderContractModalOpen(true)}
-                  >
-                    Order Contract
-                  </span>
+                  <div styleName={"checkbox"}>
+                    <FormInputCheckbox
+                      label=""
+                      checked={checked}
+                      onChange={(e) => setChecked(e.target.checked)}
+                      inline
+                    />
+                  </div>
+                  <div>
+                    Yes, I understand and agree to Topcoder's&nbsp;
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      styleName="link"
+                      onClick={() => setIsOrderContractModalOpen(true)}
+                    >
+                      Order Contract
+                    </span>
+                  </div>
                 </div>
 
                 <div styleName="paymentButtonContainer">
