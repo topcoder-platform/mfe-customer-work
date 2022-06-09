@@ -216,8 +216,6 @@ const Review = ({
             stickerPrice={estimate?.stickerPrice}
             serviceType={workType?.selectedWorkTypeDetail}
           />
-          <br />
-          <br />
           {secondaryBanner}
           <PageDivider />
           {introText && <div styleName="infoAlert">{introText}</div>}
