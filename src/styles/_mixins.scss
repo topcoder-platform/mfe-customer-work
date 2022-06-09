@@ -58,8 +58,10 @@
 }
 
 @mixin backButtonWrapper {
-  min-width: 12px;
-  margin-top: 0px;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @mixin backButtonContainer {

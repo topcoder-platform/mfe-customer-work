@@ -75,7 +75,6 @@
 
 .backButtonWrapper {
   @include backButtonWrapper;
-  margin-top: 0;
 }
 
 @include mobile {
