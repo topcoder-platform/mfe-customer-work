@@ -88,6 +88,7 @@ const BasicInfo = ({
   const [formData, setFormData] = useState(defaultFormData);
   const isFindMeData = workItemConfig.type === WorkType.findData;
   const isWebsiteDesign = workItemConfig.type === WorkType.design;
+  console.log("constanza", isWebsiteDesign);
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
   const isDataExploration = workItemConfig.type === WorkType.data;
   const isDataAdvisory =
@@ -145,6 +146,7 @@ const BasicInfo = ({
   };
 
   let basePath;
+  //TODO CON add basepath to webitems
   if (isDataExploration) {
     basePath = "data-exploration";
   } else if (isFindMeData) {
@@ -242,7 +244,7 @@ const BasicInfo = ({
         <FeaturedWorkTypeBanner
           title={workItemConfig.title}
           subTitle={workItemConfig.subTitle}
-          workType={workItemConfig.title}
+          workType={workItemConfig.type}
         />
         <PageContent styleName="container">
           <BasicInfoForm

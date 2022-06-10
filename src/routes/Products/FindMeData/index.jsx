@@ -24,7 +24,7 @@ export default function FindMeData({ isLoggedIn }) {
       <BasicInfo
         path="/basic-info"
         isLoggedIn={isLoggedIn}
-        bannerData={findMeData}
+        workItemConfig={findMeData}
       />
       <LoginPrompt
         path="/login-prompt"

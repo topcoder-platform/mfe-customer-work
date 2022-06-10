@@ -24,7 +24,7 @@ export default function DataExploration({ isLoggedIn }) {
       <BasicInfo
         path="/basic-info"
         isLoggedIn={isLoggedIn}
-        bannerData={dataExploration}
+        workItemConfig={dataExploration}
       />
       <LoginPrompt
         path="/login-prompt"

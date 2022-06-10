@@ -56,16 +56,17 @@ const BasicInfoForm = ({
 
   const {
     title,
+    type,
     helperBannerTitle,
     helperBannerContent,
     aboutBannerTitle,
     aboutBannerContent,
   } = bannerData;
 
-  const isDataExploration = title === WorkType.data;
-  const isDataAdvisory = title === WorkType.problem;
-  const isFindMeData = title === WorkType.findData;
-  const isWebsiteDesign = title === WorkType.design;
+  const isDataExploration = type === WorkType.data;
+  const isDataAdvisory = type === WorkType.problem;
+  const isFindMeData = type === WorkType.findData;
+  const isWebsiteDesign = type === WorkType.design;
   const isOtherOptionSelected = formData?.primaryDataChallenge?.value !== 3;
 
   const handleArrayInputChange = (index, name, key, value, option = null) => {

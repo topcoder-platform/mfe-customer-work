@@ -1,6 +1,6 @@
 import { Router } from "@reach/router";
 import React from "react";
-import Review from "../../Review";
+import ReviewLegacy from "../../ReviewLegacy";
 import ThankYou from "../../ThankYou";
 import LoginPrompt from "../../LoginPrompt";
 import BasicInfoLegacy from "../../BasicInfoLegacy";
@@ -32,7 +32,7 @@ export default function WebsiteDesignLegacy({ isLoggedIn }) {
       <PageDetails path="/page-details" />
       <LoginPrompt path="/login-prompt" isLoggedIn={isLoggedIn} />
       <Branding path="/branding" />
-      <Review
+      <ReviewLegacy
         showIcon
         introText="Your Website Design project includes up to 5 unique Visual Design solutions. Each solution will match your specified scope and device types. You will receive industry-standard source files to take take forward to further design and/or development. Design deliverables will NOT include functional code."
         path="/review"

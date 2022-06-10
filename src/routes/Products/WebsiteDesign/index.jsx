@@ -24,7 +24,7 @@ export default function WebsiteDesign({ isLoggedIn }) {
       <BasicInfo
         path="/basic-info"
         isLoggedIn={isLoggedIn}
-        bannerData={websiteDesign}
+        workItemConfig={websiteDesign}
       />
       <LoginPrompt
         path="/login-prompt"

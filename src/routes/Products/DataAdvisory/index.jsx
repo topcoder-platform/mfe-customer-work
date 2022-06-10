@@ -24,7 +24,7 @@ export default function DataAdvisory({ isLoggedIn }) {
       <BasicInfo
         path="/basic-info"
         isLoggedIn={isLoggedIn}
-        bannerData={dataAdvisory}
+        workItemConfig={dataAdvisory}
       />
       <LoginPrompt
         path="/login-prompt"
