@@ -73,8 +73,8 @@ const Payment = ({
     workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : WorkType.findData
-      ? getFindMeDataPriceAndTimelineEstimate()
-      : getDataExplorationPriceAndTimelineEstimate();
+        ? getFindMeDataPriceAndTimelineEstimate()
+        : getDataExplorationPriceAndTimelineEstimate();
 
   const [formData, setFormData] = useState({
     cardName: null,

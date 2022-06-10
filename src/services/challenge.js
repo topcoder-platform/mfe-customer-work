@@ -40,8 +40,8 @@ export async function createChallenge(workType) {
     workType === WorkType.design
       ? websiteDesignUtils.formatChallengeCreationBody()
       : workType === WorkType.findData
-      ? findMeDataUtils.formatChallengeCreationBody()
-      : dataExplorationUtils.formatChallengeCreationBody();
+        ? findMeDataUtils.formatChallengeCreationBody()
+        : dataExplorationUtils.formatChallengeCreationBody();
 
   const response = await axios.post(
     `${config.API.V5}/challenges`,
@@ -61,8 +61,8 @@ export async function patchChallenge(intakeForm, challengeId) {
     workType === WorkType.design
       ? websiteDesignUtils.formatChallengeUpdateBody(intakeForm)
       : workType === WorkType.findData
-      ? findMeDataUtils.formatChallengeUpdateBody(intakeForm)
-      : dataExplorationUtils.formatChallengeUpdateBody(intakeForm);
+        ? findMeDataUtils.formatChallengeUpdateBody(intakeForm)
+        : dataExplorationUtils.formatChallengeUpdateBody(intakeForm);
 
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,

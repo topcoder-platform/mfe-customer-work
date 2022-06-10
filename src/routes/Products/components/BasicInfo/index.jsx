@@ -91,8 +91,8 @@ const BasicInfo = ({
     workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     navigate("/self-service/wizard");
