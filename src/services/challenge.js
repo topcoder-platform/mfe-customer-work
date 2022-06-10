@@ -36,10 +36,9 @@ export async function getIntakeFormChallenges(userHandle, challengeId) {
  * Post a New Challenge
  */
 export async function createChallenge(workType) {
-  const body =
-    workType === WorkType.design
-      ? websiteDesignUtils.formatChallengeCreationBody()
-      : workType === WorkType.findData
+  const body = workType === WorkType.design
+    ? websiteDesignUtils.formatChallengeCreationBody()
+    : workType === WorkType.findData
       ? findMeDataUtils.formatChallengeCreationBody()
       : dataExplorationUtils.formatChallengeCreationBody();
 
@@ -57,10 +56,9 @@ export async function createChallenge(workType) {
 export async function patchChallenge(intakeForm, challengeId) {
   const jsonData = JSON.parse(intakeForm);
   const workType = _.get(jsonData, "form.workType.selectedWorkType");
-  const body =
-    workType === WorkType.design
-      ? websiteDesignUtils.formatChallengeUpdateBody(intakeForm)
-      : workType === WorkType.findData
+  const body = workType === WorkType.design
+    ? websiteDesignUtils.formatChallengeUpdateBody(intakeForm)
+    : workType === WorkType.findData
       ? findMeDataUtils.formatChallengeUpdateBody(intakeForm)
       : dataExplorationUtils.formatChallengeUpdateBody(intakeForm);
 
