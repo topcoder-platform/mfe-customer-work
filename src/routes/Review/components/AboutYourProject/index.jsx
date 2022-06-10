@@ -13,7 +13,7 @@ const AboutYourProject = () => {
           <strong>
             Your Dashboard is your go-to hub for managing your work.
           </strong>
-          &nbsp; From here you can view timelines, details, and a more important
+          &nbsp; From here you can view timelines, details, and other important
           information tied to your work submissions.
         </li>
         <li>
@@ -22,7 +22,7 @@ const AboutYourProject = () => {
             this work.
           </strong>
           &nbsp; From your Work Summary page you’ll see if you have any
-          outstanding Messages indicated by a red icon. Please answer questions
+          outstanding Messages, indicated by a red icon. Please answer questions
           from our members in a timely and thorough manner. This will help them
           deliver high quality results for you on time!
         </li>
