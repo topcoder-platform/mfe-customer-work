@@ -8,15 +8,32 @@ This is a [single-spa](https://single-spa.js.org/) React microapp that runs with
 
 ## Content
 
-This documentation contains following list of sections,
+This documentation is defined based on the following list of sections,
 
-
-[Local Environment Setup](#local-environment-setup)
-[Git branching process](#git)
-[List of npm commands supported](#npm-commands)
-[Deployment to production](#deployment-to-production)
-[Linting](#linting)
-[How to use icons](#icons)
+- [Local environment setup](#local-environment-setup)
+  - [IDE](#ide)
+  - [Nvm](#nvm)
+  - [Hosting](#hosting)
+  - [Terminal configuration](#hosting)
+- [Git process](#git)
+  - [Branching](#branching)
+  - [Commits](#commits)
+- [List of npm commands supported](#npm-commands)
+- [Deployment to production](#deployment-to-production)
+  - [Deploying to Heroku](#deploying-to-heroku)
+  - [Aggregator API](#aggregator-api)
+    - [Aggregator API Configuration](#aggregator-api-configuration)
+- [Linting](#linting)
+  - [Rules](#rules)
+  - [Command line](#command-line)
+    - [View all lint errors](#view-all-lint-errors)
+  - [VS code](#vs-code)
+    - [Format on save](#format-on-save)
+    - [TSLint Plugin](#tslint-plugin)
+- [Styling](#styling)
+- [How to use icons](#icons)
+  - [Heroicons](#heroicons)
+  - [Custom SVGs](#custom-svgs)
 
 ## Local Environment Setup
 
@@ -86,24 +103,6 @@ We use [Smart Commits](https://bigbrassband.com/git-integration-for-jira/documen
 
 e.g.: `PLAT-001 #comment adding readme notes #time 45m`
 
-## NPM Commands
-
-| Command               | Description                                                                                                  |
-| --------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `npm start`           | Run server which serves production ready build from `dist` folder                                            |
-| `npm start-local`     | Run app locally in the `development` mode and `dev` config (calls on `npm run dev`)                                           |
-| `npm run dev`         | Run app in the `development` mode and `dev` config                                                           |
-| `npm run dev-https`   | Run app in the `development` mode and `dev` config using HTTPS protocol                |
-| `npm run prod`        | Run app in the `development` mode and `prod` config                                                          |
-| `npm run build`       | Build app for production and puts files to the `dist` folder, default to `development` mode and `dev` config |
-| `npm run analyze`     | Analyze dependencies sizes and opens report in the browser                                                   |
-| `npm run lint`        | Check code for lint errors                                                                                   |
-| `npm run format`      | Format code using prettier                                                                                   |
-| `npm run test`        | Run unit tests                                                                                               |
-| `npm run watch-tests` | Watch for file changes and run unit tests on changes                                                         |
-| `npm run coverage`    | Generate test code coverage report                                                                           |
-| `npm run mock-api`    | Start the mock api which mocks Recruit api                                                                   |
-
 ## Local Deployment
 
 To run the app locally, run the following command from the project root `./mfe-customer-work`:
@@ -163,6 +162,24 @@ VALID_ISSUERS=
 ```
 
 Once the self service app is started, the aggregator api will work as well
+
+## NPM Commands
+
+| Command               | Description                                                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `npm start`           | Run server which serves production ready build from `dist` folder                                            |
+| `npm start-local`     | Run app locally in the `development` mode and `dev` config (calls on `npm run dev`)                                           |
+| `npm run dev`         | Run app in the `development` mode and `dev` config                                                           |
+| `npm run dev-https`   | Run app in the `development` mode and `dev` config using HTTPS protocol                |
+| `npm run prod`        | Run app in the `development` mode and `prod` config                                                          |
+| `npm run build`       | Build app for production and puts files to the `dist` folder, default to `development` mode and `dev` config |
+| `npm run analyze`     | Analyze dependencies sizes and opens report in the browser                                                   |
+| `npm run lint`        | Check code for lint errors                                                                                   |
+| `npm run format`      | Format code using prettier                                                                                   |
+| `npm run test`        | Run unit tests                                                                                               |
+| `npm run watch-tests` | Watch for file changes and run unit tests on changes                                                         |
+| `npm run coverage`    | Generate test code coverage report                                                                           |
+| `npm run mock-api`    | Start the mock api which mocks Recruit api                                                                   |
 
 ## Linting
 
