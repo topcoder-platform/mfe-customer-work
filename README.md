@@ -4,7 +4,19 @@ This is a [single-spa](https://single-spa.js.org/) React microapp that runs with
 
 > **NOTE:** This application has been configured to be run as child app of a single-spa application. So while this app can be deployed and run independently, we would need some frame [single-spa](https://single-spa.js.org/) which would load it. While technically we can achieve running this app as standalone app it's strongly not recommended by the author of the `single-spa` approch, see this [GitHub Issue](https://github.com/single-spa/single-spa/issues/640) for details.
 
->**NOTE:** To successfully run this application, you must also run the two following apps: `mfe-core` & `mfe-header`. Please see their corresponding README's for instructions on running each app. 
+>**NOTE:** To successfully run this application, you must also run the two following apps: `mfe-core` & `mfe-header`. Please see their corresponding README's for instructions on running each app.
+
+## Content
+
+This documentation contains following list of sections,
+
+
+[Local Environment Setup](#local-environment-setup)
+[Git branching process](#git)
+[List of npm commands supported](#npm-commands)
+[Deployment to production](#deployment-to-production)
+[Linting](#linting)
+[How to use icons](#icons)
 
 ## Local Environment Setup
 
@@ -20,10 +32,10 @@ Once nvm is installed, run:
 $ nvm install <insert node version>
 ```
 
->**NOTE:** the node version required at the time of this writing is `10.22.1`
-
 At the root of the project directory you'll notice a file called `.nvmrc` which specifies the node version used by the project. The command `nvm use` will use the version specified in the file if no version is supplied on the command line. 
 See [the nvm Github README](https://github.com/nvm-sh/nvm/blob/master/README.md#nvmrc) for more information on setting this up.
+
+>**NOTE:** The current node version required and mentioned in the `.nvmrc` is `16.15.0`
 
 You can verify the versions of `nvm`, `node`, and `npm` using the commands below.
 | Command           | Supported Version  |
