@@ -126,3 +126,17 @@
   font-size: 14px;
   color: $red-120;
 }
+
+.hideMobile {
+  @include mobile {
+    display: none;
+  }
+}
+
+.showOnlyMobile {
+  display: none;
+
+  @include mobile {
+    display: block;
+  }
+}

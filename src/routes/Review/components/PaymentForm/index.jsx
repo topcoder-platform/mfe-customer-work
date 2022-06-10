@@ -158,22 +158,29 @@ const PaymentForm = ({ formData, setFormData, onOpenContractModal }) => {
           ></FormInputText>
         </div>
       </FormField>
+
       <div styleName="contract">
-        <FormInputCheckbox
-          label="Yes, I understand and agree to Topcoder's&nbsp;"
-          checked={formData.checked}
-          onChange={(e) => handleInputChange("checked", e.target.checked)}
-          inline
-        />
-        <span
-          role="button"
-          tabIndex={0}
-          styleName="link"
-          onClick={() => onOpenContractModal(true)}
-        >
-          Order Contract
-        </span>
+        <div styleName="checkbox">
+          <FormInputCheckbox
+            label=""
+            checked={formData.checked}
+            onChange={(e) => handleInputChange("checked", e.target.checked)}
+            inline
+          />
+        </div>
+        <div>
+          Yes, I understand and agree to Topcoder's&nbsp;
+          <span
+            role="button"
+            tabIndex={0}
+            styleName="link"
+            onClick={() => onOpenContractModal(true)}
+          >
+            Order Contract
+          </span>
+        </div>
       </div>
+
       <div styleName="infoBox">
         <div styleName="confirmationBox">
           A hold will be placed on your card for the full amount of the project.
