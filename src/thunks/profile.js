@@ -1,6 +1,4 @@
-import {
-  getAuthUserProfile,
-} from "@topcoder/mfe-header";
+import { getAuthUserProfile } from "@topcoder/mfe-header";
 import * as actions from "actions/profile";
 import _ from "lodash";
 

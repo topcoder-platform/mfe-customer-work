@@ -260,6 +260,7 @@ export const workTypes = [
 /**
  * Web Work Types
  */
+
 export const webWorkTypes = [
   {
     title: "Data Exploration",

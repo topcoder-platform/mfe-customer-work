@@ -162,7 +162,7 @@ const PaymentForm = ({ formData, setFormData, onOpenContractModal }) => {
         <FormInputCheckbox
           label="Yes, I understand and agree to Topcoder's&nbsp;"
           checked={formData.checked}
-          onChange={(e) => handleInputChange('checked', e.target.checked)}
+          onChange={(e) => handleInputChange("checked", e.target.checked)}
           inline
         />
         <span

@@ -6,7 +6,7 @@ import moment from "moment";
 import * as websiteDesignUtils from "utils/products/WebDesign";
 import * as dataExplorationUtils from "utils/products/DataExploration";
 import * as findMeDataUtils from "utils/products/FindMeData";
-import { WorkType } from "../../src-ts/lib";
+import { WorkType } from "../../src-ts";
 
 /**
  * Get Challenge challenge details
