@@ -70,7 +70,7 @@ const BasicInfo = ({
     formData?.goals?.value?.trim().length;
   const isFindMeDataFormValid =
     formData?.projectTitle?.value?.trim().length &&
-    formData?.analysis?.value?.trim().length &&
+    formData?.analysis?.valsaveFormue?.trim().length &&
     ((formData?.primaryDataChallenge?.value >= 0 &&
       formData?.primaryDataChallenge?.value < 3) ||
       (formData?.primaryDataChallenge?.value === 3 &&
@@ -93,15 +93,16 @@ const BasicInfo = ({
     workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : isDataExploration
-        ? getDataExplorationPriceAndTimelineEstimate()
-        : getFindMeDataPriceAndTimelineEstimate();
+      ? getDataExplorationPriceAndTimelineEstimate()
+      : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     navigate("/self-service/wizard");
   };
 
-  const baseUrl = `/self-service/work/new/${isDataExploration ? "data-exploration" : "find-me-data"
-    }`;
+  const baseUrl = `/self-service/work/new/${
+    isDataExploration ? "data-exploration" : "find-me-data"
+  }`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
@@ -126,9 +127,7 @@ const BasicInfo = ({
       dispatch(triggerAutoSave(true));
     }
 
-    if (
-      basicInfo && basicInfo?.projectTitle?.value.length > 0
-    ) {
+    if (!!basicInfo?.projectTitle?.value?.length){
       setFormData(basicInfo);
     }
 
@@ -220,7 +219,7 @@ const BasicInfo = ({
                 </Button>
               </div>
               <div styleName="footer-right">
-                {isLoggedIn &&
+                {isLoggedIn && (
                   <Button
                     styleName="saveForLater"
                     disabled={!isFormValid}
@@ -231,7 +230,7 @@ const BasicInfo = ({
                     <SaveForLaterIcon />
                     <span>SAVE FOR LATER</span>
                   </Button>
-                }
+                )}
                 <Button
                   styleName="reviewAndSubmit"
                   disabled={!isFormValid}

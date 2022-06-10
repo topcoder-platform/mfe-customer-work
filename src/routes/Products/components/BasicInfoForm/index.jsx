@@ -583,8 +583,9 @@ const BasicInfoForm = ({
               </div>
               <div styleName="formFieldWrapper">
                 <FormField
-                  label={`List Specific Colors ${selectedColor?.value?.length > 0 ? "(optional)" : ""
-                    }`}
+                  label={`List Specific Colors ${
+                    selectedColor?.value?.length > 0 ? "(optional)" : ""
+                  }`}
                 >
                   <FormInputTextArea
                     value={formData?.specificColor?.value}
@@ -604,7 +605,7 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
-      {isWebsiteDesign && ( <PageDivider /> )}
+      {isWebsiteDesign && <PageDivider />}
 
       {isWebsiteDesign && (
         <PageRow styleName="form-row">

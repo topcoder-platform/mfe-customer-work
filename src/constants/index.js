@@ -455,11 +455,11 @@ const webWorkProblemWebDesign = {
   ),
 };
 
-export const webWorkTypes = [
-  webWorkProblemWebDesign,
-  webWorkDataExploraation,
-  webWorkProblemStatement,
-  webWorkProblemFindMeData,
+  // export const webWorkTypes = [
+  //   webWorkProblemWebDesign,
+  //   webWorkDataExploraation,
+  //   webWorkProblemStatement,
+  //   webWorkProblemFindMeData,
   // {
   //   title: "Website Design",
   //   duration: "4-6 Days",
@@ -470,6 +470,7 @@ export const webWorkTypes = [
   //   featured: true,
   //   startRoute: "/self-service/basic-info",
   // },
+
 export const webWorkTypes = [
   {
     title: "Data Exploration",
