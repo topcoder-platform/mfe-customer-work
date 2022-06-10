@@ -41,7 +41,7 @@ import {
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
 import HelpBanner from "components/HelpBanner";
-import { OrderContractModal, WorkType } from "../../../src-ts/lib";
+import { OrderContractModal, WorkType } from "../../../src-ts";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
