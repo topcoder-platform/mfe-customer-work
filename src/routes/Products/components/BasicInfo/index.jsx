@@ -18,7 +18,6 @@ import {
 import { triggerAutoSave } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
-import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
 import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import { getUserProfile } from "../../../../thunks/profile";
 
@@ -33,8 +32,7 @@ import {
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
-import { ContactSupportModal } from "../../../../../src-ts";
-import { WorkType } from "../../../../../src-ts/lib";
+import { ContactSupportModal, WorkType } from "../../../../../src-ts";
 
 /**
  * Basic Info Page
@@ -70,7 +68,7 @@ const BasicInfo = ({
     formData?.goals?.value?.trim().length;
   const isFindMeDataFormValid =
     formData?.projectTitle?.value?.trim().length &&
-    formData?.analysis?.valsaveFormue?.trim().length &&
+    formData?.analysis?.value?.trim().length &&
     ((formData?.primaryDataChallenge?.value >= 0 &&
       formData?.primaryDataChallenge?.value < 3) ||
       (formData?.primaryDataChallenge?.value === 3 &&
@@ -93,16 +91,14 @@ const BasicInfo = ({
     workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     navigate("/self-service/wizard");
   };
 
-  const baseUrl = `/self-service/work/new/${
-    isDataExploration ? "data-exploration" : "find-me-data"
-  }`;
+  const baseUrl = `/self-service/work/new/${isDataExploration ? "data-exploration" : "find-me-data"}`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
@@ -127,7 +123,7 @@ const BasicInfo = ({
       dispatch(triggerAutoSave(true));
     }
 
-    if (!!basicInfo?.projectTitle?.value?.length){
+    if (!!basicInfo?.projectTitle?.value?.length) {
       setFormData(basicInfo);
     }
 
@@ -227,7 +223,6 @@ const BasicInfo = ({
                     type={BUTTON_TYPE.SECONDARY}
                     onClick={() => saveForm(true)}
                   >
-                    <SaveForLaterIcon />
                     <span>SAVE FOR LATER</span>
                   </Button>
                 )}

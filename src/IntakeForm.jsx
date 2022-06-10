@@ -40,7 +40,7 @@ import DataExploration from "./routes/Products/DataExploration";
 import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
 import FindMeData from "./routes/Products/FindMeData";
 
-import { WorkType } from "../src-ts/lib";
+import { WorkType } from "../src-ts";
 
 export default function IntakeForm() {
   const dispatch = useDispatch();

@@ -17,11 +17,10 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import DataExplorationIcon from "../../../../assets/images/data-exploration-icon.svg";
 import FindMeDataIcon from "../../../../assets/images/find-me-data-icon.svg";
-import WebsiteDesignIcon from "../../../../assets/images/website-design-icon.svg";
-import AddWebsiteIcon from "../../../../assets/images/add-website-icon.svg";
-import StylesOptionsModal from "../StyleOptionsModal";
 import "./styles.module.scss";
 import { PrimaryDataChallengeOptions } from "../../../../constants";
+import { WorkType } from "../../../../../src-ts";
+
 
 const BasicInfoForm = ({
   formData,
@@ -46,7 +45,7 @@ const BasicInfoForm = ({
     aboutBannerContent,
   } = bannerData;
 
-  const isDataExploration = title === "Data Exploration";
+  const isDataExploration = title === WorkType.data;
   const isOtherOptionSelected = formData?.primaryDataChallenge?.value !== 3;
 
   useEffect(() => {
@@ -76,17 +75,11 @@ const BasicInfoForm = ({
 
   let servicePriceIcon;
   switch (title) {
-    case "Data Exploration":
-    case "Problem Statement & Data Advisory":
+    case WorkType.data:
       servicePriceIcon = <DataExplorationIcon />;
       break;
-    case "Find Me Data":
+    case WorkType.findData:
       servicePriceIcon = <FindMeDataIcon />;
-      break;
-    case "Website Design":
-      servicePriceIcon = <WebsiteDesignIcon />;
-      break;
-    default:
       break;
   }
 
@@ -99,13 +92,7 @@ const BasicInfoForm = ({
         serviceType={serviceType}
         hideTitle
         showIcon
-        icon={
-          title === "Data Exploration" ? (
-            <DataExplorationIcon />
-          ) : (
-            <FindMeDataIcon />
-          )
-        }
+        icon={servicePriceIcon}
       />
       <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
         {helperBannerContent}
@@ -363,304 +350,6 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
-      {isDataAdvisory && (
-        <PageRow styleName="form-row">
-          <div>
-            <PageP styleName="title">What data do you have?</PageP>
-            <PageP styleName="description">
-              The data you have available helps determine your data science
-              approach. Briefly describe the data you have in mind for your
-              project. What is it and how do you use it today? How much do you
-              have, and how/how often do you get more? Once you've described the
-              data, please upload a sample.
-              <br />
-              <div styleName="helpText">
-                No data?&nbsp;
-                <HelpIcon>
-                  No problem. Based on your goals we'll recommend the type(s) of
-                  data you need.
-                </HelpIcon>
-              </div>
-              <div styleName="helpText">
-                Can't share/upload?&nbsp;
-                <HelpIcon>
-                  Try sharing a sample. Samples can be just the headers, labels
-                  or titles of your data set. Our experts need to understand the
-                  type, volume and structure of your data, not the contents
-                  themselves.
-                </HelpIcon>
-              </div>
-            </PageP>
-          </div>
-
-          <div styleName="formFieldWrapper">
-            <div styleName="assets">
-              <FormField label={"Shareable URL Link(s)"}>
-                <FormInputText
-                  placeholder={"www.example-share-link.com"}
-                  value={formData?.sampleData?.value}
-                  name="sampleData"
-                  onChange={(e) =>
-                    handleInputChange(
-                      e.target.name,
-                      e.target.value,
-                      e.target.value
-                    )
-                  }
-                />
-              </FormField>
-            </div>
-            <FormField label={"Data Description"}>
-              <FormInputTextArea
-                value={formData?.assetsDescription?.value}
-                onChange={(e) =>
-                  handleInputChange(
-                    e.target.name,
-                    e.target.value,
-                    e.target.value
-                  )
-                }
-                styleName={"text-area"}
-                name="assetsDescription"
-                placeholder={"Describe your data"}
-              />
-            </FormField>
-          </div>
-        </PageRow>
-      )}
-
-      {isFindMeData && <PageDivider />}
-
-      {isWebsiteDesign && (
-        <PageRow styleName="form-row">
-          <div>
-            <PageP styleName="title">inspiration</PageP>
-            <PageP styleName="description">
-              Are there websites that you love, from which our designers may
-              draw inspiration? Share the website URLs and tell us what you like
-              about them.
-            </PageP>
-          </div>
-
-          <div styleName="formFieldWrapper">
-            {_.map(_.get(formData, "inspiration", []), (entry, index) => (
-              <div key={index}>
-                {index ? (
-                  <div
-                    role="button"
-                    tabIndex="0"
-                    styleName="remove-website"
-                    onClick={() => removeWebsite(index)}
-                  >
-                    Remove Website
-                  </div>
-                ) : null}
-                <FormField label={"Website Address (optional)"}>
-                  <FormInputText
-                    placeholder={"Enter website url. e.g. www.acme.com"}
-                    value={entry.website.value}
-                    name="website"
-                    onChange={(e) =>
-                      handleArrayInputChange(
-                        index,
-                        "inspiration",
-                        e.target.name,
-                        e.target.value
-                      )
-                    }
-                  />
-                </FormField>
-                <FormField label={"What Do You Like (optional)"}>
-                  <FormInputTextArea
-                    value={entry.feedback.value}
-                    onChange={(e) =>
-                      handleArrayInputChange(
-                        index,
-                        "inspiration",
-                        e.target.name,
-                        e.target.value
-                      )
-                    }
-                    styleName={"text-area"}
-                    name="feedback"
-                    placeholder={"Describe what you like about this website"}
-                  />
-                </FormField>
-              </div>
-            ))}
-            <button styleName="addWebsiteButton" onClick={addWebsite}>
-              {" "}
-              <AddWebsiteIcon />
-              Add Another Website
-            </button>
-          </div>
-        </PageRow>
-      )}
-      {isWebsiteDesign && <PageDivider />}
-      {isWebsiteDesign && (
-        <PageRow styleName="form-row">
-          <PageP styleName="title">STYLE &amp; THEME</PageP>
-        </PageRow>
-      )}
-      {isWebsiteDesign && (
-        <PageRow styleName="form-row">
-          <div styleName="formFieldWrapper style-picker">
-            <PageP styleName="label">
-              Let us know the visual styles you like or dislike (optional):
-            </PageP>
-            <div styleName="styles">
-              <StyleOptions
-                likes={formData?.likedStyles?.value}
-                dislikes={formData?.dislikedStyles?.value}
-                onSelect={(style) => setSelectedStyleOption(style)}
-                onLike={(likes) => {
-                  handleInputChange("likedStyles", likes, likes);
-                }}
-                onDislike={(dislikes) => {
-                  handleInputChange("dislikedStyles", dislikes, dislikes);
-                }}
-              />
-            </div>
-            <PageRow styleName="form-row">
-              <div>
-                <PageP styleName="label">
-                  Additional details about your look & feel preferences:
-                </PageP>
-              </div>
-              <div styleName="formFieldWrapper">
-                <FormField label={`Style Preferences (optional)`}>
-                  <FormInputTextArea
-                    value={formData?.stylePreferences?.value}
-                    onChange={(e) =>
-                      handleInputChange(e.target.name, e.target.value)
-                    }
-                    styleName={"text-area"}
-                    name="stylePreferences"
-                    placeholder={"Describe your ideal look & feel"}
-                  />
-                </FormField>
-              </div>
-            </PageRow>
-          </div>
-        </PageRow>
-      )}
-      {isWebsiteDesign && selectedStyleOption && (
-        <StylesOptionsModal
-          style={selectedStyleOption}
-          likes={formData?.likedStyles?.value}
-          dislikes={formData?.dislikedStyles?.value}
-          onLike={(likes) => {
-            handleInputChange("likedStyles", likes, likes);
-          }}
-          onDislike={(dislikes) => {
-            handleInputChange("dislikedStyles", dislikes, dislikes);
-          }}
-          onDismiss={() => setSelectedStyleOption(null)}
-        />
-      )}
-
-      {isWebsiteDesign && (
-        <PageRow styleName="form-row">
-          <div styleName="formFieldWrapper color-picker">
-            <PageP styleName="label">
-              Choose colors you would like our designers to use in your site
-              design:
-            </PageP>
-            <div styleName="colors">
-              <ColorOptions
-                colors={ColorOptionsItems}
-                selectedColor={selectedColor}
-                onSelect={(index, colorName) => {
-                  handleInputChange("colorOption", index, colorName);
-                }}
-              />
-            </div>
-            <PageRow styleName="form-row">
-              <div>
-                <PageP styleName="label">
-                  List any specific colors you would like used in your design:
-                </PageP>
-              </div>
-              <div styleName="formFieldWrapper">
-                <FormField
-                  label={`List Specific Colors ${
-                    selectedColor?.value?.length > 0 ? "(optional)" : ""
-                  }`}
-                >
-                  <FormInputTextArea
-                    value={formData?.specificColor?.value}
-                    onChange={(e) =>
-                      handleInputChange(e.target.name, e.target.value)
-                    }
-                    styleName={"text-area"}
-                    name="specificColor"
-                    placeholder={
-                      "Specify colors using their value in RGB, CMYK, or Hex"
-                    }
-                  />
-                </FormField>
-              </div>
-            </PageRow>
-          </div>
-        </PageRow>
-      )}
-
-      {isWebsiteDesign && <PageDivider />}
-
-      {isWebsiteDesign && (
-        <PageRow styleName="form-row">
-          <div>
-            <PageP styleName="title">share your brand or style assets</PageP>
-            <PageP styleName="description">
-              If you have them, gather and upload any assets that you think
-              might be helpful for our designers. Let us know if there is
-              anything you would like to communicate about these items. <br />
-              Assets could be:
-              <ul styleName="list">
-                <li>your logo</li>
-                <li>your brand guide</li>
-                <li>mood boards</li>
-                <li>font files</li>
-                <li>sketches or other inspiration</li>
-              </ul>
-            </PageP>
-          </div>
-
-          <div styleName="formFieldWrapper">
-            <div styleName="assets">
-              <FormField label={"Shareable URL Link(s)"}>
-                <FormInputText
-                  placeholder={"www.example-share-link.com"}
-                  value={formData?.assetsUrl?.value}
-                  name="assetsUrl"
-                  onChange={(e) =>
-                    handleInputChange(
-                      e.target.name,
-                      e.target.value,
-                      e.target.value
-                    )
-                  }
-                />
-              </FormField>
-              <FormField label={"About Your Assets (optional)"}>
-                <FormInputTextArea
-                  value={formData?.assetsDescription?.value}
-                  onChange={(e) =>
-                    handleInputChange(
-                      e.target.name,
-                      e.target.value,
-                      e.target.value
-                    )
-                  }
-                  styleName={"text-area"}
-                  name="assetsDescription"
-                  placeholder={"Describe what you would like us to know"}
-                />
-              </FormField>
-            </div>
-          </div>
-        </PageRow>
-      )}
       {!isDataExploration && <PageDivider />}
 
       <HelpBanner

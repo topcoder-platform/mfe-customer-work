@@ -41,7 +41,7 @@ import { getUserProfile } from "../../thunks/profile";
 
 import PaymentForm from "./components/PaymentForm";
 import "./styles.module.scss";
-import { OrderContractModal, WorkType } from "../../../src-ts/lib";
+import { OrderContractModal, WorkType } from "../../../src-ts";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
@@ -73,8 +73,8 @@ const Payment = ({
     workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : WorkType.findData
-      ? getFindMeDataPriceAndTimelineEstimate()
-      : getDataExplorationPriceAndTimelineEstimate();
+        ? getFindMeDataPriceAndTimelineEstimate()
+        : getDataExplorationPriceAndTimelineEstimate();
 
   const [formData, setFormData] = useState({
     cardName: null,
