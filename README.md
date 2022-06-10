@@ -8,12 +8,18 @@ This is a [single-spa](https://single-spa.js.org/) React microapp that runs with
 
 ## Content
 
-This documentation is defined based on the following list of sections,
+Following are the list of sections in this document,
 
 - [Local environment setup](#local-environment-setup)
   - [IDE](#ide)
   - [Nvm](#nvm)
   - [Hosting](#hosting)
+  - [Setup core](#setup-core)
+    - [macOS](#macos)
+    - [windows](#windows)
+  - [Setup mfe-header](#setup-mfe-header)
+    - [macOS](#macos)
+    - [windows](#windows)
   - [Terminal configuration](#hosting)
 - [Git process](#git)
   - [Branching](#branching)
@@ -52,7 +58,7 @@ $ nvm install <insert node version>
 At the root of the project directory you'll notice a file called `.nvmrc` which specifies the node version used by the project. The command `nvm use` will use the version specified in the file if no version is supplied on the command line. 
 See [the nvm Github README](https://github.com/nvm-sh/nvm/blob/master/README.md#nvmrc) for more information on setting this up.
 
->**NOTE:** The current node version required and mentioned in the `.nvmrc` is `16.15.0`
+>**NOTE:** The minimum node version required is `10.22.1` and the current node version mentioned in the `.nvmrc` is `16.15.0`
 
 You can verify the versions of `nvm`, `node`, and `npm` using the commands below.
 | Command           | Supported Version  |
@@ -73,6 +79,86 @@ The MFE can run in a non-ssl environment, but auth0 will complain and throw erro
 ```
 $ npm i -g local-ssl-proxy
 ```
+### Setup mfe-core
+
+You can find the mfe-core github repository [here](https://github.com/topcoder-platform/mfe-core). The MFE Core renders the landing page and the top navigation. Each app then runs within that core frame.
+
+The Frame project consists of an API that manages environment configuration and a client that renders the index.html page. Both are required.
+
+#### macOS
+
+1. Run the Frame API
+
+`npm run start-server`
+
+2. Run the Frame Client
+
+`npm run start-client`
+
+#### Windows
+
+1. Run the Frame API
+
+```bashscript
+  export APPMODE="development"
+  export APPENV="local-multi"
+  nvm use
+  npm i
+  npm run local-server
+```
+
+2. Run the Frame Client
+
+```bashscript
+  export APPMODE="development"
+  export APPENV="local-multi"
+  nvm use
+  npm run local-client
+```
+
+### Setup mfe-header
+
+You can find the mfe-header github repository [here](https://github.com/topcoder-platform/mfe-header).
+
+#### macOS
+
+1. Run the Navbar app
+
+`npm run start-local`
+
+The site should now be available at [http://local.topcoder-dev.com:8080/](http://local.topcoder-dev.com:8080/)
+
+2. Run the SSL Proxy to port 8080
+
+`npm run start-local-proxy`
+
+The site should now be available at [https://local.topcoder-dev.com/](https://local.topcoder-dev.com/)
+
+#### Windows
+
+1. Render the Navbar app
+
+```bashscript
+  export APPMODE="development"
+  export APPENV="local"
+  nvm use
+  npm i
+  npm run dev
+```
+
+The site should now be available at [http://local.topcoder-dev.com:8080](http://local.topcoder-dev.com:8080).
+
+2. Set up the SSL Proxy to port 8080
+
+```bashscript
+  nvm use
+  local-ssl-proxy -n local.topcoder-dev.com -s 443 -t 8080
+```
+
+ The site should now be available at [https://local.topcoder-dev.com](https://local.topcoder-dev.com).
+
+ ***NOTE:*** you may have to run the local-ssl-proxy line w/elevated permissions (i.e. sudo) in order to listen to the SSL port (i.e. 443)
+
 
 ### Terminal Configuration
 
@@ -89,12 +175,17 @@ When developing one of the micro front-end applications you will therefore have 
 Given this complexity, it is recommended that you use a tool like [iTerm2](https://iterm2.com) (on Mac) or an equivalent terminal shell on Windows to make terminal management simpler. iTerm2 allows you to setup a pre-defined window layout of terminal sessions, including the directory in which the session starts. This setup, along with simple shell scripts in each project that configure and start the environment, will allow you to get your development environment up and running quickly and easily.
 
 ## Git
+
 ### Branching
 When working on Jira tickets, we link associated Git PRs and branches to the tickets. Use the following naming convention for branches:
 
 `[TICKET #]_short-description`
 
 e.g.: `PROD-1516_work-issue`
+
+The overall base branch is `develop`. Whenever a new epic is created and started working on, then a new epic branch is checked out from `develop` branch(for eg. like this `PROD-120_find-me-data`, in this case `PROD-120` is an epic). When a task/bug is assigned to a developer within a particular epic and when the developer starts working on the task/bug then the developer has to consider the epic branch(`PROD-120_find-me-data`) as base branch and create a new feature branch based on the above mentioned branch naming convention.
+
+So basically the branch creation flow is like this `develop` -> `epic_branch` -> `feature_branch`. When merging we will merge `feature_branch` to `epic_branch` which in turn will be merged to `develop` branch.
 
 ### Commits
 We use [Smart Commits](https://bigbrassband.com/git-integration-for-jira/documentation/smart-commits.html#bbb-nav-basic-examples) to link comments and time tracking to tickets. You would enter the following as your commit message:
@@ -240,6 +331,10 @@ The most useful feature is to automatically apply all lint rules any time you sa
 Created by Microsoft, this plugin will allow you to see lint errors in the Problems panel.
 
 **WARNING:** Other lint plugins can interfere with TSLint, so it is recommended that you uninstall/disable all other lint plugins (e.g. ESLint, Prettier, etc).
+
+## Migration
+
+The self service project is currently migrated from javascript to typescript. That's why in the root of the repository there are two source folders(`src` and `src-ts`). During the build process all the typescript is transpiled to javascript and entire apps is converted to single javascript file by `single-spa`.
 
 ## Styling
 
