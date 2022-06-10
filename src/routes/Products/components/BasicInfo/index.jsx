@@ -18,6 +18,7 @@ import {
 import { triggerAutoSave } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
+import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import { getUserProfile } from "../../../../thunks/profile";
 
 import BasicInfoForm from "../BasicInfoForm";
@@ -31,8 +32,7 @@ import {
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
-import { ContactSupportModal } from "../../../../../src-ts";
-import { WorkType } from "../../../../../src-ts/lib";
+import { ContactSupportModal, WorkType } from "../../../../../src-ts";
 
 /**
  * Basic Info Page
@@ -98,9 +98,7 @@ const BasicInfo = ({
     navigate("/self-service/wizard");
   };
 
-  const baseUrl = `/self-service/work/new/${
-    isDataExploration ? "data-exploration" : "find-me-data"
-  }`;
+  const baseUrl = `/self-service/work/new/${isDataExploration ? "data-exploration" : "find-me-data"}`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
@@ -125,7 +123,7 @@ const BasicInfo = ({
       dispatch(triggerAutoSave(true));
     }
 
-    if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
+    if (!!basicInfo?.projectTitle?.value?.length) {
       setFormData(basicInfo);
     }
 
@@ -217,12 +215,27 @@ const BasicInfo = ({
                 </Button>
               </div>
               <div styleName="footer-right">
+                {isLoggedIn && (
+                  <Button
+                    styleName="saveForLater"
+                    disabled={!isFormValid}
+                    size={BUTTON_SIZE.MEDIUM}
+                    type={BUTTON_TYPE.SECONDARY}
+                    onClick={() => saveForm(true)}
+                  >
+                    <span>SAVE FOR LATER</span>
+                  </Button>
+                )}
                 <Button
+                  styleName="reviewAndSubmit"
                   disabled={!isFormValid}
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
-                  REVIEW &amp; SUBMIT
+                  <ArrowRightIcon styleName="rotated" />
+                  <span>
+                    <span styleName="desktop">REVIEW &amp;</span> SUBMIT
+                  </span>
                 </Button>
               </div>
             </div>
