@@ -9,10 +9,11 @@ import DataAdvisoryIcon from "../../../assets/images/data-advisory-icon.svg";
 import HelpBanner from "components/HelpBanner";
 import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
 import { webWorkTypes } from "../../../constants/index";
+import { WorkType } from "../../../../src-ts/lib";
 
-export default function DataAdvsisory({ isLoggedIn }) {
+export default function DataAdvisory({ isLoggedIn }) {
   const dataAdvisory = webWorkTypes.find(
-    (type) => type.title === "Problem Statement & Data Advisory"
+    (workType) => workType.type === WorkType.problem
   );
 
   const { title, subTitle, helperBannerTitle, helperBannerContent } =

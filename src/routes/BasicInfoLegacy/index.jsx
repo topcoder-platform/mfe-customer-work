@@ -21,7 +21,7 @@ import {
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import BasicInfoForm from "./components/BasicInfoForm";
+import BasicInfoFormLegacy from "./components/BasicInfoFormLegacy";
 import "./styles.module.scss";
 import {
   getDynamicPriceAndTimeline,
@@ -34,7 +34,7 @@ import { ContactSupportModal } from "../../../src-ts";
 /**
  * Basic Info Page
  */
-const BasicInfo = ({
+const BasicInfoLegacy = ({
   saveBasicInfo,
   setProgressItem,
   savePageDetails,
@@ -155,7 +155,7 @@ const BasicInfo = ({
           <PageH2>BASIC INFO</PageH2>
           <PageDivider />
 
-          <BasicInfoForm
+          <BasicInfoFormLegacy
             pageListOptions={_.map(PageOptions, (o, i) => ({
               ...o,
               value: i === (pageDetails?.pages?.length || 0) - 1,
@@ -218,4 +218,4 @@ const mapDispatchToProps = {
   saveWorkType,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(BasicInfoLegacy);

@@ -50,7 +50,7 @@ const BasicInfo = ({
   saveWorkType,
   setProgressItem,
   toggleSupportModal,
-  bannerData,
+  workItemConfig,
   isLoggedIn,
 }) => {
   const defaultFormData = {
@@ -86,12 +86,12 @@ const BasicInfo = ({
   };
 
   const [formData, setFormData] = useState(defaultFormData);
-  const isFindMeData = bannerData.title === "Find Me Data";
-  const isWebsiteDesign = bannerData.title === "Website Design";
+  const isFindMeData = workItemConfig.type === WorkType.findData;
+  const isWebsiteDesign = workItemConfig.type === WorkType.design;
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
-  const isDataExploration = bannerData.title === "Data Exploration";
+  const isDataExploration = workItemConfig.type === WorkType.data;
   const isDataAdvisory =
-    bannerData.title === "Problem Statement & Data Advisory";
+    workItemConfig.type === WorkType.problem;
   const isDataExplorationFormValid =
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;
@@ -134,10 +134,10 @@ const BasicInfo = ({
     workType?.selectedWorkType === WorkType.design
       ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : isDataAdvisory
-      ? getDataAdvisoryPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : isDataAdvisory
+          ? getDataAdvisoryPriceAndTimelineEstimate()
+          : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     saveBasicInfo(defaultFormData);
@@ -175,8 +175,8 @@ const BasicInfo = ({
 
     if (currentStep === 0) {
       saveWorkType({
-        selectedWorkType: bannerData.title,
-        selectedWorkTypeDetail: bannerData.title,
+        selectedWorkType: workItemConfig.title,
+        selectedWorkTypeDetail: workItemConfig.title,
       });
       dispatch(triggerAutoSave(true));
     }
@@ -240,9 +240,9 @@ const BasicInfo = ({
       />
       <Page>
         <FeaturedWorkTypeBanner
-          title={bannerData.title}
-          subTitle={bannerData.subTitle}
-          workType={bannerData.title}
+          title={workItemConfig.title}
+          subTitle={workItemConfig.subTitle}
+          workType={workItemConfig.title}
         />
         <PageContent styleName="container">
           <BasicInfoForm
@@ -262,7 +262,7 @@ const BasicInfo = ({
             onFormUpdate={setFormData}
             numOfPages={pageDetails?.pages?.length || 0}
             onShowSupportModal={onShowSupportModal}
-            bannerData={bannerData}
+            bannerData={workItemConfig}
             saveForm={saveForm}
           />
 

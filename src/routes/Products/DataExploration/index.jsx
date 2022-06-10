@@ -9,10 +9,11 @@ import DataExplorationIcon from "../../../assets/images/data-exploration-icon.sv
 import HelpBanner from "components/HelpBanner";
 import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
 import { webWorkTypes } from "../../../constants/index";
+import { WorkType } from "../../../../src-ts/lib";
 
 export default function DataExploration({ isLoggedIn }) {
   const dataExploration = webWorkTypes.find(
-    (type) => type.title === "Data Exploration"
+    (workType) => workType.type === WorkType.data
   );
 
   const { title, subTitle, helperBannerTitle, helperBannerContent } =

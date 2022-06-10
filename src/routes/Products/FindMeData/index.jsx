@@ -9,9 +9,12 @@ import FindMeDataIcon from "../../../assets/images/find-me-data-icon.svg";
 import HelpBanner from "components/HelpBanner";
 import { webWorkTypes } from "../../../constants/index";
 import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
+import { WorkType } from "../../../../src-ts/lib";
 
 export default function FindMeData({ isLoggedIn }) {
-  const findMeData = webWorkTypes.find((type) => type.title === "Find Me Data");
+  const findMeData = webWorkTypes.find(
+    (workType) => workType.type === WorkType.findData
+  );
 
   const { title, subTitle, helperBannerTitle, helperBannerContent } =
     findMeData;

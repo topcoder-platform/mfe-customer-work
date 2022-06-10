@@ -23,6 +23,7 @@ import imgProductProblemStatement from "../assets/images/products/product-main-p
 import imgProductFindMeData from "../assets/images/products/product-main-photos/find-me-data.jpeg";
 import imgProductWebsiteDesign from "../assets/images/products/product-main-photos/web-design.jpeg";
 import imgRedBlueGradient from "../assets/images/products/product-main-photos/reb-blue-gradient-background.jpeg";
+import { WorkType } from "../../src-ts/lib";
 
 export const UNDER_MAINTENANCE = false;
 
@@ -288,7 +289,8 @@ export const projectAndProfessionalWork = {
  * Web Work Types
  */
 
-const webWorkDataExploraation = {
+const webWorkDataExploration = {
+  type: WorkType.data,
   title: "Data Exploration",
   subTitle: "Get insights about your data from Topcoder experts.",
   shortDescription: "Uncover What's Interesting About Your Data",
@@ -329,6 +331,7 @@ const webWorkDataExploraation = {
 };
 
 const webWorkProblemStatement = {
+  type: WorkType.problem,
   title: "Problem Statement & Data Advisory",
   subTitle:
     "Translate your data science idea into an actionable data science approach.",
@@ -375,6 +378,7 @@ const webWorkProblemStatement = {
 };
 
 const webWorkProblemFindMeData = {
+  type: WorkType.findData,
   title: "Find Me Data",
   subTitle: "Get the data you need to meet your analysis goals.",
   shortDescription: "Our Experts Source Useful Data Sets For You",
@@ -431,20 +435,19 @@ const webWorkProblemFindMeData = {
 };
 
 const webWorkProblemWebDesign = {
-  title: "Website Design",
+  type: WorkType.design,
+  title: "Website Design (NEW)",
   subTitle:
     "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
   shortDescription: "Create Custom Website Designs that Wow",
   shortDescriptionMobile: "Design your business",
   description:
     "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-  descriptionMobile:
-    "Sometimes data is the only thing standing between you and something great. Tell us what you're solving for, and let our experts find the data to get you started now. ",
   price: 499,
   // stickerPrice: 499,
   duration: "4 Days",
   featured: true,
-  startRoute: "/self-service/work/new/website-design/basic-info",
+  startRoute: "/self-service/work/new/website-design-new/basic-info",
   helperBannerTitle: "WHAT WILL I RECEIVE?",
   bgImage: imgProductWebsiteDesign,
   helperBannerContent: (
@@ -482,21 +485,29 @@ const webWorkProblemWebDesign = {
   ),
 };
 
+const webWorkProblemWebDesignLegacy = {
+  type: WorkType.designLegacy,
+  title: "Website Design",
+  duration: "4-6 Days",
+  description:
+    "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+  shortDescription: "Create Custom Website Designs that Wow",
+  shortDescriptionMobile: "Design your business",
+  subTitle:
+    "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+  price: 199,
+  stickerPrice: 398,
+  featured: true,
+  startRoute: "/self-service/work/new/website-design/basic-info",
+  bgImage: imgProductWebsiteDesign,
+}
+
 export const webWorkTypes = [
+  webWorkProblemWebDesignLegacy,
   webWorkProblemWebDesign,
-  webWorkDataExploraation,
+  webWorkDataExploration,
   webWorkProblemStatement,
   webWorkProblemFindMeData,
-  // {
-  //   title: "Website Design",
-  //   duration: "4-6 Days",
-  //   subTitle:
-  //     "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-  //   price: 199,
-  //   stickerPrice: 398,
-  //   featured: true,
-  //   startRoute: "/self-service/basic-info",
-  // },
   {
     title: "Website Development",
     subTitle: "Information to help understand what this category would include",
@@ -650,7 +661,8 @@ export const DEFAULT_TIMELINE = [
   },
 ];
 
-export const INTAKE_FORM_ROUTES = [
+// TODO CON: maybe split this up into it's own legacy file
+export const WEBSITE_DESIGN_LEGACY_INTAKE_FORM_ROUTES = [
   "/self-service/wizard",
   "/self-service/basic-info",
   "/self-service/website-purpose",

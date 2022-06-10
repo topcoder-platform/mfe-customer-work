@@ -41,9 +41,8 @@ const WorkTypeCard = ({
 }) => {
   return (
     <div
-      className={`${styles.workTypeCard} ${styles.workTypeCardSmall}${
-        className ? ` ${className}` : ""
-      }`}
+      className={`${styles.workTypeCard} ${styles.workTypeCardSmall}${className ? ` ${className}` : ""
+        }`}
       style={{ backgroundImage: `url(${bgImage})` }}
       onClick={ctaButtonOnClick}
     >
@@ -94,9 +93,8 @@ const WorkTypeCardWide = ({
 }) => {
   return (
     <div
-      className={`${styles.workTypeCard} ${styles.workTypeCardWide}${
-        className ? ` ${className}` : ""
-      }`}
+      className={`${styles.workTypeCard} ${styles.workTypeCardWide}${className ? ` ${className}` : ""
+        }`}
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {!!SvgIcon ? <SvgIcon /> : !!icon && <img src={icon} alt="" />}
@@ -197,12 +195,12 @@ const SelectWorkType = ({
                 title={featuredWorkType.title}
                 subHeading={featuredWorkType.shortDescription}
                 subHeadingMobile={featuredWorkType.shortDescriptionMobile}
-                className={`${styles.heroBackgroundContainer} ${
-                  styles[workTypeClassName(featuredWorkType.title)]
-                }`}
+                className={`${styles.heroBackgroundContainer} ${styles[workTypeClassName(featuredWorkType.title)]
+                  }`}
                 bgImage={featuredWorkType.bgImage}
                 ctaButtonOnClick={() => handleClick(featuredWorkType)}
                 content={featuredWorkType.description}
+                //TODO CON I don't think we need this 
                 contentMobile={featuredWorkType.descriptionMobile}
               />
             ))}
