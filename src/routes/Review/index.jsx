@@ -16,7 +16,6 @@ import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import FormInputCheckbox from "../../components/FormElements/FormInputCheckbox";
 import PaymentForm from "./components/PaymentForm";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
@@ -74,8 +73,10 @@ const Review = ({
     cvc: false, // value is bool indicating if it's valid or not
     expiryDate: false, // value is bool indicating if it's valid or not
     zipCode: null,
+    checked: false, // value to toggle terms and conditions checkbox
   });
   const [checked, setChecked] = useState(false);
+
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
@@ -209,7 +210,7 @@ const Review = ({
     formData.cvc &&
     formData.expiryDate &&
     formData.zipCode &&
-    checked;
+    formData.checked;
 
   return (
     <>
@@ -288,14 +289,18 @@ const Review = ({
 
                 <PageDivider styleName="pageDivider" />
 
-                <PaymentForm formData={formData} setFormData={setFormData} />
+                <PaymentForm
+                  formData={formData}
+                  setFormData={setFormData}
+                  onOpenContractModal={setIsOrderContractModalOpen}
+                />
                 {paymentFailed && (
                   <div styleName="error">
                     Your card was declined. Please try a different card.
                   </div>
                 )}
 
-                <div styleName="contract">
+                <div>
                   <FormInputCheckbox
                     label="Yes, I understand and agree to Topcoder's&nbsp;"
                     checked={checked}

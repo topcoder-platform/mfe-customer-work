@@ -108,3 +108,5 @@ dist
 
 # Webstorm setttings
 .idea/
+
+.DS_Store

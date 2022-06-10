@@ -14,6 +14,8 @@ import PageP from "../components/PageElements/PageP";
 import copyFileIcon from "../assets/images/icon-copy-file.svg";
 import workUtil from "../utils/work";
 
+import * as dataExplorationConfigs from "./products/DataExploration";
+import * as findMeDataConfigs from "./products/FindMeData";
 import countries from "./countries";
 
 import imgProductDataExploration from "../assets/images/products/product-main-photos/data-exploration.jpeg";
@@ -423,7 +425,6 @@ const webWorkProblemFindMeData = {
           Note, we also offer data anonymization services to convert your
           existing data into secure and shareable form
         </li>
-        <img src="Design-11.png" />
       </PageUl>
     </>
   ),

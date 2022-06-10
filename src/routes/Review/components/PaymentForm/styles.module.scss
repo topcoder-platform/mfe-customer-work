@@ -55,4 +55,19 @@
     margin-top: -15px;
     padding-bottom: 5px;
   }
+
+  .link {
+    color: $link-blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .contract {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    @include mobile {
+      margin-bottom: 8px;
+    }
+  }
 }

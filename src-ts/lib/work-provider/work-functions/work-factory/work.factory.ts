@@ -307,32 +307,28 @@ export function mapFormData(type: string, formData: any): any {
 
 function buildFormDataProblem(formData: any): any {
     return {
-        projectTitle: formData.projectTitle,
-        // tslint:disable-next-line: object-literal-sort-keys
-        goal: { title: 'What\'s Your Goal?', value: formData.goals?.value },
         data: {
             title: 'What Data Do You Have?', value: [
                 formData.sampleData?.value,
                 formData.assetsDescription?.value,
             ],
         },
+        goal: { title: 'What\'s Your Goal?', value: formData.goals?.value },
+        projectTitle: formData.projectTitle,
     }
 }
 
 function buildFormDataData(formData: any): any {
     return {
-        projectTitle: formData.projectTitle,
-        // tslint:disable-next-line: object-literal-sort-keys
         data: { title: 'Share Your Data (Optional)', value: formData.assetsUrl?.value },
         goal: { title: 'What Would You Like To Learn?', value: formData.goals?.value },
+        projectTitle: formData.projectTitle,
     }
 }
 
 function buildFormDataFindData(formData: any): any {
     const isPrimaryDataChallengeOther: boolean = formData.primaryDataChallenge?.value === 3
     return {
-        projectTitle: formData.projectTitle,
-        // tslint:disable-next-line: object-literal-sort-keys
         data: formData.analysis,
         primaryDataChallenge: {
             title: formData.primaryDataChallenge?.title,
@@ -340,6 +336,7 @@ function buildFormDataFindData(formData: any): any {
                 ? formData.primaryDataChallengeOther.value
                 : formData.primaryDataChallenge?.option,
         },
+        projectTitle: formData.projectTitle,
         sampleData: formData.sampleData,
     }
 }
@@ -354,12 +351,11 @@ function buildFormDataDesign(formData: any): any {
     ]
 
     return {
-        projectTitle: formData.projectTitle,
-        // tslint:disable-next-line: object-literal-sort-keys
+        assets: { title: 'Share Your Brand or Style Assets', value: [formData.assetsUrl?.value, formData.assetsDescription?.value] },
         description: { title: 'Description', value: formData.analysis?.value },
         industry: { title: 'Your Industry', value: formData.yourIndustry?.value },
         inspiration: { title: 'Inspiration', value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`) },
+        projectTitle: formData.projectTitle,
         style: { title: 'Style & Theme', value: styleInfo },
-        assets: { title: 'Share Your Brand or Style Assets', value: [formData.assetsUrl?.value, formData.assetsDescription?.value] },
     }
 }

@@ -100,17 +100,11 @@
         width: 100%;
       }
     }
-
-    .contract {
-      display: flex;
-      align-items: center;
-    }
   }
 }
 
 .backButtonWrapper {
-  min-width: 40px;
-  margin-top: 3px;
+  @include backButtonWrapper;
 }
 
 .confirmationBox {

@@ -33,6 +33,7 @@ import {
 } from "../../../../constants";
 import StyleOptions from "../StyleOptions";
 import styles from "../../../../assets/data/website-design-styles.json";
+import { WorkType } from "../../../../../src-ts";
 
 const BasicInfoForm = ({
   formData,
@@ -61,10 +62,10 @@ const BasicInfoForm = ({
     aboutBannerContent,
   } = bannerData;
 
-  const isDataExploration = title === "Data Exploration";
-  const isDataAdvisory = title === "Problem Statement & Data Advisory";
-  const isFindMeData = title === "Find Me Data";
-  const isWebsiteDesign = title === "Website Design";
+  const isDataExploration = title === WorkType.data;
+  const isDataAdvisory = title === WorkType.problem;
+  const isFindMeData = title === WorkType.findData;
+  const isWebsiteDesign = title === WorkType.design;
   const isOtherOptionSelected = formData?.primaryDataChallenge?.value !== 3;
 
   const handleArrayInputChange = (index, name, key, value, option = null) => {
@@ -147,17 +148,15 @@ const BasicInfoForm = ({
 
   let servicePriceIcon;
   switch (title) {
-    case "Data Exploration":
-    case "Problem Statement & Data Advisory":
+    case WorkType.data:
+    case WorkType.problem:
       servicePriceIcon = <DataExplorationIcon />;
       break;
-    case "Finde Me Data":
+    case WorkType.findData:
       servicePriceIcon = <FindMeDataIcon />;
       break;
-    case "Website Design":
+    case WorkType.design:
       servicePriceIcon = <WebsiteDesignIcon />;
-      break;
-    default:
       break;
   }
 
@@ -847,7 +846,7 @@ const BasicInfoForm = ({
         </PageRow>
       )}
 
-      <PageDivider />
+      {isWebsiteDesign && (<PageDivider />)}
 
       {isWebsiteDesign && (
         <PageRow styleName="form-row">
