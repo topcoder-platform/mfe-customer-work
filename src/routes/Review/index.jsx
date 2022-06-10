@@ -41,7 +41,7 @@ import {
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
 import HelpBanner from "components/HelpBanner";
-import { OrderContractModal } from "../../../src-ts/lib";
+import { OrderContractModal, WorkType } from "../../../src-ts";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
@@ -75,10 +75,8 @@ const Review = ({
     zipCode: null,
     checked: false, // value to toggle terms and conditions checkbox
   });
+  const [checked, setChecked] = useState(false);
 
-  const isDataExploration = bannerData.title === "Data Exploration";
-  const isDataAdvisory =
-    bannerData.title === "Problem Statement & Data Advisory";
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
@@ -86,14 +84,24 @@ const Review = ({
   const fullState = useSelector((state) => state);
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
-  const estimate =
-    workType?.selectedWorkType === "Website Design"
-      ? getWebsiteDesignPriceAndTimelineEstimate()
-      : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : isDataAdvisory
-      ? getDataAdvisoryPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+  let estimate;
+  switch (workType?.selectedWorkType) {
+    case (WorkType.design):
+      estimate = getWebsiteDesignPriceAndTimelineEstimate();
+      break;
+    case (WorkType.data):
+      estimate = getDataExplorationPriceAndTimelineEstimate();
+      break;
+    case (WorkType.problem):
+      estimate = getDataAdvisoryPriceAndTimelineEstimate();
+      break;
+    case (WorkType.findData):
+      estimate = getFindMeDataPriceAndTimelineEstimate();
+      break;
+    default:
+      estimate = getFindMeDataPriceAndTimelineEstimate();
+      break;
+  }
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -239,7 +247,7 @@ const Review = ({
                     <strong>
                       Your Dashboard is your go-to hub for managing your work.
                     </strong>
-                    &nbsp; From here you can view timelines, details, and a more
+                    &nbsp;From here you can view timelines, details, and a lot more
                     important information tied to your work submissions.
                   </li>
                   <li>

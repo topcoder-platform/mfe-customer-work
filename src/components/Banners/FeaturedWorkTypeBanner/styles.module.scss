@@ -6,10 +6,10 @@
   left: 0px;
   top: 0px;
   margin: 16px 0px;
-  
+
   display: grid;
   grid-template-columns: 1fr 359px;
-  
+
   &.website-design,
   &.data-exploration,
   &.review--payment {
@@ -59,13 +59,14 @@
       background: url("../../../assets/images/data-exploration.png");
       background-size: cover;
     }
+
     &.find-me-data,
-    &.problem-statement--data-advisory  {
+    &.problem-statement--data-advisory {
       background: url("../../../assets/images/find-me-data.png");
       background-size: cover;
     }
-    &.website-design,
-    &.review--payment {
+
+    &.website-design {
       background: url("../../../assets/images/website-design-v2.png");
       background-size: cover;
 
@@ -117,7 +118,7 @@
         flex-direction: row;
         align-items: flex-start;
         margin-right: 16px;
-        
+
         position: static;
         width: 40px;
         left: 0px;
@@ -151,6 +152,7 @@
         .heroHeaderTitle {
           display: flex;
           text-transform: uppercase;
+
           @include mobile {
             font-size: 28px;
             line-height: 32px;
@@ -162,6 +164,7 @@
           max-width: 713px;
           line-height: 24px;
           font-weight: 500;
+
           @include mobile {
             font-size: 14px;
             line-height: 20px;

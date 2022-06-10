@@ -242,6 +242,7 @@ const BasicInfo = ({
         <FeaturedWorkTypeBanner
           title={bannerData.title}
           subTitle={bannerData.subTitle}
+          workType={bannerData.title}
         />
         <PageContent styleName="container">
           <BasicInfoForm
