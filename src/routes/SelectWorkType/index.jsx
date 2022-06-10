@@ -5,7 +5,6 @@ import { connect, useDispatch, useSelector } from "react-redux";
 
 import { triggerAutoSave } from "../../actions/autoSave";
 import { saveWorkType, toggleSupportModal } from "../../actions/form";
-// import { currencyFormat } from "utils/";
 import { setProgressItem } from "../../actions/progress";
 // import BackIcon from "../../assets/images/icon-back-arrow.svg";
 // import IconWebsiteTools from "../../assets/images/design-tools.svg";

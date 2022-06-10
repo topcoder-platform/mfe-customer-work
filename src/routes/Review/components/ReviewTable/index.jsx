@@ -1,6 +1,5 @@
 import React from "react";
-import { WorkType } from "../../../../../src-ts/lib";
-import { WorkDetailDetailsPane } from "../../../../../src-ts/tools/work/work-detail-details/work-detail-details-pane";
+import { WorkDetailDetailsPane, WorkType } from "../../../../../src-ts";
 
 /**
  * Review Table Component
@@ -38,11 +37,11 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
     return (
       <div>
         {option.option && (
-          <div styleName="detail">
-            <div styleName="itemWrapper">
-              <p styleName="item">{option.title || title}</p>
+          <div>
+            <div >
+              <p>{option.title || title}</p>
             </div>
-            <p styleName="key">{formatOption(option.option)}</p>
+            <p>{formatOption(option.option)}</p>
           </div>
         )}
       </div>
@@ -64,13 +63,13 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
     return Object.keys(items).map((key) => {
       if (_.isArray(items[key]))
         return _.map(items[key], (item, i) => (
-          <div styleName="detail" key={i}>
-            <div styleName="itemWrapper">
-              <p styleName="item">
+          <div key={i}>
+            <div>
+              <p>
                 {key} {i + 1}
               </p>
             </div>
-            <p styleName="key">
+            <p>
               {Object.keys(item).map((subKey) =>
                 renderOption(item[subKey], subKey)
               )}
@@ -89,19 +88,19 @@ const ReviewTable = ({ formData, enableEdit = true }) => {
       return (
         <div>
           {page?.pageName && (
-            <div styleName="detail">
-              <div styleName="itemWrapper">
-                <p styleName="item">Page {index + 1} Name</p>
+            <div >
+              <div >
+                <p >Page {index + 1} Name</p>
               </div>
-              <p styleName="key">{page?.pageName}</p>
+              <p >{page?.pageName}</p>
             </div>
           )}
           {page?.pageDetails && (
-            <div styleName="detail">
-              <div styleName="itemWrapper">
-                <p styleName="item">Page {index + 1} Requirements</p>
+            <div >
+              <div >
+                <p >Page {index + 1} Requirements</p>
               </div>
-              <p styleName="key">{page?.pageDetails}</p>
+              <p>{page?.pageDetails}</p>
             </div>
           )}
         </div>

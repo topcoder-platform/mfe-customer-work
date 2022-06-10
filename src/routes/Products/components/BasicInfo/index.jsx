@@ -40,7 +40,7 @@ import {
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
-import { ContactSupportModal } from "../../../../../src-ts";
+import { ContactSupportModal, WorkType } from "../../../../../src-ts";
 
 /**
  * Basic Info Page
@@ -131,7 +131,7 @@ const BasicInfo = ({
   const challenge = useSelector((state) => state.challenge);
 
   const estimate =
-    workType?.selectedWorkType === "Website Design"
+    workType?.selectedWorkType === WorkType.design
       ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
       ? getDataExplorationPriceAndTimelineEstimate()
@@ -181,7 +181,7 @@ const BasicInfo = ({
       dispatch(triggerAutoSave(true));
     }
 
-    if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
+    if (!!basicInfo?.projectTitle?.value?.length) {
       setFormData(basicInfo);
     }
 

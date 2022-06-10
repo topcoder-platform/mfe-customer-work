@@ -7,7 +7,7 @@ install_dependency: &install_dependency
   command: |
     sudo apt install jq
     pip install awscli --upgrade
-    pip install docker-compose
+    pip install docker-compose       
 install_deploysuite: &install_deploysuite
   name: Installation of install_deploysuite.
   command: |

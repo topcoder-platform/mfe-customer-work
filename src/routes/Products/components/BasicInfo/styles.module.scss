@@ -75,6 +75,47 @@
 
 .backButtonWrapper {
   @include backButtonWrapper;
+  margin-top: 0;
+}
+
+@include mobile {
+
+  button {
+    svg {
+      display: block !important;
+      @include gtelg {
+        display: inline-block !important;
+      }
+    }
+  }
+
+  .save-button-text {
+    display: none;
+  }
+
+  .review-button-text {
+    display: none;
+  }
+}
+
+@include mobile {
+
+  button {
+    svg {
+      display: block !important;
+      @include gtelg {
+        display: inline-block !important;
+      }
+    }
+  }
+
+  .save-button-text {
+    display: none;
+  }
+
+  .review-button-text {
+    display: none;
+  }
 }
 
 @include mobile {
