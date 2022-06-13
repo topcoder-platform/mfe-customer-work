@@ -66,6 +66,10 @@
     padding: 1px;
   }
 
+  .days {
+    display: inline;
+  }
+
   svg {
     margin-left: 9px;
     @include mobile {

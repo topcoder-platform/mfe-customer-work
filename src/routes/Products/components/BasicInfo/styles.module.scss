@@ -25,7 +25,7 @@
     }
 
     @include mobile {
-      flex-direction: column;
+      flex-direction: row;
     }
 
     button {

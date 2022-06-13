@@ -33,8 +33,8 @@ const ServicePrice = ({
             )}
             <span styleName="discount">{currencyFormat(price)}</span>
             <span styleName="separator" />
-            {duration} Days
-            <div styleName="filler"/>
+            <span styleName="days">{duration}&nbsp;Days</span>
+            <div styleName="filler" />
             <HelpIcon>
               The price and project length is dynamic and dependent on the
               variables selected as you define your work.

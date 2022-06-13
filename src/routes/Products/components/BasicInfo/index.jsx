@@ -20,9 +20,6 @@ import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
-import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
-import SupportModal from "../../../../components/Modal/SupportModal";
-import { getProfile } from "../../../../selectors/profile";
 import { getUserProfile } from "../../../../thunks/profile";
 
 import BasicInfoForm from "../BasicInfoForm";
@@ -49,7 +46,7 @@ const BasicInfo = ({
   bannerData,
   isLoggedIn,
 }) => {
-  const defaultFormData = {
+  const [formData, setFormData] = useState({
     projectTitle: { title: "Project Title", option: "", value: "" },
     assetsUrl: { title: "Shareable URL Link(s)", value: "" },
     goals: { title: "Goals & Data Description", option: "", value: null },
@@ -95,15 +92,16 @@ const BasicInfo = ({
     workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : isDataExploration
-        ? getDataExplorationPriceAndTimelineEstimate()
-        : getFindMeDataPriceAndTimelineEstimate();
+      ? getDataExplorationPriceAndTimelineEstimate()
+      : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
-    saveBasicInfo(defaultFormData);
     navigate("/self-service/wizard");
   };
 
-  const baseUrl = `/self-service/work/new/${isDataExploration ? "data-exploration" : "find-me-data"}`;
+  const baseUrl = `/self-service/work/new/${
+    isDataExploration ? "data-exploration" : "find-me-data"
+  }`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
@@ -226,7 +224,6 @@ const BasicInfo = ({
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
-                    onClick={() => saveForm(true)}
                   >
                     <SaveForLaterIcon />
                     <span>
