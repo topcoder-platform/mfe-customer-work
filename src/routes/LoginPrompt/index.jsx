@@ -27,7 +27,7 @@ const LoginPrompt = ({
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate(nextPageUrl || "/self-service/branding");
+      navigate(nextPageUrl || "/self-service/work/new/website-design/branding");
       setProgressItem(5);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,7 +42,7 @@ const LoginPrompt = ({
   };
 
   const onBack = () => {
-    navigate(previousPageUrl || "/self-service/page-details");
+    navigate(previousPageUrl || "/self-service/work/new/website-design/page-details");
   };
 
   return (

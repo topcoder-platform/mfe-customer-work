@@ -86,7 +86,7 @@ const Payment = ({
   });
 
   const onBack = () => {
-    navigate(previousPageUrl || "/self-service/review");
+    navigate(previousPageUrl || "/self-service/work/new/website-design/review");
   };
 
   const clearPreviousForm = () => {
@@ -136,7 +136,7 @@ const Payment = ({
       .then((res) => {
         activateChallenge(challengeId);
         clearPreviousForm();
-        navigate(nextPageUrl || "/self-service/thank-you");
+        navigate(nextPageUrl || "/self-service/work/new/website-design/thank-you");
         setProgressItem(8);
         setPaymentFailed(false);
       })

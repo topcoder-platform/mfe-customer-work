@@ -1,6 +1,7 @@
 import React from "react";
-import { WorkType } from "../../../../../src-ts/lib";
-import { WorkDetailDetailsPane } from "../../../../../src-ts/tools/work/work-detail-details/work-detail-details-pane";
+import { WorkDetailDetailsPane, WorkType } from "../../../../../src-ts";
+// import { WorkType } from "../../../../../src-ts/lib";
+// import { WorkDetailDetailsPane } from "../../../../../src-ts/tools/work/work-detail-details/work-detail-details-pane";
 
 /**
  * Review Table Component
@@ -31,7 +32,7 @@ const getRedirectUrl = (type) => {
       path = "find-me-data";
       break;
     case WorkType.design:
-      path = "website-design";
+      path = "website-design-new";
       break;
   }
 

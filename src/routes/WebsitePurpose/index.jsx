@@ -46,12 +46,12 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
     formData?.userStory?.value.length;
 
   const onBack = () => {
-    navigate("/self-service/basic-info");
+    navigate("/self-service/work/new/website-design/basic-info");
   };
 
   const onNext = () => {
     saveWebsitePurpose(formData);
-    navigate("/self-service/page-details");
+    navigate("/self-service/work/new/website-design/page-details");
     setProgressItem(4);
   };
 

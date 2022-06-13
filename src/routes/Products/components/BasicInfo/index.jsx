@@ -88,7 +88,6 @@ const BasicInfo = ({
   const [formData, setFormData] = useState(defaultFormData);
   const isFindMeData = workItemConfig.type === WorkType.findData;
   const isWebsiteDesign = workItemConfig.type === WorkType.design;
-  console.log("constanza", isWebsiteDesign);
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
   const isDataExploration = workItemConfig.type === WorkType.data;
   const isDataAdvisory =
@@ -152,7 +151,7 @@ const BasicInfo = ({
   } else if (isFindMeData) {
     basePath = "find-me-data";
   } else if (isWebsiteDesign) {
-    basePath = "website-design";
+    basePath = "website-design-new";
   } else if (isDataAdvisory) {
     basePath = "data-advisory";
   }

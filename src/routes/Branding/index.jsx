@@ -96,11 +96,11 @@ const Branding = ({ saveBranding, setProgressItem }) => {
       formData?.fontUrl.value.trim() !== "");
 
   const onBack = () => {
-    navigate("/self-service/page-details");
+    navigate("/self-service/work/new/website-design/page-details");
   };
 
   const onNext = () => {
-    navigate("/self-service/review");
+    navigate("/self-service/work/new/website-design/review");
     saveBranding(formData);
     setProgressItem(6);
   };

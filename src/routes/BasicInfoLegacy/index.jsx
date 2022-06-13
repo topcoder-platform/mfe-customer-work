@@ -69,7 +69,7 @@ const BasicInfoLegacy = ({
   const onNext = () => {
     setProgressItem(3);
     saveBasicInfo(formData);
-    navigate("/self-service/website-purpose");
+    navigate("/self-service/work/new/website-design/website-purpose");
   };
 
   const updateNumOfPages = (newNumOfPages) => {
@@ -120,7 +120,7 @@ const BasicInfoLegacy = ({
       setFormData(basicInfo);
     }
 
-    setFirstMounted(true);
+    setFirstMounted(false);
 
     return () => {
       dispatch(triggerAutoSave(true));

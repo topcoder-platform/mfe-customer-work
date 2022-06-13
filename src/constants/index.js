@@ -664,13 +664,13 @@ export const DEFAULT_TIMELINE = [
 // TODO CON: maybe split this up into it's own legacy file
 export const WEBSITE_DESIGN_LEGACY_INTAKE_FORM_ROUTES = [
   "/self-service/wizard",
-  "/self-service/basic-info",
-  "/self-service/website-purpose",
-  "/self-service/page-details",
-  "/self-service/login-prompt",
-  "/self-service/branding",
-  "/self-service/review",
-  "/self-service/thank-you",
+  "/self-service/work/new/website-design/basic-info",
+  "/self-service/work/new/website-design/website-purpose",
+  "/self-service/work/new/website-design/page-details",
+  "/self-service/work/new/website-design/login-prompt",
+  "/self-service/work/new/website-design/branding",
+  "/self-service/work/new/website-design/review",
+  "/self-service/work/new/website-design/thank-you",
 ];
 
 export const CHALLENGE_STATUS = {
