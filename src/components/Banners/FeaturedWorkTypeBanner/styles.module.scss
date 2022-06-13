@@ -10,9 +10,6 @@
   display: grid;
   grid-template-columns: 1fr 359px;
 
-  &.website-design {
-    background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
-  }
   &.data-exploration {
     background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
   }
@@ -63,16 +60,6 @@
     &.find-me-data {
       background: url("../../../assets/images/find-me-data.png");
       background-size: cover;
-    }
-    &.website-design,
-    &.review--payment {
-      background: url("../../../assets/images/website-design-v2.png");
-      background-size: cover;
-
-      @include mobile {
-        background: url("../../../assets/images/website-design-banner-mobile.png");
-        background-size: cover;
-      }
     }
   }
 

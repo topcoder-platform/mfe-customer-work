@@ -92,16 +92,14 @@ const BasicInfo = ({
     workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     navigate("/self-service/wizard");
   };
 
-  const baseUrl = `/self-service/work/new/${
-    isDataExploration ? "data-exploration" : "find-me-data"
-  }`;
+  const baseUrl = `/self-service/work/new/${isDataExploration ? "data-exploration" : "find-me-data"}`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);

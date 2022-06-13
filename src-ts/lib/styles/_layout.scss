@@ -27,18 +27,3 @@ hr {
     border: none;
     display: none;
 }
-
-@mixin pagePaddings {
-    padding-left: $pad-xxxxl;
-    padding-right: $pad-xxxxl;
-
-    @include ltemd {
-        padding-left: $pad-xxl;
-        padding-right: $pad-xxl;
-    }
-    
-    @include xxs {
-        padding-left: $pad-lg;
-        padding-right: $pad-lg;
-    }
-}
