@@ -129,7 +129,7 @@ const SelectWorkType = ({
                         </span>
                       }
                       <span className={styles.separator}>|</span>
-                      {featuredWorkType.duration}
+                      <span>{featuredWorkType.duration}</span>
                     </div>
                   </div>
                 </div>

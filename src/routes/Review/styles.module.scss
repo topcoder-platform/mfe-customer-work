@@ -11,6 +11,11 @@
     gap: 16px;
   }
 }
+.mobileHidden {
+  @include mobile {
+    display: none;
+  }
+}
 
 .container {
   border-top-left-radius: 0;
@@ -95,6 +100,11 @@
         width: 100%;
       }
     }
+
+    .contract {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 
@@ -120,6 +130,15 @@
 
 .inline {
   display: inline-block;
+}
+
+.link {
+  color: $link-blue;
+  text-decoration: underline;
+  cursor: pointer;
+  @include mobile {
+    flex: none;
+  }
 }
 
 .error {

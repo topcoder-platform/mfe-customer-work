@@ -20,23 +20,21 @@ const ServicePrice = ({
 }) => {
   return (
     <div styleName="container">
-      <PageRow>
+      <PageRow styleName="inline">
         {showIcon && icon && <>{icon}</>}
         {showIcon && !icon && <WebsiteDesignIcon />}
         <div>
           {!hideTitle && <p styleName="serviceTitle">{serviceType}</p>}
           <div styleName="priceAndDuration">
-            <div class="info">
-              {stickerPrice && (
-                <span styleName="stickerPrice">
-                  {currencyFormat(stickerPrice)}
-                </span>
-              )}
-              <span styleName="discount">{currencyFormat(price)}</span>
-              <span styleName="separator" />
-              <span>{duration}&nbsp;Days</span>
-              <div styleName="filler" />
-            </div>
+            {stickerPrice && (
+              <span styleName="stickerPrice">
+                {currencyFormat(stickerPrice)}
+              </span>
+            )}
+            <span styleName="discount">{currencyFormat(price)}</span>
+            <span styleName="separator" />
+            <span styleName="days">{duration}&nbsp;Days</span>
+            <div styleName="filler" />
             <HelpIcon>
               The price and project length is dynamic and dependent on the
               variables selected as you define your work.

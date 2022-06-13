@@ -7,9 +7,9 @@
   .label {
     @include font-roboto;
     font-size: 14px;
-    line-height: 14px;
+    line-height: 18px;
     margin-left: 8px;
-    font-weight: bold;
+    font-weight: normal;
 
     span {
       text-decoration: underline;

@@ -18,18 +18,30 @@
 
     .rotated {
       transform: rotate(-90deg);
-      display: none;
     }
 
     .save-icon {
       display: none;
     }
 
+    @include mobile {
+      flex-direction: row;
+    }
+
     button {
       svg {
         display: none;
+        @include mobile {
+          display: inline-block;
+        }
         @include gtelg {
           display: inline-block;
+        }
+      }
+
+      span {
+        @include mobile {
+          display: none;
         }
       }
 

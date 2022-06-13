@@ -66,10 +66,16 @@
     padding: 1px;
   }
 
+  .days {
+    display: inline;
+  }
+
   svg {
     margin-left: 9px;
     @include mobile {
-      margin: 0;
+      margin-left: 100px;
+      width: 20px;
+      height: 20px;
     }
   }
 }
