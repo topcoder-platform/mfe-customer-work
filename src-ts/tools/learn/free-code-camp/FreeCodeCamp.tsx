@@ -1,5 +1,5 @@
-import { FC, MutableRefObject, useEffect, useMemo, useRef } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { FC, memo, MutableRefObject, useEffect, useMemo, useRef, useState } from 'react'
+import { NavigateFunction, useNavigate, useSearchParams } from 'react-router-dom'
 
 import { EnvironmentConfig } from '../../../config'
 import {
@@ -18,19 +18,33 @@ import {
 
 import styles from './FreeCodeCamp.module.scss'
 
+const FreecodecampIfr: FC<any> = memo((params: any) => (
+    <iframe
+        className={styles.iframe}
+        ref={params.frameRef}
+    />
+))
+
 const FreeCodeCamp: FC<{}> = () => {
-    const frameRef: MutableRefObject<HTMLElement|any> = useRef()
     const [searchParams]: any = useSearchParams()
+    // const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    
+
+    const frameRef: MutableRefObject<HTMLElement|any> = useRef()
+    const r = useRef<any>(false);
+    const [courseParam, setCourseParam] = useState(searchParams.get('course') ?? '');
+    const [moduleParam, setModuleParam] = useState(searchParams.get('module') ?? '');
+    const [lessonParam, setLessonParam] = useState(searchParams.get('lesson') ?? '');
 
     const {
         course: courseData,
         ready: courseDataReady,
-    }: CoursesProviderData = useCoursesProvider(searchParams.get('course'))
+    }: CoursesProviderData = useCoursesProvider(courseParam)
 
     const { lesson, ready }: LessonProviderData = useLessonProvider(
-        searchParams.get('course'),
-        searchParams.get('module'),
-        searchParams.get('lesson'),
+        courseParam,
+        moduleParam,
+        lessonParam,
     )
 
     const breadcrumb: Array<BreadcrumbItemModel> = useMemo(() => [
@@ -43,9 +57,38 @@ const FreeCodeCamp: FC<{}> = () => {
         if (!frameRef.current || !lesson) {
             return
         }
-
         Object.assign(frameRef.current, {src: `${EnvironmentConfig.LEARN_SRC}/${lesson.lessonUrl}`})
     }, [lesson?.lessonUrl])
+
+    useEffect(() => {
+      if (!frameRef) {
+          return;
+      }
+      const handleEvent = (event: any) => {
+        const { data: jsonData, origin } = event;
+        if (origin.indexOf(EnvironmentConfig.LEARN_SRC) === -1) {
+            return;
+        }
+
+        const {event: eventName, data} = JSON.parse(jsonData);
+        if (eventName === 'fcc:challenge:ready') {
+            const [lessonPath, modulePath, coursePath] =data.nextChallengePath.split('/').reverse();
+            
+            r.current = true;
+            if (lessonPath !== lessonParam || modulePath !== moduleParam || coursePath !== courseParam) {
+                if (coursePath !== courseParam) setCourseParam(coursePath);
+                if (modulePath !== moduleParam) setModuleParam(modulePath);
+                if (lessonPath !== lessonParam) setLessonParam(lessonPath);
+            }
+            window.history.replaceState('', '', `?course=${coursePath}&module=${modulePath}&lesson=${lessonPath}`)
+        }
+      };
+  
+      window.addEventListener('message', handleEvent, false);
+      return function cleanup() {
+        window.removeEventListener('message', handleEvent, false);
+      };
+    }, [frameRef, lessonParam, moduleParam, courseParam]);
 
     return (
         <>
@@ -59,13 +102,10 @@ const FreeCodeCamp: FC<{}> = () => {
                             <CourseOutline
                                 course={courseData}
                                 ready={courseDataReady}
-                                currentStep={`${searchParams.get('module')}/${searchParams.get('lesson')}`}
+                                currentStep={`${moduleParam}/${lessonParam}`}
                             />
                         </CollapsiblePane>
-                        <iframe
-                            className={styles.iframe}
-                            ref={frameRef}
-                        />
+                        <FreecodecampIfr frameRef={frameRef} />
                     </div>
                 </Portal>
             )}
