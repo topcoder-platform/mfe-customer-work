@@ -42,6 +42,7 @@ import {
 } from "../../autoSaveBeforeLogin";
 import HelpBanner from "components/HelpBanner";
 import { OrderContractModal, WorkType } from "../../../src-ts";
+import FormInputCheckbox from "../../components/FormElements/FormInputCheckbox";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,

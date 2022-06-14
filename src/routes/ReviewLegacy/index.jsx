@@ -27,8 +27,6 @@ import { activateChallenge } from "../../services/challenge";
 import "./styles.module.scss";
 import {
   getDynamicPriceAndTimelineEstimate,
-  getDataExplorationPriceAndTimelineEstimate,
-  getFindMeDataPriceAndTimelineEstimate,
   currencyFormat,
 } from "utils/";
 import _ from "lodash";
@@ -45,12 +43,10 @@ const stripePromise = loadStripe(config.STRIPE.API_KEY, {
 });
 
 /**
- *  Review Legacyx Page
+ *  Review Legacy Page
  */
 const ReviewLegacy = ({
   setProgressItem,
-  previousPageUrl,
-  nextPageUrl,
   showProgress,
   introText,
   banner,
@@ -58,8 +54,8 @@ const ReviewLegacy = ({
   showIcon,
   enableEdit = true,
   secondaryBanner,
-  bannerData,
 }) => {
+  console.log("Inside Review Legacy")
   const dispatch = useDispatch();
   const [paymentFailed, setPaymentFailed] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -74,7 +70,6 @@ const ReviewLegacy = ({
     checked: false, // value to toggle terms and conditions checkbox
   });
 
-  const isDataExploration = bannerData.title === "Data Exploration";
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
@@ -82,14 +77,10 @@ const ReviewLegacy = ({
   const fullState = useSelector((state) => state);
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
-  const estimate =
-    workType?.selectedWorkType === "Website Design"
-      ? getDynamicPriceAndTimelineEstimate(fullState)
-      : isDataExploration
-        ? getDataExplorationPriceAndTimelineEstimate()
-        : getFindMeDataPriceAndTimelineEstimate();
+  const estimate = getDynamicPriceAndTimelineEstimate(fullState)
 
   const [firstMounted, setFirstMounted] = useState(true);
+
   useEffect(() => {
     if (!firstMounted) {
       return;
@@ -122,7 +113,7 @@ const ReviewLegacy = ({
   }, [currentStep, anotherFirstMounted]);
 
   const onBack = () => {
-    navigate(previousPageUrl || "/self-service/work/new/website-design/branding");
+    navigate("/self-service/work/new/website-design/branding");
   };
 
   const clearPreviousForm = () => {
@@ -146,10 +137,7 @@ const ReviewLegacy = ({
       "form.basicInfo.selectedDevice.option.length",
       1
     );
-    const additionalPaymentInfo =
-      workType?.selectedWorkType === "Website Design"
-        ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
-        : "";
+    const additionalPaymentInfo = `\n${numOfPages} Pages\n${numOfDevices} Devices`;
 
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,
@@ -172,7 +160,7 @@ const ReviewLegacy = ({
       .then((res) => {
         activateChallenge(challengeId);
         clearPreviousForm();
-        navigate(nextPageUrl || "/self-service/work/new/website-design/thank-you");
+        navigate("/self-service/work/new/website-design/thank-you");
         setProgressItem(8);
         setPaymentFailed(false);
       })

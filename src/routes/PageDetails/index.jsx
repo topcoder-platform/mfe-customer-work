@@ -39,7 +39,7 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
   const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const onBack = () => {
-    navigate("/self-service/website-purpose");
+    navigate("/self-service/work/new/website-design/website-purpose");
   };
 
   const [firstMounted, setFirstMounted] = useState(true);
@@ -66,7 +66,7 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
   }, [currentStep, pageDetails, dispatch, setProgressItem, firstMounted]);
 
   const onNext = () => {
-    navigate("/self-service/login-prompt");
+    navigate("/self-service/work/new/website-design/login-prompt");
     savePageDetails(listInputs);
     setProgressItem(5);
   };

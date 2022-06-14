@@ -33,11 +33,10 @@ export default function WebsiteDesignLegacy({ isLoggedIn }) {
       <LoginPrompt path="/login-prompt" isLoggedIn={isLoggedIn} />
       <Branding path="/branding" />
       <ReviewLegacy
+        path="/review"
         showIcon
         introText="Your Website Design project includes up to 5 unique Visual Design solutions. Each solution will match your specified scope and device types. You will receive industry-standard source files to take take forward to further design and/or development. Design deliverables will NOT include functional code."
-        path="/review"
         banner={<WebsiteDesignBanner />}
-        bannerData={webDesignLegacy}
         showProgress
       />
       <Payment path="/payment" showProgress />
