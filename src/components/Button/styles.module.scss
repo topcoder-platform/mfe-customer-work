@@ -18,6 +18,10 @@
   &[disabled] {
     cursor: default;
   }
+
+  svg {
+    fill: white;
+  }
 }
 
 .size-large {
@@ -65,20 +69,20 @@
 }
 
 .type-primary {
-  border: 1px solid $green1;
+  border: 2px solid $green1;
   background-color: $green1;
   color: #fff;
 }
 
 .type-warning {
-  border: 1px solid #ef476f;
+  border: 2px solid #ef476f;
   background-color: #ef476f;
   color: #fff;
 }
 
 .type-secondary {
   background-color: #fff;
-  border: 1px solid $green1;
+  border: 2px solid $green1;
   color: #229174;
 }
 

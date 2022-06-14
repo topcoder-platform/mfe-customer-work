@@ -1,13 +1,13 @@
 version: 2
 defaults: &defaults
   docker:
-    - image: circleci/python:2.7-stretch-browsers
+    - image: cimg/python:3.10.4
 install_dependency: &install_dependency
   name: Installation of build and deployment dependencies.
   command: |
     sudo apt install jq
-    sudo pip install awscli --upgrade
-    sudo pip install docker-compose
+    pip install awscli --upgrade
+    pip install docker-compose       
 install_deploysuite: &install_deploysuite
   name: Installation of install_deploysuite.
   command: |
@@ -75,7 +75,8 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                # - develop
+                - PROD-120_find-me-data
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.

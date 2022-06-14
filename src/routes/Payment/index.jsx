@@ -8,6 +8,7 @@ import { toastr } from "react-redux-toastr";
 import {
   getDynamicPriceAndTimelineEstimate,
   getDataExplorationPriceAndTimelineEstimate,
+  getFindMeDataPriceAndTimelineEstimate,
   currencyFormat,
 } from "utils/";
 import _ from "lodash";
@@ -40,7 +41,7 @@ import { getUserProfile } from "../../thunks/profile";
 
 import PaymentForm from "./components/PaymentForm";
 import "./styles.module.scss";
-import { OrderContractModal } from "../../../src-ts/lib";
+import { OrderContractModal, WorkType } from "../../../src-ts";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
@@ -69,9 +70,11 @@ const Payment = ({
     useState(false);
 
   const estimate =
-    workType === "Website Design"
+    workType === WorkType.design
       ? getDynamicPriceAndTimelineEstimate(fullState)
-      : getDataExplorationPriceAndTimelineEstimate();
+      : WorkType.findData
+        ? getFindMeDataPriceAndTimelineEstimate()
+        : getDataExplorationPriceAndTimelineEstimate();
 
   const [formData, setFormData] = useState({
     cardName: null,
@@ -179,7 +182,10 @@ const Payment = ({
 
   return (
     <>
-      <OrderContractModal isOpen={isOrderContractModalOpen} onClose={() => setIsOrderContractModalOpen(false)} />
+      <OrderContractModal
+        isOpen={isOrderContractModalOpen}
+        onClose={() => setIsOrderContractModalOpen(false)}
+      />
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>

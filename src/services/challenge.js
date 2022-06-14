@@ -5,6 +5,8 @@ import _ from "lodash";
 import moment from "moment";
 import * as websiteDesignUtils from "utils/products/WebDesign";
 import * as dataExplorationUtils from "utils/products/DataExploration";
+import * as findMeDataUtils from "utils/products/FindMeData";
+import { WorkType } from "../../src-ts";
 
 /**
  * Get Challenge challenge details
@@ -34,10 +36,12 @@ export async function getIntakeFormChallenges(userHandle, challengeId) {
  * Post a New Challenge
  */
 export async function createChallenge(workType) {
-  const body =
-    workType === "Website Design"
-      ? websiteDesignUtils.formatChallengeCreationBody()
+  const body = workType === WorkType.design
+    ? websiteDesignUtils.formatChallengeCreationBody()
+    : workType === WorkType.findData
+      ? findMeDataUtils.formatChallengeCreationBody()
       : dataExplorationUtils.formatChallengeCreationBody();
+
   const response = await axios.post(
     `${config.API.V5}/challenges`,
     JSON.stringify(body)
@@ -52,10 +56,12 @@ export async function createChallenge(workType) {
 export async function patchChallenge(intakeForm, challengeId) {
   const jsonData = JSON.parse(intakeForm);
   const workType = _.get(jsonData, "form.workType.selectedWorkType");
-  const body =
-    workType === "Website Design"
-      ? websiteDesignUtils.formatChallengeUpdateBody(intakeForm)
+  const body = workType === WorkType.design
+    ? websiteDesignUtils.formatChallengeUpdateBody(intakeForm)
+    : workType === WorkType.findData
+      ? findMeDataUtils.formatChallengeUpdateBody(intakeForm)
       : dataExplorationUtils.formatChallengeUpdateBody(intakeForm);
+
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
     JSON.stringify(body)

@@ -5,6 +5,25 @@
   svg {
     margin-right: 16px;
   }
+
+  .inline {
+    display: flex;
+    flex-direction: row;
+    @include mobile {
+      width: 100%;
+    }
+  }
+  @include mobile {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.filler {
+  display: flex;
+  @include mobile {
+    flex: 1;
+  }
 }
 
 .serviceTitle {
@@ -23,6 +42,11 @@
   color: $black;
   display: flex;
 
+  @include mobile {
+    justify-content: space-between;
+  }
+
+
   .discount {
     color: $discount-green;
   }
@@ -39,9 +63,19 @@
     background: #D4D4D4;
     border-radius: 1px;
     margin: 0px 16px;
+    padding: 1px;
+  }
+
+  .days {
+    display: inline;
   }
 
   svg {
     margin-left: 9px;
+    @include mobile {
+      margin-left: 100px;
+      width: 20px;
+      height: 20px;
+    }
   }
 }

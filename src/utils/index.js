@@ -85,9 +85,21 @@ export function getDataExplorationPriceAndTimelineEstimate() {
 }
 
 export function getFindMeDataPriceAndTimelineEstimate() {
-  const total =
-    findMeDataConfigs.PROMOTIONAL_PRODUCT_PRICE ||
-    findMeDataConfigs.BASE_PRODUCT_PRICE;
+  let total = 0;
+  let placementPercentages,
+    reviewerPercentages = [];
+  if (findMeDataConfigs.USING_PROMOTIONAL_PRICE) {
+    total = findMeDataConfigs.PROMOTIONAL_PRODUCT_PRICE;
+    placementPercentages =
+      findMeDataConfigs.PROMOTIONAL_PRIZES_PAYMENT_BREAKDOWN;
+    reviewerPercentages =
+      findMeDataConfigs.PROMOTIONAL_REVIEWER_PAYMENT_BREAKDOWN;
+  } else {
+    total = findMeDataConfigs.BASE_PRODUCT_PRICE;
+    placementPercentages = findMeDataConfigs.BASE_PRIZES_PAYMENT_BREAKDOWN;
+    reviewerPercentages = findMeDataConfigs.BASE_REVIEWER_PAYMENT_BREAKDOWN;
+  }
+
   return {
     total,
     stickerPrice: findMeDataConfigs.BASE_PRODUCT_PRICE,
@@ -95,22 +107,18 @@ export function getFindMeDataPriceAndTimelineEstimate() {
     totalDuration: findMeDataConfigs.DEFAULT_DURATION,
     prizeSets: [
       {
-        prizes: [
-          ..._.map(findMeDataConfigs.PRIZES_PAYMENT_BREAKDOWN, (p) => ({
-            type: "USD",
-            value: _.round(p * total),
-          })),
-        ],
+        prizes: placementPercentages.map((percentage) => ({
+          type: "USD",
+          value: _.round(percentage * total),
+        })),
         description: "Challenge Prizes",
         type: "placement",
       },
       {
-        prizes: [
-          ..._.map(findMeDataConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
-            type: "USD",
-            value: _.round(p * total),
-          })),
-        ],
+        prizes: reviewerPercentages.map((percentage) => ({
+          type: "USD",
+          value: _.round(percentage * total),
+        })),
         description: "Reviewer Payment",
         type: "reviewer",
       },

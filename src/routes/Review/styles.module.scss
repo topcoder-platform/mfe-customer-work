@@ -11,6 +11,11 @@
     gap: 16px;
   }
 }
+.mobileHidden {
+  @include mobile {
+    display: none;
+  }
+}
 
 .container {
   border-top-left-radius: 0;
@@ -104,8 +109,7 @@
 }
 
 .backButtonWrapper {
-  min-width: 40px;
-  margin-top: 3px;
+  @include backButtonWrapper;
 }
 
 .confirmationBox {
@@ -132,9 +136,26 @@
   color: $link-blue;
   text-decoration: underline;
   cursor: pointer;
+  @include mobile {
+    flex: none;
+  }
 }
 
 .error {
   font-size: 14px;
   color: $red-120;
+}
+
+.hideMobile {
+  @include mobile {
+    display: none;
+  }
+}
+
+.showOnlyMobile {
+  display: none;
+
+  @include mobile {
+    display: block;
+  }
 }

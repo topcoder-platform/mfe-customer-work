@@ -15,7 +15,11 @@ import {
   loadSavedFormCookie,
   setCookie,
 } from "./autoSaveBeforeLogin";
-import { INTAKE_FORM_ROUTES, MAX_COMPLETED_STEP } from "./constants";
+import {
+  INTAKE_FORM_ROUTES,
+  MAX_COMPLETED_STEP,
+  webWorkTypes,
+} from "./constants";
 import { INTAKE_FORM_ROUTES as DATA_EXPLORATION_INTAKE_FORM_ROUTES } from "./constants/products/DataExploration";
 import { INTAKE_FORM_ROUTES as FIND_ME_DATA_INTAKE_FORM_ROUTES } from "./constants/products/FindMeData";
 import {
@@ -36,9 +40,7 @@ import DataExploration from "./routes/Products/DataExploration";
 import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
 import FindMeData from "./routes/Products/FindMeData";
 
-import { webWorkTypes } from "./constants";
-
-import { WorkType } from '../src-ts/lib'
+import { WorkType } from "../src-ts";
 
 export default function IntakeForm() {
   const dispatch = useDispatch();
@@ -177,8 +179,9 @@ export default function IntakeForm() {
     return auth;
   };
 
-  const webDesignBannerData = webWorkTypes
-    .find((type) => type.title === WorkType.design);
+  const webDesignBannerData = webWorkTypes.find(
+    (type) => type.title === WorkType.design
+  );
 
   return (
     <div>

@@ -27,6 +27,9 @@
 
   .formFieldWrapper {
     margin-top: 48px;
+    @include mobile {
+      margin-top: 24px;
+    }
   }
 }
 
