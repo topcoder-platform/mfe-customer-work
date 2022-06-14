@@ -2,6 +2,7 @@ export {
     type Work,
     workFactoryCreate,
     workFactoryGetStatus,
+    workFactoryMapFormData,
     type WorkProgress,
     type WorkProgressStep,
     type WorkSolution,

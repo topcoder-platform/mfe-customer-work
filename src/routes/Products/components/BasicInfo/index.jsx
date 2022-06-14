@@ -23,8 +23,8 @@ import {
 import { triggerAutoSave } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
-import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
 import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
+import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
 import { getUserProfile } from "../../../../thunks/profile";
 
 import BasicInfoForm from "../BasicInfoForm";
@@ -40,7 +40,7 @@ import {
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
-import { ContactSupportModal } from "../../../../../src-ts";
+import { ContactSupportModal, WorkType } from "../../../../../src-ts";
 
 /**
  * Basic Info Page
@@ -131,13 +131,13 @@ const BasicInfo = ({
   const challenge = useSelector((state) => state.challenge);
 
   const estimate =
-    workType?.selectedWorkType === "Website Design"
+    workType === WorkType.design
       ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : isDataAdvisory
-      ? getDataAdvisoryPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : isDataAdvisory
+          ? getDataAdvisoryPriceAndTimelineEstimate()
+          : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     saveBasicInfo(defaultFormData);
@@ -181,7 +181,7 @@ const BasicInfo = ({
       dispatch(triggerAutoSave(true));
     }
 
-    if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
+    if (!!basicInfo?.projectTitle?.value?.length) {
       setFormData(basicInfo);
     }
 
@@ -282,6 +282,7 @@ const BasicInfo = ({
               <div styleName="footer-right">
                 {isLoggedIn && (
                   <Button
+                    styleName="saveForLater"
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
@@ -292,6 +293,7 @@ const BasicInfo = ({
                   </Button>
                 )}
                 <Button
+                  styleName="reviewAndSubmit"
                   disabled={!isFormValid}
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}

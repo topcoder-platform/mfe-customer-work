@@ -109,8 +109,7 @@
 }
 
 .backButtonWrapper {
-  min-width: 40px;
-  margin-top: 3px;
+  @include backButtonWrapper;
 }
 
 .confirmationBox {
@@ -145,4 +144,18 @@
 .error {
   font-size: 14px;
   color: $red-120;
+}
+
+.hideMobile {
+  @include mobile {
+    display: none;
+  }
+}
+
+.showOnlyMobile {
+  display: none;
+
+  @include mobile {
+    display: block;
+  }
 }
