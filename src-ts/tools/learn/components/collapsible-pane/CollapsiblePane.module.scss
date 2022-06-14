@@ -42,5 +42,7 @@
     background: $tc-grad15;
     padding: $pad-lg;
     color: $tc-white;
-    overflow: hidden;
+    overflow: auto;
+
+    @include scrollbar;
 }

@@ -56,11 +56,16 @@ const FreeCodeCamp: FC<{}> = () => {
                 <Portal portalId='page-subheader-portal-el'>
                     <div className={styles['iframe-wrap']}>
                         <CollapsiblePane title='Course Outline'>
-                            <CourseOutline
-                                course={courseData}
-                                ready={courseDataReady}
-                                currentStep={`${searchParams.get('module')}/${searchParams.get('lesson')}`}
-                            />
+                            <div className={styles['course-outline-wrap']}>
+                                <div className={styles['course-outline-title']}>
+                                    {courseData?.title}
+                                </div>
+                                <CourseOutline
+                                    course={courseData}
+                                    ready={courseDataReady}
+                                    currentStep={`${searchParams.get('module')}/${searchParams.get('lesson')}`}
+                                />
+                            </div>
                         </CollapsiblePane>
                         <iframe
                             className={styles.iframe}

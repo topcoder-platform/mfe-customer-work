@@ -33,28 +33,26 @@ const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
 
     return (
         <div className={styles['wrap']}>
-            {!props.ready && <LoadingSpinner />}
+            {props.ready === false && <LoadingSpinner />}
 
             {props.course && (
-                <>
-                    <div className={styles['title']}>
-                        {props.course.title}
-                    </div>
-                    <div className={styles['content']}>
-                        {props.course.modules.map((module) => (
-                            <CollapsibleItem
-                                key={module.key}
-                                id={module.key}
-                                title={module.meta.name}
-                                items={module.lessons}
-                                active={props.currentStep}
-                                itemId={(it: any) => `${module.meta.dashedName}/${it.dashedName}`}
-                                path={(it: any) => lessonPath(props.course, module, it)}
-                                progress={progress?.modules}
-                            />
-                        ))}
-                    </div>
-                </>
+                <div className={styles['content']}>
+                    {props.course.modules.map((module) => (
+                        <CollapsibleItem
+                            active={props.currentStep}
+                            duration={module.meta.estimatedCompletionTime}
+                            id={module.key}
+                            itemId={(it: any) => `${module.meta.dashedName}/${it.dashedName}`}
+                            items={module.lessons}
+                            key={module.key}
+                            lessonsCount={module.meta.lessonCount}
+                            path={(it: any) => lessonPath(props.course, module, it)}
+                            progress={progress?.modules}
+                            shortDescription={module.meta.introCopy}
+                            title={module.meta.name}
+                        />
+                    ))}
+                </div>
             )}
         </div>
     )

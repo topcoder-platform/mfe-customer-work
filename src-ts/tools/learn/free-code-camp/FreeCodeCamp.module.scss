@@ -1,3 +1,4 @@
+@use '../../../lib/styles/typography';
 @import '../../../lib/styles/includes';
 
 .wrap {
@@ -18,4 +19,14 @@
     padding: 0;
     height: 100%;
     flex: 1 1 auto;
+}
+
+.course-outline-wrap {
+    width: 406px;
+}
+
+.course-outline-title {
+    @extend .body-main-bold;
+    flex: 0 0 auto;
+    margin-bottom: $pad-xl;
 }
