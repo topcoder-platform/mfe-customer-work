@@ -4,10 +4,7 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 
 import { triggerAutoSave } from "../../actions/autoSave";
-import {
-  saveWorkType,
-  toggleSupportModal,
-} from "../../actions/form";
+import { saveWorkType, toggleSupportModal } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import IconWebsiteTools from "../../assets/images/design-tools.svg";
@@ -84,7 +81,7 @@ const SelectWorkType = ({
 
   const breadcrumb = [
     { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
-    { url: '/self-service/wizard', name: "Start work" }
+    { url: "/self-service/wizard", name: "Start work" },
   ];
 
   const workTypeClassName = (title) => title.toLowerCase().split(" ").join("-");
@@ -103,12 +100,14 @@ const SelectWorkType = ({
           <PageH2>SELECT WORK TYPE</PageH2>
           {featuredWorkTypes.map((featuredWorkType) => (
             <div
-              className={`${styles.heroContainer} ${styles[workTypeClassName(featuredWorkType.title)]
-                }`}
+              className={`${styles.heroContainer} ${
+                styles[workTypeClassName(featuredWorkType.title)]
+              }`}
             >
               <div
-                className={`${styles.heroBackgroundContainer} ${styles[workTypeClassName(featuredWorkType.title)]
-                  }`}
+                className={`${styles.heroBackgroundContainer} ${
+                  styles[workTypeClassName(featuredWorkType.title)]
+                }`}
               ></div>
               <div className={styles.heroContent}>
                 <div className={styles.heroHeader}>
@@ -130,7 +129,7 @@ const SelectWorkType = ({
                         </span>
                       }
                       <span className={styles.separator}>|</span>
-                      {featuredWorkType.duration}
+                      <span>{featuredWorkType.duration}</span>
                     </div>
                   </div>
                 </div>

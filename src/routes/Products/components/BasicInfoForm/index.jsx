@@ -19,6 +19,8 @@ import DataExplorationIcon from "../../../../assets/images/data-exploration-icon
 import FindMeDataIcon from "../../../../assets/images/find-me-data-icon.svg";
 import "./styles.module.scss";
 import { PrimaryDataChallengeOptions } from "../../../../constants";
+import { WorkType } from "../../../../../src-ts";
+
 
 const BasicInfoForm = ({
   formData,
@@ -43,7 +45,7 @@ const BasicInfoForm = ({
     aboutBannerContent,
   } = bannerData;
 
-  const isDataExploration = title === "Data Exploration";
+  const isDataExploration = title === WorkType.data;
   const isOtherOptionSelected = formData?.primaryDataChallenge?.value !== 3;
 
   useEffect(() => {
@@ -71,6 +73,16 @@ const BasicInfoForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [primaryDataChallenge, setPrimaryDataChallenge]);
 
+  let servicePriceIcon;
+  switch (title) {
+    case WorkType.data:
+      servicePriceIcon = <DataExplorationIcon />;
+      break;
+    case WorkType.findData:
+      servicePriceIcon = <FindMeDataIcon />;
+      break;
+  }
+
   return (
     <div styleName="basicInfoForm">
       <ServicePrice
@@ -80,13 +92,7 @@ const BasicInfoForm = ({
         serviceType={serviceType}
         hideTitle
         showIcon
-        icon={
-          title === "Data Exploration" ? (
-            <DataExplorationIcon />
-          ) : (
-            <FindMeDataIcon />
-          )
-        }
+        icon={servicePriceIcon}
       />
       <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
         {helperBannerContent}
@@ -308,8 +314,6 @@ const BasicInfoForm = ({
           </div>
         </PageRow>
       )}
-
-      <PageDivider />
 
       {!isDataExploration && (
         <PageRow styleName="form-row">

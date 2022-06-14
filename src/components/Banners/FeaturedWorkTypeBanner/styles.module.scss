@@ -6,13 +6,10 @@
   left: 0px;
   top: 0px;
   margin: 16px 0px;
-  
+
   display: grid;
   grid-template-columns: 1fr 359px;
-  
-  &.website-design {
-    background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
-  }
+
   &.data-exploration {
     background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
   }
@@ -30,7 +27,10 @@
     min-width: 0;
     max-width: 100%;
     overflow: hidden;
-    grid-template-columns: 1fr 200px;
+    flex-direction: column;
+    grid-template-columns: auto;
+    margin-top: 0!important;
+    border-radius: 0!important;
   }
 
   .heroBackgroundContainer {
@@ -48,7 +48,9 @@
     border-radius: 0 8px 8px 0;
 
     @include mobile {
-      width: 200px;
+      width: 100%;
+      height: 156px;
+      order: 0;
     }
 
     &.data-exploration {
@@ -102,7 +104,7 @@
         flex-direction: row;
         align-items: flex-start;
         margin-right: 16px;
-        
+
         position: static;
         width: 40px;
         left: 0px;
@@ -136,6 +138,10 @@
         .heroHeaderTitle {
           display: flex;
           text-transform: uppercase;
+          @include mobile {
+            font-size: 28px;
+            line-height: 32px;
+          }
         }
 
         .heroHeaderSubtitle {
@@ -143,6 +149,10 @@
           max-width: 713px;
           line-height: 24px;
           font-weight: 500;
+          @include mobile {
+            font-size: 14px;
+            line-height: 20px;
+          }
         }
       }
     }
