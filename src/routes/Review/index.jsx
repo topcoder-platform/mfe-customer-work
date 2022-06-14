@@ -227,7 +227,7 @@ const Review = ({
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
             <div styleName="reviewContainer">
-              <ReviewTable formData={intakeFormData} enableEdit={enableEdit} />
+              <ReviewTable formData={intakeFormData} />
               <div styleName="hideMobile">
                 <AboutYourProject />
               </div>

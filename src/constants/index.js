@@ -343,6 +343,9 @@ export const webWorkTypes = [
   {
     title: "Data Exploration",
     subTitle: "Get insights about your data from Topcoder experts.",
+    shortDescription: "Uncover What's Interesting About Your Data",
+    description:
+      "We accumulate data every day in the course of life and business, yet rarely have the time to give it a closer look. Get multiple fresh, expert perspectives to identify the patterns and relationships in your data. They might just be the key to your next 'Aha' moment.",
     price: dataExplorationConfigs.USING_PROMOTIONAL_PRICE
       ? dataExplorationConfigs.PROMOTIONAL_PRODUCT_PRICE
       : dataExplorationConfigs.BASE_PRODUCT_PRICE,
@@ -350,6 +353,7 @@ export const webWorkTypes = [
     duration: `${dataExplorationConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-exploration/basic-info",
+    bgImage: imgProductDataExploration,
     helperBannerTitle: "WHAT WILL I GET?",
     helperBannerContent: (
       <>
@@ -425,6 +429,9 @@ export const webWorkTypes = [
   {
     title: "Find Me Data",
     subTitle: "Get the data you need to meet your analysis goals.",
+    shortDescription: "Our Experts Source Useful Data Sets For You",
+    description:
+      "Sometimes data is the only thing standing between you and something great. Tell us what you're solving for, and let our experts find the data to get you started now.",
     price: findMeDataConfigs.USING_PROMOTIONAL_PRICE
       ? findMeDataConfigs.PROMOTIONAL_PRODUCT_PRICE
       : findMeDataConfigs.BASE_PRODUCT_PRICE,
@@ -432,6 +439,7 @@ export const webWorkTypes = [
     duration: `${findMeDataConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
+    bgImage: imgProductFindMeData,
     helperBannerTitle: "WHAT WILL I RECEIVE?",
     helperBannerContent: (
       <>

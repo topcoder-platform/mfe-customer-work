@@ -102,15 +102,13 @@ function buildFormDataData(formData: any): any {
 }
 
 function buildFormDataDesign(formData: any): any {
-    const styleInfo: {} = {
-        'Like': formData.likedStyles?.value?.join(', '),
-        // Disabling lint error to maintain order for display
-        // tslint:disable-next-line: object-literal-sort-keys
-        'Dislike': formData.dislikedStyles?.value?.join(', '),
-        'Additional Details': formData.stylePreferences?.value,
-        'Color Selections': formData.colorOption?.value.join(', '),
-        'Specific Colors': formData.specificColor?.value,
-    }
+    const styleInfo: Array<string> = [
+        `Like: ${formData.likedStyles?.value?.join(', ') || ''}`,
+        `Dislike: ${formData.dislikedStyles?.value?.join(', ') || ''}`,
+        `Additional Details: ${formData.stylePreferences?.value || ''}`,
+        `Color Selections: ${formData.colorOption?.value.join(', ') || ''}`,
+        `Specific Colors: ${formData.specificColor?.value || ''}`,
+    ]
 
     return {
         projectTitle: formData.projectTitle,
@@ -126,8 +124,7 @@ function buildFormDataDesign(formData: any): any {
         },
         inspiration: {
             title: 'Inspiration',
-            value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`)
-                .filter((item: any) => item?.trim().length > 0),
+            value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`),
         },
         style: {
             title: 'Style & Theme',
@@ -135,36 +132,26 @@ function buildFormDataDesign(formData: any): any {
         },
         assets: {
             title: 'Share Your Brand or Style Assets',
-            value: [formData.assetsUrl?.value, formData.assetsDescription?.value]
-                .filter((item: any) => item?.trim().length > 0),
+            value: [formData.assetsUrl?.value, formData.assetsDescription?.value],
         },
     }
 }
 
 function buildFormDataFindData(formData: any): any {
     const isPrimaryDataChallengeOther: boolean = formData.primaryDataChallenge?.value === 3
-    const data: any = {
+    return {
         projectTitle: formData.projectTitle,
         // Disabling lint error to maintain order for display
         // tslint:disable-next-line: object-literal-sort-keys
         data: formData.analysis,
         primaryDataChallenge: {
             title: formData.primaryDataChallenge?.title,
-            value: formData.primaryDataChallenge?.option,
+            value: isPrimaryDataChallengeOther
+                ? formData.primaryDataChallengeOther.value
+                : formData.primaryDataChallenge?.option,
         },
-        primaryDataChallengeOther: isPrimaryDataChallengeOther ? formData.primaryDataChallengeOther : undefined,
-        // TODO: Once PROD-2083 is merged, replace primaryDataChallenge key with the following
-        // and get rid of key primaryDataChallengeOther
-        //
-        // primaryDataChallenge: {
-        //     title: formData.primaryDataChallenge?.title,
-        //     value: isPrimaryDataChallengeOther
-        //         ? formData.primaryDataChallengeOther.value
-        //         : formData.primaryDataChallenge?.option,
-        // },
         sampleData: formData.sampleData,
     }
-    return data
 }
 
 function buildFormDataProblem(formData: any): any {
@@ -177,11 +164,10 @@ function buildFormDataProblem(formData: any): any {
             value: formData.goals?.value,
         },
         data: {
-            title: 'What Data Do You Have?',
-            value: [
+            title: 'What Data Do You Have?', value: [
                 formData.sampleData?.value,
                 formData.assetsDescription?.value,
-            ].filter((item: any) => item?.trim().length > 0),
+            ],
         },
     }
 }

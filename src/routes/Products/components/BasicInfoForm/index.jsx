@@ -214,350 +214,27 @@ const BasicInfoForm = ({
         </div>
       </PageRow>
 
-      {isDataExploration && (
-        <PageRow styleName="form-row">
-          <div>
-            <PageP styleName="title">Share Your Data (optional)</PageP>
-            <PageP styleName="description">
-              Add links (separate multiple links with commas) or upload your
-              data files here. Not ready or able to share? No problem, we'll
-              work with you on that later.
-            </PageP>
-          </div>
-
-          <div styleName="formFieldWrapper">
-            <div styleName="assets">
-              <FormField label={"Shareable URL Link(s)"}>
-                <FormInputText
-                  placeholder={"www.example-share-link.com"}
-                  value={formData?.assetsUrl?.value}
-                  name="assetsUrl"
-                  onChange={(e) =>
-                    handleInputChange(
-                      e.target.name,
-                      e.target.value,
-                      e.target.value
-                    )
-                  }
-                />
-              </FormField>
-            </div>
-          </div>
-        </PageRow>
-      )}
-
-      {isFindMeData && (
-        <PageRow styleName="form-row">
-          <div>
-            <PageP styleName="title">{"What Data Do You Need?"}</PageP>
-            <PageP styleName="description">
-              Briefly describe the analysis you want to do, and the type of data
-              you're looking for to do it. Be sure to include any critical data
-              requirements, such as specific geographies, demographics, date
-              ranges and/or key variables needed for your analysis.{" "}
-            </PageP>
-            <HelpBanner title="Example" styles={["gray"]}>
-              <br />
-              <PageP>
-                I'm a real estate investor & want to diversify into other cities
-                in Texas. Currently, we only invest in Dallas Fort Worth. We're
-                looking for 3-5 other cities in Texas to invest. I'd like to
-                evaluate rental demand and occupancy rates, property price vs.
-                avg rental payments, job and population growth compared to state
-                and national averages, and the trends of renter-occupied
-                households compared to homeowners. I think there's data on sites
-                like{" "}
-                <a target="_blank" href="https://www.zillow.com/">
-                  {" "}
-                  zillow.com
-                </a>{" "}
-                and{" "}
-                <a target="_blank" href="https://www.hotpads.com/">
-                  {" "}
-                  hotpads.com
-                </a>
-                , but it's hard to find and organize.
-              </PageP>
-              <br />
-              <PageP>
-                Not sure what data you need? Consider{" "}
-                <a target="_blank" href="https://topcoder.com">
-                  {" "}
-                  Problem Statement & Data Advisory
-                </a>{" "}
-                to get clarity on the best data & approach for your goals.
-              </PageP>
-            </HelpBanner>
-          </div>
-
-          <div styleName="formFieldWrapper">
-            <FormField label={"Analysis & Data Description"}>
-              <FormInputTextArea
-                value={formData?.analysis?.value}
-                onChange={(e) =>
-                  handleInputChange(
-                    e.target.name,
-                    e.target.value,
-                    e.target.value
-                  )
-                }
-                styleName={"text-area"}
-                name="analysis"
-                placeholder={
-                  "Describe your analysis goal and data requirements"
-                }
-              />
-            </FormField>
-          </div>
-        </PageRow>
-      )}
-
       <PageDivider />
 
-      {isWebsiteDesign && (
-        <PageRow styleName="form-row">
-          <div>
-            <PageP styleName="title">{"Description"}</PageP>
-            <PageP styleName="description">
-              What is the purpose of your website? What do you want visitors to
-              be able to do, e.g., see your work? Contact you? You should
-              include a general description as well as goals of the website. You
-              may also describe your audience and what you would like them to do
-              at your website.{" "}
-            </PageP>
-            <HelpBanner title="Example" styles={["gray"]}>
-              <br />
-              <PageP>
-                <PageP>
-                  I would like a design for a dog walking website that allows
-                  visitors to select dog walkers and schedule dog walking
-                  appointments.
-                </PageP>
-                <PageP>
-                  The audience for my website will be dog owners. As a dog
-                  owner, I want someone trustworthy to walk my dog, so he feels
-                  loved while I’m at work.
-                </PageP>
-                <PageP>
-                  Home Page:
-                  <br />I would like to see a landing screen to welcome our
-                  customers and make them feel welcome and warm. We love their
-                  dog and we want them to feel it! We really want our audience
-                  to do one core action and that’s to get started finding their
-                  perfect “Walkie” which is what we call our professional dog
-                  walkers.
-                </PageP>
-                <PageP>
-                  Information Pages:
-                  <br />
-                  Our customers should be able to reach information about: Our
-                  Services, Our Walkies, and Locations We Serve. Also, a user
-                  must be able to Create an Account.
-                </PageP>
-                <PageP>
-                  Our Services include: dog walking, doggie day care, dog
-                  feeding, basic grooming.
-                </PageP>
-                <PageP>
-                  Our Walkies information should show a photo of the Walkie,
-                  their name and a little bit about them. It’s important for
-                  customers to see a badge of some sort that indicates all of
-                  our dog walkers are insured.
-                </PageP>
-                <PageP>
-                  Locations We Serve: We have 3 locations in the greater Seattle
-                  area.
-                </PageP>
-                <PageP>
-                  Each page should include a testimonial from one of our users.
-                  For example: “WalkieDoggie is perfect. They are always
-                  professional and they take amazing care of our dog, Beefcake.
-                  - Victoria B. from Tacoma, Washington”
-                </PageP>
-              </PageP>
-            </HelpBanner>
-          </div>
-
-          <div styleName="formFieldWrapper">
-            <FormField label={"Description"}>
-              <FormInputTextArea
-                value={formData?.analysis?.value}
-                onChange={(e) =>
-                  handleInputChange(
-                    e.target.name,
-                    e.target.value,
-                    e.target.value
-                  )
-                }
-                styleName={"text-area"}
-                name="analysis"
-                placeholder={"Describe your website"}
-              />
-            </FormField>
-          </div>
-        </PageRow>
-      )}
-
-      {isDataExploration && <PageDivider />}
-
       {isDataExploration && (
-        <PageRow styleName="form-row">
-          <div>
-            <PageP styleName="title">{"what would you like to learn?"}</PageP>
-            <PageP styleName="description">
-              Describe your data and what you would like to learn about it. If
-              you have a formal problem statement, please share it.
-            </PageP>
-            <HelpBanner title="Example" styles={["gray"]}>
-              <br />
-              <PageP>
-                I spend money on marketing for my website, but it's hard to know
-                which marketing option works best. I make money from
-                advertising, so the more people that visit my site and engage
-                with something, the more ad money I can make. I shared the
-                reports I have from the past year for each of my 3 marketing
-                channels. I'd like to know how that data can help understand
-                where to focus my marketing spend.
-              </PageP>
-            </HelpBanner>
-          </div>
-
-          <div styleName="formFieldWrapper">
-            <FormField label={"Goals & Data Description"}>
-              <FormInputTextArea
-                value={formData?.goals?.value}
-                onChange={(e) =>
-                  handleInputChange(
-                    e.target.name,
-                    e.target.value,
-                    e.target.value
-                  )
-                }
-                styleName={"text-area"}
-                name="goals"
-                placeholder={"Enter your goals and descriptions here"}
-              />
-            </FormField>
-          </div>
-        </PageRow>
-      )}
-
-      {isDataAdvisory && (
-        <PageRow styleName="form-row">
-          <div>
-            <PageP styleName="title">{"what’s your goal?"}</PageP>
-            <PageP styleName="description">
-              Describe what you want to do or learn with the help of data
-              science. What will this information or ability help improve? Keep
-              in mind that data science typically answers a question. Good
-              questions are specific, measurable and clarify important context.
-              This ensures that when your question is answered, you learn
-              something valuable and actionable.
-            </PageP>
-            <HelpBanner title="Description Tips" styles={["gray"]}>
-              <br />
-              <PageP>
-                How can I increase profit? How can I get more customers? How can
-                I do computer vision? These questions alone are too vague. Which
-                piece of equipment is going to fail first? Which of my marketing
-                channels produces the most customers per dollar? How can I
-                automatically review pictures or documents to for specific
-                content? These questions along with relevant data and/or context
-                enable our experts to shape your question into something
-                actionable. Don't worry, we'll help you along the way. So let's
-                get started!
-              </PageP>
-            </HelpBanner>
-          </div>
-
-          <div styleName="formFieldWrapper">
-            <FormField label={"Your Goal"}>
-              <FormInputTextArea
-                value={formData?.goals?.value}
-                onChange={(e) =>
-                  handleInputChange(
-                    e.target.name,
-                    e.target.value,
-                    e.target.value
-                  )
-                }
-                styleName={"text-area"}
-                name="goals"
-                placeholder={"Describe your goal"}
-              />
-            </FormField>
-          </div>
-        </PageRow>
-      )}
-
-      {isFindMeData && (
-        <PageRow styleName="form-row">
-          <div>
-            <PageP styleName="title">{"Primary Data Challenge"}</PageP>
-            <PageP styleName="description">
-              Select the primary data challenge you're facing.
-            </PageP>
-          </div>
-
-          <div styleName="formFieldWrapper">
-            <RadioButton
-              onChange={(items) => {
-                const selectedOption = items.findIndex((item) => item.value);
-                const foundOption = items.find((item) => item.value);
-                handleInputChange(
-                  "primaryDataChallenge",
-                  selectedOption,
-                  foundOption.label
-                );
-              }}
-              size="lg"
-              options={primaryDataChallenge}
-            />
-            <br />
-            <FormField
-              label={"Primary Data Challenge"}
-              disabled={isOtherOptionSelected}
-            >
-              <FormInputText
-                placeholder={"Specify your primary data challenge"}
-                value={formData?.primaryDataChallengeOther?.value}
-                name="primaryDataChallengeOther"
-                onChange={(e) =>
-                  handleInputChange(
-                    e.target.name,
-                    e.target.value,
-                    e.target.value
-                  )
-                }
-                disabled={isOtherOptionSelected}
-              />
-            </FormField>
-          </div>
-        </PageRow>
-      )}
-
-      {isWebsiteDesign && <PageDivider />}
-
-      {
-        isWebsiteDesign && (
+        <>
           <PageRow styleName="form-row">
             <div>
-              <PageP styleName="title">Your industry</PageP>
+              <PageP styleName="title">Share Your Data (optional)</PageP>
               <PageP styleName="description">
-                Knowing your industry will help our designers understand you and
-                your audience. For example, some common industries are: Business &
-                Consulting, Construction, Entertainment & Arts, Healthcare,
-                Retail, and Technology.
+                Add links (separate multiple links with commas) or upload your
+                data files here. Not ready or able to share? No problem, we'll
+                work with you on that later.
               </PageP>
             </div>
 
             <div styleName="formFieldWrapper">
-              <div>
-                <FormField label={"Your Industry"}>
+              <div styleName="assets">
+                <FormField label={"Shareable URL Link(s)"}>
                   <FormInputText
-                    placeholder={"Enter your industry"}
-                    value={formData?.yourIndustry?.value}
-                    name="yourIndustry"
+                    placeholder={"www.example-share-link.com"}
+                    value={formData?.assetsUrl?.value}
+                    name="assetsUrl"
                     onChange={(e) =>
                       handleInputChange(
                         e.target.name,
@@ -570,13 +247,165 @@ const BasicInfoForm = ({
               </div>
             </div>
           </PageRow>
-        )
-      }
 
-      <PageDivider />
+          <PageDivider />
 
-      {
-        isFindMeData && (
+          <PageRow styleName="form-row">
+            <div>
+              <PageP styleName="title">{"what would you like to learn?"}</PageP>
+              <PageP styleName="description">
+                Describe your data and what you would like to learn about it. If
+                you have a formal problem statement, please share it.
+              </PageP>
+              <HelpBanner title="Example" styles={["gray"]}>
+                <br />
+                <PageP>
+                  I spend money on marketing for my website, but it's hard to know
+                  which marketing option works best. I make money from
+                  advertising, so the more people that visit my site and engage
+                  with something, the more ad money I can make. I shared the
+                  reports I have from the past year for each of my 3 marketing
+                  channels. I'd like to know how that data can help understand
+                  where to focus my marketing spend.
+                </PageP>
+              </HelpBanner>
+            </div>
+
+            <div styleName="formFieldWrapper">
+              <FormField label={"Goals & Data Description"}>
+                <FormInputTextArea
+                  value={formData?.goals?.value}
+                  onChange={(e) =>
+                    handleInputChange(
+                      e.target.name,
+                      e.target.value,
+                      e.target.value
+                    )
+                  }
+                  styleName={"text-area"}
+                  name="goals"
+                  placeholder={"Enter your goals and descriptions here"}
+                />
+              </FormField>
+            </div>
+          </PageRow>
+        </>
+      )}
+
+      {isFindMeData && (
+        <>
+          <PageRow styleName="form-row">
+            <div>
+              <PageP styleName="title">{"What Data Do You Need?"}</PageP>
+              <PageP styleName="description">
+                Briefly describe the analysis you want to do, and the type of data
+                you're looking for to do it. Be sure to include any critical data
+                requirements, such as specific geographies, demographics, date
+                ranges and/or key variables needed for your analysis.{" "}
+              </PageP>
+              <HelpBanner title="Example" styles={["gray"]}>
+                <br />
+                <PageP>
+                  I'm a real estate investor & want to diversify into other cities
+                  in Texas. Currently, we only invest in Dallas Fort Worth. We're
+                  looking for 3-5 other cities in Texas to invest. I'd like to
+                  evaluate rental demand and occupancy rates, property price vs.
+                  avg rental payments, job and population growth compared to state
+                  and national averages, and the trends of renter-occupied
+                  households compared to homeowners. I think there's data on sites
+                  like{" "}
+                  <a target="_blank" href="https://www.zillow.com/">
+                    {" "}
+                    zillow.com
+                  </a>{" "}
+                  and{" "}
+                  <a target="_blank" href="https://www.hotpads.com/">
+                    {" "}
+                    hotpads.com
+                  </a>
+                  , but it's hard to find and organize.
+                </PageP>
+                <br />
+                <PageP>
+                  Not sure what data you need? Consider{" "}
+                  <a target="_blank" href="https://topcoder.com">
+                    {" "}
+                    Problem Statement & Data Advisory
+                  </a>{" "}
+                  to get clarity on the best data & approach for your goals.
+                </PageP>
+              </HelpBanner>
+            </div>
+
+            <div styleName="formFieldWrapper">
+              <FormField label={"Analysis & Data Description"}>
+                <FormInputTextArea
+                  value={formData?.analysis?.value}
+                  onChange={(e) =>
+                    handleInputChange(
+                      e.target.name,
+                      e.target.value,
+                      e.target.value
+                    )
+                  }
+                  styleName={"text-area"}
+                  name="analysis"
+                  placeholder={
+                    "Describe your analysis goal and data requirements"
+                  }
+                />
+              </FormField>
+            </div>
+          </PageRow>
+
+          <PageDivider />
+
+          <PageRow styleName="form-row">
+            <div>
+              <PageP styleName="title">{"Primary Data Challenge"}</PageP>
+              <PageP styleName="description">
+                Select the primary data challenge you're facing.
+              </PageP>
+            </div>
+
+            <div styleName="formFieldWrapper">
+              <RadioButton
+                onChange={(items) => {
+                  const selectedOption = items.findIndex((item) => item.value);
+                  const foundOption = items.find((item) => item.value);
+                  handleInputChange(
+                    "primaryDataChallenge",
+                    selectedOption,
+                    foundOption.label
+                  );
+                }}
+                size="lg"
+                options={primaryDataChallenge}
+              />
+              <br />
+              <FormField
+                label={"Primary Data Challenge"}
+                disabled={isOtherOptionSelected}
+              >
+                <FormInputText
+                  placeholder={"Specify your primary data challenge"}
+                  value={formData?.primaryDataChallengeOther?.value}
+                  name="primaryDataChallengeOther"
+                  onChange={(e) =>
+                    handleInputChange(
+                      e.target.name,
+                      e.target.value,
+                      e.target.value
+                    )
+                  }
+                  disabled={isOtherOptionSelected}
+                />
+              </FormField>
+            </div>
+          </PageRow>
+
+          <PageDivider />
+
           <PageRow styleName="form-row">
             <div>
               <PageP styleName="title">Sample Data</PageP>
@@ -607,11 +436,59 @@ const BasicInfoForm = ({
               </div>
             </div>
           </PageRow>
-        )
-      }
+        </>
+      )}
 
-      {
-        isDataAdvisory && (
+      {isDataAdvisory && (
+        <>
+          <PageRow styleName="form-row">
+            <div>
+              <PageP styleName="title">{"what’s your goal?"}</PageP>
+              <PageP styleName="description">
+                Describe what you want to do or learn with the help of data
+                science. What will this information or ability help improve? Keep
+                in mind that data science typically answers a question. Good
+                questions are specific, measurable and clarify important context.
+                This ensures that when your question is answered, you learn
+                something valuable and actionable.
+              </PageP>
+              <HelpBanner title="Description Tips" styles={["gray"]}>
+                <br />
+                <PageP>
+                  How can I increase profit? How can I get more customers? How can
+                  I do computer vision? These questions alone are too vague. Which
+                  piece of equipment is going to fail first? Which of my marketing
+                  channels produces the most customers per dollar? How can I
+                  automatically review pictures or documents to for specific
+                  content? These questions along with relevant data and/or context
+                  enable our experts to shape your question into something
+                  actionable. Don't worry, we'll help you along the way. So let's
+                  get started!
+                </PageP>
+              </HelpBanner>
+            </div>
+
+            <div styleName="formFieldWrapper">
+              <FormField label={"Your Goal"}>
+                <FormInputTextArea
+                  value={formData?.goals?.value}
+                  onChange={(e) =>
+                    handleInputChange(
+                      e.target.name,
+                      e.target.value,
+                      e.target.value
+                    )
+                  }
+                  styleName={"text-area"}
+                  name="goals"
+                  placeholder={"Describe your goal"}
+                />
+              </FormField>
+            </div>
+          </PageRow>
+
+          <PageDivider />
+
           <PageRow styleName="form-row">
             <div>
               <PageP styleName="title">What data do you have?</PageP>
@@ -675,13 +552,128 @@ const BasicInfoForm = ({
               </FormField>
             </div>
           </PageRow>
-        )
-      }
+        </>
+      )}
 
-      {isFindMeData && <PageDivider />}
+      {isWebsiteDesign && (
+        <>
+          <PageRow styleName="form-row">
+            <div>
+              <PageP styleName="title">{"Description"}</PageP>
+              <PageP styleName="description">
+                What is the purpose of your website? What do you want visitors to
+                be able to do, e.g., see your work? Contact you? You should
+                include a general description as well as goals of the website. You
+                may also describe your audience and what you would like them to do
+                at your website.{" "}
+              </PageP>
+              <HelpBanner title="Example" styles={["gray"]}>
+                <br />
+                <PageP>
+                  <PageP>
+                    I would like a design for a dog walking website that allows
+                    visitors to select dog walkers and schedule dog walking
+                    appointments.
+                  </PageP>
+                  <PageP>
+                    The audience for my website will be dog owners. As a dog
+                    owner, I want someone trustworthy to walk my dog, so he feels
+                    loved while I’m at work.
+                  </PageP>
+                  <PageP>
+                    Home Page:
+                    <br />I would like to see a landing screen to welcome our
+                    customers and make them feel welcome and warm. We love their
+                    dog and we want them to feel it! We really want our audience
+                    to do one core action and that’s to get started finding their
+                    perfect “Walkie” which is what we call our professional dog
+                    walkers.
+                  </PageP>
+                  <PageP>
+                    Information Pages:
+                    <br />
+                    Our customers should be able to reach information about: Our
+                    Services, Our Walkies, and Locations We Serve. Also, a user
+                    must be able to Create an Account.
+                  </PageP>
+                  <PageP>
+                    Our Services include: dog walking, doggie day care, dog
+                    feeding, basic grooming.
+                  </PageP>
+                  <PageP>
+                    Our Walkies information should show a photo of the Walkie,
+                    their name and a little bit about them. It’s important for
+                    customers to see a badge of some sort that indicates all of
+                    our dog walkers are insured.
+                  </PageP>
+                  <PageP>
+                    Locations We Serve: We have 3 locations in the greater Seattle
+                    area.
+                  </PageP>
+                  <PageP>
+                    Each page should include a testimonial from one of our users.
+                    For example: “WalkieDoggie is perfect. They are always
+                    professional and they take amazing care of our dog, Beefcake.
+                    - Victoria B. from Tacoma, Washington”
+                  </PageP>
+                </PageP>
+              </HelpBanner>
+            </div>
 
-      {
-        isWebsiteDesign && (
+            <div styleName="formFieldWrapper">
+              <FormField label={"Description"}>
+                <FormInputTextArea
+                  value={formData?.analysis?.value}
+                  onChange={(e) =>
+                    handleInputChange(
+                      e.target.name,
+                      e.target.value,
+                      e.target.value
+                    )
+                  }
+                  styleName={"text-area"}
+                  name="analysis"
+                  placeholder={"Describe your website"}
+                />
+              </FormField>
+            </div>
+          </PageRow>
+
+          <PageDivider />
+
+          <PageRow styleName="form-row">
+            <div>
+              <PageP styleName="title">Your industry</PageP>
+              <PageP styleName="description">
+                Knowing your industry will help our designers understand you and
+                your audience. For example, some common industries are: Business &
+                Consulting, Construction, Entertainment & Arts, Healthcare,
+                Retail, and Technology.
+              </PageP>
+            </div>
+
+            <div styleName="formFieldWrapper">
+              <div>
+                <FormField label={"Your Industry"}>
+                  <FormInputText
+                    placeholder={"Enter your industry"}
+                    value={formData?.yourIndustry?.value}
+                    name="yourIndustry"
+                    onChange={(e) =>
+                      handleInputChange(
+                        e.target.name,
+                        e.target.value,
+                        e.target.value
+                      )
+                    }
+                  />
+                </FormField>
+              </div>
+            </div>
+          </PageRow>
+
+          <PageDivider />
+
           <PageRow styleName="form-row">
             <div>
               <PageP styleName="title">inspiration</PageP>
@@ -745,18 +737,13 @@ const BasicInfoForm = ({
               </button>
             </div>
           </PageRow>
-        )
-      }
-      {isWebsiteDesign && <PageDivider />}
-      {
-        isWebsiteDesign && (
+
+          <PageDivider />
+
           <PageRow styleName="form-row">
             <PageP styleName="title">STYLE &amp; THEME</PageP>
           </PageRow>
-        )
-      }
-      {
-        isWebsiteDesign && (
+
           <PageRow styleName="form-row">
             <div styleName="formFieldWrapper style-picker">
               <PageP styleName="label">
@@ -797,27 +784,22 @@ const BasicInfoForm = ({
               </PageRow>
             </div>
           </PageRow>
-        )
-      }
-      {
-        isWebsiteDesign && selectedStyleOption && (
-          <StylesOptionsModal
-            style={selectedStyleOption}
-            likes={formData?.likedStyles?.value}
-            dislikes={formData?.dislikedStyles?.value}
-            onLike={(likes) => {
-              handleInputChange("likedStyles", likes, likes);
-            }}
-            onDislike={(dislikes) => {
-              handleInputChange("dislikedStyles", dislikes, dislikes);
-            }}
-            onDismiss={() => setSelectedStyleOption(null)}
-          />
-        )
-      }
 
-      {
-        isWebsiteDesign && (
+          {selectedStyleOption && (
+            <StylesOptionsModal
+              style={selectedStyleOption}
+              likes={formData?.likedStyles?.value}
+              dislikes={formData?.dislikedStyles?.value}
+              onLike={(likes) => {
+                handleInputChange("likedStyles", likes, likes);
+              }}
+              onDislike={(dislikes) => {
+                handleInputChange("dislikedStyles", dislikes, dislikes);
+              }}
+              onDismiss={() => setSelectedStyleOption(null)}
+            />
+          )}
+
           <PageRow styleName="form-row">
             <div styleName="formFieldWrapper color-picker">
               <PageP styleName="label">
@@ -860,13 +842,9 @@ const BasicInfoForm = ({
               </PageRow>
             </div>
           </PageRow>
-        )
-      }
 
-      <PageDivider />
+          <PageDivider />
 
-      {
-        isWebsiteDesign && (
           <PageRow styleName="form-row">
             <div>
               <PageP styleName="title">share your brand or style assets</PageP>
@@ -919,8 +897,10 @@ const BasicInfoForm = ({
               </div>
             </div>
           </PageRow>
-        )
-      }
+        </>
+      )}
+
+      <PageDivider />
 
       <HelpBanner
         title={HELP_BANNER.title}
