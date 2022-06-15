@@ -21,7 +21,6 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import DataExplorationIcon from "../../../../assets/images/data-exploration-icon.svg";
 import FindMeDataIcon from "../../../../assets/images/find-me-data-icon.svg";
-import WebsiteDesignIcon from "../../../../assets/images/website-design-icon.svg";
 import AddWebsiteIcon from "../../../../assets/images/add-website-icon.svg";
 import StylesOptionsModal from "../StyleOptionsModal";
 import "./styles.module.scss";
@@ -30,8 +29,7 @@ import {
   ColorOptionsItems,
 } from "../../../../constants";
 import StyleOptions from "../StyleOptions";
-import styles from "../../../../assets/data/website-design-styles.json";
-import { WorkType } from "../../../../../src-ts";
+import { WorkType, WorkTypeCategoryDesignIcon } from "../../../../../src-ts";
 
 
 const BasicInfoForm = ({
@@ -155,7 +153,7 @@ const BasicInfoForm = ({
       servicePriceIcon = <FindMeDataIcon />;
       break;
     case WorkType.design:
-      servicePriceIcon = <WebsiteDesignIcon />;
+      servicePriceIcon = <WorkTypeCategoryDesignIcon />;
       break;
     default:
       break;

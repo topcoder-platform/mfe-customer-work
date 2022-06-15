@@ -86,12 +86,12 @@ const BasicInfo = ({
   };
 
   const [formData, setFormData] = useState(defaultFormData);
-  const isFindMeData = bannerData.title === "Find Me Data";
-  const isWebsiteDesign = bannerData.title === "Website Design";
+  const isFindMeData = bannerData.title === WorkType.findData;
+  const isWebsiteDesign = bannerData.title === WorkType.design;
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
-  const isDataExploration = bannerData.title === "Data Exploration";
+  const isDataExploration = bannerData.title === WorkType.data;
   const isDataAdvisory =
-    bannerData.title === "Problem Statement & Data Advisory";
+    bannerData.title === WorkType.problem;
   const isDataExplorationFormValid =
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;

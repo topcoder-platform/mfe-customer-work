@@ -483,26 +483,6 @@ export const webWorkTypes = [
       </>
     ),
   },
-  // {
-  //   title: "Website Design",
-  //   duration: "4-6 Days",
-  //   subTitle:
-  //     "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-  //   price: 199,
-  //   stickerPrice: 398,
-  //   featured: true,
-  //   startRoute: "/self-service/basic-info",
-  // },
-  // {
-  //   title: "Website Development",
-  //   subTitle: "Information to help understand what this category would include",
-  //   price: 499,
-  // },
-  // {
-  //   title: "Web App Design",
-  //   subTitle: "Information to help understand what this category would include",
-  //   price: 499,
-  // },
 ];
 
 /**
