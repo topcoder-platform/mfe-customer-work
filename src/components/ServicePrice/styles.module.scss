@@ -9,10 +9,12 @@
   .inline {
     display: flex;
     flex-direction: row;
+
     @include mobile {
       width: 100%;
     }
   }
+
   @include mobile {
     display: flex;
     flex-direction: row;
@@ -21,6 +23,7 @@
 
 .filler {
   display: flex;
+
   @include mobile {
     flex: 1;
   }
@@ -72,6 +75,7 @@
 
   svg {
     margin-left: 9px;
+
     @include mobile {
       margin-left: 100px;
       width: 20px;

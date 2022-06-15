@@ -10,10 +10,14 @@
   display: grid;
   grid-template-columns: 1fr 359px;
 
-  &.data-exploration {
-    background: linear-gradient(263.22deg, #038664 2.65%, #075F96 98.14%), #FFFFFF;
+  &.website-design,
+  &.data-exploration,
+  &.review--payment {
+    background: linear-gradient(84.92deg, #065D6E 2.08%, #06596E 2.09%, #3E3B91 97.43%);
   }
-  &.find-me-data {
+
+  &.find-me-data,
+  &.problem-statement--data-advisory {
     background: linear-gradient(84.92deg, #723390 2.08%, #8C384F 97.43%);
   }
 
@@ -29,8 +33,8 @@
     overflow: hidden;
     flex-direction: column;
     grid-template-columns: auto;
-    margin-top: 0!important;
-    border-radius: 0!important;
+    margin-top: 0 !important;
+    border-radius: 0 !important;
   }
 
   .heroBackgroundContainer {
@@ -57,9 +61,22 @@
       background: url("../../../assets/images/data-exploration.png");
       background-size: cover;
     }
-    &.find-me-data {
+
+    &.find-me-data,
+    &.problem-statement--data-advisory {
       background: url("../../../assets/images/find-me-data.png");
       background-size: cover;
+    }
+
+    &.website-design,
+    &.review--payment {
+      background: url("../../../assets/images/website-design-v2.png");
+      background-size: cover;
+
+      @include mobile {
+        background: url("../../../assets/images/website-design-banner-mobile.png");
+        background-size: cover;
+      }
     }
   }
 
@@ -138,6 +155,7 @@
         .heroHeaderTitle {
           display: flex;
           text-transform: uppercase;
+
           @include mobile {
             font-size: 28px;
             line-height: 32px;
@@ -149,6 +167,7 @@
           max-width: 713px;
           line-height: 24px;
           font-weight: 500;
+
           @include mobile {
             font-size: 14px;
             line-height: 20px;

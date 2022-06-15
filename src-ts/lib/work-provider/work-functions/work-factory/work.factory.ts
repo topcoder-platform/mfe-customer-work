@@ -1,8 +1,9 @@
 import moment from 'moment'
 
-import * as DesignPrices from '../../../../../src/constants'
+import * as ProblemPrices from '../../../../../src/constants/products/DataAdvisory'
 import * as DataPrices from '../../../../../src/constants/products/DataExploration'
 import * as FindDataPrices from '../../../../../src/constants/products/FindMeData'
+import * as WebsitePrices from '../../../../../src/constants/products/WebsiteDesign'
 import {
     Challenge,
     ChallengeMetadata,
@@ -101,15 +102,13 @@ function buildFormDataData(formData: any): any {
 }
 
 function buildFormDataDesign(formData: any): any {
-    const styleInfo: {} = {
-        'Like': formData.likedStyles?.value?.join(', '),
-        // Disabling lint error to maintain order for display
-        // tslint:disable-next-line: object-literal-sort-keys
-        'Dislike': formData.dislikedStyles?.value?.join(', '),
-        'Additional Details': formData.stylePreferences?.value,
-        'Color Selections': formData.colorOption?.value.join(', '),
-        'Specific Colors': formData.specificColor?.value,
-    }
+    const styleInfo: Array<string> = [
+        `Like: ${formData.likedStyles?.value?.join(', ') || ''}`,
+        `Dislike: ${formData.dislikedStyles?.value?.join(', ') || ''}`,
+        `Additional Details: ${formData.stylePreferences?.value || ''}`,
+        `Color Selections: ${formData.colorOption?.value.join(', ') || ''}`,
+        `Specific Colors: ${formData.specificColor?.value || ''}`,
+    ]
 
     return {
         projectTitle: formData.projectTitle,
@@ -125,8 +124,7 @@ function buildFormDataDesign(formData: any): any {
         },
         inspiration: {
             title: 'Inspiration',
-            value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`)
-                .filter((item: any) => item?.trim().length > 0),
+            value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`),
         },
         style: {
             title: 'Style & Theme',
@@ -134,36 +132,26 @@ function buildFormDataDesign(formData: any): any {
         },
         assets: {
             title: 'Share Your Brand or Style Assets',
-            value: [formData.assetsUrl?.value, formData.assetsDescription?.value]
-                .filter((item: any) => item?.trim().length > 0),
+            value: [formData.assetsUrl?.value, formData.assetsDescription?.value],
         },
     }
 }
 
 function buildFormDataFindData(formData: any): any {
     const isPrimaryDataChallengeOther: boolean = formData.primaryDataChallenge?.value === 3
-    const data: any = {
+    return {
         projectTitle: formData.projectTitle,
         // Disabling lint error to maintain order for display
         // tslint:disable-next-line: object-literal-sort-keys
         data: formData.analysis,
         primaryDataChallenge: {
             title: formData.primaryDataChallenge?.title,
-            value: formData.primaryDataChallenge?.option,
+            value: isPrimaryDataChallengeOther
+                ? formData.primaryDataChallengeOther.value
+                : formData.primaryDataChallenge?.option,
         },
-        primaryDataChallengeOther: isPrimaryDataChallengeOther ? formData.primaryDataChallengeOther : undefined,
-        // TODO: Once PROD-2083 is merged, replace primaryDataChallenge key with the following
-        // and get rid of key primaryDataChallengeOther
-        //
-        // primaryDataChallenge: {
-        //     title: formData.primaryDataChallenge?.title,
-        //     value: isPrimaryDataChallengeOther
-        //         ? formData.primaryDataChallengeOther.value
-        //         : formData.primaryDataChallenge?.option,
-        // },
         sampleData: formData.sampleData,
     }
-    return data
 }
 
 function buildFormDataProblem(formData: any): any {
@@ -176,11 +164,10 @@ function buildFormDataProblem(formData: any): any {
             value: formData.goals?.value,
         },
         data: {
-            title: 'What Data Do You Have?',
-            value: [
+            title: 'What Data Do You Have?', value: [
                 formData.sampleData?.value,
                 formData.assetsDescription?.value,
-            ].filter((item: any) => item?.trim().length > 0),
+            ],
         },
     }
 }
@@ -222,6 +209,8 @@ function findPhase(challenge: Challenge, phases: Array<string>): ChallengePhase 
     return phase
 }
 
+// the switch statement shouldn't count against cyclomatic complexity
+// tslint:disable-next-line: cyclomatic-complexity
 function getCost(challenge: Challenge, type: WorkType): number | undefined {
 
     function getCountFromString(raw: string | undefined): number {
@@ -234,16 +223,15 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
             return DataPrices.PROMOTIONAL_PRODUCT_PRICE || DataPrices.BASE_PRODUCT_PRICE
 
         case WorkType.design:
-            const pageCount: number = getCountFromString(findMetadata(challenge, ChallengeMetadataName.pageCount)?.value)
-            const deviceCount: number = getCountFromString(findMetadata(challenge, ChallengeMetadataName.deviceCount)?.value)
-            return DesignPrices.BASE_PRODUCT_PRICE +
-                pageCount * DesignPrices.PER_PAGE_COST +
-                pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
+            return WebsitePrices.BASE_PRODUCT_PRICE
 
         case WorkType.findData:
             return FindDataPrices.USING_PROMOTIONAL_PRICE
                 ? FindDataPrices.PROMOTIONAL_PRODUCT_PRICE
                 : FindDataPrices.BASE_PRODUCT_PRICE
+
+        case WorkType.problem:
+            return ProblemPrices.PROMOTIONAL_PRODUCT_PRICE || ProblemPrices.BASE_PRODUCT_PRICE
     }
 }
 
@@ -394,6 +382,7 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
 
         case WorkType.data:
         case WorkType.findData:
+        case WorkType.problem:
             return WorkTypeCategory.data
 
         case WorkType.design:

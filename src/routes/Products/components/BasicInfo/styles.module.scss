@@ -1,4 +1,4 @@
-@import "../../../../../src-ts/lib/styles";
+@import '../../../../../src-ts/lib/styles';
 @import "styles/include";
 
 .footerContent {
@@ -35,6 +35,7 @@
             display: none;
           }
         }
+
         svg {
           @include gtelg {
             display: none;
@@ -42,9 +43,9 @@
         }
       }
 
-      &.reviewAndSubmit{
+      &.reviewAndSubmit {
 
-        .desktop{
+        .desktop {
           @include ltemd {
             display: none;
           }
@@ -69,6 +70,7 @@
   button {
     svg {
       display: block !important;
+
       @include gtelg {
         display: inline-block !important;
       }
@@ -89,6 +91,7 @@
   button {
     svg {
       display: block !important;
+
       @include gtelg {
         display: inline-block !important;
       }

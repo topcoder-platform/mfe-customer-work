@@ -10,9 +10,7 @@ import PT from "prop-types";
 import styles from "./styles.module.scss";
 import IconCross from "../../assets/images/icon-cross.svg";
 
-// TODO: figure out why this export is needed
-// https://github.com/topcoder-platform/mfe-customer-work/issues/74
-export const Modal = ({
+const Modal = ({
   children,
   fullWidth,
   halfWidth,

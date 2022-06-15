@@ -26,9 +26,10 @@ import { getUserProfile } from "../../thunks/profile";
 import { activateChallenge } from "../../services/challenge";
 import "./styles.module.scss";
 import {
-  getDynamicPriceAndTimelineEstimate,
+  getWebsiteDesignPriceAndTimelineEstimate,
   getDataExplorationPriceAndTimelineEstimate,
   getFindMeDataPriceAndTimelineEstimate,
+  getDataAdvisoryPriceAndTimelineEstimate,
   currencyFormat,
 } from "utils/";
 import _ from "lodash";
@@ -37,7 +38,7 @@ import {
   setCookie,
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
-import { OrderContractModal } from "../../../src-ts/lib";
+import { OrderContractModal, WorkType } from "../../../src-ts";
 import AboutYourProject from "./components/AboutYourProject";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
@@ -56,7 +57,6 @@ const Review = ({
   banner,
   icon,
   showIcon,
-  enableEdit = true,
   secondaryBanner,
   bannerData,
 }) => {
@@ -74,7 +74,9 @@ const Review = ({
     checked: false, // value to toggle terms and conditions checkbox
   });
 
-  const isDataExploration = bannerData.title === "Data Exploration";
+  const isDataExploration = bannerData.title === WorkType.data;
+  const isDataAdvisory =
+    bannerData.title === WorkType.problem;
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
@@ -83,11 +85,13 @@ const Review = ({
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
   const estimate =
-    workType?.selectedWorkType === "Website Design"
-      ? getDynamicPriceAndTimelineEstimate(fullState)
+    workType?.selectedWorkType === WorkType.design
+      ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : isDataAdvisory
+          ? getDataAdvisoryPriceAndTimelineEstimate()
+          : getFindMeDataPriceAndTimelineEstimate();
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -146,10 +150,6 @@ const Review = ({
       "form.basicInfo.selectedDevice.option.length",
       1
     );
-    const additionalPaymentInfo =
-      workType?.selectedWorkType === "Website Design"
-        ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
-        : "";
 
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,
@@ -158,7 +158,7 @@ const Review = ({
     ).slice(0, 355)}\n${_.get(
       fullState,
       "form.workType.selectedWorkType"
-    )}${additionalPaymentInfo}`;
+    )}`;
 
     services
       .processPayment(
@@ -220,11 +220,10 @@ const Review = ({
           <br styleName="mobileHidden" />
           <br styleName="mobileHidden" />
           {secondaryBanner}
-          <PageDivider />
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
             <div styleName="reviewContainer">
-              <ReviewTable formData={intakeFormData} enableEdit={enableEdit} />
+              <ReviewTable formData={intakeFormData} />
               <div styleName="hideMobile">
                 <AboutYourProject />
               </div>

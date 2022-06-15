@@ -3,6 +3,7 @@ export {
     selfServiceRootRoute as routeRootLoggedOut,
     WorkFeedback,
     WorkDetailDetails,
+    WorkDetailDetailsPane,
     WorkDetailHeader,
     WorkDetailSummary,
     WorkDetailSolutions,
