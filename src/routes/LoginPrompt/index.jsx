@@ -27,8 +27,7 @@ const LoginPrompt = ({
 
   useEffect(() => {
     if (isLoggedIn) {
-      // What should be the change here?
-      navigate(nextPageUrl || "/self-service/branding");
+      navigate(nextPageUrl || "/work/dashboard");
       setProgressItem(5);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
