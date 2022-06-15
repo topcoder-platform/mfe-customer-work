@@ -23,7 +23,6 @@ import {
 import { triggerAutoSave, resetSaveLater } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
-import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
 import { getUserProfile } from "../../../../thunks/profile";
 
@@ -31,7 +30,6 @@ import BasicInfoForm from "../BasicInfoForm";
 import "./styles.module.scss";
 import {
   getDynamicPriceAndTimeline,
-  getDynamicPriceAndTimelineEstimate,
   getDataAdvisoryPriceAndTimelineEstimate,
   currencyFormat,
   getDataExplorationPriceAndTimelineEstimate,
