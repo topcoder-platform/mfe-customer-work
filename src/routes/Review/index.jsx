@@ -5,12 +5,10 @@ import config from "../../../config";
 import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Page from "components/Page";
-import Modal from "components/Modal";
 import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
 import { resetIntakeForm } from "../../actions/form";
-import PageUl from "../../components/PageElements/PageUl";
 import { toastr } from "react-redux-toastr";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "constants/";
@@ -40,8 +38,8 @@ import {
   setCookie,
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
-import HelpBanner from "components/HelpBanner";
 import { OrderContractModal, WorkType } from "../../../src-ts";
+import AboutYourProject from "./components/AboutYourProject";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
@@ -75,7 +73,6 @@ const Review = ({
     zipCode: null,
     checked: false, // value to toggle terms and conditions checkbox
   });
-  const [checked, setChecked] = useState(false);
 
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
@@ -84,6 +81,7 @@ const Review = ({
   const fullState = useSelector((state) => state);
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
+
   let estimate;
   switch (workType?.selectedWorkType) {
     case (WorkType.design):
@@ -160,10 +158,6 @@ const Review = ({
       "form.basicInfo.selectedDevice.option.length",
       1
     );
-    const additionalPaymentInfo = "";
-    // workType?.selectedWorkType === "Website Design"
-    //   ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
-    //   : "";
 
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,
@@ -172,7 +166,7 @@ const Review = ({
     ).slice(0, 355)}\n${_.get(
       fullState,
       "form.workType.selectedWorkType"
-    )}${additionalPaymentInfo}`;
+    )}`;
 
     services
       .processPayment(
@@ -238,41 +232,9 @@ const Review = ({
           <div styleName="splitView">
             <div styleName="reviewContainer">
               <ReviewTable formData={intakeFormData} />
-              <HelpBanner
-                styles={["turqoise"]}
-                title="Important things to know about your project"
-              >
-                <PageUl>
-                  <li>
-                    <strong>
-                      Your Dashboard is your go-to hub for managing your work.
-                    </strong>
-                    &nbsp;From here you can view timelines, details, and a lot more
-                    important information tied to your work submissions.
-                  </li>
-                  <li>
-                    <strong>
-                      You can expect members of our community to ask you
-                      questions about this work.
-                    </strong>
-                    &nbsp; From your Work Summary page you’ll see if you have
-                    any outstanding Messages indicated by a red icon. Please
-                    answer questions from our members in a timely and thorough
-                    manner. This will help them deliver high quality results for
-                    you on time!
-                  </li>
-                  <li>
-                    <strong>
-                      Topcoder experts will curate the best solutions for you.
-                    </strong>
-                    &nbsp; This saves you time and energy wading through
-                    submissions that perhaps aren't of value to you. When your
-                    high-quality submissions are ready, you'll be notified to
-                    download your assets, rate your Topcoder experience, and
-                    officially close out this work.
-                  </li>
-                </PageUl>
-              </HelpBanner>
+              <div styleName="hideMobile">
+                <AboutYourProject />
+              </div>
             </div>
             <div styleName="paymentWrapper">
               <div styleName="paymentBox">
@@ -300,33 +262,6 @@ const Review = ({
                   </div>
                 )}
 
-                <div>
-                  <FormInputCheckbox
-                    label="Yes, I understand and agree to Topcoder's&nbsp;"
-                    checked={checked}
-                    onChange={(e) => setChecked(e.target.checked)}
-                    inline
-                    additionalContent={
-                      <span
-                        role="button"
-                        tabIndex={0}
-                        styleName="link"
-                        onClick={() => setIsOrderContractModalOpen(true)}
-                      >
-                        Order Contract
-                      </span>
-                    }
-                  />
-                </div>
-
-                <div styleName="infoBox">
-                  <div styleName="confirmationBox">
-                    A hold will be placed on your card for the full amount of
-                    the project. Once your work is live on the Topcoder
-                    platform, you will be charged.
-                  </div>
-                </div>
-
                 <div styleName="paymentButtonContainer">
                   <Button
                     disabled={!isFormValid || isLoading}
@@ -338,6 +273,9 @@ const Review = ({
                   </Button>
                 </div>
               </div>
+            </div>
+            <div styleName="showOnlyMobile">
+              <AboutYourProject />
             </div>
           </div>
           <PageDivider />

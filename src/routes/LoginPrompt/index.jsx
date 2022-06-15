@@ -13,6 +13,7 @@ import "./styles.module.scss";
 import PageFoot from "components/PageElements/PageFoot";
 import PageDivider from "components/PageDivider";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
+import { ROUTES } from "../../constants";
 
 /**
  * Log in Page
@@ -27,7 +28,7 @@ const LoginPrompt = ({
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate(nextPageUrl || "/self-service/branding");
+      navigate(nextPageUrl || ROUTES.DASHBOARD_PAGE);
       setProgressItem(5);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -9,10 +9,12 @@
   .inline {
     display: flex;
     flex-direction: row;
+
     @include mobile {
       width: 100%;
     }
   }
+
   @include mobile {
     display: flex;
     flex-direction: row;
@@ -21,6 +23,7 @@
 
 .filler {
   display: flex;
+
   @include mobile {
     flex: 1;
   }
@@ -66,10 +69,17 @@
     padding: 1px;
   }
 
+  .days {
+    display: inline;
+  }
+
   svg {
     margin-left: 9px;
+
     @include mobile {
-      margin: 0;
+      margin-left: 100px;
+      width: 20px;
+      height: 20px;
     }
   }
 }
