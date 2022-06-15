@@ -29,22 +29,6 @@
     }
 
     button {
-      svg {
-        display: none;
-        @include mobile {
-          display: inline-block;
-        }
-        @include gtelg {
-          display: inline-block;
-        }
-      }
-
-      span {
-        @include mobile {
-          display: none;
-        }
-      }
-
       &.saveForLater {
         span {
           @include ltemd {
@@ -59,16 +43,6 @@
       }
 
       &.reviewAndSubmit{
-        svg {
-          @include gtelg {
-            display: none;
-          }
-        }
-        svg {
-          @include ltemd {
-            display: none;
-          }
-        }
 
         .desktop{
           @include ltemd {
