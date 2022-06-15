@@ -75,8 +75,7 @@ workflows:
           filters:
             branches:
               only:
-                # - develop
-                - PROD-120_find-me-data
+                - develop
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
