@@ -1,5 +1,5 @@
-import { FC, MutableRefObject, useEffect, useMemo, useRef } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { FC, MutableRefObject, useCallback, useEffect, useMemo, useRef } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { EnvironmentConfig } from '../../../config'
 import {
@@ -17,10 +17,16 @@ import {
 } from '../services'
 
 import styles from './FreeCodeCamp.module.scss'
+import { TitleNav } from './title-nav'
 
 const FreeCodeCamp: FC<{}> = () => {
+    const navigate = useNavigate();
     const frameRef: MutableRefObject<HTMLElement|any> = useRef()
     const [searchParams]: any = useSearchParams()
+
+    const courseParam = searchParams.get('course')
+    const moduleParam = searchParams.get('module')
+    const lessonParam = searchParams.get('lesson')
 
     const {
         course: courseData,
@@ -28,9 +34,9 @@ const FreeCodeCamp: FC<{}> = () => {
     }: CoursesProviderData = useCoursesProvider(searchParams.get('course'))
 
     const { lesson, ready }: LessonProviderData = useLessonProvider(
-        searchParams.get('course'),
-        searchParams.get('module'),
-        searchParams.get('lesson'),
+        courseParam,
+        moduleParam,
+        lessonParam,
     )
 
     const breadcrumb: Array<BreadcrumbItemModel> = useMemo(() => [
@@ -38,6 +44,29 @@ const FreeCodeCamp: FC<{}> = () => {
         { url: `/learn/${lesson?.course.certification}`, name: lesson?.course.title ?? '' },
         { url: '/learn/fcc', name: lesson?.module.title ?? '' },
     ], [lesson])
+
+    const currentModuleData = useMemo(() => {
+        return courseData?.modules.find(d => d.key === moduleParam);
+    }, [courseData, moduleParam]);
+    
+    const currentStepIndex = useMemo(() => {
+      if (!currentModuleData) {
+          return 0
+      }
+
+      const lessonIndex = currentModuleData.lessons.findIndex(l => l.dashedName === lessonParam);
+      return lessonIndex + 1;
+    }, [currentModuleData, lessonParam]);
+
+    const handleNavigate = useCallback((direction = 1) => {
+      
+        const nextStep = currentModuleData?.lessons[(currentStepIndex - 1) + direction];
+        if (!nextStep) {
+            return
+        }
+
+        navigate(`/learn/fcc?course=${courseParam}&module=${moduleParam}&lesson=${nextStep?.dashedName}`)
+    }, [currentStepIndex, currentModuleData, courseParam, moduleParam]);
 
     useEffect(() => {
         if (!frameRef.current || !lesson) {
@@ -54,23 +83,35 @@ const FreeCodeCamp: FC<{}> = () => {
 
             {lesson && (
                 <Portal portalId='page-subheader-portal-el'>
-                    <div className={styles['iframe-wrap']}>
-                        <CollapsiblePane title='Course Outline'>
-                            <div className={styles['course-outline-wrap']}>
-                                <div className={styles['course-outline-title']}>
-                                    {courseData?.title}
+                    <div className={styles['main-wrap']}>
+                        <div className={styles['course-outline-pane']}>
+                            <CollapsiblePane title='Course Outline'>
+                                <div className={styles['course-outline-wrap']}>
+                                    <div className={styles['course-outline-title']}>
+                                        {courseData?.title}
+                                    </div>
+                                    <CourseOutline
+                                        course={courseData}
+                                        ready={courseDataReady}
+                                        currentStep={`${searchParams.get('module')}/${searchParams.get('lesson')}`}
+                                    />
                                 </div>
-                                <CourseOutline
-                                    course={courseData}
-                                    ready={courseDataReady}
-                                    currentStep={`${searchParams.get('module')}/${searchParams.get('lesson')}`}
-                                />
-                            </div>
-                        </CollapsiblePane>
-                        <iframe
-                            className={styles.iframe}
-                            ref={frameRef}
-                        />
+                            </CollapsiblePane>
+                        </div>
+
+                        <div className={styles['course-frame']}>
+                            <TitleNav
+                                title={currentModuleData?.meta.name}
+                                currentStep={currentStepIndex}
+                                maxStep={currentModuleData?.meta.lessonCount ?? 0}
+                                onNavigate={handleNavigate}
+                            />
+                            <hr />
+                            <iframe
+                                className={styles.iframe}
+                                ref={frameRef}
+                            />
+                        </div>
                     </div>
                 </Portal>
             )}

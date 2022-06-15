@@ -10,6 +10,12 @@
     &:global(.to-left) {
         flex-direction: row-reverse;
     }
+
+    &:global(.collapsed) {
+        .content {
+            display: none;
+        }
+    }
 }
 
 .pane-outline {
