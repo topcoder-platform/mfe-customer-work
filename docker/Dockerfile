@@ -13,7 +13,7 @@ COPY . /mfe-customer-work
 # Set working directory for future use
 WORKDIR /mfe-customer-work
 
-# Install the dependencies from package.jso
+# Install the dependencies from package.json
 RUN git config --global url."https://git@".insteadOf git://
 RUN npm install
 
