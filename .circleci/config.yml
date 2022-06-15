@@ -28,7 +28,9 @@ builddeploy_steps: &builddeploy_steps
   - setup_remote_docker
   - run: *install_dependency
   - run: *install_deploysuite
-  - restore_cache: *restore_cache_settings_for_build
+  # temporarily don't restore the cache until we have the
+  # package-lock.json file version issue fixed.
+  # - restore_cache: *restore_cache_settings_for_build
   - run:
       command: |
         ./awsconfiguration.sh $DEPLOY_ENV
@@ -38,6 +40,7 @@ builddeploy_steps: &builddeploy_steps
       command: |
         source buildenvvar
         ./build.sh ${APPNAME}
+      no_output_timeout: 20m
   #- save_cache: *save_cache_settings
   - deploy:
       name: Running MasterScript.
