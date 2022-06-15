@@ -57,16 +57,25 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
                                     dangerouslySetInnerHTML={{ __html: course.introCopy.join('<br /><br />') }}
                                 ></div>
 
-                                <h3 className='details'>Why should you complete this course?</h3>
+                                {progress?.status === 'completed' ? (
+                                    <>
+                                        <h3 className='details'>Suggested next steps</h3>
 
-                                <div className={styles['text']}>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua. Diam sit amet nisl suscipit. Ullamcorper sit amet risus nullam eget.
-                                    Etiam erat velit scelerisque in dictum non consectetur a. Mauris pellentesque pulvinar pellentesque
-                                    habitant morbi. Morbi enim nunc faucibus a pellentesque sit. Tortor pretium viverra suspendisse
-                                    potenti nullam ac. Ullamcorper malesuada proin libero nunc. Adipiscing elit duis tristique
-                                    sollicitudin nibh sit amet commodo. Orci a scelerisque purus semper eget duis at tellus at.
-                                </div>
+                                        <div className={styles['text']}>
+                                            <p>Now that you have completed the {course.title}, we’d recommend you enroll in another course to continue your learning. You can view our other courses from the Topcoder Academy course page. </p>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <h3 className='details'>Why should you complete this course?</h3>
+
+                                        <div className={styles['text']}>
+                                            <p>In this Responsive Web Design course, you'll learn the languages that developers use to build webpages: HTML (Hypertext Markup Language) for content, and CSS (Cascading Style Sheets) for design.</p>
+                                            <p>First, you'll build a cat photo app to learn the basics of HTML and CSS. Later, you'll learn modern techniques like CSS variables by building a penguin, and best practices for accessibility by building a web form.</p>
+                                            <p>Finally, you'll learn how to make webpages that respond to different screen sizes by building a Twitter card with Flexbox, and a complex blog layout with CSS Grid.</p>
+                                        </div>
+                                    </>
+                                )}
                             </div>
 
                             <div className={styles['coming-soon']}>
