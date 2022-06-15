@@ -1,5 +1,5 @@
 import { FC, MutableRefObject, useCallback, useEffect, useMemo, useRef } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { NavigateFunction, useNavigate, useSearchParams } from 'react-router-dom'
 
 import { EnvironmentConfig } from '../../../config'
 import {
@@ -11,6 +11,8 @@ import {
 import { CollapsiblePane, CourseOutline } from '../components'
 import {
     CoursesProviderData,
+    LearnLesson,
+    LearnModule,
     LessonProviderData,
     useCoursesProvider,
     useLessonProvider,
@@ -20,13 +22,13 @@ import styles from './FreeCodeCamp.module.scss'
 import { TitleNav } from './title-nav'
 
 const FreeCodeCamp: FC<{}> = () => {
-    const navigate = useNavigate();
+    const navigate: NavigateFunction = useNavigate()
     const frameRef: MutableRefObject<HTMLElement|any> = useRef()
     const [searchParams]: any = useSearchParams()
 
-    const courseParam = searchParams.get('course')
-    const moduleParam = searchParams.get('module')
-    const lessonParam = searchParams.get('lesson')
+    const courseParam: string = searchParams.get('course')
+    const moduleParam: string = searchParams.get('module')
+    const lessonParam: string = searchParams.get('lesson')
 
     const {
         course: courseData,
@@ -45,28 +47,28 @@ const FreeCodeCamp: FC<{}> = () => {
         { url: '/learn/fcc', name: lesson?.module.title ?? '' },
     ], [lesson])
 
-    const currentModuleData = useMemo(() => {
-        return courseData?.modules.find(d => d.key === moduleParam);
-    }, [courseData, moduleParam]);
-    
-    const currentStepIndex = useMemo(() => {
+    const currentModuleData: LearnModule|undefined = useMemo(() => {
+        return courseData?.modules.find(d => d.key === moduleParam)
+    }, [courseData, moduleParam])
+
+    const currentStepIndex: number = useMemo(() => {
       if (!currentModuleData) {
           return 0
       }
 
-      const lessonIndex = currentModuleData.lessons.findIndex(l => l.dashedName === lessonParam);
-      return lessonIndex + 1;
-    }, [currentModuleData, lessonParam]);
+      const lessonIndex: number = currentModuleData.lessons.findIndex(l => l.dashedName === lessonParam)
+      return lessonIndex + 1
+    }, [currentModuleData, lessonParam])
 
-    const handleNavigate = useCallback((direction = 1) => {
-      
-        const nextStep = currentModuleData?.lessons[(currentStepIndex - 1) + direction];
+    const handleNavigate: (direction: number) => void = useCallback((direction = 1) => {
+
+        const nextStep: LearnLesson|undefined = currentModuleData?.lessons[(currentStepIndex - 1) + direction]
         if (!nextStep) {
             return
         }
 
         navigate(`/learn/fcc?course=${courseParam}&module=${moduleParam}&lesson=${nextStep?.dashedName}`)
-    }, [currentStepIndex, currentModuleData, courseParam, moduleParam]);
+    }, [currentStepIndex, currentModuleData, courseParam, moduleParam])
 
     useEffect(() => {
         if (!frameRef.current || !lesson) {

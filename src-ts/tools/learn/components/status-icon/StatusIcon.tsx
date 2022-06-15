@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { FC, useMemo } from 'react'
+import { FC, ReactNode, useMemo } from 'react'
 
 import { IconOutline, IconSolid } from '../../../../lib'
 
@@ -18,14 +18,14 @@ const StatusIcon: FC<StatusIconProps> = (props: StatusIconProps) => {
         props.partial && 'partial',
     )
 
-    const icon = useMemo(() => (
+    const icon: ReactNode = useMemo(() => (
         props.completed
             ? <IconSolid.CheckCircleIcon />
             : props.partial
                 ? <IconOutline.ClockIcon />
                 : <IconOutline.DotsCircleHorizontalIcon />
-    ), [props.completed, props.partial]);
-    
+    ), [props.completed, props.partial])
+
     return (
         <div className={classes}>
             {icon}

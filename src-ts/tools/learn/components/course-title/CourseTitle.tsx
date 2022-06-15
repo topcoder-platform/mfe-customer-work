@@ -6,8 +6,8 @@ import { LearnChallengeBadgeIcon } from '../svgs'
 import styles from './CourseTitle.module.scss'
 
 interface CourseTitleProps {
-    credits?: string
     children?: ReactNode
+    credits?: string
     size?: 'md'|'lg'
     title: string
     type: string

@@ -1,20 +1,21 @@
 import { FC } from 'react'
+
 import { IconSolid } from '../../../../lib'
 
 import styles from './TitleNav.module.scss'
 
 interface TitleNavProps {
-    title?: string
-    maxStep: number
     currentStep: number
+    maxStep: number
     onNavigate: (direction: 1|-1) => void
+    title?: string
 }
 
 const TitleNav: FC<TitleNavProps> = (props: TitleNavProps) => {
 
     return (
         <div className={styles['wrap']}>
-            <h1 className="details">
+            <h1 className='details'>
                 {props.title}
             </h1>
 

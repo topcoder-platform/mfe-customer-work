@@ -4,13 +4,13 @@ import { FC } from 'react'
 import styles from './StepIcon.module.scss'
 
 interface StepIconProps {
-    completed?: boolean
     active?: boolean
+    completed?: boolean
     index: number
 }
 
 const StepIcon: FC<StepIconProps> = (props: StepIconProps) => {
-    const classnames = classNames(
+    const classnames: string = classNames(
         styles['step-wrap'],
         props.completed && 'completed',
         props.active && 'active',
