@@ -437,7 +437,7 @@ export const webWorkTypes = [
       : findMeDataConfigs.BASE_PRODUCT_PRICE,
     stickerPrice: findMeDataConfigs.BASE_PRODUCT_PRICE,
     duration: `${findMeDataConfigs.DEFAULT_DURATION} Days`,
-    featured: true,
+    featured: false,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
     bgImage: imgProductFindMeData,
     helperBannerTitle: "WHAT WILL I RECEIVE?",
