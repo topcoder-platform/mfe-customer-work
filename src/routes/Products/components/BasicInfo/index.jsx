@@ -15,7 +15,7 @@ import {
   savePageDetails,
   saveWorkType,
 } from "../../../../actions/form";
-import { triggerAutoSave } from "../../../../actions/autoSave";
+import { triggerAutoSave, resetSaveLater } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
@@ -167,6 +167,14 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
+  const saveForm = () => {
+    saveBasicInfo(formData);
+    dispatch(triggerAutoSave(true, true));
+    setTimeout(() => {
+      dispatch(resetSaveLater());
+    }, 100);
+  };
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -222,6 +230,7 @@ const BasicInfo = ({
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
+                    onClick={() => saveForm()}
                   >
                     <SaveForLaterIcon />
                     <span>
