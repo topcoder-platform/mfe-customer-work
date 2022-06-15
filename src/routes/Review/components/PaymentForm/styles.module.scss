@@ -34,12 +34,13 @@
     @include formInputText;
     padding: 0 8px !important;
 
-    input, select {
+    input,
+    select {
       @include formInputText;
       padding: 0 8px !important;
     }
   }
-  
+
   .halfWidth {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -54,5 +55,24 @@
     font-size: 11px;
     margin-top: -15px;
     padding-bottom: 5px;
+  }
+
+  .link {
+    color: $link-blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .contract {
+    display: flex;
+    margin-bottom: 16px;
+
+    @include mobile {
+      margin-bottom: 8px;
+    }
+
+    .checkbox {
+      padding-top: 2px;
+    }
   }
 }

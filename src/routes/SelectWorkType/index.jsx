@@ -5,23 +5,17 @@ import { connect, useDispatch, useSelector } from "react-redux";
 
 import { triggerAutoSave } from "../../actions/autoSave";
 import { saveWorkType, toggleSupportModal } from "../../actions/form";
-// import { currencyFormat } from "utils/";
 import { setProgressItem } from "../../actions/progress";
-// import BackIcon from "../../assets/images/icon-back-arrow.svg";
-// import IconWebsiteTools from "../../assets/images/design-tools.svg";
 import Button from "../../components/Button";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Page from "../../components/Page";
 import PageContent from "../../components/PageContent";
 import PageDivider from "../../components/PageDivider";
-// import PageFoot from "../../components/PageElements/PageFoot";
 import PageH2 from "../../components/PageElements/PageH2";
 import Slider from "../../components/Slider";
 import { Breadcrumb } from "../../../src-ts/lib";
 import {
   BUTTON_SIZE,
-  // BUTTON_TYPE,
-  // HELP_BANNER,
   projectAndProfessionalWork,
   ROUTES,
   webWorkTypes,
@@ -42,9 +36,8 @@ const WorkTypeCard = ({
 }) => {
   return (
     <div
-      className={`${styles.workTypeCard} ${styles.workTypeCardSmall}${
-        className ? ` ${className}` : ""
-      }`}
+      className={`${styles.workTypeCard} ${styles.workTypeCardSmall}${className ? ` ${className}` : ""
+        }`}
       style={{ backgroundImage: `url(${bgImage})` }}
       onClick={ctaButtonOnClick}
     >
@@ -95,9 +88,8 @@ const WorkTypeCardWide = ({
 }) => {
   return (
     <div
-      className={`${styles.workTypeCard} ${styles.workTypeCardWide}${
-        className ? ` ${className}` : ""
-      }`}
+      className={`${styles.workTypeCard} ${styles.workTypeCardWide}${className ? ` ${className}` : ""
+        }`}
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {!!SvgIcon ? <SvgIcon /> : !!icon && <img src={icon} alt="" />}
@@ -136,7 +128,6 @@ const SelectWorkType = ({
   const challenge = useSelector((state) => state.challenge);
 
   const allWorkTypes = [...workTypes, ...webWorkTypes];
-  // const workTypesComingSoon = allWorkTypes.filter((wt) => wt.comingSoon);
   const featuredWorkTypes = allWorkTypes.filter((wt) => wt.featured);
 
   useEffect(() => {
@@ -198,9 +189,8 @@ const SelectWorkType = ({
                 title={featuredWorkType.title}
                 subHeading={featuredWorkType.shortDescription}
                 subHeadingMobile={featuredWorkType.shortDescriptionMobile}
-                className={`${styles.heroBackgroundContainer} ${
-                  styles[workTypeClassName(featuredWorkType.title)]
-                }`}
+                className={`${styles.heroBackgroundContainer} ${styles[workTypeClassName(featuredWorkType.title)]
+                  }`}
                 bgImage={featuredWorkType.bgImage}
                 ctaButtonOnClick={() => handleClick(featuredWorkType)}
                 content={featuredWorkType.description}
@@ -217,38 +207,6 @@ const SelectWorkType = ({
             svgIcon={projectAndProfessionalWork.svgIcon}
             ctaButtonOnClick={onShowSupportModal}
           />
-
-          {/* <div className={styles.cardContainer}>
-            {workTypesComingSoon.map((wt) => (
-              <div className={styles.card}>
-                <div className={styles.smallHeader}>Coming Soon</div>
-                <div className={styles.title}>{wt.title}</div>
-                <div className={styles.text}>{wt.subTitle}</div>
-              </div>
-            ))}
-          </div> */}
-
-          {/* <HelpBanner
-            title={HELP_BANNER.title}
-            description={HELP_BANNER.description}
-            contactSupport={onShowSupportModal}
-          /> */}
-
-          {/* <PageDivider /> */}
-
-          {/* <PageFoot>
-            <div className={styles.backButtonContainer}>
-              <Button
-                size={BUTTON_SIZE.MEDIUM}
-                type={BUTTON_TYPE.SECONDARY}
-                onClick={onBack}
-              >
-                <div className={styles.backButtonWrapper}>
-                  <BackIcon />
-                </div>
-              </Button>
-            </div>
-          </PageFoot> */}
         </PageContent>
       </Page>
     </>

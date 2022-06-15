@@ -1,4 +1,5 @@
 @import '../../../../../src-ts/lib/styles';
+@import "styles/include";
 
 .footerContent {
   display: flex;
@@ -7,7 +8,7 @@
   justify-content: space-between;
 
   @include ltemd {
-    flex-direction: column;
+    flex-direction: row;
     gap: 16px;
   }
 
@@ -19,17 +20,35 @@
       transform: rotate(-90deg);
     }
 
+    .save-icon {
+      display: none;
+    }
+
+    @include mobile {
+      flex-direction: row;
+    }
+
     button {
-      svg {
-        display: none;
-        @include gtelg {
-          display: inline-block;
+      &.saveForLater {
+        span {
+          @include ltemd {
+            display: none;
+          }
+        }
+
+        svg {
+          @include gtelg {
+            display: none;
+          }
         }
       }
 
-      span {
-        @include ltemd {
-          display: none;
+      &.reviewAndSubmit {
+
+        .desktop {
+          @include ltemd {
+            display: none;
+          }
         }
       }
     }
@@ -42,6 +61,48 @@
 }
 
 .backButtonWrapper {
-  min-width: 40px;
-  margin-top: 3px;
+  @include backButtonWrapper;
+  margin-top: 0;
+}
+
+@include mobile {
+
+  button {
+    svg {
+      display: block !important;
+
+      @include gtelg {
+        display: inline-block !important;
+      }
+    }
+  }
+
+  .save-button-text {
+    display: none;
+  }
+
+  .review-button-text {
+    display: none;
+  }
+}
+
+@include mobile {
+
+  button {
+    svg {
+      display: block !important;
+
+      @include gtelg {
+        display: inline-block !important;
+      }
+    }
+  }
+
+  .save-button-text {
+    display: none;
+  }
+
+  .review-button-text {
+    display: none;
+  }
 }

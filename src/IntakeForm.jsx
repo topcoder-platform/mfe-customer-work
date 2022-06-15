@@ -15,7 +15,11 @@ import {
   loadSavedFormCookie,
   setCookie,
 } from "./autoSaveBeforeLogin";
-import { INTAKE_FORM_ROUTES, MAX_COMPLETED_STEP } from "./constants";
+import {
+  INTAKE_FORM_ROUTES,
+  MAX_COMPLETED_STEP,
+  webWorkTypes,
+} from "./constants";
 import { INTAKE_FORM_ROUTES as DATA_EXPLORATION_INTAKE_FORM_ROUTES } from "./constants/products/DataExploration";
 import { INTAKE_FORM_ROUTES as FIND_ME_DATA_INTAKE_FORM_ROUTES } from "./constants/products/FindMeData";
 import { INTAKE_FORM_ROUTES as DATA_ADVISORY_INTAKE_FORM_ROUTES } from "./constants/products/DataAdvisory";
@@ -40,9 +44,7 @@ import FindMeData from "./routes/Products/FindMeData";
 import WebsiteDesign from "./routes/Products/WebsiteDesign";
 import DataAdvisory from "./routes/Products/DataAdvisory";
 
-import { webWorkTypes } from "./constants";
-
-import { WorkType } from "../src-ts/lib";
+import { WorkType } from "../src-ts";
 
 export default function IntakeForm() {
   const dispatch = useDispatch();

@@ -20,18 +20,16 @@ import {
   savePageDetails,
   saveWorkType,
 } from "../../../../actions/form";
-import { triggerAutoSave } from "../../../../actions/autoSave";
+import { triggerAutoSave, resetSaveLater } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
-import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import { getUserProfile } from "../../../../thunks/profile";
 
 import BasicInfoForm from "../BasicInfoForm";
 import "./styles.module.scss";
 import {
   getDynamicPriceAndTimeline,
-  getDynamicPriceAndTimelineEstimate,
   getDataAdvisoryPriceAndTimelineEstimate,
   currencyFormat,
   getDataExplorationPriceAndTimelineEstimate,
@@ -40,7 +38,7 @@ import {
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
-import { ContactSupportModal } from "../../../../../src-ts";
+import { ContactSupportModal, WorkType } from "../../../../../src-ts";
 
 /**
  * Basic Info Page
@@ -86,12 +84,12 @@ const BasicInfo = ({
   };
 
   const [formData, setFormData] = useState(defaultFormData);
-  const isFindMeData = bannerData.title === "Find Me Data";
-  const isWebsiteDesign = bannerData.title === "Website Design";
+  const isFindMeData = bannerData.title === WorkType.findData;
+  const isWebsiteDesign = bannerData.title === WorkType.design;
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
-  const isDataExploration = bannerData.title === "Data Exploration";
+  const isDataExploration = bannerData.title === WorkType.data;
   const isDataAdvisory =
-    bannerData.title === "Problem Statement & Data Advisory";
+    bannerData.title === WorkType.problem;
   const isDataExplorationFormValid =
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;
@@ -131,13 +129,13 @@ const BasicInfo = ({
   const challenge = useSelector((state) => state.challenge);
 
   const estimate =
-    workType?.selectedWorkType === "Website Design"
+    workType === WorkType.design
       ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : isDataAdvisory
-      ? getDataAdvisoryPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+        ? getDataExplorationPriceAndTimelineEstimate()
+        : isDataAdvisory
+          ? getDataAdvisoryPriceAndTimelineEstimate()
+          : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     saveBasicInfo(defaultFormData);
@@ -181,7 +179,7 @@ const BasicInfo = ({
       dispatch(triggerAutoSave(true));
     }
 
-    if (basicInfo && basicInfo?.projectTitle?.value.length > 0) {
+    if (!!basicInfo?.projectTitle?.value?.length) {
       setFormData(basicInfo);
     }
 
@@ -224,10 +222,12 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const saveForm = (redirect) => {
+  const saveForm = () => {
     saveBasicInfo(formData);
-    dispatch(triggerAutoSave(true));
-    if (redirect) navigate("/self-service");
+    dispatch(triggerAutoSave(true, true));
+    setTimeout(() => {
+      dispatch(resetSaveLater());
+    }, 100);
   };
 
   return (
@@ -282,22 +282,25 @@ const BasicInfo = ({
               <div styleName="footer-right">
                 {isLoggedIn && (
                   <Button
+                    styleName="saveForLater"
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
-                    onClick={() => saveForm(true)}
+                    onClick={() => saveForm()}
                   >
                     <SaveForLaterIcon />
                     <span>SAVE FOR LATER</span>
                   </Button>
                 )}
                 <Button
+                  styleName="reviewAndSubmit"
                   disabled={!isFormValid}
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
-                  <ArrowRightIcon styleName="rotated" />
-                  <span>REVIEW &amp; SUBMIT</span>
+                  <span>
+                    <span styleName="desktop">REVIEW &amp;</span> SUBMIT
+                  </span>
                 </Button>
               </div>
             </div>

@@ -40,21 +40,19 @@ const ThankYou = () => {
           <div styleName="container">
             <div styleName="content">
               <PageH2>THANK YOU</PageH2>
-          
-              <div styleName='content-container'>
+
+              <div styleName="content-container">
+                <p>Your payment has been processed successfully.</p>
 
                 <p>
-                  Your payment has been processed successfully.
+                  You can now go to the Dashboard to manage the work you've
+                  submitted.
                 </p>
 
                 <p>
-                  You can now go to the Dashboard to manage the work you've submitted.
+                  If your changes do not appear immediately, please reload the
+                  page.
                 </p>
-
-                <p>
-                  If your changes do not appear immediately, please reload the page.
-                </p>
-
               </div>
 
               <div styleName="btn">

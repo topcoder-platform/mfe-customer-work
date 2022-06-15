@@ -14,6 +14,8 @@ export {
      TermsModal,
      workContext,
      WorkStatusItem,
+     WorkType,
+     WorkTypeCategoryDesignIcon,
 } from './lib'
 export * from './utils'
 export * from './tools'
