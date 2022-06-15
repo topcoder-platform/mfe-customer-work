@@ -35,7 +35,7 @@ const WelcomePage: FC<WelcomePageProps> = (props: WelcomePageProps) => {
                                     successful in competing in challenges and Topcoder matches,
                                     you will have greater opportunities for gig work placement and will 
                                     improve your overall opportunity to earn on the Topcoder platform. 
-                                    Welcome to the Topcoder Academy, we look forward to learning with you.
+                                    Welcome to the Topcoder Academy, we look forward to learning with you!
                                 </p>
                             </div>
                             <div className={classNames(styles['hero-col'], styles['progress-col'])}>
