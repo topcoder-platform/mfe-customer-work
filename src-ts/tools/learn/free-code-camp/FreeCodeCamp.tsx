@@ -9,6 +9,7 @@ import {
     Portal,
 } from '../../../lib'
 import { CollapsiblePane, CourseOutline } from '../components'
+import { getFccLessonPath } from '../learn.routes'
 import {
     CoursesProviderData,
     LearnLesson,
@@ -33,7 +34,7 @@ const FreeCodeCamp: FC<{}> = () => {
     const {
         course: courseData,
         ready: courseDataReady,
-    }: CoursesProviderData = useCoursesProvider(searchParams.get('course'))
+    }: CoursesProviderData = useCoursesProvider(courseParam)
 
     const { lesson, ready }: LessonProviderData = useLessonProvider(
         courseParam,
@@ -67,7 +68,12 @@ const FreeCodeCamp: FC<{}> = () => {
             return
         }
 
-        navigate(`/learn/fcc?course=${courseParam}&module=${moduleParam}&lesson=${nextStep?.dashedName}`)
+        const lessonPath: string = getFccLessonPath({
+            course: courseParam,
+            module: moduleParam,
+            lesson: nextStep.dashedName
+        })
+        navigate(lessonPath)
     }, [currentStepIndex, currentModuleData, courseParam, moduleParam])
 
     useEffect(() => {
@@ -95,7 +101,7 @@ const FreeCodeCamp: FC<{}> = () => {
                                     <CourseOutline
                                         course={courseData}
                                         ready={courseDataReady}
-                                        currentStep={`${searchParams.get('module')}/${searchParams.get('lesson')}`}
+                                        currentStep={`${moduleParam}/${lessonParam}`}
                                     />
                                 </div>
                             </CollapsiblePane>
