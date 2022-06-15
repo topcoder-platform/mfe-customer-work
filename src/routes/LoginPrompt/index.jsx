@@ -27,6 +27,7 @@ const LoginPrompt = ({
 
   useEffect(() => {
     if (isLoggedIn) {
+      // What should be the change here?
       navigate(nextPageUrl || "/self-service/branding");
       setProgressItem(5);
     }
