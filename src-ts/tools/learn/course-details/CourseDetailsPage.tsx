@@ -62,18 +62,21 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
                                         <h3 className='details'>Suggested next steps</h3>
 
                                         <div className={styles['text']}>
-                                            <p>Now that you have completed the {course.title}, we’d recommend you enroll in another course to continue your learning. You can view our other courses from the Topcoder Academy course page. </p>
+                                            <p>
+                                                Now that you have completed the {course.title},
+                                                we'd recommend you enroll in another course to continue your learning.
+                                                You can view our other courses from the Topcoder Academy course page.
+                                            </p>
                                         </div>
                                     </>
                                 ) : (
                                     <>
                                         <h3 className='details'>Why should you complete this course?</h3>
 
-                                        <div className={styles['text']}>
-                                            <p>In this Responsive Web Design course, you'll learn the languages that developers use to build webpages: HTML (Hypertext Markup Language) for content, and CSS (Cascading Style Sheets) for design.</p>
-                                            <p>First, you'll build a cat photo app to learn the basics of HTML and CSS. Later, you'll learn modern techniques like CSS variables by building a penguin, and best practices for accessibility by building a web form.</p>
-                                            <p>Finally, you'll learn how to make webpages that respond to different screen sizes by building a Twitter card with Flexbox, and a complex blog layout with CSS Grid.</p>
-                                        </div>
+                                        <div
+                                            className={styles['text']}
+                                            dangerouslySetInnerHTML={{ __html: course.keyPoints.join('<br /><br />') }}
+                                        ></div>
                                     </>
                                 )}
                             </div>
