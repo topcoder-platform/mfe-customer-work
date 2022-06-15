@@ -235,9 +235,8 @@ const BasicInfo = ({
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
-                  <ArrowRightIcon styleName="rotated" />
                   <span>
-                    REVIEW &amp; SUBMIT
+                    <span styleName="desktop">REVIEW &amp;</span> SUBMIT
                   </span>
                 </Button>
               </div>
