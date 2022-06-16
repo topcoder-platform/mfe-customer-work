@@ -3,7 +3,7 @@ import { navigate } from "@reach/router";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 
-import { triggerAutoSave } from "../../actions/autoSave";
+import { triggerAutoSave, triggerCookieClear } from "../../actions/autoSave";
 import { saveWorkType, toggleSupportModal } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import Button from "../../components/Button";
@@ -131,6 +131,8 @@ const SelectWorkType = ({
   const featuredWorkTypes = allWorkTypes.filter((wt) => wt.featured);
 
   useEffect(() => {
+    // This will clear the cookies for previously cached challenge
+    dispatch(triggerCookieClear());
     return () => {
       dispatch(triggerAutoSave(true));
     };

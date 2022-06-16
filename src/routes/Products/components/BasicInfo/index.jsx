@@ -222,9 +222,9 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const saveForm = () => {
+  const saveForm = (autoSave, saveLater) => {
     saveBasicInfo(formData);
-    dispatch(triggerAutoSave(true, true));
+    dispatch(triggerAutoSave(autoSave, saveLater));
     setTimeout(() => {
       dispatch(resetSaveLater());
     }, 100);
@@ -286,7 +286,7 @@ const BasicInfo = ({
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
-                    onClick={() => saveForm()}
+                    onClick={() => saveForm(true, true)}
                   >
                     <SaveForLaterIcon />
                     <span>SAVE FOR LATER</span>
