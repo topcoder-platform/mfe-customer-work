@@ -291,20 +291,35 @@ export const projectAndProfessionalWork = {
 
 export const webWorkTypes = [
   {
+    type: WorkType.designLegacy,
     title: "Website Design",
+    duration: "4-6 Days",
+    description:
+      "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    shortDescription: "Create Custom Website Designs that Wow",
+    shortDescriptionMobile: "Design your business",
+    subTitle:
+      "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    price: 199,
+    stickerPrice: 398,
+    featured: true,
+    startRoute: "/self-service/work/new/website-design/basic-info",
+    bgImage: imgProductWebsiteDesign,
+  },
+  {
+    type: WorkType.design,
+    title: "Website Design (NEW)",
     subTitle:
       "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
     shortDescription: "Create Custom Website Designs that Wow",
     shortDescriptionMobile: "Design your business",
     description:
       "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    descriptionMobile:
-      "Sometimes data is the only thing standing between you and something great. Tell us what you're solving for, and let our experts find the data to get you started now. ",
     price: 499,
     // stickerPrice: 499,
     duration: "4 Days",
     featured: true,
-    startRoute: "/self-service/work/new/website-design/basic-info",
+    startRoute: "/self-service/work/new/website-design-new/basic-info",
     helperBannerTitle: "WHAT WILL I RECEIVE?",
     bgImage: imgProductWebsiteDesign,
     helperBannerContent: (
@@ -342,6 +357,7 @@ export const webWorkTypes = [
     ),
   },
   {
+    type: WorkType.data,
     title: "Data Exploration",
     subTitle: "Get insights about your data from Topcoder experts.",
     shortDescription: "Uncover What's Interesting About Your Data",
@@ -376,13 +392,15 @@ export const webWorkTypes = [
     aboutBannerTitle: "ABOUT DATA EXPLORATION",
     aboutBannerContent: (
       <p>
-        Find Me Data is designed for business leaders, researchers or any
-        individual who has a data question and is struggling to find the data to
-        answer it.
+        In Data Exploration, multiple data science experts uncover the most
+        significant patterns and relationships in your data. Unlock the full
+        potential of your data with expert insights presented in an
+        easy-to-understand format.
       </p>
     ),
   },
   {
+    type: WorkType.problem,
     title: "Problem Statement & Data Advisory",
     subTitle:
       "Translate your data science idea into an actionable data science approach.",
@@ -428,6 +446,7 @@ export const webWorkTypes = [
     ),
   },
   {
+    type: WorkType.findData,
     title: "Find Me Data",
     subTitle: "Get the data you need to meet your analysis goals.",
     shortDescription: "Our Experts Source Useful Data Sets For You",
@@ -438,7 +457,7 @@ export const webWorkTypes = [
       : findMeDataConfigs.BASE_PRODUCT_PRICE,
     stickerPrice: findMeDataConfigs.BASE_PRODUCT_PRICE,
     duration: `${findMeDataConfigs.DEFAULT_DURATION} Days`,
-    featured: false,
+    featured: true,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
     bgImage: imgProductFindMeData,
     helperBannerTitle: "WHAT WILL I RECEIVE?",
