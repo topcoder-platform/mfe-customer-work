@@ -17,10 +17,12 @@ const PromoCourse: FC<PromoCourseProps> = (props: PromoCourseProps) => {
                     More ways to reach your potential with Recommended Learning Paths
                 </div>
                 <div className='body-main'>
-                    [Messaging about how courses offered through Topcoder Academy build a
-                    foundation to reach career goals. As we add more learning opportunities
-                    to our offerings we will recommend sequences of courses to
-                    help qualify for a specific role.]
+                    We will be building additional learning path courses, where when taken
+                    in sequence, will result in a larger Topcoder certification.
+                    These certifications will show in your Topcoder profile and will showcase
+                    your verified skills and earned certifications. The resulting outcome is
+                    that you have gained essential skills allowing you to be more successful
+                    on the Topcoder platform.
                 </div>
             </div>
             <LearnGetCertified />

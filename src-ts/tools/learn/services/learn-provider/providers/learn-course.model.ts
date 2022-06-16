@@ -4,6 +4,7 @@ export interface LearnCourse {
     certification: string
     completionHours: number
     introCopy: Array<string>
+    keyPoints: Array<string>
     key: string
     moduleCount: number
     modules: Array<LearnModule>
