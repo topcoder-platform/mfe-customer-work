@@ -205,7 +205,7 @@ const BasicInfoForm = ({
               onChange={(e) =>
                 handleInputChange(e.target.name, e.target.value, e.target.value)
               }
-              onBlur={() => saveForm(false)}
+              onBlur={() => saveForm(false, false)}
             />
           </FormField>
         </div>

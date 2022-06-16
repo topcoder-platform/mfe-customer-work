@@ -50,10 +50,14 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
     }
   };
 
+  const clearCache = () => {
+    clearAutoSavedForm();
+    dispatch(autoSaveCookieCleared(true));
+  };
+
   const clearCachedCookie = (autoSave) => {
     if (autoSave.triggered && !autoSave.cookieCleared) {
-      clearAutoSavedForm();
-      dispatch(autoSaveCookieCleared(true));
+      clearCache();
     }
   };
 
@@ -74,6 +78,10 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
     const result = next(action);
     if ([ACTIONS.AUTO_SAVE.TRIGGER_AUTO_SAVE].includes(result.type)) {
       handleAutoSave();
+    }
+
+    if ([ACTIONS.AUTO_SAVE.TRIGGER_COOKIE_CLEARED].includes(result.type)) {
+      clearCache();
     }
     return result;
   };
