@@ -19,12 +19,15 @@
 @mixin font-weight-normal {
     font-weight: $font-weight-normal;
 }
+
 @mixin font-weight-medium {
     font-weight: $font-weight-medium;
 }
+
 @mixin font-weight-semibold {
     font-weight: $font-weight-semibold;
 }
+
 @mixin font-weight-bold {
     font-weight: $font-weight-bold;
 }
@@ -34,15 +37,19 @@
 @mixin font-black-100 {
     color: $black-100;
 }
+
 @mixin font-black-80 {
-    color: $black-100;
+    color: $black-80;
 }
+
 @mixin font-black-60 {
-    color: $black-100;
+    color: $black-60;
 }
+
 @mixin font-black-40 {
     color: $black-40;
 }
+
 @mixin font-tc-white {
     color: $tc-white;
 }
@@ -52,6 +59,7 @@
 @mixin font-red-120 {
     color: $red-120;
 }
+
 @mixin font-red-140 {
     color: $red-140;
 }
@@ -73,6 +81,7 @@
 @mixin font-blue-140 {
     color: $blue-140;
 }
+
 @mixin font-link-blue-dark {
     color: $link-blue-dark;
 }
@@ -82,9 +91,11 @@
 @mixin font-purple-100 {
     color: $purple-100;
 }
+
 @mixin font-purple-120 {
     color: $purple-120;
 }
+
 @mixin font-purple-140 {
     color: $purple-140;
 }

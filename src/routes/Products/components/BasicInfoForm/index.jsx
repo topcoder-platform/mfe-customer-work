@@ -2,20 +2,19 @@
 /**
  * Basic Info Form component
  */
-import FormField from "components/FormElements/FormField";
-import FormInputText from "components/FormElements/FormInputText";
-import Button from "components/Button";
-import HelpBanner from "components/HelpBanner";
-import HelpIcon from "components/HelpIcon";
-import PageDivider from "components/PageDivider";
-import PageP from "components/PageElements/PageP";
-import PageRow from "components/PageElements/PageRow";
-import RadioButton from "components/RadioButton";
-import FormInputTextArea from "components/FormElements/FormInputTextArea";
-import ServicePrice from "components/ServicePrice";
+import FormField from "../../../../components/FormElements/FormField";
+import FormInputText from "../../../../components/FormElements/FormInputText";
+import HelpBanner from "../../../../components/HelpBanner";
+import HelpIcon from "../../../../components/HelpIcon";
+import PageDivider from "../../../../components/PageDivider";
+import PageP from "../../../../components/PageElements/PageP";
+import PageRow from "../../../../components/PageElements/PageRow";
+import RadioButton from "../../../../components/RadioButton";
+import FormInputTextArea from "../../../../components/FormElements/FormInputTextArea";
+import ServicePrice from "../../../../components/ServicePrice";
 // TODO: Move this component to /components
 import ColorOptions from "../../../Branding/components/ColorOptions";
-import { HELP_BANNER } from "constants/";
+import { HELP_BANNER } from "../../../../constants/";
 import PT from "prop-types";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
@@ -207,7 +206,7 @@ const BasicInfoForm = ({
               onChange={(e) =>
                 handleInputChange(e.target.name, e.target.value, e.target.value)
               }
-              onBlur={() => saveForm(false)}
+              onBlur={() => saveForm(false, false)}
             />
           </FormField>
         </div>

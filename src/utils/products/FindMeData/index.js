@@ -47,15 +47,15 @@ export function formatChallengeUpdateBody(intakeForm) {
   //This is the Markdown string that gets displayed in Work Manager app and others
   const templateString = [];
 
-  Object.keys(data).forEach((key) => {
-    if (!data[key]) return;
+  data.forEach((formDetail) => {
+    if (Object.keys(formDetail).length <= 0) return;
 
     intakeMetadata.push({
-      name: key,
-      value: data[key].value,
+      name: formDetail.key,
+      value: formDetail.value,
     });
     templateString.push(
-      `### ${data[key].title}\n\n${formatOption(data[key].value)}\n\n`
+      `### ${formDetail.title}\n\n${formatOption(formDetail.value)}\n\n`
     );
   });
 

@@ -73,7 +73,6 @@ const Review = ({
     zipCode: null,
     checked: false, // value to toggle terms and conditions checkbox
   });
-  const [checked, setChecked] = useState(false);
 
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
@@ -82,6 +81,7 @@ const Review = ({
   const fullState = useSelector((state) => state);
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
+
   let estimate;
   switch (workType?.selectedWorkType) {
     case (WorkType.design):
