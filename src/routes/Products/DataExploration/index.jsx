@@ -32,9 +32,7 @@ export default function DataExploration({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/data-exploration/review"
       />
       <Review
-        banner={
-          <FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} />
-        }
+        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} workType={title} />}
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}

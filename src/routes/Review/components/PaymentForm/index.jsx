@@ -158,7 +158,6 @@ const PaymentForm = ({ formData, setFormData, onOpenContractModal }) => {
           ></FormInputText>
         </div>
       </FormField>
-
       <div styleName="contract">
         <div styleName="checkbox">
           <FormInputCheckbox

@@ -104,9 +104,6 @@ const BasicInfo = ({
       (formData?.primaryDataChallenge?.value === 3 &&
         formData?.primaryDataChallengeOther?.value?.trim().length)) &&
     formData?.sampleData?.value?.trim().length;
-  // const isFormValid = isDataExploration
-  //   ? isDataExplorationFormValid
-  //   : isFindMeDataFormValid;
 
   let isFormValid;
   if (isDataExploration) {
@@ -129,7 +126,7 @@ const BasicInfo = ({
   const challenge = useSelector((state) => state.challenge);
 
   const estimate =
-    workType === WorkType.design
+    workType?.selectedWorkType === WorkType.design
       ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
         ? getDataExplorationPriceAndTimelineEstimate()
@@ -242,6 +239,7 @@ const BasicInfo = ({
         <FeaturedWorkTypeBanner
           title={bannerData.title}
           subTitle={bannerData.subTitle}
+          workType={bannerData.title}
         />
         <PageContent styleName="container">
           <BasicInfoForm
@@ -301,12 +299,12 @@ const BasicInfo = ({
                   <span>
                     <span styleName="desktop">REVIEW &amp;</span> SUBMIT
                   </span>
-                </Button>
-              </div>
-            </div>
-          </PageFoot>
-        </PageContent>
-      </Page>
+                </Button >
+              </div >
+            </div >
+          </PageFoot >
+        </PageContent >
+      </Page >
     </>
   );
 };
