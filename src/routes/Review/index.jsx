@@ -74,9 +74,6 @@ const Review = ({
     checked: false, // value to toggle terms and conditions checkbox
   });
 
-  const isDataExploration = bannerData.title === WorkType.data;
-  const isDataAdvisory =
-    bannerData.title === WorkType.problem;
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
@@ -84,14 +81,25 @@ const Review = ({
   const fullState = useSelector((state) => state);
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
-  const estimate =
-    workType?.selectedWorkType === WorkType.design
-      ? getWebsiteDesignPriceAndTimelineEstimate()
-      : isDataExploration
-        ? getDataExplorationPriceAndTimelineEstimate()
-        : isDataAdvisory
-          ? getDataAdvisoryPriceAndTimelineEstimate()
-          : getFindMeDataPriceAndTimelineEstimate();
+
+  let estimate;
+  switch (workType?.selectedWorkType) {
+    case (WorkType.design):
+      estimate = getWebsiteDesignPriceAndTimelineEstimate();
+      break;
+    case (WorkType.data):
+      estimate = getDataExplorationPriceAndTimelineEstimate();
+      break;
+    case (WorkType.problem):
+      estimate = getDataAdvisoryPriceAndTimelineEstimate();
+      break;
+    case (WorkType.findData):
+      estimate = getFindMeDataPriceAndTimelineEstimate();
+      break;
+    default:
+      estimate = getFindMeDataPriceAndTimelineEstimate();
+      break;
+  }
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {

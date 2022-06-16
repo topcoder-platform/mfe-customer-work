@@ -30,9 +30,7 @@ export default function FindMeData({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/find-me-data/review"
       />
       <Review
-        banner={
-          <FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} />
-        }
+        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} workType={title} />}
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}

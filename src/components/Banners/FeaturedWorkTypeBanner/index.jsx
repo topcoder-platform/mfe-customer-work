@@ -6,8 +6,8 @@ import React from "react";
 import PT from "prop-types";
 import styles from "./styles.module.scss";
 
-export const FeaturedWorkTypeBanner = ({ title, subTitle }) => {
-  const styleType = title
+export const FeaturedWorkTypeBanner = ({ title, subTitle, workType }) => {
+  const styleType = workType
     .toLowerCase()
     .split(" ")
     .join("-")
@@ -33,6 +33,7 @@ export const FeaturedWorkTypeBanner = ({ title, subTitle }) => {
 FeaturedWorkTypeBanner.propTypes = {
   title: PT.string,
   subTitle: PT.string,
+  workType: PT.string
 };
 
 export default FeaturedWorkTypeBanner;
