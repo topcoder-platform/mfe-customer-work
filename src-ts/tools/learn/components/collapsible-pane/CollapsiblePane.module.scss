@@ -10,6 +10,12 @@
     &:global(.to-left) {
         flex-direction: row-reverse;
     }
+
+    &:global(.collapsed) {
+        .content {
+            display: none;
+        }
+    }
 }
 
 .pane-outline {
@@ -42,5 +48,7 @@
     background: $tc-grad15;
     padding: $pad-lg;
     color: $tc-white;
-    overflow: hidden;
+    overflow: auto;
+
+    @include scrollbar;
 }

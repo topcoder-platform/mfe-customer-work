@@ -30,11 +30,9 @@ const CollapsiblePane: FC<CollapsiblePaneProps> = (props: CollapsiblePaneProps) 
                 {isOpen ? <IconSolid.ChevronDoubleLeftIcon /> : <IconSolid.ChevronDoubleRightIcon />}
                 {props.title}
             </div>
-            {isOpen && (
-                <div className={styles['content']}>
-                    {props.children}
-                </div>
-            )}
+            <div className={styles['content']}>
+                {props.children}
+            </div>
         </div>
     )
 }

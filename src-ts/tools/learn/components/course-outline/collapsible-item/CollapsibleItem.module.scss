@@ -7,7 +7,7 @@
 
 .title-row {
     display: flex;
-    gap: $pad-xs;
+    gap: calc($pad-sm + $border);
     cursor: pointer;
 
     > span {
@@ -36,55 +36,48 @@
     }
 }
 
-.list {
+.content {
+    margin-left: 34px;
+}
+
+
+.short-desc {
+    margin-top: $pad-sm;
+}
+
+.summary {
     display: flex;
-    flex-direction: column;
-    gap: $pad-sm;
-
-    margin-top: $pad-xs;
-
-    li {
-        padding-left: 5px;
+    color: $tc-white;
+    margin-top: $border-xs;
+    
+    > * + * {
+        &:before {
+            content: "";
+            display: block;
+            width: 1px;
+            height: 14px;
+            background: $tc-white;
+            margin: 0 calc($pad-sm + $border);
+        }
     }
 
-    .item-wrap {
+    &-item {
+        @extend .body-small;
         display: flex;
-        gap: $pad-sm;
         align-items: center;
-        @extend .body-small-medium;
 
-        &:global(.active) {
-            color: $tc-white;
-            .item-icon {
-                position: relative;
-                z-index: 1;
-                &:before {
-                    position: absolute;
-                    content: "";
-                    width: $pad-md;
-                    height: $pad-md;
-                    display: block;
-                    background: $tc-white;
-                    border-radius: $pad-md;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    z-index: -1;
-                }
-            }
+        svg {
+            width: 14px;
+            height: 14px;
+            margin-right: calc($pad-xs + $border);
         }
     }
 }
 
-.item-icon {
-    @include icon-size(14);
-    display: block;
-    border-radius: $pad-sm;
-        
-    svg {
-        @include icon-size(14);
-        path {
-            fill: $turq-75;
-        }
-    }
+.list {
+    display: flex;
+    gap: $pad-xs $pad-sm;
+    flex-wrap: wrap;
+
+    margin-top: $pad-sm;
 }

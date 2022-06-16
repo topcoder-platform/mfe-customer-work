@@ -2,10 +2,10 @@ import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 import { Button } from '../../../../lib'
-import { LearningHat, TcAcademyPolicyModal } from '../../components'
+import { CourseOutline, LearningHat, TcAcademyPolicyModal } from '../../components'
+import { getFccLessonPath } from '../../learn.routes'
 import { LearnCourse, LearnLesson, LearnModule, LearnMyCertificationProgress } from '../../services'
 
-import { CourseModuleList } from './course-modules-list'
 import styles from './CourseCurriculum.module.scss'
 import { CurriculumSummary } from './curriculum-summary'
 
@@ -24,13 +24,13 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
         const course: LearnCourse = props.course
         const module: LearnModule = course.modules[0]
         const lesson: LearnLesson = module.lessons[0]
-
-        const coursePath: string = [
-            course && `course=${encodeURIComponent(course.certification)}`,
-            module && `module=${encodeURIComponent(current[0] ?? module.meta.dashedName)}`,
-            lesson && `lesson=${encodeURIComponent(current[1] ?? lesson.dashedName)}`,
-        ].filter(Boolean).join('&')
-        navigate(`/learn/fcc?${coursePath}`)
+        
+        const lessonPath: string = getFccLessonPath({
+            course: course.certification,
+            module: current[0] ?? module.meta.dashedName,
+            lesson: current[1] ?? lesson.dashedName
+        })
+        navigate(lessonPath)
     }, [props.course, props.progress])
 
     const status: string = props.progress?.status ?? 'init'
@@ -58,10 +58,9 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
                     completed={isCompleted}
                 />
 
-                <CourseModuleList
-                    modules={props.course.modules}
-                    progress={props.progress}
-                />
+                <div className={styles['course-outline']}>
+                    <CourseOutline course={props.course} />
+                </div>
             </div>
             {isCompleted && (
                 <div className={styles['bottom-link']}>

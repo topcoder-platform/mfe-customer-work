@@ -32,11 +32,11 @@
     }
     
     &::-webkit-scrollbar-thumb {
-        background-color: rgba($tc-white, 0.4);
+        background-color: rgba($tc-black, 0.4);
         border-radius: 4px;
         
         &:hover {
-            background-color: $tc-white;
+            background-color: rgba($tc-black, 0.6);
         }
     }
 }
