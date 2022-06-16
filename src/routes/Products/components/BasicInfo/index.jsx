@@ -8,17 +8,21 @@ import Page from "components/Page";
 import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
-import { BUTTON_SIZE, BUTTON_TYPE, PageOptions } from "constants/";
+import {
+  BUTTON_SIZE,
+  BUTTON_TYPE,
+  PageOptions,
+  PrimaryDataChallengeOptions,
+} from "constants/";
 import {
   saveBasicInfo,
   toggleSupportModal,
   savePageDetails,
   saveWorkType,
 } from "../../../../actions/form";
-import { triggerAutoSave } from "../../../../actions/autoSave";
+import { triggerAutoSave, resetSaveLater } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
-import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
 import { getUserProfile } from "../../../../thunks/profile";
 
@@ -26,10 +30,11 @@ import BasicInfoForm from "../BasicInfoForm";
 import "./styles.module.scss";
 import {
   getDynamicPriceAndTimeline,
-  getDynamicPriceAndTimelineEstimate,
+  getDataAdvisoryPriceAndTimelineEstimate,
   currencyFormat,
   getDataExplorationPriceAndTimelineEstimate,
   getFindMeDataPriceAndTimelineEstimate,
+  getWebsiteDesignPriceAndTimelineEstimate,
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
@@ -46,25 +51,49 @@ const BasicInfo = ({
   bannerData,
   isLoggedIn,
 }) => {
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     projectTitle: { title: "Project Title", option: "", value: "" },
+    description: { title: "Description", option: "", value: "" },
     assetsUrl: { title: "Shareable URL Link(s)", value: "" },
+    assetsDescription: { title: "About Your Assets", value: "" },
     goals: { title: "Goals & Data Description", option: "", value: null },
     analysis: { title: "What Data Do You Need?", option: "", value: "" },
+    feedback: { title: "What Data Do You like?", option: "", value: "" },
+    yourIndustry: { title: "Your Industry", option: "", value: "" },
+    colorOption: { title: "Color Option", value: [], option: [] },
+    likedStyles: { title: "Liked Styles", value: [], option: [] },
+    dislikedStyles: { title: "Disliked Styles", value: [], option: [] },
+    specificColor: { title: "Custom Color", option: "", value: "" },
     primaryDataChallenge: {
       title: "Primary Data Challenge",
-      option: "",
-      value: "",
+      option: PrimaryDataChallengeOptions[0].label,
+      value: 0,
     },
     primaryDataChallengeOther: {
       title: "Primary Data Challenge (Other Option)",
       option: "",
       value: "",
     },
+    inspiration: [
+      {
+        website: { title: "Website Address", value: "", option: "" },
+        feedback: { title: "What Do You Like", value: "", option: "" },
+      },
+    ],
     sampleData: { title: "Sample Data", option: "", value: "" },
-  });
-  const isDataExploration = bannerData.title === "Data Exploration";
+  };
+
+  const [formData, setFormData] = useState(defaultFormData);
+  const isFindMeData = bannerData.title === WorkType.findData;
+  const isWebsiteDesign = bannerData.title === WorkType.design;
+  const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
+  const isDataExploration = bannerData.title === WorkType.data;
+  const isDataAdvisory =
+    bannerData.title === WorkType.problem;
   const isDataExplorationFormValid =
+    formData?.projectTitle?.value?.trim().length &&
+    formData?.goals?.value?.trim().length;
+  const isDataAdvisoryFormValid =
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;
   const isFindMeDataFormValid =
@@ -75,9 +104,21 @@ const BasicInfo = ({
       (formData?.primaryDataChallenge?.value === 3 &&
         formData?.primaryDataChallengeOther?.value?.trim().length)) &&
     formData?.sampleData?.value?.trim().length;
-  const isFormValid = isDataExploration
-    ? isDataExplorationFormValid
-    : isFindMeDataFormValid;
+  // const isFormValid = isDataExploration
+  //   ? isDataExplorationFormValid
+  //   : isFindMeDataFormValid;
+
+  let isFormValid;
+  if (isDataExploration) {
+    isFormValid = isDataExplorationFormValid;
+  } else if (isFindMeData) {
+    isFormValid = isFindMeDataFormValid;
+  } else if (isWebsiteDesign) {
+    isFormValid = isWebsiteDesignFormValid;
+  } else if (isDataAdvisory) {
+    isFormValid = isDataAdvisoryFormValid;
+  }
+
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const workType = useSelector((state) => state.form.workType);
@@ -86,24 +127,38 @@ const BasicInfo = ({
   const pageDetails = useSelector((state) => state.form.pageDetails);
   const showSupportModal = useSelector((state) => state.form.showSupportModal);
   const challenge = useSelector((state) => state.challenge);
-  const fullState = useSelector((state) => state);
 
   const estimate =
     workType === WorkType.design
-      ? getDynamicPriceAndTimelineEstimate(fullState)
+      ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
         ? getDataExplorationPriceAndTimelineEstimate()
-        : getFindMeDataPriceAndTimelineEstimate();
+        : isDataAdvisory
+          ? getDataAdvisoryPriceAndTimelineEstimate()
+          : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
+    saveBasicInfo(defaultFormData);
     navigate("/self-service/wizard");
   };
 
-  const baseUrl = `/self-service/work/new/${isDataExploration ? "data-exploration" : "find-me-data"}`;
+  let basePath;
+  if (isDataExploration) {
+    basePath = "data-exploration";
+  } else if (isFindMeData) {
+    basePath = "find-me-data";
+  } else if (isWebsiteDesign) {
+    basePath = "website-design";
+  } else if (isDataAdvisory) {
+    basePath = "data-advisory";
+  }
+
+  const baseUrl = `/self-service/work/new/${basePath}`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
     saveBasicInfo(formData);
+    dispatch(triggerAutoSave(true));
     navigate(isLoggedIn ? `${baseUrl}/review` : `${baseUrl}/login-prompt`);
   };
 
@@ -128,7 +183,7 @@ const BasicInfo = ({
       setFormData(basicInfo);
     }
 
-    setFirstMounted(true);
+    setFirstMounted(false);
 
     return () => {
       dispatch(triggerAutoSave(true));
@@ -167,6 +222,14 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
+  const saveForm = () => {
+    saveBasicInfo(formData);
+    dispatch(triggerAutoSave(true, true));
+    setTimeout(() => {
+      dispatch(resetSaveLater());
+    }, 100);
+  };
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -199,6 +262,7 @@ const BasicInfo = ({
             numOfPages={pageDetails?.pages?.length || 0}
             onShowSupportModal={onShowSupportModal}
             bannerData={bannerData}
+            saveForm={saveForm}
           />
 
           <PageDivider />
@@ -222,11 +286,10 @@ const BasicInfo = ({
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
+                    onClick={() => saveForm()}
                   >
                     <SaveForLaterIcon />
-                    <span>
-                      SAVE FOR LATER
-                    </span>
+                    <span>SAVE FOR LATER</span>
                   </Button>
                 )}
                 <Button
@@ -235,9 +298,8 @@ const BasicInfo = ({
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
-                  <ArrowRightIcon styleName="rotated" />
                   <span>
-                    REVIEW &amp; SUBMIT
+                    <span styleName="desktop">REVIEW &amp;</span> SUBMIT
                   </span>
                 </Button>
               </div>

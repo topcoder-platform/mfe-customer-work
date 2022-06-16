@@ -32,7 +32,14 @@ export const WorkProvider: FC<{ children: ReactNode }> = ({ children }: { childr
                     fieldName: 'created',
                 },
             }
-            const work: Array<Work> = await workGetAsync((profile as UserProfile).handle, page)
+            let work: Array<Work> = []
+            let nextSet: Array<Work> = await workGetAsync((profile as UserProfile).handle, page)
+
+            while (nextSet.length > 0) {
+                work = work.concat(nextSet)
+                page.number += 1
+                nextSet = await workGetAsync((profile as UserProfile).handle, page)
+            }
 
             const contextData: WorkContextData = {
                 createFromChallenge: workFactoryCreate,

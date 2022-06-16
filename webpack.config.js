@@ -79,7 +79,7 @@ module.exports = (webpackConfigEnv) => {
         },
         {
           /* Loads raster images */
-          test: /\.(gif|jpe?g|png)$/,
+          test: /\.(gif|jpe?g|png|pdf)$/,
           exclude: [/node_modules/, /[/\\]assets[/\\]fonts/],
           loader: "file-loader",
           options: {

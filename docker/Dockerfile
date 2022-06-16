@@ -14,6 +14,7 @@ COPY . /mfe-customer-work
 WORKDIR /mfe-customer-work
 
 # Install the dependencies from package.json
+
 RUN git config --global url."https://git@".insteadOf git://
 RUN npm install
 

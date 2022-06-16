@@ -10,6 +10,7 @@ import CheckIcon from "../../../../assets/images/check.svg";
 import "./styles.module.scss";
 
 const ColorOptions = ({ colors, selectedColor, onSelect }) => {
+  const anyColor = colors.find((x) => x.isAny);
   return (
     <div styleName="colorOptions">
       {colors.map((color, index) => (
@@ -29,9 +30,16 @@ const ColorOptions = ({ colors, selectedColor, onSelect }) => {
                 (v) => v !== color.name
               );
               onSelect(newColors, newColors);
-            } else {
-              if (selectedColor.value.length >= 3) return;
-              const newColors = [...selectedColor.value, color.name];
+            } else if (color.isAny) {
+              const newColors = [color.name];
+              onSelect(newColors, newColors);
+            } else if (selectedColor.value.length < 3) {
+              const newColors = [
+                ...selectedColor.value.filter(
+                  (name) => name !== anyColor?.name
+                ),
+                color.name,
+              ];
               onSelect(newColors, newColors);
             }
           }}

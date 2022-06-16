@@ -16,9 +16,7 @@ import PT from "prop-types";
 import React from "react";
 import "./styles.module.scss";
 
-// TODO: figure out why this export is needed
-// https://github.com/topcoder-platform/mfe-customer-work/issues/74
-export const Button = ({
+const Button = ({
   children,
   size = BUTTON_SIZE.SMALL,
   type = BUTTON_TYPE.PRIMARY,
