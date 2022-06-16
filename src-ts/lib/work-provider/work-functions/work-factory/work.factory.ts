@@ -70,6 +70,108 @@ export function getStatus(challenge: Challenge): WorkStatus {
     }
 }
 
+export function mapFormData(type: string, formData: any): any {
+    switch (type) {
+        case (WorkType.problem):
+            return buildFormDataProblem(formData)
+        case (WorkType.data):
+            return buildFormDataData(formData)
+        case (WorkType.findData):
+            return buildFormDataFindData(formData)
+        case (WorkType.design):
+            return buildFormDataDesign(formData)
+        default:
+            return formData
+    }
+}
+
+function buildFormDataData(formData: any): any {
+    return {
+        projectTitle: formData.projectTitle,
+        // Disabling lint error to maintain order for display
+        // tslint:disable-next-line: object-literal-sort-keys
+        data: {
+            title: 'Share Your Data (Optional)',
+            value: formData.assetsUrl?.value,
+        },
+        goal: {
+            title: 'What Would You Like To Learn?',
+            value: formData.goals?.value,
+        },
+    }
+}
+
+function buildFormDataDesign(formData: any): any {
+    const styleInfo: Array<string> = [
+        `Like: ${formData.likedStyles?.value?.join(', ') || ''}`,
+        `Dislike: ${formData.dislikedStyles?.value?.join(', ') || ''}`,
+        `Additional Details: ${formData.stylePreferences?.value || ''}`,
+        `Color Selections: ${formData.colorOption?.value.join(', ') || ''}`,
+        `Specific Colors: ${formData.specificColor?.value || ''}`,
+    ]
+
+    return {
+        projectTitle: formData.projectTitle,
+        // Disabling lint error to maintain order for display
+        // tslint:disable-next-line: object-literal-sort-keys
+        description: {
+            title: 'Description',
+            value: formData.analysis?.value,
+        },
+        industry: {
+            title: 'Your Industry',
+            value: formData.yourIndustry?.value,
+        },
+        inspiration: {
+            title: 'Inspiration',
+            value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`),
+        },
+        style: {
+            title: 'Style & Theme',
+            value: styleInfo,
+        },
+        assets: {
+            title: 'Share Your Brand or Style Assets',
+            value: [formData.assetsUrl?.value, formData.assetsDescription?.value],
+        },
+    }
+}
+
+function buildFormDataFindData(formData: any): any {
+    const isPrimaryDataChallengeOther: boolean = formData.primaryDataChallenge?.value === 3
+    return {
+        projectTitle: formData.projectTitle,
+        // Disabling lint error to maintain order for display
+        // tslint:disable-next-line: object-literal-sort-keys
+        data: formData.analysis,
+        primaryDataChallenge: {
+            title: formData.primaryDataChallenge?.title,
+            value: isPrimaryDataChallengeOther
+                ? formData.primaryDataChallengeOther.value
+                : formData.primaryDataChallenge?.option,
+        },
+        sampleData: formData.sampleData,
+    }
+}
+
+function buildFormDataProblem(formData: any): any {
+    return {
+        projectTitle: formData.projectTitle,
+        // Disabling lint error to maintain order for display
+        // tslint:disable-next-line: object-literal-sort-keys
+        goal: {
+            title: 'What\'s Your Goal?',
+            value: formData.goals?.value,
+        },
+        data: {
+            title: 'What Data Do You Have?', value: [
+                formData.sampleData?.value,
+                formData.assetsDescription?.value,
+            ],
+        },
+    }
+}
+
 function findMetadata(challenge: Challenge, metadataName: ChallengeMetadataName): ChallengeMetadata | undefined {
     return challenge.metadata?.find((item: ChallengeMetadata) => item.name === metadataName)
 }
@@ -124,7 +226,9 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
             return WebsitePrices.BASE_PRODUCT_PRICE
 
         case WorkType.findData:
-            return FindDataPrices.PROMOTIONAL_PRODUCT_PRICE || FindDataPrices.BASE_PRODUCT_PRICE
+            return FindDataPrices.USING_PROMOTIONAL_PRICE
+                ? FindDataPrices.PROMOTIONAL_PRODUCT_PRICE
+                : FindDataPrices.BASE_PRODUCT_PRICE
 
         case WorkType.problem:
             return ProblemPrices.PROMOTIONAL_PRODUCT_PRICE || ProblemPrices.BASE_PRODUCT_PRICE
@@ -287,75 +391,5 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
         // TOOD: other categories: qa and dev
         default:
             return WorkTypeCategory.unknown
-    }
-}
-
-export function mapFormData(type: string, formData: any): any {
-    switch (type) {
-        case (WorkType.problem):
-            return buildFormDataProblem(formData)
-        case (WorkType.data):
-            return buildFormDataData(formData)
-        case (WorkType.findData):
-            return buildFormDataFindData(formData)
-        case (WorkType.design):
-            return buildFormDataDesign(formData)
-        default:
-            return formData
-    }
-}
-
-function buildFormDataProblem(formData: any): any {
-    return {
-        data: {
-            title: 'What Data Do You Have?', value: [
-                formData.sampleData?.value,
-                formData.assetsDescription?.value,
-            ],
-        },
-        goal: { title: 'What\'s Your Goal?', value: formData.goals?.value },
-        projectTitle: formData.projectTitle,
-    }
-}
-
-function buildFormDataData(formData: any): any {
-    return {
-        data: { title: 'Share Your Data (Optional)', value: formData.assetsUrl?.value },
-        goal: { title: 'What Would You Like To Learn?', value: formData.goals?.value },
-        projectTitle: formData.projectTitle,
-    }
-}
-
-function buildFormDataFindData(formData: any): any {
-    const isPrimaryDataChallengeOther: boolean = formData.primaryDataChallenge?.value === 3
-    return {
-        data: formData.analysis,
-        primaryDataChallenge: {
-            title: formData.primaryDataChallenge?.title,
-            value: isPrimaryDataChallengeOther
-                ? formData.primaryDataChallengeOther.value
-                : formData.primaryDataChallenge?.option,
-        },
-        projectTitle: formData.projectTitle,
-        sampleData: formData.sampleData,
-    }
-}
-
-function buildFormDataDesign(formData: any): any {
-    const styleInfo: Array<string> = [
-        `Like: ${formData.likedStyles?.value?.join(', ') || ''}`,
-        `Dislike: ${formData.dislikedStyles?.value?.join(', ') || ''}`,
-        `Additional Details: ${formData.stylePreferences?.value || ''}`,
-        `Color Selections: ${formData.colorOption?.value.join(', ') || ''}`,
-        `Specific Colors: ${formData.specificColor?.value || ''}`,
-    ]
-
-    return {
-        assets: { title: 'Share Your Brand or Style Assets', value: [formData.assetsUrl?.value, formData.assetsDescription?.value] },
-        description: { title: 'Description', value: formData.analysis?.value },
-        industry: { title: 'Your Industry', value: formData.yourIndustry?.value },
-        inspiration: { title: 'Inspiration', value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`) },
-        projectTitle: formData.projectTitle,
-        style: { title: 'Style & Theme', value: styleInfo },
     }
 }

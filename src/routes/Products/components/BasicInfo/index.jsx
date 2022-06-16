@@ -20,18 +20,16 @@ import {
   savePageDetails,
   saveWorkType,
 } from "../../../../actions/form";
-import { triggerAutoSave } from "../../../../actions/autoSave";
+import { triggerAutoSave, resetSaveLater } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
-import ArrowRightIcon from "../../../../assets/images/icon-arrow.svg";
 import { getUserProfile } from "../../../../thunks/profile";
 
 import BasicInfoForm from "../BasicInfoForm";
 import "./styles.module.scss";
 import {
   getDynamicPriceAndTimeline,
-  getDynamicPriceAndTimelineEstimate,
   getDataAdvisoryPriceAndTimelineEstimate,
   currencyFormat,
   getDataExplorationPriceAndTimelineEstimate,
@@ -106,9 +104,6 @@ const BasicInfo = ({
       (formData?.primaryDataChallenge?.value === 3 &&
         formData?.primaryDataChallengeOther?.value?.trim().length)) &&
     formData?.sampleData?.value?.trim().length;
-  // const isFormValid = isDataExploration
-  //   ? isDataExplorationFormValid
-  //   : isFindMeDataFormValid;
 
   let isFormValid;
   if (isDataExploration) {
@@ -225,10 +220,12 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const saveForm = (redirect) => {
+  const saveForm = () => {
     saveBasicInfo(formData);
-    dispatch(triggerAutoSave(true));
-    if (redirect) navigate("/self-service");
+    dispatch(triggerAutoSave(true, true));
+    setTimeout(() => {
+      dispatch(resetSaveLater());
+    }, 100);
   };
 
   return (
@@ -288,7 +285,7 @@ const BasicInfo = ({
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
-                    onClick={() => saveForm(true)}
+                    onClick={() => saveForm()}
                   >
                     <SaveForLaterIcon />
                     <span>SAVE FOR LATER</span>
@@ -300,7 +297,6 @@ const BasicInfo = ({
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
-                  <ArrowRightIcon styleName="rotated" />
                   <span>
                     <span styleName="desktop">REVIEW &amp;</span> SUBMIT
                   </span>

@@ -30,20 +30,17 @@ const ColorOptions = ({ colors, selectedColor, onSelect }) => {
                 (v) => v !== color.name
               );
               onSelect(newColors, newColors);
-            } else {
-              if (color.isAny) {
-                const newColors = [color.name];
-                onSelect(newColors, newColors);
-              } else {
-                if (selectedColor.value.length >= 3) return;
-                const newColors = [
-                  ...selectedColor.value.filter(
-                    (name) => name !== anyColor?.name
-                  ),
-                  color.name,
-                ];
-                onSelect(newColors, newColors);
-              }
+            } else if (color.isAny) {
+              const newColors = [color.name];
+              onSelect(newColors, newColors);
+            } else if (selectedColor.value.length < 3) {
+              const newColors = [
+                ...selectedColor.value.filter(
+                  (name) => name !== anyColor?.name
+                ),
+                color.name,
+              ];
+              onSelect(newColors, newColors);
             }
           }}
         >

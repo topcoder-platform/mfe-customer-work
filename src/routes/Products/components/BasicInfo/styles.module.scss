@@ -18,27 +18,24 @@
 
     .rotated {
       transform: rotate(-90deg);
-      display: none;
     }
 
     .save-icon {
       display: none;
     }
 
-    button {
-      svg {
-        display: none;
-        @include gtelg {
-          display: inline-block;
-        }
-      }
+    @include mobile {
+      flex-direction: row;
+    }
 
+    button {
       &.saveForLater {
         span {
           @include ltemd {
             display: none;
           }
         }
+
         svg {
           @include gtelg {
             display: none;
@@ -46,19 +43,9 @@
         }
       }
 
-      &.reviewAndSubmit{
-        svg {
-          @include gtelg {
-            display: none;
-          }
-        }
-        svg {
-          @include ltemd {
-            display: none;
-          }
-        }
+      &.reviewAndSubmit {
 
-        .desktop{
+        .desktop {
           @include ltemd {
             display: none;
           }
@@ -83,6 +70,7 @@
   button {
     svg {
       display: block !important;
+
       @include gtelg {
         display: inline-block !important;
       }
@@ -103,26 +91,7 @@
   button {
     svg {
       display: block !important;
-      @include gtelg {
-        display: inline-block !important;
-      }
-    }
-  }
 
-  .save-button-text {
-    display: none;
-  }
-
-  .review-button-text {
-    display: none;
-  }
-}
-
-@include mobile {
-
-  button {
-    svg {
-      display: block !important;
       @include gtelg {
         display: inline-block !important;
       }
