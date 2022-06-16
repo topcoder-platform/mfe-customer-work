@@ -20,7 +20,7 @@ import {
   savePageDetails,
   saveWorkType,
 } from "../../../../actions/form";
-import { triggerAutoSave, resetSaveLater } from "../../../../actions/autoSave";
+import { triggerAutoSave, resetSaveLater, triggerCookieClear } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
@@ -138,6 +138,7 @@ const BasicInfo = ({
           : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
+    dispatch(triggerCookieClear());
     saveBasicInfo(defaultFormData);
     navigate("/self-service/wizard");
   };
