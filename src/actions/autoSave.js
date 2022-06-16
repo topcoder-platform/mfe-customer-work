@@ -16,6 +16,10 @@ export const triggerAutoSave = (isTriggered, isSaveLater) => ({
   },
 });
 
+export const triggerCookieClear = () => ({
+  type: ACTIONS.AUTO_SAVE.TRIGGER_COOKIE_CLEARED,
+});
+
 export const resetSaveLater = () => ({
   type: ACTIONS.AUTO_SAVE.RESET_IS_SAVE_LATER,
   payload: false
