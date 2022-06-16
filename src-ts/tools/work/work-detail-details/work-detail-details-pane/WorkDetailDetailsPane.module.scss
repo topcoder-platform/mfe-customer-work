@@ -42,8 +42,8 @@
     .content {
         @extend .body-main;
 
-        .detail {
-            padding-left: $pad-xl;
+        .no-info {
+            @include font-black-60;
         }
     }
 }

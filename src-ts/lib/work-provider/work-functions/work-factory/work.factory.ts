@@ -20,6 +20,12 @@ import { WorkTypeCategory } from './work-type-category.enum'
 import { WorkType } from './work-type.enum'
 import { Work } from './work.model'
 
+interface FormDetail {
+    key: string,
+    title: string,
+    value: any
+}
+
 export function create(challenge: Challenge): Work {
 
     const status: WorkStatus = getStatus(challenge)
@@ -70,7 +76,7 @@ export function getStatus(challenge: Challenge): WorkStatus {
     }
 }
 
-export function mapFormData(type: string, formData: any): any {
+export function mapFormData(type: string, formData: any): ReadonlyArray<FormDetail> {
     switch (type) {
         case (WorkType.problem):
             return buildFormDataProblem(formData)
@@ -85,91 +91,117 @@ export function mapFormData(type: string, formData: any): any {
     }
 }
 
-function buildFormDataData(formData: any): any {
-    return {
-        projectTitle: formData.projectTitle,
-        // Disabling lint error to maintain order for display
-        // tslint:disable-next-line: object-literal-sort-keys
-        data: {
+function buildFormDataData(formData: any): ReadonlyArray<FormDetail> {
+    return [
+        {
+            key: 'projectTitle',
+            ...formData.projectTitle,
+        },
+        {
+            key: 'data',
             title: 'Share Your Data (Optional)',
             value: formData.assetsUrl?.value,
         },
-        goal: {
+        {
+            key: 'goal',
             title: 'What Would You Like To Learn?',
             value: formData.goals?.value,
         },
-    }
+    ]
 }
 
-function buildFormDataDesign(formData: any): any {
-    const styleInfo: Array<string> = [
-        `Like: ${formData.likedStyles?.value?.join(', ') || ''}`,
-        `Dislike: ${formData.dislikedStyles?.value?.join(', ') || ''}`,
-        `Additional Details: ${formData.stylePreferences?.value || ''}`,
-        `Color Selections: ${formData.colorOption?.value.join(', ') || ''}`,
-        `Specific Colors: ${formData.specificColor?.value || ''}`,
-    ]
-
-    return {
-        projectTitle: formData.projectTitle,
+function buildFormDataDesign(formData: any): ReadonlyArray<FormDetail> {
+    const styleInfo: {} = {
+        Like: formData.likedStyles?.value?.join(', '),
         // Disabling lint error to maintain order for display
         // tslint:disable-next-line: object-literal-sort-keys
-        description: {
+        Dislike: formData.dislikedStyles?.value?.join(', '),
+        'Additional Details': formData.stylePreferences?.value,
+        'Color Selections': formData.colorOption?.value.join(', '),
+        'Specific Colors': formData.specificColor?.value,
+    }
+
+    return [
+        {
+            key: 'projectTitle',
+            ...formData.projectTitle,
+        },
+        {
+            key: 'description',
             title: 'Description',
             value: formData.analysis?.value,
         },
-        industry: {
+        {
+            key: 'industry',
             title: 'Your Industry',
             value: formData.yourIndustry?.value,
         },
-        inspiration: {
+        {
+            key: 'inspiration',
             title: 'Inspiration',
-            value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`),
+            value: formData.inspiration
+                ?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`)
+                .filter((item: any) => item?.trim().length > 0),
         },
-        style: {
+        {
+            key: 'style',
             title: 'Style & Theme',
             value: styleInfo,
         },
-        assets: {
+        {
+            key: 'assets',
             title: 'Share Your Brand or Style Assets',
-            value: [formData.assetsUrl?.value, formData.assetsDescription?.value],
+            value: [formData.assetsUrl?.value, formData.assetsDescription?.value]
+                .filter((item: any) => item?.trim().length > 0),
         },
-    }
+    ]
 }
 
-function buildFormDataFindData(formData: any): any {
+function buildFormDataFindData(formData: any): ReadonlyArray<FormDetail> {
     const isPrimaryDataChallengeOther: boolean = formData.primaryDataChallenge?.value === 3
-    return {
-        projectTitle: formData.projectTitle,
-        // Disabling lint error to maintain order for display
-        // tslint:disable-next-line: object-literal-sort-keys
-        data: formData.analysis,
-        primaryDataChallenge: {
+    return [
+        {
+            key: 'projectTitle',
+            ...formData.projectTitle,
+        },
+        {
+            key: 'data',
+            ...formData.analysis,
+        },
+        {
+            key: 'primaryDataChallenge',
             title: formData.primaryDataChallenge?.title,
             value: isPrimaryDataChallengeOther
                 ? formData.primaryDataChallengeOther.value
                 : formData.primaryDataChallenge?.option,
         },
-        sampleData: formData.sampleData,
-    }
+        {
+            key: 'sampleData',
+            ...formData.sampleData,
+        },
+    ]
 }
 
-function buildFormDataProblem(formData: any): any {
-    return {
-        projectTitle: formData.projectTitle,
-        // Disabling lint error to maintain order for display
-        // tslint:disable-next-line: object-literal-sort-keys
-        goal: {
+function buildFormDataProblem(formData: any): ReadonlyArray<FormDetail> {
+    return [
+        {
+            key: 'projectTitle',
+            ...formData.projectTitle,
+        },
+        {
+            key: 'goal',
             title: 'What\'s Your Goal?',
             value: formData.goals?.value,
         },
-        data: {
-            title: 'What Data Do You Have?', value: [
+        {
+            key: 'data',
+            title: 'What Data Do You Have?',
+            value: [
                 formData.sampleData?.value,
                 formData.assetsDescription?.value,
-            ],
+            ].filter((item: any) => item?.trim().length > 0),
         },
-    }
+    ]
 }
 
 function findMetadata(challenge: Challenge, metadataName: ChallengeMetadataName): ChallengeMetadata | undefined {
