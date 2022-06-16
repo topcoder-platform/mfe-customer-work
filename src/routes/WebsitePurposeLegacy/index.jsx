@@ -9,37 +9,50 @@ import PageH2 from "components/PageElements/PageH2";
 import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants/";
 import React, { useEffect, useRef, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import { getDynamicPriceAndTimelineEstimate } from "utils/";
 import { triggerAutoSave } from "../../actions/autoSave";
-import { savePageDetails } from "../../actions/form";
+import { saveWebsitePurpose } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import PageDetailsForm from "./components/PageDetailsForm";
+import WebsitePurposeForm from "./components/WebsitePurposeForm";
 import "./styles.module.scss";
 
 /**
- * Page Details Page
+ * Website Purpose Page
  */
-const PageDetails = ({ savePageDetails, setProgressItem }) => {
+const WebsitePurposeLegacy = ({ saveWebsitePurpose, setProgressItem }) => {
   const [isLoading, setLoading] = useState(false);
-  const [listInputs, setListInputs] = useState({
-    pages: [
-      {
-        pageName: "",
-        pageDetails: "",
-      },
-    ],
+  const [formData, setFormData] = useState({
+    industry: { title: "Your Industry", option: "", value: null },
+    description: { title: "Description", option: "", value: "" },
+    userStory: { title: "User Story", option: "", value: "" },
+    existingWebsite: { title: "Existing Website?", option: "", value: "" },
+    existingWebsiteInfo: {
+      title: "Existing Website Information",
+      option: "",
+      value: "",
+    },
   });
   const dispatch = useDispatch();
   const workType = useSelector((state) => state.form.workType);
-  const pageDetails = useSelector((state) => state.form.pageDetails);
+  const websitePurpose = useSelector((state) => state.form.websitePurpose);
   const currentStep = useSelector((state) => state.progress.currentStep);
   const fullState = useSelector((state) => state);
-  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
+
+  const isFormValid =
+    formData?.industry?.value &&
+    formData?.description?.value.length &&
+    formData?.userStory?.value.length;
 
   const onBack = () => {
-    navigate("/self-service/work/new/website-design/website-purpose");
+    navigate("/self-service/work/new/website-design/basic-info");
+  };
+
+  const onNext = () => {
+    saveWebsitePurpose(formData);
+    navigate("/self-service/work/new/website-design/page-details");
+    setProgressItem(4);
   };
 
   const [firstMounted, setFirstMounted] = useState(true);
@@ -48,14 +61,14 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
       return;
     }
 
-    setProgressItem(4);
+    setProgressItem(3);
 
     if (currentStep === 0) {
-      redirectTo("/self-service/wizard");
+      redirectTo("/self-service");
     }
 
-    if (pageDetails) {
-      setListInputs(pageDetails);
+    if (websitePurpose) {
+      setFormData(websitePurpose);
     }
 
     setFirstMounted(false);
@@ -63,38 +76,22 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
     return () => {
       dispatch(triggerAutoSave(true));
     };
-  }, [currentStep, pageDetails, dispatch, setProgressItem, firstMounted]);
-
-  const onNext = () => {
-    navigate("/self-service/work/new/website-design/login-prompt");
-    savePageDetails(listInputs);
-    setProgressItem(5);
-  };
-
-  const isFormValid = () => {
-    let isValid = true;
-    (listInputs?.pages || []).forEach((item) => {
-      if (!item.pageName.length || !item.pageDetails.length) {
-        isValid = false;
-      }
-    });
-    return isValid;
-  };
+  }, [currentStep, websitePurpose, dispatch, setProgressItem, firstMounted]);
 
   return (
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>
-          <PageH2>PAGE DETAILS</PageH2>
+          <PageH2>WEBSITE PURPOSE</PageH2>
           <PageDivider />
 
-          <PageDetailsForm
-            estimate={estimate}
-            savePageDetails={savePageDetails}
+          <WebsitePurposeForm
+            estimate={getDynamicPriceAndTimelineEstimate(fullState)}
             serviceType={workType?.selectedWorkTypeDetail}
-            listInputs={listInputs}
-            setListInputs={setListInputs}
+            formData={formData}
+            setFormData={setFormData}
+            saveWebsitePurpose={saveWebsitePurpose}
           />
 
           <PageDivider />
@@ -113,7 +110,7 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
               </div>
               <div styleName="footer-right">
                 <Button
-                  disabled={!isFormValid()}
+                  disabled={!isFormValid}
                   size={BUTTON_SIZE.MEDIUM}
                   onClick={onNext}
                 >
@@ -123,7 +120,7 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
             </div>
           </PageFoot>
 
-          <Progress level={4} setStep={setProgressItem} />
+          <Progress level={3} setStep={setProgressItem} />
         </PageContent>
       </Page>
     </>
@@ -133,8 +130,8 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
 const mapStateToProps = ({ form }) => form;
 
 const mapDispatchToProps = {
-  savePageDetails,
+  saveWebsitePurpose,
   setProgressItem,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(WebsitePurposeLegacy);

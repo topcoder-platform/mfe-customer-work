@@ -28,17 +28,8 @@ import {
   authUserSuccess,
 } from "./hoc/withAuthentication/actions";
 import { getIntakeFormChallenges } from "services/challenge";
-// import BasicInfo from "./routes/BasicInfo";
-// import Branding from "./routes/Branding";
-// import PageDetails from "./routes/PageDetails";
-// import Payment from "./routes/Payment";
-// import Review from "./routes/Review";
 import SelectWorkType from "./routes/SelectWorkType";
-// import ThankYou from "./routes/ThankYou";
-// import WebsitePurpose from "./routes/WebsitePurpose";
-// import LoginPrompt from "./routes/LoginPrompt";
 import DataExploration from "./routes/Products/DataExploration";
-// import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
 import FindMeData from "./routes/Products/FindMeData";
 import WebsiteDesign from "./routes/Products/WebsiteDesign";
 import DataAdvisory from "./routes/Products/DataAdvisory";

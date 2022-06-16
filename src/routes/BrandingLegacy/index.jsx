@@ -22,7 +22,7 @@ import { getDynamicPriceAndTimelineEstimate } from "utils/";
 /**
  * Branding Page
  */
-const Branding = ({ saveBranding, setProgressItem }) => {
+const BrandingLegacy = ({ saveBranding, setProgressItem }) => {
   const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     theme: { title: "Style & Theme", option: "", value: null },
@@ -163,4 +163,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAuthentication(Branding));
+)(withAuthentication(BrandingLegacy));

@@ -14,7 +14,7 @@ import Progress from "components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import PaymentForm from "./components/PaymentForm";
+import PaymentFormLegacy from "./components/PaymentFormLegacy";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
@@ -230,7 +230,7 @@ const ReviewLegacy = ({
 
                 <PageDivider styleName="pageDivider" />
 
-                <PaymentForm
+                <PaymentFormLegacy
                   formData={formData}
                   setFormData={setFormData}
                   onOpenContractModal={setIsOrderContractModalOpen}

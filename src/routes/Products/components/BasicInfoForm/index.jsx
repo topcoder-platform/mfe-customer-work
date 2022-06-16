@@ -13,7 +13,7 @@ import RadioButton from "../../../../components/RadioButton";
 import FormInputTextArea from "../../../../components/FormElements/FormInputTextArea";
 import ServicePrice from "../../../../components/ServicePrice";
 // TODO: Move this component to /components
-import ColorOptions from "../../../Branding/components/ColorOptions";
+import ColorOptions from "../../../BrandingLegacy/components/ColorOptions";
 import { HELP_BANNER } from "../../../../constants/";
 import PT from "prop-types";
 import _ from "lodash";

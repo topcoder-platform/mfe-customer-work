@@ -39,7 +39,7 @@ import { activateChallenge } from "../../services/challenge";
 import * as services from "../../services/payment";
 import { getUserProfile } from "../../thunks/profile";
 
-import PaymentForm from "./components/PaymentForm";
+import PaymentFormLegacy from "./components/PaymentFormLegacy";
 import "./styles.module.scss";
 import { OrderContractModal, WorkType } from "../../../src-ts";
 
@@ -50,7 +50,7 @@ const stripePromise = loadStripe(config.STRIPE.API_KEY, {
 /**
  * Payment Page
  */
-const Payment = ({
+const PaymentLegacy = ({
   setProgressItem,
   previousPageUrl,
   nextPageUrl,
@@ -255,7 +255,7 @@ const Payment = ({
 
                 <PageDivider styleName="pageDivider" />
 
-                <PaymentForm formData={formData} setFormData={setFormData} />
+                <PaymentFormLegacy formData={formData} setFormData={setFormData} />
                 {paymentFailed && (
                   <div styleName="error">
                     Your card was declined. Please try a different card.
@@ -324,7 +324,7 @@ const PaymentWrapper = ({
 }) => {
   return (
     <Elements stripe={stripePromise}>
-      <Payment
+      <PaymentLegacy
         setProgressItem={setProgressItem}
         previousPageUrl={previousPageUrl}
         nextPageUrl={nextPageUrl}

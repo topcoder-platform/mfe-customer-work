@@ -20,7 +20,7 @@ import styles from "./styles.module.scss";
 /**
  * Payment Form Page
  */
-const PaymentForm = ({ formData, setFormData, onOpenContractModal }) => {
+const PaymentFormLegacy = ({ formData, setFormData, onOpenContractModal }) => {
   const handleInputChange = (name, value) =>
     setFormData((formData) => ({ ...formData, [name]: value }));
 
@@ -191,12 +191,12 @@ const PaymentForm = ({ formData, setFormData, onOpenContractModal }) => {
   );
 };
 
-PaymentForm.defaultProps = {};
+PaymentFormLegacy.defaultProps = {};
 
-PaymentForm.propTypes = {
+PaymentFormLegacy.propTypes = {
   formData: PT.shape(),
   onFormUpdate: PT.func,
   setFormData: PT.func.isRequired,
 };
 
-export default PaymentForm;
+export default PaymentFormLegacy;

@@ -4,16 +4,12 @@ import ReviewLegacy from "../../ReviewLegacy";
 import ThankYou from "../../ThankYou";
 import LoginPrompt from "../../LoginPrompt";
 import BasicInfoLegacy from "../../BasicInfoLegacy";
-import config from "../../../../config";
-import DataExplorationIcon from "../../../assets/images/data-exploration-icon.svg";
-import HelpBanner from "components/HelpBanner";
-import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
 import { webWorkTypes } from "../../../constants/index";
 import { WorkType } from "../../../../src-ts/lib";
-import Branding from "../../Branding";
-import PageDetails from "../../PageDetails";
-import Payment from "../../Payment";
-import WebsitePurpose from "../../WebsitePurpose";
+import BrandingLegacy from "../../BrandingLegacy";
+import PageDetailsLegacy from "../../PageDetailsLegacy";
+import PaymentLegacy from "../../PaymentLegacy";
+import WebsitePurposeLegacy from "../../WebsitePurposeLegacy";
 import WebsiteDesignBanner from "../../../components/Banners/WebsiteDesignBanner";
 
 export default function WebsiteDesignLegacy({ isLoggedIn }) {
@@ -28,10 +24,10 @@ export default function WebsiteDesignLegacy({ isLoggedIn }) {
   return (
     <Router>
       <BasicInfoLegacy path="/basic-info" />
-      <WebsitePurpose path="/website-purpose" />
-      <PageDetails path="/page-details" />
+      <WebsitePurposeLegacy path="/website-purpose" />
+      <PageDetailsLegacy path="/page-details" />
       <LoginPrompt path="/login-prompt" isLoggedIn={isLoggedIn} />
-      <Branding path="/branding" />
+      <BrandingLegacy path="/branding" />
       <ReviewLegacy
         path="/review"
         showIcon
@@ -39,7 +35,7 @@ export default function WebsiteDesignLegacy({ isLoggedIn }) {
         banner={<WebsiteDesignBanner />}
         showProgress
       />
-      <Payment path="/payment" showProgress />
+      <PaymentLegacy path="/payment" showProgress />
       <ThankYou path="/thank-you" />
     </Router>
   );
