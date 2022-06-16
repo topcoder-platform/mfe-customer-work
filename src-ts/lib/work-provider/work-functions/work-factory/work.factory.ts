@@ -127,7 +127,7 @@ function buildFormDataDesign(formData: any): any {
         inspiration: {
             title: 'Inspiration',
             value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`)
-                .filter((item: any) => item && item.trim().length > 0),
+                .filter((item: any) => item?.trim().length > 0),
         },
         style: {
             title: 'Style & Theme',
@@ -136,7 +136,7 @@ function buildFormDataDesign(formData: any): any {
         assets: {
             title: 'Share Your Brand or Style Assets',
             value: [formData.assetsUrl?.value, formData.assetsDescription?.value]
-                .filter((item: any) => item && item.trim().length > 0),
+                .filter((item: any) => item?.trim().length > 0),
         },
     }
 }
@@ -172,7 +172,7 @@ function buildFormDataProblem(formData: any): any {
             value: [
                 formData.sampleData?.value,
                 formData.assetsDescription?.value,
-            ].filter((item: any) => item && item.trim().length > 0),
+            ].filter((item: any) => item?.trim().length > 0),
         },
     }
 }

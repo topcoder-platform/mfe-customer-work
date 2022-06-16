@@ -17,7 +17,7 @@ const WorkDetailDetailsPane: FC<WorkDetailDetailsPaneProps> = ({ formData, isRev
     const [details, setDetails]: [any, Dispatch<SetStateAction<any>>] = useState<any>(undefined)
 
     useEffect(() => {
-        if (formData && formData.basicInfo) {
+        if (!!formData?.basicInfo) {
             setDetails(workFactoryMapFormData(formData?.workType?.selectedWorkType, formData.basicInfo))
         }
     }, [formData])
@@ -73,7 +73,8 @@ function checkIsEmpty(detail: Array<string> | {} | string): boolean {
     return !detail ||
         (typeof detail === 'string' && detail.trim().length === 0) ||
         (_.isArray(detail) && detail.length === 0) ||
-        (_.isObject(detail) && Object.values(detail).filter((val) => val && val.trim().length !== 0).length === 0)
+        (_.isObject(detail) && Object.values(detail)
+            .filter((val) => val?.trim().length > 0).length === 0)
 }
 
 export default WorkDetailDetailsPane
