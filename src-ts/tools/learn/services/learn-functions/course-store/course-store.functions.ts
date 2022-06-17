@@ -3,8 +3,9 @@ import { getPath } from '../learn-url.config'
 
 import { LearnCourse } from './learn-course.model'
 
-export function getCoursesAsync(): Promise<Array<LearnCourse>> {
+export function getCourseAsync(certification: string): Promise<LearnCourse|undefined> {
     return xhrGetAsync<Array<LearnCourse>>(getPath(
-        'courses'
-    ))
+        'courses',
+        `?certification=${certification}`
+    )).then(courses => courses[0])
 }

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import { getCoursesAsync, LearnCourse } from '../../learn-functions'
+import { getCourseAsync, LearnCourse } from '../../learn-functions'
 
 export interface CoursesProviderData {
     course?: LearnCourse
@@ -37,10 +37,10 @@ export const useCoursesProvider: (certification?: string) => CoursesProviderData
             loading: true,
         }))
 
-        getCoursesAsync().then((courses) => {
+        getCourseAsync(certification).then((course) => {
             setState((prevState) => ({
                 ...prevState,
-                course: courses.find((c) => c.certification === certification),
+                course,
                 loading: false,
                 ready: true,
             }))
