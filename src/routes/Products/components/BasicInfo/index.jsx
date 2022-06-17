@@ -185,7 +185,6 @@ const BasicInfo = ({
     setFirstMounted(false);
 
     return () => {
-      console.log(formData, "form data");
       // dispatch(triggerAutoSave(true));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
