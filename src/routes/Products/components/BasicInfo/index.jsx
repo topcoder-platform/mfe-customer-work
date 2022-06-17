@@ -172,7 +172,7 @@ const BasicInfo = ({
 
     if (currentStep === 0) {
       saveWorkType({
-        selectedWorkType: workItemConfig.title,
+        selectedWorkType: workItemConfig.type,
         selectedWorkTypeDetail: workItemConfig.title,
       });
       dispatch(triggerAutoSave(true));

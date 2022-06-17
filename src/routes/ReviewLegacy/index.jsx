@@ -1,26 +1,28 @@
-import { navigate, redirectTo } from "@reach/router";
-import Button from "components/Button";
-import LoadingSpinner from "components/LoadingSpinner";
-import config from "../../../config";
-import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import Page from "components/Page";
-import PageContent from "components/PageContent";
-import PageDivider from "components/PageDivider";
-import PageFoot from "components/PageElements/PageFoot";
-import { resetIntakeForm } from "../../actions/form";
-import { toastr } from "react-redux-toastr";
-import Progress from "components/Progress";
-import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
+import { navigate, redirectTo } from "@reach/router";
+import { toastr } from "react-redux-toastr";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
+import _ from "lodash";
+
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import config from "../../../config";
+import Page from "../../components/Page";
+import PageContent from "../../components/PageContent";
+import PageDivider from "../../components/PageDivider";
+import PageFoot from "../../components/PageElements/PageFoot";
+import { resetIntakeForm } from "../../actions/form";
+import Progress from "../../components/Progress";
+import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "../../constants/";
 import PaymentFormLegacy from "./components/PaymentFormLegacy";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import ReviewTableLegacy from "./components/ReviewTableLegacy";
 import withAuthentication from "../../hoc/withAuthentication";
-import ServicePrice from "components/ServicePrice";
+import ServicePrice from "../../components/ServicePrice";
 import * as services from "../../services/payment";
 import { getUserProfile } from "../../thunks/profile";
 import { activateChallenge } from "../../services/challenge";
@@ -28,8 +30,7 @@ import "./styles.module.scss";
 import {
   getDynamicPriceAndTimelineEstimate,
   currencyFormat,
-} from "utils/";
-import _ from "lodash";
+} from "../../utils/";
 import {
   loadChallengeId,
   setCookie,
@@ -55,7 +56,6 @@ const ReviewLegacy = ({
   enableEdit = true,
   secondaryBanner,
 }) => {
-  console.log("Inside Review Legacy")
   const dispatch = useDispatch();
   const [paymentFailed, setPaymentFailed] = useState(false);
   const [isLoading, setLoading] = useState(false);

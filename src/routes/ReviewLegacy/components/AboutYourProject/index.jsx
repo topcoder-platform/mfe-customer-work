@@ -1,5 +1,5 @@
 import React from "react";
-import HelpBanner from "components/HelpBanner";
+import HelpBanner from "../../../../components/HelpBanner";
 import PageUl from "../../../../components/PageElements/PageUl";
 
 const AboutYourProject = () => {

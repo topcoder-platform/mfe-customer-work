@@ -76,6 +76,7 @@ export function getStatus(challenge: Challenge): WorkStatus {
     }
 }
 
+// NOTE: This function is only used by the new intakes and not the Legacy Web Design
 export function mapFormData(type: string, formData: any): ReadonlyArray<FormDetail> {
     switch (type) {
         case (WorkType.problem):
@@ -255,6 +256,7 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
             return DataPrices.PROMOTIONAL_PRODUCT_PRICE || DataPrices.BASE_PRODUCT_PRICE
 
         case WorkType.design:
+        case WorkType.designLegacy:
             return WebsitePrices.BASE_PRODUCT_PRICE
 
         case WorkType.findData:
@@ -275,6 +277,7 @@ function getDescription(challenge: Challenge, type: WorkType): string | undefine
             return findMetadata(challenge, ChallengeMetadataName.goals)?.value
 
         case WorkType.design:
+        case WorkType.designLegacy:
             return findMetadata(challenge, ChallengeMetadataName.description)?.value
     }
 }
@@ -395,13 +398,13 @@ function getType(challenge: Challenge): WorkType {
     const form: {
         form: {
             workType: {
-                selectedWorkTypeDetail: WorkType
+                selectedWorkType: WorkType
             }
         }
     } = JSON.parse(intakeForm.value)
 
     const workTypeKey: (keyof typeof WorkType) | undefined = Object.entries(WorkType)
-        .find(([key, value]) => value === form.form.workType?.selectedWorkTypeDetail)
+        .find(([key, value]) => value === form.form.workType?.selectedWorkType)
         ?.[0] as keyof typeof WorkType
 
     const output: WorkType = !!workTypeKey ? WorkType[workTypeKey] : WorkType.unknown
@@ -418,6 +421,7 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
             return WorkTypeCategory.data
 
         case WorkType.design:
+        case WorkType.designLegacy:
             return WorkTypeCategory.design
 
         // TOOD: other categories: qa and dev

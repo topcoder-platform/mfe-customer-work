@@ -36,7 +36,7 @@ export async function getIntakeFormChallenges(userHandle, challengeId) {
  * Post a New Challenge
  */
 export async function createChallenge(workType) {
-  const body = workType === WorkType.design
+  const body = (workType === WorkType.design || workType === WorkType.designLegacy)
     ? websiteDesignUtils.formatChallengeCreationBody()
     : workType === WorkType.findData
       ? findMeDataUtils.formatChallengeCreationBody()
@@ -56,11 +56,13 @@ export async function createChallenge(workType) {
 export async function patchChallenge(intakeForm, challengeId) {
   const jsonData = JSON.parse(intakeForm);
   const workType = _.get(jsonData, "form.workType.selectedWorkType");
-  const body = workType === WorkType.design
+  const body = workType === workType === WorkType.design
     ? websiteDesignUtils.formatChallengeUpdateBody(intakeForm)
-    : workType === WorkType.findData
-      ? findMeDataUtils.formatChallengeUpdateBody(intakeForm)
-      : dataExplorationUtils.formatChallengeUpdateBody(intakeForm);
+    : workType === WorkType.designLegacy
+      ? websiteDesignUtils.formatChallengeUpdateBodyLegacy(intakeForm)
+      : workType === WorkType.findData
+        ? findMeDataUtils.formatChallengeUpdateBody(intakeForm)
+        : dataExplorationUtils.formatChallengeUpdateBody(intakeForm);
 
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,

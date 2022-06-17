@@ -1,9 +1,9 @@
-import { Link } from "@reach/router";
-import classNames from "classnames";
-import PageDivider from "components/PageDivider";
-import { ProgressLevels } from "constants/";
 import React, { useState } from "react";
+import { Link } from "@reach/router";
 import _ from "lodash";
+import classNames from "classnames";
+import PageDivider from "../../../../components/PageDivider";
+import { ProgressLevels } from "../../../../constants/";
 import ArrowIcon from "../../../../assets/images/icon-arrow.svg";
 import "./styles.module.scss";
 
@@ -12,12 +12,7 @@ import "./styles.module.scss";
  */
 const ReviewTableLegacy = ({ formData, enableEdit = true }) => {
   const [steps, setSteps] = useState([
-    {
-      id: 0,
-      label: "Review Your Project Details",
-      value: "basicInfo",
-      isOpen: true,
-    },
+    { id: 0, label: "Basic Info", value: "basicInfo", isOpen: true },
     { id: 1, label: "Website Purpose", value: "websitePurpose", isOpen: true },
     { id: 2, label: "Page Details", value: "pageDetails", isOpen: true },
     { id: 3, label: "Branding", value: "branding", isOpen: true },
@@ -126,12 +121,6 @@ const ReviewTableLegacy = ({ formData, enableEdit = true }) => {
           let redirectPage = ProgressLevels.find(
             (item) => item.label === step.label
           );
-          if (formData?.workType?.selectedWorkType === "Find Me Data") {
-            redirectPage.url = redirectPage?.url.replace(
-              "data-exploration",
-              "find-me-data"
-            );
-          }
           return (
             <>
               <div
@@ -142,13 +131,11 @@ const ReviewTableLegacy = ({ formData, enableEdit = true }) => {
               >
                 <p styleName="stepLabel">
                   {step.label}
-                  {/*                   
-                  TODO: temporariliy hiding this link until PROD-2083 is complete
                   {enableEdit && (
-                    <Link styleName="link" to={redirectPage?.url}>
+                    <Link styleName="link" to={redirectPage.url}>
                       edit
                     </Link>
-                  )} */}
+                  )}
                 </p>
                 <div
                   styleName={classNames("icon", step.isOpen ? "open" : null)}

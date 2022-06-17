@@ -8,12 +8,12 @@ import PT from "prop-types";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
-import { FormField } from "../../../../components/FormElements/FormField";
-import { FormInputText } from "../../../../components/FormElements/FormInputText";
-import { ReactSelect } from "../../../../components/ReactSelect";
+import FormField from "../../../../components/FormElements/FormField";
+import FormInputText from "../../../../components/FormElements/FormInputText";
+import FormInputCheckbox from "../../../../components/FormElements/FormInputCheckbox";
+import ReactSelect from "../../../../components/ReactSelect";
 import { COUNTRY_OPTIONS } from "../../../../constants";
 import { getProfile } from "../../../../selectors/profile";
-import FormInputCheckbox from "../../../../components/FormElements/FormInputCheckbox";
 
 import styles from "./styles.module.scss";
 

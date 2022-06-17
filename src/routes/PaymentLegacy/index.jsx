@@ -69,12 +69,7 @@ const PaymentLegacy = ({
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
 
-  const estimate =
-    workType === WorkType.design
-      ? getDynamicPriceAndTimelineEstimate(fullState)
-      : WorkType.findData
-        ? getFindMeDataPriceAndTimelineEstimate()
-        : getDataExplorationPriceAndTimelineEstimate();
+  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const [formData, setFormData] = useState({
     cardName: null,

@@ -139,7 +139,7 @@ const SelectWorkType = ({
 
   const handleClick = (selectedItem = webWorkTypes[0]) => {
     saveWorkType({
-      selectedWorkType: selectedItem.title,
+      selectedWorkType: selectedItem.type || selectedItem.title,
       selectedWorkTypeDetail: selectedItem.title,
     });
     setProgressItem(2);
