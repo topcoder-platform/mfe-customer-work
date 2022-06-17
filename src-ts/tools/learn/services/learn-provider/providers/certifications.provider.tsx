@@ -1,8 +1,6 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import certificationsJSON from '../../../assets/data/certifications.json'
-
-import { LearnCertification } from './learn-certification.model'
+import { getCertificationsAsync, LearnCertification } from '../../learn-functions/certification-store'
 
 export interface CertificationsProviderData {
     certifications: Array<LearnCertification>
@@ -25,17 +23,15 @@ export const useCertificationsProvider: () => CertificationsProviderData = (): C
             loading: true,
         }))
 
-        const t: ReturnType<typeof setTimeout> = setTimeout(() => {
+        getCertificationsAsync().then((certifications) => {
             setState((prevState) => ({
                 ...prevState,
-                certifications: [...certificationsJSON.certifications],
-                certificationsCount: certificationsJSON.certificationsCount,
+                certifications: [...certifications],
+                certificationsCount: certifications.length,
                 loading: false,
                 ready: true,
             }))
-        }, 350)
-
-        return () => clearTimeout(t)
+        })
     }, [])
 
     return state
