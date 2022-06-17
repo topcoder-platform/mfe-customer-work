@@ -18,7 +18,7 @@ import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import BrandingForm from "./components/BrandingForm";
 import "./styles.module.scss";
 import { getDynamicPriceAndTimelineEstimate } from "utils/";
-import { WebsiteDesignBanner } from "../../components/Banners/WebsiteDesignBanner";
+import { WebsiteDesignBannerLegacy } from "../../components/Banners/WebsiteDesignBannerLegacy";
 
 /**
  * Branding Page
@@ -110,7 +110,7 @@ const BrandingLegacy = ({ saveBranding, setProgressItem }) => {
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
-        <WebsiteDesignBanner />
+        <WebsiteDesignBannerLegacy />
         <PageContent>
           <PageH2>BRANDING</PageH2>
           <PageDivider />

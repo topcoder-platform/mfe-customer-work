@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { navigate } from "@reach/router";
 import _ from "lodash";
-import Button from "components/Button";
-import LoadingSpinner from "components/LoadingSpinner";
-import Page from "components/Page";
-import PageContent from "components/PageContent";
-import PageDivider from "components/PageDivider";
-import PageFoot from "components/PageElements/PageFoot";
-import PageH2 from "components/PageElements/PageH2";
-import Progress from "components/Progress";
-import { WebsiteDesignBanner } from "components/Banners/WebsiteDesignBanner";
-import { BUTTON_SIZE, BUTTON_TYPE, PageOptions } from "constants/";
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import Page from "../../components/Page";
+import PageContent from "../../components/PageContent";
+import PageDivider from "../../components/PageDivider";
+import PageFoot from "../../components/PageElements/PageFoot";
+import PageH2 from "../../components/PageElements/PageH2";
+import Progress from "../../components/Progress";
+import { WebsiteDesignBannerLegacy } from "../../components/Banners/WebsiteDesignBannerLegacy";
+import { BUTTON_SIZE, BUTTON_TYPE, PageOptions } from "../../constants/";
 import {
   saveBasicInfo,
   toggleSupportModal,
@@ -150,7 +150,7 @@ const BasicInfoLegacy = ({
         onClose={onHideSupportModal}
       />
       <Page>
-        <WebsiteDesignBanner />
+        <WebsiteDesignBannerLegacy />
         <PageContent styleName="container">
           <PageH2>BASIC INFO</PageH2>
           <PageDivider />

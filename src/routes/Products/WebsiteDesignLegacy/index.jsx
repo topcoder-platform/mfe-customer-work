@@ -8,7 +8,7 @@ import BrandingLegacy from "../../BrandingLegacy";
 import PageDetailsLegacy from "../../PageDetailsLegacy";
 import PaymentLegacy from "../../PaymentLegacy";
 import WebsitePurposeLegacy from "../../WebsitePurposeLegacy";
-import WebsiteDesignBanner from "../../../components/Banners/WebsiteDesignBanner";
+import WebsiteDesignBannerLegacy from "../../../components/Banners/WebsiteDesignBannerLegacy";
 
 export default function WebsiteDesignLegacy({ isLoggedIn }) {
   return (
@@ -26,7 +26,7 @@ export default function WebsiteDesignLegacy({ isLoggedIn }) {
         path="/review"
         showIcon
         introText="Your Website Design project includes up to 5 unique Visual Design solutions. Each solution will match your specified scope and device types. You will receive industry-standard source files to take take forward to further design and/or development. Design deliverables will NOT include functional code."
-        banner={<WebsiteDesignBanner />}
+        banner={<WebsiteDesignBannerLegacy />}
         showProgress
       />
       <PaymentLegacy path="/payment" showProgress />

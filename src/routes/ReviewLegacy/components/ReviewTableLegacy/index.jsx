@@ -3,7 +3,7 @@ import { Link } from "@reach/router";
 import _ from "lodash";
 import classNames from "classnames";
 import PageDivider from "../../../../components/PageDivider";
-import { ProgressLevels } from "../../../../constants/";
+import { PROGRESS_LEVELS } from "../../../../constants/products/WebsiteDesignLegacy";
 import ArrowIcon from "../../../../assets/images/icon-arrow.svg";
 import "./styles.module.scss";
 
@@ -118,7 +118,7 @@ const ReviewTableLegacy = ({ formData, enableEdit = true }) => {
           return !!formData[s.value];
         })
         .map((step, index) => {
-          let redirectPage = ProgressLevels.find(
+          let redirectPage = PROGRESS_LEVELS.find(
             (item) => item.label === step.label
           );
           return (

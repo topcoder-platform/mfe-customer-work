@@ -52,7 +52,6 @@ const Review = ({
   setProgressItem,
   previousPageUrl,
   nextPageUrl,
-  showProgress,
   introText,
   banner,
   icon,
@@ -295,7 +294,6 @@ const Review = ({
               </div>
             </div>
           </PageFoot>
-          {showProgress && <Progress level={6} setStep={setProgressItem} />}
         </PageContent>
       </Page>
     </>

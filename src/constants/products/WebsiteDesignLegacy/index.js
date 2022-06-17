@@ -92,3 +92,47 @@ export const DURATION_MAPPING = [
     }, // 3 devices
   ], // 5 pages
 ];
+
+export const PROGRESS_LEVELS = [
+  {
+    label: "Basic Info",
+    url: "/self-service/work/new/website-design/basic-info",
+    trueIndex: 2,
+    showIndex: 1,
+    visibleInProgressIndicator: true,
+  },
+  {
+    label: "REVIEW REQUIREMENTS",
+    url: "/self-service/work/new/website-design/basic-info",
+    trueIndex: 2,
+    showIndex: 1,
+  },
+  {
+    label: "Website Purpose",
+    url: "/self-service/work/new/website-design/website-purpose",
+    trueIndex: 3,
+    showIndex: 2,
+    visibleInProgressIndicator: true,
+  },
+  {
+    label: "Page Details",
+    url: "/self-service/work/new/website-design/page-details",
+    trueIndex: 4,
+    showIndex: 3,
+    visibleInProgressIndicator: true,
+  },
+  {
+    label: "Branding",
+    url: "/self-service/work/new/website-design/branding",
+    trueIndex: 5,
+    showIndex: 4,
+    visibleInProgressIndicator: true,
+  },
+  {
+    label: "Review",
+    url: "/self-service/work/new/website-design/review",
+    trueIndex: 6,
+    showIndex: 5,
+    visibleInProgressIndicator: true,
+  },
+];

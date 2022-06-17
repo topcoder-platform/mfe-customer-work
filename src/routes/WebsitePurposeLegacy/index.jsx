@@ -16,7 +16,7 @@ import { saveWebsitePurpose } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import WebsitePurposeForm from "./components/WebsitePurposeForm";
-import { WebsiteDesignBanner } from "../../components/Banners/WebsiteDesignBanner";
+import { WebsiteDesignBannerLegacy } from "../../components/Banners/WebsiteDesignBannerLegacy";
 import "./styles.module.scss";
 
 /**
@@ -83,7 +83,7 @@ const WebsitePurposeLegacy = ({ saveWebsitePurpose, setProgressItem }) => {
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
-        <WebsiteDesignBanner />
+        <WebsiteDesignBannerLegacy />
         <PageContent>
           <PageH2>WEBSITE PURPOSE</PageH2>
           <PageDivider />
