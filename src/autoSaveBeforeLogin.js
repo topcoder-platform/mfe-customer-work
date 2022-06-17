@@ -31,7 +31,6 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
         }
         CREATION_IN_PROGRESS = false;
         clearCachedCookie(autoSave);
-        console.log(dataToSave, 'dataToSave');
         handleLoginSave(autoSave, dataToSave, challengeId, challenge);
       };
       if (!challengeId) {

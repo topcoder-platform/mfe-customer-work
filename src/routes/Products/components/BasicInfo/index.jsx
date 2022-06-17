@@ -177,7 +177,6 @@ const BasicInfo = ({
       dispatch(triggerAutoSave(true));
     }
 
-    console.log(basicInfo, "basicInfo");
     if (!!basicInfo?.projectTitle?.value?.length) {
       setFormData(basicInfo);
     }
@@ -191,7 +190,6 @@ const BasicInfo = ({
   }, [basicInfo, currentStep, dispatch, setProgressItem, firstMounted]);
 
   useEffect(() => {
-    console.log(formData, "formData on load");
     if (
       formData?.primaryDataChallenge?.value !== 3 &&
       formData?.primaryDataChallengeOther?.value?.trim().length > 0
