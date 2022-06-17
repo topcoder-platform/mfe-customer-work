@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import { ReactComponent as LearnGetCertified } from './learn-get-certified.svg'
-
 import styles from './PromoCourse.module.scss'
 
 interface PromoCourseProps {

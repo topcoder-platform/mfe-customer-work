@@ -1,11 +1,10 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import {
-    getCourseAsync,
-    LearnLesson,
-    LearnLessonMeta,
-    LearnModule
-} from '../../learn-functions'
+import { getCourseAsync } from '../courses-provider/courses-functions'
+
+import { LearnLessonMeta } from './learn-lesson-meta.model'
+import { LearnLesson } from './learn-lesson.model'
+import { LearnModule } from './learn-module.model'
 
 export interface LessonProviderData {
     lesson?: LearnLessonMeta

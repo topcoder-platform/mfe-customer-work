@@ -7,8 +7,6 @@ import {
     RouteContextData,
 } from '../../lib'
 
-import { LearnProviderContextProvider } from './services'
-
 export const toolTitle: string = 'Learn'
 
 const Learn: FC<{}> = () => {
@@ -17,12 +15,10 @@ const Learn: FC<{}> = () => {
 
     return (
         <ContentLayout>
-            <LearnProviderContextProvider>
-                <Outlet />
-                <Routes>
-                    {getChildRoutes(toolTitle)}
-                </Routes>
-            </LearnProviderContextProvider>
+            <Outlet />
+            <Routes>
+                {getChildRoutes(toolTitle)}
+            </Routes>
         </ContentLayout>
     )
 }

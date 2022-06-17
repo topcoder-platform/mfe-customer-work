@@ -7,13 +7,13 @@ import {
     IconOutline,
     LoadingSpinner,
 } from '../../../lib'
-import { CourseTitle } from '../learn-lib'
 import {
     CoursesProviderData,
+    CourseTitle,
     MyCertificationProgressProviderData,
     useCoursesProvider,
-    useMyCertificationProgress,
-} from '../services'
+    useMyCertificationProgress
+} from '../learn-lib'
 
 import { CourseCurriculum } from './course-curriculum'
 import styles from './CourseDetailsPage.module.scss'

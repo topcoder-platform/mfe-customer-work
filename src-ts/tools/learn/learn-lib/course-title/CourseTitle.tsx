@@ -1,9 +1,8 @@
 import classNames from 'classnames'
 import { FC, ReactNode } from 'react'
 
-import { ReactComponent as LearnChallengeBadgeIcon } from './learn-challenge-badge-icon.svg'
-
 import styles from './CourseTitle.module.scss'
+import { ReactComponent as LearnChallengeBadgeIcon } from './learn-challenge-badge-icon.svg'
 
 interface CourseTitleProps {
     children?: ReactNode

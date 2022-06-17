@@ -2,8 +2,12 @@ import { FC, ReactNode, useCallback } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 import { Button } from '../../../../lib'
-import { LearningHat } from '../../learn-lib'
-import { LearnMyCertificationProgress, MyCertificationsProviderData, useMyCertifications } from '../../services'
+import {
+    LearningHat,
+    LearnMyCertificationProgress,
+    MyCertificationsProviderData,
+    useMyCertifications
+} from '../../learn-lib'
 
 import { Completed } from './completed'
 import { InProgress } from './in-progress'

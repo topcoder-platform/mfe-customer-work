@@ -7,7 +7,7 @@ import {
     LearnModule,
     MyCertificationProgressProviderData,
     useMyCertificationProgress,
-} from '../../services'
+} from '../../learn-lib'
 
 import { CollapsibleItem } from './collapsible-item'
 import styles from './CourseOutline.module.scss'
@@ -41,11 +41,11 @@ const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
                         <CollapsibleItem
                             active={props.currentStep}
                             duration={module.meta.estimatedCompletionTime}
-                            id={module.key}
+                            moduleKey={module.key}
                             itemId={(it: any) => `${module.meta.dashedName}/${it.dashedName}`}
                             items={module.lessons}
                             key={module.key}
-                            lessonsCount={module.meta.lessonCount}
+                            lessonsCount={module.lessons.length}
                             path={(it: any) => lessonPath(props.course, module, it)}
                             progress={progress?.modules}
                             shortDescription={module.meta.introCopy}

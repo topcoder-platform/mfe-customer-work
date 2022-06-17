@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { FC } from 'react'
 
 import { LoadingSpinner, Portal } from '../../../lib'
-import { CertificationsProviderData, useCertificationsProvider } from '../services'
+import { CertificationsProviderData, useCertificationsProvider } from '../learn-lib'
 
 import { CoursesCard } from './courses-card'
 import { ProgressBlock } from './progress-block'

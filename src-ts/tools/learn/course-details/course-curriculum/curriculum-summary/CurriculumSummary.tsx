@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { Button, IconOutline, ProgressBar, textFormatDateLocaleShortString } from '../../../../../lib'
-import { LearnCourse } from '../../../services'
+import { LearnCourse } from '../../../learn-lib'
 
 import styles from './CurriculumSummary.module.scss'
 
@@ -49,7 +49,7 @@ const CurriculumSummary: FC<CurriculumSummaryProps> = (props: CurriculumSummaryP
                     </div>
                     <div className='sub'>
                         <h3 className={styles['count']}>
-                            {props.course.moduleCount}
+                            {props.course.modules.length}
                         </h3>
                         <div className={styles['count-label']}>
                             Modules

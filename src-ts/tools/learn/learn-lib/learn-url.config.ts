@@ -1,4 +1,4 @@
-import { EnvironmentConfig } from '../../../../config'
+import { EnvironmentConfig } from '../../../config'
 
 export function getPath(...parts: Array<string>): string {
     return [learnPath, ...parts].filter(Boolean).join('/')

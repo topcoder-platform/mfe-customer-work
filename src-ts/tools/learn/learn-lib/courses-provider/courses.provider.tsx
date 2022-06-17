@@ -1,19 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import { getCourseAsync, LearnCourse } from '../../learn-functions'
-
-export interface CoursesProviderData {
-    course?: LearnCourse
-    loading: boolean
-    ready: boolean
-}
-
-export interface CoursesProviderValue {
-    courseData: CoursesProviderData
-    fetchCourseData: (certification: string) => {
-        cancelFetch: () => void
-    }
-}
+import { getCourseAsync } from './courses-functions'
+import { CoursesProviderData } from './courses-provider-data.model'
 
 export const useCoursesProvider: (certification?: string) => CoursesProviderData = (certification?: string): CoursesProviderData => {
     const [state, setState]: [CoursesProviderData, Dispatch<SetStateAction<CoursesProviderData>>] = useState<CoursesProviderData>({

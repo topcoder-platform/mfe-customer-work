@@ -8,18 +8,18 @@ import {
     LoadingSpinner,
     Portal,
 } from '../../../lib'
-import { CourseOutline } from '../learn-lib'
-import { getFccLessonPath } from '../learn.routes'
 import {
+    CourseOutline,
     CoursesProviderData,
     LearnLesson,
     LearnModule,
     LessonProviderData,
     useCoursesProvider,
     useLessonProvider,
-} from '../services'
-import { CollapsiblePane } from './collapsible-pane'
+} from '../learn-lib'
+import { getFccLessonPath } from '../learn.routes'
 
+import { CollapsiblePane } from './collapsible-pane'
 import styles from './FreeCodeCamp.module.scss'
 import { TitleNav } from './title-nav'
 
@@ -112,7 +112,7 @@ const FreeCodeCamp: FC<{}> = () => {
                             <TitleNav
                                 title={currentModuleData?.meta.name}
                                 currentStep={currentStepIndex}
-                                maxStep={currentModuleData?.meta.lessonCount ?? 0}
+                                maxStep={currentModuleData?.lessons.length ?? 0}
                                 onNavigate={handleNavigate}
                             />
                             <hr />

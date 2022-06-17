@@ -3,7 +3,7 @@ import { Dispatch, FC, ReactNode, SetStateAction, useCallback, useMemo, useState
 import { Link } from 'react-router-dom'
 
 import { IconOutline, IconSolid } from '../../../../../lib'
-import { LearnModule, LearnMyCertificationProgress, LearnMyModuleProgress } from '../../../services'
+import { LearnModule, LearnMyCertificationProgress, LearnMyModuleProgress } from '../../../learn-lib'
 import { StatusIcon } from '../status-icon'
 import { StepIcon } from '../step-icon'
 
@@ -17,10 +17,10 @@ interface CollapsibleListItem {
 interface CollapsibleItemProps {
     active?: string
     duration: LearnModule['meta']['estimatedCompletionTime']
-    id: string
     itemId?: (item: any) => string
     items: Array<CollapsibleListItem>
     lessonsCount: number
+    moduleKey: string
     path?: (item: any) => string
     progress?: LearnMyCertificationProgress['modules']
     shortDescription: Array<string>
@@ -35,8 +35,8 @@ const CollapsibleItem: FC<CollapsibleItemProps> = (props: CollapsibleItemProps) 
     }, [])
 
     const progress: LearnMyModuleProgress|undefined = useMemo(() => {
-        return props.progress?.find(m => m.module === props.id)
-    }, [props.progress, props.id])
+        return props.progress?.find(m => m.module === props.moduleKey)
+    }, [props.progress, props.moduleKey])
 
     const isCompleted: boolean = useMemo(() => {
         return !!progress && progress.lessonCount === progress?.completedLessons.length

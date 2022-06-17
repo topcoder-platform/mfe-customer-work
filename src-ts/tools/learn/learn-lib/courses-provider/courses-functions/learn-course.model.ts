@@ -1,4 +1,4 @@
-import { LearnModule } from './learn-module.model'
+import { LearnModule } from '../../lesson-provider'
 
 export interface LearnCourse {
     certification: string

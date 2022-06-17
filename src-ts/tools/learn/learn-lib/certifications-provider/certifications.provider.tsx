@@ -1,13 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import { getCertificationsAsync, LearnCertification } from '../../learn-functions/certification-store'
-
-export interface CertificationsProviderData {
-    certifications: Array<LearnCertification>
-    certificationsCount: number
-    loading: boolean
-    ready: boolean
-}
+import { getCertificationsAsync } from './certifications-functions'
+import { CertificationsProviderData } from './certifications-provider-data.model'
 
 export const useCertificationsProvider: () => CertificationsProviderData = (): CertificationsProviderData => {
     const [state, setState]: [CertificationsProviderData, Dispatch<SetStateAction<CertificationsProviderData>>] = useState<CertificationsProviderData>({

@@ -1,4 +1,4 @@
-import { LearnCertification } from '../../learn-functions'
+import { LearnCertification } from '../certifications-provider'
 
 import { LearnMyCertificationProgress } from './learn-my-certification-progress.model'
 

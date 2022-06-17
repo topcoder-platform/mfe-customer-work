@@ -1,5 +1,5 @@
 import { xhrGetAsync } from '../../../../../lib/functions'
-import { getPath } from '../learn-url.config'
+import { getPath } from '../../learn-url.config'
 
 import { LearnCourse } from './learn-course.model'
 
