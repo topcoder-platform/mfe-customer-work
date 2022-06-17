@@ -1,4 +1,4 @@
-import { 
+import {
   getAuthUserProfile,
 } from "@topcoder/mfe-header";
 import * as actions from "actions/profile";

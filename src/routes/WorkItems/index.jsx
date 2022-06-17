@@ -37,7 +37,7 @@ import {
   WorkFeedback,
   WorkStatusItem,
   WorkDetailSolutions,
-} from '../../../src-ts';
+} from '../../../src-ts'
 
 import "./styles.module.scss";
 
@@ -159,44 +159,44 @@ const WorkItem = ({
     {
       name: work?.name,
       url: '', // this isn't necessary bc it's not a link
-    },
+    }
   ];
 
   const navTabs = useMemo(() => [
-    { id: "summary", title: "Summary" },
-    { id: "details", title: "Details" },
+    { id: 'summary', title: 'Summary' },
+    { id: 'details', title: 'Details' },
     work &&
     !workUtil.isMessagesDisabled(work) && {
-      id: "messaging",
-      title: "Messages",
+      id: 'messaging',
+      title: 'Messages',
       badges: [
         forumNotifications?.unreadNotifications && {
           count: +forumNotifications?.unreadNotifications,
-          type: "info",
-        },
+          type: 'info',
+        }
       ].filter(Boolean),
     },
     {
-      id: "solutions",
-      title: "Solutions",
+      id: 'solutions',
+      title: 'Solutions',
       badges: [
         isReviewPhaseEnded &&
         !!solutionsCount && {
           count: solutionsCount,
-          type: "info",
+          type: 'info',
         },
       ].filter(Boolean),
     },
   ].filter(Boolean), [work, solutionsCount, isReviewPhaseEnded]);
 
   const onTabChange = useCallback((tabId) => {
-    window.history.replaceState(window.history.state, '', `?tab=${tabId}`);
-    setSelectedTab(tabId);
-  }, []);
+    window.history.replaceState(window.history.state, '', `?tab=${tabId}`)
+    setSelectedTab(tabId)
+  }, [])
 
   function saveFeedback(updatedCustomerFeedback) {
     const metadata = (work.metadata || [])
-      .filter((item) => item.name !== ChallengeMetadataName.feedback);
+      .filter(item => item.name !== ChallengeMetadataName.feedback);
 
     metadata.push({
       name: ChallengeMetadataName.feedback,
@@ -212,6 +212,7 @@ const WorkItem = ({
       <LoadingSpinner show={isLoadingWork || isLoadingSolutions} />
       <Page styleName="page">
         <PageContent styleName="pageContent">
+
           <Breadcrumb items={breadcrumb} />
           <WorkDetailHeader
             challenge={work}
@@ -220,7 +221,7 @@ const WorkItem = ({
 
           {work && (
             <div styleName="status-line">
-              {work.tags[0] && (<div styleName="status-label">{work.tags[0]}</div>)}
+              {work.tags[0] && <div styleName="status-label">{work.tags[0]}</div>}
               <WorkStatusItem workStatus={workStatus} />
             </div>
           )}

@@ -133,7 +133,7 @@ export const getSolutionsCount = async (workId) => {
   );
   const submissions = response.data;
   return submissions.length;
-    
+  
   // const response = await axios.head(
   //   `${config.API.V5}/submissions?challengeId=${workId}`
   // );
