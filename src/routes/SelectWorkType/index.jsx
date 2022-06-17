@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 
 import { triggerAutoSave } from "../../actions/autoSave";
-import { 
-  saveWorkType, 
+import {
+  saveWorkType,
   toggleSupportModal,
 } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
@@ -84,7 +84,7 @@ const SelectWorkType = ({
 
   const breadcrumb = [
     { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
-    { url: '/self-service/wizard', name: "Start work" },
+    { url: '/self-service/wizard', name: "Start work" }
   ];
 
   const workTypeClassName = (title) => title.toLowerCase().split(" ").join("-");

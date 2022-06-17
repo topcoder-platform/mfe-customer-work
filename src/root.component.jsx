@@ -13,7 +13,7 @@ import {
   UtilsRoutes,
   PageFooter,
   ProfileProvider,
-} from '../src-ts';
+} from '../src-ts'
 
 import App from "./App";
 import store from "./store";

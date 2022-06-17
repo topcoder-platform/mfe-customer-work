@@ -40,8 +40,8 @@ const ThankYou = () => {
           <div styleName="container">
             <div styleName="content">
               <PageH2>THANK YOU</PageH2>
-
-              <div styleName="content-container">
+          
+              <div styleName='content-container'>
 
                 <p>
                   Your payment has been processed successfully.

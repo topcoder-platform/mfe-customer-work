@@ -38,7 +38,7 @@ import FindMeData from "./routes/Products/FindMeData";
 
 import { webWorkTypes } from "./constants";
 
-import { WorkType } from '../src-ts/lib';
+import { WorkType } from '../src-ts/lib'
 
 export default function IntakeForm() {
   const dispatch = useDispatch();

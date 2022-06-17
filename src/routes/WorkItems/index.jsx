@@ -165,27 +165,25 @@ const WorkItem = ({
   const navTabs = useMemo(() => [
     { id: 'summary', title: 'Summary' },
     { id: 'details', title: 'Details' },
-    work &&
-    !workUtil.isMessagesDisabled(work) && {
+    work && !workUtil.isMessagesDisabled(work) && {
       id: 'messaging',
       title: 'Messages',
       badges: [
         forumNotifications?.unreadNotifications && {
           count: +forumNotifications?.unreadNotifications,
-          type: 'info',
+          type: 'info'
         }
-      ].filter(Boolean),
+      ].filter(Boolean)
     },
     {
       id: 'solutions',
       title: 'Solutions',
       badges: [
-        isReviewPhaseEnded &&
-        !!solutionsCount && {
+        isReviewPhaseEnded && !!solutionsCount && {
           count: solutionsCount,
-          type: 'info',
+          type: 'info'
         },
-      ].filter(Boolean),
+      ].filter(Boolean)
     },
   ].filter(Boolean), [work, solutionsCount, isReviewPhaseEnded]);
 
@@ -195,6 +193,7 @@ const WorkItem = ({
   }, [])
 
   function saveFeedback(updatedCustomerFeedback) {
+
     const metadata = (work.metadata || [])
       .filter(item => item.name !== ChallengeMetadataName.feedback);
 
