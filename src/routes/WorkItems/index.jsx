@@ -182,7 +182,7 @@ const WorkItem = ({
         isReviewPhaseEnded && !!solutionsCount && {
           count: solutionsCount,
           type: 'info'
-        },
+        }
       ].filter(Boolean)
     },
   ].filter(Boolean), [work, solutionsCount, isReviewPhaseEnded]);
