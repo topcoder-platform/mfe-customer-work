@@ -33,8 +33,8 @@ const WelcomePage: FC<WelcomePageProps> = (props: WelcomePageProps) => {
                                     where you will have the opportunity to learn new skills.
                                     With these newly learned skills, you will be better prepared to be
                                     successful in competing in challenges and Topcoder matches,
-                                    you will have greater opportunities for gig work placement and will 
-                                    improve your overall opportunity to earn on the Topcoder platform. 
+                                    you will have greater opportunities for gig work placement and will
+                                    improve your overall opportunity to earn on the Topcoder platform.
                                     Welcome to the Topcoder Academy, we look forward to learning with you!
                                 </p>
                             </div>

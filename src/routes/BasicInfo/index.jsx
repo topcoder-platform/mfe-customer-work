@@ -29,7 +29,7 @@ import {
   currencyFormat,
 } from "utils/";
 
-import { ContactSupportModal } from '../../../src-ts'
+import { ContactSupportModal } from "../../../src-ts";
 
 /**
  * Basic Info Page
