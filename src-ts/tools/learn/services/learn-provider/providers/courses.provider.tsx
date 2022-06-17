@@ -1,8 +1,6 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import coursesJSON from '../../../assets/data/courses.json'
-
-import { LearnCourse } from './learn-course.model'
+import { getCourseAsync, LearnCourse } from '../../learn-functions'
 
 export interface CoursesProviderData {
     course?: LearnCourse
@@ -39,16 +37,14 @@ export const useCoursesProvider: (certification?: string) => CoursesProviderData
             loading: true,
         }))
 
-        const t: ReturnType<typeof setTimeout> = setTimeout(() => {
+        getCourseAsync(certification).then((course) => {
             setState((prevState) => ({
                 ...prevState,
-                course: coursesJSON.courses.find((c) => c.certification === certification),
+                course,
                 loading: false,
                 ready: true,
             }))
-        }, 350)
-
-        return () => clearTimeout(t)
+        })
     }, [certification])
 
     return state

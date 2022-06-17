@@ -1,11 +1,12 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import coursesJSON from '../../../assets/data/courses.json'
-
-import { LearnCourse } from './learn-course.model'
-import { LearnLessonMeta } from './learn-lesson-meta.model'
-import { LearnLesson } from './learn-lesson.model'
-import { LearnModule } from './learn-module.model'
+import {
+    getCoursesAsync,
+    LearnCourse,
+    LearnLesson,
+    LearnLessonMeta,
+    LearnModule
+} from '../../learn-functions'
 
 export interface LessonProviderData {
     lesson?: LearnLessonMeta
@@ -46,8 +47,8 @@ export const useLessonProvider: (
             loading: true,
         }))
 
-        const t: ReturnType<typeof setTimeout> = setTimeout(() => {
-            const courseData: LearnCourse|undefined = coursesJSON.courses.find(c => c.certification === course)
+        getCoursesAsync().then((courses) => {
+            const courseData: LearnCourse|undefined = courses.find(c => c.certification === course)
             const moduleData: LearnModule|undefined = courseData?.modules.find(m => m.meta.dashedName === module)
             const lessonData: LearnLesson|undefined = moduleData?.lessons.find(l => l.dashedName === lesson)
 
@@ -75,9 +76,7 @@ export const useLessonProvider: (
                 loading: false,
                 ready: true,
             }))
-        }, 350)
-
-        return () => clearTimeout(t)
+        })
     }, [course, module, lesson])
 
     return state
