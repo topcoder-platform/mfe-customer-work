@@ -26,7 +26,11 @@ export default function WebsiteDesignLegacy({ isLoggedIn }) {
       <BasicInfoLegacy path="/basic-info" />
       <WebsitePurposeLegacy path="/website-purpose" />
       <PageDetailsLegacy path="/page-details" />
-      <LoginPrompt path="/login-prompt" isLoggedIn={isLoggedIn} />
+      <LoginPrompt
+        path="/login-prompt"
+        isLoggedIn={isLoggedIn}
+        nextPageUrl="/self-service/work/new/website-design/branding"
+      />
       <BrandingLegacy path="/branding" />
       <ReviewLegacy
         path="/review"

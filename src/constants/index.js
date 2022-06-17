@@ -16,6 +16,9 @@ import workUtil from "../utils/work";
 
 import * as dataExplorationConfigs from "./products/DataExploration";
 import * as findMeDataConfigs from "./products/FindMeData";
+import * as dataAdvisoryConfigs from "./products/DataAdvisory";
+import * as webDesignConfigs from "./products/WebsiteDesign";
+import * as webDesignLegacyConfigs from "./products/WebsiteDesignLegacy";
 import countries from "./countries";
 
 import imgProductDataExploration from "../assets/images/products/product-main-photos/data-exploration.jpeg";
@@ -293,17 +296,18 @@ export const webWorkTypes = [
   {
     type: WorkType.designLegacy,
     title: "Website Design",
-    duration: "4-6 Days",
+    duration: `${webDesignLegacyConfigs.DEFAULT_DURATION} Days`,
     description:
       "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
     shortDescription: "Create Custom Website Designs that Wow",
     shortDescriptionMobile: "Design your business",
     subTitle:
       "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    price: 199,
-    stickerPrice: 398,
+    price: webDesignLegacyConfigs.BASE_PRODUCT_PRICE,
+    stickerPrice: webDesignLegacyConfigs.STICKER_PRICE,
     featured: true,
     startRoute: "/self-service/work/new/website-design/basic-info",
+    basePath: "website-design",
     bgImage: imgProductWebsiteDesign,
   },
   {
@@ -315,11 +319,12 @@ export const webWorkTypes = [
     shortDescriptionMobile: "Design your business",
     description:
       "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    price: 499,
+    price: webDesignConfigs.BASE_PRODUCT_PRICE,
     // stickerPrice: 499,
-    duration: "4 Days",
+    duration: `${webDesignConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/website-design-new/basic-info",
+    basePath: "website-design-new",
     helperBannerTitle: "WHAT WILL I RECEIVE?",
     bgImage: imgProductWebsiteDesign,
     helperBannerContent: (
@@ -370,6 +375,7 @@ export const webWorkTypes = [
     duration: `${dataExplorationConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-exploration/basic-info",
+    basePath: "data-exploration",
     bgImage: imgProductDataExploration,
     helperBannerTitle: "WHAT WILL I GET?",
     helperBannerContent: (
@@ -407,11 +413,12 @@ export const webWorkTypes = [
     shortDescription: "The easiest way to get started in data science",
     description:
       "Problem Statement & Data Advisory is for those asking themselves: How can I apply data science to this idea or goal? How will I interpret solutions, and how will that help me take action? What data do I need?",
-    price: 799,
-    stickerPrice: 999,
-    duration: "5 Days",
+    price: dataAdvisoryConfigs.PROMOTIONAL_PRODUCT_PRICE,
+    stickerPrice: dataAdvisoryConfigs.BASE_PRODUCT_PRICE,
+    duration: `${dataAdvisoryConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-advisory/basic-info",
+    basePath: "data-advisory",
     helperBannerTitle: "WHAT WILL I RECEIVE?",
     bgImage: imgProductProblemStatement,
     helperBannerContent: (
@@ -459,6 +466,7 @@ export const webWorkTypes = [
     duration: `${findMeDataConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
+    basePath: "find-me-data",
     bgImage: imgProductFindMeData,
     helperBannerTitle: "WHAT WILL I RECEIVE?",
     helperBannerContent: (
@@ -623,13 +631,16 @@ export const AUTO_SAVE_FORM = "AUTO_SAVE_FORM";
 
 export const CACHED_CHALLENGE_ID = "CACHED_CHALLENGE_ID";
 
+// TODO: these values are being used by both legacy and new web design.
+// New web design should probably use the one in webDesignConfigs
 export const CHALLENGE_FIELD_VALUES = {
   trackId: "5fa04185-041f-49a6-bfd1-fe82533cd6c8",
   typeId: "927abff4-7af9-4145-8ba1-577c16e64e2e",
   timelineTemplateId: "918f6a3e-1a63-4680-8b5e-deb95b1411e7",
 };
 
-// TODO: make this dependant to the selected work type
+// TODO: this timeline is being used by both legacy and new web design.
+// New web design should probably use the one in webDesignConfigs
 export const DEFAULT_TIMELINE = [
   {
     // Screening
@@ -646,18 +657,6 @@ export const DEFAULT_TIMELINE = [
     phaseId: "ad985cff-ad3e-44de-b54e-3992505ba0ae",
     duration: 14400,
   },
-];
-
-// TODO CON: maybe split this up into it's own legacy file
-export const WEBSITE_DESIGN_LEGACY_INTAKE_FORM_ROUTES = [
-  "/self-service/wizard",
-  "/self-service/work/new/website-design/basic-info",
-  "/self-service/work/new/website-design/website-purpose",
-  "/self-service/work/new/website-design/page-details",
-  "/self-service/work/new/website-design/login-prompt",
-  "/self-service/work/new/website-design/branding",
-  "/self-service/work/new/website-design/review",
-  "/self-service/work/new/website-design/thank-you",
 ];
 
 export const CHALLENGE_STATUS = {
@@ -952,85 +951,3 @@ export const COUNTRY_OPTIONS = countries.map((ct) => ({
   label: ct.name,
   value: ct.code,
 }));
-
-export const BASE_PRODUCT_PRICE = 100;
-export const PER_PAGE_COST = 99;
-export const PRIZES_PAYMENT_BREAKDOWN = [0.5, 0.2, 0.1];
-export const REVIEWER_PAYMENT_BREAKDOWN = [0.1, 0.1];
-
-export const DURATION_MAPPING = [
-  [
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 1 device
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 2 devices
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 3 devices
-  ], // 1 page
-
-  [
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 1 device
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 2 devices
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 3 devices
-  ], // 2 pages
-
-  [
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 1 device
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 2 devices
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 3 devices
-  ], // 3 pages
-
-  [
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 1 device
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 2 devices
-    {
-      submissionDuration: 4,
-      totalDuration: 6,
-    }, // 3 devices
-  ], // 4 pages
-
-  [
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 1 device
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 2 devices
-    {
-      submissionDuration: 4,
-      totalDuration: 6,
-    }, // 3 devices
-  ], // 5 pages
-];

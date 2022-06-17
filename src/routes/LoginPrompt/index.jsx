@@ -28,9 +28,7 @@ const LoginPrompt = ({
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate(nextPageUrl || "/self-service/work/new/website-design/branding");
-      // TODO CON: see if next line is needed instead
-      // navigate(nextPageUrl || ROUTES.DASHBOARD_PAGE);
+      navigate(nextPageUrl || ROUTES.DASHBOARD_PAGE);
       setProgressItem(5);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

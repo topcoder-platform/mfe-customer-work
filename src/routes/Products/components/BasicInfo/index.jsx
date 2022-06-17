@@ -140,19 +140,7 @@ const BasicInfo = ({
     navigate("/self-service/wizard");
   };
 
-  let basePath;
-  //TODO CON add basepath to webitems
-  if (isDataExploration) {
-    basePath = "data-exploration";
-  } else if (isFindMeData) {
-    basePath = "find-me-data";
-  } else if (isWebsiteDesign) {
-    basePath = "website-design-new";
-  } else if (isDataAdvisory) {
-    basePath = "data-advisory";
-  }
-
-  const baseUrl = `/self-service/work/new/${basePath}`;
+  const baseUrl = `/self-service/work/new/${workItemConfig.basePath}`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);

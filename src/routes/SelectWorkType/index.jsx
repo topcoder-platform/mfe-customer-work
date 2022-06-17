@@ -32,7 +32,7 @@ const WorkTypeCard = ({
   bgImage,
   ctaButtonOnClick,
   content,
-  contentMobile,
+  contentMobile = undefined,
 }) => {
   return (
     <div
@@ -194,8 +194,6 @@ const SelectWorkType = ({
                 bgImage={featuredWorkType.bgImage}
                 ctaButtonOnClick={() => handleClick(featuredWorkType)}
                 content={featuredWorkType.description}
-                //TODO CON I don't think we need this 
-                contentMobile={featuredWorkType.descriptionMobile}
               />
             ))}
           </Slider>
