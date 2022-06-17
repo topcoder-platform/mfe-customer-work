@@ -3,7 +3,6 @@ import CryptoJS from "crypto-js";
 import _ from "lodash";
 import moment from "moment";
 import "moment-timezone";
-import { navigate } from "@reach/router";
 import config from "../config";
 import {
   autoSaveCookieCleared,
@@ -23,7 +22,7 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
     let challengeId = loadChallengeId() || challenge?.id;
     const dataToSave = { progress, form };
     const currentStep = _.get(dataToSave, "progress.currentStep", 1);
-    if (authUser?.isLoggedIn && (autoSave?.isSaveLater || currentStep >= 3)) {
+    if (authUser?.isLoggedIn && currentStep >= 2) {
       const triggerSave = () => {
         challengeId = loadChallengeId() || challenge?.id;
         if (!challengeId) {
@@ -32,6 +31,7 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
         }
         CREATION_IN_PROGRESS = false;
         clearCachedCookie(autoSave);
+        console.log(dataToSave, 'dataToSave');
         handleLoginSave(autoSave, dataToSave, challengeId, challenge);
       };
       if (!challengeId) {
@@ -67,10 +67,7 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
       : undefined;
     const formString = JSON.stringify(dataToSave);
     if (metaData?.value !== formString) {
-      const promise = dispatch(sendAutoSavedPatch(formString, challengeId));
-      promise.then(() => {
-        if (autoSave.isSaveLater) navigate("/self-service");
-      });
+      dispatch(sendAutoSavedPatch(formString, challengeId));
     }
   };
 

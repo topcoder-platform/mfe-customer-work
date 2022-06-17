@@ -8,7 +8,6 @@ const initialState = {
   triggered: false,
   cookieCleared: false,
   initErrored: null,
-  isSaveLater: false,
 };
 
 const autoSaveReducer = (state = initialState, action) => {
@@ -16,13 +15,7 @@ const autoSaveReducer = (state = initialState, action) => {
     case ACTIONS.AUTO_SAVE.TRIGGER_AUTO_SAVE:
       return {
         ...state,
-        triggered: action.payload.isTriggered,
-        isSaveLater: action.payload.isSaveLater,
-      };
-    case ACTIONS.AUTO_SAVE.RESET_IS_SAVE_LATER:
-      return {
-        ...state,
-        isSaveLater: action.payload,
+        triggered: action.payload,
       };
     case ACTIONS.AUTO_SAVE.COOKIE_CLEARED:
       return {

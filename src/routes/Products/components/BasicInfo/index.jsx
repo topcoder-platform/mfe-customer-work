@@ -20,7 +20,7 @@ import {
   savePageDetails,
   saveWorkType,
 } from "../../../../actions/form";
-import { triggerAutoSave, resetSaveLater, triggerCookieClear } from "../../../../actions/autoSave";
+import { triggerAutoSave, triggerCookieClear } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
@@ -177,6 +177,7 @@ const BasicInfo = ({
       dispatch(triggerAutoSave(true));
     }
 
+    console.log(basicInfo, "basicInfo");
     if (!!basicInfo?.projectTitle?.value?.length) {
       setFormData(basicInfo);
     }
@@ -184,12 +185,14 @@ const BasicInfo = ({
     setFirstMounted(false);
 
     return () => {
-      dispatch(triggerAutoSave(true));
+      console.log(formData, "form data");
+      // dispatch(triggerAutoSave(true));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [basicInfo, currentStep, dispatch, setProgressItem, firstMounted]);
 
   useEffect(() => {
+    console.log(formData, "formData on load");
     if (
       formData?.primaryDataChallenge?.value !== 3 &&
       formData?.primaryDataChallengeOther?.value?.trim().length > 0
@@ -220,12 +223,10 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const saveForm = (autoSave, saveLater) => {
+  const saveForm = (autoSave) => {
     saveBasicInfo(formData);
-    dispatch(triggerAutoSave(autoSave, saveLater));
-    setTimeout(() => {
-      dispatch(resetSaveLater());
-    }, 100);
+    dispatch(triggerAutoSave(autoSave));
+    if (autoSave) navigate("/self-service");
   };
 
   return (
@@ -285,7 +286,7 @@ const BasicInfo = ({
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
-                    onClick={() => saveForm(true, true)}
+                    onClick={() => saveForm(true)}
                   >
                     <SaveForLaterIcon />
                     <span>SAVE FOR LATER</span>

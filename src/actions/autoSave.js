@@ -8,21 +8,13 @@ export const autoSaveInitErrored = (error) => ({
   payload: error,
 });
 
-export const triggerAutoSave = (isTriggered, isSaveLater) => ({
+export const triggerAutoSave = (isTriggered) => ({
   type: ACTIONS.AUTO_SAVE.TRIGGER_AUTO_SAVE,
-  payload: {
-    isTriggered,
-    isSaveLater
-  },
+  payload: isTriggered
 });
 
 export const triggerCookieClear = () => ({
   type: ACTIONS.AUTO_SAVE.TRIGGER_COOKIE_CLEARED,
-});
-
-export const resetSaveLater = () => ({
-  type: ACTIONS.AUTO_SAVE.RESET_IS_SAVE_LATER,
-  payload: false
 });
 
 export const autoSaveCookieCleared = (isCookieCleared) => ({
@@ -31,7 +23,7 @@ export const autoSaveCookieCleared = (isCookieCleared) => ({
 });
 
 export const sendAutoSavedPatch = (dataToSave, challengeId) => (dispatch) => {
-  return patchChallenge(dataToSave, challengeId)
+  patchChallenge(dataToSave, challengeId)
     .then((patched) => {
       dispatch(getChallenge(patched));
     })
