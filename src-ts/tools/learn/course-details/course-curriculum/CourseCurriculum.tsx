@@ -11,7 +11,7 @@ import {
     LearnMyCertificationProgress
 } from '../../learn-lib'
 import { getFccLessonPath } from '../../learn.routes'
-import { TcAcademyPolicyModal } from '../tc-academy-policy-modal'
+import { TcAcademyPolicyModal } from './tc-academy-policy-modal'
 
 import styles from './CourseCurriculum.module.scss'
 import { CurriculumSummary } from './curriculum-summary'

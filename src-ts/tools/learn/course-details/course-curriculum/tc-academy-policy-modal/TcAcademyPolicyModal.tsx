@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { BaseModal, Button } from '../../../../lib'
+import { BaseModal, Button } from '../../../../../lib'
 
 import styles from './TcAcademyPolicyModal.module.scss'
 
