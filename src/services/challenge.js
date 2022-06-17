@@ -56,7 +56,7 @@ export async function createChallenge(workType) {
 export async function patchChallenge(intakeForm, challengeId) {
   const jsonData = JSON.parse(intakeForm);
   const workType = _.get(jsonData, "form.workType.selectedWorkType");
-  const body = workType === workType === WorkType.design
+  const body = workType === WorkType.design
     ? websiteDesignUtils.formatChallengeUpdateBody(intakeForm)
     : workType === WorkType.designLegacy
       ? websiteDesignUtils.formatChallengeUpdateBodyLegacy(intakeForm)

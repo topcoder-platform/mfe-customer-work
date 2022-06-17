@@ -48,7 +48,6 @@ export default function WebsiteDesign({ isLoggedIn }) {
         }
         icon={<DataExplorationIcon />}
         showIcon
-        bannerData={websiteDesign}
         workItemConfig={websiteDesign}
       />
       <ThankYou path="/thank-you" />

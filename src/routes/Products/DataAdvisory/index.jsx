@@ -48,7 +48,6 @@ export default function DataAdvisory({ isLoggedIn }) {
         }
         icon={<DataAdvisoryIcon />}
         showIcon
-        bannerData={dataAdvisory}
         workItemConfig={dataAdvisory}
       />
       <ThankYou path="/thank-you" />

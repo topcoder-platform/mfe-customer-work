@@ -16,7 +16,7 @@ import PageFoot from "../../components/PageElements/PageFoot";
 import { resetIntakeForm } from "../../actions/form";
 import Progress from "../../components/Progress";
 import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "../../constants/";
-import PaymentFormLegacy from "./components/PaymentFormLegacy";
+import PaymentForm from "../Review/components/PaymentForm";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
@@ -37,7 +37,7 @@ import {
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
 import { OrderContractModal } from "../../../src-ts";
-import AboutYourProject from "./components/AboutYourProject";
+import AboutYourProject from "../../routes/Review/components/AboutYourProject";
 import PageH2 from "../../components/PageElements/PageH2";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
@@ -233,7 +233,7 @@ const ReviewLegacy = ({
 
                 <PageDivider styleName="pageDivider" />
 
-                <PaymentFormLegacy
+                <PaymentForm
                   formData={formData}
                   setFormData={setFormData}
                   onOpenContractModal={setIsOrderContractModalOpen}

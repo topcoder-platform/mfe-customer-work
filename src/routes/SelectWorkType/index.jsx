@@ -32,7 +32,6 @@ const WorkTypeCard = ({
   bgImage,
   ctaButtonOnClick,
   content,
-  contentMobile = undefined,
 }) => {
   return (
     <div
@@ -59,7 +58,7 @@ const WorkTypeCard = ({
           {content}
         </p>
         <p className={`${styles.workTypeCardContent} ${styles.hideOnDesktop}`}>
-          {contentMobile || content}
+          {content}
         </p>
       </div>
 

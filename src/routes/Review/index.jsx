@@ -57,7 +57,6 @@ const Review = ({
   icon,
   showIcon,
   secondaryBanner,
-  bannerData,
   workItemConfig
 }) => {
   const dispatch = useDispatch();

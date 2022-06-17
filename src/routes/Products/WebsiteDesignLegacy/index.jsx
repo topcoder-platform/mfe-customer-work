@@ -6,7 +6,6 @@ import LoginPrompt from "../../LoginPrompt";
 import BasicInfoLegacy from "../../BasicInfoLegacy";
 import BrandingLegacy from "../../BrandingLegacy";
 import PageDetailsLegacy from "../../PageDetailsLegacy";
-import PaymentLegacy from "../../PaymentLegacy";
 import WebsitePurposeLegacy from "../../WebsitePurposeLegacy";
 import WebsiteDesignBannerLegacy from "../../../components/Banners/WebsiteDesignBannerLegacy";
 
@@ -29,7 +28,6 @@ export default function WebsiteDesignLegacy({ isLoggedIn }) {
         banner={<WebsiteDesignBannerLegacy />}
         showProgress
       />
-      <PaymentLegacy path="/payment" showProgress />
       <ThankYou path="/thank-you" />
     </Router>
   );
