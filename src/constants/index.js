@@ -26,7 +26,7 @@ import imgProductProblemStatement from "../assets/images/products/product-main-p
 import imgProductFindMeData from "../assets/images/products/product-main-photos/find-me-data.jpeg";
 import imgProductWebsiteDesign from "../assets/images/products/product-main-photos/web-design.jpeg";
 import imgRedBlueGradient from "../assets/images/products/product-main-photos/reb-blue-gradient-background.jpeg";
-import { WorkType } from "../../src-ts/lib";
+import { WorkType } from "../../src-ts";
 
 export const UNDER_MAINTENANCE = false;
 

@@ -13,7 +13,7 @@ import PageContent from "../../components/PageContent";
 import PageDivider from "../../components/PageDivider";
 import PageH2 from "../../components/PageElements/PageH2";
 import Slider from "../../components/Slider";
-import { Breadcrumb } from "../../../src-ts/lib";
+import { Breadcrumb } from "../../../src-ts";
 import {
   BUTTON_SIZE,
   projectAndProfessionalWork,

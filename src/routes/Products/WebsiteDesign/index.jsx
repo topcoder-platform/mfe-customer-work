@@ -9,7 +9,7 @@ import DataExplorationIcon from "../../../assets/images/data-exploration-icon.sv
 import HelpBanner from "components/HelpBanner";
 import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
 import { webWorkTypes } from "../../../constants/index";
-import { WorkType } from "../../../../src-ts/lib";
+import { WorkType } from "../../../../src-ts";
 
 export default function WebsiteDesign({ isLoggedIn }) {
   const websiteDesign = webWorkTypes.find(

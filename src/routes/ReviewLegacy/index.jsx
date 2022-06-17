@@ -36,7 +36,7 @@ import {
   setCookie,
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
-import { OrderContractModal } from "../../../src-ts/lib";
+import { OrderContractModal } from "../../../src-ts";
 import AboutYourProject from "./components/AboutYourProject";
 import PageH2 from "../../components/PageElements/PageH2";
 
