@@ -179,10 +179,7 @@ const Payment = ({
 
   return (
     <>
-      <OrderContractModal
-        isOpen={isOrderContractModalOpen}
-        onClose={() => setIsOrderContractModalOpen(false)}
-      />
+      <OrderContractModal isOpen={isOrderContractModalOpen} onClose={() => setIsOrderContractModalOpen(false)} />
       <LoadingSpinner show={isLoading} />
       <Page>
         <PageContent>
