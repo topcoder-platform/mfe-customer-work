@@ -8,8 +8,8 @@ import { WelcomePage } from './welcome'
 
 interface IGetFccLessonPathParams {
     course: string
-    module: string
     lesson: string
+    module: string
 }
 export const getFccLessonPath: (params: IGetFccLessonPathParams) => string = (params: IGetFccLessonPathParams) => (
     `/learn/fcc?course=${params.course}&module=${params.module}&lesson=${params.lesson}`

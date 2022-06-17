@@ -70,14 +70,16 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
                                         </div>
                                     </>
                                 ) : (
-                                    <>
-                                        <h3 className='details'>Why should you complete this course?</h3>
+                                    course.keyPoints && (
+                                        <>
+                                            <h3 className='details'>Why should you complete this course?</h3>
 
-                                        <div
-                                            className={styles['text']}
-                                            dangerouslySetInnerHTML={{ __html: course.keyPoints.join('<br /><br />') }}
-                                        ></div>
-                                    </>
+                                            <div
+                                                className={styles['text']}
+                                                dangerouslySetInnerHTML={{ __html: (course.keyPoints ?? []).join('<br /><br />') }}
+                                            ></div>
+                                        </>
+                                    )
                                 )}
                             </div>
 

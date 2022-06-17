@@ -70,8 +70,8 @@ const FreeCodeCamp: FC<{}> = () => {
 
         const lessonPath: string = getFccLessonPath({
             course: courseParam,
+            lesson: nextStep.dashedName,
             module: moduleParam,
-            lesson: nextStep.dashedName
         })
         navigate(lessonPath)
     }, [currentStepIndex, currentModuleData, courseParam, moduleParam])
