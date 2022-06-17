@@ -38,6 +38,7 @@ import {
 } from "../../autoSaveBeforeLogin";
 import { OrderContractModal } from "../../../src-ts/lib";
 import AboutYourProject from "./components/AboutYourProject";
+import PageH2 from "../../components/PageElements/PageH2";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
@@ -196,6 +197,8 @@ const ReviewLegacy = ({
       <Page>
         {banner}
         <PageContent styleName="container">
+          <PageH2>REVIEW & PAYMENT</PageH2>
+          <PageDivider />
           <ServicePrice
             hideTitle
             showIcon={showIcon}
@@ -206,8 +209,8 @@ const ReviewLegacy = ({
             serviceType={workType?.selectedWorkTypeDetail}
           />
           {secondaryBanner}
-          <PageDivider />
           {introText && <div styleName="infoAlert">{introText}</div>}
+          <PageDivider />
           <div styleName="splitView">
             <div styleName="reviewContainer">
               <ReviewTableLegacy formData={intakeFormData} enableEdit={enableEdit} />

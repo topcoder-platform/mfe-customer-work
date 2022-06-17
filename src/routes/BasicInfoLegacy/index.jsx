@@ -27,7 +27,7 @@ import {
   getDynamicPriceAndTimeline,
   getDynamicPriceAndTimelineEstimate,
   currencyFormat,
-} from "utils/";
+} from "../../utils/";
 
 import { ContactSupportModal } from "../../../src-ts";
 

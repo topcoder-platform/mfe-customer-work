@@ -9,7 +9,7 @@ export const INTAKE_FORM_ROUTES = [
   "/self-service/work/new/website-design/thank-you",
 ];
 
-export const BASE_PRODUCT_PRICE = 199;
+export const BASE_PRODUCT_PRICE = 100;
 export const STICKER_PRICE = 398;
 export const PRIZES_PAYMENT_BREAKDOWN = [0.5, 0.2, 0.1];
 export const REVIEWER_PAYMENT_BREAKDOWN = [0.1, 0.1];

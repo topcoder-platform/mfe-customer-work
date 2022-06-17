@@ -16,6 +16,7 @@ import { savePageDetails } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import PageDetailsForm from "./components/PageDetailsForm";
+import { WebsiteDesignBanner } from "../../components/Banners/WebsiteDesignBanner";
 import "./styles.module.scss";
 
 /**
@@ -85,6 +86,7 @@ const PageDetailsLegacy = ({ savePageDetails, setProgressItem }) => {
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
+        <WebsiteDesignBanner />
         <PageContent>
           <PageH2>PAGE DETAILS</PageH2>
           <PageDivider />

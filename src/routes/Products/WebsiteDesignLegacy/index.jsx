@@ -4,8 +4,6 @@ import ReviewLegacy from "../../ReviewLegacy";
 import ThankYou from "../../ThankYou";
 import LoginPrompt from "../../LoginPrompt";
 import BasicInfoLegacy from "../../BasicInfoLegacy";
-import { webWorkTypes } from "../../../constants/index";
-import { WorkType } from "../../../../src-ts/lib";
 import BrandingLegacy from "../../BrandingLegacy";
 import PageDetailsLegacy from "../../PageDetailsLegacy";
 import PaymentLegacy from "../../PaymentLegacy";
@@ -13,14 +11,6 @@ import WebsitePurposeLegacy from "../../WebsitePurposeLegacy";
 import WebsiteDesignBanner from "../../../components/Banners/WebsiteDesignBanner";
 
 export default function WebsiteDesignLegacy({ isLoggedIn }) {
-  //TODO CON see which items are needed for banner data and add to legacy
-  const webDesignLegacy = webWorkTypes.find(
-    (workType) => workType.type === WorkType.designLegacy
-  );
-
-  // const { title, subTitle, helperBannerTitle, helperBannerContent } =
-  //   websiteDesign;
-
   return (
     <Router>
       <BasicInfoLegacy path="/basic-info" />

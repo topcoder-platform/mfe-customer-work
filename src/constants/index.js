@@ -632,7 +632,7 @@ export const AUTO_SAVE_FORM = "AUTO_SAVE_FORM";
 export const CACHED_CHALLENGE_ID = "CACHED_CHALLENGE_ID";
 
 // TODO: these values are being used by both legacy and new web design.
-// New web design should probably use the one in webDesignConfigs
+// New web design should probably use the ones in webDesignConfigs
 export const CHALLENGE_FIELD_VALUES = {
   trackId: "5fa04185-041f-49a6-bfd1-fe82533cd6c8",
   typeId: "927abff4-7af9-4145-8ba1-577c16e64e2e",
