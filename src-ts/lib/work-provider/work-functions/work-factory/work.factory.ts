@@ -4,6 +4,7 @@ import * as ProblemPrices from '../../../../../src/constants/products/DataAdviso
 import * as DataPrices from '../../../../../src/constants/products/DataExploration'
 import * as FindDataPrices from '../../../../../src/constants/products/FindMeData'
 import * as WebsitePrices from '../../../../../src/constants/products/WebsiteDesign'
+import { getDynamicPriceAndTimelineEstimate } from '../../../../../src/utils'
 import {
     Challenge,
     ChallengeMetadata,
@@ -256,8 +257,19 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
             return DataPrices.PROMOTIONAL_PRODUCT_PRICE || DataPrices.BASE_PRODUCT_PRICE
 
         case WorkType.design:
-        case WorkType.designLegacy:
             return WebsitePrices.BASE_PRODUCT_PRICE
+
+        case WorkType.designLegacy:
+            // get the intake form from the metadata
+            const intakeForm: ChallengeMetadata | undefined = findMetadata(challenge, ChallengeMetadataName.intakeForm)
+            if (!intakeForm?.value) {
+                return WebsitePrices.BASE_PRODUCT_PRICE
+            }
+
+            // parse the form
+            const form: {} = JSON.parse(intakeForm.value)
+
+            return getDynamicPriceAndTimelineEstimate(form).total
 
         case WorkType.findData:
             return FindDataPrices.USING_PROMOTIONAL_PRICE
