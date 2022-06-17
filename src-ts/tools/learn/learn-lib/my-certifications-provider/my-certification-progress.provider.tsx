@@ -1,16 +1,10 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { LearnMyCertificationProgress } from './learn-my-certification-progress.model'
 import { LearnMyCertification } from './learn-my-certification.model'
+import { MyCertificationProgressProviderData } from './my-certification-progress-provider-data.model'
 import myCertificationsJSON from './my-certifications-functions/my-certifications.json'
 
 const myCertifications: Array<LearnMyCertification> = [...myCertificationsJSON.certifications] as Array<LearnMyCertification>
-
-export interface MyCertificationProgressProviderData {
-    loading: boolean
-    progress?: LearnMyCertificationProgress
-    ready: boolean
-}
 
 export const useMyCertificationProgress: (certification?: string) => MyCertificationProgressProviderData = (certification?: string): MyCertificationProgressProviderData => {
     const [state, setState]: [MyCertificationProgressProviderData, Dispatch<SetStateAction<MyCertificationProgressProviderData>>] = useState<MyCertificationProgressProviderData>({

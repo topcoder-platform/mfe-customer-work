@@ -2,22 +2,9 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import { getCourseAsync } from '../courses-provider/courses-functions'
 
-import { LearnLessonMeta } from './learn-lesson-meta.model'
 import { LearnLesson } from './learn-lesson.model'
 import { LearnModule } from './learn-module.model'
-
-export interface LessonProviderData {
-    lesson?: LearnLessonMeta
-    loading: boolean
-    ready: boolean
-}
-
-export interface LessonProviderValue {
-    courseData: LessonProviderData
-    fetchCourseData: (certification: string) => {
-        cancelFetch: () => void
-    }
-}
+import { LessonProviderData } from './lesson-provider-data.model'
 
 export const useLessonProvider: (
     course?: string,
