@@ -58,6 +58,7 @@ const Review = ({
   showIcon,
   secondaryBanner,
   bannerData,
+  workItemConfig
 }) => {
   const dispatch = useDispatch();
   const [paymentFailed, setPaymentFailed] = useState(false);
@@ -230,7 +231,7 @@ const Review = ({
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
             <div styleName="reviewContainer">
-              <ReviewTable formData={intakeFormData} />
+              <ReviewTable workItemConfig={workItemConfig} formData={intakeFormData} />
               <div styleName="hideMobile">
                 <AboutYourProject />
               </div>

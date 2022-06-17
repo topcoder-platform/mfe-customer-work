@@ -49,6 +49,7 @@ export default function FindMeData({ isLoggedIn }) {
         icon={<FindMeDataIcon />}
         showIcon
         bannerData={findMeData}
+        workItemConfig={findMeData}
       />
       <ThankYou path="/thank-you" />
     </Router>

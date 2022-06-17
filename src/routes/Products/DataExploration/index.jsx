@@ -49,6 +49,7 @@ export default function DataExploration({ isLoggedIn }) {
         icon={<DataExplorationIcon />}
         showIcon
         bannerData={dataExploration}
+        workItemConfig={dataExploration}
       />
       <ThankYou path="/thank-you" />
     </Router>
