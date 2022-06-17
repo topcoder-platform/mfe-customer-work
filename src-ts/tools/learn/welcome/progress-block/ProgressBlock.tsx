@@ -2,7 +2,7 @@ import { FC, ReactNode, useCallback } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 import { Button } from '../../../../lib'
-import { LearningHat } from '../../components'
+import { LearningHat } from '../../learn-lib'
 import { LearnMyCertificationProgress, MyCertificationsProviderData, useMyCertifications } from '../../services'
 
 import { Completed } from './completed'

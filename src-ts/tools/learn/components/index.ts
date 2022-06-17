@@ -1,7 +1,0 @@
-export * from './collapsible-pane'
-export * from './course-outline'
-export * from './course-title'
-export * from './status-icon'
-export * from './step-icon'
-export * from './svgs'
-export * from './tc-academy-policy-modal'

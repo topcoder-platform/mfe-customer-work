@@ -8,7 +8,7 @@ import {
     LoadingSpinner,
     Portal,
 } from '../../../lib'
-import { CollapsiblePane, CourseOutline } from '../components'
+import { CourseOutline } from '../learn-lib'
 import { getFccLessonPath } from '../learn.routes'
 import {
     CoursesProviderData,
@@ -18,6 +18,7 @@ import {
     useCoursesProvider,
     useLessonProvider,
 } from '../services'
+import { CollapsiblePane } from './collapsible-pane'
 
 import styles from './FreeCodeCamp.module.scss'
 import { TitleNav } from './title-nav'

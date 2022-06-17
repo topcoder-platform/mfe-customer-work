@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import {
-    getCoursesAsync,
-    LearnCourse,
+    getCourseAsync,
     LearnLesson,
     LearnLessonMeta,
     LearnModule
@@ -47,8 +46,7 @@ export const useLessonProvider: (
             loading: true,
         }))
 
-        getCoursesAsync().then((courses) => {
-            const courseData: LearnCourse|undefined = courses.find(c => c.certification === course)
+        getCourseAsync(course).then((courseData) => {
             const moduleData: LearnModule|undefined = courseData?.modules.find(m => m.meta.dashedName === module)
             const lessonData: LearnLesson|undefined = moduleData?.lessons.find(l => l.dashedName === lesson)
 

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { FC, ReactNode, useMemo } from 'react'
 
-import { IconOutline, IconSolid } from '../../../../lib'
+import { IconOutline, IconSolid } from '../../../../../lib'
 
 import styles from './StatusIcon.module.scss'
 

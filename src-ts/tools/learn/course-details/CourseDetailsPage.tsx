@@ -7,7 +7,7 @@ import {
     IconOutline,
     LoadingSpinner,
 } from '../../../lib'
-import { CourseTitle } from '../components'
+import { CourseTitle } from '../learn-lib'
 import {
     CoursesProviderData,
     MyCertificationProgressProviderData,

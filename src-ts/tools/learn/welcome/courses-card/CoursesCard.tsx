@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { FC } from 'react'
 
 import { Button } from '../../../../lib'
-import { CourseTitle } from '../../components'
+import { CourseTitle } from '../../learn-lib'
 
 import styles from './CoursesCard.module.scss'
 

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 
 import { IconOutline, IconSolid } from '../../../../../lib'
 import { LearnModule, LearnMyCertificationProgress, LearnMyModuleProgress } from '../../../services'
-import { StatusIcon } from '../../status-icon'
-import { StepIcon } from '../../step-icon'
+import { StatusIcon } from '../status-icon'
+import { StepIcon } from '../step-icon'
 
 import styles from './CollapsibleItem.module.scss'
 
