@@ -2,6 +2,16 @@
 
 .container {
 
+  .iconWrapper {
+    & {
+      width: 48px !important;
+      height: 48px;
+      margin-right: 16px;
+      min-width: auto !important;
+      padding-right: 0 !important;
+    }
+  }
+
   svg {
     margin-right: 16px;
   }
