@@ -11,7 +11,9 @@ interface WorkDetailDetailsProps {
 const WorkDetailDetails: FC<WorkDetailDetailsProps> = (props: WorkDetailDetailsProps) => {
     return (
         <div className={styles['wrap']}>
-            <WorkDetailDetailsPane formData={props.formData} />
+            <div className={styles['detailsContainer']}>
+                <WorkDetailDetailsPane formData={props.formData} />
+            </div>
             <WorkDetailDetailsSidebar />
         </div>
     )
