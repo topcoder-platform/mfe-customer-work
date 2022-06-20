@@ -6,6 +6,7 @@ import moment from "moment";
 import * as websiteDesignUtils from "utils/products/WebDesign";
 import * as dataExplorationUtils from "utils/products/DataExploration";
 import * as findMeDataUtils from "utils/products/FindMeData";
+import * as dataAdvisoryUtils from "utils/products/DataAdvisory";
 import { WorkType } from "../../src-ts";
 
 /**
@@ -56,11 +57,23 @@ export async function createChallenge(workType) {
 export async function patchChallenge(intakeForm, challengeId) {
   const jsonData = JSON.parse(intakeForm);
   const workType = _.get(jsonData, "form.workType.selectedWorkType");
-  const body = workType === WorkType.design
-    ? websiteDesignUtils.formatChallengeUpdateBody(intakeForm)
-    : workType === WorkType.findData
-      ? findMeDataUtils.formatChallengeUpdateBody(intakeForm)
-      : dataExplorationUtils.formatChallengeUpdateBody(intakeForm);
+
+  let body;
+  switch (workType) {
+    case WorkType.design:
+      body = websiteDesignUtils.formatChallengeUpdateBody(intakeForm);
+      break;
+    case WorkType.findData:
+      body = findMeDataUtils.formatChallengeUpdateBody(intakeForm);
+      break;
+    case WorkType.data:
+      body = dataExplorationUtils.formatChallengeUpdateBody(intakeForm);
+      break;
+    case WorkType.problem:
+    default:
+      body = dataAdvisoryUtils.formatChallengeUpdateBody(intakeForm);
+      break;
+  }
 
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
