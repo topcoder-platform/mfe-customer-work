@@ -20,7 +20,7 @@ export function formatChallengeCreationBody() {
       selfService: true,
     },
     name: "new-self-service-project",
-    tags: ["Find Me Data"],
+    tags: ["Find Me Data", "Data Science"],
     timelineTemplateId: CHALLENGE_FIELD_VALUES.timelineTemplateId,
     trackId: CHALLENGE_FIELD_VALUES.trackId,
     typeId: CHALLENGE_FIELD_VALUES.typeId,
