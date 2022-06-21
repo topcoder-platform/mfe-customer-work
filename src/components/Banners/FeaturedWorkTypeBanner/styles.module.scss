@@ -61,18 +61,27 @@
       background: url("../../../assets/images/data-exploration.png");
       background-size: cover;
       @include mobile {
-        background: url("../../../assets/images/data-exploration.png");
+        background: url("../../../assets/images/data-exploration-mobile.png");
         background-size: cover;
         background-position: bottom;
       }
     }
 
-    &.find-me-data,
-    &.problem-statement--data-advisory {
+    &.find-me-data {
       background: url("../../../assets/images/find-me-data.png");
       background-size: cover;
       @include mobile {
-        background: url("../../../assets/images/find-me-data.png-mobile.png");
+        background: url("../../../assets/images/find-me-data-mobile.png");
+        background-size: cover;
+        background-position: bottom;
+      }
+    }
+
+    &.problem-statement--data-advisory {
+      background: url("../../../assets/images/problem-statement.png");
+      background-size: cover;
+      @include mobile {
+        background: url("../../../assets/images/problem-statement-mobile.png");
         background-size: cover;
         background-position: bottom;
       }
