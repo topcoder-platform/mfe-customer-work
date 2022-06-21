@@ -5,6 +5,8 @@
   padding-bottom: 32px;
 }
 
-.legacyReview {
-  flex-grow: 2;
+.detailsContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }

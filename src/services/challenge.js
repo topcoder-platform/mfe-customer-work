@@ -3,11 +3,9 @@ import { axiosInstance as axios } from "./requestInterceptor";
 import { getAuthUserProfile } from "@topcoder/mfe-header";
 import _ from "lodash";
 import moment from "moment";
-import * as websiteDesignUtils from "utils/products/WebDesign";
-import * as dataExplorationUtils from "utils/products/DataExploration";
-import * as findMeDataUtils from "utils/products/FindMeData";
-import * as dataAdvisoryUtils from "utils/products/DataAdvisory";
+import * as websiteDesignUtilsLegacy from "../utils/products/WebDesignLegacy";
 import { WorkType } from "../../src-ts";
+import { formatChallengeCreationBody, formatChallengeUpdateBody } from "../utils/products";
 
 /**
  * Get Challenge challenge details
@@ -37,12 +35,10 @@ export async function getIntakeFormChallenges(userHandle, challengeId) {
  * Post a New Challenge
  */
 export async function createChallenge(workType) {
-  const body =
-    workType === WorkType.design || workType === WorkType.designLegacy
-      ? websiteDesignUtils.formatChallengeCreationBody()
-      : workType === WorkType.findData
-      ? findMeDataUtils.formatChallengeCreationBody()
-      : dataExplorationUtils.formatChallengeCreationBody();
+
+  const body = workType === WorkType.designLegacy
+    ? websiteDesignUtilsLegacy.formatChallengeCreationBody()
+    : formatChallengeCreationBody(workType);
 
   const response = await axios.post(
     `${config.API.V5}/challenges`,
@@ -58,26 +54,9 @@ export async function createChallenge(workType) {
 export async function patchChallenge(intakeForm, challengeId) {
   const jsonData = JSON.parse(intakeForm);
   const workType = _.get(jsonData, "form.workType.selectedWorkType");
-
-  let body;
-  switch (workType) {
-    case WorkType.design:
-      body = websiteDesignUtils.formatChallengeUpdateBody(intakeForm);
-      break;
-    case WorkType.designLegacy:
-      body = websiteDesignUtils.formatChallengeUpdateBodyLegacy(intakeForm);
-      break;
-    case WorkType.findData:
-      body = findMeDataUtils.formatChallengeUpdateBody(intakeForm);
-      break;
-    case WorkType.data:
-      body = dataExplorationUtils.formatChallengeUpdateBody(intakeForm);
-      break;
-    case WorkType.problem:
-    default:
-      body = dataAdvisoryUtils.formatChallengeUpdateBody(intakeForm);
-      break;
-  }
+  const body = workType === WorkType.designLegacy
+    ? websiteDesignUtilsLegacy.formatChallengeUpdateBodyLegacy(intakeForm)
+    : formatChallengeUpdateBody(intakeForm, workType);
 
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,
