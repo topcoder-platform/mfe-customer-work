@@ -60,12 +60,22 @@
     &.data-exploration {
       background: url("../../../assets/images/data-exploration.png");
       background-size: cover;
+      @include mobile {
+        background: url("../../../assets/images/data-exploration.png");
+        background-size: cover;
+        background-position: bottom;
+      }
     }
 
     &.find-me-data,
     &.problem-statement--data-advisory {
       background: url("../../../assets/images/find-me-data.png");
       background-size: cover;
+      @include mobile {
+        background: url("../../../assets/images/find-me-data.png-mobile.png");
+        background-size: cover;
+        background-position: bottom;
+      }
     }
 
     &.website-design {
@@ -75,6 +85,7 @@
       @include mobile {
         background: url("../../../assets/images/website-design-banner-mobile.png");
         background-size: cover;
+        background-position: bottom;
       }
     }
   }
