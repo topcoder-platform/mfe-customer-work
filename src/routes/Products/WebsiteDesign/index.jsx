@@ -18,12 +18,14 @@ export default function WebsiteDesign({ isLoggedIn }) {
   const { title, subTitle, helperBannerTitle, helperBannerContent } =
     websiteDesign;
 
+  console.log(websiteDesign.breadcrumbs.basic, "websiteDesign.breadcrumbs.basic");
   return (
     <Router>
       <BasicInfo
         path="/basic-info"
         isLoggedIn={isLoggedIn}
         bannerData={websiteDesign}
+        breadcrumb={websiteDesign.breadcrumbs.basic}
       />
       <LoginPrompt
         path="/login-prompt"
@@ -48,6 +50,7 @@ export default function WebsiteDesign({ isLoggedIn }) {
         icon={<DataExplorationIcon />}
         showIcon
         bannerData={websiteDesign}
+        breadcrumb={websiteDesign.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />
     </Router>

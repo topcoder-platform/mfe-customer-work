@@ -38,6 +38,14 @@ export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
   HOME_PAGE: "/self-service",
   DASHBOARD_PAGE: "/work/dashboard",
+  WEBSITE_DESIGN: "/self-service/work/new/website-design/basic-info",
+  WEBSITE_DESIGN_REVIEW: "/self-service/work/new/website-design/review",
+  DATA_EXPLORATION: "/self-service/work/new/data-exploration/basic-info",
+  DATA_EXPLORATION_REVIEW: "/self-service/work/new/data-exploration/review",
+  PROBLEM_STATEMENT: "/self-service/work/new/data-advisory/basic-info",
+  PROBLEM_STATEMENT_REVIEW: "/self-service/work/new/data-advisory/review",
+  FIND_ME_DATA: "/self-service/work/new/find-me-data/basic-info",
+  FIND_ME_DATA_REVIEW: "/self-service/work/new/find-me-data/review",
 };
 
 /**
@@ -339,6 +347,19 @@ export const webWorkTypes = [
         </p>
       </>
     ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Website Design" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: ROUTES.WEBSITE_DESIGN, name: "Website design" },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
   },
   {
     title: "Data Exploration",
@@ -380,6 +401,19 @@ export const webWorkTypes = [
         answer it.
       </p>
     ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Data exploration" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: ROUTES.DATA_EXPLORATION, name: "Data exploration" },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
   },
   {
     title: "Problem Statement & Data Advisory",
@@ -425,6 +459,19 @@ export const webWorkTypes = [
         solutions, and how will that help me take action? What data do I need?
       </p>
     ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Problem statement & data advisory" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: ROUTES.PROBLEM_STATEMENT, name: "Problem statement & data advisory" },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
   },
   {
     title: "Find Me Data",
@@ -482,6 +529,19 @@ export const webWorkTypes = [
         </PageUl>
       </>
     ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Find me data" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: ROUTES.FIND_ME_DATA, name: "Find me data" },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
   },
 ];
 

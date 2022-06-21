@@ -22,6 +22,7 @@ export default function FindMeData({ isLoggedIn }) {
         path="/basic-info"
         isLoggedIn={isLoggedIn}
         bannerData={findMeData}
+        breadcrumb={findMeData.breadcrumbs.basic}
       />
       <LoginPrompt
         path="/login-prompt"
@@ -46,6 +47,7 @@ export default function FindMeData({ isLoggedIn }) {
         icon={<FindMeDataIcon />}
         showIcon
         bannerData={findMeData}
+        breadcrumb={findMeData.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />
     </Router>

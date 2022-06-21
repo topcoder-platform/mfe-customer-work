@@ -14,6 +14,11 @@
 
     ol {
         display: flex;
+        &.hidden-mobile {
+            @include ltemd {
+                display: none;
+            }
+        }
 
         > li {
             display: inline-flex;

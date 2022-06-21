@@ -38,7 +38,7 @@ import {
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
-import { ContactSupportModal, WorkType } from "../../../../../src-ts";
+import { Breadcrumb, ContactSupportModal, WorkType } from "../../../../../src-ts";
 
 /**
  * Basic Info Page
@@ -50,6 +50,7 @@ const BasicInfo = ({
   toggleSupportModal,
   bannerData,
   isLoggedIn,
+  breadcrumb = [],
 }) => {
   const defaultFormData = {
     projectTitle: { title: "Project Title", option: "", value: "" },
@@ -228,6 +229,8 @@ const BasicInfo = ({
     }, 100);
   };
 
+  console.log(breadcrumb, "breadcrumb rece");
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -237,6 +240,7 @@ const BasicInfo = ({
         onClose={onHideSupportModal}
       />
       <Page>
+        <Breadcrumb items={breadcrumb} />
         <FeaturedWorkTypeBanner
           title={bannerData.title}
           subTitle={bannerData.subTitle}

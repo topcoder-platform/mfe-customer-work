@@ -24,6 +24,7 @@ export default function DataExploration({ isLoggedIn }) {
         path="/basic-info"
         isLoggedIn={isLoggedIn}
         bannerData={dataExploration}
+        breadcrumb={dataExploration.breadcrumbs.basic}
       />
       <LoginPrompt
         path="/login-prompt"
@@ -48,6 +49,7 @@ export default function DataExploration({ isLoggedIn }) {
         icon={<DataExplorationIcon />}
         showIcon
         bannerData={dataExploration}
+        breadcrumb={dataExploration.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />
     </Router>

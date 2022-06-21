@@ -8,7 +8,7 @@ import config from "../../../../config";
 import DataAdvisoryIcon from "../../../assets/images/data-advisory-icon.svg";
 import HelpBanner from "components/HelpBanner";
 import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
-import { webWorkTypes } from "../../../constants/index";
+import { ROUTES, webWorkTypes } from "../../../constants/index";
 
 export default function DataAdvsisory({ isLoggedIn }) {
   const dataAdvisory = webWorkTypes.find(
@@ -24,6 +24,7 @@ export default function DataAdvsisory({ isLoggedIn }) {
         path="/basic-info"
         isLoggedIn={isLoggedIn}
         bannerData={dataAdvisory}
+        breadcrumb={dataAdvisory.breadcrumbs.basic}
       />
       <LoginPrompt
         path="/login-prompt"
@@ -48,6 +49,7 @@ export default function DataAdvsisory({ isLoggedIn }) {
         icon={<DataAdvisoryIcon />}
         showIcon
         bannerData={dataAdvisory}
+        breadcrumb={dataAdvisory.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />
     </Router>
