@@ -4,6 +4,7 @@ import * as ProblemPrices from '../../../../../src/constants/products/DataAdviso
 import * as DataPrices from '../../../../../src/constants/products/DataExploration'
 import * as FindDataPrices from '../../../../../src/constants/products/FindMeData'
 import * as WebsitePrices from '../../../../../src/constants/products/WebsiteDesign'
+import { getDynamicPriceAndTimelineEstimate } from '../../../../../src/utils'
 import {
     Challenge,
     ChallengeMetadata,
@@ -76,6 +77,7 @@ export function getStatus(challenge: Challenge): WorkStatus {
     }
 }
 
+// NOTE: This function is only used by the new intakes and not the Legacy Web Design
 export function mapFormData(type: string, formData: any): ReadonlyArray<FormDetail> {
     switch (type) {
         case (WorkType.problem):
@@ -257,6 +259,18 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
         case WorkType.design:
             return WebsitePrices.BASE_PRODUCT_PRICE
 
+        case WorkType.designLegacy:
+            // get the intake form from the metadata
+            const intakeForm: ChallengeMetadata | undefined = findMetadata(challenge, ChallengeMetadataName.intakeForm)
+            if (!intakeForm?.value) {
+                return WebsitePrices.BASE_PRODUCT_PRICE
+            }
+
+            // parse the form
+            const form: {} = JSON.parse(intakeForm.value)
+
+            return getDynamicPriceAndTimelineEstimate(form).total
+
         case WorkType.findData:
             return FindDataPrices.USING_PROMOTIONAL_PRICE
                 ? FindDataPrices.PROMOTIONAL_PRODUCT_PRICE
@@ -275,6 +289,7 @@ function getDescription(challenge: Challenge, type: WorkType): string | undefine
             return findMetadata(challenge, ChallengeMetadataName.goals)?.value
 
         case WorkType.design:
+        case WorkType.designLegacy:
             return findMetadata(challenge, ChallengeMetadataName.description)?.value
     }
 }
@@ -395,13 +410,13 @@ function getType(challenge: Challenge): WorkType {
     const form: {
         form: {
             workType: {
-                selectedWorkTypeDetail: WorkType
+                selectedWorkType: WorkType
             }
         }
     } = JSON.parse(intakeForm.value)
 
     const workTypeKey: (keyof typeof WorkType) | undefined = Object.entries(WorkType)
-        .find(([key, value]) => value === form.form.workType?.selectedWorkTypeDetail)
+        .find(([key, value]) => value === form.form.workType?.selectedWorkType)
         ?.[0] as keyof typeof WorkType
 
     const output: WorkType = !!workTypeKey ? WorkType[workTypeKey] : WorkType.unknown
@@ -418,6 +433,7 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
             return WorkTypeCategory.data
 
         case WorkType.design:
+        case WorkType.designLegacy:
             return WorkTypeCategory.design
 
         // TOOD: other categories: qa and dev

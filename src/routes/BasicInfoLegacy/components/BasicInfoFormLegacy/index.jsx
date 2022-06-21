@@ -17,7 +17,7 @@ import React from "react";
 import DeviceTypes from "../DeviceTypes";
 import "./styles.module.scss";
 
-const BasicInfoForm = ({
+const BasicInfoFormLegacy = ({
   formData,
   serviceType,
   onFormUpdate,
@@ -122,15 +122,15 @@ const BasicInfoForm = ({
   );
 };
 
-BasicInfoForm.defaultProps = {
+BasicInfoFormLegacy.defaultProps = {
   serviceType: "",
 };
 
-BasicInfoForm.propTypes = {
+BasicInfoFormLegacy.propTypes = {
   estimate: PT.shape().isRequired,
   serviceType: PT.string,
   onFormUpdate: PT.func,
   formData: PT.shape(),
 };
 
-export default BasicInfoForm;
+export default BasicInfoFormLegacy;
