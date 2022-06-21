@@ -11,6 +11,7 @@
   grid-template-columns: 1fr 359px;
 
   &.website-design,
+  &.website-design-new,
   &.data-exploration,
   &.review--payment {
     background: linear-gradient(84.92deg, #065D6E 2.08%, #06596E 2.09%, #3E3B91 97.43%);
@@ -68,7 +69,8 @@
       background-size: cover;
     }
 
-    &.website-design {
+    &.website-design,
+    &.website-design-new {
       background: url("../../../assets/images/website-design-v2.png");
       background-size: cover;
 

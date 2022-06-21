@@ -13,14 +13,17 @@
   background: linear-gradient(263.22deg, #038664 2.65%, #075f96 98.14%), #ffffff;
   border-radius: 8px;
 
-  &.website-design {
+  &.website-design,
+  &.website-design-new {
     background: linear-gradient(263.22deg, #038664 2.65%, #075f96 98.14%),
       #ffffff;
   }
+
   &.data-exploration {
     background: linear-gradient(263.22deg, #038664 2.65%, #075f96 98.14%),
       #ffffff;
   }
+
   &.find-me-data {
     background: linear-gradient(84.92deg, #723390 2.08%, #8c384f 97.43%);
   }
@@ -43,10 +46,12 @@
       background: url("../../assets/images/website-design.png");
       background-size: cover;
     }
+
     &.data-exploration {
       background: url("../../assets/images/data-exploration.png");
       background-size: cover;
     }
+
     &.find-me-data {
       background: url("../../assets/images/find-me-data.png");
       background-size: cover;
