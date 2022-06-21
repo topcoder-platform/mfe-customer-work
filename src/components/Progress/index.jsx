@@ -10,10 +10,8 @@ import cn from "classnames";
 import ProgressDonutChart from "components/ProgressDonutChart";
 import ProgressPopup from "components/ProgressPopup";
 import config from "../../../config";
-import {
-  MAX_COMPLETED_STEP,
-  ProgressLevels as originalLevels,
-} from "constants";
+import { MAX_COMPLETED_STEP } from "constants";
+import { PROGRESS_LEVELS as originalLevels } from "../../constants/products/WebsiteDesignLegacy";
 import { setCookie, getCookie } from "../../autoSaveBeforeLogin";
 import IconThreeDots from "../../assets/images/icon-three-dots-vertical.svg";
 import "./styles.module.scss";

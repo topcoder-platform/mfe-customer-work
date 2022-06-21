@@ -1,20 +1,38 @@
 @import "styles/include";
 
-.container {
-  position: relative;
-  display: grid;
-  margin-top: 26px;
+.footerContent {
+  display: flex;
   width: 100%;
-  @include font-roboto;
+  flex-direction: row;
+  justify-content: space-between;
 
-  .paymentWrapper {
+  .footer-right {
+    display: flex;
+    gap: 16px;
+  }
+}
+
+.container {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  .splitView {
     display: grid;
-    grid-template-columns: 1fr 462px;
+    grid-template-columns: 1fr 562px;
     column-gap: 24px;
 
     @include mobile {
       grid-template-columns: 1fr;
     }
+
+    .reviewContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .paymentWrapper {
 
     .infoBox {
       display: flex;
@@ -77,33 +95,48 @@
         width: 100%;
       }
     }
-
-    .contract {
-      display: flex;
-      align-items: center;
-    }
   }
 }
 
-.backButtonContainer {
-  @include backButtonContainer;
+.backButtonWrapper {
+  @include backButtonWrapper;
+}
 
-  .backButtonWrapper {
-    @include backButtonWrapper;
-  }
+.confirmationBox {
+  margin-top: 32px;
+  @include confirmationBox;
+}
+
+.infoAlert {
+  @include font-barlow;
+  display: flex;
+  padding: 16px;
+  background: #E0FAF3;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 16px;
+  line-height: 26px;
 }
 
 .inline {
   display: inline-block;
 }
 
-.link {
-  color: $link-blue;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 .error {
   font-size: 14px;
   color: $red-120;
+}
+
+.hideMobile {
+  @include mobile {
+    display: none;
+  }
+}
+
+.showOnlyMobile {
+  display: none;
+
+  @include mobile {
+    display: block;
+  }
 }

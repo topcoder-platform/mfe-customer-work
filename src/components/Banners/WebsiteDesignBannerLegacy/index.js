@@ -6,7 +6,7 @@ import React from "react";
 import "./styles.module.scss";
 import { IconWebsiteTools } from "../../../assets/images/design-tools.svg";
 
-export const WebsiteDesignBanner = () => {
+export const WebsiteDesignBannerLegacy = () => {
   return (
     <div styleName="heroContainer">
       <div styleName="heroBackgroundContainer"></div>
@@ -31,4 +31,4 @@ export const WebsiteDesignBanner = () => {
   );
 };
 
-export default WebsiteDesignBanner;
+export default WebsiteDesignBannerLegacy;

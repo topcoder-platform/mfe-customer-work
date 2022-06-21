@@ -2,7 +2,7 @@ import _ from "lodash";
 import {
   CHALLENGE_FIELD_VALUES,
   DEFAULT_TIMELINE,
-} from "constants/products/DataExploration";
+} from "../../../constants/products/DataAdvisory";
 import templateData from "../../../assets/data/spec-templates/data-exploration.json";
 import { getDataAdvisoryPriceAndTimelineEstimate } from "utils/";
 
