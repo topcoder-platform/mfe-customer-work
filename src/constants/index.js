@@ -293,10 +293,10 @@ export const webWorkTypes = [
         <br />
         <div styleName="helpBanner">
           <PageP>
-            You will receive up to five unique visual designs for the main page of
-            your website, in an industry-standard format. Visual designs are the
-            first step in creating a functional website. Topcoder can help you
-            with launching your website once you have approved your design.
+            You will receive up to five unique visual designs for the main page
+            of your website, in an industry-standard format. Visual designs are
+            the first step in creating a functional website. Topcoder can help
+            you with launching your website once you have approved your design.
           </PageP>
           <div styleName="sampleImages">
             <a href={WebsiteDesignPdf1} target="_blank">
@@ -315,9 +315,10 @@ export const webWorkTypes = [
       <>
         <p>
           Topcoder design experts will take all of the information you provide
-          below, and create visual designs for your website that fit your industry
-          and match your desired look & feel. We've done this for hundreds of
-          customers and will work with you to create your ideal design.
+          below, and create visual designs for your website that fit your
+          industry and match your desired look & feel. We've done this for
+          hundreds of customers and will work with you to create your ideal
+          design.
         </p>
       </>
     ),
@@ -433,8 +434,8 @@ export const webWorkTypes = [
     aboutBannerTitle: "ABOUT PROBLEM STATEMENT & DATA ADVISORY",
     aboutBannerContent: (
       <p>
-        Problem Statement &amp; Data Advisory is for those asking themselves: How
-        can I apply data science to this idea or goal? How will I interpret
+        Problem Statement &amp; Data Advisory is for those asking themselves:
+        How can I apply data science to this idea or goal? How will I interpret
         solutions, and how will that help me take action? What data do I need?
       </p>
     ),
@@ -447,7 +448,10 @@ export const webWorkTypes = [
       review: [
         { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
         { url: ROUTES.INTAKE_FORM, name: "Start work" },
-        { url: ROUTES.PROBLEM_STATEMENT, name: "Problem statement & data advisory" },
+        {
+          url: ROUTES.PROBLEM_STATEMENT,
+          name: "Problem statement & data advisory",
+        },
         { url: "#", name: "Review & Payment" },
       ],
     },

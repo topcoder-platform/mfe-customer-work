@@ -30,7 +30,6 @@ import {
 import StyleOptions from "../StyleOptions";
 import { WorkType, WorkTypeCategoryDesignIcon } from "../../../../../src-ts";
 
-
 const BasicInfoForm = ({
   formData,
   serviceType,
@@ -258,8 +257,8 @@ const BasicInfoForm = ({
               <HelpBanner title="Example" styles={["gray"]}>
                 <br />
                 <PageP>
-                  I spend money on marketing for my website, but it's hard to know
-                  which marketing option works best. I make money from
+                  I spend money on marketing for my website, but it's hard to
+                  know which marketing option works best. I make money from
                   advertising, so the more people that visit my site and engage
                   with something, the more ad money I can make. I shared the
                   reports I have from the past year for each of my 3 marketing
@@ -296,22 +295,23 @@ const BasicInfoForm = ({
             <div>
               <PageP styleName="title">{"What Data Do You Need?"}</PageP>
               <PageP styleName="description">
-                Briefly describe the analysis you want to do, and the type of data
-                you're looking for to do it. Be sure to include any critical data
-                requirements, such as specific geographies, demographics, date
-                ranges and/or key variables needed for your analysis.{" "}
+                Briefly describe the analysis you want to do, and the type of
+                data you're looking for to do it. Be sure to include any
+                critical data requirements, such as specific geographies,
+                demographics, date ranges and/or key variables needed for your
+                analysis.{" "}
               </PageP>
               <HelpBanner title="Example" styles={["gray"]}>
                 <br />
                 <PageP>
-                  I'm a real estate investor & want to diversify into other cities
-                  in Texas. Currently, we only invest in Dallas Fort Worth. We're
-                  looking for 3-5 other cities in Texas to invest. I'd like to
-                  evaluate rental demand and occupancy rates, property price vs.
-                  avg rental payments, job and population growth compared to state
-                  and national averages, and the trends of renter-occupied
-                  households compared to homeowners. I think there's data on sites
-                  like{" "}
+                  I'm a real estate investor & want to diversify into other
+                  cities in Texas. Currently, we only invest in Dallas Fort
+                  Worth. We're looking for 3-5 other cities in Texas to invest.
+                  I'd like to evaluate rental demand and occupancy rates,
+                  property price vs. avg rental payments, job and population
+                  growth compared to state and national averages, and the trends
+                  of renter-occupied households compared to homeowners. I think
+                  there's data on sites like{" "}
                   <a target="_blank" href="https://www.zillow.com/">
                     {" "}
                     zillow.com
@@ -410,8 +410,9 @@ const BasicInfoForm = ({
               <PageP styleName="description">
                 Sample data helps us understand your data needs. Often this is a
                 simple CSV/Excel table that shows the data labels (usually the
-                title of each column or row) and two or more rows of example input
-                data. Example: FName is a data label, 'Ankit' is input data.
+                title of each column or row) and two or more rows of example
+                input data. Example: FName is a data label, 'Ankit' is input
+                data.
               </PageP>
             </div>
 
@@ -444,24 +445,24 @@ const BasicInfoForm = ({
               <PageP styleName="title">{"what’s your goal?"}</PageP>
               <PageP styleName="description">
                 Describe what you want to do or learn with the help of data
-                science. What will this information or ability help improve? Keep
-                in mind that data science typically answers a question. Good
-                questions are specific, measurable and clarify important context.
-                This ensures that when your question is answered, you learn
-                something valuable and actionable.
+                science. What will this information or ability help improve?
+                Keep in mind that data science typically answers a question.
+                Good questions are specific, measurable and clarify important
+                context. This ensures that when your question is answered, you
+                learn something valuable and actionable.
               </PageP>
               <HelpBanner title="Description Tips" styles={["gray"]}>
                 <br />
                 <PageP>
-                  How can I increase profit? How can I get more customers? How can
-                  I do computer vision? These questions alone are too vague. Which
-                  piece of equipment is going to fail first? Which of my marketing
-                  channels produces the most customers per dollar? How can I
-                  automatically review pictures or documents to for specific
-                  content? These questions along with relevant data and/or context
-                  enable our experts to shape your question into something
-                  actionable. Don't worry, we'll help you along the way. So let's
-                  get started!
+                  How can I increase profit? How can I get more customers? How
+                  can I do computer vision? These questions alone are too vague.
+                  Which piece of equipment is going to fail first? Which of my
+                  marketing channels produces the most customers per dollar? How
+                  can I automatically review pictures or documents to for
+                  specific content? These questions along with relevant data
+                  and/or context enable our experts to shape your question into
+                  something actionable. Don't worry, we'll help you along the
+                  way. So let's get started!
                 </PageP>
               </HelpBanner>
             </div>
@@ -494,23 +495,23 @@ const BasicInfoForm = ({
                 The data you have available helps determine your data science
                 approach. Briefly describe the data you have in mind for your
                 project. What is it and how do you use it today? How much do you
-                have, and how/how often do you get more? Once you've described the
-                data, please upload a sample.
+                have, and how/how often do you get more? Once you've described
+                the data, please upload a sample.
                 <br />
                 <div styleName="helpText">
                   No data?&nbsp;
                   <HelpIcon>
-                    No problem. Based on your goals we'll recommend the type(s) of
-                    data you need.
+                    No problem. Based on your goals we'll recommend the type(s)
+                    of data you need.
                   </HelpIcon>
                 </div>
                 <div styleName="helpText">
                   Can't share/upload?&nbsp;
                   <HelpIcon>
-                    Try sharing a sample. Samples can be just the headers, labels
-                    or titles of your data set. Our experts need to understand the
-                    type, volume and structure of your data, not the contents
-                    themselves.
+                    Try sharing a sample. Samples can be just the headers,
+                    labels or titles of your data set. Our experts need to
+                    understand the type, volume and structure of your data, not
+                    the contents themselves.
                   </HelpIcon>
                 </div>
               </PageP>
@@ -559,11 +560,11 @@ const BasicInfoForm = ({
             <div>
               <PageP styleName="title">{"Description"}</PageP>
               <PageP styleName="description">
-                What is the purpose of your website? What do you want visitors to
-                be able to do, e.g., see your work? Contact you? You should
-                include a general description as well as goals of the website. You
-                may also describe your audience and what you would like them to do
-                at your website.{" "}
+                What is the purpose of your website? What do you want visitors
+                to be able to do, e.g., see your work? Contact you? You should
+                include a general description as well as goals of the website.
+                You may also describe your audience and what you would like them
+                to do at your website.{" "}
               </PageP>
               <HelpBanner title="Example" styles={["gray"]}>
                 <br />
@@ -575,17 +576,17 @@ const BasicInfoForm = ({
                   </PageP>
                   <PageP>
                     The audience for my website will be dog owners. As a dog
-                    owner, I want someone trustworthy to walk my dog, so he feels
-                    loved while I’m at work.
+                    owner, I want someone trustworthy to walk my dog, so he
+                    feels loved while I’m at work.
                   </PageP>
                   <PageP>
                     Home Page:
                     <br />I would like to see a landing screen to welcome our
                     customers and make them feel welcome and warm. We love their
                     dog and we want them to feel it! We really want our audience
-                    to do one core action and that’s to get started finding their
-                    perfect “Walkie” which is what we call our professional dog
-                    walkers.
+                    to do one core action and that’s to get started finding
+                    their perfect “Walkie” which is what we call our
+                    professional dog walkers.
                   </PageP>
                   <PageP>
                     Information Pages:
@@ -605,14 +606,14 @@ const BasicInfoForm = ({
                     our dog walkers are insured.
                   </PageP>
                   <PageP>
-                    Locations We Serve: We have 3 locations in the greater Seattle
-                    area.
+                    Locations We Serve: We have 3 locations in the greater
+                    Seattle area.
                   </PageP>
                   <PageP>
-                    Each page should include a testimonial from one of our users.
-                    For example: “WalkieDoggie is perfect. They are always
-                    professional and they take amazing care of our dog, Beefcake.
-                    - Victoria B. from Tacoma, Washington”
+                    Each page should include a testimonial from one of our
+                    users. For example: “WalkieDoggie is perfect. They are
+                    always professional and they take amazing care of our dog,
+                    Beefcake. - Victoria B. from Tacoma, Washington”
                   </PageP>
                 </PageP>
               </HelpBanner>
@@ -644,8 +645,8 @@ const BasicInfoForm = ({
               <PageP styleName="title">Your industry</PageP>
               <PageP styleName="description">
                 Knowing your industry will help our designers understand you and
-                your audience. For example, some common industries are: Business &
-                Consulting, Construction, Entertainment & Arts, Healthcare,
+                your audience. For example, some common industries are: Business
+                & Consulting, Construction, Entertainment & Arts, Healthcare,
                 Retail, and Technology.
               </PageP>
             </div>
@@ -677,8 +678,8 @@ const BasicInfoForm = ({
               <PageP styleName="title">inspiration</PageP>
               <PageP styleName="description">
                 Are there websites that you love, from which our designers may
-                draw inspiration? Share the website URLs and tell us what you like
-                about them.
+                draw inspiration? Share the website URLs and tell us what you
+                like about them.
               </PageP>
             </div>
 
@@ -821,8 +822,9 @@ const BasicInfoForm = ({
                 </div>
                 <div styleName="formFieldWrapper">
                   <FormField
-                    label={`List Specific Colors ${selectedColor?.value?.length > 0 ? "(optional)" : ""
-                      }`}
+                    label={`List Specific Colors ${
+                      selectedColor?.value?.length > 0 ? "(optional)" : ""
+                    }`}
                   >
                     <FormInputTextArea
                       value={formData?.specificColor?.value}
@@ -905,7 +907,7 @@ const BasicInfoForm = ({
         description={HELP_BANNER.description}
         contactSupport={onShowSupportModal}
       />
-    </div >
+    </div>
   );
 };
 

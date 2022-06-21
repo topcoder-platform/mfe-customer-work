@@ -37,9 +37,10 @@ export async function getIntakeFormChallenges(userHandle, challengeId) {
  * Post a New Challenge
  */
 export async function createChallenge(workType) {
-  const body = (workType === WorkType.design || workType === WorkType.designLegacy)
-    ? websiteDesignUtils.formatChallengeCreationBody()
-    : workType === WorkType.findData
+  const body =
+    workType === WorkType.design || workType === WorkType.designLegacy
+      ? websiteDesignUtils.formatChallengeCreationBody()
+      : workType === WorkType.findData
       ? findMeDataUtils.formatChallengeCreationBody()
       : dataExplorationUtils.formatChallengeCreationBody();
 

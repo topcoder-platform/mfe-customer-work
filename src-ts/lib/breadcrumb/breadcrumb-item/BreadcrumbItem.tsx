@@ -1,8 +1,8 @@
 import { Link } from '@reach/router'
 import { FC } from 'react'
 
-import { BreadcrumbItemModel } from './breadcrumb-item.model'
 import styles from './../Breadcrumb.module.scss'
+import { BreadcrumbItemModel } from './breadcrumb-item.model'
 
 interface BreadcrumbItemProps {
     index: number

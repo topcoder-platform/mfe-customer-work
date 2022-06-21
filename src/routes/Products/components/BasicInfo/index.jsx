@@ -20,7 +20,11 @@ import {
   savePageDetails,
   saveWorkType,
 } from "../../../../actions/form";
-import { triggerAutoSave, resetSaveLater, triggerCookieClear } from "../../../../actions/autoSave";
+import {
+  triggerAutoSave,
+  resetSaveLater,
+  triggerCookieClear,
+} from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
@@ -38,7 +42,11 @@ import {
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
-import { Breadcrumb, ContactSupportModal, WorkType } from "../../../../../src-ts";
+import {
+  Breadcrumb,
+  ContactSupportModal,
+  WorkType,
+} from "../../../../../src-ts";
 
 /**
  * Basic Info Page
@@ -89,8 +97,7 @@ const BasicInfo = ({
   const isWebsiteDesign = workItemConfig.type === WorkType.design;
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
   const isDataExploration = workItemConfig.type === WorkType.data;
-  const isDataAdvisory =
-    workItemConfig.type === WorkType.problem;
+  const isDataAdvisory = workItemConfig.type === WorkType.problem;
   const isDataExplorationFormValid =
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;
@@ -130,10 +137,10 @@ const BasicInfo = ({
     workType?.selectedWorkType === WorkType.design
       ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
-        ? getDataExplorationPriceAndTimelineEstimate()
-        : isDataAdvisory
-          ? getDataAdvisoryPriceAndTimelineEstimate()
-          : getFindMeDataPriceAndTimelineEstimate();
+      ? getDataExplorationPriceAndTimelineEstimate()
+      : isDataAdvisory
+      ? getDataAdvisoryPriceAndTimelineEstimate()
+      : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     dispatch(triggerCookieClear());
@@ -291,12 +298,12 @@ const BasicInfo = ({
                   <span>
                     <span styleName="desktop">REVIEW &amp;</span> SUBMIT
                   </span>
-                </Button >
-              </div >
-            </div >
-          </PageFoot >
-        </PageContent >
-      </Page >
+                </Button>
+              </div>
+            </div>
+          </PageFoot>
+        </PageContent>
+      </Page>
     </>
   );
 };
