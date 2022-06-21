@@ -20,6 +20,12 @@
             }
         }
 
+        &.show-mobile {
+            @include gtemd {
+                display: none;
+            }
+        }
+
         > li {
             display: inline-flex;
             align-items: center;
