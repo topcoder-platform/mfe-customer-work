@@ -14,10 +14,10 @@ Following are the list of sections in this document,
   - [IDE](#ide)
   - [Nvm](#nvm)
   - [Hosting](#hosting)
-  - [Setup core](#setup-core)
+  - [Set up mfe-core](#set-up-mfe-core)
     - [macOS](#macos)
     - [windows](#windows)
-  - [Setup mfe-header](#setup-mfe-header)
+  - [Set up mfe-header](#set-up-mfe-header)
     - [macOS](#macos)
     - [windows](#windows)
   - [Terminal configuration](#hosting)
@@ -76,7 +76,7 @@ The MFE can run in a non-ssl environment, but auth0 will complain and throw erro
 ```
 $ npm i -g local-ssl-proxy
 ```
-### Setup mfe-core
+### Set up mfe-core
 
 You can find the mfe-core github repository [here](https://github.com/topcoder-platform/mfe-core). The MFE Core renders the landing page and the top navigation. Each app then runs within that core frame.
 
@@ -113,7 +113,7 @@ The Frame project consists of an API that manages environment configuration and 
   npm run local-client
 ```
 
-### Setup mfe-header
+### Set up mfe-header
 
 You can find the mfe-header github repository [here](https://github.com/topcoder-platform/mfe-header).
 
@@ -169,7 +169,7 @@ When developing one of the micro front-end applications you will therefore have 
 - `local-ssl-proxy` server
 - the MFE app you're developing 
 
-Given this complexity, it is recommended that you use a tool like [iTerm2](https://iterm2.com) (on Mac) or an equivalent terminal shell on Windows to make terminal management simpler. iTerm2 allows you to setup a pre-defined window layout of terminal sessions, including the directory in which the session starts. This setup, along with simple shell scripts in each project that configure and start the environment, will allow you to get your development environment up and running quickly and easily.
+Given this complexity, it is recommended that you use a tool like [iTerm2](https://iterm2.com) (on Mac) or an equivalent terminal shell on Windows to make terminal management simpler. iTerm2 allows you to set up a pre-defined window layout of terminal sessions, including the directory in which the session starts. This setup, along with simple shell scripts in each project that configure and start the environment, will allow you to get your development environment up and running quickly and easily.
 
 ## Git
 
