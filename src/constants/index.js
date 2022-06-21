@@ -16,6 +16,9 @@ import workUtil from "../utils/work";
 
 import * as dataExplorationConfigs from "./products/DataExploration";
 import * as findMeDataConfigs from "./products/FindMeData";
+import * as dataAdvisoryConfigs from "./products/DataAdvisory";
+import * as webDesignConfigs from "./products/WebsiteDesign";
+import * as webDesignLegacyConfigs from "./products/WebsiteDesignLegacy";
 import countries from "./countries";
 
 import imgProductDataExploration from "../assets/images/products/product-main-photos/data-exploration.jpeg";
@@ -23,6 +26,7 @@ import imgProductProblemStatement from "../assets/images/products/product-main-p
 import imgProductFindMeData from "../assets/images/products/product-main-photos/find-me-data.jpeg";
 import imgProductWebsiteDesign from "../assets/images/products/product-main-photos/web-design.jpeg";
 import imgRedBlueGradient from "../assets/images/products/product-main-photos/reb-blue-gradient-background.jpeg";
+import { WorkType } from "../../src-ts";
 
 export const UNDER_MAINTENANCE = false;
 
@@ -144,53 +148,6 @@ export const DesignOptions = [
 ];
 
 /**
- * ProgressLevels
- */
-export const ProgressLevels = [
-  {
-    label: "Basic Info",
-    url: "/self-service/basic-info",
-    trueIndex: 2,
-    showIndex: 1,
-    visibleInProgressIndicator: true,
-  },
-  {
-    label: "REVIEW REQUIREMENTS",
-    url: "/self-service/work/new/data-exploration/basic-info",
-    trueIndex: 2,
-    showIndex: 1,
-  },
-  {
-    label: "Website Purpose",
-    url: "/self-service/website-purpose",
-    trueIndex: 3,
-    showIndex: 2,
-    visibleInProgressIndicator: true,
-  },
-  {
-    label: "Page Details",
-    url: "/self-service/page-details",
-    trueIndex: 4,
-    showIndex: 3,
-    visibleInProgressIndicator: true,
-  },
-  {
-    label: "Branding",
-    url: "/self-service/branding",
-    trueIndex: 5,
-    showIndex: 4,
-    visibleInProgressIndicator: true,
-  },
-  {
-    label: "Review",
-    url: "/self-service/review",
-    trueIndex: 6,
-    showIndex: 5,
-    visibleInProgressIndicator: true,
-  },
-];
-
-/**
  * page options
  */
 export const PageOptions = [
@@ -298,20 +255,37 @@ export const projectAndProfessionalWork = {
 
 export const webWorkTypes = [
   {
+    type: WorkType.designLegacy,
     title: "Website Design",
+    duration: `${webDesignLegacyConfigs.DEFAULT_DURATION} Days`,
+    description:
+      "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    shortDescription: "Create Custom Website Designs that Wow",
+    shortDescriptionMobile: "Design your business",
+    subTitle:
+      "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    price: webDesignLegacyConfigs.BASE_PRODUCT_PRICE,
+    stickerPrice: webDesignLegacyConfigs.STICKER_PRICE,
+    featured: true,
+    startRoute: "/self-service/work/new/website-design/basic-info",
+    basePath: "website-design",
+    bgImage: imgProductWebsiteDesign,
+  },
+  {
+    type: WorkType.design,
+    title: "Website Design (NEW)",
     subTitle:
       "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
     shortDescription: "Create Custom Website Designs that Wow",
     shortDescriptionMobile: "Design your business",
     description:
       "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    descriptionMobile:
-      "Sometimes data is the only thing standing between you and something great. Tell us what you're solving for, and let our experts find the data to get you started now. ",
-    price: 499,
+    price: webDesignConfigs.BASE_PRODUCT_PRICE,
     // stickerPrice: 499,
-    duration: "4 Days",
+    duration: `${webDesignConfigs.DEFAULT_DURATION} Days`,
     featured: true,
-    startRoute: "/self-service/work/new/website-design/basic-info",
+    startRoute: "/self-service/work/new/website-design-new/basic-info",
+    basePath: "website-design-new",
     helperBannerTitle: "WHAT WILL I RECEIVE?",
     bgImage: imgProductWebsiteDesign,
     helperBannerContent: (
@@ -362,6 +336,7 @@ export const webWorkTypes = [
     },
   },
   {
+    type: WorkType.data,
     title: "Data Exploration",
     subTitle: "Get insights about your data from Topcoder experts.",
     shortDescription: "Uncover What's Interesting About Your Data",
@@ -374,6 +349,7 @@ export const webWorkTypes = [
     duration: `${dataExplorationConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-exploration/basic-info",
+    basePath: "data-exploration",
     bgImage: imgProductDataExploration,
     helperBannerTitle: "WHAT WILL I GET?",
     helperBannerContent: (
@@ -396,9 +372,10 @@ export const webWorkTypes = [
     aboutBannerTitle: "ABOUT DATA EXPLORATION",
     aboutBannerContent: (
       <p>
-        Find Me Data is designed for business leaders, researchers or any
-        individual who has a data question and is struggling to find the data to
-        answer it.
+        In Data Exploration, multiple data science experts uncover the most
+        significant patterns and relationships in your data. Unlock the full
+        potential of your data with expert insights presented in an
+        easy-to-understand format.
       </p>
     ),
     breadcrumbs: {
@@ -416,17 +393,19 @@ export const webWorkTypes = [
     },
   },
   {
+    type: WorkType.problem,
     title: "Problem Statement & Data Advisory",
     subTitle:
       "Translate your data science idea into an actionable data science approach.",
     shortDescription: "The easiest way to get started in data science",
     description:
       "Problem Statement & Data Advisory is for those asking themselves: How can I apply data science to this idea or goal? How will I interpret solutions, and how will that help me take action? What data do I need?",
-    price: 799,
-    stickerPrice: 999,
-    duration: "5 Days",
+    price: dataAdvisoryConfigs.PROMOTIONAL_PRODUCT_PRICE,
+    stickerPrice: dataAdvisoryConfigs.BASE_PRODUCT_PRICE,
+    duration: `${dataAdvisoryConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-advisory/basic-info",
+    basePath: "data-advisory",
     helperBannerTitle: "WHAT WILL I RECEIVE?",
     bgImage: imgProductProblemStatement,
     helperBannerContent: (
@@ -474,6 +453,7 @@ export const webWorkTypes = [
     },
   },
   {
+    type: WorkType.findData,
     title: "Find Me Data",
     subTitle: "Get the data you need to meet your analysis goals.",
     shortDescription: "Our Experts Source Useful Data Sets For You",
@@ -486,6 +466,7 @@ export const webWorkTypes = [
     duration: `${findMeDataConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
+    basePath: "find-me-data",
     bgImage: imgProductFindMeData,
     helperBannerTitle: "WHAT WILL I RECEIVE?",
     helperBannerContent: (
@@ -663,13 +644,16 @@ export const AUTO_SAVE_FORM = "AUTO_SAVE_FORM";
 
 export const CACHED_CHALLENGE_ID = "CACHED_CHALLENGE_ID";
 
+// TODO: these values are being used by both legacy and new web design.
+// New web design should probably use the ones in webDesignConfigs
 export const CHALLENGE_FIELD_VALUES = {
   trackId: "5fa04185-041f-49a6-bfd1-fe82533cd6c8",
   typeId: "927abff4-7af9-4145-8ba1-577c16e64e2e",
   timelineTemplateId: "918f6a3e-1a63-4680-8b5e-deb95b1411e7",
 };
 
-// TODO: make this dependant to the selected work type
+// TODO: this timeline is being used by both legacy and new web design.
+// New web design should probably use the one in webDesignConfigs
 export const DEFAULT_TIMELINE = [
   {
     // Screening
@@ -686,17 +670,6 @@ export const DEFAULT_TIMELINE = [
     phaseId: "ad985cff-ad3e-44de-b54e-3992505ba0ae",
     duration: 14400,
   },
-];
-
-export const INTAKE_FORM_ROUTES = [
-  "/self-service/wizard",
-  "/self-service/basic-info",
-  "/self-service/website-purpose",
-  "/self-service/page-details",
-  "/self-service/login-prompt",
-  "/self-service/branding",
-  "/self-service/review",
-  "/self-service/thank-you",
 ];
 
 export const CHALLENGE_STATUS = {
@@ -991,85 +964,3 @@ export const COUNTRY_OPTIONS = countries.map((ct) => ({
   label: ct.name,
   value: ct.code,
 }));
-
-export const BASE_PRODUCT_PRICE = 100;
-export const PER_PAGE_COST = 99;
-export const PRIZES_PAYMENT_BREAKDOWN = [0.5, 0.2, 0.1];
-export const REVIEWER_PAYMENT_BREAKDOWN = [0.1, 0.1];
-
-export const DURATION_MAPPING = [
-  [
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 1 device
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 2 devices
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 3 devices
-  ], // 1 page
-
-  [
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 1 device
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 2 devices
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 3 devices
-  ], // 2 pages
-
-  [
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 1 device
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 2 devices
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 3 devices
-  ], // 3 pages
-
-  [
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 1 device
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 2 devices
-    {
-      submissionDuration: 4,
-      totalDuration: 6,
-    }, // 3 devices
-  ], // 4 pages
-
-  [
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 1 device
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 2 devices
-    {
-      submissionDuration: 4,
-      totalDuration: 6,
-    }, // 3 devices
-  ], // 5 pages
-];

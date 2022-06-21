@@ -9,10 +9,11 @@ import DataExplorationIcon from "../../../assets/images/data-exploration-icon.sv
 import HelpBanner from "components/HelpBanner";
 import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
 import { webWorkTypes } from "../../../constants/index";
+import { WorkType } from "../../../../src-ts";
 
 export default function WebsiteDesign({ isLoggedIn }) {
   const websiteDesign = webWorkTypes.find(
-    (type) => type.title === "Website Design"
+    (workType) => workType.type === WorkType.design
   );
 
   const { title, subTitle, helperBannerTitle, helperBannerContent } =
@@ -24,32 +25,32 @@ export default function WebsiteDesign({ isLoggedIn }) {
       <BasicInfo
         path="/basic-info"
         isLoggedIn={isLoggedIn}
-        bannerData={websiteDesign}
+        workItemConfig={websiteDesign}
         breadcrumb={websiteDesign.breadcrumbs.basic}
       />
       <LoginPrompt
         path="/login-prompt"
         isLoggedIn={isLoggedIn}
-        previousPageUrl="/self-service/work/new/website-design/basic-info"
-        nextPageUrl="/self-service/work/new/website-design/review"
+        previousPageUrl="/self-service/work/new/website-design-new/basic-info"
+        nextPageUrl="/self-service/work/new/website-design-new/review"
       />
       <Review
-        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} workType={title} />}
+        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} workType={WorkType.design} />}
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}
           </HelpBanner>
         }
         path="/review"
-        previousPageUrl="/self-service/work/new/website-design/basic-info"
+        previousPageUrl="/self-service/work/new/website-design-new/basic-info"
         nextPageUrl={
           isLoggedIn
-            ? "/self-service/work/new/website-design/thank-you"
+            ? "/self-service/work/new/website-design-new/thank-you"
             : config.SIGN_IN_URL
         }
         icon={<DataExplorationIcon />}
         showIcon
-        bannerData={websiteDesign}
+        workItemConfig={websiteDesign}
         breadcrumb={websiteDesign.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />

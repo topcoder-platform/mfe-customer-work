@@ -9,10 +9,11 @@ import DataAdvisoryIcon from "../../../assets/images/data-advisory-icon.svg";
 import HelpBanner from "components/HelpBanner";
 import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
 import { ROUTES, webWorkTypes } from "../../../constants/index";
+import { WorkType } from "../../../../src-ts";
 
-export default function DataAdvsisory({ isLoggedIn }) {
+export default function DataAdvisory({ isLoggedIn }) {
   const dataAdvisory = webWorkTypes.find(
-    (type) => type.title === "Problem Statement & Data Advisory"
+    (workType) => workType.type === WorkType.problem
   );
 
   const { title, subTitle, helperBannerTitle, helperBannerContent } =
@@ -23,7 +24,7 @@ export default function DataAdvsisory({ isLoggedIn }) {
       <BasicInfo
         path="/basic-info"
         isLoggedIn={isLoggedIn}
-        bannerData={dataAdvisory}
+        workItemConfig={dataAdvisory}
         breadcrumb={dataAdvisory.breadcrumbs.basic}
       />
       <LoginPrompt
@@ -33,7 +34,7 @@ export default function DataAdvsisory({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/data-advisory/review"
       />
       <Review
-        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} workType={title} />}
+        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} workType={WorkType.problem} />}
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}
@@ -48,7 +49,7 @@ export default function DataAdvsisory({ isLoggedIn }) {
         }
         icon={<DataAdvisoryIcon />}
         showIcon
-        bannerData={dataAdvisory}
+        workItemConfig={dataAdvisory}
         breadcrumb={dataAdvisory.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />

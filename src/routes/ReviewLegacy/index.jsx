@@ -1,64 +1,61 @@
-import { navigate, redirectTo } from "@reach/router";
-import Button from "components/Button";
-import LoadingSpinner from "components/LoadingSpinner";
-import config from "../../../config";
-import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import Page from "components/Page";
-import PageContent from "components/PageContent";
-import PageDivider from "components/PageDivider";
-import PageFoot from "components/PageElements/PageFoot";
-import { resetIntakeForm } from "../../actions/form";
-import { toastr } from "react-redux-toastr";
-import Progress from "components/Progress";
-import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import PaymentForm from "./components/PaymentForm";
+import { navigate, redirectTo } from "@reach/router";
+import { toastr } from "react-redux-toastr";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
+import _ from "lodash";
+
+import Button from "../../components/Button";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import config from "../../../config";
+import Page from "../../components/Page";
+import PageContent from "../../components/PageContent";
+import PageDivider from "../../components/PageDivider";
+import PageFoot from "../../components/PageElements/PageFoot";
+import { resetIntakeForm } from "../../actions/form";
+import Progress from "../../components/Progress";
+import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "../../constants/";
+import PaymentForm from "../Review/components/PaymentForm";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
-import ReviewTable from "./components/ReviewTable";
+import ReviewTableLegacy from "./components/ReviewTableLegacy";
 import withAuthentication from "../../hoc/withAuthentication";
-import ServicePrice from "components/ServicePrice";
+import ServicePrice from "../../components/ServicePrice";
 import * as services from "../../services/payment";
 import { getUserProfile } from "../../thunks/profile";
 import { activateChallenge } from "../../services/challenge";
 import "./styles.module.scss";
 import {
-  getWebsiteDesignPriceAndTimelineEstimate,
-  getDataExplorationPriceAndTimelineEstimate,
-  getFindMeDataPriceAndTimelineEstimate,
-  getDataAdvisoryPriceAndTimelineEstimate,
+  getDynamicPriceAndTimelineEstimate,
   currencyFormat,
-} from "utils/";
-import _ from "lodash";
+} from "../../utils/";
 import {
   loadChallengeId,
   setCookie,
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
-import { Breadcrumb, OrderContractModal, WorkType } from "../../../src-ts";
-import AboutYourProject from "./components/AboutYourProject";
+import { OrderContractModal } from "../../../src-ts";
+import AboutYourProject from "../../routes/Review/components/AboutYourProject";
+import PageH2 from "../../components/PageElements/PageH2";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
   apiVersion: config.STRIPE.API_VERSION,
 });
 
 /**
- * Review Page
+ *  Review Legacy Page
  */
-const Review = ({
+const ReviewLegacy = ({
   setProgressItem,
-  previousPageUrl,
-  nextPageUrl,
+  showProgress,
   introText,
   banner,
   icon,
   showIcon,
+  enableEdit = true,
   secondaryBanner,
-  workItemConfig,
-  breadcrumb,
 }) => {
   const dispatch = useDispatch();
   const [paymentFailed, setPaymentFailed] = useState(false);
@@ -81,27 +78,10 @@ const Review = ({
   const fullState = useSelector((state) => state);
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
-
-  let estimate;
-  switch (workType?.selectedWorkType) {
-    case (WorkType.design):
-      estimate = getWebsiteDesignPriceAndTimelineEstimate();
-      break;
-    case (WorkType.data):
-      estimate = getDataExplorationPriceAndTimelineEstimate();
-      break;
-    case (WorkType.problem):
-      estimate = getDataAdvisoryPriceAndTimelineEstimate();
-      break;
-    case (WorkType.findData):
-      estimate = getFindMeDataPriceAndTimelineEstimate();
-      break;
-    default:
-      estimate = getFindMeDataPriceAndTimelineEstimate();
-      break;
-  }
+  const estimate = getDynamicPriceAndTimelineEstimate(fullState)
 
   const [firstMounted, setFirstMounted] = useState(true);
+
   useEffect(() => {
     if (!firstMounted) {
       return;
@@ -134,7 +114,7 @@ const Review = ({
   }, [currentStep, anotherFirstMounted]);
 
   const onBack = () => {
-    navigate(previousPageUrl || "/self-service/branding");
+    navigate("/self-service/work/new/website-design/branding");
   };
 
   const clearPreviousForm = () => {
@@ -158,6 +138,7 @@ const Review = ({
       "form.basicInfo.selectedDevice.option.length",
       1
     );
+    const additionalPaymentInfo = `\n${numOfPages} Pages\n${numOfDevices} Devices`;
 
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,
@@ -166,7 +147,7 @@ const Review = ({
     ).slice(0, 355)}\n${_.get(
       fullState,
       "form.workType.selectedWorkType"
-    )}`;
+    )}${additionalPaymentInfo}`;
 
     services
       .processPayment(
@@ -180,7 +161,7 @@ const Review = ({
       .then((res) => {
         activateChallenge(challengeId);
         clearPreviousForm();
-        navigate(nextPageUrl || "/self-service/thank-you");
+        navigate("/self-service/work/new/website-design/thank-you");
         setProgressItem(8);
         setPaymentFailed(false);
       })
@@ -214,9 +195,10 @@ const Review = ({
       />
       <LoadingSpinner show={isLoading} />
       <Page>
-        <Breadcrumb items={breadcrumb} />
         {banner}
         <PageContent styleName="container">
+          <PageH2>REVIEW & PAYMENT</PageH2>
+          <PageDivider />
           <ServicePrice
             hideTitle
             showIcon={showIcon}
@@ -226,13 +208,12 @@ const Review = ({
             stickerPrice={estimate?.stickerPrice}
             serviceType={workType?.selectedWorkTypeDetail}
           />
-          <br styleName="mobileHidden" />
-          <br styleName="mobileHidden" />
           {secondaryBanner}
           {introText && <div styleName="infoAlert">{introText}</div>}
+          <PageDivider />
           <div styleName="splitView">
             <div styleName="reviewContainer">
-              <ReviewTable workItemConfig={workItemConfig} formData={intakeFormData} />
+              <ReviewTableLegacy formData={intakeFormData} enableEdit={enableEdit} />
               <div styleName="hideMobile">
                 <AboutYourProject />
               </div>
@@ -279,7 +260,6 @@ const Review = ({
               <AboutYourProject />
             </div>
           </div>
-          <PageDivider />
 
           <PageFoot>
             <div styleName="footerContent">
@@ -296,6 +276,7 @@ const Review = ({
               </div>
             </div>
           </PageFoot>
+          {showProgress && <Progress level={6} setStep={setProgressItem} />}
         </PageContent>
       </Page>
     </>
@@ -305,7 +286,7 @@ const Review = ({
 const ReviewWrapper = (props) => {
   return (
     <Elements stripe={stripePromise}>
-      <Review {...props} />
+      <ReviewLegacy {...props} />
     </Elements>
   );
 };

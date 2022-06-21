@@ -16,12 +16,13 @@ import { savePageDetails } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import PageDetailsForm from "./components/PageDetailsForm";
+import { WebsiteDesignBannerLegacy } from "../../components/Banners/WebsiteDesignBannerLegacy";
 import "./styles.module.scss";
 
 /**
  * Page Details Page
  */
-const PageDetails = ({ savePageDetails, setProgressItem }) => {
+const PageDetailsLegacy = ({ savePageDetails, setProgressItem }) => {
   const [isLoading, setLoading] = useState(false);
   const [listInputs, setListInputs] = useState({
     pages: [
@@ -39,7 +40,7 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
   const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const onBack = () => {
-    navigate("/self-service/website-purpose");
+    navigate("/self-service/work/new/website-design/website-purpose");
   };
 
   const [firstMounted, setFirstMounted] = useState(true);
@@ -66,7 +67,7 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
   }, [currentStep, pageDetails, dispatch, setProgressItem, firstMounted]);
 
   const onNext = () => {
-    navigate("/self-service/login-prompt");
+    navigate("/self-service/work/new/website-design/login-prompt");
     savePageDetails(listInputs);
     setProgressItem(5);
   };
@@ -85,6 +86,7 @@ const PageDetails = ({ savePageDetails, setProgressItem }) => {
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
+        <WebsiteDesignBannerLegacy />
         <PageContent>
           <PageH2>PAGE DETAILS</PageH2>
           <PageDivider />
@@ -137,4 +139,4 @@ const mapDispatchToProps = {
   setProgressItem,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(PageDetailsLegacy);
