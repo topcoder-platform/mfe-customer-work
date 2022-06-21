@@ -38,6 +38,7 @@ const Breadcrumb: FC<BreadcrumbProps> = (props: BreadcrumbProps) => {
                                         item={{
                                             name: '...',
                                             url: props.items[props.items.length - 2].url,
+                                            isElipsis: true,
                                         }}
                                     />
                                     <BreadcrumbItem 

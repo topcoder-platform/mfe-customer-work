@@ -2,6 +2,7 @@ import { Link } from '@reach/router'
 import { FC } from 'react'
 
 import { BreadcrumbItemModel } from './breadcrumb-item.model'
+import styles from './../Breadcrumb.module.scss'
 
 interface BreadcrumbItemProps {
     index: number
@@ -11,7 +12,7 @@ interface BreadcrumbItemProps {
 const BreadcrumbItem: FC<BreadcrumbItemProps> = (props: BreadcrumbItemProps) => {
     return (
         <li key={props.index}>
-            <Link to={props.item.url}>
+            <Link className={props.item.isElipsis && styles['elipsis']} to={props.item.url}>
                 {props.item.name}
             </Link>
         </li>

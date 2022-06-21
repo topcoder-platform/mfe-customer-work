@@ -31,6 +31,9 @@
                 padding: $pad-md;
                 color: $black-80;
                 cursor: pointer;
+                &.elipsis {
+                    color: $turq-160;
+                }
             }
 
             &:first-child a {
