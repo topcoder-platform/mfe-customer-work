@@ -4,7 +4,7 @@ import {
   DEFAULT_TIMELINE,
 } from "../../../constants/products/DataAdvisory";
 import templateData from "../../../assets/data/spec-templates/data-exploration.json";
-import { getDataExplorationPriceAndTimelineEstimate } from "utils/";
+import { getDataAdvisoryPriceAndTimelineEstimate } from "utils/";
 
 export function formatChallengeCreationBody() {
   return {
@@ -52,7 +52,7 @@ export function formatChallengeUpdateBody(intakeForm) {
     )}`;
   }
 
-  const dynamicPriceAndTimeline = getDataExplorationPriceAndTimelineEstimate();
+  const dynamicPriceAndTimeline = getDataAdvisoryPriceAndTimelineEstimate();
 
   const body = {
     ...(name ? { name } : {}),
