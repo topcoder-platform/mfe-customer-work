@@ -19,7 +19,6 @@ export default function WebsiteDesign({ isLoggedIn }) {
   const { title, subTitle, helperBannerTitle, helperBannerContent } =
     websiteDesign;
 
-  console.log(websiteDesign.breadcrumbs.basic, "websiteDesign.breadcrumbs.basic");
   return (
     <Router>
       <BasicInfo

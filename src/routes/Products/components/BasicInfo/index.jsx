@@ -218,8 +218,6 @@ const BasicInfo = ({
     }, 100);
   };
 
-  console.log(breadcrumb, "breadcrumb rece");
-
   return (
     <>
       <LoadingSpinner show={isLoading} />
