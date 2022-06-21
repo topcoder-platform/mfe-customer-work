@@ -14,12 +14,12 @@ const Learn: FC<{}> = () => {
     const { getChildRoutes }: RouteContextData = useContext(routeContext)
 
     return (
-        <ContentLayout>
+        <>
             <Outlet />
             <Routes>
                 {getChildRoutes(toolTitle)}
             </Routes>
-        </ContentLayout>
+        </>
     )
 }
 

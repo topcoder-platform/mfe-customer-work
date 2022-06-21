@@ -9,20 +9,13 @@
 
     display: flex;
     flex-direction: column;
-    gap: $pad-lg;
-    width: 600px;
+    gap: $pad-sm;
+    width: 475px;
 }
 
-.title-line {
+.line {
     display: flex;
     align-items: center;
-
-    svg {
-        @include icon-mx;
-        margin-right: $pad-xs;
-    }
-}
-
-.title-link {
-    margin-left: auto;
+    gap: $pad-sm;
+    justify-content: flex-end;
 }

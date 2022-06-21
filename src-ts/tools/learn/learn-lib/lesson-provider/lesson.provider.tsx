@@ -33,7 +33,7 @@ export const useLessonProvider: (
         }))
 
         getCourseAsync(course).then((courseData) => {
-            const moduleData: LearnModule|undefined = courseData?.modules.find(m => m.meta.dashedName === module)
+            const moduleData: LearnModule|undefined = courseData?.modules.find(m => m.key === module)
             const lessonData: LearnLesson|undefined = moduleData?.lessons.find(l => l.dashedName === lesson)
 
             const lessonUrl: string = [

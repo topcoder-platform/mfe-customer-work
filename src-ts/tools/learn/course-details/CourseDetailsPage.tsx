@@ -4,6 +4,7 @@ import { Params, useParams } from 'react-router-dom'
 import {
     Breadcrumb,
     BreadcrumbItemModel,
+    ContentLayout,
     IconOutline,
     LoadingSpinner,
 } from '../../../lib'
@@ -38,7 +39,7 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
     ], [course?.certification])
 
     return (
-        <>
+        <ContentLayout>
             {!ready && (
                 <div className={styles['wrap']}>
                     <LoadingSpinner />
@@ -101,7 +102,7 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
                     )}
                 </>
             )}
-        </>
+        </ContentLayout>
     )
 }
 

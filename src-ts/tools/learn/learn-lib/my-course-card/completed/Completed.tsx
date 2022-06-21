@@ -2,12 +2,13 @@ import { FC } from 'react'
 
 import { Button, textFormatDateLocaleShortString } from '../../../../../lib'
 import { CourseTitle, LearnCertification } from '../../../learn-lib'
+import { getCoursePath } from '../../../learn.routes'
 
 import styles from './Completed.module.scss'
 
 interface CompletedProps {
     completed: string
-    course: LearnCertification
+    certification: LearnCertification
 }
 
 const Completed: FC<CompletedProps> = (props: CompletedProps) => {
@@ -16,9 +17,9 @@ const Completed: FC<CompletedProps> = (props: CompletedProps) => {
         <div className={styles['wrap']}>
             <div className={styles['line']}>
                 <CourseTitle
-                    title={props.course.title}
-                    type={props.course.category}
-                    credits={props.course.providerName}
+                    title={props.certification.title}
+                    type={props.certification.category}
+                    credits={props.certification.providerName}
                 >
                     <div className={styles['completed-status']}>
                         Completed{' '}
@@ -27,7 +28,12 @@ const Completed: FC<CompletedProps> = (props: CompletedProps) => {
                 </CourseTitle>
             </div>
             <div className={styles['buttons-wrap']}>
-                <Button size='xs' buttonStyle='secondary' label='View Course' />
+                <Button
+                    size='xs'
+                    buttonStyle='secondary'
+                    label='View Course'
+                    route={getCoursePath(props.certification.certification)}
+                />
                 <Button size='xs' buttonStyle='secondary' label='View certificate' />
             </div>
         </div>

@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { FC, useCallback } from 'react'
 
 import { LoadingSpinner, } from '../../../../lib'
@@ -24,7 +25,7 @@ const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
     const lessonPath: (course: LearnCourse, module: LearnModule, lesson: LearnLesson) => string = useCallback((course: LearnCourse, module: LearnModule, lesson: LearnLesson) => {
         const path: string = [
             course && `course=${encodeURIComponent(course.certification)}`,
-            module && `module=${encodeURIComponent(module.meta.dashedName)}`,
+            module && `module=${encodeURIComponent(module.key)}`,
             lesson && `lesson=${encodeURIComponent(lesson.dashedName)}`,
         ].filter(Boolean).join('&')
 
@@ -32,11 +33,11 @@ const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
     }, [props.course])
 
     return (
-        <div className={styles['wrap']}>
+        <div className={classNames(styles['wrap'], 'course-outline-wrap')}>
             {props.ready === false && <LoadingSpinner />}
 
             {props.course && (
-                <div className={styles['content']}>
+                <div className={classNames(styles['content'], 'content')}>
                     {props.course.modules.map((module) => (
                         <CollapsibleItem
                             active={props.currentStep}
