@@ -66,6 +66,10 @@
   background-color: $turqoise;
 }
 
-.marginTop24 {
-  margin-top: 24px;
+.marginTop24Mobile {
+  margin-top: 0;
+
+  @include mobile {
+    margin-top: 24px;
+  }
 }

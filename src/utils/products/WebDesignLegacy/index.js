@@ -3,13 +3,11 @@ import {
   CHALLENGE_FIELD_VALUES,
   DEVICE_TYPE_DETAILS,
   DEFAULT_TIMELINE,
-} from "constants";
+} from "../../../constants/products/WebsiteDesignLegacy";
 import {
   getDynamicPriceAndTimeline,
-  getWebsiteDesignPriceAndTimelineEstimate,
 } from "utils/";
 import templateDataLegacy from "../../../assets/data/spec-templates/website-design-legacy.json";
-import templateData from "../../../assets/data/spec-templates/website-design.json";
 
 export function formatChallengeCreationBody() {
   return {
@@ -17,7 +15,7 @@ export function formatChallengeCreationBody() {
     trackId: CHALLENGE_FIELD_VALUES.trackId,
     timelineTemplateId: CHALLENGE_FIELD_VALUES.timelineTemplateId,
     name: "new-self-service-project",
-    ...templateData,
+    ...templateDataLegacy,
     legacy: {
       selfService: true,
     },
@@ -108,8 +106,7 @@ export function formatChallengeUpdateBodyLegacy(intakeForm) {
     value: _.map(
       _.get(jsonData, "form.pageDetails.pages", []),
       (p, i) =>
-        `### PAGE ${i + 1} NAME:\n\n ${
-          p.pageName
+        `### PAGE ${i + 1} NAME:\n\n ${p.pageName
         } \n\n#### Requirements & Details:\n\n ${p.pageDetails}`
     ).join("\n\n"),
   });
@@ -216,7 +213,7 @@ export function formatChallengeUpdateBodyLegacy(intakeForm) {
     name: "allowStockArt",
     value: _.toString(
       (stockPhotos !== "" ? stockPhotos : "Yes, allow stock photos") ===
-        "Yes, allow stock photos"
+      "Yes, allow stock photos"
     ),
   });
 
@@ -276,144 +273,6 @@ export function formatChallengeUpdateBodyLegacy(intakeForm) {
   const body = {
     ...(name ? { name } : {}),
     ...templateDataLegacy,
-    metadata: [
-      ..._.map(intakeMetadata, (e) => ({
-        name: e.name,
-        value:
-          _.toString(e.value).trim() === ""
-            ? e.required
-              ? ""
-              : "None"
-            : _.toString(e.value),
-      })),
-      {
-        name: "intake-form",
-        value: intakeForm,
-      },
-    ],
-  };
-  if (dynamicPriceAndTimeline) {
-    body.prizeSets = dynamicPriceAndTimeline.prizeSets;
-    body.phases = [
-      {
-        // Submission
-        phaseId: "6950164f-3c5e-4bdc-abc8-22aaf5a1bd49",
-        duration: (dynamicPriceAndTimeline.totalDuration - 2) * 86400,
-      },
-      {
-        // Registration
-        phaseId: "a93544bc-c165-4af4-b55e-18f3593b457a",
-        duration: (dynamicPriceAndTimeline.totalDuration - 2) * 86400,
-      },
-      ...DEFAULT_TIMELINE,
-    ];
-  }
-  return body;
-}
-
-export function formatChallengeUpdateBody(intakeForm) {
-  const jsonData = JSON.parse(intakeForm);
-  const name = _.get(jsonData, "form.basicInfo.projectTitle.value");
-
-  const intakeMetadata = [];
-
-  intakeMetadata.push({
-    name: "websitePurpose.description",
-    required: true,
-    value: _.get(jsonData, "form.websitePurpose.description.value"),
-  });
-
-  intakeMetadata.push({
-    name: "websitePurpose.industry",
-    required: true,
-    value: _.get(jsonData, "form.websitePurpose.industry.value.label"),
-  });
-
-  const existingWebsite = _.get(
-    jsonData,
-    "form.websitePurpose.existingWebsite.value"
-  );
-
-  const existingWebsiteInfo = _.get(
-    jsonData,
-    "form.websitePurpose.existingWebsiteInfo.value",
-    "None"
-  );
-
-  intakeMetadata.push({
-    name: "websitePurpose.existingWebsite",
-    value: existingWebsite
-      ? `[${existingWebsite}](${existingWebsite}) \n\n ${existingWebsiteInfo}`
-      : "None",
-  });
-
-  const webSitesForInspiration = _.get(jsonData, "form.branding.inspiration");
-
-  if (
-    webSitesForInspiration &&
-    webSitesForInspiration.length > 0 &&
-    _.filter(webSitesForInspiration, (w) => !_.isEmpty(w.website.value))
-      .length > 0
-  ) {
-    intakeMetadata.push({
-      name: "branding.websitesForInspiration",
-      value: `### INSPIRATION: \n\n ${_.map(
-        webSitesForInspiration,
-        (w) =>
-          `Website Address: [${w.website.value}](${w.website.value})\n - ${w.feedback.value}`
-      )}`,
-    });
-  } else {
-    intakeMetadata.push({
-      name: "branding.websitesForInspiration",
-      value: "\n",
-    });
-  }
-
-  intakeMetadata.push({
-    name: "branding.colorOption",
-    value: _.get(jsonData, "form.branding.colorOption.option", ["None"]).join(
-      ", "
-    ),
-  });
-
-  intakeMetadata.push({
-    name: "branding.specificColor",
-    value: _.get(jsonData, "form.branding.specificColor.value", "None"),
-  });
-
-  intakeMetadata.push({
-    name: "branding.fontUsageDescription",
-    value: _.get(jsonData, "form.branding.fontUsageDescription.option", "None"),
-  });
-
-  const assetsUrl = _.get(jsonData, "form.branding.assetsUrl.option");
-
-  intakeMetadata.push({
-    name: "branding.assetsUrl",
-    value: assetsUrl ? `[${assetsUrl}](${assetsUrl})` : "None",
-  });
-
-  intakeMetadata.push({
-    name: "allowStockArt",
-    value: "Yes, allow stock photos",
-  });
-
-  intakeMetadata.push({
-    name: "submissionLimit",
-    value: JSON.stringify({ unlimited: "true", limit: "false", count: "" }),
-  });
-
-  intakeMetadata.push({
-    name: "submissionsViewable",
-    value: "false",
-  });
-
-  const dynamicPriceAndTimeline = getWebsiteDesignPriceAndTimelineEstimate();
-
-  const body = {
-    ...(name ? { name } : {}),
-    ...templateData,
     metadata: [
       ..._.map(intakeMetadata, (e) => ({
         name: e.name,
