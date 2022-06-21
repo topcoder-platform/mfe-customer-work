@@ -16,14 +16,14 @@ const WorkDetailDetails: FC<WorkDetailDetailsProps> = (props: WorkDetailDetailsP
 
     return (
         <div className={styles['wrap']}>
-            {workType !== WorkType.designLegacy &&
-                <WorkDetailDetailsPane formData={props.formData} />
-            }
-            {workType === WorkType.designLegacy &&
-                <div className={styles.legacyReview}>
+            <div className={styles['detailsContainer']}>
+                {workType !== WorkType.designLegacy &&
+                    <WorkDetailDetailsPane formData={props.formData} />
+                }
+                {workType === WorkType.designLegacy &&
                     <ReviewTableLegacy formData={props.formData} enableEdit={false} />
-                </div>
-            }
+                }
+            </div>
             <WorkDetailDetailsSidebar />
         </div>
     )
