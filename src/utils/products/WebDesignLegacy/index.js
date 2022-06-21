@@ -3,7 +3,7 @@ import {
   CHALLENGE_FIELD_VALUES,
   DEVICE_TYPE_DETAILS,
   DEFAULT_TIMELINE,
-} from "constants";
+} from "../../../constants/products/WebsiteDesignLegacy";
 import {
   getDynamicPriceAndTimeline,
 } from "utils/";
