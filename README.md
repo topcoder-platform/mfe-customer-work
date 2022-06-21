@@ -180,9 +180,8 @@ When working on Jira tickets, we link associated Git PRs and branches to the tic
 
 e.g.: `PROD-1516_work-issue`
 
-The overall base branch is `develop`. Whenever a new epic is created and started working on, then a new epic branch is checked out from `develop` branch(for eg. like this `PROD-120_find-me-data`, in this case `PROD-120` is an epic). When a task/bug is assigned to a developer within a particular epic and when the developer starts working on the task/bug then the developer has to consider the epic branch(`PROD-120_find-me-data`) as base branch and create a new feature branch based on the above mentioned branch naming convention.
-
-So basically the branch creation flow is like this `develop` -> `epic_branch` -> `feature_branch`. When merging we will merge `feature_branch` to `epic_branch` which in turn will be merged to `develop` branch.
+#### Branching strategy
+TBD
 
 ### Commits
 We use [Smart Commits](https://bigbrassband.com/git-integration-for-jira/documentation/smart-commits.html#bbb-nav-basic-examples) to link comments and time tracking to tickets. You would enter the following as your commit message:
