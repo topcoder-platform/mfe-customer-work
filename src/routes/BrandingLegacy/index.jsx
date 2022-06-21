@@ -18,11 +18,12 @@ import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import BrandingForm from "./components/BrandingForm";
 import "./styles.module.scss";
 import { getDynamicPriceAndTimelineEstimate } from "utils/";
+import { WebsiteDesignBannerLegacy } from "../../components/Banners/WebsiteDesignBannerLegacy";
 
 /**
  * Branding Page
  */
-const Branding = ({ saveBranding, setProgressItem }) => {
+const BrandingLegacy = ({ saveBranding, setProgressItem }) => {
   const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     theme: { title: "Style & Theme", option: "", value: null },
@@ -96,11 +97,11 @@ const Branding = ({ saveBranding, setProgressItem }) => {
       formData?.fontUrl.value.trim() !== "");
 
   const onBack = () => {
-    navigate("/self-service/page-details");
+    navigate("/self-service/work/new/website-design/page-details");
   };
 
   const onNext = () => {
-    navigate("/self-service/review");
+    navigate("/self-service/work/new/website-design/review");
     saveBranding(formData);
     setProgressItem(6);
   };
@@ -109,6 +110,7 @@ const Branding = ({ saveBranding, setProgressItem }) => {
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
+        <WebsiteDesignBannerLegacy />
         <PageContent>
           <PageH2>BRANDING</PageH2>
           <PageDivider />
@@ -163,4 +165,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAuthentication(Branding));
+)(withAuthentication(BrandingLegacy));

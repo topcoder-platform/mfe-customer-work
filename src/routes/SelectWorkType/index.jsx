@@ -13,7 +13,7 @@ import PageContent from "../../components/PageContent";
 import PageDivider from "../../components/PageDivider";
 import PageH2 from "../../components/PageElements/PageH2";
 import Slider from "../../components/Slider";
-import { Breadcrumb } from "../../../src-ts/lib";
+import { Breadcrumb } from "../../../src-ts";
 import {
   BUTTON_SIZE,
   projectAndProfessionalWork,
@@ -32,7 +32,6 @@ const WorkTypeCard = ({
   bgImage,
   ctaButtonOnClick,
   content,
-  contentMobile,
 }) => {
   return (
     <div
@@ -59,7 +58,7 @@ const WorkTypeCard = ({
           {content}
         </p>
         <p className={`${styles.workTypeCardContent} ${styles.hideOnDesktop}`}>
-          {contentMobile || content}
+          {content}
         </p>
       </div>
 
@@ -139,7 +138,7 @@ const SelectWorkType = ({
 
   const handleClick = (selectedItem = webWorkTypes[0]) => {
     saveWorkType({
-      selectedWorkType: selectedItem.title,
+      selectedWorkType: selectedItem.type || selectedItem.title,
       selectedWorkTypeDetail: selectedItem.title,
     });
     setProgressItem(2);
@@ -194,7 +193,6 @@ const SelectWorkType = ({
                 bgImage={featuredWorkType.bgImage}
                 ctaButtonOnClick={() => handleClick(featuredWorkType)}
                 content={featuredWorkType.description}
-                contentMobile={featuredWorkType.descriptionMobile}
               />
             ))}
           </Slider>
