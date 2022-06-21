@@ -33,7 +33,7 @@ const WorkDetailDetailsPane: FC<WorkDetailDetailsPaneProps> = ({ formData, isRev
     }
 
     return (
-        <div className={styles['paneContent']}>
+        <>
             {isReviewPage && (
                 <div className={styles['header']}>
                     <h3 className={styles['title']}>REVIEW REQUIREMENTS</h3>
@@ -50,7 +50,7 @@ const WorkDetailDetailsPane: FC<WorkDetailDetailsPaneProps> = ({ formData, isRev
                     </div>
                 )
             })}
-        </div>
+        </>
     )
 }
 

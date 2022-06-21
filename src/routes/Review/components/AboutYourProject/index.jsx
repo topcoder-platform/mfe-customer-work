@@ -1,11 +1,11 @@
 import React from "react";
-import HelpBanner from "components/HelpBanner";
+import HelpBanner from "../../../../components/HelpBanner";
 import PageUl from "../../../../components/PageElements/PageUl";
 
 const AboutYourProject = () => {
   return (
     <HelpBanner
-      styles={["turqoise", "marginTop24"]}
+      styles={["turqoise", "marginTop24Mobile"]}
       title="Important things to know about your project"
     >
       <PageUl>
