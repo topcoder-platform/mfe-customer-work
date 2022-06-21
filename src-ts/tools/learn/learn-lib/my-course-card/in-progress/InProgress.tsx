@@ -31,7 +31,7 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
     const isMinimum: boolean = props.theme === 'minimum'
 
     const certification: string = props.certification.certification
-    const {course}: CoursesProviderData = useCoursesProvider(props.certification.certification);
+    const {course}: CoursesProviderData = useCoursesProvider(props.certification.certification)
 
     const resumeCourse: () => void = () => {
         if (!props.progress.currentLesson) {

@@ -7,8 +7,8 @@ import { getCoursePath } from '../../../learn.routes'
 import styles from './Completed.module.scss'
 
 interface CompletedProps {
-    completed: string
     certification: LearnCertification
+    completed: string
 }
 
 const Completed: FC<CompletedProps> = (props: CompletedProps) => {

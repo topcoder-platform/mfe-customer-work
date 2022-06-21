@@ -5,8 +5,8 @@ import styles from './WaveHero.module.scss'
 
 interface WaveHeroProps {
     children?: ReactNode
-    theme?: 'light'
     text: string
+    theme?: 'light'
     title: string
 }
 

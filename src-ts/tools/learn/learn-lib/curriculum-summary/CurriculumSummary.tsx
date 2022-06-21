@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { IconOutline } from '../../../../lib'
 
+import { IconOutline } from '../../../../lib'
 import { LearnCourse } from '../courses-provider'
 
 import styles from './CurriculumSummary.module.scss'

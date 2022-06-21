@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { ContentLayout, Portal } from '../../../lib'
 import {
     LearningHat,
@@ -8,8 +9,8 @@ import {
     useMyCertifications,
     WaveHero
 } from '../learn-lib'
-import { HeroCard } from './hero-card'
 
+import { HeroCard } from './hero-card'
 import styles from './MyLearning.module.scss'
 
 interface MyLearningProps {
@@ -51,7 +52,7 @@ const MyLearning: FC<MyLearningProps> = (props: MyLearningProps) => {
                             <h2 className='details'>Completed Courses</h2>
                         </div>
                     )}
-                    
+
                     <div className={styles['cards-wrap']}>
                         {completed.map((certif) => (
                             <MyCourseCompletedCard
