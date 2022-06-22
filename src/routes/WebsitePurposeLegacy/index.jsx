@@ -136,4 +136,7 @@ const mapDispatchToProps = {
   setProgressItem,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WebsitePurposeLegacy);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WebsitePurposeLegacy);

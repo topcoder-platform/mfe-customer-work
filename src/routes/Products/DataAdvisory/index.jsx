@@ -8,7 +8,7 @@ import config from "../../../../config";
 import DataAdvisoryIcon from "../../../assets/images/data-advisory-icon.svg";
 import HelpBanner from "components/HelpBanner";
 import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
-import { webWorkTypes } from "../../../constants/index";
+import { ROUTES, webWorkTypes } from "../../../constants/index";
 import { WorkType } from "../../../../src-ts";
 
 export default function DataAdvisory({ isLoggedIn }) {
@@ -25,6 +25,7 @@ export default function DataAdvisory({ isLoggedIn }) {
         path="/basic-info"
         isLoggedIn={isLoggedIn}
         workItemConfig={dataAdvisory}
+        breadcrumb={dataAdvisory.breadcrumbs.basic}
       />
       <LoginPrompt
         path="/login-prompt"
@@ -33,7 +34,13 @@ export default function DataAdvisory({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/data-advisory/review"
       />
       <Review
-        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} workType={WorkType.problem} />}
+        banner={
+          <FeaturedWorkTypeBanner
+            title="REVIEW & PAYMENT"
+            subTitle={title}
+            workType={WorkType.problem}
+          />
+        }
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}
@@ -49,6 +56,7 @@ export default function DataAdvisory({ isLoggedIn }) {
         icon={<DataAdvisoryIcon />}
         showIcon
         workItemConfig={dataAdvisory}
+        breadcrumb={dataAdvisory.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />
     </Router>

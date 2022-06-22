@@ -25,6 +25,7 @@ export default function WebsiteDesign({ isLoggedIn }) {
         path="/basic-info"
         isLoggedIn={isLoggedIn}
         workItemConfig={websiteDesign}
+        breadcrumb={websiteDesign.breadcrumbs.basic}
       />
       <LoginPrompt
         path="/login-prompt"
@@ -33,7 +34,13 @@ export default function WebsiteDesign({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/website-design-new/review"
       />
       <Review
-        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} workType={WorkType.design} />}
+        banner={
+          <FeaturedWorkTypeBanner
+            title="REVIEW & PAYMENT"
+            subTitle={title}
+            workType={WorkType.design}
+          />
+        }
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}
@@ -49,6 +56,7 @@ export default function WebsiteDesign({ isLoggedIn }) {
         icon={<DataExplorationIcon />}
         showIcon
         workItemConfig={websiteDesign}
+        breadcrumb={websiteDesign.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />
     </Router>

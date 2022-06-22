@@ -218,20 +218,26 @@ export function getDynamicPriceAndTimeline(pages, devices) {
     prizeSets: [
       {
         prizes: [
-          ..._.map(websiteDesignLegacyConfigs.PRIZES_PAYMENT_BREAKDOWN, (p) => ({
-            type: "USD",
-            value: _.round(p * total),
-          })),
+          ..._.map(
+            websiteDesignLegacyConfigs.PRIZES_PAYMENT_BREAKDOWN,
+            (p) => ({
+              type: "USD",
+              value: _.round(p * total),
+            })
+          ),
         ],
         description: "Challenge Prizes",
         type: "placement",
       },
       {
         prizes: [
-          ..._.map(websiteDesignLegacyConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
-            type: "USD",
-            value: _.round(p * total),
-          })),
+          ..._.map(
+            websiteDesignLegacyConfigs.REVIEWER_PAYMENT_BREAKDOWN,
+            (p) => ({
+              type: "USD",
+              value: _.round(p * total),
+            })
+          ),
         ],
         description: "Reviewer Payment",
         type: "reviewer",

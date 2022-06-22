@@ -25,6 +25,7 @@ export default function DataExploration({ isLoggedIn }) {
         path="/basic-info"
         isLoggedIn={isLoggedIn}
         workItemConfig={dataExploration}
+        breadcrumb={dataExploration.breadcrumbs.basic}
       />
       <LoginPrompt
         path="/login-prompt"
@@ -33,7 +34,13 @@ export default function DataExploration({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/data-exploration/review"
       />
       <Review
-        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} workType={WorkType.data} />}
+        banner={
+          <FeaturedWorkTypeBanner
+            title="REVIEW & PAYMENT"
+            subTitle={title}
+            workType={WorkType.data}
+          />
+        }
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}
@@ -49,6 +56,7 @@ export default function DataExploration({ isLoggedIn }) {
         icon={<DataExplorationIcon />}
         showIcon
         workItemConfig={dataExploration}
+        breadcrumb={dataExploration.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />
     </Router>

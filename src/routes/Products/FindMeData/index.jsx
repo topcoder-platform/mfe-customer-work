@@ -25,6 +25,7 @@ export default function FindMeData({ isLoggedIn }) {
         path="/basic-info"
         isLoggedIn={isLoggedIn}
         workItemConfig={findMeData}
+        breadcrumb={findMeData.breadcrumbs.basic}
       />
       <LoginPrompt
         path="/login-prompt"
@@ -33,7 +34,13 @@ export default function FindMeData({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/find-me-data/review"
       />
       <Review
-        banner={<FeaturedWorkTypeBanner title="REVIEW & PAYMENT" subTitle={title} workType={WorkType.findData} />}
+        banner={
+          <FeaturedWorkTypeBanner
+            title="REVIEW & PAYMENT"
+            subTitle={title}
+            workType={WorkType.findData}
+          />
+        }
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}
@@ -49,6 +56,7 @@ export default function FindMeData({ isLoggedIn }) {
         icon={<FindMeDataIcon />}
         showIcon
         workItemConfig={findMeData}
+        breadcrumb={findMeData.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />
     </Router>

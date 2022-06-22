@@ -36,6 +36,14 @@ export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
   HOME_PAGE: "/self-service",
   DASHBOARD_PAGE: "/work/dashboard",
+  WEBSITE_DESIGN: "/self-service/work/new/website-design/basic-info",
+  WEBSITE_DESIGN_REVIEW: "/self-service/work/new/website-design/review",
+  DATA_EXPLORATION: "/self-service/work/new/data-exploration/basic-info",
+  DATA_EXPLORATION_REVIEW: "/self-service/work/new/data-exploration/review",
+  PROBLEM_STATEMENT: "/self-service/work/new/data-advisory/basic-info",
+  PROBLEM_STATEMENT_REVIEW: "/self-service/work/new/data-advisory/review",
+  FIND_ME_DATA: "/self-service/work/new/find-me-data/basic-info",
+  FIND_ME_DATA_REVIEW: "/self-service/work/new/find-me-data/review",
 };
 
 /**
@@ -279,10 +287,10 @@ export const webWorkTypes = [
         <br />
         <div styleName="helpBanner">
           <PageP>
-            You will receive up to five unique visual designs for the main page of
-            your website, in an industry-standard format. Visual designs are the
-            first step in creating a functional website. Topcoder can help you
-            with launching your website once you have approved your design.
+            You will receive up to five unique visual designs for the main page
+            of your website, in an industry-standard format. Visual designs are
+            the first step in creating a functional website. Topcoder can help
+            you with launching your website once you have approved your design.
           </PageP>
           <div styleName="sampleImages">
             <a href={WebsiteDesignPdf1} target="_blank">
@@ -301,12 +309,26 @@ export const webWorkTypes = [
       <>
         <p>
           Topcoder design experts will take all of the information you provide
-          below, and create visual designs for your website that fit your industry
-          and match your desired look & feel. We've done this for hundreds of
-          customers and will work with you to create your ideal design.
+          below, and create visual designs for your website that fit your
+          industry and match your desired look & feel. We've done this for
+          hundreds of customers and will work with you to create your ideal
+          design.
         </p>
       </>
     ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Website Design" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: ROUTES.WEBSITE_DESIGN, name: "Website design" },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
   },
   {
     type: WorkType.data,
@@ -351,6 +373,19 @@ export const webWorkTypes = [
         easy-to-understand format.
       </p>
     ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Data exploration" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: ROUTES.DATA_EXPLORATION, name: "Data exploration" },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
   },
   {
     type: WorkType.problem,
@@ -393,11 +428,27 @@ export const webWorkTypes = [
     aboutBannerTitle: "ABOUT PROBLEM STATEMENT & DATA ADVISORY",
     aboutBannerContent: (
       <p>
-        Problem Statement &amp; Data Advisory is for those asking themselves: How
-        can I apply data science to this idea or goal? How will I interpret
+        Problem Statement &amp; Data Advisory is for those asking themselves:
+        How can I apply data science to this idea or goal? How will I interpret
         solutions, and how will that help me take action? What data do I need?
       </p>
     ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Problem statement & data advisory" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        {
+          url: ROUTES.PROBLEM_STATEMENT,
+          name: "Problem statement & data advisory",
+        },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
   },
   {
     type: WorkType.findData,
@@ -457,6 +508,19 @@ export const webWorkTypes = [
         </PageUl>
       </>
     ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Find me data" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: ROUTES.FIND_ME_DATA, name: "Find me data" },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
   },
 ];
 

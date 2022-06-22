@@ -35,6 +35,7 @@ export async function getIntakeFormChallenges(userHandle, challengeId) {
  * Post a New Challenge
  */
 export async function createChallenge(workType) {
+
   const body = workType === WorkType.designLegacy
     ? websiteDesignUtilsLegacy.formatChallengeCreationBody()
     : formatChallengeCreationBody(workType);

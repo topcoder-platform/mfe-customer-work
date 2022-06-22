@@ -78,7 +78,7 @@ const ReviewLegacy = ({
   const fullState = useSelector((state) => state);
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
-  const estimate = getDynamicPriceAndTimelineEstimate(fullState)
+  const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const [firstMounted, setFirstMounted] = useState(true);
 
@@ -213,7 +213,10 @@ const ReviewLegacy = ({
           <PageDivider />
           <div styleName="splitView">
             <div styleName="reviewContainer">
-              <ReviewTableLegacy formData={intakeFormData} enableEdit={enableEdit} />
+              <ReviewTableLegacy
+                formData={intakeFormData}
+                enableEdit={enableEdit}
+              />
               <div styleName="hideMobile">
                 <AboutYourProject />
               </div>

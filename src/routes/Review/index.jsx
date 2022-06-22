@@ -38,7 +38,7 @@ import {
   setCookie,
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
-import { OrderContractModal, WorkType } from "../../../src-ts";
+import { Breadcrumb, OrderContractModal, WorkType } from "../../../src-ts";
 import AboutYourProject from "./components/AboutYourProject";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
@@ -57,7 +57,8 @@ const Review = ({
   icon,
   showIcon,
   secondaryBanner,
-  workItemConfig
+  workItemConfig,
+  breadcrumb,
 }) => {
   const dispatch = useDispatch();
   const [paymentFailed, setPaymentFailed] = useState(false);
@@ -83,16 +84,16 @@ const Review = ({
 
   let estimate;
   switch (workType?.selectedWorkType) {
-    case (WorkType.design):
+    case WorkType.design:
       estimate = getWebsiteDesignPriceAndTimelineEstimate();
       break;
-    case (WorkType.data):
+    case WorkType.data:
       estimate = getDataExplorationPriceAndTimelineEstimate();
       break;
-    case (WorkType.problem):
+    case WorkType.problem:
       estimate = getDataAdvisoryPriceAndTimelineEstimate();
       break;
-    case (WorkType.findData):
+    case WorkType.findData:
       estimate = getFindMeDataPriceAndTimelineEstimate();
       break;
     default:
@@ -162,10 +163,7 @@ const Review = ({
       fullState,
       "form.basicInfo.projectTitle.value",
       ""
-    ).slice(0, 355)}\n${_.get(
-      fullState,
-      "form.workType.selectedWorkType"
-    )}`;
+    ).slice(0, 355)}\n${_.get(fullState, "form.workType.selectedWorkType")}`;
 
     services
       .processPayment(
@@ -213,6 +211,7 @@ const Review = ({
       />
       <LoadingSpinner show={isLoading} />
       <Page>
+        <Breadcrumb items={breadcrumb} />
         {banner}
         <PageContent styleName="container">
           <ServicePrice
@@ -230,7 +229,10 @@ const Review = ({
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
             <div styleName="reviewContainer">
-              <ReviewTable workItemConfig={workItemConfig} formData={intakeFormData} />
+              <ReviewTable
+                workItemConfig={workItemConfig}
+                formData={intakeFormData}
+              />
               <div styleName="hideMobile">
                 <AboutYourProject />
               </div>
