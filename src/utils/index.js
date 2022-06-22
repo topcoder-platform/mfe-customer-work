@@ -1,14 +1,8 @@
-import {
-  BASE_PRODUCT_PRICE,
-  PER_PAGE_COST,
-  PRIZES_PAYMENT_BREAKDOWN,
-  REVIEWER_PAYMENT_BREAKDOWN,
-  DURATION_MAPPING,
-} from "constants/";
-import * as dataExplorationConfigs from "constants/products/DataExploration";
-import * as findMeDataConfigs from "constants/products/FindMeData";
-import * as websiteDesignConfigs from "constants/products/WebsiteDesign";
-import * as dataAdvisoryConfigs from "constants/products/DataAdvisory";
+import * as dataExplorationConfigs from "../constants/products/DataExploration";
+import * as findMeDataConfigs from "../constants/products/FindMeData";
+import * as websiteDesignConfigs from "../constants/products/WebsiteDesign";
+import * as dataAdvisoryConfigs from "../constants/products/DataAdvisory";
+import * as websiteDesignLegacyConfigs from "../constants/products/WebsiteDesignLegacy";
 import _ from "lodash";
 
 /**
@@ -213,31 +207,37 @@ export function getDynamicPriceAndTimelineEstimate(formData) {
  */
 export function getDynamicPriceAndTimeline(pages, devices) {
   const total =
-    BASE_PRODUCT_PRICE +
-    pages * PER_PAGE_COST +
-    pages * (devices - 1) * PER_PAGE_COST;
+    websiteDesignLegacyConfigs.BASE_PRODUCT_PRICE +
+    pages * websiteDesignLegacyConfigs.PER_PAGE_COST +
+    pages * (devices - 1) * websiteDesignLegacyConfigs.PER_PAGE_COST;
   const pricing = {
     total,
     stickerPrice: total * 2,
-    ...DURATION_MAPPING[pages - 1][devices - 1],
-    costPerAdditionalPage: devices * PER_PAGE_COST,
+    ...websiteDesignLegacyConfigs.DURATION_MAPPING[pages - 1][devices - 1],
+    costPerAdditionalPage: devices * websiteDesignLegacyConfigs.PER_PAGE_COST,
     prizeSets: [
       {
         prizes: [
-          ..._.map(PRIZES_PAYMENT_BREAKDOWN, (p) => ({
-            type: "USD",
-            value: _.round(p * total),
-          })),
+          ..._.map(
+            websiteDesignLegacyConfigs.PRIZES_PAYMENT_BREAKDOWN,
+            (p) => ({
+              type: "USD",
+              value: _.round(p * total),
+            })
+          ),
         ],
         description: "Challenge Prizes",
         type: "placement",
       },
       {
         prizes: [
-          ..._.map(REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
-            type: "USD",
-            value: _.round(p * total),
-          })),
+          ..._.map(
+            websiteDesignLegacyConfigs.REVIEWER_PAYMENT_BREAKDOWN,
+            (p) => ({
+              type: "USD",
+              value: _.round(p * total),
+            })
+          ),
         ],
         description: "Reviewer Payment",
         type: "reviewer",

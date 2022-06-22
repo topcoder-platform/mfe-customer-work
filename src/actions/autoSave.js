@@ -13,7 +13,7 @@ export const triggerAutoSave = (isTriggered, isForced) => ({
   payload: {
     isTriggered,
     isForced,
-  }
+  },
 });
 
 export const triggerCookieClear = () => ({

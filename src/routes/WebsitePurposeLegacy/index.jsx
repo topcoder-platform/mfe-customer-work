@@ -16,12 +16,13 @@ import { saveWebsitePurpose } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import WebsitePurposeForm from "./components/WebsitePurposeForm";
+import { WebsiteDesignBannerLegacy } from "../../components/Banners/WebsiteDesignBannerLegacy";
 import "./styles.module.scss";
 
 /**
  * Website Purpose Page
  */
-const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
+const WebsitePurposeLegacy = ({ saveWebsitePurpose, setProgressItem }) => {
   const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     industry: { title: "Your Industry", option: "", value: null },
@@ -46,12 +47,12 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
     formData?.userStory?.value.length;
 
   const onBack = () => {
-    navigate("/self-service/basic-info");
+    navigate("/self-service/work/new/website-design/basic-info");
   };
 
   const onNext = () => {
     saveWebsitePurpose(formData);
-    navigate("/self-service/page-details");
+    navigate("/self-service/work/new/website-design/page-details");
     setProgressItem(4);
   };
 
@@ -82,6 +83,7 @@ const WebsitePurpose = ({ saveWebsitePurpose, setProgressItem }) => {
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
+        <WebsiteDesignBannerLegacy />
         <PageContent>
           <PageH2>WEBSITE PURPOSE</PageH2>
           <PageDivider />
@@ -134,4 +136,7 @@ const mapDispatchToProps = {
   setProgressItem,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WebsitePurpose);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WebsitePurposeLegacy);

@@ -33,7 +33,7 @@ export const FeaturedWorkTypeBanner = ({ title, subTitle, workType }) => {
 FeaturedWorkTypeBanner.propTypes = {
   title: PT.string,
   subTitle: PT.string,
-  workType: PT.string
+  workType: PT.string,
 };
 
 export default FeaturedWorkTypeBanner;

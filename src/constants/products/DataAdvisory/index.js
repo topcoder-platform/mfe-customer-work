@@ -1,5 +1,5 @@
 export const CHALLENGE_FIELD_VALUES = {
-  trackId: "9b6fc876-f4d9-4ccb-9dfd-419247628825",
+  trackId: "c0f5d461-8219-4c14-878a-c3a3f356466d",
   typeId: "927abff4-7af9-4145-8ba1-577c16e64e2e",
   timelineTemplateId: "7ebf1c69-f62f-4d3a-bdfb-fe9ddb56861c",
 };
@@ -47,4 +47,4 @@ export const BASE_PRODUCT_PRICE = 999;
 export const PROMOTIONAL_PRODUCT_PRICE = 799;
 export const PRIZES_PAYMENT_BREAKDOWN = [0.375, 0.3125, 0.125];
 export const REVIEWER_PAYMENT_BREAKDOWN = [0.0625, 0.0625];
-export const DEFAULT_DURATION = 5;
+export const DEFAULT_DURATION = 8;

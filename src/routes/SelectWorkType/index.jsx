@@ -13,7 +13,7 @@ import PageContent from "../../components/PageContent";
 import PageDivider from "../../components/PageDivider";
 import PageH2 from "../../components/PageElements/PageH2";
 import Slider from "../../components/Slider";
-import { Breadcrumb } from "../../../src-ts/lib";
+import { Breadcrumb, ContactSupportModal } from "../../../src-ts";
 import {
   BUTTON_SIZE,
   projectAndProfessionalWork,
@@ -32,12 +32,12 @@ const WorkTypeCard = ({
   bgImage,
   ctaButtonOnClick,
   content,
-  contentMobile,
 }) => {
   return (
     <div
-      className={`${styles.workTypeCard} ${styles.workTypeCardSmall}${className ? ` ${className}` : ""
-        }`}
+      className={`${styles.workTypeCard} ${styles.workTypeCardSmall}${
+        className ? ` ${className}` : ""
+      }`}
       style={{ backgroundImage: `url(${bgImage})` }}
       onClick={ctaButtonOnClick}
     >
@@ -59,7 +59,7 @@ const WorkTypeCard = ({
           {content}
         </p>
         <p className={`${styles.workTypeCardContent} ${styles.hideOnDesktop}`}>
-          {contentMobile || content}
+          {content}
         </p>
       </div>
 
@@ -88,8 +88,9 @@ const WorkTypeCardWide = ({
 }) => {
   return (
     <div
-      className={`${styles.workTypeCard} ${styles.workTypeCardWide}${className ? ` ${className}` : ""
-        }`}
+      className={`${styles.workTypeCard} ${styles.workTypeCardWide}${
+        className ? ` ${className}` : ""
+      }`}
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {!!SvgIcon ? <SvgIcon /> : !!icon && <img src={icon} alt="" />}
@@ -111,8 +112,6 @@ const WorkTypeCardWide = ({
     </div>
   );
 };
-
-import { ContactSupportModal } from "../../../src-ts";
 
 /**
  * Select Work Type Page
@@ -139,7 +138,7 @@ const SelectWorkType = ({
 
   const handleClick = (selectedItem = webWorkTypes[0]) => {
     saveWorkType({
-      selectedWorkType: selectedItem.title,
+      selectedWorkType: selectedItem.type || selectedItem.title,
       selectedWorkTypeDetail: selectedItem.title,
     });
     setProgressItem(2);
@@ -189,12 +188,12 @@ const SelectWorkType = ({
                 title={featuredWorkType.title}
                 subHeading={featuredWorkType.shortDescription}
                 subHeadingMobile={featuredWorkType.shortDescriptionMobile}
-                className={`${styles.heroBackgroundContainer} ${styles[workTypeClassName(featuredWorkType.title)]
-                  }`}
+                className={`${styles.heroBackgroundContainer} ${
+                  styles[workTypeClassName(featuredWorkType.title)]
+                }`}
                 bgImage={featuredWorkType.bgImage}
                 ctaButtonOnClick={() => handleClick(featuredWorkType)}
                 content={featuredWorkType.description}
-                contentMobile={featuredWorkType.descriptionMobile}
               />
             ))}
           </Slider>

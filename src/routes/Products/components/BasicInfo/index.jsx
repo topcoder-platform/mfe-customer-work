@@ -38,7 +38,11 @@ import {
 } from "utils/";
 import FeaturedWorkTypeBanner from "../../../../components/Banners/FeaturedWorkTypeBanner";
 
-import { ContactSupportModal, WorkType } from "../../../../../src-ts";
+import {
+  Breadcrumb,
+  ContactSupportModal,
+  WorkType,
+} from "../../../../../src-ts";
 
 /**
  * Basic Info Page
@@ -48,9 +52,10 @@ const BasicInfo = ({
   saveWorkType,
   setProgressItem,
   toggleSupportModal,
-  bannerData,
+  workItemConfig,
   isLoggedIn,
   triggerCookieClear,
+  breadcrumb = [],
 }) => {
   const defaultFormData = {
     projectTitle: { title: "Project Title", option: "", value: "" },
@@ -85,12 +90,11 @@ const BasicInfo = ({
   };
 
   const [formData, setFormData] = useState(defaultFormData);
-  const isFindMeData = bannerData.title === WorkType.findData;
-  const isWebsiteDesign = bannerData.title === WorkType.design;
+  const isFindMeData = workItemConfig.type === WorkType.findData;
+  const isWebsiteDesign = workItemConfig.type === WorkType.design;
   const isWebsiteDesignFormValid = formData?.projectTitle?.value?.trim().length;
-  const isDataExploration = bannerData.title === WorkType.data;
-  const isDataAdvisory =
-    bannerData.title === WorkType.problem;
+  const isDataExploration = workItemConfig.type === WorkType.data;
+  const isDataAdvisory = workItemConfig.type === WorkType.problem;
   const isDataExplorationFormValid =
     formData?.projectTitle?.value?.trim().length &&
     formData?.goals?.value?.trim().length;
@@ -130,10 +134,10 @@ const BasicInfo = ({
     workType?.selectedWorkType === WorkType.design
       ? getWebsiteDesignPriceAndTimelineEstimate()
       : isDataExploration
-        ? getDataExplorationPriceAndTimelineEstimate()
-        : isDataAdvisory
-          ? getDataAdvisoryPriceAndTimelineEstimate()
-          : getFindMeDataPriceAndTimelineEstimate();
+      ? getDataExplorationPriceAndTimelineEstimate()
+      : isDataAdvisory
+      ? getDataAdvisoryPriceAndTimelineEstimate()
+      : getFindMeDataPriceAndTimelineEstimate();
 
   const onBack = () => {
     dispatch(triggerCookieClear());
@@ -141,18 +145,7 @@ const BasicInfo = ({
     navigate("/self-service/wizard");
   };
 
-  let basePath;
-  if (isDataExploration) {
-    basePath = "data-exploration";
-  } else if (isFindMeData) {
-    basePath = "find-me-data";
-  } else if (isWebsiteDesign) {
-    basePath = "website-design";
-  } else if (isDataAdvisory) {
-    basePath = "data-advisory";
-  }
-
-  const baseUrl = `/self-service/work/new/${basePath}`;
+  const baseUrl = `/self-service/work/new/${workItemConfig.basePath}`;
 
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
@@ -172,8 +165,8 @@ const BasicInfo = ({
 
     if (currentStep === 0) {
       saveWorkType({
-        selectedWorkType: bannerData.title,
-        selectedWorkTypeDetail: bannerData.title,
+        selectedWorkType: workItemConfig.type,
+        selectedWorkTypeDetail: workItemConfig.title,
       });
       dispatch(triggerAutoSave(true));
     }
@@ -236,10 +229,11 @@ const BasicInfo = ({
         onClose={onHideSupportModal}
       />
       <Page>
+        <Breadcrumb items={breadcrumb} />
         <FeaturedWorkTypeBanner
-          title={bannerData.title}
-          subTitle={bannerData.subTitle}
-          workType={bannerData.title}
+          title={workItemConfig.title}
+          subTitle={workItemConfig.subTitle}
+          workType={workItemConfig.type}
         />
         <PageContent styleName="container">
           <BasicInfoForm
@@ -259,7 +253,7 @@ const BasicInfo = ({
             onFormUpdate={setFormData}
             numOfPages={pageDetails?.pages?.length || 0}
             onShowSupportModal={onShowSupportModal}
-            bannerData={bannerData}
+            bannerData={workItemConfig}
             saveForm={saveForm}
           />
 
@@ -299,12 +293,12 @@ const BasicInfo = ({
                   <span>
                     <span styleName="desktop">REVIEW &amp;</span> SUBMIT
                   </span>
-                </Button >
-              </div >
-            </div >
-          </PageFoot >
-        </PageContent >
-      </Page >
+                </Button>
+              </div>
+            </div>
+          </PageFoot>
+        </PageContent>
+      </Page>
     </>
   );
 };
