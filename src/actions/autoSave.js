@@ -8,9 +8,12 @@ export const autoSaveInitErrored = (error) => ({
   payload: error,
 });
 
-export const triggerAutoSave = (isTriggered) => ({
+export const triggerAutoSave = (isTriggered, isForced) => ({
   type: ACTIONS.AUTO_SAVE.TRIGGER_AUTO_SAVE,
-  payload: isTriggered
+  payload: {
+    isTriggered,
+    isForced,
+  }
 });
 
 export const triggerCookieClear = () => ({

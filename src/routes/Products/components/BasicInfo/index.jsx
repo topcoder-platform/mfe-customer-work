@@ -50,6 +50,7 @@ const BasicInfo = ({
   toggleSupportModal,
   bannerData,
   isLoggedIn,
+  triggerCookieClear,
 }) => {
   const defaultFormData = {
     projectTitle: { title: "Project Title", option: "", value: "" },
@@ -156,7 +157,7 @@ const BasicInfo = ({
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
     saveBasicInfo(formData);
-    dispatch(triggerAutoSave(true));
+    dispatch(triggerAutoSave(true, true));
     navigate(isLoggedIn ? `${baseUrl}/review` : `${baseUrl}/login-prompt`);
   };
 
@@ -184,7 +185,7 @@ const BasicInfo = ({
     setFirstMounted(false);
 
     return () => {
-      // dispatch(triggerAutoSave(true));
+      dispatch(triggerAutoSave(true, false));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [basicInfo, currentStep, dispatch, setProgressItem, firstMounted]);
@@ -222,7 +223,7 @@ const BasicInfo = ({
 
   const saveForm = (autoSave) => {
     saveBasicInfo(formData);
-    dispatch(triggerAutoSave(autoSave));
+    dispatch(triggerAutoSave(autoSave, true));
     if (autoSave) navigate("/self-service");
   };
 
@@ -316,6 +317,7 @@ const mapDispatchToProps = {
   savePageDetails,
   toggleSupportModal,
   saveWorkType,
+  triggerCookieClear,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);

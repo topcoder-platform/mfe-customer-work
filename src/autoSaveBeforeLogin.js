@@ -22,7 +22,7 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
     let challengeId = loadChallengeId() || challenge?.id;
     const dataToSave = { progress, form };
     const currentStep = _.get(dataToSave, "progress.currentStep", 1);
-    if (authUser?.isLoggedIn && currentStep >= 2) {
+    if (authUser?.isLoggedIn && (autoSave.forced || currentStep >= 3)) {
       const triggerSave = () => {
         challengeId = loadChallengeId() || challenge?.id;
         if (!challengeId) {
@@ -72,12 +72,11 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
 
   return (next) => (action) => {
     const result = next(action);
-    if ([ACTIONS.AUTO_SAVE.TRIGGER_AUTO_SAVE].includes(result.type)) {
-      handleAutoSave();
-    }
 
     if ([ACTIONS.AUTO_SAVE.TRIGGER_COOKIE_CLEARED].includes(result.type)) {
       clearCache();
+    } else if ([ACTIONS.AUTO_SAVE.TRIGGER_AUTO_SAVE].includes(result.type)) {
+      handleAutoSave();
     }
     return result;
   };
