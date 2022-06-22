@@ -20,7 +20,7 @@ const CurriculumSummary: FC<CurriculumSummaryProps> = (props: CurriculumSummaryP
 
     return (
         <div className={styles['wrap']}>
-            {inProgress && (
+            {(inProgress || completed) && (
                 <>
                     <div className={styles['title']}>
                         {completed ? (
