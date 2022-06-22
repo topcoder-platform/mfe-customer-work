@@ -30,6 +30,8 @@ interface CollapsibleItemProps {
 const CollapsibleItem: FC<CollapsibleItemProps> = (props: CollapsibleItemProps) => {
     const [isOpen, setIsOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
+    const isAssessment = props.lessonsCount === 1;
+    
     const toggle: () => void = useCallback(() => {
         setIsOpen(open => !open)
     }, [])
@@ -52,7 +54,7 @@ const CollapsibleItem: FC<CollapsibleItemProps> = (props: CollapsibleItemProps) 
 
     const listItem: (item: any, isActive?: boolean) => ReactNode = (item: any, isActive?: boolean) => (
         <StepIcon
-            index={item.dashedName.split('-').pop()}
+            index={`${parseInt(item.dashedName.split('-').pop()) || 1}`}
             completed={isItemCompleted(item.dashedName)}
             active={isActive}
         />
@@ -62,6 +64,11 @@ const CollapsibleItem: FC<CollapsibleItemProps> = (props: CollapsibleItemProps) 
         <div className={classNames(styles['wrap'], isOpen ? 'is-open' : 'collapsed')}>
             <div className={styles['title-row']} onClick={toggle}>
                 <StatusIcon completed={isCompleted} partial={isPartial} />
+                {isAssessment && (
+                    <div className={classNames(styles['title-tag'], 'label')}>
+                        assessment
+                    </div>
+                )}
                 <span className={styles['title']}>
                     {props.title}
                 </span>
