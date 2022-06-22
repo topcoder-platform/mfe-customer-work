@@ -4,7 +4,39 @@ This is a [single-spa](https://single-spa.js.org/) React microapp that runs with
 
 > **NOTE:** This application has been configured to be run as child app of a single-spa application. So while this app can be deployed and run independently, we would need some frame [single-spa](https://single-spa.js.org/) which would load it. While technically we can achieve running this app as standalone app it's strongly not recommended by the author of the `single-spa` approch, see this [GitHub Issue](https://github.com/single-spa/single-spa/issues/640) for details.
 
->**NOTE:** To successfully run this application, you must also run the two following apps: `mfe-core` & `mfe-header`. Please see their corresponding README's for instructions on running each app. 
+>**NOTE:** To successfully run this application, you must also run the two following apps: `mfe-core` & `mfe-header`. Please see their corresponding README's for instructions on running each app.
+
+## Content
+
+Following are the list of sections in this document,
+
+- [Local environment setup](#local-environment-setup)
+  - [IDE](#ide)
+  - [Nvm](#nvm)
+  - [Hosting](#hosting)
+  - [Set up mfe-core](#set-up-mfe-core)
+    - [macOS](#macos)
+    - [windows](#windows)
+  - [Set up mfe-header](#set-up-mfe-header)
+    - [macOS](#macos)
+    - [windows](#windows)
+  - [Terminal configuration](#hosting)
+- [Git process](#git)
+  - [Branching](#branching)
+  - [Commits](#commits)
+- [List of npm commands supported](#npm-commands)
+- [Deployment to production](#deployment-to-production)
+- [Linting](#linting)
+  - [Rules](#rules)
+  - [Command line](#command-line)
+    - [View all lint errors](#view-all-lint-errors)
+  - [VS code](#vs-code)
+    - [Format on save](#format-on-save)
+    - [TSLint Plugin](#tslint-plugin)
+- [Styling](#styling)
+- [How to use icons](#icons)
+  - [Heroicons](#heroicons)
+  - [Custom SVGs](#custom-svgs)
 
 ## Local Environment Setup
 
@@ -20,10 +52,10 @@ Once nvm is installed, run:
 $ nvm install <insert node version>
 ```
 
->**NOTE:** the node version required at the time of this writing is `10.22.1`
-
 At the root of the project directory you'll notice a file called `.nvmrc` which specifies the node version used by the project. The command `nvm use` will use the version specified in the file if no version is supplied on the command line. 
 See [the nvm Github README](https://github.com/nvm-sh/nvm/blob/master/README.md#nvmrc) for more information on setting this up.
+
+>**NOTE:** The minimum node version required is `10.22.1` and the current node version mentioned in the `.nvmrc` is `16.15.0`
 
 You can verify the versions of `nvm`, `node`, and `npm` using the commands below.
 | Command           | Supported Version  |
@@ -44,6 +76,86 @@ The MFE can run in a non-ssl environment, but auth0 will complain and throw erro
 ```
 $ npm i -g local-ssl-proxy
 ```
+### Set up mfe-core
+
+You can find the mfe-core github repository [here](https://github.com/topcoder-platform/mfe-core). The MFE Core renders the landing page and the top navigation. Each app then runs within that core frame.
+
+The Frame project consists of an API that manages environment configuration and a client that renders the index.html page. Both are required.
+
+#### macOS
+
+1. Run the Frame API
+
+`npm run start-server`
+
+2. Run the Frame Client
+
+`npm run start-client`
+
+#### Windows
+
+1. Run the Frame API
+
+```bashscript
+  export APPMODE="development"
+  export APPENV="local-multi"
+  nvm use
+  npm i
+  npm run local-server
+```
+
+2. Run the Frame Client
+
+```bashscript
+  export APPMODE="development"
+  export APPENV="local-multi"
+  nvm use
+  npm run local-client
+```
+
+### Set up mfe-header
+
+You can find the mfe-header github repository [here](https://github.com/topcoder-platform/mfe-header).
+
+#### macOS
+
+1. Run the Navbar app
+
+`npm run start-local`
+
+The site should now be available at [http://local.topcoder-dev.com:8080/](http://local.topcoder-dev.com:8080/)
+
+2. Run the SSL Proxy to port 8080
+
+`npm run start-local-proxy`
+
+The site should now be available at [https://local.topcoder-dev.com/](https://local.topcoder-dev.com/)
+
+#### Windows
+
+1. Render the Navbar app
+
+```bashscript
+  export APPMODE="development"
+  export APPENV="local"
+  nvm use
+  npm i
+  npm run dev
+```
+
+The site should now be available at [http://local.topcoder-dev.com:8080](http://local.topcoder-dev.com:8080).
+
+2. Set up the SSL Proxy to port 8080
+
+```bashscript
+  nvm use
+  local-ssl-proxy -n local.topcoder-dev.com -s 443 -t 8080
+```
+
+ The site should now be available at [https://local.topcoder-dev.com](https://local.topcoder-dev.com).
+
+ ***NOTE:*** you may have to run the local-ssl-proxy line w/elevated permissions (i.e. sudo) in order to listen to the SSL port (i.e. 443)
+
 
 ### Terminal Configuration
 
@@ -57,9 +169,10 @@ When developing one of the micro front-end applications you will therefore have 
 - `local-ssl-proxy` server
 - the MFE app you're developing 
 
-Given this complexity, it is recommended that you use a tool like [iTerm2](https://iterm2.com) (on Mac) or an equivalent terminal shell on Windows to make terminal management simpler. iTerm2 allows you to setup a pre-defined window layout of terminal sessions, including the directory in which the session starts. This setup, along with simple shell scripts in each project that configure and start the environment, will allow you to get your development environment up and running quickly and easily.
+Given this complexity, it is recommended that you use a tool like [iTerm2](https://iterm2.com) (on Mac) or an equivalent terminal shell on Windows to make terminal management simpler. iTerm2 allows you to set up a pre-defined window layout of terminal sessions, including the directory in which the session starts. This setup, along with simple shell scripts in each project that configure and start the environment, will allow you to get your development environment up and running quickly and easily.
 
 ## Git
+
 ### Branching
 When working on Jira tickets, we link associated Git PRs and branches to the tickets. Use the following naming convention for branches:
 
@@ -67,30 +180,15 @@ When working on Jira tickets, we link associated Git PRs and branches to the tic
 
 e.g.: `PROD-1516_work-issue`
 
+#### Branching strategy
+TBD
+
 ### Commits
 We use [Smart Commits](https://bigbrassband.com/git-integration-for-jira/documentation/smart-commits.html#bbb-nav-basic-examples) to link comments and time tracking to tickets. You would enter the following as your commit message:
 
 `[TICKET #] #comment <commit message> #time <jira-formatted time>`
 
 e.g.: `PLAT-001 #comment adding readme notes #time 45m`
-
-## NPM Commands
-
-| Command               | Description                                                                                                  |
-| --------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `npm start`           | Run server which serves production ready build from `dist` folder                                            |
-| `npm start-local`     | Run app locally in the `development` mode and `dev` config (calls on `npm run dev`)                                           |
-| `npm run dev`         | Run app in the `development` mode and `dev` config                                                           |
-| `npm run dev-https`   | Run app in the `development` mode and `dev` config using HTTPS protocol                |
-| `npm run prod`        | Run app in the `development` mode and `prod` config                                                          |
-| `npm run build`       | Build app for production and puts files to the `dist` folder, default to `development` mode and `dev` config |
-| `npm run analyze`     | Analyze dependencies sizes and opens report in the browser                                                   |
-| `npm run lint`        | Check code for lint errors                                                                                   |
-| `npm run format`      | Format code using prettier                                                                                   |
-| `npm run test`        | Run unit tests                                                                                               |
-| `npm run watch-tests` | Watch for file changes and run unit tests on changes                                                         |
-| `npm run coverage`    | Generate test code coverage report                                                                           |
-| `npm run mock-api`    | Start the mock api which mocks Recruit api                                                                   |
 
 ## Local Deployment
 
@@ -116,41 +214,23 @@ The Self-Service app should now be available at https://local.topcoder-dev.com/s
 - `npm build` - build code to `dist/` folder
 - Now you can host `dist/` folder using any static server. For example, you may run a simple `Express` server by running `npm start`.
 
-### Deploying to Heroku
+## NPM Commands
 
-Make sure you have [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed and you have a Heroku account. And then inside the project folder run the next commands:
-
-- If there is not Git repository inited yet, create a repo and commit all the files:
-
-  - `git init`
-  - `git add .`
-  - `git commit -m'inital commit'`
-
-- `heroku apps:create` - create Heroku app
-
-- `git push heroku master` - push changes to Heroku and trigger deploying
-
-- Now you have to configure frame app to use the URL provided by Heroku like `https://<APP-NAME>.herokuapp.com/gigs-app/topcoder-mfe-customer-work.js` to load this microapp.
-
-### Aggregator API
-
-Please refer to [Swagger Doc](./src/api/docs/swagger.yaml) for Aggregator API endpoints
-
-#### Aggregator API Configuration
-
-In the `mfe-customer-work` root directory create `.env` file with the next environment variables.
-
-```bash
-# Auth0 config
-AUTH_SECRET=
-AUTH0_URL=
-AUTH0_AUDIENCE=
-AUTH0_CLIENT_ID=
-AUTH0_CLIENT_SECRET=
-VALID_ISSUERS=
-```
-
-Once the self service app is started, the aggregator api will work as well
+| Command               | Description                                                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `npm start`           | Run server which serves production ready build from `dist` folder                                            |
+| `npm start-local`     | Run app locally in the `development` mode and `dev` config (calls on `npm run dev`)                                           |
+| `npm run dev`         | Run app in the `development` mode and `dev` config                                                           |
+| `npm run dev-https`   | Run app in the `development` mode and `dev` config using HTTPS protocol                |
+| `npm run prod`        | Run app in the `development` mode and `prod` config                                                          |
+| `npm run build`       | Build app for production and puts files to the `dist` folder, default to `development` mode and `dev` config |
+| `npm run analyze`     | Analyze dependencies sizes and opens report in the browser                                                   |
+| `npm run lint`        | Check code for lint errors                                                                                   |
+| `npm run format`      | Format code using prettier                                                                                   |
+| `npm run test`        | Run unit tests                                                                                               |
+| `npm run watch-tests` | Watch for file changes and run unit tests on changes                                                         |
+| `npm run coverage`    | Generate test code coverage report                                                                           |
+| `npm run mock-api`    | Start the mock api which mocks Recruit api                                                                   |
 
 ## Linting
 
@@ -211,6 +291,10 @@ The most useful feature is to automatically apply all lint rules any time you sa
 Created by Microsoft, this plugin will allow you to see lint errors in the Problems panel.
 
 **WARNING:** Other lint plugins can interfere with TSLint, so it is recommended that you uninstall/disable all other lint plugins (e.g. ESLint, Prettier, etc).
+
+## Migration
+
+The self service project is currently migrated from javascript to typescript. That's why in the root of the repository there are two source folders(`src` and `src-ts`). During the build process all the typescript is transpiled to javascript and entire apps is converted to single javascript file by `single-spa`.
 
 ## Styling
 
