@@ -67,7 +67,7 @@ export const changePasswordFormDef: FormDefinition = {
         },
         {
             autocomplete: FormInputAutocompleteOption.off,
-            dependentFields:[
+            dependentFields: [
                  ChangePasswordFieldName.newPassword,
             ],
             label: 'Confirm Password',

@@ -1,4 +1,4 @@
-import { FC, memo, MutableRefObject, useEffect, useMemo, useRef, useState } from 'react'
+import { FC, memo, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { NavigateFunction, useNavigate, useSearchParams } from 'react-router-dom'
 
 import { EnvironmentConfig } from '../../../config'
@@ -8,15 +8,20 @@ import {
     LoadingSpinner,
     Portal,
 } from '../../../lib'
-import { CollapsiblePane, CourseOutline } from '../components'
 import {
+    CourseOutline,
     CoursesProviderData,
+    LearnLesson,
+    LearnModule,
     LessonProviderData,
     useCoursesProvider,
     useLessonProvider,
-} from '../services'
+} from '../learn-lib'
+import { getFccLessonPath } from '../learn.routes'
 
+import { CollapsiblePane } from './collapsible-pane'
 import styles from './FreeCodeCamp.module.scss'
+import { TitleNav } from './title-nav'
 
 const FreecodecampIfr: FC<any> = memo((params: any) => (
     <iframe
@@ -26,9 +31,9 @@ const FreecodecampIfr: FC<any> = memo((params: any) => (
 ))
 
 const FreeCodeCamp: FC<{}> = () => {
+    const navigate: NavigateFunction = useNavigate()
     const [searchParams]: any = useSearchParams()
     // const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
-    
 
     const frameRef: MutableRefObject<HTMLElement|any> = useRef()
     const r = useRef<any>(false);
@@ -52,6 +57,34 @@ const FreeCodeCamp: FC<{}> = () => {
         { url: `/learn/${lesson?.course.certification}`, name: lesson?.course.title ?? '' },
         { url: '/learn/fcc', name: lesson?.module.title ?? '' },
     ], [lesson])
+
+    const currentModuleData: LearnModule|undefined = useMemo(() => {
+        return courseData?.modules.find(d => d.key === moduleParam)
+    }, [courseData, moduleParam])
+
+    const currentStepIndex: number = useMemo(() => {
+      if (!currentModuleData) {
+          return 0
+      }
+
+      const lessonIndex: number = currentModuleData.lessons.findIndex(l => l.dashedName === lessonParam)
+      return lessonIndex + 1
+    }, [currentModuleData, lessonParam])
+
+    const handleNavigate: (direction: number) => void = useCallback((direction = 1) => {
+
+        const nextStep: LearnLesson|undefined = currentModuleData?.lessons[(currentStepIndex - 1) + direction]
+        if (!nextStep) {
+            return
+        }
+
+        const lessonPath: string = getFccLessonPath({
+            course: courseParam,
+            lesson: nextStep.dashedName,
+            module: moduleParam,
+        })
+        navigate(lessonPath)
+    }, [currentStepIndex, currentModuleData, courseParam, moduleParam])
 
     useEffect(() => {
         if (!frameRef.current || !lesson) {
@@ -97,15 +130,32 @@ const FreeCodeCamp: FC<{}> = () => {
 
             {lesson && (
                 <Portal portalId='page-subheader-portal-el'>
-                    <div className={styles['iframe-wrap']}>
-                        <CollapsiblePane title='Course Outline'>
-                            <CourseOutline
-                                course={courseData}
-                                ready={courseDataReady}
-                                currentStep={`${moduleParam}/${lessonParam}`}
+                    <div className={styles['main-wrap']}>
+                        <div className={styles['course-outline-pane']}>
+                            <CollapsiblePane title='Course Outline'>
+                                <div className={styles['course-outline-wrap']}>
+                                    <div className={styles['course-outline-title']}>
+                                        {courseData?.title}
+                                    </div>
+                                    <CourseOutline
+                                        course={courseData}
+                                        ready={courseDataReady}
+                                        currentStep={`${moduleParam}/${lessonParam}`}
+                                    />
+                                </div>
+                            </CollapsiblePane>
+                        </div>
+
+                        <div className={styles['course-frame']}>
+                            <TitleNav
+                                title={currentModuleData?.meta.name}
+                                currentStep={currentStepIndex}
+                                maxStep={currentModuleData?.lessons.length ?? 0}
+                                onNavigate={handleNavigate}
                             />
-                        </CollapsiblePane>
-                        <FreecodecampIfr frameRef={frameRef} />
+                            <hr />
+                            <FreecodecampIfr frameRef={frameRef} />
+                        </div>
                     </div>
                 </Portal>
             )}

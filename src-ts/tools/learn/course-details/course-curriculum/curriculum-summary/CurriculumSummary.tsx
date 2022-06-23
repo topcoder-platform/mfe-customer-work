@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
-import { Button, IconOutline, ProgressBar, textFormatDateLocaleShortString } from '../../../../../lib'
-import { LearnCourse } from '../../../services'
+import { Button, ProgressBar, textFormatDateLocaleShortString } from '../../../../../lib'
+import { CurriculumSummary as CurriculumSummaryStats, LearnCourse } from '../../../learn-lib'
 
 import styles from './CurriculumSummary.module.scss'
 
@@ -20,7 +20,7 @@ const CurriculumSummary: FC<CurriculumSummaryProps> = (props: CurriculumSummaryP
 
     return (
         <div className={styles['wrap']}>
-            {inProgress && (
+            {(inProgress || completed) && (
                 <>
                     <div className={styles['title']}>
                         {completed ? (
@@ -43,32 +43,10 @@ const CurriculumSummary: FC<CurriculumSummaryProps> = (props: CurriculumSummaryP
             )}
 
             <div className={styles['summary']}>
-                <div className={styles['stat-item']}>
-                    <div className={styles['icon']}>
-                        <IconOutline.DocumentTextIcon />
-                    </div>
-                    <div className='sub'>
-                        <h3 className={styles['count']}>
-                            {props.course.moduleCount}
-                        </h3>
-                        <div className={styles['count-label']}>
-                            Modules
-                        </div>
-                    </div>
-                </div>
-                <div className={styles['stat-item']}>
-                    <div className={styles['icon']}>
-                        <IconOutline.ClockIcon />
-                    </div>
-                    <div className='sub'>
-                        <h3 className={styles['count']}>
-                            {props.course.completionHours}
-                        </h3>
-                        <div className={styles['count-label']}>
-                            Hours
-                        </div>
-                    </div>
-                </div>
+                <CurriculumSummaryStats
+                    moduleCount={props.course.modules.length}
+                    completionHours={props.course.completionHours}
+                />
 
                 <div className={styles['button']}>
                     <Button
