@@ -11,7 +11,7 @@ interface BreadcrumbItemProps {
 
 const BreadcrumbItem: FC<BreadcrumbItemProps> = (props: BreadcrumbItemProps) => {
     return (
-        <li key={props.index} onClick={() => props.item.onClick && props.item.onClick(props.item)}>
+        <li key={props.index} onClick={() => props.item.onClick?.(props.item)}>
             <Link className={props.item.isElipsis && styles['elipsis']} to={props.item.url}>
                 {props.item.name}
             </Link>
