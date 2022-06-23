@@ -19,6 +19,7 @@ import {
   toggleSupportModal,
   savePageDetails,
   saveWorkType,
+  resetIntakeForm,
 } from "../../../../actions/form";
 import { triggerAutoSave, triggerCookieClear } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
@@ -220,6 +221,14 @@ const BasicInfo = ({
     if (autoSave) navigate("/self-service");
   };
 
+  const onClickBreadcrumbItem = (item) => {
+    if (item.name === "Start work") {
+      dispatch(resetIntakeForm(true));
+      dispatch(triggerCookieClear());
+      saveBasicInfo(defaultFormData);
+    }
+  };
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -229,7 +238,12 @@ const BasicInfo = ({
         onClose={onHideSupportModal}
       />
       <Page>
-        <Breadcrumb items={breadcrumb} />
+        <Breadcrumb
+          items={breadcrumb.map((item) => ({
+            ...item,
+            onClick: onClickBreadcrumbItem,
+          }))}
+        />
         <FeaturedWorkTypeBanner
           title={workItemConfig.title}
           subTitle={workItemConfig.subTitle}

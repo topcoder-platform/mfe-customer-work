@@ -11,12 +11,18 @@ import PageFoot from "../../components/PageElements/PageFoot";
 import PageH2 from "../../components/PageElements/PageH2";
 import Progress from "../../components/Progress";
 import { WebsiteDesignBannerLegacy } from "../../components/Banners/WebsiteDesignBannerLegacy";
-import { BUTTON_SIZE, BUTTON_TYPE, PageOptions } from "../../constants/";
+import {
+  BUTTON_SIZE,
+  BUTTON_TYPE,
+  PageOptions,
+  ROUTES,
+} from "../../constants/";
 import {
   saveBasicInfo,
   toggleSupportModal,
   savePageDetails,
   saveWorkType,
+  resetIntakeForm,
 } from "../../actions/form";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
@@ -29,7 +35,7 @@ import {
   currencyFormat,
 } from "../../utils/";
 
-import { ContactSupportModal } from "../../../src-ts";
+import { Breadcrumb, ContactSupportModal } from "../../../src-ts";
 
 /**
  * Basic Info Page
@@ -63,6 +69,7 @@ const BasicInfoLegacy = ({
   const estimate = getDynamicPriceAndTimelineEstimate(fullState);
 
   const onBack = () => {
+    dispatch(resetIntakeForm(true));
     navigate("/self-service/wizard");
   };
 
@@ -141,6 +148,18 @@ const BasicInfoLegacy = ({
     toggleSupportModal(false);
   };
 
+  const breadcrumbs = [
+    { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+    {
+      url: ROUTES.INTAKE_FORM,
+      name: "Start work",
+      onClick: () => {
+        dispatch(resetIntakeForm(true));
+      },
+    },
+    { url: ROUTES.WEBSITE_DESIGN_LEGACY, name: "Basic Info" },
+  ];
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -150,6 +169,7 @@ const BasicInfoLegacy = ({
         onClose={onHideSupportModal}
       />
       <Page>
+        <Breadcrumb items={breadcrumbs} />
         <WebsiteDesignBannerLegacy />
         <PageContent styleName="container">
           <PageH2>BASIC INFO</PageH2>

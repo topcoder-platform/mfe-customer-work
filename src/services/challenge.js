@@ -5,7 +5,10 @@ import _ from "lodash";
 import moment from "moment";
 import * as websiteDesignUtilsLegacy from "../utils/products/WebDesignLegacy";
 import { WorkType } from "../../src-ts";
-import { formatChallengeCreationBody, formatChallengeUpdateBody } from "../utils/products";
+import {
+  formatChallengeCreationBody,
+  formatChallengeUpdateBody,
+} from "../utils/products";
 
 /**
  * Get Challenge challenge details
@@ -35,10 +38,10 @@ export async function getIntakeFormChallenges(userHandle, challengeId) {
  * Post a New Challenge
  */
 export async function createChallenge(workType) {
-
-  const body = workType === WorkType.designLegacy
-    ? websiteDesignUtilsLegacy.formatChallengeCreationBody()
-    : formatChallengeCreationBody(workType);
+  const body =
+    workType === WorkType.designLegacy
+      ? websiteDesignUtilsLegacy.formatChallengeCreationBody()
+      : formatChallengeCreationBody(workType);
 
   const response = await axios.post(
     `${config.API.V5}/challenges`,
@@ -54,9 +57,10 @@ export async function createChallenge(workType) {
 export async function patchChallenge(intakeForm, challengeId) {
   const jsonData = JSON.parse(intakeForm);
   const workType = _.get(jsonData, "form.workType.selectedWorkType");
-  const body = workType === WorkType.designLegacy
-    ? websiteDesignUtilsLegacy.formatChallengeUpdateBodyLegacy(intakeForm)
-    : formatChallengeUpdateBody(intakeForm, workType);
+  const body =
+    workType === WorkType.designLegacy
+      ? websiteDesignUtilsLegacy.formatChallengeUpdateBodyLegacy(intakeForm)
+      : formatChallengeUpdateBody(intakeForm, workType);
 
   const response = await axios.patch(
     `${config.API.V5}/challenges/${challengeId}`,

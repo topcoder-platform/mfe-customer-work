@@ -74,6 +74,7 @@ export const saveUpdatesMiddleware = ({ dispatch, getState }) => {
     const result = next(action);
 
     if ([ACTIONS.AUTO_SAVE.TRIGGER_COOKIE_CLEARED].includes(result.type)) {
+      clearCachedChallengeId();
       clearCache();
     } else if ([ACTIONS.AUTO_SAVE.TRIGGER_AUTO_SAVE].includes(result.type)) {
       handleAutoSave();

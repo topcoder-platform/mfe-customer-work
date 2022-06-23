@@ -15,7 +15,7 @@ import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import PaymentForm from "./components/PaymentForm";
-import { triggerAutoSave } from "../../actions/autoSave";
+import { triggerAutoSave, triggerCookieClear } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import ReviewTable from "./components/ReviewTable";
@@ -203,6 +203,13 @@ const Review = ({
     formData.zipCode &&
     formData.checked;
 
+  const onClickBreadcrumbItem = (item) => {
+    if (item.name === "Start work") {
+      dispatch(resetIntakeForm(true));
+      dispatch(triggerCookieClear());
+    }
+  };
+
   return (
     <>
       <OrderContractModal
@@ -211,7 +218,12 @@ const Review = ({
       />
       <LoadingSpinner show={isLoading} />
       <Page>
-        <Breadcrumb items={breadcrumb} />
+        <Breadcrumb
+          items={breadcrumb.map((item) => ({
+            ...item,
+            onClick: onClickBreadcrumbItem,
+          }))}
+        />
         {banner}
         <PageContent styleName="container">
           <ServicePrice

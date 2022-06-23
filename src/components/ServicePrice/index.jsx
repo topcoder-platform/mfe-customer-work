@@ -21,9 +21,7 @@ const ServicePrice = ({
   return (
     <div styleName="container">
       <PageRow styleName="inline">
-        <div styleName="iconWrapper">
-          {showIcon && icon && <>{icon}</>}
-        </div>
+        <div styleName="iconWrapper">{showIcon && icon && <>{icon}</>}</div>
         {showIcon && !icon && <WebsiteDesignIcon />}
         <div>
           {!hideTitle && <p styleName="serviceTitle">{serviceType}</p>}
