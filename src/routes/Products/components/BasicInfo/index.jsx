@@ -20,11 +20,7 @@ import {
   savePageDetails,
   saveWorkType,
 } from "../../../../actions/form";
-import {
-  triggerAutoSave,
-  resetSaveLater,
-  triggerCookieClear,
-} from "../../../../actions/autoSave";
+import { triggerAutoSave, triggerCookieClear } from "../../../../actions/autoSave";
 import { setProgressItem } from "../../../../actions/progress";
 import BackIcon from "../../../../assets/images/icon-back-arrow.svg";
 import SaveForLaterIcon from "../../../../assets/images/save-for-later-icon.svg";
@@ -58,6 +54,7 @@ const BasicInfo = ({
   toggleSupportModal,
   workItemConfig,
   isLoggedIn,
+  triggerCookieClear,
   breadcrumb = [],
 }) => {
   const defaultFormData = {
@@ -153,7 +150,7 @@ const BasicInfo = ({
   const onNext = () => {
     setProgressItem(isLoggedIn ? 7 : 5);
     saveBasicInfo(formData);
-    dispatch(triggerAutoSave(true));
+    dispatch(triggerAutoSave(true, true));
     navigate(isLoggedIn ? `${baseUrl}/review` : `${baseUrl}/login-prompt`);
   };
 
@@ -181,7 +178,7 @@ const BasicInfo = ({
     setFirstMounted(false);
 
     return () => {
-      dispatch(triggerAutoSave(true));
+      dispatch(triggerAutoSave(true, false));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [basicInfo, currentStep, dispatch, setProgressItem, firstMounted]);
@@ -217,12 +214,10 @@ const BasicInfo = ({
     dispatch(getUserProfile());
   }, [dispatch]);
 
-  const saveForm = (autoSave, saveLater) => {
+  const saveForm = (autoSave) => {
     saveBasicInfo(formData);
-    dispatch(triggerAutoSave(autoSave, saveLater));
-    setTimeout(() => {
-      dispatch(resetSaveLater());
-    }, 100);
+    dispatch(triggerAutoSave(autoSave, true));
+    if (autoSave) navigate("/self-service");
   };
 
   return (
@@ -283,7 +278,7 @@ const BasicInfo = ({
                     disabled={!isFormValid}
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
-                    onClick={() => saveForm(true, true)}
+                    onClick={() => saveForm(true)}
                   >
                     <SaveForLaterIcon />
                     <span>SAVE FOR LATER</span>
@@ -316,6 +311,7 @@ const mapDispatchToProps = {
   savePageDetails,
   toggleSupportModal,
   saveWorkType,
+  triggerCookieClear,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicInfo);
