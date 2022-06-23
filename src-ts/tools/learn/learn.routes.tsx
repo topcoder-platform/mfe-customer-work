@@ -4,6 +4,7 @@ import { PlatformRoute } from '../../lib'
 import { CourseDetailsPage } from './course-details'
 import { FreeCodeCamp } from './free-code-camp'
 import Learn, { toolTitle } from './Learn'
+import { MyCertificate } from './my-certificate'
 import { MyLearning } from './my-learning'
 import { WelcomePage } from './welcome'
 
@@ -22,6 +23,7 @@ export const getFccLessonPath: (params: IGetFccLessonPathParams) => string = (pa
 )
 
 export enum LEARN_PATHS {
+    myCertificate = '/learn/my-certificate',
     myLearning = '/learn/my-learning',
     fcc = '/learn/fcc',
 }
@@ -55,6 +57,13 @@ export const learnRoutes: Array<PlatformRoute> = [
                 element: <MyLearning />,
                 enabled: true,
                 route: 'my-learning',
+                title: toolTitle,
+            },
+            {
+                children: [],
+                element: <MyCertificate />,
+                enabled: true,
+                route: 'my-certificate/:certificate',
                 title: toolTitle,
             },
         ],
