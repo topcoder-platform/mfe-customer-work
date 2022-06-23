@@ -90,7 +90,16 @@ const FreeCodeCamp: FC<{}> = () => {
         if (!frameRef.current || !lesson) {
             return
         }
-        Object.assign(frameRef.current, {src: `${EnvironmentConfig.LEARN_SRC}/${lesson.lessonUrl}`})
+
+        if (!r.current) {
+            Object.assign(frameRef.current, {src: `${EnvironmentConfig.LEARN_SRC}/${lesson.lessonUrl}`})
+        } else {
+            const windw = frameRef.current.contentWindow;
+            windw.postMessage(JSON.stringify({
+                event: 'fcc:url:update',
+                data: {path: `/${lesson.lessonUrl}`},
+            }), '*')
+        }
     }, [lesson?.lessonUrl])
 
     useEffect(() => {
@@ -104,8 +113,9 @@ const FreeCodeCamp: FC<{}> = () => {
         }
 
         const {event: eventName, data} = JSON.parse(jsonData);
+        
         if (eventName === 'fcc:challenge:ready') {
-            const [lessonPath, modulePath, coursePath] =data.nextChallengePath.split('/').reverse();
+            const [lessonPath, modulePath, coursePath] = data.path.replace(/\/$/, '').split('/').reverse();
             
             r.current = true;
             if (lessonPath !== lessonParam || modulePath !== moduleParam || coursePath !== courseParam) {
@@ -122,6 +132,16 @@ const FreeCodeCamp: FC<{}> = () => {
         window.removeEventListener('message', handleEvent, false);
       };
     }, [frameRef, lessonParam, moduleParam, courseParam]);
+
+    useEffect(() => {
+        const coursePath: string = searchParams.get('course')
+        const modulePath: string = searchParams.get('module')
+        const lessonPath: string = searchParams.get('lesson')
+
+        if (coursePath !== courseParam) setCourseParam(coursePath);
+        if (modulePath !== moduleParam) setModuleParam(modulePath);
+        if (lessonPath !== lessonParam) setLessonParam(lessonPath);
+    }, [searchParams]);
 
     return (
         <>
