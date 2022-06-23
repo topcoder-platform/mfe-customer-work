@@ -30,8 +30,8 @@ interface CollapsibleItemProps {
 const CollapsibleItem: FC<CollapsibleItemProps> = (props: CollapsibleItemProps) => {
     const [isOpen, setIsOpen]: [boolean, Dispatch<SetStateAction<boolean>>] = useState<boolean>(false)
 
-    const isAssessment = props.lessonsCount === 1;
-    
+    const isAssessment: boolean = props.lessonsCount === 1
+
     const toggle: () => void = useCallback(() => {
         setIsOpen(open => !open)
     }, [])
@@ -54,7 +54,7 @@ const CollapsibleItem: FC<CollapsibleItemProps> = (props: CollapsibleItemProps) 
 
     const listItem: (item: any, isActive?: boolean) => ReactNode = (item: any, isActive?: boolean) => (
         <StepIcon
-            index={parseInt(item.dashedName.split('-').pop()) || 1}
+            index={parseInt(item.dashedName.split('-').pop(), 10) || 1}
             completed={isItemCompleted(item.dashedName)}
             active={isActive}
         />

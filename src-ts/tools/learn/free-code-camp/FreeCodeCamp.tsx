@@ -1,4 +1,4 @@
-import { FC, memo, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Dispatch, FC, memo, MutableRefObject, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { NavigateFunction, useNavigate, useSearchParams } from 'react-router-dom'
 
 import { EnvironmentConfig } from '../../../config'
@@ -33,13 +33,12 @@ const FreecodecampIfr: FC<any> = memo((params: any) => (
 const FreeCodeCamp: FC<{}> = () => {
     const navigate: NavigateFunction = useNavigate()
     const [searchParams]: any = useSearchParams()
-    // const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
 
     const frameRef: MutableRefObject<HTMLElement|any> = useRef()
-    const r = useRef<any>(false);
-    const [courseParam, setCourseParam] = useState(searchParams.get('course') ?? '');
-    const [moduleParam, setModuleParam] = useState(searchParams.get('module') ?? '');
-    const [lessonParam, setLessonParam] = useState(searchParams.get('lesson') ?? '');
+    const frameisReady: MutableRefObject<HTMLElement|any> = useRef<any>(false)
+    const [courseParam, setCourseParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('course') ?? '')
+    const [moduleParam, setModuleParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('module') ?? '')
+    const [lessonParam, setLessonParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('lesson') ?? '')
 
     const {
         course: courseData,
@@ -86,62 +85,69 @@ const FreeCodeCamp: FC<{}> = () => {
         navigate(lessonPath)
     }, [currentStepIndex, currentModuleData, courseParam, moduleParam])
 
+    function updatePath(nextPath: string): void {
+        const [lessonPath, modulePath, coursePath]: Array<string> = nextPath.replace(/\/$/, '').split('/').reverse()
+
+        if (coursePath !== courseParam) { setCourseParam(coursePath) }
+        if (modulePath !== moduleParam) { setModuleParam(modulePath) }
+        if (lessonPath !== lessonParam) { setLessonParam(lessonPath) }
+
+        if (lessonPath !== lessonParam || modulePath !== moduleParam || coursePath !== courseParam) {
+            window.history.replaceState('', '', `?course=${coursePath}&module=${modulePath}&lesson=${lessonPath}`)
+        }
+    }
+
     useEffect(() => {
         if (!frameRef.current || !lesson) {
             return
         }
 
-        if (!r.current) {
+        if (!frameisReady.current) {
             Object.assign(frameRef.current, {src: `${EnvironmentConfig.LEARN_SRC}/${lesson.lessonUrl}`})
         } else {
-            const windw = frameRef.current.contentWindow;
-            windw.postMessage(JSON.stringify({
-                event: 'fcc:url:update',
+            frameRef.current.contentWindow.postMessage(JSON.stringify({
                 data: {path: `/${lesson.lessonUrl}`},
+                event: 'fcc:url:update',
             }), '*')
         }
     }, [lesson?.lessonUrl])
 
     useEffect(() => {
       if (!frameRef) {
-          return;
+          return
       }
-      const handleEvent = (event: any) => {
-        const { data: jsonData, origin } = event;
+      const handleEvent: (event: any) => void = (event: any) => {
+        const { data: jsonData, origin }: {data: string, origin: string} = event
+
         if (origin.indexOf(EnvironmentConfig.LEARN_SRC) === -1) {
-            return;
+            return
         }
 
-        const {event: eventName, data} = JSON.parse(jsonData);
-        
-        if (eventName === 'fcc:challenge:ready') {
-            const [lessonPath, modulePath, coursePath] = data.path.replace(/\/$/, '').split('/').reverse();
-            
-            r.current = true;
-            if (lessonPath !== lessonParam || modulePath !== moduleParam || coursePath !== courseParam) {
-                if (coursePath !== courseParam) setCourseParam(coursePath);
-                if (modulePath !== moduleParam) setModuleParam(modulePath);
-                if (lessonPath !== lessonParam) setLessonParam(lessonPath);
-            }
-            window.history.replaceState('', '', `?course=${coursePath}&module=${modulePath}&lesson=${lessonPath}`)
+        const {event: eventName, data}: {data: {path: string}, event: string } = JSON.parse(jsonData)
+
+        if (eventName !== 'fcc:challenge:ready') {
+            return
         }
-      };
-  
-      window.addEventListener('message', handleEvent, false);
-      return function cleanup() {
-        window.removeEventListener('message', handleEvent, false);
-      };
-    }, [frameRef, lessonParam, moduleParam, courseParam]);
+
+        frameisReady.current = true
+        updatePath(data.path)
+      }
+
+      window.addEventListener('message', handleEvent, false)
+      return () => {
+        window.removeEventListener('message', handleEvent, false)
+      }
+    }, [frameRef, lessonParam, moduleParam, courseParam])
 
     useEffect(() => {
         const coursePath: string = searchParams.get('course')
         const modulePath: string = searchParams.get('module')
         const lessonPath: string = searchParams.get('lesson')
 
-        if (coursePath !== courseParam) setCourseParam(coursePath);
-        if (modulePath !== moduleParam) setModuleParam(modulePath);
-        if (lessonPath !== lessonParam) setLessonParam(lessonPath);
-    }, [searchParams]);
+        if (coursePath !== courseParam) { setCourseParam(coursePath) }
+        if (modulePath !== moduleParam) { setModuleParam(modulePath) }
+        if (lessonPath !== lessonParam) { setLessonParam(lessonPath) }
+    }, [searchParams])
 
     return (
         <>
