@@ -34,12 +34,12 @@ export const DEFAULT_TIMELINE = [
   {
     // Appeals
     phaseId: "1c24cfb3-5b0a-4dbd-b6bd-4b0dff5349c6",
-    duration: 43200,
+    duration: 86400,
   },
   {
     // Appeals response
     phaseId: "797a6af7-cd3f-4436-9fca-9679f773bee9",
-    duration: 43200,
+    duration: 259200,
   },
 ];
 
