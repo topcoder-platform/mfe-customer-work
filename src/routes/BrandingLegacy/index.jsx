@@ -12,13 +12,15 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
 import { triggerAutoSave } from "../../actions/autoSave";
-import { saveBranding } from "../../actions/form";
+import { resetIntakeForm, saveBranding } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import BrandingForm from "./components/BrandingForm";
 import "./styles.module.scss";
 import { getDynamicPriceAndTimelineEstimate } from "utils/";
 import { WebsiteDesignBannerLegacy } from "../../components/Banners/WebsiteDesignBannerLegacy";
+import { ROUTES } from "../../constants";
+import { Breadcrumb } from "../../../src-ts";
 
 /**
  * Branding Page
@@ -106,10 +108,26 @@ const BrandingLegacy = ({ saveBranding, setProgressItem }) => {
     setProgressItem(6);
   };
 
+  const breadcrumbs = [
+    { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+    {
+      url: ROUTES.INTAKE_FORM,
+      name: "Start work",
+      onClick: () => {
+        dispatch(resetIntakeForm(true));
+      },
+    },
+    { url: ROUTES.WEBSITE_DESIGN_LEGACY, name: "Basic Info" },
+    { url: ROUTES.WEBSITE_DESIGN_PURPOSE_LEGACY, name: "Website purpose" },
+    { url: ROUTES.WEBSITE_DESIGN_PAGE_DETAILS_LEGACY, name: "Page details" },
+    { url: "#", name: "Branding" },
+  ];
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
+        <Breadcrumb items={breadcrumbs} />
         <WebsiteDesignBannerLegacy />
         <PageContent>
           <PageH2>BRANDING</PageH2>

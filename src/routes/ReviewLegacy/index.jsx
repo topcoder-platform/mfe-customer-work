@@ -15,7 +15,12 @@ import PageDivider from "../../components/PageDivider";
 import PageFoot from "../../components/PageElements/PageFoot";
 import { resetIntakeForm } from "../../actions/form";
 import Progress from "../../components/Progress";
-import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "../../constants/";
+import {
+  BUTTON_SIZE,
+  BUTTON_TYPE,
+  MAX_COMPLETED_STEP,
+  ROUTES,
+} from "../../constants/";
 import PaymentForm from "../Review/components/PaymentForm";
 import { triggerAutoSave } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
@@ -36,7 +41,7 @@ import {
   setCookie,
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
-import { OrderContractModal } from "../../../src-ts";
+import { Breadcrumb, OrderContractModal } from "../../../src-ts";
 import AboutYourProject from "../../routes/Review/components/AboutYourProject";
 import PageH2 from "../../components/PageElements/PageH2";
 
@@ -187,6 +192,22 @@ const ReviewLegacy = ({
     formData.zipCode &&
     formData.checked;
 
+  const breadcrumbs = [
+    { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+    {
+      url: ROUTES.INTAKE_FORM,
+      name: "Start work",
+      onClick: () => {
+        dispatch(resetIntakeForm(true));
+      },
+    },
+    { url: ROUTES.WEBSITE_DESIGN_LEGACY, name: "Basic Info" },
+    { url: ROUTES.WEBSITE_DESIGN_PURPOSE_LEGACY, name: "Website purpose" },
+    { url: ROUTES.WEBSITE_DESIGN_PAGE_DETAILS_LEGACY, name: "Page details" },
+    { url: ROUTES.WEBSITE_DESIGN_BRANDING_LEGACY, name: "Branding" },
+    { url: "#", name: "Review" },
+  ];
+
   return (
     <>
       <OrderContractModal
@@ -195,6 +216,7 @@ const ReviewLegacy = ({
       />
       <LoadingSpinner show={isLoading} />
       <Page>
+        <Breadcrumb items={breadcrumbs} />
         {banner}
         <PageContent styleName="container">
           <PageH2>REVIEW & PAYMENT</PageH2>

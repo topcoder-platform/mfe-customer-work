@@ -19,6 +19,7 @@ import {
   toggleSupportModal,
   savePageDetails,
   saveWorkType,
+  resetIntakeForm,
 } from "../../../../actions/form";
 import {
   triggerAutoSave,
@@ -225,6 +226,14 @@ const BasicInfo = ({
     }, 100);
   };
 
+  const onClickBreadcrumbItem = (item) => {
+    if (item.name === "Start work") {
+      dispatch(resetIntakeForm(true));
+      dispatch(triggerCookieClear());
+      saveBasicInfo(defaultFormData);
+    }
+  };
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
@@ -234,7 +243,12 @@ const BasicInfo = ({
         onClose={onHideSupportModal}
       />
       <Page>
-        <Breadcrumb items={breadcrumb} />
+        <Breadcrumb
+          items={breadcrumb.map((item) => ({
+            ...item,
+            onClick: onClickBreadcrumbItem,
+          }))}
+        />
         <FeaturedWorkTypeBanner
           title={workItemConfig.title}
           subTitle={workItemConfig.subTitle}

@@ -12,12 +12,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { getDynamicPriceAndTimelineEstimate } from "utils/";
 import { triggerAutoSave } from "../../actions/autoSave";
-import { savePageDetails } from "../../actions/form";
+import { resetIntakeForm, savePageDetails } from "../../actions/form";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import PageDetailsForm from "./components/PageDetailsForm";
 import { WebsiteDesignBannerLegacy } from "../../components/Banners/WebsiteDesignBannerLegacy";
 import "./styles.module.scss";
+import { ROUTES } from "../../constants";
+import { Breadcrumb } from "../../../src-ts";
 
 /**
  * Page Details Page
@@ -82,10 +84,25 @@ const PageDetailsLegacy = ({ savePageDetails, setProgressItem }) => {
     return isValid;
   };
 
+  const breadcrumbs = [
+    { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+    {
+      url: ROUTES.INTAKE_FORM,
+      name: "Start work",
+      onClick: () => {
+        dispatch(resetIntakeForm(true));
+      },
+    },
+    { url: ROUTES.WEBSITE_DESIGN_LEGACY, name: "Basic Info" },
+    { url: ROUTES.WEBSITE_DESIGN_PURPOSE_LEGACY, name: "Website purpose" },
+    { url: "#", name: "Page details" },
+  ];
+
   return (
     <>
       <LoadingSpinner show={isLoading} />
       <Page>
+        <Breadcrumb items={breadcrumbs} />
         <WebsiteDesignBannerLegacy />
         <PageContent>
           <PageH2>PAGE DETAILS</PageH2>

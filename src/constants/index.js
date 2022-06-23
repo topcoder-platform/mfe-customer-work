@@ -36,14 +36,21 @@ export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
   HOME_PAGE: "/self-service",
   DASHBOARD_PAGE: "/work/dashboard",
-  WEBSITE_DESIGN: "/self-service/work/new/website-design/basic-info",
-  WEBSITE_DESIGN_REVIEW: "/self-service/work/new/website-design/review",
+  WEBSITE_DESIGN: "/self-service/work/new/website-design-new/basic-info",
+  WEBSITE_DESIGN_REVIEW: "/self-service/work/new/website-design-new/review",
   DATA_EXPLORATION: "/self-service/work/new/data-exploration/basic-info",
   DATA_EXPLORATION_REVIEW: "/self-service/work/new/data-exploration/review",
   PROBLEM_STATEMENT: "/self-service/work/new/data-advisory/basic-info",
   PROBLEM_STATEMENT_REVIEW: "/self-service/work/new/data-advisory/review",
   FIND_ME_DATA: "/self-service/work/new/find-me-data/basic-info",
   FIND_ME_DATA_REVIEW: "/self-service/work/new/find-me-data/review",
+  WEBSITE_DESIGN_LEGACY: "/self-service/work/new/website-design/basic-info",
+  WEBSITE_DESIGN_PURPOSE_LEGACY:
+    "/self-service/work/new/website-design/website-purpose",
+  WEBSITE_DESIGN_PAGE_DETAILS_LEGACY:
+    "/self-service/work/new/website-design/page-details",
+  WEBSITE_DESIGN_BRANDING_LEGACY:
+    "/self-service/work/new/website-design/branding",
 };
 
 /**

@@ -36,6 +36,7 @@ const Breadcrumb: FC<BreadcrumbProps> = (props: BreadcrumbProps) => {
                                     <BreadcrumbItem
                                         index={0}
                                         item={{
+                                            ...props.items[props.items.length - 2],
                                             isElipsis: true,
                                             name: '...',
                                             url: props.items[props.items.length - 2].url,
@@ -44,6 +45,7 @@ const Breadcrumb: FC<BreadcrumbProps> = (props: BreadcrumbProps) => {
                                     <BreadcrumbItem
                                         index={1}
                                         item={{
+                                            ...props.items[props.items.length - 1],
                                             name: props.items[props.items.length - 1].name,
                                             url: props.items[props.items.length - 1].url,
                                         }}

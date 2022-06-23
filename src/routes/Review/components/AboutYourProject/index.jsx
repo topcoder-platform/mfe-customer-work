@@ -5,7 +5,7 @@ import PageUl from "../../../../components/PageElements/PageUl";
 const AboutYourProject = () => {
   return (
     <HelpBanner
-      styles={["turqoise", "marginTop24Mobile"]}
+      styles={["turqoise"]}
       title="Important things to know about your project"
     >
       <PageUl>

@@ -4,9 +4,7 @@ import {
   DEVICE_TYPE_DETAILS,
   DEFAULT_TIMELINE,
 } from "../../../constants/products/WebsiteDesignLegacy";
-import {
-  getDynamicPriceAndTimeline,
-} from "utils/";
+import { getDynamicPriceAndTimeline } from "utils/";
 import templateDataLegacy from "../../../assets/data/spec-templates/website-design-legacy.json";
 
 export function formatChallengeCreationBody() {
@@ -106,7 +104,8 @@ export function formatChallengeUpdateBodyLegacy(intakeForm) {
     value: _.map(
       _.get(jsonData, "form.pageDetails.pages", []),
       (p, i) =>
-        `### PAGE ${i + 1} NAME:\n\n ${p.pageName
+        `### PAGE ${i + 1} NAME:\n\n ${
+          p.pageName
         } \n\n#### Requirements & Details:\n\n ${p.pageDetails}`
     ).join("\n\n"),
   });
@@ -213,7 +212,7 @@ export function formatChallengeUpdateBodyLegacy(intakeForm) {
     name: "allowStockArt",
     value: _.toString(
       (stockPhotos !== "" ? stockPhotos : "Yes, allow stock photos") ===
-      "Yes, allow stock photos"
+        "Yes, allow stock photos"
     ),
   });
 
