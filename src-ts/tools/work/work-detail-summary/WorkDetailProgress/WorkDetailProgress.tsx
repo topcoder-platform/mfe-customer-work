@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
-import { WorkProgress } from '../../../../lib'
 import '../../../../lib/styles/index.scss'
+import { WorkProgress } from '../../work-lib'
 
 import styles from './WorkDetailProgress.module.scss'
 import { WorkDetailProgressItem } from './WorkDetailProgressItem'

@@ -4,8 +4,8 @@ import {
     IconOutline,
     textFormatDateLocaleShortString,
     textFormatMoneyLocaleString,
-    Work,
 } from '../../../../lib'
+import { Work } from '../../work-lib'
 
 import styles from './WorkDetailHighlights.module.scss'
 

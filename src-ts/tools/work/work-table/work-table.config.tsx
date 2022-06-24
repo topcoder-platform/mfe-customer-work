@@ -1,4 +1,5 @@
-import { TableColumn, Work } from '../../../lib'
+import { TableColumn } from '../../../lib'
+import { Work } from '../work-lib'
 
 import { WorkBadgeRenderer } from './work-badge-renderer'
 import { WorkDeleteButtonRenderer } from './work-delete-button-renderer'

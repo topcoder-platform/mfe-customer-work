@@ -1,4 +1,5 @@
-import { TabsNavItem, WorkStatus, WorkStatusFilter } from '../../../lib'
+import { TabsNavItem } from '../../../lib'
+import { WorkStatus, WorkStatusFilter } from '../work-lib'
 
 export const workDashboardTabs: ReadonlyArray<TabsNavItem> = [
     {

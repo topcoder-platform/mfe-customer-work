@@ -1,5 +1,4 @@
-
-import { Work, WorkStatusItem } from '../../../../lib'
+import { Work, WorkStatusItem } from '../../work-lib'
 
 function WorkStatusRenderer(work: Work): JSX.Element {
     return (

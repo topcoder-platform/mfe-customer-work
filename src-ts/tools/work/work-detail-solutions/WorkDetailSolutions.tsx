@@ -1,6 +1,6 @@
 import { FC, useContext, useMemo } from 'react'
 
-import { Work, workContext, WorkContextData, WorkSolution, WorkStatus } from '../../../lib'
+import { Work, workContext, WorkContextData, WorkSolution, WorkStatus } from '../work-lib'
 
 import { WorkSolutionsList } from './work-solutions-list'
 import styles from './WorkDetailSolutions.module.scss'

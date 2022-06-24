@@ -1,5 +1,4 @@
-import { xhrDeleteAsync, xhrGetAsync } from '../../../functions'
-import { Page } from '../../../pagination'
+import { Page, xhrDeleteAsync, xhrGetAsync  } from '../../../../../../lib'
 import { Work, WorkStatus } from '../work-factory'
 
 import { Challenge } from './challenge.model'

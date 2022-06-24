@@ -1,7 +1,7 @@
 import moment from 'moment'
-import { FC, useMemo } from 'react'
+import { FC } from 'react'
 
-import { Work, WorkSolution, WorkStatus } from '../../../../lib'
+import { Work, WorkSolution } from '../../work-lib'
 
 import { WorkSolutionsListItem } from './work-solutions-list-item'
 import styles from './WorkSolutionsList.module.scss'
@@ -32,7 +32,7 @@ const WorkSolutionsList: FC<WorkSolutionsListProps> = (props: WorkSolutionsListP
     return (
         <div className={styles['list-wrap']}>
             {props.solutions.map((solution) => (
-                <WorkSolutionsListItem solution={solution} key={solution.id} onDownload={props.onDownload}/>
+                <WorkSolutionsListItem solution={solution} key={solution.id} onDownload={props.onDownload} />
             ))}
         </div>
     )

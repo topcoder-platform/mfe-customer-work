@@ -1,5 +1,5 @@
 // import { messageGetAndSetForWorkItemsAsync } from '../../functions'
-import { Page } from '../../pagination'
+import { Page } from '../../../../../lib'
 
 import { WorkByStatus } from './work-by-status.model'
 import { Work, workFactoryCreate, WorkStatus, WorkType } from './work-factory'

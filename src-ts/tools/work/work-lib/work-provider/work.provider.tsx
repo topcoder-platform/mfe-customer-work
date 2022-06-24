@@ -1,7 +1,6 @@
 import { Dispatch, FC, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react'
 
-import { Page } from '../pagination'
-import { profileContext, ProfileContextData, UserProfile } from '../profile-provider'
+import { Page, profileContext, ProfileContextData, UserProfile } from '../../../../lib'
 
 import { WorkContextData } from './work-context-data.model'
 import { Work, workDeleteAsync, workFactoryCreate, workFactoryGetStatus, workGetAsync } from './work-functions'

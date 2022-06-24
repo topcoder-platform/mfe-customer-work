@@ -6,12 +6,9 @@ import {
     ConfirmModal,
     IconOutline,
     Tooltip,
-    Work,
-    workContext,
-    WorkContextData,
-    WorkStatus,
 } from '../../../../lib'
 import '../../../../lib/styles/index.scss'
+import { Work, workContext, WorkContextData, WorkStatus } from '../../work-lib'
 
 function WorkDeleteButtonRenderer(work: Work): JSX.Element | undefined {
 

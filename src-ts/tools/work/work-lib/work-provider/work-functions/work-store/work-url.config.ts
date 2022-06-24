@@ -1,5 +1,5 @@
-import { EnvironmentConfig } from '../../../../config'
-import { Page } from '../../../pagination'
+import { EnvironmentConfig } from '../../../../../../config'
+import { Page } from '../../../../../../lib'
 
 export function deleteUrl(workId: string): string {
     return `${challengesPath}/${workId}`

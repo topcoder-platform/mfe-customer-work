@@ -15,9 +15,9 @@ import {
     ProfileContextData,
     routeContext,
     RouteContextData,
-    WorkProvider,
 } from '../../lib'
 
+import { WorkProvider } from './work-lib'
 import { selfServiceRootRoute, selfServiceStartRoute } from './work.routes'
 
 export const toolTitle: string = 'Work'

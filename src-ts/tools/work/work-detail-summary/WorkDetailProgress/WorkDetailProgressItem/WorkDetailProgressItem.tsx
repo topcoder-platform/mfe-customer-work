@@ -1,7 +1,8 @@
 import classNames from 'classnames'
 import { FC } from 'react'
 
-import { textFormatDateLocaleShortString, WorkProgressStep } from '../../../../../lib'
+import { textFormatDateLocaleShortString } from '../../../../../lib'
+import { WorkProgressStep } from '../../../work-lib'
 
 import styles from './WorkDetailProgressItem.module.scss'
 

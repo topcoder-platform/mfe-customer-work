@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 
-import { BaseModal, Challenge, Form, FormDefinition, FormInputModel, formOnReset } from '../../../../lib'
+import { BaseModal, Form, FormDefinition, FormInputModel, formOnReset } from '../../../../lib'
+import { Challenge } from '../../work-lib'
 
 import { workFeedbackFormDef } from './work-feedback-form.config'
 import styles from './WorkFeedback.module.scss'

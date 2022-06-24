@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
-import { Button, WorkSolution } from '../../../../../lib'
+import { Button } from '../../../../../lib'
+import { WorkSolution } from '../../../work-lib'
 
 import styles from './WorkSolutionsListItem.module.scss'
 

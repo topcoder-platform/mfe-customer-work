@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react'
 
-import { Work, workContext, WorkContextData, WorkStatus } from '../../../lib'
+import { Work, workContext, WorkContextData, WorkStatus } from '../work-lib'
 
 import { WorkDetailHighlights } from './WorkDetailHighlights'
 import { WorkDetailProgress } from './WorkDetailProgress'

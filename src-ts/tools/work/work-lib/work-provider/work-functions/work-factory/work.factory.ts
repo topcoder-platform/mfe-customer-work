@@ -1,8 +1,8 @@
 import moment from 'moment'
 
-import * as DesignPrices from '../../../../../src/constants'
-import * as DataPrices from '../../../../../src/constants/products/DataExploration'
-import * as FindDataPrices from '../../../../../src/constants/products/FindMeData'
+import * as DesignPrices from '../../../../../../../src/constants'
+import * as DataPrices from '../../../../../../../src/constants/products/DataExploration'
+import * as FindDataPrices from '../../../../../../../src/constants/products/FindMeData'
 import {
     Challenge,
     ChallengeMetadata,
@@ -71,8 +71,8 @@ export function getStatus(challenge: Challenge): WorkStatus {
 
 export function mapFormData(type: string, formData: any): any {
     switch (type) {
-        case (WorkType.problem):
-            return buildFormDataProblem(formData)
+        // case (WorkType.problem):
+        //     return buildFormDataProblem(formData)
         case (WorkType.data):
             return buildFormDataData(formData)
         case (WorkType.findData):

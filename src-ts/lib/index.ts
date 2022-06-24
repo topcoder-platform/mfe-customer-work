@@ -16,10 +16,13 @@ export {
     textFormatMoneyLocaleString,
     useClickOutside,
     useOnHoverElement,
+    xhrDeleteAsync,
+    xhrGetAsync,
 } from './functions'
 export * from './loading-spinner'
 export * from './modals'
 export * from './page-footer'
+export * from './pagination'
 export * from './portal'
 export * from './profile-provider'
 export * from './route-provider'
@@ -27,5 +30,3 @@ export * from './svgs'
 export * from './table'
 export * from './tabs-navbar'
 export * from './tooltip'
-export * from './work-provider'
-export * from './work-status-item'

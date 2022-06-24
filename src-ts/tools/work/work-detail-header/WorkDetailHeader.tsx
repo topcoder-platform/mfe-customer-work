@@ -1,6 +1,7 @@
 import { FC, useContext } from 'react'
 
-import { Button, Work, workContext, WorkContextData, WorkStatus } from '../../../lib'
+import { Button } from '../../../lib'
+import { Work, workContext, WorkContextData, WorkStatus } from '../work-lib'
 
 import styles from './WorkDetailHeader.module.scss'
 

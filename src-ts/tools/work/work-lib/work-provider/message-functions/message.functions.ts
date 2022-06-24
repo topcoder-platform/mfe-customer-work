@@ -1,4 +1,4 @@
-import { Work, WorkStatus } from '../../work-provider'
+import { Work, WorkStatus } from '../work-functions'
 
 import { GetUnreadMessageCountResponse, messageStoreGetUnreadCountAsync } from './message-store'
 

@@ -10,6 +10,8 @@ import {
     TableColumn,
     TabsNavbar,
     TabsNavItem,
+} from '../../../lib'
+import {
     Work,
     WorkByStatus,
     workContext,
@@ -18,7 +20,7 @@ import {
     workGetStatusFilter,
     WorkStatus,
     WorkStatusFilter,
-} from '../../../lib'
+} from '../work-lib'
 import { selfServiceStartRoute, workDetailRoute } from '../work.routes'
 
 import { workDashboardTabs } from './work-nav.config'
