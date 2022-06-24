@@ -1,4 +1,10 @@
-import { WorkPrices, WorkType } from '../../src-ts'
+import {
+  workPriceData,
+  workPriceDesign,
+  workPriceDesignLegacy,
+  workPriceFindData,
+  workPriceProblem,
+} from '../../src-ts'
 import * as dataExplorationConfigs from "../constants/products/DataExploration";
 import * as findMeDataConfigs from "../constants/products/FindMeData";
 import * as websiteDesignConfigs from "../constants/products/WebsiteDesign";
@@ -48,11 +54,10 @@ export function padStart(target, targetLength = 2) {
 }
 
 export function getDataAdvisoryPriceAndTimelineEstimate() {
-  const priceConfig = WorkPrices[WorkType.problem]
-  const total = priceConfig.getPrice(priceConfig);
+  const total = workPriceProblem.getPrice(workPriceProblem);
   return {
     total,
-    stickerPrice: priceConfig.base,
+    stickerPrice: workPriceProblem.base,
     submissionDuration: 3,
     totalDuration: dataAdvisoryConfigs.DEFAULT_DURATION,
     prizeSets: [
@@ -81,11 +86,10 @@ export function getDataAdvisoryPriceAndTimelineEstimate() {
 }
 
 export function getDataExplorationPriceAndTimelineEstimate() {
-  const priceConfig = WorkPrices[WorkType.data]
-  const total = priceConfig.getPrice(priceConfig);
+  const total = workPriceData.getPrice(workPriceData)
   return {
     total,
-    stickerPrice: priceConfig.base,
+    stickerPrice: workPriceProblem.base,
     submissionDuration: 3,
     totalDuration: dataExplorationConfigs.DEFAULT_DURATION,
     prizeSets: [
@@ -113,13 +117,11 @@ export function getDataExplorationPriceAndTimelineEstimate() {
   };
 }
 
-export function getWebsiteDesignPriceAndTimelineEstimate() {
-  
-  const priceConfig = WorkPrices[WorkType.design]
-  const total = priceConfig.getPrice(priceConfig);
+export function getWebsiteDesignPriceAndTimelineEstimate() {  
+  const total = workPriceDesign.getPrice(workPriceDesign);
   return {
     total,
-    // stickerPrice: priceConfig.base,
+    // stickerPrice: workPriceProblem.base,
     submissionDuration: 4,
     totalDuration: websiteDesignConfigs.DEFAULT_DURATION,
     prizeSets: [
@@ -149,18 +151,18 @@ export function getWebsiteDesignPriceAndTimelineEstimate() {
 
 export function getFindMeDataPriceAndTimelineEstimate() {
 
-  const priceConfig = WorkPrices[WorkType.findData]
-  const total = priceConfig.getPrice(priceConfig);
-  const placementPercentages = priceConfig.usePromo
+  const total = workPriceFindData.getPrice(workPriceFindData);
+
+  const placementPercentages = workPriceFindData.usePromo
     ? findMeDataConfigs.PROMOTIONAL_PRIZES_PAYMENT_BREAKDOWN
     : findMeDataConfigs.BASE_PRIZES_PAYMENT_BREAKDOWN;
-  const reviewerPercentages = priceConfig.usePromo
+  const reviewerPercentages = workPriceFindData.usePromo
     ? findMeDataConfigs.PROMOTIONAL_REVIEWER_PAYMENT_BREAKDOWN
     : findMeDataConfigs.BASE_REVIEWER_PAYMENT_BREAKDOWN;
 
   return {
     total,
-    stickerPrice: priceConfig.base,
+    stickerPrice: workPriceProblem.base,
     submissionDuration: 3,
     totalDuration: findMeDataConfigs.DEFAULT_DURATION,
     prizeSets: [
@@ -197,8 +199,7 @@ export function getDynamicPriceAndTimelineEstimate(formData) {
  */
 export function getDynamicPriceAndTimeline(pages, devices) {
 
-  const priceConfig = WorkPrices[WorkType.designLegacy]
-  const total = priceConfig.getPrice(priceConfig, pages, devices);
+  const total = workPriceDesignLegacy.getPrice(workPriceDesignLegacy, pages, devices);
 
   const pricing = {
     total,

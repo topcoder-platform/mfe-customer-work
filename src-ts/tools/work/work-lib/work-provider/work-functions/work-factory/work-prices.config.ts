@@ -41,6 +41,12 @@ export const WorkPrices: { [workType: string]: WorkPrice } = {
     },
 }
 
+export const data: WorkPrice = WorkPrices[WorkType.data]
+export const design: WorkPrice = WorkPrices[WorkType.design]
+export const designLegacy: WorkPrice = WorkPrices[WorkType.designLegacy]
+export const findData: WorkPrice = WorkPrices[WorkType.findData]
+export const problem: WorkPrice = WorkPrices[WorkType.problem]
+
 function getPriceDefault(price: WorkPrice): number {
     return price.usePromo && price.promo ? price.promo : price.base
 }

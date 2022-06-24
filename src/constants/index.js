@@ -5,7 +5,14 @@ import React from "react";
 // for some reason this has to be loaded from a lower-level
 // barrel for it to be available when this file loads.
 // yet another reason to get off the legacy architecture...
-import { WorkPrices, WorkType } from '../../src-ts/tools/work'
+import {
+  workPriceData,
+  workPriceDesign,
+  workPriceDesignLegacy,
+  workPriceFindData,
+  workPriceProblem,
+  WorkType,
+} from '../../src-ts/tools/work'
 import WebsiteDesignPdf1 from "../assets/pdf/WebDesign-1.pdf";
 import WebsiteDesignPdf2 from "../assets/pdf/WebDesign-2.pdf";
 import "./styles.module.scss";
@@ -257,11 +264,6 @@ export const projectAndProfessionalWork = {
 /**
  * Web Work Types
  */
-const dataPrice = WorkPrices[WorkType.data]
-const designPrice = WorkPrices[WorkType.design]
-const designLegacyPrice = WorkPrices[WorkType.designLegacy]
-const findDataPrice = WorkPrices[WorkType.findData]
-const problemPrice = WorkPrices[WorkType.problem]
 export const webWorkTypes = [
   {
     type: WorkType.designLegacy,
@@ -273,8 +275,8 @@ export const webWorkTypes = [
     shortDescriptionMobile: "Design your business",
     subTitle:
       "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    price: designLegacyPrice.getPrice(designLegacyPrice),
-    stickerPrice: designLegacyPrice.base,
+    price: workPriceDesignLegacy.getPrice(workPriceDesignLegacy),
+    stickerPrice: workPriceDesignLegacy.base,
     featured: true,
     startRoute: "/self-service/work/new/website-design/basic-info",
     basePath: "website-design",
@@ -289,8 +291,8 @@ export const webWorkTypes = [
     shortDescriptionMobile: "Design your business",
     description:
       "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    price: designPrice.getPrice(designPrice),
-    // stickerPrice: designPrice.base,
+    price: workPriceDesign.getPrice(workPriceDesign),
+    // stickerPrice: workPriceDesign.base,
     duration: `${webDesignConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/website-design-new/basic-info",
@@ -352,8 +354,8 @@ export const webWorkTypes = [
     shortDescription: "Uncover What's Interesting About Your Data",
     description:
       "We accumulate data every day in the course of life and business, yet rarely have the time to give it a closer look. Get multiple fresh, expert perspectives to identify the patterns and relationships in your data. They might just be the key to your next 'Aha' moment.",
-    price: dataPrice.getPrice(dataPrice),
-    stickerPrice: dataPrice.base,
+    price: workPriceData.getPrice(workPriceData),
+    stickerPrice: workPriceData.base,
     duration: `${dataExplorationConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-exploration/basic-info",
@@ -408,8 +410,8 @@ export const webWorkTypes = [
     shortDescription: "The easiest way to get started in data science",
     description:
       "Problem Statement & Data Advisory is for those asking themselves: How can I apply data science to this idea or goal? How will I interpret solutions, and how will that help me take action? What data do I need?",
-    price: problemPrice.getPrice(problemPrice),
-    stickerPrice: problemPrice.base,
+    price: workPriceProblem.getPrice(workPriceProblem),
+    stickerPrice: workPriceProblem.base,
     duration: `${dataAdvisoryConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-advisory/basic-info",
@@ -470,8 +472,8 @@ export const webWorkTypes = [
     shortDescription: "Our Experts Source Useful Data Sets For You",
     description:
       "Sometimes data is the only thing standing between you and something great. Tell us what you're solving for, and let our experts find the data to get you started now.",
-    price: findDataPrice.getPrice(findDataPrice),
-    stickerPrice: findDataPrice.base,
+    price: workPriceFindData.getPrice(workPriceFindData),
+    stickerPrice: workPriceFindData.base,
     duration: `${findMeDataConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
