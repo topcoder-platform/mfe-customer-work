@@ -4,7 +4,7 @@ import {
   DEFAULT_TIMELINE,
 } from "constants/products/FindMeData";
 import { getFindMeDataPriceAndTimelineEstimate } from "utils/";
-import { workFactoryMapFormData } from "../../../../src-ts/lib";
+import { workFactoryMapFormData } from "../../../../src-ts";
 
 export function formatChallengeCreationBody() {
   return {
