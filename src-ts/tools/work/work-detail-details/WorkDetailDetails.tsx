@@ -1,17 +1,30 @@
 import { FC } from 'react'
 
+// TODO: move this into the next-gen architecture
+import ReviewTableLegacy from '../../../../src/routes/ReviewLegacy/components/ReviewTableLegacy'
+import { WorkType } from '../work-lib'
+
 import { WorkDetailDetailsPane } from './work-detail-details-pane'
 import { WorkDetailDetailsSidebar } from './work-detail-details-sidebar'
 import styles from './WorkDetailDetails.module.scss'
 
 interface WorkDetailDetailsProps {
-    formData: {}
+    formData: any
 }
 
 const WorkDetailDetails: FC<WorkDetailDetailsProps> = (props: WorkDetailDetailsProps) => {
+    const workType: WorkType = props.formData?.workType?.selectedWorkType
+
     return (
         <div className={styles['wrap']}>
-            <WorkDetailDetailsPane formData={props.formData} />
+            <div className={styles['detailsContainer']}>
+                {workType !== WorkType.designLegacy &&
+                    <WorkDetailDetailsPane formData={props.formData} />
+                }
+                {workType === WorkType.designLegacy &&
+                    <ReviewTableLegacy formData={props.formData} enableEdit={false} />
+                }
+            </div>
             <WorkDetailDetailsSidebar />
         </div>
     )

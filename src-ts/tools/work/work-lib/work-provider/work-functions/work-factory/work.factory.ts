@@ -18,6 +18,26 @@ import { WorkTypeCategory } from './work-type-category.enum'
 import { WorkType } from './work-type.enum'
 import { Work } from './work.model'
 
+interface FormDetail {
+    key: string,
+    title: string,
+    value: any
+}
+
+interface IntakeForm {
+    basicInfo?: {
+        selectedDevice?: {
+            option?: Array<any>,
+        }
+    }
+    pageDetails?: {
+        pages?: Array<any>,
+    }
+    workType: {
+        selectedWorkType: WorkType
+    }
+}
+
 export function create(challenge: Challenge): Work {
 
     const status: WorkStatus = getStatus(challenge)
@@ -68,7 +88,8 @@ export function getStatus(challenge: Challenge): WorkStatus {
     }
 }
 
-export function mapFormData(type: string, formData: any): any {
+// NOTE: This function is only used by the new intakes and not the Legacy Web Design
+export function mapFormData(type: string, formData: any): ReadonlyArray<FormDetail> {
     switch (type) {
         // case (WorkType.problem):
         //     return buildFormDataProblem(formData)
@@ -83,105 +104,117 @@ export function mapFormData(type: string, formData: any): any {
     }
 }
 
-function buildFormDataData(formData: any): any {
-    return {
-        projectTitle: formData.projectTitle,
-        // Disabling lint error to maintain order for display
-        // tslint:disable-next-line: object-literal-sort-keys
-        data: {
+function buildFormDataData(formData: any): ReadonlyArray<FormDetail> {
+    return [
+        {
+            key: 'projectTitle',
+            ...formData.projectTitle,
+        },
+        {
+            key: 'data',
             title: 'Share Your Data (Optional)',
             value: formData.assetsUrl?.value,
         },
-        goal: {
+        {
+            key: 'goal',
             title: 'What Would You Like To Learn?',
             value: formData.goals?.value,
         },
-    }
+    ]
 }
 
-function buildFormDataDesign(formData: any): any {
+function buildFormDataDesign(formData: any): ReadonlyArray<FormDetail> {
     const styleInfo: {} = {
-        'Like': formData.likedStyles?.value?.join(', '),
+        Like: formData.likedStyles?.value?.join(', '),
         // Disabling lint error to maintain order for display
         // tslint:disable-next-line: object-literal-sort-keys
-        'Dislike': formData.dislikedStyles?.value?.join(', '),
+        Dislike: formData.dislikedStyles?.value?.join(', '),
         'Additional Details': formData.stylePreferences?.value,
         'Color Selections': formData.colorOption?.value.join(', '),
         'Specific Colors': formData.specificColor?.value,
     }
 
-    return {
-        projectTitle: formData.projectTitle,
-        // Disabling lint error to maintain order for display
-        // tslint:disable-next-line: object-literal-sort-keys
-        description: {
+    return [
+        {
+            key: 'projectTitle',
+            ...formData.projectTitle,
+        },
+        {
+            key: 'description',
             title: 'Description',
             value: formData.analysis?.value,
         },
-        industry: {
+        {
+            key: 'industry',
             title: 'Your Industry',
             value: formData.yourIndustry?.value,
         },
-        inspiration: {
+        {
+            key: 'inspiration',
             title: 'Inspiration',
-            value: formData.inspiration?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`)
+            value: formData.inspiration
+                ?.map((item: any) => `${item.website?.value} ${item.feedback?.value}`)
                 .filter((item: any) => item?.trim().length > 0),
         },
-        style: {
+        {
+            key: 'style',
             title: 'Style & Theme',
             value: styleInfo,
         },
-        assets: {
+        {
+            key: 'assets',
             title: 'Share Your Brand or Style Assets',
             value: [formData.assetsUrl?.value, formData.assetsDescription?.value]
                 .filter((item: any) => item?.trim().length > 0),
         },
-    }
+    ]
 }
 
-function buildFormDataFindData(formData: any): any {
+function buildFormDataFindData(formData: any): ReadonlyArray<FormDetail> {
     const isPrimaryDataChallengeOther: boolean = formData.primaryDataChallenge?.value === 3
-    const data: any = {
-        projectTitle: formData.projectTitle,
-        // Disabling lint error to maintain order for display
-        // tslint:disable-next-line: object-literal-sort-keys
-        data: formData.analysis,
-        primaryDataChallenge: {
-            title: formData.primaryDataChallenge?.title,
-            value: formData.primaryDataChallenge?.option,
+    return [
+        {
+            key: 'projectTitle',
+            ...formData.projectTitle,
         },
-        primaryDataChallengeOther: isPrimaryDataChallengeOther ? formData.primaryDataChallengeOther : undefined,
-        // TODO: Once PROD-2083 is merged, replace primaryDataChallenge key with the following
-        // and get rid of key primaryDataChallengeOther
-        //
-        // primaryDataChallenge: {
-        //     title: formData.primaryDataChallenge?.title,
-        //     value: isPrimaryDataChallengeOther
-        //         ? formData.primaryDataChallengeOther.value
-        //         : formData.primaryDataChallenge?.option,
-        // },
-        sampleData: formData.sampleData,
-    }
-    return data
+        {
+            key: 'data',
+            ...formData.analysis,
+        },
+        {
+            key: 'primaryDataChallenge',
+            title: formData.primaryDataChallenge?.title,
+            value: isPrimaryDataChallengeOther
+                ? formData.primaryDataChallengeOther.value
+                : formData.primaryDataChallenge?.option,
+        },
+        {
+            key: 'sampleData',
+            ...formData.sampleData,
+        },
+    ]
 }
 
-function buildFormDataProblem(formData: any): any {
-    return {
-        projectTitle: formData.projectTitle,
-        // Disabling lint error to maintain order for display
-        // tslint:disable-next-line: object-literal-sort-keys
-        goal: {
+function buildFormDataProblem(formData: any): ReadonlyArray<FormDetail> {
+    return [
+        {
+            key: 'projectTitle',
+            ...formData.projectTitle,
+        },
+        {
+            key: 'goal',
             title: 'What\'s Your Goal?',
             value: formData.goals?.value,
         },
-        data: {
+        {
+            key: 'data',
             title: 'What Data Do You Have?',
             value: [
                 formData.sampleData?.value,
                 formData.assetsDescription?.value,
             ].filter((item: any) => item?.trim().length > 0),
         },
-    }
+    ]
 }
 
 function findMetadata(challenge: Challenge, metadataName: ChallengeMetadataName): ChallengeMetadata | undefined {
@@ -221,6 +254,8 @@ function findPhase(challenge: Challenge, phases: Array<string>): ChallengePhase 
     return phase
 }
 
+// the switch statement shouldn't count against cyclomatic complexity
+// tslint:disable-next-line: cyclomatic-complexity
 function getCost(challenge: Challenge, type: WorkType): number | undefined {
 
     function getCountFromString(raw: string | undefined): number {
@@ -229,6 +264,15 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
 
     const priceConfig: WorkPrice = WorkPrices[type]
     switch (type) {
+
+        case WorkType.designLegacy:
+
+            // get the device and page count from the intake form from the metadata
+            const intakeForm: ChallengeMetadata | undefined = findMetadata(challenge, ChallengeMetadataName.intakeForm)
+            const form: IntakeForm = !!intakeForm?.value ? JSON.parse(intakeForm.value) : undefined
+            const legacyPageCount: number | undefined = form?.pageDetails?.pages?.length || 1
+            const legacyDeviceCount: number | undefined = form?.basicInfo?.selectedDevice?.option?.length
+            return priceConfig.getPrice(priceConfig, legacyPageCount, legacyDeviceCount)
 
         case WorkType.design:
             const pageCount: number = getCountFromString(findMetadata(challenge, ChallengeMetadataName.pageCount)?.value)
@@ -248,6 +292,7 @@ function getDescription(challenge: Challenge, type: WorkType): string | undefine
             return findMetadata(challenge, ChallengeMetadataName.goals)?.value
 
         case WorkType.design:
+        case WorkType.designLegacy:
             return findMetadata(challenge, ChallengeMetadataName.description)?.value
     }
 }
@@ -365,16 +410,9 @@ function getType(challenge: Challenge): WorkType {
     }
 
     // parse the form
-    const form: {
-        form: {
-            workType: {
-                selectedWorkTypeDetail: WorkType
-            }
-        }
-    } = JSON.parse(intakeForm.value)
-
+    const form: { form: IntakeForm } = JSON.parse(intakeForm.value)
     const workTypeKey: (keyof typeof WorkType) | undefined = Object.entries(WorkType)
-        .find(([key, value]) => value === form.form.workType?.selectedWorkTypeDetail)
+        .find(([key, value]) => value === form.form.workType?.selectedWorkType)
         ?.[0] as keyof typeof WorkType
 
     const output: WorkType = !!workTypeKey ? WorkType[workTypeKey] : WorkType.unknown
@@ -387,9 +425,11 @@ function getTypeCategory(type: WorkType): WorkTypeCategory {
 
         case WorkType.data:
         case WorkType.findData:
+        case WorkType.problem:
             return WorkTypeCategory.data
 
         case WorkType.design:
+        case WorkType.designLegacy:
             return WorkTypeCategory.design
 
         // TOOD: other categories: qa and dev

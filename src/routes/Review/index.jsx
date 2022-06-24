@@ -15,7 +15,7 @@ import { BUTTON_SIZE, BUTTON_TYPE, MAX_COMPLETED_STEP } from "constants/";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import PaymentForm from "./components/PaymentForm";
-import { triggerAutoSave } from "../../actions/autoSave";
+import { triggerAutoSave, triggerCookieClear } from "../../actions/autoSave";
 import { setProgressItem } from "../../actions/progress";
 import BackIcon from "../../assets/images/icon-back-arrow.svg";
 import ReviewTable from "./components/ReviewTable";
@@ -26,9 +26,10 @@ import { getUserProfile } from "../../thunks/profile";
 import { activateChallenge } from "../../services/challenge";
 import "./styles.module.scss";
 import {
-  getDynamicPriceAndTimelineEstimate,
+  getWebsiteDesignPriceAndTimelineEstimate,
   getDataExplorationPriceAndTimelineEstimate,
   getFindMeDataPriceAndTimelineEstimate,
+  getDataAdvisoryPriceAndTimelineEstimate,
   currencyFormat,
 } from "utils/";
 import _ from "lodash";
@@ -37,7 +38,7 @@ import {
   setCookie,
   clearCachedChallengeId,
 } from "../../autoSaveBeforeLogin";
-import { OrderContractModal } from "../../../src-ts/lib";
+import { Breadcrumb, OrderContractModal, WorkType } from "../../../src-ts";
 import AboutYourProject from "./components/AboutYourProject";
 
 const stripePromise = loadStripe(config.STRIPE.API_KEY, {
@@ -51,14 +52,13 @@ const Review = ({
   setProgressItem,
   previousPageUrl,
   nextPageUrl,
-  showProgress,
   introText,
   banner,
   icon,
   showIcon,
-  enableEdit = true,
   secondaryBanner,
-  bannerData,
+  workItemConfig,
+  breadcrumb,
 }) => {
   const dispatch = useDispatch();
   const [paymentFailed, setPaymentFailed] = useState(false);
@@ -74,7 +74,6 @@ const Review = ({
     checked: false, // value to toggle terms and conditions checkbox
   });
 
-  const isDataExploration = bannerData.title === "Data Exploration";
   const currentStep = useSelector((state) => state?.progress.currentStep);
   const workType = useSelector((state) => state.form.workType);
   const stripe = useStripe();
@@ -82,12 +81,25 @@ const Review = ({
   const fullState = useSelector((state) => state);
   const [isOrderContractModalOpen, setIsOrderContractModalOpen] =
     useState(false);
-  const estimate =
-    workType?.selectedWorkType === "Website Design"
-      ? getDynamicPriceAndTimelineEstimate(fullState)
-      : isDataExploration
-      ? getDataExplorationPriceAndTimelineEstimate()
-      : getFindMeDataPriceAndTimelineEstimate();
+
+  let estimate;
+  switch (workType?.selectedWorkType) {
+    case WorkType.design:
+      estimate = getWebsiteDesignPriceAndTimelineEstimate();
+      break;
+    case WorkType.data:
+      estimate = getDataExplorationPriceAndTimelineEstimate();
+      break;
+    case WorkType.problem:
+      estimate = getDataAdvisoryPriceAndTimelineEstimate();
+      break;
+    case WorkType.findData:
+      estimate = getFindMeDataPriceAndTimelineEstimate();
+      break;
+    default:
+      estimate = getFindMeDataPriceAndTimelineEstimate();
+      break;
+  }
 
   const [firstMounted, setFirstMounted] = useState(true);
   useEffect(() => {
@@ -146,19 +158,12 @@ const Review = ({
       "form.basicInfo.selectedDevice.option.length",
       1
     );
-    const additionalPaymentInfo =
-      workType?.selectedWorkType === "Website Design"
-        ? `\n${numOfPages} Pages\n${numOfDevices} Devices`
-        : "";
 
     const description = `Work Item #${challengeId}\n${_.get(
       fullState,
       "form.basicInfo.projectTitle.value",
       ""
-    ).slice(0, 355)}\n${_.get(
-      fullState,
-      "form.workType.selectedWorkType"
-    )}${additionalPaymentInfo}`;
+    ).slice(0, 355)}\n${_.get(fullState, "form.workType.selectedWorkType")}`;
 
     services
       .processPayment(
@@ -198,6 +203,13 @@ const Review = ({
     formData.zipCode &&
     formData.checked;
 
+  const onClickBreadcrumbItem = (item) => {
+    if (item.name === "Start work") {
+      dispatch(resetIntakeForm(true));
+      dispatch(triggerCookieClear());
+    }
+  };
+
   return (
     <>
       <OrderContractModal
@@ -206,6 +218,12 @@ const Review = ({
       />
       <LoadingSpinner show={isLoading} />
       <Page>
+        <Breadcrumb
+          items={breadcrumb.map((item) => ({
+            ...item,
+            onClick: onClickBreadcrumbItem,
+          }))}
+        />
         {banner}
         <PageContent styleName="container">
           <ServicePrice
@@ -220,11 +238,13 @@ const Review = ({
           <br styleName="mobileHidden" />
           <br styleName="mobileHidden" />
           {secondaryBanner}
-          <PageDivider />
           {introText && <div styleName="infoAlert">{introText}</div>}
           <div styleName="splitView">
             <div styleName="reviewContainer">
-              <ReviewTable formData={intakeFormData} enableEdit={enableEdit} />
+              <ReviewTable
+                workItemConfig={workItemConfig}
+                formData={intakeFormData}
+              />
               <div styleName="hideMobile">
                 <AboutYourProject />
               </div>
@@ -288,7 +308,6 @@ const Review = ({
               </div>
             </div>
           </PageFoot>
-          {showProgress && <Progress level={6} setStep={setProgressItem} />}
         </PageContent>
       </Page>
     </>

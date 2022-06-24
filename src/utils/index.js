@@ -1,12 +1,9 @@
 import { WorkPrices, WorkType } from '../../src-ts'
-import {
-  PER_PAGE_COST,
-  PRIZES_PAYMENT_BREAKDOWN,
-  REVIEWER_PAYMENT_BREAKDOWN,
-  DURATION_MAPPING,
-} from "constants/";
-import * as dataExplorationConfigs from "constants/products/DataExploration";
-import * as findMeDataConfigs from "constants/products/FindMeData";
+import * as dataExplorationConfigs from "../constants/products/DataExploration";
+import * as findMeDataConfigs from "../constants/products/FindMeData";
+import * as websiteDesignConfigs from "../constants/products/WebsiteDesign";
+import * as dataAdvisoryConfigs from "../constants/products/DataAdvisory";
+import * as websiteDesignLegacyConfigs from "../constants/products/WebsiteDesignLegacy";
 import _ from "lodash";
 
 /**
@@ -50,6 +47,39 @@ export function padStart(target, targetLength = 2) {
   return String.prototype.padStart.call(target, targetLength, "0");
 }
 
+export function getDataAdvisoryPriceAndTimelineEstimate() {
+  const priceConfig = WorkPrices[WorkType.problem]
+  const total = priceConfig.getPrice(priceConfig);
+  return {
+    total,
+    stickerPrice: priceConfig.base,
+    submissionDuration: 3,
+    totalDuration: dataAdvisoryConfigs.DEFAULT_DURATION,
+    prizeSets: [
+      {
+        prizes: [
+          ..._.map(dataAdvisoryConfigs.PRIZES_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Challenge Prizes",
+        type: "placement",
+      },
+      {
+        prizes: [
+          ..._.map(dataAdvisoryConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Reviewer Payment",
+        type: "reviewer",
+      },
+    ],
+  };
+}
+
 export function getDataExplorationPriceAndTimelineEstimate() {
   const priceConfig = WorkPrices[WorkType.data]
   const total = priceConfig.getPrice(priceConfig);
@@ -72,6 +102,40 @@ export function getDataExplorationPriceAndTimelineEstimate() {
       {
         prizes: [
           ..._.map(dataExplorationConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Reviewer Payment",
+        type: "reviewer",
+      },
+    ],
+  };
+}
+
+export function getWebsiteDesignPriceAndTimelineEstimate() {
+  
+  const priceConfig = WorkPrices[WorkType.design]
+  const total = priceConfig.getPrice(priceConfig);
+  return {
+    total,
+    // stickerPrice: priceConfig.base,
+    submissionDuration: 4,
+    totalDuration: websiteDesignConfigs.DEFAULT_DURATION,
+    prizeSets: [
+      {
+        prizes: [
+          ..._.map(websiteDesignConfigs.PRIZES_PAYMENT_BREAKDOWN, (p) => ({
+            type: "USD",
+            value: _.round(p * total),
+          })),
+        ],
+        description: "Challenge Prizes",
+        type: "placement",
+      },
+      {
+        prizes: [
+          ..._.map(websiteDesignConfigs.REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
             type: "USD",
             value: _.round(p * total),
           })),
@@ -121,13 +185,9 @@ export function getFindMeDataPriceAndTimelineEstimate() {
 }
 
 export function getDynamicPriceAndTimelineEstimate(formData) {
-  const numOfPages = _.get(formData, "form.pageDetails.pages.length", 1);
-  const numOfDevices = _.get(
-    formData,
-    "form.basicInfo.selectedDevice.option.length",
-    1
-  );
-  return getDynamicPriceAndTimeline(numOfPages || 1, numOfDevices || 1);
+  const numOfPages = formData?.pageDetails?.pages?.length || 1
+  const numOfDevices = formData?.basicInfo?.selectedDevice.option.length || 1
+  return getDynamicPriceAndTimeline(numOfPages, numOfDevices);
 }
 
 /**
@@ -137,31 +197,37 @@ export function getDynamicPriceAndTimelineEstimate(formData) {
  */
 export function getDynamicPriceAndTimeline(pages, devices) {
 
-  const priceConfig = WorkPrices[WorkType.design]
+  const priceConfig = WorkPrices[WorkType.designLegacy]
   const total = priceConfig.getPrice(priceConfig, pages, devices);
 
   const pricing = {
     total,
     stickerPrice: total * 2,
-    ...DURATION_MAPPING[pages - 1][devices - 1],
-    costPerAdditionalPage: devices * PER_PAGE_COST,
+    ...websiteDesignLegacyConfigs.DURATION_MAPPING[pages - 1][devices - 1],
+    costPerAdditionalPage: devices * websiteDesignLegacyConfigs.PER_PAGE_COST,
     prizeSets: [
       {
         prizes: [
-          ..._.map(PRIZES_PAYMENT_BREAKDOWN, (p) => ({
-            type: "USD",
-            value: _.round(p * total),
-          })),
+          ..._.map(
+            websiteDesignLegacyConfigs.PRIZES_PAYMENT_BREAKDOWN,
+            (p) => ({
+              type: "USD",
+              value: _.round(p * total),
+            })
+          ),
         ],
         description: "Challenge Prizes",
         type: "placement",
       },
       {
         prizes: [
-          ..._.map(REVIEWER_PAYMENT_BREAKDOWN, (p) => ({
-            type: "USD",
-            value: _.round(p * total),
-          })),
+          ..._.map(
+            websiteDesignLegacyConfigs.REVIEWER_PAYMENT_BREAKDOWN,
+            (p) => ({
+              type: "USD",
+              value: _.round(p * total),
+            })
+          ),
         ],
         description: "Reviewer Payment",
         type: "reviewer",

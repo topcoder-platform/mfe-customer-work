@@ -29,28 +29,13 @@
     }
 
     button {
-      svg {
-        display: none;
-        @include mobile {
-          display: inline-block;
-        }
-        @include gtelg {
-          display: inline-block;
-        }
-      }
-
-      span {
-        @include mobile {
-          display: none;
-        }
-      }
-
       &.saveForLater {
         span {
           @include ltemd {
             display: none;
           }
         }
+
         svg {
           @include gtelg {
             display: none;
@@ -58,19 +43,9 @@
         }
       }
 
-      &.reviewAndSubmit{
-        svg {
-          @include gtelg {
-            display: none;
-          }
-        }
-        svg {
-          @include ltemd {
-            display: none;
-          }
-        }
+      &.reviewAndSubmit {
 
-        .desktop{
+        .desktop {
           @include ltemd {
             display: none;
           }
@@ -95,6 +70,7 @@
   button {
     svg {
       display: block !important;
+
       @include gtelg {
         display: inline-block !important;
       }
@@ -115,6 +91,7 @@
   button {
     svg {
       display: block !important;
+
       @include gtelg {
         display: inline-block !important;
       }

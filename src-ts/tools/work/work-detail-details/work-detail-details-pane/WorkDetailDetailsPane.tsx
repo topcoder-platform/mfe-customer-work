@@ -1,114 +1,85 @@
+import { Link } from '@reach/router'
 import _ from 'lodash'
-import { FC } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
+
+import { LoadingSpinner } from '../../../../lib'
+import { workFactoryMapFormData } from '../../work-lib'
 
 import styles from './WorkDetailDetailsPane.module.scss'
 
 interface WorkDetailDetailsPaneProps {
-    formData: any
+    formData: any,
+    isReviewPage?: boolean,
+    redirectUrl?: string
 }
 
-const WorkDetailDetailsPane: FC<WorkDetailDetailsPaneProps> = ({ formData }: WorkDetailDetailsPaneProps) => {
-    const sections: Array<string> = ['basicInfo', 'websitePurpose', 'pageDetails', 'branding']
-
-    return (
-        <div className={styles['paneContent']}>
-            {sections
-                .filter((section) => {
-                    if (section === 'pageDetails') {
-                        return _.get(formData[section], 'pages[0].pageDetails') !== ''
-                    }
-                    return !!formData[section]
-                })
-                .map((section) => {
-                    return (
-                        <>
-                            {section === 'pageDetails'
-                                ? renderPageDetails(formData, section)
-                                : renderDetails(formData, section)
-                            }
-                        </>
-                    )
-                })}
-        </div>
-    )
+interface FormDetail {
+    key: string,
+    title: string,
+    value: any
 }
 
-function renderPageDetails(formData: any, section: string): Array<JSX.Element> {
-    const items: { pages: [] } = formData[section] || {}
-    const pages: [] = items?.pages || []
+const WorkDetailDetailsPane: FC<WorkDetailDetailsPaneProps> = ({ formData, isReviewPage = false, redirectUrl = '' }: WorkDetailDetailsPaneProps) => {
+    const [details, setDetails]: [ReadonlyArray<FormDetail>, Dispatch<SetStateAction<ReadonlyArray<FormDetail>>>] = useState<ReadonlyArray<FormDetail>>([])
 
-    return pages.map((page: { pageDetails?: string, pageName?: string }, index: number) => {
-        return (
-            <div>
-                {page?.pageName && (
-                    <div className={styles['detail']}>
-                        <h4 className={styles['header']}>Page {index + 1} Name</h4>
-                        <p className={styles['content']}>{page?.pageName}</p>
-                    </div>
-                )}
-                {page?.pageDetails && (
-                    <div className={styles['detail']}>
-                        <h4 className={styles['header']}>Page {index + 1} Requirements</h4>
-                        <p className={styles['content']}>{page?.pageDetails}</p>
-                    </div>
-                )}
-            </div>
-        )
-    })
-}
-
-function renderDetails(formData: any, section: string): Array<JSX.Element | Array<JSX.Element>> {
-    let items: any = formData[section] || {}
-    if (formData?.workType?.selectedWorkType === 'Find Me Data') {
-        items = _.omit(items, ['assetsUrl', 'goals'])
-    } else {
-        items = _.omit(items, [
-            'analysis',
-            'primaryDataChallenge',
-            'primaryDataChallengeOther',
-            'sampleData',
-        ])
-    }
-    return Object.keys(items).map((key) => {
-        if (_.isArray(items[key])) {
-            return _.map(items[key], (item, i) => (
-                <div className={styles['detail']} key={i}>
-                    <h4 className={styles['header']}>
-                        {key} {i + 1}
-                    </h4>
-                    <p className={styles['content']}>
-                        {Object.keys(item).map((subKey) =>
-                            renderOption(item[subKey], subKey)
-                        )}
-                    </p>
-                </div>
-            ))
+    useEffect(() => {
+        if (!!formData?.basicInfo) {
+            setDetails(workFactoryMapFormData(formData?.workType?.selectedWorkType, formData.basicInfo))
         }
-        return renderOption(items[key])
-    })
-}
+    }, [formData])
 
-function renderOption(option: any, title: string = ''): JSX.Element {
+    if (!details.length) {
+        return <LoadingSpinner />
+    }
+
     return (
         <>
-            {option.option && (
-                <div className={styles['detail']}>
-                    <h4 className={styles['header']}>{option.title || title}</h4>
-                    <p className={styles['content']}>{formatOption(option.option)}</p>
+            {isReviewPage && (
+                <div className={styles['header']}>
+                    <h3 className={styles['title']}>REVIEW REQUIREMENTS</h3>
+                    <Link className={styles['link']} to={redirectUrl}>
+                        edit
+                    </Link>
                 </div>
             )}
+            {details.map((detail) => {
+                return (
+                    <div key={detail.key} className={styles['detail']}>
+                        <h4 className={styles['title']}>{detail.title}</h4>
+                        <p className={styles['content']}>{formatOption(detail.value)}</p>
+                    </div>
+                )
+            })}
         </>
     )
 }
 
-function formatOption(option: Array<string> | {}): string {
-    if (_.isArray(option)) {
-        return option.join(', ')
+function formatOption(detail: Array<string> | {} | string): string | Array<JSX.Element> | JSX.Element {
+    const noInfoProvidedElement: JSX.Element = <span className={styles['no-info']}>Not provided</span>
+    const isEmpty: boolean = checkIsEmpty(detail)
+    if (isEmpty) {
+        return noInfoProvidedElement
     }
-    if (_.isObject(option)) {
-        return formatOption(_.get(option, 'option', option))
+    if (_.isArray(detail)) {
+        return detail
+            .map((val, index) => (<div key={`${index}`}>{val}</div>))
     }
-    return option
+    if (_.isObject(detail)) {
+        return Object.keys(detail)
+            .map((key) => {
+                const value: any = detail[key as keyof typeof detail] || noInfoProvidedElement
+                return <div key={`${key}`}>{`${key}: `}{value}</div>
+            })
+    }
+    return detail
+}
+
+function checkIsEmpty(detail: Array<string> | {} | string): boolean {
+    return !detail ||
+        (typeof detail === 'string' && detail.trim().length === 0) ||
+        (_.isArray(detail) && detail.length === 0) ||
+        (_.isObject(detail) && Object.values(detail)
+            .filter((val) => val?.trim().length > 0).length === 0)
 }
 
 export default WorkDetailDetailsPane

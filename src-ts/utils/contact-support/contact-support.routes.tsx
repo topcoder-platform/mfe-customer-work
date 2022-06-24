@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 
 import { PlatformRoute } from '../../lib'
-import { selfServiceRootRoute } from '../../tools/work'
+import { routeRootLoggedOut } from '../../tools'
 
 import { default as ContactSupport, toolTitle } from './ContactSupport'
 
@@ -19,7 +19,7 @@ export const contactSupportRoutes: Array<PlatformRoute> = [
         children: [],
         element: <Navigate to={supportPath} />,
         enabled: true,
-        route: `${selfServiceRootRoute}${supportPath}`,
+        route: `${routeRootLoggedOut}${supportPath}`,
         title: 'Obsolete Self Service Support page',
     },
 ]

@@ -1,11 +1,12 @@
 import { FC, SVGProps } from 'react'
 
 import {
+    Work,
+    WorkTypeCategory,
     WorkTypeCategoryDataIcon,
     WorkTypeCategoryDesignIcon,
     WorkTypeCategoryUnknownIcon,
-} from '../../../../lib'
-import { Work, WorkTypeCategory } from '../../work-lib'
+} from '../../work-lib'
 
 import styles from './WorkTableTitleRenderer.module.scss'
 
