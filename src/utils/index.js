@@ -1,5 +1,5 @@
+import { WorkPrices, WorkType } from '../../src-ts'
 import {
-  BASE_PRODUCT_PRICE,
   PER_PAGE_COST,
   PRIZES_PAYMENT_BREAKDOWN,
   REVIEWER_PAYMENT_BREAKDOWN,
@@ -51,12 +51,11 @@ export function padStart(target, targetLength = 2) {
 }
 
 export function getDataExplorationPriceAndTimelineEstimate() {
-  const total =
-    dataExplorationConfigs.PROMOTIONAL_PRODUCT_PRICE ||
-    dataExplorationConfigs.BASE_PRODUCT_PRICE;
+  const priceConfig = WorkPrices[WorkType.data]
+  const total = priceConfig.getPrice(priceConfig);
   return {
     total,
-    stickerPrice: dataExplorationConfigs.BASE_PRODUCT_PRICE,
+    stickerPrice: priceConfig.base,
     submissionDuration: 3,
     totalDuration: dataExplorationConfigs.DEFAULT_DURATION,
     prizeSets: [
@@ -85,24 +84,19 @@ export function getDataExplorationPriceAndTimelineEstimate() {
 }
 
 export function getFindMeDataPriceAndTimelineEstimate() {
-  let total = 0;
-  let placementPercentages,
-    reviewerPercentages = [];
-  if (findMeDataConfigs.USING_PROMOTIONAL_PRICE) {
-    total = findMeDataConfigs.PROMOTIONAL_PRODUCT_PRICE;
-    placementPercentages =
-      findMeDataConfigs.PROMOTIONAL_PRIZES_PAYMENT_BREAKDOWN;
-    reviewerPercentages =
-      findMeDataConfigs.PROMOTIONAL_REVIEWER_PAYMENT_BREAKDOWN;
-  } else {
-    total = findMeDataConfigs.BASE_PRODUCT_PRICE;
-    placementPercentages = findMeDataConfigs.BASE_PRIZES_PAYMENT_BREAKDOWN;
-    reviewerPercentages = findMeDataConfigs.BASE_REVIEWER_PAYMENT_BREAKDOWN;
-  }
+
+  const priceConfig = WorkPrices[WorkType.findData]
+  const total = priceConfig.getPrice(priceConfig);
+  const placementPercentages = priceConfig.usePromo
+    ? findMeDataConfigs.PROMOTIONAL_PRIZES_PAYMENT_BREAKDOWN
+    : findMeDataConfigs.BASE_PRIZES_PAYMENT_BREAKDOWN;
+  const reviewerPercentages = priceConfig.usePromo
+    ? findMeDataConfigs.PROMOTIONAL_REVIEWER_PAYMENT_BREAKDOWN
+    : findMeDataConfigs.BASE_REVIEWER_PAYMENT_BREAKDOWN;
 
   return {
     total,
-    stickerPrice: findMeDataConfigs.BASE_PRODUCT_PRICE,
+    stickerPrice: priceConfig.base,
     submissionDuration: 3,
     totalDuration: findMeDataConfigs.DEFAULT_DURATION,
     prizeSets: [
@@ -142,10 +136,10 @@ export function getDynamicPriceAndTimelineEstimate(formData) {
  * @param {Number} devices the number of devices
  */
 export function getDynamicPriceAndTimeline(pages, devices) {
-  const total =
-    BASE_PRODUCT_PRICE +
-    pages * PER_PAGE_COST +
-    pages * (devices - 1) * PER_PAGE_COST;
+
+  const priceConfig = WorkPrices[WorkType.design]
+  const total = priceConfig.getPrice(priceConfig, pages, devices);
+
   const pricing = {
     total,
     stickerPrice: total * 2,

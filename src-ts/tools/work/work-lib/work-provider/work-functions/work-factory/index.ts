@@ -1,3 +1,4 @@
+export * from './work-prices.config'
 export * from './work-progress.model'
 export * from './work-progress-step.model'
 export * from './work-status.enum'

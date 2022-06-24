@@ -3,6 +3,7 @@ export {
     workFactoryCreate,
     workFactoryGetStatus,
     workFactoryMapFormData,
+    WorkPrices,
     type WorkProgress,
     type WorkProgressStep,
     type WorkSolution,

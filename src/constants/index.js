@@ -1,6 +1,10 @@
 import _ from "lodash";
 import moment from "moment";
-import React from "react";
+
+// for some reason this has to be loaded from a lower-level
+// barrel for it to be available when this file loads.
+// yet another reason to get off the legacy architecture...
+import { WorkPrices, WorkType } from '../../src-ts/tools/work'
 
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
 import MyWorkIcon from "../assets/images/icon-my-work.svg";
@@ -262,15 +266,15 @@ export const workTypes = [
 /**
  * Web Work Types
  */
-
+const dataPrice = WorkPrices[WorkType.data]
+const designPrice = WorkPrices[WorkType.design]
+const findDataPrice = WorkPrices[WorkType.findData]
 export const webWorkTypes = [
   {
     title: "Data Exploration",
     subTitle: "Get insights about your data from Topcoder experts.",
-    price: dataExplorationConfigs.USING_PROMOTIONAL_PRICE
-      ? dataExplorationConfigs.PROMOTIONAL_PRODUCT_PRICE
-      : dataExplorationConfigs.BASE_PRODUCT_PRICE,
-    stickerPrice: dataExplorationConfigs.BASE_PRODUCT_PRICE,
+    price: dataPrice.getPrice(dataPrice),
+    stickerPrice: dataPrice.base,
     duration: `${dataExplorationConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-exploration/basic-info",
@@ -305,10 +309,8 @@ export const webWorkTypes = [
   {
     title: "Find Me Data",
     subTitle: "Get the data you need to meet your analysis goals.",
-    price: findMeDataConfigs.USING_PROMOTIONAL_PRICE
-      ? findMeDataConfigs.PROMOTIONAL_PRODUCT_PRICE
-      : findMeDataConfigs.BASE_PRODUCT_PRICE,
-    stickerPrice: findMeDataConfigs.BASE_PRODUCT_PRICE,
+    price: findDataPrice.getPrice(findDataPrice),
+    stickerPrice: findDataPrice.base,
     duration: `${findMeDataConfigs.DEFAULT_DURATION} Days`,
     featured: false,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
@@ -360,8 +362,8 @@ export const webWorkTypes = [
     duration: "4-6 Days",
     subTitle:
       "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    price: 199,
-    stickerPrice: 398,
+    price: designPrice.getPrice(designPrice),
+    stickerPrice: designPrice.base,
     featured: true,
     startRoute: "/self-service/basic-info",
   },
@@ -826,7 +828,6 @@ export const COUNTRY_OPTIONS = countries.map((ct) => ({
   value: ct.code,
 }));
 
-export const BASE_PRODUCT_PRICE = 100;
 export const PER_PAGE_COST = 99;
 export const PRIZES_PAYMENT_BREAKDOWN = [0.5, 0.2, 0.1];
 export const REVIEWER_PAYMENT_BREAKDOWN = [0.1, 0.1];

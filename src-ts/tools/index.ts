@@ -9,6 +9,7 @@ export {
     WorkDetailSolutions,
     workFactoryMapFormData,
     WorkFeedback,
+    WorkPrices,
     workRootRoute as routeRootLoggedIn,
     WorkStatusItem,
     WorkType,
