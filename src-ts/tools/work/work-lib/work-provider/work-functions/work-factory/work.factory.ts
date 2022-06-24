@@ -91,8 +91,8 @@ export function getStatus(challenge: Challenge): WorkStatus {
 // NOTE: This function is only used by the new intakes and not the Legacy Web Design
 export function mapFormData(type: string, formData: any): ReadonlyArray<FormDetail> {
     switch (type) {
-        // case (WorkType.problem):
-        //     return buildFormDataProblem(formData)
+        case (WorkType.problem):
+            return buildFormDataProblem(formData)
         case (WorkType.data):
             return buildFormDataData(formData)
         case (WorkType.findData):
