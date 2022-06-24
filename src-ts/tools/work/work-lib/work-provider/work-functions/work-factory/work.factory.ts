@@ -1,8 +1,5 @@
 import moment from 'moment'
 
-import * as DesignPrices from '../../../../../../../src/constants'
-import * as DataPrices from '../../../../../../../src/constants/products/DataExploration'
-import * as FindDataPrices from '../../../../../../../src/constants/products/FindMeData'
 import {
     Challenge,
     ChallengeMetadata,
@@ -12,6 +9,8 @@ import {
 } from '../work-store'
 
 import { ChallengeStatus } from './challenge-status.enum'
+import { WorkPrice } from './work-price.model'
+import { WorkPrices } from './work-prices.config'
 import { WorkProgressStep } from './work-progress-step.model'
 import { WorkProgress } from './work-progress.model'
 import { WorkStatus } from './work-status.enum'
@@ -228,22 +227,16 @@ function getCost(challenge: Challenge, type: WorkType): number | undefined {
         return Number(raw?.split(' ')?.[0] || '0')
     }
 
+    const priceConfig: WorkPrice = WorkPrices[type]
     switch (type) {
-
-        case WorkType.data:
-            return DataPrices.PROMOTIONAL_PRODUCT_PRICE || DataPrices.BASE_PRODUCT_PRICE
 
         case WorkType.design:
             const pageCount: number = getCountFromString(findMetadata(challenge, ChallengeMetadataName.pageCount)?.value)
             const deviceCount: number = getCountFromString(findMetadata(challenge, ChallengeMetadataName.deviceCount)?.value)
-            return DesignPrices.BASE_PRODUCT_PRICE +
-                pageCount * DesignPrices.PER_PAGE_COST +
-                pageCount * (deviceCount - 1) * DesignPrices.PER_PAGE_COST
+            return priceConfig.getPrice(priceConfig, pageCount, deviceCount)
 
-        case WorkType.findData:
-            return FindDataPrices.USING_PROMOTIONAL_PRICE
-                ? FindDataPrices.PROMOTIONAL_PRODUCT_PRICE
-                : FindDataPrices.BASE_PRODUCT_PRICE
+        default:
+            return priceConfig.getPrice(priceConfig)
     }
 }
 
