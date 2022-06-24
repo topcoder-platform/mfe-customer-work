@@ -259,6 +259,7 @@ export const projectAndProfessionalWork = {
  */
 const dataPrice = WorkPrices[WorkType.data]
 const designPrice = WorkPrices[WorkType.design]
+const designLegacyPrice = WorkPrices[WorkType.designLegacy]
 const findDataPrice = WorkPrices[WorkType.findData]
 const problemPrice = WorkPrices[WorkType.problem]
 export const webWorkTypes = [
@@ -272,8 +273,8 @@ export const webWorkTypes = [
     shortDescriptionMobile: "Design your business",
     subTitle:
       "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    price: designPrice.getPrice(designPrice),
-    stickerPrice: designPrice.base,
+    price: designLegacyPrice.getPrice(designLegacyPrice),
+    stickerPrice: designLegacyPrice.base,
     featured: true,
     startRoute: "/self-service/work/new/website-design/basic-info",
     basePath: "website-design",
@@ -289,7 +290,7 @@ export const webWorkTypes = [
     description:
       "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
     price: designPrice.getPrice(designPrice),
-    // stickerPrice: 499,
+    // stickerPrice: designPrice.base,
     duration: `${webDesignConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/website-design-new/basic-info",
@@ -351,8 +352,8 @@ export const webWorkTypes = [
     shortDescription: "Uncover What's Interesting About Your Data",
     description:
       "We accumulate data every day in the course of life and business, yet rarely have the time to give it a closer look. Get multiple fresh, expert perspectives to identify the patterns and relationships in your data. They might just be the key to your next 'Aha' moment.",
-      price: dataPrice.getPrice(dataPrice),
-      stickerPrice: dataPrice.base,
+    price: dataPrice.getPrice(dataPrice),
+    stickerPrice: dataPrice.base,
     duration: `${dataExplorationConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-exploration/basic-info",
@@ -469,8 +470,8 @@ export const webWorkTypes = [
     shortDescription: "Our Experts Source Useful Data Sets For You",
     description:
       "Sometimes data is the only thing standing between you and something great. Tell us what you're solving for, and let our experts find the data to get you started now.",
-      price: findDataPrice.getPrice(findDataPrice),
-      stickerPrice: findDataPrice.base,
+    price: findDataPrice.getPrice(findDataPrice),
+    stickerPrice: findDataPrice.base,
     duration: `${findMeDataConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
