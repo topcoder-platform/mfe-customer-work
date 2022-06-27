@@ -35,7 +35,7 @@ const FreeCodeCamp: FC<{}> = () => {
     const [searchParams]: any = useSearchParams()
 
     const frameRef: MutableRefObject<HTMLElement|any> = useRef()
-    const frameisReady: MutableRefObject<HTMLElement|any> = useRef<any>(false)
+    const frameIsReady: MutableRefObject<boolean> = useRef<boolean>(false)
     const [courseParam, setCourseParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('course') ?? '')
     const [moduleParam, setModuleParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('module') ?? '')
     const [lessonParam, setLessonParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('lesson') ?? '')
@@ -102,7 +102,7 @@ const FreeCodeCamp: FC<{}> = () => {
             return
         }
 
-        if (!frameisReady.current) {
+        if (!frameIsReady.current) {
             Object.assign(frameRef.current, {src: `${EnvironmentConfig.LEARN_SRC}/${lesson.lessonUrl}`})
         } else {
             frameRef.current.contentWindow.postMessage(JSON.stringify({
@@ -129,7 +129,7 @@ const FreeCodeCamp: FC<{}> = () => {
             return
         }
 
-        frameisReady.current = true
+        frameIsReady.current = true
         updatePath(data.path)
       }
 
