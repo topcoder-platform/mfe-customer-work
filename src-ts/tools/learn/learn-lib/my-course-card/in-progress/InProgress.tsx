@@ -10,8 +10,7 @@ import {
 import {
     CoursesProviderData,
     CourseTitle,
-    LearnMyCertification,
-    LearnMyCertificationProgress,
+    LearnCertification,
     useCoursesProvider,
 } from '../../../learn-lib'
 import { getCoursePath, getFccLessonPath } from '../../../learn.routes'
@@ -20,8 +19,10 @@ import { CurriculumSummary } from '../../curriculum-summary'
 import styles from './InProgress.module.scss'
 
 interface InProgressProps {
-    certification: LearnMyCertification
-    progress: LearnMyCertificationProgress
+    certification: LearnCertification
+    currentLesson: string
+    completed: number
+    startDate: string
     theme: 'detailed'|'minimum'
 }
 
@@ -34,11 +35,11 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
     const {course}: CoursesProviderData = useCoursesProvider(props.certification.certification)
 
     const resumeCourse: () => void = () => {
-        if (!props.progress.currentLesson) {
+        if (!props.currentLesson) {
             return
         }
 
-        const [module, lesson]: Array<string> = (props.progress.currentLesson ?? '').split('/')
+        const [module, lesson]: Array<string> = (props.currentLesson ?? '').split('/')
 
         const coursePath: string = getFccLessonPath({
             course: certification,
@@ -71,7 +72,7 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
                     )}
                 </div>
 
-                <ProgressBar progress={props.progress.completed} />
+                <ProgressBar progress={props.completed} />
 
                 {isDetailed && (
                     <div className={styles['summary']}>
@@ -96,7 +97,7 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
                         <p dangerouslySetInnerHTML={{ __html: course?.introCopy.join('<br /><br />') ?? '' }}></p>
                         <div className={styles['started-date']}>
                             <span>Started </span>
-                            {textFormatDateLocaleShortString(new Date(props.progress.startedDate))}
+                            {textFormatDateLocaleShortString(new Date(props.startDate))}
                         </div>
                         <Button
                             size='xs'

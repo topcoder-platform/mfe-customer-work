@@ -1,9 +1,9 @@
-import { LearnMyCertification } from './learn-my-certification.model'
+import { LearnMyCertificationProgress } from "./my-certifications-functions"
 
 export interface MyCertificationsProviderData {
-    certifications: Array<LearnMyCertification>
-    completed: Array<LearnMyCertification>
-    inProgress: Array<LearnMyCertification>
+    // certifications: Array<LearnMyCertificationProgress>
+    completed: Array<LearnMyCertificationProgress>
+    inProgress: Array<LearnMyCertificationProgress>
     loading: boolean
     ready: boolean
 }

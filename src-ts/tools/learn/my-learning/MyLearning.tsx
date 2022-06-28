@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 
-import { ContentLayout, Portal } from '../../../lib'
+import { ContentLayout, Portal, profileContext } from '../../../lib'
 import {
     LearningHat,
     MyCertificationsProviderData,
@@ -17,7 +17,8 @@ interface MyLearningProps {
 }
 
 const MyLearning: FC<MyLearningProps> = (props: MyLearningProps) => {
-    const { completed, inProgress }: MyCertificationsProviderData = useMyCertifications()
+    const { profile } = useContext(profileContext)
+    const { completed, inProgress }: MyCertificationsProviderData = useMyCertifications(profile?.userId)
 
     return (
         <ContentLayout contentClass={styles['content-layout']}>
@@ -38,9 +39,11 @@ const MyLearning: FC<MyLearningProps> = (props: MyLearningProps) => {
                     {inProgress.map((certif) => (
                         <MyCourseInProgressCard
                             certification={certif}
-                            key={certif.key}
-                            progress={certif.progress}
+                            key={certif.certification}
                             theme='detailed'
+                            currentLesson={certif.currentLesson!}
+                            completed={certif.completed}
+                            startDate={certif.startDate!}
                         />
                     ))}
                 </div>
@@ -57,8 +60,8 @@ const MyLearning: FC<MyLearningProps> = (props: MyLearningProps) => {
                         {completed.map((certif) => (
                             <MyCourseCompletedCard
                                 certification={certif}
-                                key={certif.key}
-                                completed={certif.progress.completedDate!}
+                                key={certif.certification}
+                                completed={certif.completedDate!}
                             />
                         ))}
                     </div>
