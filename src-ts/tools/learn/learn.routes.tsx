@@ -1,5 +1,6 @@
 
 import { PlatformRoute } from '../../lib'
+import { CourseCompletedPage } from './course-completed'
 
 import { CourseDetailsPage } from './course-details'
 import { FreeCodeCamp } from './free-code-camp'
@@ -41,6 +42,13 @@ export const learnRoutes: Array<PlatformRoute> = [
                 element: <CourseDetailsPage />,
                 enabled: true,
                 route: ':certification',
+                title: toolTitle,
+            },
+            {
+                children: [],
+                element: <CourseCompletedPage />,
+                enabled: true,
+                route: ':certification/completed',
                 title: toolTitle,
             },
             {
