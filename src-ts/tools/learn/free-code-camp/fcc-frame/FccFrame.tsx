@@ -14,6 +14,7 @@ const FreecodecampIfr: FC<any> = memo((params: any) => (
 interface FccFrameProps {
     lesson?: LearnLessonMeta
     onFccLessonChange: (path: string) => void
+    onFccLessonComplete: () => void
 }
 
 const FccFrame: FC<FccFrameProps> = (props: FccFrameProps) => {
@@ -50,15 +51,7 @@ const FccFrame: FC<FccFrameProps> = (props: FccFrameProps) => {
         const {event: eventName, data}: {data: {path: string}, event: string } = JSON.parse(jsonData)
 
         if (eventName === 'fcc:challenge:completed') {
-            // startMyCertificationsProgressAsync(
-            //     40029484,
-            //     '9bd93a8a-1fcb-405a-b2e3-4a283915bbca',
-            //     '69aabc39-71e0-4b52-975f-95092b8c0df4',
-            //     {
-            //         "module": "learn-html-by-building-a-cat-photo-app",
-            //         "lesson": "step-1"
-            //     }
-            // )
+            props.onFccLessonComplete()
         }
 
         if (eventName === 'fcc:challenge:ready') {
@@ -71,7 +64,7 @@ const FccFrame: FC<FccFrameProps> = (props: FccFrameProps) => {
       return () => {
         window.removeEventListener('message', handleEvent, false)
       }
-    }, [frameRef])
+    }, [frameRef, props.onFccLessonChange, props.onFccLessonComplete])
 
     return (
         <FreecodecampIfr frameRef={frameRef} />

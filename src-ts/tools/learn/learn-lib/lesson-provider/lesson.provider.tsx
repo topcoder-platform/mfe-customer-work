@@ -49,6 +49,8 @@ export const useLessonProvider: (
                     ...lessonData,
                     course: {
                         certification: courseData?.certification ?? '',
+                        certificationId: courseData?.certificationId ?? '',
+                        id: courseData?.id ?? '',
                         title: courseData?.title ?? '',
                     },
                     lessonUrl,

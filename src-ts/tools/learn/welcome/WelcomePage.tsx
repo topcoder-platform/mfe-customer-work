@@ -37,7 +37,7 @@ const WelcomePage: FC<WelcomePageProps> = (props: WelcomePageProps) => {
                         `}
                         theme='light'
                     >
-                        <ProgressBlock />
+                        <ProgressBlock certificates={certifications} />
                     </WaveHero>
                 </Portal>
 

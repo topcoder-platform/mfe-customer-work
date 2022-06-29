@@ -1,9 +1,8 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { getMyCertificationsProgressAsync, LearnMyCertificationProgress } from './my-certifications-functions'
+import { decorateCompletedPercentage } from './my-certifications-functions/certificate-progress.decorators'
 
 import { MyCertificationsProviderData } from './my-certifications-provider-data.model'
-
-// const myCertifications: Array<LearnMyCertificationProgress> = [...myCertificationsJSON.certifications] as Array<LearnMyCertificationProgress>
 
 export function useMyCertifications(userId?: number): MyCertificationsProviderData {
     const [state, setState]: [MyCertificationsProviderData, Dispatch<SetStateAction<MyCertificationsProviderData>>] = useState<MyCertificationsProviderData>({
@@ -23,8 +22,8 @@ export function useMyCertifications(userId?: number): MyCertificationsProviderDa
         if (!userId) {
             return
         }
-
-        getMyCertificationsProgressAsync(userId).then((myCertifications) => {
+        
+        getMyCertificationsProgressAsync(userId).then(decorateCompletedPercentage).then((myCertifications) => {
             setState((prevState) => ({
                 ...prevState,
                 completed: myCertifications.filter(c => c.status === 'completed'),

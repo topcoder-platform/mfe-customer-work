@@ -20,9 +20,9 @@ import styles from './InProgress.module.scss'
 
 interface InProgressProps {
     certification: LearnCertification
-    currentLesson: string
+    currentLesson?: string
     completed: number
-    startDate: string
+    startDate?: string
     theme: 'detailed'|'minimum'
 }
 
@@ -31,8 +31,8 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
     const isDetailed: boolean = props.theme === 'detailed'
     const isMinimum: boolean = props.theme === 'minimum'
 
-    const certification: string = props.certification.certification
-    const {course}: CoursesProviderData = useCoursesProvider(props.certification.certification)
+    const certification: string = props.certification?.certification
+    const {course}: CoursesProviderData = useCoursesProvider(certification)
 
     const resumeCourse: () => void = () => {
         if (!props.currentLesson) {
@@ -95,10 +95,12 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
                 <div className={styles['details']}>
                     <div className={styles['details-inner']}>
                         <p dangerouslySetInnerHTML={{ __html: course?.introCopy.join('<br /><br />') ?? '' }}></p>
-                        <div className={styles['started-date']}>
-                            <span>Started </span>
-                            {textFormatDateLocaleShortString(new Date(props.startDate))}
-                        </div>
+                        {props.startDate && (
+                            <div className={styles['started-date']}>
+                                <span>Started </span>
+                                {textFormatDateLocaleShortString(new Date(props.startDate))}
+                            </div>
+                        )}
                         <Button
                             size='xs'
                             buttonStyle='secondary'

@@ -1,13 +1,12 @@
 import classNames from 'classnames'
 import { FC, useCallback } from 'react'
 
-import { LoadingSpinner, } from '../../../../lib'
+import { LoadingSpinner } from '../../../../lib'
 import {
     LearnCourse,
     LearnLesson,
     LearnModule,
-    MyCertificationProgressProviderData,
-    useMyCertificationProgress,
+    LearnMyCertificationProgress,
 } from '../../learn-lib'
 
 import { CollapsibleItem } from './collapsible-item'
@@ -17,10 +16,10 @@ interface CourseOutlineProps {
     course?: LearnCourse
     currentStep?: string
     ready?: boolean
+    progress?: LearnMyCertificationProgress
 }
 
 const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
-    const { progress }: MyCertificationProgressProviderData = useMyCertificationProgress(props.course?.certification)
 
     const lessonPath: (course: LearnCourse, module: LearnModule, lesson: LearnLesson) => string = useCallback((course: LearnCourse, module: LearnModule, lesson: LearnLesson) => {
         const path: string = [
@@ -48,7 +47,7 @@ const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
                             key={module.key}
                             lessonsCount={module.lessons.length}
                             path={(it: any) => lessonPath(props.course, module, it)}
-                            progress={progress?.modules}
+                            progress={props.progress?.modules}
                             shortDescription={module.meta.introCopy}
                             title={module.meta.name}
                         />

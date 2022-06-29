@@ -15,6 +15,9 @@ import {
     LearnModule,
     LessonProviderData,
     MyCertificationProgressProviderData,
+    startMyCertificationsProgressAsync,
+    updateMyCertificationsProgressAsync,
+    UPDATE_MY_CERTIFICATE_PROGRESS_ACTIONS,
     useCoursesProvider,
     useLessonProvider,
     useMyCertificationProgress,
@@ -36,7 +39,7 @@ const FreeCodeCamp: FC<{}> = () => {
     const [moduleParam, setModuleParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('module') ?? '')
     const [lessonParam, setLessonParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('lesson') ?? '')
 
-    const { certificateProgress }: MyCertificationProgressProviderData = useMyCertificationProgress(profile?.userId, courseParam)
+    const { certificateProgress, setCertificateProgress }: MyCertificationProgressProviderData = useMyCertificationProgress(profile?.userId, courseParam)
 
     const {
         course: courseData,
@@ -83,15 +86,52 @@ const FreeCodeCamp: FC<{}> = () => {
         navigate(lessonPath)
     }, [currentStepIndex, currentModuleData, courseParam, moduleParam])
 
-    function updatePath(nextPath: string): void {
-        const [lessonPath, modulePath, coursePath]: Array<string> = nextPath.replace(/\/$/, '').split('/').reverse()
-
+    function updatePath(lessonPath: string, modulePath: string, coursePath: string): void {
         if (coursePath !== courseParam) { setCourseParam(coursePath) }
         if (modulePath !== moduleParam) { setModuleParam(modulePath) }
         if (lessonPath !== lessonParam) { setLessonParam(lessonPath) }
 
         if (lessonPath !== lessonParam || modulePath !== moduleParam || coursePath !== courseParam) {
             window.history.replaceState('', '', `?course=${coursePath}&module=${modulePath}&lesson=${lessonPath}`)
+        }
+    }
+
+    function handleFccLessonReady(lessonPath: string): void {
+        const [nLessonPath, modulePath, coursePath]: Array<string> = lessonPath.replace(/\/$/, '').split('/').reverse()
+        updatePath(nLessonPath, modulePath, coursePath)
+        
+        const currentLesson = {
+            module: modulePath,
+            lesson: nLessonPath,
+        };
+        
+        if (!certificateProgress) {
+            startMyCertificationsProgressAsync(
+                profile?.userId!,
+                lesson?.course.certificationId!,
+                lesson?.course.id!,
+                currentLesson
+            ).then(setCertificateProgress)
+        } else {
+            updateMyCertificationsProgressAsync(
+                certificateProgress.id,
+                UPDATE_MY_CERTIFICATE_PROGRESS_ACTIONS.currentLesson,
+                currentLesson
+            ).then(setCertificateProgress)
+        }
+    }
+
+    function handleFccLessonComplete(): void {
+        const currentLesson = {
+            module: moduleParam,
+            lesson: lessonParam,
+        };
+        if (certificateProgress) {
+            updateMyCertificationsProgressAsync(
+                certificateProgress.id,
+                UPDATE_MY_CERTIFICATE_PROGRESS_ACTIONS.completeLesson,
+                currentLesson
+            ).then(setCertificateProgress)
         }
     }
 
@@ -123,6 +163,7 @@ const FreeCodeCamp: FC<{}> = () => {
                                         course={courseData}
                                         ready={courseDataReady}
                                         currentStep={`${moduleParam}/${lessonParam}`}
+                                        progress={certificateProgress}
                                     />
                                 </div>
                             </CollapsiblePane>
@@ -136,7 +177,11 @@ const FreeCodeCamp: FC<{}> = () => {
                                 onNavigate={handleNavigate}
                             />
                             <hr />
-                            <FccFrame lesson={lesson} onFccLessonChange={updatePath} />
+                            <FccFrame
+                                lesson={lesson}
+                                onFccLessonChange={handleFccLessonReady}
+                                onFccLessonComplete={handleFccLessonComplete}
+                            />
                         </div>
                     </div>
                 </Portal>

@@ -34,8 +34,8 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
 
         const lessonPath: string = getFccLessonPath({
             course: course.certification,
-            lesson: current[1] ?? lesson.dashedName,
-            module: current[0] ?? module.meta.dashedName,
+            lesson: current[1] || lesson.dashedName,
+            module: current[0] || module.meta.dashedName,
         })
         navigate(lessonPath)
     }, [props.course, props.progress])
@@ -60,13 +60,13 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
 
                 <CurriculumSummary
                     course={props.course}
-                    onClickMainBtn={() => setIsTcAcademyPolicyModal(true)}
+                    onClickMainBtn={() => (inProgress || isCompleted) ? handleStartCourse() : setIsTcAcademyPolicyModal(true)}
                     progress={inProgress ? progress : 0}
                     completed={isCompleted}
                 />
 
                 <div className={styles['course-outline']}>
-                    <CourseOutline course={props.course} />
+                    <CourseOutline course={props.course} progress={props.progress} />
                 </div>
             </div>
             {isCompleted && (

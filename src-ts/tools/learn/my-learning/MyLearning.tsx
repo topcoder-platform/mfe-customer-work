@@ -1,11 +1,14 @@
-import { FC, useContext } from 'react'
+import { FC, useContext, useMemo } from 'react'
 
 import { ContentLayout, Portal, profileContext } from '../../../lib'
 import {
+    CertificationsProviderData,
+    LearnCertification,
     LearningHat,
     MyCertificationsProviderData,
     MyCourseCompletedCard,
     MyCourseInProgressCard,
+    useCertificationsProvider,
     useMyCertifications,
     WaveHero
 } from '../learn-lib'
@@ -19,6 +22,18 @@ interface MyLearningProps {
 const MyLearning: FC<MyLearningProps> = (props: MyLearningProps) => {
     const { profile } = useContext(profileContext)
     const { completed, inProgress }: MyCertificationsProviderData = useMyCertifications(profile?.userId)
+
+    const {
+        certifications,
+        ready,
+    }: CertificationsProviderData = useCertificationsProvider()
+
+    const certificatesById: {[key: string]: LearnCertification} = useMemo(() => (
+        certifications.reduce((certifs, certificate) => (
+            certifs[certificate.id] = certificate,
+            certifs
+        ), {} as {[key: string]: LearnCertification})
+    ), [certifications])
 
     return (
         <ContentLayout contentClass={styles['content-layout']}>
@@ -38,8 +53,8 @@ const MyLearning: FC<MyLearningProps> = (props: MyLearningProps) => {
                 <div className={styles['courses-area']}>
                     {inProgress.map((certif) => (
                         <MyCourseInProgressCard
-                            certification={certif}
-                            key={certif.certification}
+                            certification={certificatesById[certif.certificationId]}
+                            key={certif.certificationId}
                             theme='detailed'
                             currentLesson={certif.currentLesson!}
                             completed={certif.completed}
@@ -59,8 +74,8 @@ const MyLearning: FC<MyLearningProps> = (props: MyLearningProps) => {
                     <div className={styles['cards-wrap']}>
                         {completed.map((certif) => (
                             <MyCourseCompletedCard
-                                certification={certif}
-                                key={certif.certification}
+                                certification={certificatesById[certif.certificationId]}
+                                key={certif.certificationId}
                                 completed={certif.completedDate!}
                             />
                         ))}
