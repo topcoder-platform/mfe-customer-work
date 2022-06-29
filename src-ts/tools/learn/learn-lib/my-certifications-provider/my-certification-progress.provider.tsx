@@ -2,11 +2,11 @@ import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } f
 
 import { MyCertificationProgressProviderData } from './my-certification-progress-provider-data.model'
 import { getMyCertificationsProgressAsync, LearnMyCertificationProgress } from './my-certifications-functions'
-import { decorateCompletedPercentage } from './my-certifications-functions/certificate-progress.decorators'
+import { decorateCompletedPercentage, mapCompletedPercentage } from './my-certifications-functions/certificate-progress.decorators'
 
 export function useMyCertificationProgress(userId?: number, certification?: string): MyCertificationProgressProviderData {
     function setCertificateProgress(progress: LearnMyCertificationProgress): void {
-        setState((prevState) => ({...prevState, certificateProgress: progress}))
+        setState((prevState) => ({...prevState, certificateProgress: decorateCompletedPercentage(progress)}))
     }
 
     const [state, setState]: [MyCertificationProgressProviderData, Dispatch<SetStateAction<MyCertificationProgressProviderData>>] = useState<MyCertificationProgressProviderData>({
@@ -26,7 +26,7 @@ export function useMyCertificationProgress(userId?: number, certification?: stri
             return
         }
 
-        getMyCertificationsProgressAsync(userId, certification).then(decorateCompletedPercentage).then((myCertifications) => {
+        getMyCertificationsProgressAsync(userId, certification).then(mapCompletedPercentage).then((myCertifications) => {
             setState((prevState) => ({
                 ...prevState,
                 certificateProgress: myCertifications.find(c => c.certification === certification),

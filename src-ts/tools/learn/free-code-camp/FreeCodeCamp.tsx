@@ -18,7 +18,7 @@ import {
     MyCertificationProgressProviderData,
     startMyCertificationsProgressAsync,
     updateMyCertificationsProgressAsync,
-    UPDATE_MY_CERTIFICATE_PROGRESS_ACTIONS,
+    UpdateMyCertificateProgressActions,
     useCoursesProvider,
     useLessonProvider,
     useMyCertificationProgress,
@@ -116,7 +116,7 @@ const FreeCodeCamp: FC<{}> = () => {
         } else {
             updateMyCertificationsProgressAsync(
                 certificateProgress.id,
-                UPDATE_MY_CERTIFICATE_PROGRESS_ACTIONS.currentLesson,
+                UpdateMyCertificateProgressActions.currentLesson,
                 currentLesson
             ).then(setCertificateProgress)
         }
@@ -130,11 +130,21 @@ const FreeCodeCamp: FC<{}> = () => {
         if (certificateProgress) {
             updateMyCertificationsProgressAsync(
                 certificateProgress.id,
-                UPDATE_MY_CERTIFICATE_PROGRESS_ACTIONS.completeLesson,
+                UpdateMyCertificateProgressActions.completeLesson,
                 currentLesson
             ).then(setCertificateProgress)
         }
     }
+
+    useEffect(() => {
+      if (certificateProgress && certificateProgress.completed === 1 && certificateProgress.status === 'in-progress') {
+        updateMyCertificationsProgressAsync(
+            certificateProgress.id,
+            UpdateMyCertificateProgressActions.completeCertificate,
+            {}
+        ).then(setCertificateProgress)
+      }
+    }, [certificateProgress]);
 
     useEffect(() => {
         const coursePath: string = searchParams.get('course')

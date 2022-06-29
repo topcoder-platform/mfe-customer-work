@@ -3,7 +3,7 @@ import { getPath } from '../../learn-url.config'
 
 import { LearnMyCertificationProgress } from './learn-my-certification-progress.model'
 
-export enum UPDATE_MY_CERTIFICATE_PROGRESS_ACTIONS {
+export enum UpdateMyCertificateProgressActions {
     currentLesson = 'current-lesson',
     completeLesson = 'complete-lesson',
     completeCertificate = 'complete-certificate',
@@ -28,7 +28,7 @@ export function startMyCertificationsProgressAsync(userId: number, certification
     ), data)
 }
 
-export function updateMyCertificationsProgressAsync(certificationProgressId: string, action: UPDATE_MY_CERTIFICATE_PROGRESS_ACTIONS, data: any): Promise<LearnMyCertificationProgress> {
+export function updateMyCertificationsProgressAsync(certificationProgressId: string, action: UpdateMyCertificateProgressActions, data: any): Promise<LearnMyCertificationProgress> {
     return xhrPutAsync<{}, LearnMyCertificationProgress>(getPath(
         'certification-progresses',
         certificationProgressId,
