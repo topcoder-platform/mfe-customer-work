@@ -1,6 +1,6 @@
 import { FC, useContext, useMemo } from 'react'
 
-import { ContentLayout, Portal, profileContext } from '../../../lib'
+import { ContentLayout, Portal, profileContext, ProfileContextData } from '../../../lib'
 import {
     CertificationsProviderData,
     LearnCertification,
@@ -19,8 +19,12 @@ import styles from './MyLearning.module.scss'
 interface MyLearningProps {
 }
 
+interface CertificatesByIdType {
+    [key: string]: LearnCertification
+}
+
 const MyLearning: FC<MyLearningProps> = (props: MyLearningProps) => {
-    const { profile } = useContext(profileContext)
+    const { profile }: ProfileContextData = useContext(profileContext)
     const { completed, inProgress }: MyCertificationsProviderData = useMyCertifications(profile?.userId)
 
     const {
@@ -28,11 +32,11 @@ const MyLearning: FC<MyLearningProps> = (props: MyLearningProps) => {
         ready,
     }: CertificationsProviderData = useCertificationsProvider()
 
-    const certificatesById: {[key: string]: LearnCertification} = useMemo(() => (
-        certifications.reduce((certifs, certificate) => (
-            certifs[certificate.id] = certificate,
-            certifs
-        ), {} as {[key: string]: LearnCertification})
+    const certificatesById: CertificatesByIdType = useMemo(() => (
+        certifications.reduce((certifs, certificate) => {
+            certifs[certificate.id] = certificate
+            return certifs
+}, {} as unknown as CertificatesByIdType)
     ), [certifications])
 
     return (

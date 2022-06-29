@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+
 import { getMyCertificationsProgressAsync, LearnMyCertificationProgress } from './my-certifications-functions'
 import { decorateCompletedPercentage } from './my-certifications-functions/certificate-progress.decorators'
-
 import { MyCertificationsProviderData } from './my-certifications-provider-data.model'
 
 export function useMyCertifications(userId?: number): MyCertificationsProviderData {
@@ -22,7 +22,7 @@ export function useMyCertifications(userId?: number): MyCertificationsProviderDa
         if (!userId) {
             return
         }
-        
+
         getMyCertificationsProgressAsync(userId).then(decorateCompletedPercentage).then((myCertifications) => {
             setState((prevState) => ({
                 ...prevState,

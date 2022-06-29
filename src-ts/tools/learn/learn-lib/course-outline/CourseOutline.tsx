@@ -15,8 +15,8 @@ import styles from './CourseOutline.module.scss'
 interface CourseOutlineProps {
     course?: LearnCourse
     currentStep?: string
-    ready?: boolean
     progress?: LearnMyCertificationProgress
+    ready?: boolean
 }
 
 const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {

@@ -7,6 +7,7 @@ import {
     LoadingSpinner,
     Portal,
     profileContext,
+    ProfileContextData,
 } from '../../../lib'
 import {
     CourseOutline,
@@ -30,8 +31,8 @@ import styles from './FreeCodeCamp.module.scss'
 import { TitleNav } from './title-nav'
 
 const FreeCodeCamp: FC<{}> = () => {
-    const { profile } = useContext(profileContext)
-    
+    const { profile }: ProfileContextData = useContext(profileContext)
+
     const navigate: NavigateFunction = useNavigate()
     const [searchParams]: any = useSearchParams()
 
@@ -99,12 +100,12 @@ const FreeCodeCamp: FC<{}> = () => {
     function handleFccLessonReady(lessonPath: string): void {
         const [nLessonPath, modulePath, coursePath]: Array<string> = lessonPath.replace(/\/$/, '').split('/').reverse()
         updatePath(nLessonPath, modulePath, coursePath)
-        
-        const currentLesson = {
-            module: modulePath,
+
+        const currentLesson: {[key: string]: string} = {
             lesson: nLessonPath,
-        };
-        
+            module: modulePath,
+        }
+
         if (!certificateProgress) {
             startMyCertificationsProgressAsync(
                 profile?.userId!,
@@ -122,10 +123,10 @@ const FreeCodeCamp: FC<{}> = () => {
     }
 
     function handleFccLessonComplete(): void {
-        const currentLesson = {
-            module: moduleParam,
+        const currentLesson: {[key: string]: string} = {
             lesson: lessonParam,
-        };
+            module: moduleParam,
+        }
         if (certificateProgress) {
             updateMyCertificationsProgressAsync(
                 certificateProgress.id,

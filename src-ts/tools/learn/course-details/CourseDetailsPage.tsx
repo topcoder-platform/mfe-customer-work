@@ -8,6 +8,7 @@ import {
     IconOutline,
     LoadingSpinner,
     profileContext,
+    ProfileContextData,
 } from '../../../lib'
 import {
     CoursesProviderData,
@@ -26,7 +27,7 @@ interface CourseDetailsPageProps {
 
 const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageProps) => {
     const routeParams: Params<string> = useParams()
-    const { profile } = useContext(profileContext)
+    const { profile }: ProfileContextData = useContext(profileContext)
 
     const {
         course,

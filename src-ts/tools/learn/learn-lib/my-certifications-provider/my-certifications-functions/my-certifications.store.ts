@@ -1,5 +1,6 @@
 import { xhrGetAsync, xhrPostAsync, xhrPutAsync } from '../../../../../lib/functions'
 import { getPath } from '../../learn-url.config'
+
 import { LearnMyCertificationProgress } from './learn-my-certification-progress.model'
 
 export enum UPDATE_MY_CERTIFICATE_PROGRESS_ACTIONS {

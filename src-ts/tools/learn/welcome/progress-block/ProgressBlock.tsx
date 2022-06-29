@@ -1,6 +1,6 @@
 import { FC, ReactNode, useContext, useMemo } from 'react'
 
-import { Button, profileContext } from '../../../../lib'
+import { Button, profileContext, ProfileContextData } from '../../../../lib'
 import {
     LearnCertification,
     LearningHat,
@@ -19,16 +19,16 @@ interface ProgressBlockProps {
 }
 
 const ProgressBlock: FC<ProgressBlockProps> = (props: ProgressBlockProps) => {
-    const { profile } = useContext(profileContext)
+    const { profile }: ProfileContextData = useContext(profileContext)
 
     const { completed, inProgress }: MyCertificationsProviderData = useMyCertifications(profile?.userId)
     const isInit: boolean = !inProgress.length && !completed.length
 
     const certificatesById: {[key: string]: LearnCertification} = useMemo(() => (
-        props.certificates.reduce((certifs, certificate) => (
-            certifs[certificate.id] = certificate,
-            certifs
-        ), {} as {[key: string]: LearnCertification})
+        props.certificates.reduce((certifs, certificate) => {
+            certifs[certificate.id] = certificate
+            return certifs
+}, {} as unknown as {[key: string]: LearnCertification})
     ), [props.certificates])
 
     const allMyLearningsLink: ReactNode = (

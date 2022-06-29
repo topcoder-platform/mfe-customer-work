@@ -5,15 +5,15 @@ import { getMyCertificationsProgressAsync, LearnMyCertificationProgress } from '
 import { decorateCompletedPercentage } from './my-certifications-functions/certificate-progress.decorators'
 
 export function useMyCertificationProgress(userId?: number, certification?: string): MyCertificationProgressProviderData {
-    const setCertificateProgress = (progress: LearnMyCertificationProgress) => (
+    function setCertificateProgress(progress: LearnMyCertificationProgress): void {
         setState((prevState) => ({...prevState, certificateProgress: progress}))
-    )
-    
+    }
+
     const [state, setState]: [MyCertificationProgressProviderData, Dispatch<SetStateAction<MyCertificationProgressProviderData>>] = useState<MyCertificationProgressProviderData>({
-        loading: false,
         certificateProgress: undefined,
-        setCertificateProgress,
+        loading: false,
         ready: false,
+        setCertificateProgress,
     })
 
     useEffect(() => {
@@ -25,12 +25,12 @@ export function useMyCertificationProgress(userId?: number, certification?: stri
         if (!userId) {
             return
         }
-        
+
         getMyCertificationsProgressAsync(userId, certification).then(decorateCompletedPercentage).then((myCertifications) => {
             setState((prevState) => ({
                 ...prevState,
-                loading: false,
                 certificateProgress: myCertifications.find(c => c.certification === certification),
+                loading: false,
                 ready: true,
             }))
         })

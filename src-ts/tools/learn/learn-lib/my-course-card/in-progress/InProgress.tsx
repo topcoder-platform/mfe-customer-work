@@ -20,8 +20,8 @@ import styles from './InProgress.module.scss'
 
 interface InProgressProps {
     certification: LearnCertification
-    currentLesson?: string
     completed: number
+    currentLesson?: string
     startDate?: string
     theme: 'detailed'|'minimum'
 }

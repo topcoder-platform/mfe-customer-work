@@ -1,4 +1,4 @@
-import { LearnMyCertificationProgress } from "./my-certifications-functions"
+import { LearnMyCertificationProgress } from './my-certifications-functions'
 
 export interface MyCertificationsProviderData {
     completed: Array<LearnMyCertificationProgress>
