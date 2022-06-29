@@ -63,7 +63,7 @@ export const learnRoutes: Array<PlatformRoute> = [
                 children: [],
                 element: <MyCertificate />,
                 enabled: true,
-                route: 'my-certificate/:certificate',
+                route: ':certification/certificate/',
                 title: toolTitle,
             },
         ],
