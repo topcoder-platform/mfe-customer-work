@@ -1,12 +1,12 @@
-import { Dispatch, FC, memo, MutableRefObject, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { NavigateFunction, useNavigate, useSearchParams } from 'react-router-dom'
 
-import { EnvironmentConfig } from '../../../config'
 import {
     Breadcrumb,
     BreadcrumbItemModel,
     LoadingSpinner,
     Portal,
+    profileContext,
 } from '../../../lib'
 import {
     CourseOutline,
@@ -14,31 +14,29 @@ import {
     LearnLesson,
     LearnModule,
     LessonProviderData,
+    MyCertificationProgressProviderData,
     useCoursesProvider,
     useLessonProvider,
+    useMyCertificationProgress,
 } from '../learn-lib'
 import { getFccLessonPath } from '../learn.routes'
 
 import { CollapsiblePane } from './collapsible-pane'
+import { FccFrame } from './fcc-frame'
 import styles from './FreeCodeCamp.module.scss'
 import { TitleNav } from './title-nav'
 
-const FreecodecampIfr: FC<any> = memo((params: any) => (
-    <iframe
-        className={styles.iframe}
-        ref={params.frameRef}
-    />
-))
-
 const FreeCodeCamp: FC<{}> = () => {
+    const { profile } = useContext(profileContext)
+    
     const navigate: NavigateFunction = useNavigate()
     const [searchParams]: any = useSearchParams()
 
-    const frameRef: MutableRefObject<HTMLElement|any> = useRef()
-    const frameIsReady: MutableRefObject<boolean> = useRef<boolean>(false)
     const [courseParam, setCourseParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('course') ?? '')
     const [moduleParam, setModuleParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('module') ?? '')
     const [lessonParam, setLessonParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('lesson') ?? '')
+
+    const { certificateProgress }: MyCertificationProgressProviderData = useMyCertificationProgress(profile?.userId, courseParam)
 
     const {
         course: courseData,
@@ -98,48 +96,6 @@ const FreeCodeCamp: FC<{}> = () => {
     }
 
     useEffect(() => {
-        if (!frameRef.current || !lesson) {
-            return
-        }
-
-        if (!frameIsReady.current) {
-            Object.assign(frameRef.current, {src: `${EnvironmentConfig.LEARN_SRC}/${lesson.lessonUrl}`})
-        } else {
-            frameRef.current.contentWindow.postMessage(JSON.stringify({
-                data: {path: `/${lesson.lessonUrl}`},
-                event: 'fcc:url:update',
-            }), '*')
-        }
-    }, [lesson?.lessonUrl])
-
-    useEffect(() => {
-      if (!frameRef) {
-          return
-      }
-      const handleEvent: (event: any) => void = (event: any) => {
-        const { data: jsonData, origin }: {data: string, origin: string} = event
-
-        if (origin.indexOf(EnvironmentConfig.LEARN_SRC) === -1) {
-            return
-        }
-
-        const {event: eventName, data}: {data: {path: string}, event: string } = JSON.parse(jsonData)
-
-        if (eventName !== 'fcc:challenge:ready') {
-            return
-        }
-
-        frameIsReady.current = true
-        updatePath(data.path)
-      }
-
-      window.addEventListener('message', handleEvent, false)
-      return () => {
-        window.removeEventListener('message', handleEvent, false)
-      }
-    }, [frameRef, lessonParam, moduleParam, courseParam])
-
-    useEffect(() => {
         const coursePath: string = searchParams.get('course')
         const modulePath: string = searchParams.get('module')
         const lessonPath: string = searchParams.get('lesson')
@@ -180,7 +136,7 @@ const FreeCodeCamp: FC<{}> = () => {
                                 onNavigate={handleNavigate}
                             />
                             <hr />
-                            <FreecodecampIfr frameRef={frameRef} />
+                            <FccFrame lesson={lesson} onFccLessonChange={updatePath} />
                         </div>
                     </div>
                 </Portal>
