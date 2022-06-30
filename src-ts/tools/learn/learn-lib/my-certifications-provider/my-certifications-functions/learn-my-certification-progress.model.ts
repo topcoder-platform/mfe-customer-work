@@ -3,7 +3,7 @@ import { LearnMyModuleProgress } from './learn-my-module-progress.model'
 export interface LearnMyCertificationProgress {
     certification: string
     certificationId: string
-    completed: number
+    completedPercentage: number
     completedDate?: string
     courseId: string
     courseKey: string

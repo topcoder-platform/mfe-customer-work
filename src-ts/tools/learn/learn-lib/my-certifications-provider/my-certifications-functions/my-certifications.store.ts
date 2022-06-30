@@ -6,14 +6,15 @@ import { LearnMyCertificationProgress } from './learn-my-certification-progress.
 export enum UpdateMyCertificateProgressActions {
     currentLesson = 'current-lesson',
     completeLesson = 'complete-lesson',
-    completeCertificate = 'complete-certificate',
+    completeCertificate = 'complete-certification',
 }
 
-export function getMyCertificationsProgressAsync(userId: number, certification?: string): Promise<Array<LearnMyCertificationProgress>> {
+export function getMyCertificationsProgressAsync(userId: number, provider?: string, certification?: string): Promise<Array<LearnMyCertificationProgress>> {
     return xhrGetAsync<Array<LearnMyCertificationProgress>>(getPath(
         'certification-progresses',
         [
             `?userId=${userId}`,
+            provider && `provider=${provider}`,
             certification && `certification=${certification}`,
         ].filter(Boolean).join('&'),
     ))

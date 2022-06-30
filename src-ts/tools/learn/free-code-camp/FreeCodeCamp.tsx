@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { NavigateFunction, useNavigate, useSearchParams } from 'react-router-dom'
+import { NavigateFunction, Params, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import {
     Breadcrumb,
@@ -34,30 +34,32 @@ const FreeCodeCamp: FC<{}> = () => {
     const { profile }: ProfileContextData = useContext(profileContext)
 
     const navigate: NavigateFunction = useNavigate()
-    const [searchParams]: any = useSearchParams()
+    const routeParams: Params<string> = useParams()
 
-    const [courseParam, setCourseParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('course') ?? '')
-    const [moduleParam, setModuleParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('module') ?? '')
-    const [lessonParam, setLessonParam]: [string, Dispatch<SetStateAction<string>>] = useState(searchParams.get('lesson') ?? '')
+    const providerParam = routeParams.provider ?? ''
+    const [certificationParam, setCourseParam]: [string, Dispatch<SetStateAction<string>>] = useState(routeParams.certification ?? '')
+    const [moduleParam, setModuleParam]: [string, Dispatch<SetStateAction<string>>] = useState(routeParams.module ?? '')
+    const [lessonParam, setLessonParam]: [string, Dispatch<SetStateAction<string>>] = useState(routeParams.lesson ?? '')
 
-    const { certificateProgress, setCertificateProgress }: MyCertificationProgressProviderData = useMyCertificationProgress(profile?.userId, courseParam)
+    const { certificateProgress, setCertificateProgress }: MyCertificationProgressProviderData = useMyCertificationProgress(profile?.userId, routeParams.provider, certificationParam)
 
     const {
         course: courseData,
         ready: courseDataReady,
-    }: CoursesProviderData = useCoursesProvider(courseParam)
+    }: CoursesProviderData = useCoursesProvider(providerParam, certificationParam)
 
     const { lesson, ready }: LessonProviderData = useLessonProvider(
-        courseParam,
+        providerParam,
+        certificationParam,
         moduleParam,
         lessonParam,
     )
 
     const breadcrumb: Array<BreadcrumbItemModel> = useMemo(() => [
         { url: '/learn', name: 'Topcoder Academy' },
-        { url: `/learn/${lesson?.course.certification}`, name: lesson?.course.title ?? '' },
+        { url: `/learn/${providerParam}/${lesson?.course.certification}`, name: lesson?.course.title ?? '' },
         { url: '/learn/fcc', name: lesson?.module.title ?? '' },
-    ], [lesson])
+    ], [providerParam, lesson])
 
     const currentModuleData: LearnModule|undefined = useMemo(() => {
         return courseData?.modules.find(d => d.key === moduleParam)
@@ -79,21 +81,28 @@ const FreeCodeCamp: FC<{}> = () => {
             return
         }
 
-        const lessonPath: string = getFccLessonPath({
-            course: courseParam,
-            lesson: nextStep.dashedName,
-            module: moduleParam,
-        })
+        const lessonPath: string = getFccLessonPath(
+            providerParam,
+            certificationParam,
+            moduleParam,
+            nextStep.dashedName,
+        )
         navigate(lessonPath)
-    }, [currentStepIndex, currentModuleData, courseParam, moduleParam])
+    }, [providerParam, currentStepIndex, currentModuleData, certificationParam, moduleParam])
 
     function updatePath(lessonPath: string, modulePath: string, coursePath: string): void {
-        if (coursePath !== courseParam) { setCourseParam(coursePath) }
+        if (coursePath !== certificationParam) { setCourseParam(coursePath) }
         if (modulePath !== moduleParam) { setModuleParam(modulePath) }
         if (lessonPath !== lessonParam) { setLessonParam(lessonPath) }
 
-        if (lessonPath !== lessonParam || modulePath !== moduleParam || coursePath !== courseParam) {
-            window.history.replaceState('', '', `?course=${coursePath}&module=${modulePath}&lesson=${lessonPath}`)
+        if (lessonPath !== lessonParam || modulePath !== moduleParam || coursePath !== certificationParam) {
+            const nextLessonPath: string = getFccLessonPath(
+                providerParam,
+                coursePath,
+                modulePath,
+                lessonPath
+            );
+            window.history.replaceState('', '', nextLessonPath)
         }
     }
 
@@ -137,7 +146,7 @@ const FreeCodeCamp: FC<{}> = () => {
     }
 
     useEffect(() => {
-      if (certificateProgress && certificateProgress.completed === 1 && certificateProgress.status === 'in-progress') {
+      if (certificateProgress && certificateProgress.completedPercentage === 1 && certificateProgress.status === 'in-progress') {
         updateMyCertificationsProgressAsync(
             certificateProgress.id,
             UpdateMyCertificateProgressActions.completeCertificate,
@@ -147,14 +156,14 @@ const FreeCodeCamp: FC<{}> = () => {
     }, [certificateProgress]);
 
     useEffect(() => {
-        const coursePath: string = searchParams.get('course')
-        const modulePath: string = searchParams.get('module')
-        const lessonPath: string = searchParams.get('lesson')
+        const certificationPath: string = routeParams.certification ?? ''
+        const modulePath: string = routeParams.module ?? ''
+        const lessonPath: string = routeParams.lesson ?? ''
 
-        if (coursePath !== courseParam) { setCourseParam(coursePath) }
+        if (certificationPath !== certificationParam) { setCourseParam(certificationPath) }
         if (modulePath !== moduleParam) { setModuleParam(modulePath) }
         if (lessonPath !== lessonParam) { setLessonParam(lessonPath) }
-    }, [searchParams])
+    }, [routeParams])
 
     return (
         <>

@@ -8,7 +8,7 @@ export function decorateCompletedPercentage(myCertification: LearnMyCertificatio
 
     return {
         ...myCertification,
-        completed: progress.completedLessons / progress.lessonCount,
+        completedPercentage: progress.completedLessons / progress.lessonCount,
     }
 }
 

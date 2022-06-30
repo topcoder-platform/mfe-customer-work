@@ -7,23 +7,21 @@ import Learn, { toolTitle } from './Learn'
 import { MyLearning } from './my-learning'
 import { WelcomePage } from './welcome'
 
-interface IGetFccLessonPathParams {
-    course: string
-    lesson: string
-    module: string
+export function getCoursePath(provider: string, certification: string) {
+    return `/learn/${provider}/${certification}`
 }
 
-export const getCoursePath: (certification: string) => string = (certification: string) => {
-    return `/learn/${certification}`
+export function getFccLessonPath(
+    provider: string,
+    certification: string,
+    module: string,
+    lesson: string,
+): string {
+    return `/learn/${provider}/${certification}/${module}/${lesson}`
 }
-
-export const getFccLessonPath: (params: IGetFccLessonPathParams) => string = (params: IGetFccLessonPathParams) => (
-    `/learn/fcc?course=${params.course}&module=${params.module}&lesson=${params.lesson}`
-)
 
 export enum LEARN_PATHS {
     myLearning = '/learn/my-learning',
-    fcc = '/learn/fcc',
 }
 
 export const learnRoutes: Array<PlatformRoute> = [
@@ -40,14 +38,14 @@ export const learnRoutes: Array<PlatformRoute> = [
                 children: [],
                 element: <CourseDetailsPage />,
                 enabled: true,
-                route: ':certification',
+                route: ':provider/:certification',
                 title: toolTitle,
             },
             {
                 children: [],
                 element: <FreeCodeCamp />,
                 enabled: true,
-                route: 'fcc',
+                route: ':provider/:certification/:module/:lesson',
                 title: toolTitle,
             },
             {

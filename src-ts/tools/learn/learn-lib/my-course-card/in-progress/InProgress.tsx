@@ -20,7 +20,7 @@ import styles from './InProgress.module.scss'
 
 interface InProgressProps {
     certification: LearnCertification
-    completed: number
+    completedPercentage: number
     currentLesson?: string
     startDate?: string
     theme: 'detailed'|'minimum'
@@ -32,7 +32,8 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
     const isMinimum: boolean = props.theme === 'minimum'
 
     const certification: string = props.certification?.certification
-    const {course}: CoursesProviderData = useCoursesProvider(certification)
+    const provider: string = props.certification.providerName
+    const {course}: CoursesProviderData = useCoursesProvider(provider, certification)
 
     const resumeCourse: () => void = () => {
         if (!props.currentLesson) {
@@ -41,11 +42,12 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
 
         const [module, lesson]: Array<string> = (props.currentLesson ?? '').split('/')
 
-        const coursePath: string = getFccLessonPath({
-            course: certification,
-            lesson,
+        const coursePath: string = getFccLessonPath(
+            provider,
+            certification,
             module,
-        })
+            lesson,
+        )
         navigate(coursePath)
     }
 
@@ -72,7 +74,7 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
                     )}
                 </div>
 
-                <ProgressBar progress={props.completed} />
+                <ProgressBar progress={props.completedPercentage} />
 
                 {isDetailed && (
                     <div className={styles['summary']}>
@@ -105,7 +107,7 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
                             size='xs'
                             buttonStyle='secondary'
                             label='View Course'
-                            route={getCoursePath(certification)}
+                            route={getCoursePath(props.certification.providerName, certification)}
                         />
                     </div>
                 </div>

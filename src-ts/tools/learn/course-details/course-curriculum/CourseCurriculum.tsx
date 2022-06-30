@@ -32,17 +32,18 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
         const module: LearnModule = course.modules[0]
         const lesson: LearnLesson = module.lessons[0]
 
-        const lessonPath: string = getFccLessonPath({
-            course: course.certification,
-            lesson: current[1] || lesson.dashedName,
-            module: current[0] || module.meta.dashedName,
-        })
+        const lessonPath: string = getFccLessonPath(
+            course.provider,
+            course.certification,
+            current[0] || module.meta.dashedName,
+            current[1] || lesson.dashedName,
+        )
         navigate(lessonPath)
     }, [props.course, props.progress])
 
     const status: string = props.progress?.status ?? 'init'
-    const progress: number = props.progress?.completed ?? 0
-    const inProgress: boolean = status === 'in-progress'
+    const completedPercentage: number = props.progress?.completedPercentage ?? 0
+    const inProgress: boolean = status === 'in-progress' || !!props.progress?.currentLesson
     const isCompleted: boolean = status === 'completed'
 
     return (
@@ -61,8 +62,10 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
                 <CurriculumSummary
                     course={props.course}
                     onClickMainBtn={() => (inProgress || isCompleted) ? handleStartCourse() : setIsTcAcademyPolicyModal(true)}
-                    progress={inProgress ? progress : 0}
+                    inProgress={inProgress}
+                    completedPercentage={completedPercentage}
                     completed={isCompleted}
+                    completedDate={props.progress?.completedDate}
                 />
 
                 <div className={styles['course-outline']}>

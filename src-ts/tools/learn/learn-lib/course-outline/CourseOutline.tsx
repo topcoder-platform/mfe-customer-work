@@ -8,6 +8,7 @@ import {
     LearnModule,
     LearnMyCertificationProgress,
 } from '../../learn-lib'
+import { getFccLessonPath } from '../../learn.routes'
 
 import { CollapsibleItem } from './collapsible-item'
 import styles from './CourseOutline.module.scss'
@@ -28,7 +29,12 @@ const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
             lesson && `lesson=${encodeURIComponent(lesson.dashedName)}`,
         ].filter(Boolean).join('&')
 
-        return `/learn/fcc?${path}`
+        return getFccLessonPath(
+            course.provider,
+            course.certification,
+            module.key,
+            lesson.dashedName,
+        )
     }, [props.course])
 
     return (
@@ -46,7 +52,7 @@ const CourseOutline: FC<CourseOutlineProps> = (props: CourseOutlineProps) => {
                             items={module.lessons}
                             key={module.key}
                             lessonsCount={module.lessons.length}
-                            path={(it: any) => lessonPath(props.course, module, it)}
+                            path={(it: any) => lessonPath(props.course!, module, it)}
                             progress={props.progress?.modules}
                             shortDescription={module.meta.introCopy}
                             title={module.meta.name}

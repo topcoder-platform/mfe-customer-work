@@ -61,7 +61,7 @@ const MyLearning: FC<MyLearningProps> = (props: MyLearningProps) => {
                             key={certif.certificationId}
                             theme='detailed'
                             currentLesson={certif.currentLesson!}
-                            completed={certif.completed}
+                            completedPercentage={certif.completedPercentage}
                             startDate={certif.startDate!}
                         />
                     ))}
