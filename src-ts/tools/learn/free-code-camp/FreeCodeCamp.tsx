@@ -10,6 +10,7 @@ import {
     ProfileContextData,
 } from '../../../lib'
 import {
+    CollapsiblePane,
     CourseOutline,
     CoursesProviderData,
     LearnLesson,
@@ -26,7 +27,6 @@ import {
 } from '../learn-lib'
 import { getFccLessonPath } from '../learn.routes'
 
-import { CollapsiblePane } from './collapsible-pane'
 import { FccFrame } from './fcc-frame'
 import styles from './FreeCodeCamp.module.scss'
 import { TitleNav } from './title-nav'

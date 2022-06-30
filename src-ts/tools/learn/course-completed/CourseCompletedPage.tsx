@@ -5,13 +5,12 @@ import {
     Breadcrumb,
     BreadcrumbItemModel,
     Button,
-    ContentLayout,
     LoadingSpinner,
     profileContext,
     ProfileContextData
 } from '../../../lib'
-import { CollapsiblePane } from '../free-code-camp/collapsible-pane'
 import {
+    CollapsiblePane,
     CourseOutline,
     CoursesProviderData,
     CourseTitle,
