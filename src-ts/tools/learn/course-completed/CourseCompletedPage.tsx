@@ -15,6 +15,7 @@ import {
     CoursesProviderData,
     CourseTitle,
     MyCertificationProgressProviderData,
+    MyCertificationProgressStatus,
     useCoursesProvider,
     useMyCertificationProgress
 } from '../learn-lib'
@@ -51,7 +52,7 @@ const CourseCompletedPage: FC<CourseCompletedPageProps> = (props: CourseComplete
     ], [coursePath])
 
     useEffect(() => {
-      if (ready && progress?.status !== 'completed') {
+      if (ready && progress?.status !== MyCertificationProgressStatus.completed) {
         navigate(coursePath)
       }
     }, [ready, progress, coursePath]);
