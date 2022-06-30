@@ -20,6 +20,7 @@ import {
 } from '../learn-lib'
 import { getCoursePath } from '../learn.routes'
 
+import { ReactComponent as StarsSvg } from './stars.svg'
 import styles from './CourseCompletedPage.module.scss'
 
 interface CourseCompletedPageProps {
@@ -86,7 +87,10 @@ const CourseCompletedPage: FC<CourseCompletedPageProps> = (props: CourseComplete
                                 <div className="body-large">
                                     You have successfully completed all Assessments for:
                                 </div>
-                                <CourseTitle size='xl' title={courseData.title} credits={courseData.provider} type='webdev' />
+                                <div className={styles['course-title']}>
+                                    <StarsSvg />
+                                    <CourseTitle size='xl' title={courseData.title} credits={courseData.provider} type='webdev' />
+                                </div>
                                 <hr />
                                 <p>
                                     Now that you have completed the {courseData.title},

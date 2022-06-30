@@ -65,3 +65,46 @@
     gap: $pad-sm;
     margin-top: $pad-xxl;
 }
+
+.course-title {
+    position: relative;
+    z-index: 1;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 70px;
+        left: 70px;
+        transform: translate(-50%, -50%);
+        background: $tc-white;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        z-index: -1;
+
+        box-shadow: 0px 0px 30px 40px rgba($gold-1, 0.2);
+        animation: stars-fade-in-out 10s ease-in-out 0.3s infinite both;
+    }
+    
+    & > svg {
+        position: absolute;
+        top: 70px;
+        left: 70px;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        animation: stars-fade-in-out 10s ease-in-out 0s infinite both;
+    }
+}
+
+@keyframes stars-fade-in-out {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
