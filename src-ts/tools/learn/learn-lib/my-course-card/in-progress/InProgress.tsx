@@ -19,7 +19,7 @@ import { CurriculumSummary } from '../../curriculum-summary'
 import styles from './InProgress.module.scss'
 
 interface InProgressProps {
-    certification: LearnCertification
+    certification?: LearnCertification
     completedPercentage: number
     currentLesson?: string
     startDate?: string
@@ -31,8 +31,8 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
     const isDetailed: boolean = props.theme === 'detailed'
     const isMinimum: boolean = props.theme === 'minimum'
 
-    const certification: string = props.certification?.certification
-    const provider: string = props.certification.providerName
+    const certification: string = props.certification?.certification ?? ''
+    const provider: string = props.certification?.providerName ?? ''
     const {course}: CoursesProviderData = useCoursesProvider(provider, certification)
 
     const resumeCourse: () => void = () => {
@@ -56,9 +56,9 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
             <div className={styles['inner']}>
                 <div className={styles['line']}>
                     <CourseTitle
-                        title={props.certification.title}
-                        type={props.certification.category}
-                        credits={props.certification.providerName}
+                        title={props.certification?.title ?? ''}
+                        type={props.certification?.category ?? ''}
+                        credits={props.certification?.providerName}
                     >
                         {isDetailed && (
                             <div className={styles['status']}>In Progress</div>
@@ -107,7 +107,7 @@ const InProgress: FC<InProgressProps> = (props: InProgressProps) => {
                             size='xs'
                             buttonStyle='secondary'
                             label='View Course'
-                            route={getCoursePath(props.certification.providerName, certification)}
+                            route={getCoursePath(props.certification?.providerName ?? '', certification)}
                         />
                     </div>
                 </div>

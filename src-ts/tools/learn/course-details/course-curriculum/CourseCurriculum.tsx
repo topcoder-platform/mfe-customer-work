@@ -8,7 +8,8 @@ import {
     LearningHat,
     LearnLesson,
     LearnModule,
-    LearnMyCertificationProgress
+    LearnMyCertificationProgress,
+    MyCertificationProgressStatus
 } from '../../learn-lib'
 import { getFccLessonPath } from '../../learn.routes'
 
@@ -43,8 +44,8 @@ const CourseCurriculum: FC<CourseCurriculumProps> = (props: CourseCurriculumProp
 
     const status: string = props.progress?.status ?? 'init'
     const completedPercentage: number = props.progress?.completedPercentage ?? 0
-    const inProgress: boolean = status === 'in-progress' || !!props.progress?.currentLesson
-    const isCompleted: boolean = status === 'completed'
+    const inProgress: boolean = status === MyCertificationProgressStatus.inProgress || !!props.progress?.currentLesson
+    const isCompleted: boolean = status === MyCertificationProgressStatus.completed
 
     return (
         <>

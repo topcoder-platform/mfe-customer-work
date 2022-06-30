@@ -1,4 +1,5 @@
 import { LearnMyModuleProgress } from './learn-my-module-progress.model'
+import { MyCertificationProgressStatus } from './my-certification-progress-status.enum'
 
 export interface LearnMyCertificationProgress {
     certification: string
@@ -12,5 +13,5 @@ export interface LearnMyCertificationProgress {
     modules: Array<LearnMyModuleProgress>
     provider: string
     startDate: string
-    status: 'in-progress'|'completed'
+    status: MyCertificationProgressStatus
 }

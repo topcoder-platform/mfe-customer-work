@@ -22,6 +22,7 @@ import {
     useCoursesProvider,
     useLessonProvider,
     useMyCertificationProgress,
+    MyCertificationProgressStatus,
 } from '../learn-lib'
 import { getFccLessonPath } from '../learn.routes'
 
@@ -146,7 +147,11 @@ const FreeCodeCamp: FC<{}> = () => {
     }
 
     useEffect(() => {
-      if (certificateProgress && certificateProgress.completedPercentage === 1 && certificateProgress.status === 'in-progress') {
+      if (
+        certificateProgress &&
+        certificateProgress.completedPercentage === 1 &&
+        certificateProgress.status === MyCertificationProgressStatus.inProgress
+    ) {
         updateMyCertificationsProgressAsync(
             certificateProgress.id,
             UpdateMyCertificateProgressActions.completeCertificate,
