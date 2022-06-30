@@ -4,7 +4,7 @@ import { MyCertificationProgressProviderData } from './my-certification-progress
 import { getMyCertificationsProgressAsync, LearnMyCertificationProgress } from './my-certifications-functions'
 import { decorateCompletedPercentage, mapCompletedPercentage } from './my-certifications-functions/certificate-progress.decorators'
 
-export function useMyCertificationProgress(userId?: number, certification?: string): MyCertificationProgressProviderData {
+export function useMyCertificationProgress(userId?: number, provider?: string, certification?: string): MyCertificationProgressProviderData {
     function setCertificateProgress(progress: LearnMyCertificationProgress): void {
         setState((prevState) => ({...prevState, certificateProgress: decorateCompletedPercentage(progress)}))
     }
@@ -26,7 +26,7 @@ export function useMyCertificationProgress(userId?: number, certification?: stri
             return
         }
 
-        getMyCertificationsProgressAsync(userId, certification).then(mapCompletedPercentage).then((myCertifications) => {
+        getMyCertificationsProgressAsync(userId, provider, certification).then(mapCompletedPercentage).then((myCertifications) => {
             setState((prevState) => ({
                 ...prevState,
                 certificateProgress: myCertifications.find(c => c.certification === certification),
@@ -34,7 +34,7 @@ export function useMyCertificationProgress(userId?: number, certification?: stri
                 ready: true,
             }))
         })
-    }, [userId, certification])
+    }, [userId, provider, certification])
 
     return state
 }

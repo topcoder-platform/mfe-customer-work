@@ -32,14 +32,14 @@ const CourseDetailsPage: FC<CourseDetailsPageProps> = (props: CourseDetailsPageP
     const {
         course,
         ready,
-    }: CoursesProviderData = useCoursesProvider(routeParams.certification)
+    }: CoursesProviderData = useCoursesProvider(routeParams.provider ?? '', routeParams.certification)
 
-    const { certificateProgress: progress }: MyCertificationProgressProviderData = useMyCertificationProgress(profile?.userId, routeParams.certification)
+    const { certificateProgress: progress }: MyCertificationProgressProviderData = useMyCertificationProgress(profile?.userId, routeParams.provider, routeParams.certification)
 
     const breadcrumb: Array<BreadcrumbItemModel> = useMemo(() => [
         { url: '/learn', name: 'Topcoder Academy' },
-        { url: `/learn/${course?.certification}`, name: course?.title ?? '' },
-    ], [course?.certification])
+        { url: `/learn/${routeParams.provider}/${routeParams.certification}`, name: course?.title ?? '' },
+    ], [routeParams, course])
 
     return (
         <ContentLayout>

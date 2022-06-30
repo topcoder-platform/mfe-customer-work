@@ -53,7 +53,7 @@ const WelcomePage: FC<WelcomePageProps> = (props: WelcomePageProps) => {
                                 <CoursesCard
                                     title={certification.title}
                                     type={certification.category}
-                                    link={certification.state === 'active' ? getCoursePath(certification.certification) : undefined}
+                                    link={certification.state === 'active' ? getCoursePath(certification.providerName, certification.certification) : undefined}
                                     credits={certification.providerName}
                                     key={certification.key}
                                 />

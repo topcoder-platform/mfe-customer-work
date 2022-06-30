@@ -1,10 +1,11 @@
 import { LearnMyModuleProgress } from './learn-my-module-progress.model'
+import { MyCertificationProgressStatus } from './my-certification-progress-status.enum'
 
 export interface LearnMyCertificationProgress {
     certification: string
     certificationId: string
-    completed: number
     completedDate?: string
+    completedPercentage: number
     courseId: string
     courseKey: string
     currentLesson?: string
@@ -12,5 +13,5 @@ export interface LearnMyCertificationProgress {
     modules: Array<LearnMyModuleProgress>
     provider: string
     startDate: string
-    status: 'in-progress'|'completed'
+    status: MyCertificationProgressStatus
 }
