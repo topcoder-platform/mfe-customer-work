@@ -29,7 +29,7 @@ const Certificate: FC<CertificateProps> = (props: CertificateProps) => {
                     {props.userName}
                 </h1>
                 <div className={classNames('large-subtitle', styles['tc-handle'])}>
-                    <span>topcoder handle: </span>
+                    <span>Topcoder Handle: </span>
                     <span>{props.tcHandle}</span>
                 </div>
                 <div className={styles['logos']}>

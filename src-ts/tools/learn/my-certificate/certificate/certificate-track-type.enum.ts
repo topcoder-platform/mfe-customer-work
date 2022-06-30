@@ -4,5 +4,5 @@ export enum TrackTypesEnum {
     QA = 'Quality Assurance',
     DEV = 'Development',
     DATASCIENCE = 'Data Science',
-    DESIGN = 'DESIGN',
+    DESIGN = 'Design',
 }
