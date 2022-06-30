@@ -4,8 +4,8 @@ import { MyCertificationProgressStatus } from './my-certification-progress-statu
 export interface LearnMyCertificationProgress {
     certification: string
     certificationId: string
-    completedPercentage: number
     completedDate?: string
+    completedPercentage: number
     courseId: string
     courseKey: string
     currentLesson?: string

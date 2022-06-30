@@ -16,13 +16,13 @@ import {
     LearnModule,
     LessonProviderData,
     MyCertificationProgressProviderData,
+    MyCertificationProgressStatus,
     startMyCertificationsProgressAsync,
-    updateMyCertificationsProgressAsync,
     UpdateMyCertificateProgressActions,
+    updateMyCertificationsProgressAsync,
     useCoursesProvider,
     useLessonProvider,
     useMyCertificationProgress,
-    MyCertificationProgressStatus,
 } from '../learn-lib'
 import { getFccLessonPath } from '../learn.routes'
 
@@ -37,7 +37,7 @@ const FreeCodeCamp: FC<{}> = () => {
     const navigate: NavigateFunction = useNavigate()
     const routeParams: Params<string> = useParams()
 
-    const providerParam = routeParams.provider ?? ''
+    const providerParam: string = routeParams.provider ?? ''
     const [certificationParam, setCourseParam]: [string, Dispatch<SetStateAction<string>>] = useState(routeParams.certification ?? '')
     const [moduleParam, setModuleParam]: [string, Dispatch<SetStateAction<string>>] = useState(routeParams.module ?? '')
     const [lessonParam, setLessonParam]: [string, Dispatch<SetStateAction<string>>] = useState(routeParams.lesson ?? '')
@@ -102,7 +102,7 @@ const FreeCodeCamp: FC<{}> = () => {
                 coursePath,
                 modulePath,
                 lessonPath
-            );
+            )
             window.history.replaceState('', '', nextLessonPath)
         }
     }
@@ -158,7 +158,7 @@ const FreeCodeCamp: FC<{}> = () => {
             {}
         ).then(setCertificateProgress)
       }
-    }, [certificateProgress]);
+    }, [certificateProgress])
 
     useEffect(() => {
         const certificationPath: string = routeParams.certification ?? ''

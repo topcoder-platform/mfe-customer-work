@@ -7,7 +7,7 @@ import Learn, { toolTitle } from './Learn'
 import { MyLearning } from './my-learning'
 import { WelcomePage } from './welcome'
 
-export function getCoursePath(provider: string, certification: string) {
+export function getCoursePath(provider: string, certification: string): string {
     return `/learn/${provider}/${certification}`
 }
 
