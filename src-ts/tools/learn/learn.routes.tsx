@@ -53,6 +53,13 @@ export const learnRoutes: Array<PlatformRoute> = [
             },
             {
                 children: [],
+                element: <MyCertificate />,
+                enabled: true,
+                route: ':provider/:certification/certificate',
+                title: toolTitle,
+            },
+            {
+                children: [],
                 element: <FreeCodeCamp />,
                 enabled: true,
                 route: ':provider/:certification/:module/:lesson',
@@ -63,13 +70,6 @@ export const learnRoutes: Array<PlatformRoute> = [
                 element: <MyLearning />,
                 enabled: true,
                 route: 'my-learning',
-                title: toolTitle,
-            },
-            {
-                children: [],
-                element: <MyCertificate />,
-                enabled: true,
-                route: ':certification/certificate/',
                 title: toolTitle,
             },
         ],

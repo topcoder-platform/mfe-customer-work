@@ -2,7 +2,12 @@ import { FC, useContext } from 'react'
 import { NavigateFunction, Params, useNavigate, useParams } from 'react-router-dom'
 
 import { IconOutline, profileContext, ProfileContextData } from '../../../lib'
-import { CoursesProviderData, useCoursesProvider } from '../learn-lib'
+import {
+    CoursesProviderData,
+    MyCertificationProgressProviderData,
+    useCoursesProvider,
+    useMyCertificationProgress
+} from '../learn-lib'
 
 import { ActionButton } from './action-button'
 import { Certificate } from './certificate'
@@ -18,7 +23,15 @@ const MyCertificate: FC<MyCertificateProps> = (props: MyCertificateProps) => {
 
     const {
         course,
-    }: CoursesProviderData = useCoursesProvider(routeParams.certification)
+    }: CoursesProviderData = useCoursesProvider(routeParams.provider, routeParams.certification)
+
+    const {
+        certificateProgress,
+    }: MyCertificationProgressProviderData = useMyCertificationProgress(
+        profile?.userId,
+        routeParams.provider,
+        routeParams.certification
+    )
 
     function handleBackBtnClick(): void {
         navigate(-1)
@@ -39,7 +52,7 @@ const MyCertificate: FC<MyCertificateProps> = (props: MyCertificateProps) => {
                         userName={[profile?.firstName, profile?.lastName].filter(Boolean).join(' ')}
                         tcHandle={profile?.handle}
                         provider={course?.provider}
-                        completedDate={'2022-04-27'}
+                        completedDate={certificateProgress?.completedDate ?? ''}
                     />
                 </div>
                 <div className={styles['btns-wrap']}>
