@@ -3,6 +3,8 @@ export interface LearnMyModuleProgress {
         completedDate?: string
         dashedName: string
     }>
+    completedPercentage: number
     lessonCount: number
     module: string
+    moduleStatus: string
 }
