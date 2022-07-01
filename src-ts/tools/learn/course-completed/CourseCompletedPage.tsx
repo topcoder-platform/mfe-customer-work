@@ -10,12 +10,14 @@ import {
     ProfileContextData
 } from '../../../lib'
 import {
+    CertificationsProviderData,
     CollapsiblePane,
     CourseOutline,
     CoursesProviderData,
     CourseTitle,
     MyCertificationProgressProviderData,
     MyCertificationProgressStatus,
+    useCertificationsProvider,
     useCoursesProvider,
     useMyCertificationProgress
 } from '../learn-lib'
@@ -41,15 +43,30 @@ const CourseCompletedPage: FC<CourseCompletedPageProps> = (props: CourseComplete
         ready: courseDataReady,
     }: CoursesProviderData = useCoursesProvider(providerParam, certificationParam)
 
-    const { certificateProgress: progress, ready: progressReady }: MyCertificationProgressProviderData = useMyCertificationProgress(profile?.userId, routeParams.provider, routeParams.certification)
+    const {
+        certificateProgress: progress,
+        ready: progressReady,
+    }: MyCertificationProgressProviderData = useMyCertificationProgress(
+        profile?.userId,
+        routeParams.provider,
+        routeParams.certification
+    )
+    
+    const {
+        certification,
+        ready: certifReady,
+    }: CertificationsProviderData = useCertificationsProvider(providerParam, progress?.certificationId, {
+        enabled: progressReady && !!progress
+    })
 
-    const ready = progressReady && courseDataReady
+
+    const ready = progressReady && courseDataReady && certifReady
 
     const breadcrumb: Array<BreadcrumbItemModel> = useMemo(() => [
         { url: '/learn', name: 'Topcoder Academy' },
         { url: coursePath, name: courseData?.title ?? '' },
         { url: `/learn/completed`, name: 'Congratulations!' },
-    ], [coursePath])
+    ], [coursePath, courseData])
 
     useEffect(() => {
       if (ready && progress?.status !== MyCertificationProgressStatus.completed) {
@@ -90,13 +107,13 @@ const CourseCompletedPage: FC<CourseCompletedPageProps> = (props: CourseComplete
                                 </div>
                                 <div className={styles['course-title']}>
                                     <StarsSvg />
-                                    <CourseTitle size='xl' title={courseData.title} credits={courseData.provider} type='webdev' />
+                                    <CourseTitle size='xl' title={courseData.title} credits={courseData.provider} type={certification?.category ?? ''} />
                                 </div>
                                 <hr />
                                 <p>
                                     Now that you have completed the {courseData.title},
                                     take a look at our other Topcoder Academy courses.
-                                    To view other courses, press the start a new course button below.
+                                    To view other courses, press the "Start a new course" button below.
                                 </p>
                                 <div className={styles['btns-wrap']}>
                                     <Button size='sm' buttonStyle='secondary' label='View certificate' route={`/learn/${courseData.certification}/certificate`} />

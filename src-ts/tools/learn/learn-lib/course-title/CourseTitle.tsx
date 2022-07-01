@@ -14,7 +14,7 @@ interface CourseTitleProps {
 
 const CourseTitle: FC<CourseTitleProps> = (props: CourseTitleProps) => {
 
-    const title: ReactNode = props.size === 'md' ? (
+    const title: ReactNode = (!props.size || props.size === 'md') ? (
         <div className='body-main-bold'>
             {props.title}
         </div>
