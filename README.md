@@ -1,5 +1,15 @@
 # Topcoder Self Service Micro Frontend App
 
+# THIS APP IS OBSOLETE!! YAY!!
+
+>**NOTE:** As of PROD-2194, this repo will obsolete.
+
+All requests to this app should be redirected to the new [platform ui](https://github.com/topcoder-platform/platform-ui).
+
+If for some bizarre reason you need to run this repo, you can replace the root.component.jsx with the root.component.jsx.bak, and it will work normally.
+
+# THIS APP IS OBSOLETE! PAY NO ATTN TO ANYTHING BELOW
+
 This is a [single-spa](https://single-spa.js.org/) React microapp that runs within the `mfe-core` frame application. 
 
 > **NOTE:** This application has been configured to be run as child app of a single-spa application. So while this app can be deployed and run independently, we would need some frame [single-spa](https://single-spa.js.org/) which would load it. While technically we can achieve running this app as standalone app it's strongly not recommended by the author of the `single-spa` approch, see this [GitHub Issue](https://github.com/single-spa/single-spa/issues/640) for details.
