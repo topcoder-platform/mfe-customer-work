@@ -14,6 +14,7 @@ export interface GlobalConfig {
     REAUTH_OFFSET: number
     TAG_MANAGER_ID?: string
     URL: {
-        ACCOUNTS_APP_CONNECTOR: string
+        ACCOUNTS_APP_CONNECTOR: string,
+        PLATFORM_UI: string
     }
 }

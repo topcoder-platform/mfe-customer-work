@@ -18,5 +18,6 @@ export const EnvironmentConfigDefault: GlobalConfig = {
     TAG_MANAGER_ID: undefined,
     URL: {
         ACCOUNTS_APP_CONNECTOR: 'https://accounts-auth0.topcoder-dev.com',
+        PLATFORM_UI: 'https://local.topcoder-dev.com:3000',
     },
 }
