@@ -8,9 +8,7 @@ import PT from "prop-types";
 import Select from "react-select";
 import "./styles.module.scss";
 
-// TODO: figure out why this export is needed
-// https://github.com/topcoder-platform/mfe-customer-work/issues/74
-export const ReactSelect = (props) => {
+const ReactSelect = (props) => {
   const customStyles = {
     control: (provided, state) => ({
       ...provided,

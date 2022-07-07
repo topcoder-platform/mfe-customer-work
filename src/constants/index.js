@@ -1,30 +1,56 @@
 import _ from "lodash";
 import moment from "moment";
 import React from "react";
+import WebsiteDesignPdf1 from "../assets/pdf/WebDesign-1.pdf";
+import WebsiteDesignPdf2 from "../assets/pdf/WebDesign-2.pdf";
+import "./styles.module.scss";
 
 import MyWorkActiveIcon from "../assets/images/icon-my-work-active.svg";
+import exampleImage1 from "../assets/images/design-example-image1.png";
+import exampleImage2 from "../assets/images/design-example-image2.png";
 import MyWorkIcon from "../assets/images/icon-my-work.svg";
 import PageUl from "../components/PageElements/PageUl";
+import PageP from "../components/PageElements/PageP";
+import copyFileIcon from "../assets/images/icon-copy-file.svg";
 import workUtil from "../utils/work";
 
 import * as dataExplorationConfigs from "./products/DataExploration";
 import * as findMeDataConfigs from "./products/FindMeData";
+import * as dataAdvisoryConfigs from "./products/DataAdvisory";
+import * as webDesignConfigs from "./products/WebsiteDesign";
+import * as webDesignLegacyConfigs from "./products/WebsiteDesignLegacy";
 import countries from "./countries";
+
+import imgProductDataExploration from "../assets/images/products/product-main-photos/data-exploration.jpeg";
+import imgProductProblemStatement from "../assets/images/products/product-main-photos/problem-statements-and-data.jpeg";
+import imgProductFindMeData from "../assets/images/products/product-main-photos/find-me-data.jpeg";
+import imgProductWebsiteDesign from "../assets/images/products/product-main-photos/web-design.jpeg";
+import imgRedBlueGradient from "../assets/images/products/product-main-photos/reb-blue-gradient-background.jpeg";
+import { WorkType } from "../../src-ts";
 
 export const UNDER_MAINTENANCE = false;
 
 export const GA_ID = "GTM-MXXQHG8";
 
-export const DEVICE_TYPE_DETAILS = {
-  computer: "Default screen 1366px width, 768px height",
-  tablet: "Default screen (vertical) 810px height, 1080px width",
-  phone: "Default screen 375px width, 812px height",
-};
-
 export const ROUTES = {
   INTAKE_FORM: "/self-service/wizard",
   HOME_PAGE: "/self-service",
   DASHBOARD_PAGE: "/work/dashboard",
+  WEBSITE_DESIGN: "/self-service/work/new/website-design-new/basic-info",
+  WEBSITE_DESIGN_REVIEW: "/self-service/work/new/website-design-new/review",
+  DATA_EXPLORATION: "/self-service/work/new/data-exploration/basic-info",
+  DATA_EXPLORATION_REVIEW: "/self-service/work/new/data-exploration/review",
+  PROBLEM_STATEMENT: "/self-service/work/new/data-advisory/basic-info",
+  PROBLEM_STATEMENT_REVIEW: "/self-service/work/new/data-advisory/review",
+  FIND_ME_DATA: "/self-service/work/new/find-me-data/basic-info",
+  FIND_ME_DATA_REVIEW: "/self-service/work/new/find-me-data/review",
+  WEBSITE_DESIGN_LEGACY: "/self-service/work/new/website-design/basic-info",
+  WEBSITE_DESIGN_PURPOSE_LEGACY:
+    "/self-service/work/new/website-design/website-purpose",
+  WEBSITE_DESIGN_PAGE_DETAILS_LEGACY:
+    "/self-service/work/new/website-design/page-details",
+  WEBSITE_DESIGN_BRANDING_LEGACY:
+    "/self-service/work/new/website-design/branding",
 };
 
 /**
@@ -123,53 +149,6 @@ export const DesignOptions = [
 ];
 
 /**
- * ProgressLevels
- */
-export const ProgressLevels = [
-  {
-    label: "Basic Info",
-    url: "/self-service/basic-info",
-    trueIndex: 2,
-    showIndex: 1,
-    visibleInProgressIndicator: true,
-  },
-  {
-    label: "Review Your Project Details",
-    url: "/self-service/work/new/data-exploration/basic-info",
-    trueIndex: 2,
-    showIndex: 1,
-  },
-  {
-    label: "Website Purpose",
-    url: "/self-service/website-purpose",
-    trueIndex: 3,
-    showIndex: 2,
-    visibleInProgressIndicator: true,
-  },
-  {
-    label: "Page Details",
-    url: "/self-service/page-details",
-    trueIndex: 4,
-    showIndex: 3,
-    visibleInProgressIndicator: true,
-  },
-  {
-    label: "Branding",
-    url: "/self-service/branding",
-    trueIndex: 5,
-    showIndex: 4,
-    visibleInProgressIndicator: true,
-  },
-  {
-    label: "Review",
-    url: "/self-service/review",
-    trueIndex: 6,
-    showIndex: 5,
-    visibleInProgressIndicator: true,
-  },
-];
-
-/**
  * page options
  */
 export const PageOptions = [
@@ -260,13 +239,111 @@ export const workTypes = [
 ];
 
 /**
+ * Project & professional service content
+ */
+export const projectAndProfessionalWork = {
+  title: "Projects & Professional Services",
+  shortDescription:
+    "Have a more complex need or project to discuss? We do it all and do it well. Start with confidence right here.",
+  bgImage: imgRedBlueGradient,
+  svgIcon: copyFileIcon,
+  ctaText: "Let's talk",
+};
+
+/**
  * Web Work Types
  */
 
 export const webWorkTypes = [
   {
+    type: WorkType.designLegacy,
+    title: "Website Design",
+    duration: `${webDesignLegacyConfigs.DEFAULT_DURATION} Days`,
+    description:
+      "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    shortDescription: "Create Custom Website Designs that Wow",
+    shortDescriptionMobile: "Design your business",
+    subTitle:
+      "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    price: webDesignLegacyConfigs.BASE_PRODUCT_PRICE,
+    stickerPrice: webDesignLegacyConfigs.STICKER_PRICE,
+    featured: true,
+    startRoute: "/self-service/work/new/website-design/basic-info",
+    basePath: "website-design",
+    bgImage: imgProductWebsiteDesign,
+  },
+  {
+    type: WorkType.design,
+    title: "Website Design (NEW)",
+    subTitle:
+      "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    shortDescription: "Create Custom Website Designs that Wow",
+    shortDescriptionMobile: "Design your business",
+    description:
+      "Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
+    price: webDesignConfigs.BASE_PRODUCT_PRICE,
+    // stickerPrice: 499,
+    duration: `${webDesignConfigs.DEFAULT_DURATION} Days`,
+    featured: true,
+    startRoute: "/self-service/work/new/website-design-new/basic-info",
+    basePath: "website-design-new",
+    helperBannerTitle: "WHAT WILL I RECEIVE?",
+    bgImage: imgProductWebsiteDesign,
+    helperBannerContent: (
+      <>
+        <br />
+        <div styleName="helpBanner">
+          <PageP>
+            You will receive up to five unique visual designs for the main page
+            of your website, in an industry-standard format. Visual designs are
+            the first step in creating a functional website. Topcoder can help
+            you with launching your website once you have approved your design.
+          </PageP>
+          <div styleName="sampleImages">
+            <a href={WebsiteDesignPdf1} target="_blank">
+              <img styleName="imgBanner" src={exampleImage1} />
+            </a>
+            &nbsp;
+            <a href={WebsiteDesignPdf2} target="_blank">
+              <img src={exampleImage2} />
+            </a>
+          </div>
+        </div>
+      </>
+    ),
+    aboutBannerTitle: "ABOUT WEBSITE DESIGN",
+    aboutBannerContent: (
+      <>
+        <p>
+          Topcoder design experts will take all of the information you provide
+          below, and create visual designs for your website that fit your
+          industry and match your desired look & feel. We've done this for
+          hundreds of customers and will work with you to create your ideal
+          design.
+        </p>
+      </>
+    ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Website Design" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: ROUTES.WEBSITE_DESIGN, name: "Website design" },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
+  },
+  {
+    type: WorkType.data,
     title: "Data Exploration",
     subTitle: "Get insights about your data from Topcoder experts.",
+    shortDescription: "Uncover What's Interesting About Your Data",
+    description:
+      "We accumulate data every day in the course of life and business, yet rarely have the time to give it a closer look. Get multiple fresh, expert perspectives to identify the patterns and relationships in your data. They might just be the key to your next 'Aha' moment.",
     price: dataExplorationConfigs.USING_PROMOTIONAL_PRICE
       ? dataExplorationConfigs.PROMOTIONAL_PRODUCT_PRICE
       : dataExplorationConfigs.BASE_PRODUCT_PRICE,
@@ -274,6 +351,8 @@ export const webWorkTypes = [
     duration: `${dataExplorationConfigs.DEFAULT_DURATION} Days`,
     featured: true,
     startRoute: "/self-service/work/new/data-exploration/basic-info",
+    basePath: "data-exploration",
+    bgImage: imgProductDataExploration,
     helperBannerTitle: "WHAT WILL I GET?",
     helperBannerContent: (
       <>
@@ -301,17 +380,99 @@ export const webWorkTypes = [
         easy-to-understand format.
       </p>
     ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Data exploration" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: ROUTES.DATA_EXPLORATION, name: "Data exploration" },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
   },
   {
+    type: WorkType.problem,
+    title: "Problem Statement & Data Advisory",
+    subTitle:
+      "Translate your data science idea into an actionable data science approach.",
+    shortDescription: "The easiest way to get started in data science",
+    description:
+      "Problem Statement & Data Advisory is for those asking themselves: How can I apply data science to this idea or goal? How will I interpret solutions, and how will that help me take action? What data do I need?",
+    price: dataAdvisoryConfigs.PROMOTIONAL_PRODUCT_PRICE,
+    stickerPrice: dataAdvisoryConfigs.BASE_PRODUCT_PRICE,
+    duration: `${dataAdvisoryConfigs.DEFAULT_DURATION} Days`,
+    featured: true,
+    startRoute: "/self-service/work/new/data-advisory/basic-info",
+    basePath: "data-advisory",
+    helperBannerTitle: "WHAT WILL I RECEIVE?",
+    bgImage: imgProductProblemStatement,
+    helperBannerContent: (
+      <>
+        <br />
+        <PageUl>
+          <li>
+            Detailed feedback on your business question and/or problem statement
+          </li>
+          <li>Recommendations or refinement of your problem statement</li>
+          <li>
+            Recommendations on the amount and type of data that should be used
+          </li>
+          <li>
+            Assessment of the quality of your data and recommendations on how to
+            improve or augment the data set
+          </li>
+          <li>
+            Scoring and evaluation recommendations for future data science
+            solutions
+          </li>
+        </PageUl>
+      </>
+    ),
+    aboutBannerTitle: "ABOUT PROBLEM STATEMENT & DATA ADVISORY",
+    aboutBannerContent: (
+      <p>
+        Problem Statement &amp; Data Advisory is for those asking themselves:
+        How can I apply data science to this idea or goal? How will I interpret
+        solutions, and how will that help me take action? What data do I need?
+      </p>
+    ),
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Problem statement & data advisory" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        {
+          url: ROUTES.PROBLEM_STATEMENT,
+          name: "Problem statement & data advisory",
+        },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
+  },
+  {
+    type: WorkType.findData,
     title: "Find Me Data",
     subTitle: "Get the data you need to meet your analysis goals.",
+    shortDescription: "Our Experts Source Useful Data Sets For You",
+    description:
+      "Sometimes data is the only thing standing between you and something great. Tell us what you're solving for, and let our experts find the data to get you started now.",
     price: findMeDataConfigs.USING_PROMOTIONAL_PRICE
       ? findMeDataConfigs.PROMOTIONAL_PRODUCT_PRICE
       : findMeDataConfigs.BASE_PRODUCT_PRICE,
     stickerPrice: findMeDataConfigs.BASE_PRODUCT_PRICE,
     duration: `${findMeDataConfigs.DEFAULT_DURATION} Days`,
-    featured: false,
+    featured: true,
     startRoute: "/self-service/work/new/find-me-data/basic-info",
+    basePath: "find-me-data",
+    bgImage: imgProductFindMeData,
     helperBannerTitle: "WHAT WILL I RECEIVE?",
     helperBannerContent: (
       <>
@@ -354,26 +515,19 @@ export const webWorkTypes = [
         </PageUl>
       </>
     ),
-  },
-  {
-    title: "Website Design",
-    duration: "4-6 Days",
-    subTitle:
-      "​​Create a beautiful custom visual design for your website. Specify the scope and device types, your vision, and receive up to 5 modern designs.",
-    price: 199,
-    stickerPrice: 398,
-    featured: true,
-    startRoute: "/self-service/basic-info",
-  },
-  {
-    title: "Website Development",
-    subTitle: "Information to help understand what this category would include",
-    price: 499,
-  },
-  {
-    title: "Web App Design",
-    subTitle: "Information to help understand what this category would include",
-    price: 499,
+    breadcrumbs: {
+      basic: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: "#", name: "Find me data" },
+      ],
+      review: [
+        { url: ROUTES.DASHBOARD_PAGE, name: "My work" },
+        { url: ROUTES.INTAKE_FORM, name: "Start work" },
+        { url: ROUTES.FIND_ME_DATA, name: "Find me data" },
+        { url: "#", name: "Review & Payment" },
+      ],
+    },
   },
 ];
 
@@ -381,7 +535,7 @@ export const webWorkTypes = [
  * Color Options
  */
 export const ColorOptionsItems = [
-  { name: "Any Colors", className: "angularGradient" },
+  { name: "Any Colors", className: "angularGradient", isAny: true },
   { name: "Blues", className: "blues" },
   { name: "Aquas", className: "aquas" },
   { name: "Greens", className: "greens" },
@@ -447,6 +601,7 @@ export const ACTIONS = {
     COOKIE_CLEARED: "COOKIE_CLEARED",
     TRIGGER_AUTO_SAVE: "TRIGGER_AUTO_SAVE",
     INIT_ERRORED: "INIT_ERRORED",
+    TRIGGER_COOKIE_CLEARED: "TRIGGER_COOKIE_CLEARED",
   },
   CHALLENGE: {
     GET_CHALLENGE: "GET_CHALLENGE",
@@ -473,10 +628,6 @@ export const ACTIONS = {
     GET_SOLUTIONS_PENDING: "GET_SOLUTIONS_PENDING",
     GET_SOLUTIONS_SUCCESS: "GET_SOLUTIONS_SUCCESS",
     GET_SOLUTIONS_ERROR: "GET_SOLUTIONS_ERROR",
-    GET_SOLUTIONS_COUNT: "GET_SOLUTIONS_COUNT",
-    GET_SOLUTIONS_COUNT_PENDING: "GET_SOLUTIONS_COUNT_PENDING",
-    GET_SOLUTIONS_COUNT_SUCCESS: "GET_SOLUTIONS_COUNT_SUCCESS",
-    GET_SOLUTIONS_COUNT_ERROR: "GET_SOLUTIONS_COUNT_ERROR",
     DOWNLOAD_SOLUTION: "DOWNLOAD_SOLUTION",
     DOWNLOAD_SOLUTION_PENDING: "DOWNLOAD_SOLUTION_PENDING",
     DOWNLOAD_SOLUTION_SUCCESS: "DOWNLOAD_SOLUTION_SUCCESS",
@@ -496,42 +647,6 @@ export const ACTIONS = {
 export const AUTO_SAVE_FORM = "AUTO_SAVE_FORM";
 
 export const CACHED_CHALLENGE_ID = "CACHED_CHALLENGE_ID";
-
-export const CHALLENGE_FIELD_VALUES = {
-  trackId: "5fa04185-041f-49a6-bfd1-fe82533cd6c8",
-  typeId: "927abff4-7af9-4145-8ba1-577c16e64e2e",
-  timelineTemplateId: "918f6a3e-1a63-4680-8b5e-deb95b1411e7",
-};
-
-// TODO: make this dependant to the selected work type
-export const DEFAULT_TIMELINE = [
-  {
-    // Screening
-    phaseId: "2d7d3d85-0b29-4989-b3b4-be7f2b1d0aa6",
-    duration: 14400,
-  },
-  {
-    // Review
-    phaseId: "aa5a3f78-79e0-4bf7-93ff-b11e8f5b398b",
-    duration: 144000,
-  },
-  {
-    // Approval
-    phaseId: "ad985cff-ad3e-44de-b54e-3992505ba0ae",
-    duration: 14400,
-  },
-];
-
-export const INTAKE_FORM_ROUTES = [
-  "/self-service/wizard",
-  "/self-service/basic-info",
-  "/self-service/website-purpose",
-  "/self-service/page-details",
-  "/self-service/login-prompt",
-  "/self-service/branding",
-  "/self-service/review",
-  "/self-service/thank-you",
-];
 
 export const CHALLENGE_STATUS = {
   ACTIVE: "Active",
@@ -825,85 +940,3 @@ export const COUNTRY_OPTIONS = countries.map((ct) => ({
   label: ct.name,
   value: ct.code,
 }));
-
-export const BASE_PRODUCT_PRICE = 100;
-export const PER_PAGE_COST = 99;
-export const PRIZES_PAYMENT_BREAKDOWN = [0.5, 0.2, 0.1];
-export const REVIEWER_PAYMENT_BREAKDOWN = [0.1, 0.1];
-
-export const DURATION_MAPPING = [
-  [
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 1 device
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 2 devices
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 3 devices
-  ], // 1 page
-
-  [
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 1 device
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 2 devices
-    {
-      submissionDuration: 2,
-      totalDuration: 4,
-    }, // 3 devices
-  ], // 2 pages
-
-  [
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 1 device
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 2 devices
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 3 devices
-  ], // 3 pages
-
-  [
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 1 device
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 2 devices
-    {
-      submissionDuration: 4,
-      totalDuration: 6,
-    }, // 3 devices
-  ], // 4 pages
-
-  [
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 1 device
-    {
-      submissionDuration: 3,
-      totalDuration: 5,
-    }, // 2 devices
-    {
-      submissionDuration: 4,
-      totalDuration: 6,
-    }, // 3 devices
-  ], // 5 pages
-];

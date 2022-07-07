@@ -9,9 +9,12 @@ import FindMeDataIcon from "../../../assets/images/find-me-data-icon.svg";
 import HelpBanner from "components/HelpBanner";
 import { webWorkTypes } from "../../../constants/index";
 import FeaturedWorkTypeBanner from "../../../components/Banners/FeaturedWorkTypeBanner";
+import { WorkType } from "../../../../src-ts";
 
 export default function FindMeData({ isLoggedIn }) {
-  const findMeData = webWorkTypes.find((type) => type.title === "Find Me Data");
+  const findMeData = webWorkTypes.find(
+    (workType) => workType.type === WorkType.findData
+  );
 
   const { title, subTitle, helperBannerTitle, helperBannerContent } =
     findMeData;
@@ -21,7 +24,8 @@ export default function FindMeData({ isLoggedIn }) {
       <BasicInfo
         path="/basic-info"
         isLoggedIn={isLoggedIn}
-        bannerData={findMeData}
+        workItemConfig={findMeData}
+        breadcrumb={findMeData.breadcrumbs.basic}
       />
       <LoginPrompt
         path="/login-prompt"
@@ -30,7 +34,13 @@ export default function FindMeData({ isLoggedIn }) {
         nextPageUrl="/self-service/work/new/find-me-data/review"
       />
       <Review
-        banner={<FeaturedWorkTypeBanner title={title} subTitle={subTitle} />}
+        banner={
+          <FeaturedWorkTypeBanner
+            title="REVIEW & PAYMENT"
+            subTitle={title}
+            workType={WorkType.findData}
+          />
+        }
         secondaryBanner={
           <HelpBanner defaultOpen title={helperBannerTitle} styles={["gray"]}>
             {helperBannerContent}
@@ -45,7 +55,8 @@ export default function FindMeData({ isLoggedIn }) {
         }
         icon={<FindMeDataIcon />}
         showIcon
-        bannerData={findMeData}
+        workItemConfig={findMeData}
+        breadcrumb={findMeData.breadcrumbs.review}
       />
       <ThankYou path="/thank-you" />
     </Router>

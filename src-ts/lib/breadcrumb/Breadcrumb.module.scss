@@ -14,6 +14,17 @@
 
     ol {
         display: flex;
+        &.hidden-mobile {
+            @include ltemd {
+                display: none;
+            }
+        }
+
+        &.show-mobile {
+            @include gtemd {
+                display: none;
+            }
+        }
 
         > li {
             display: inline-flex;
@@ -26,6 +37,9 @@
                 padding: $pad-md;
                 color: $black-80;
                 cursor: pointer;
+                &.elipsis {
+                    color: $turq-160;
+                }
             }
 
             &:first-child a {

@@ -113,3 +113,7 @@ dist
 .DS_Store
 */.DS_Store
 */*/.DS_Store
+
+# Temporariliy ignore the package-lock file
+# bc it is causing build issues in circle ci
+package-lock.json

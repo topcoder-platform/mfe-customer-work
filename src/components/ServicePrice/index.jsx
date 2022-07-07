@@ -1,13 +1,13 @@
 /**
  * Tab element
  */
-import PageRow from "components/PageElements/PageRow";
+import PageRow from "../PageElements/PageRow";
 import PT from "prop-types";
 import React from "react";
 import "./styles.module.scss";
 import WebsiteDesignIcon from "../../assets/images/website-design.svg";
 import HelpIcon from "../HelpIcon";
-import { currencyFormat } from "utils/";
+import { currencyFormat } from "../../utils/";
 
 const ServicePrice = ({
   stickerPrice,
@@ -21,7 +21,7 @@ const ServicePrice = ({
   return (
     <div styleName="container">
       <PageRow styleName="inline">
-        {showIcon && icon && <>{icon}</>}
+        <div styleName="iconWrapper">{showIcon && icon && <>{icon}</>}</div>
         {showIcon && !icon && <WebsiteDesignIcon />}
         <div>
           {!hideTitle && <p styleName="serviceTitle">{serviceType}</p>}

@@ -15,30 +15,23 @@ import {
   loadSavedFormCookie,
   setCookie,
 } from "./autoSaveBeforeLogin";
-import {
-  INTAKE_FORM_ROUTES,
-  MAX_COMPLETED_STEP,
-  webWorkTypes,
-} from "./constants";
+import { MAX_COMPLETED_STEP } from "./constants";
 import { INTAKE_FORM_ROUTES as DATA_EXPLORATION_INTAKE_FORM_ROUTES } from "./constants/products/DataExploration";
 import { INTAKE_FORM_ROUTES as FIND_ME_DATA_INTAKE_FORM_ROUTES } from "./constants/products/FindMeData";
+import { INTAKE_FORM_ROUTES as DATA_ADVISORY_INTAKE_FORM_ROUTES } from "./constants/products/DataAdvisory";
+import { INTAKE_FORM_ROUTES as WEBSITE_DESIGN_INTAKE_FORM_ROUTES } from "./constants/products/WebsiteDesign";
+import { INTAKE_FORM_ROUTES as WEBSITE_DESIGN_LEGACY_INTAKE_FORM_ROUTES } from "./constants/products/WebsiteDesignLegacy";
 import {
   authUserError,
   authUserSuccess,
 } from "./hoc/withAuthentication/actions";
 import { getIntakeFormChallenges } from "services/challenge";
-import BasicInfo from "./routes/BasicInfo";
-import Branding from "./routes/Branding";
-import PageDetails from "./routes/PageDetails";
-import Payment from "./routes/Payment";
-import Review from "./routes/Review";
 import SelectWorkType from "./routes/SelectWorkType";
-import ThankYou from "./routes/ThankYou";
-import WebsitePurpose from "./routes/WebsitePurpose";
-import LoginPrompt from "./routes/LoginPrompt";
 import DataExploration from "./routes/Products/DataExploration";
-import WebsiteDesignBanner from "components/Banners/WebsiteDesignBanner";
 import FindMeData from "./routes/Products/FindMeData";
+import WebsiteDesign from "./routes/Products/WebsiteDesign";
+import DataAdvisory from "./routes/Products/DataAdvisory";
+import WebsiteDesignLegacy from "./routes/Products/WebsiteDesignLegacy";
 
 import { WorkType } from "../src-ts";
 
@@ -82,14 +75,24 @@ export default function IntakeForm() {
 
   const goToUnfinishedStep = (currentStep, workType) => {
     if (currentStep - 1 >= 0) {
-      if (workType === "Website Design") {
-        navigate(INTAKE_FORM_ROUTES[currentStep - 1]);
-      } else {
-        if (workType === "Data Exploration") {
+      switch (workType) {
+        case WorkType.designLegacy:
+          navigate(WEBSITE_DESIGN_LEGACY_INTAKE_FORM_ROUTES[currentStep - 1]);
+          break;
+        case WorkType.data:
           navigate(DATA_EXPLORATION_INTAKE_FORM_ROUTES[currentStep - 1]);
-        } else {
+          break;
+        case WorkType.findData:
           navigate(FIND_ME_DATA_INTAKE_FORM_ROUTES[currentStep - 1]);
-        }
+          break;
+        case WorkType.problem:
+          navigate(DATA_ADVISORY_INTAKE_FORM_ROUTES[currentStep - 1]);
+          break;
+        case WorkType.design:
+          navigate(WEBSITE_DESIGN_INTAKE_FORM_ROUTES[currentStep - 1]);
+          break;
+        default:
+          return;
       }
     }
   };
@@ -179,10 +182,6 @@ export default function IntakeForm() {
     return auth;
   };
 
-  const webDesignBannerData = webWorkTypes.find(
-    (type) => type.title === WorkType.design
-  );
-
   return (
     <div>
       <LoadingSpinner show={isLoading} />
@@ -193,24 +192,28 @@ export default function IntakeForm() {
             path="/work/new/data-exploration/*"
             isLoggedIn={isLoggedIn}
           />
+
+          {/* Data Advisory */}
+          <DataAdvisory
+            path="/work/new/data-advisory/*"
+            isLoggedIn={isLoggedIn}
+          />
+
           {/* Find Me Data */}
           <FindMeData path="/work/new/find-me-data/*" isLoggedIn={isLoggedIn} />
-          {/* Web Design */}
-          <BasicInfo path="/basic-info" />
-          <WebsitePurpose path="/website-purpose" />
-          <PageDetails path="/page-details" />
-          <LoginPrompt path="/login-prompt" isLoggedIn={isLoggedIn} />
-          <Branding path="/branding" />
-          <Review
-            showIcon
-            introText="Your Website Design project includes up to 5 unique Visual Design solutions. Each solution will match your specified scope and device types. You will receive industry-standard source files to take take forward to further design and/or development. Design deliverables will NOT include functional code."
-            path="/review"
-            banner={<WebsiteDesignBanner />}
-            bannerData={webDesignBannerData}
-            showProgress
+
+          {/* Web Design (NEW) */}
+          <WebsiteDesign
+            path="/work/new/website-design-new/*"
+            isLoggedIn={isLoggedIn}
           />
-          <Payment path="/payment" showProgress />
-          <ThankYou path="/thank-you" />
+
+          {/* Web Design (Legacy) */}
+          <WebsiteDesignLegacy
+            path="/work/new/website-design/*"
+            isLoggedIn={isLoggedIn}
+          />
+
           <SelectWorkType path="/wizard" />
           {/* <Redirect noThrow from="/*" to="/self-service/wizard" /> */}
         </Router>
