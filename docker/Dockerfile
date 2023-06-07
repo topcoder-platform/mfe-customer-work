@@ -1,5 +1,5 @@
 # Use the base image with Node.js
-FROM node:10.22.1
+FROM node:12.22.12-buster-slim
 
 ARG APPMODE
 ARG APPENV
@@ -7,6 +7,8 @@ ARG APPENV
 ENV APPMODE=$APPMODE
 ENV APPENV=$APPENV
 
+RUN apt update
+RUN apt install git -y
 # Copy the current directory into the Docker image
 COPY . /mfe-customer-work
 
@@ -20,4 +22,4 @@ RUN npm install
 
 RUN npm run build
 
-CMD npm start
+CMD node server.js
