@@ -1,5 +1,5 @@
 # Use the base image with Node.js
-FROM node:10.22.1
+FROM node:12.22.12-buster-slim
 
 ARG APPMODE
 ARG APPENV
@@ -20,4 +20,4 @@ RUN npm install
 
 RUN npm run build
 
-CMD npm start
+CMD node server.js
