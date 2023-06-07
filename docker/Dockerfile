@@ -7,6 +7,8 @@ ARG APPENV
 ENV APPMODE=$APPMODE
 ENV APPENV=$APPENV
 
+RUN apt update
+RUN apt install git -y
 # Copy the current directory into the Docker image
 COPY . /mfe-customer-work
 
